@@ -1,0 +1,49 @@
+#Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Struct.ahk
+#Include .\NDR64_STRING_HEADER_FORMAT.ahk
+
+/**
+ * @namespace Windows.Win32.System.Rpc
+ * @version v4.0.30319
+ */
+class NDR64_RANGED_STRING_FORMAT extends Win32Struct
+{
+    static sizeof => 24
+
+    static packingSize => 8
+
+    /**
+     * @type {NDR64_STRING_HEADER_FORMAT}
+     */
+    Header{
+        get {
+            if(!this.HasProp("__Header"))
+                this.__Header := NDR64_STRING_HEADER_FORMAT(this.ptr + 0)
+            return this.__Header
+        }
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Reserved {
+        get => NumGet(this, 4, "uint")
+        set => NumPut("uint", value, this, 4)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Min {
+        get => NumGet(this, 8, "uint")
+        set => NumPut("uint", value, this, 8)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Max {
+        get => NumGet(this, 16, "uint")
+        set => NumPut("uint", value, this, 16)
+    }
+}

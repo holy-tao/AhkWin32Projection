@@ -1,0 +1,63 @@
+#Requires AutoHotkey v2.0.0 64-bit
+
+/**
+ * @namespace Windows.Win32.Graphics.Direct3D.Dxc
+ * @version v4.0.30319
+ */
+class DXC_OUT_KIND{
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static DXC_OUT_NONE => 0
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static DXC_OUT_OBJECT => 1
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static DXC_OUT_ERRORS => 2
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static DXC_OUT_PDB => 3
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static DXC_OUT_SHADER_HASH => 4
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static DXC_OUT_DISASSEMBLY => 5
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static DXC_OUT_HLSL => 6
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static DXC_OUT_TEXT => 7
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static DXC_OUT_REFLECTION => 8
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static DXC_OUT_ROOT_SIGNATURE => 9
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static DXC_OUT_EXTRA_OUTPUTS => 10
+}

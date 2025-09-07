@@ -1,0 +1,99 @@
+#Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Struct.ahk
+#Include .\DVD_DISC_CONTROL_BLOCK_HEADER.ahk
+
+/**
+ * @namespace Windows.Win32.Devices.Dvd
+ * @version v4.0.30319
+ */
+class DVD_DISC_CONTROL_BLOCK_WRITE_INHIBIT extends Win32Struct
+{
+    static sizeof => 32768
+
+    static packingSize => 8
+
+    /**
+     * @type {DVD_DISC_CONTROL_BLOCK_HEADER}
+     */
+    header{
+        get {
+            if(!this.HasProp("__header"))
+                this.__header := DVD_DISC_CONTROL_BLOCK_HEADER(this.ptr + 0)
+            return this.__header
+        }
+    }
+
+    /**
+     * @type {Array<Byte>}
+     */
+    UpdateCount{
+        get {
+            if(!this.HasProp("__UpdateCountProxyArray"))
+                this.__UpdateCountProxyArray := Win32FixedArray(this.ptr + 40, 1, Primitive, "char")
+            return this.__UpdateCountProxyArray
+        }
+    }
+
+    /**
+     * @type {Array<Byte>}
+     */
+    ReservedDoNotUse_UseAsByteInstead_0{
+        get {
+            if(!this.HasProp("__ReservedDoNotUse_UseAsByteInstead_0ProxyArray"))
+                this.__ReservedDoNotUse_UseAsByteInstead_0ProxyArray := Win32FixedArray(this.ptr + 44, 1, Primitive, "char")
+            return this.__ReservedDoNotUse_UseAsByteInstead_0ProxyArray
+        }
+    }
+
+    /**
+     * @type {Integer}
+     */
+    _bitfield {
+        get => NumGet(this, 47, "char")
+        set => NumPut("char", value, this, 47)
+    }
+
+    /**
+     * @type {Array<Byte>}
+     */
+    AsByte{
+        get {
+            if(!this.HasProp("__AsByteProxyArray"))
+                this.__AsByteProxyArray := Win32FixedArray(this.ptr + 44, 1, Primitive, "char")
+            return this.__AsByteProxyArray
+        }
+    }
+
+    /**
+     * @type {Array<Byte>}
+     */
+    Reserved0{
+        get {
+            if(!this.HasProp("__Reserved0ProxyArray"))
+                this.__Reserved0ProxyArray := Win32FixedArray(this.ptr + 48, 1, Primitive, "char")
+            return this.__Reserved0ProxyArray
+        }
+    }
+
+    /**
+     * @type {Array<Byte>}
+     */
+    UpdatePassword{
+        get {
+            if(!this.HasProp("__UpdatePasswordProxyArray"))
+                this.__UpdatePasswordProxyArray := Win32FixedArray(this.ptr + 64, 1, Primitive, "char")
+            return this.__UpdatePasswordProxyArray
+        }
+    }
+
+    /**
+     * @type {Array<Byte>}
+     */
+    Reserved1{
+        get {
+            if(!this.HasProp("__Reserved1ProxyArray"))
+                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 96, 1, Primitive, "char")
+            return this.__Reserved1ProxyArray
+        }
+    }
+}

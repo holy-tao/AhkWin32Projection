@@ -1,0 +1,382 @@
+#Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\FILETIME.ahk
+
+/**
+ * The CREDENTIAL structure contains an individual credential. (Unicode)
+ * @remarks
+ * > [!NOTE]
+  * > The wincred.h header defines CREDENTIAL as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+ * @see https://learn.microsoft.com/windows/win32/api/wincred/ns-wincred-credentialw
+ * @namespace Windows.Win32.Security.Credentials
+ * @version v4.0.30319
+ * @charset Unicode
+ */
+class CREDENTIALW extends Win32Struct
+{
+    static sizeof => 80
+
+    static packingSize => 8
+
+    /**
+     * A bit member that identifies characteristics of the credential. Undefined bits should be initialized as zero and not otherwise altered to permit future enhancement.
+     * 
+     * 
+     * 
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="CRED_FLAGS_PROMPT_NOW"></a><a id="cred_flags_prompt_now"></a><dl>
+     * <dt><b><b>CRED_FLAGS_PROMPT_NOW</b></b></dt>
+     * <dt>2 (0x2)</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Bit set if the credential does not persist the <b>CredentialBlob</b> and the credential has not been written during this logon session. This bit is ignored on input and is set automatically when queried.
+     * 
+     * If <b>Type</b> is <b>CRED_TYPE_DOMAIN_CERTIFICATE</b>, the <b>CredentialBlob</b> is not persisted across logon sessions because the PIN of a certificate is very sensitive information. Indeed, when the credential is written to credential manager, the PIN is passed to the CSP associated with the certificate. The CSP will enforce a PIN retention policy appropriate to the certificate.
+     * 
+     * If <b>Type</b> is <b>CRED_TYPE_DOMAIN_PASSWORD</b> or <b>CRED_TYPE_DOMAIN_CERTIFICATE</b>, an authentication package always fails an authentication attempt when using credentials marked as <b>CRED_FLAGS_PROMPT_NOW</b>. The application (typically through the key ring UI) prompts the user for the password. The application saves the credential and retries the authentication. Because the credential has been recently written, the authentication package now gets a credential that is not marked as CRED_FLAGS_PROMPT_NOW.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="CRED_FLAGS_USERNAME_TARGET"></a><a id="cred_flags_username_target"></a><dl>
+     * <dt><b><b>CRED_FLAGS_USERNAME_TARGET</b></b></dt>
+     * <dt>4 (0x4)</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Bit is set if this credential has a <b>TargetName</b> member set to the same value as the <b>UserName</b> member. Such a credential is one designed to store the <b>CredentialBlob</b> for a specific user. For more information, see the <a href="https://docs.microsoft.com/windows/desktop/api/wincred/nf-wincred-credmarshalcredentiala">CredMarshalCredential</a> function.
+     * 
+     * This bit can only be specified if <b>Type</b> is <b>CRED_TYPE_DOMAIN_PASSWORD</b> or <b>CRED_TYPE_DOMAIN_CERTIFICATE</b>.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @type {Integer}
+     */
+    Flags {
+        get => NumGet(this, 0, "uint")
+        set => NumPut("uint", value, this, 0)
+    }
+
+    /**
+     * The type of the credential. This member cannot be changed after the credential is created. The following values are valid.
+     * 
+     * 
+     * 
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="CRED_TYPE_GENERIC"></a><a id="cred_type_generic"></a><dl>
+     * <dt><b><b>CRED_TYPE_GENERIC</b></b></dt>
+     * <dt>1 (0x1)</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The credential is a generic credential. The credential will not be used by any particular authentication package. The credential will be stored securely but has no other significant characteristics.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="CRED_TYPE_DOMAIN_PASSWORD"></a><a id="cred_type_domain_password"></a><dl>
+     * <dt><b><b>CRED_TYPE_DOMAIN_PASSWORD</b></b></dt>
+     * <dt>2 (0x2)</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The credential is a password credential and is specific to Microsoft's authentication packages. The NTLM, Kerberos, and Negotiate authentication packages will automatically use this credential when connecting to the named target.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="CRED_TYPE_DOMAIN_CERTIFICATE"></a><a id="cred_type_domain_certificate"></a><dl>
+     * <dt><b><b>CRED_TYPE_DOMAIN_CERTIFICATE</b></b></dt>
+     * <dt>3 (0x3)</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The credential is a certificate credential and is specific to Microsoft's authentication packages. The Kerberos, Negotiate, and Schannel authentication packages automatically use this credential when connecting to the named target.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="CRED_TYPE_DOMAIN_VISIBLE_PASSWORD"></a><a id="cred_type_domain_visible_password"></a><dl>
+     * <dt><b><b>CRED_TYPE_DOMAIN_VISIBLE_PASSWORD</b></b></dt>
+     * <dt>4 (0x4)</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * This value is no longer supported.
+     * 
+     * <b>Windows Server 2003 and Windows XP:  </b>The credential is a password credential and is specific to authentication packages from Microsoft. The Passport authentication package will automatically use this credential when connecting to the named target.
+     * 
+     * Additional values will be defined in the future. Applications should be written to allow for credential types they do not understand.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="CRED_TYPE_GENERIC_CERTIFICATE"></a><a id="cred_type_generic_certificate"></a><dl>
+     * <dt><b>CRED_TYPE_GENERIC_CERTIFICATE</b></dt>
+     * <dt>5 (0x5)</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The credential is  a certificate credential that is a generic authentication package. 
+     * 
+     * <b>Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:  </b>This value is not supported.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="CRED_TYPE_DOMAIN_EXTENDED"></a><a id="cred_type_domain_extended"></a><dl>
+     * <dt><b>CRED_TYPE_DOMAIN_EXTENDED</b></dt>
+     * <dt>6 (0x6)</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The credential is supported by extended Negotiate packages.
+     * 
+     * <b>Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:</b> This value is not supported.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="CRED_TYPE_MAXIMUM"></a><a id="cred_type_maximum"></a><dl>
+     * <dt><b>CRED_TYPE_MAXIMUM</b></dt>
+     * <dt>7 (0x7)</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The maximum number of supported credential types.
+     * 
+     * <b>Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:  </b>This value is not supported.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="CRED_TYPE_MAXIMUM_EX"></a><a id="cred_type_maximum_ex"></a><dl>
+     * <dt><b>CRED_TYPE_MAXIMUM_EX</b></dt>
+     * <dt>CRED_TYPE_MAXIMUM+1000</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The extended maximum number of supported credential types that now allow new applications to run on older operating systems.
+     * 
+     * <b>Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:  </b>This value is not supported.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @type {Integer}
+     */
+    Type {
+        get => NumGet(this, 4, "uint")
+        set => NumPut("uint", value, this, 4)
+    }
+
+    /**
+     * The name of the credential. The <b>TargetName</b> and <b>Type</b> members uniquely identify the credential. This member cannot be changed after the credential is created. Instead, the credential with the old name should be deleted and the credential with the new name created.
+     * 
+     * If <b>Type</b> is <b>CRED_TYPE_DOMAIN_PASSWORD</b> or <b>CRED_TYPE_DOMAIN_CERTIFICATE</b>, this member identifies the server or servers that the credential is to be used for. The member is either a NetBIOS or DNS server name, a DNS host name suffix that contains a wildcard character, a NetBIOS or DNS domain name that contains a wildcard character sequence, or an asterisk.
+     * 
+     * If <b>TargetName</b> is a DNS host name, the <b>TargetAlias</b> member can be the NetBIOS name of the host.
+     * 
+     * If the <b>TargetName</b> is a DNS host name suffix that contains a wildcard character, the leftmost label of the DNS host name is an asterisk (\*), which denotes that the target name is any server whose name ends in the specified name, for example, \*.microsoft.com.
+     * 
+     * If the <b>TargetName</b> is a domain name that contains a wildcard character sequence, the syntax is the domain name followed by a backslash and asterisk (\\*), which denotes that the target name is any server that is a member of the named domain (or realm).
+     * 
+     * If <b>TargetName</b> is a DNS domain name that contains a wildcard character sequence, the <b>TargetAlias</b> member can be a NetBIOS domain name that uses a wildcard sequence for the same domain.
+     * 
+     * 
+     * If <b>TargetName</b> specifies a DFS share, for example, _DfsRoot\\DfsShare_, then this credential matches the specific DFS share and any servers reached through that DFS share.
+     * 
+     * If <b>TargetName</b> is a single asterisk (\*), this credential matches any server name.
+     * 
+     * If <b>TargetName</b> is CRED_SESSION_WILDCARD_NAME, this credential matches any server name. This credential matches before a single asterisk and is only valid if <b>Persist</b> is <b>CRED_PERSIST_SESSION</b>. The credential can be set by applications that want to temporarily override the default credential.
+     * 
+     * This member cannot be longer than <b>CRED_MAX_DOMAIN_TARGET_NAME_LENGTH</b> (337) characters.
+     * 
+     * If the <b>Type</b> is CRED_TYPE_GENERIC, this member should identify the service that uses the credential in addition to the actual target. Microsoft suggests the name be prefixed by the name of the company implementing the service. Microsoft will use the prefix "Microsoft". Services written by Microsoft should append their service name, for example <b>Microsoft_RAS_</b><i>TargetName</i>. This member cannot be longer than <b>CRED_MAX_GENERIC_TARGET_NAME_LENGTH</b> (32767) characters.
+     * 
+     * This member is case-insensitive.
+     * @type {PWSTR}
+     */
+    TargetName{
+        get {
+            if(!this.HasProp("__TargetName"))
+                this.__TargetName := PWSTR(this.ptr + 8)
+            return this.__TargetName
+        }
+    }
+
+    /**
+     * A string comment from the user that describes this credential. This member cannot be longer than <b>CRED_MAX_STRING_LENGTH</b> (256) characters.
+     * @type {PWSTR}
+     */
+    Comment{
+        get {
+            if(!this.HasProp("__Comment"))
+                this.__Comment := PWSTR(this.ptr + 16)
+            return this.__Comment
+        }
+    }
+
+    /**
+     * The time, in Coordinated Universal Time (Greenwich Mean Time), of the last modification of the credential. For write operations, the value of this member is ignored.
+     * @type {FILETIME}
+     */
+    LastWritten{
+        get {
+            if(!this.HasProp("__LastWritten"))
+                this.__LastWritten := FILETIME(this.ptr + 24)
+            return this.__LastWritten
+        }
+    }
+
+    /**
+     * The size, in bytes, of the <b>CredentialBlob</b> member. This member cannot be larger than <b>CRED_MAX_CREDENTIAL_BLOB_SIZE</b> (5*512) bytes.
+     * @type {Integer}
+     */
+    CredentialBlobSize {
+        get => NumGet(this, 32, "uint")
+        set => NumPut("uint", value, this, 32)
+    }
+
+    /**
+     * Secret data for the credential. The <b>CredentialBlob</b> member can be both read and written.
+     * 
+     * If the <b>Type</b> member is <b>CRED_TYPE_DOMAIN_PASSWORD</b>, this member contains the plaintext Unicode password for <b>UserName</b>. The <b>CredentialBlob</b> and <b>CredentialBlobSize</b> members do not include a trailing zero character. Also, for <b>CRED_TYPE_DOMAIN_PASSWORD</b>, this member can only be read by the authentication packages.
+     * 
+     * If the <b>Type</b> member is <b>CRED_TYPE_DOMAIN_CERTIFICATE</b>, this member contains the clear test Unicode PIN for <b>UserName</b>. The <b>CredentialBlob</b> and <b>CredentialBlobSize</b> members do not include a trailing zero character. Also, this member can only be read by the authentication packages.
+     * 
+     * If the <b>Type</b> member is <b>CRED_TYPE_GENERIC</b>, this member is defined by the application.
+     * 
+     * Credentials are expected to be portable. Applications should ensure that the data in <b>CredentialBlob</b> is portable. The application defines the byte-endian and alignment of the data in <b>CredentialBlob</b>.
+     * @type {Pointer<Byte>}
+     */
+    CredentialBlob {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
+    }
+
+    /**
+     * Defines the persistence of this credential. This member can be read and written.
+     * 
+     * 
+     * 
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="CRED_PERSIST_SESSION"></a><a id="cred_persist_session"></a><dl>
+     * <dt><b><b>CRED_PERSIST_SESSION</b></b></dt>
+     * <dt>1 (0x1)</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The credential persists for the life of the logon session. It will not be visible to other logon sessions of this same user. It will not exist after this user logs off and back on.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="CRED_PERSIST_LOCAL_MACHINE"></a><a id="cred_persist_local_machine"></a><dl>
+     * <dt><b><b>CRED_PERSIST_LOCAL_MACHINE</b></b></dt>
+     * <dt>2 (0x2)</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The credential persists for all subsequent logon sessions on this same computer. It is visible to other logon sessions of this same user on this same computer and not visible to logon sessions for this user on other computers.
+     * 
+     * <b>Windows Vista Home Basic, Windows Vista Home Premium, Windows Vista Starter and Windows XP Home Edition:  </b>This value is not supported.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="CRED_PERSIST_ENTERPRISE"></a><a id="cred_persist_enterprise"></a><dl>
+     * <dt><b><b>CRED_PERSIST_ENTERPRISE</b></b></dt>
+     * <dt>3 (0x3)</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The credential persists for all subsequent logon sessions on this same computer. It is visible to other logon sessions of this same user on this same computer and to logon sessions for this user on other computers.
+     * 
+     * This option can be implemented as locally persisted credential if the administrator or user configures the user account to not have roam-able state. For instance, if the user has no roaming profile, the credential will only persist locally.
+     * 
+     * <b>Windows Vista Home Basic, Windows Vista Home Premium, Windows Vista Starter and Windows XP Home Edition:  </b>This value is not supported.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @type {Integer}
+     */
+    Persist {
+        get => NumGet(this, 48, "uint")
+        set => NumPut("uint", value, this, 48)
+    }
+
+    /**
+     * The number of application-defined attributes to be associated with the credential. This member can be read and written. Its value cannot be greater than <b>CRED_MAX_ATTRIBUTES</b> (64).
+     * @type {Integer}
+     */
+    AttributeCount {
+        get => NumGet(this, 52, "uint")
+        set => NumPut("uint", value, this, 52)
+    }
+
+    /**
+     * Application-defined attributes that are associated with the credential. This member can be read and written.
+     * @type {Pointer<CREDENTIAL_ATTRIBUTEW>}
+     */
+    Attributes {
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
+    }
+
+    /**
+     * Alias for the <b>TargetName</b> member. This member can be read and written. It cannot be longer than <b>CRED_MAX_STRING_LENGTH</b> (256) characters.
+     * 
+     * If the credential <b>Type</b> is <b>CRED_TYPE_GENERIC</b>, this member can be non-<b>NULL</b>, but the credential manager ignores the member.
+     * @type {PWSTR}
+     */
+    TargetAlias{
+        get {
+            if(!this.HasProp("__TargetAlias"))
+                this.__TargetAlias := PWSTR(this.ptr + 64)
+            return this.__TargetAlias
+        }
+    }
+
+    /**
+     * The user name of the account used to connect to <b>TargetName</b>. 
+     * 
+     * 
+     * 
+     * 
+     * If the credential <b>Type</b> is <b>CRED_TYPE_DOMAIN_PASSWORD</b>, this member can be either a _DomainName\\UserName_ or a UPN.
+     * 
+     * If the credential <b>Type</b> is <b>CRED_TYPE_DOMAIN_CERTIFICATE</b>, this member must be a marshaled certificate reference created by calling <a href="https://docs.microsoft.com/windows/desktop/api/wincred/nf-wincred-credmarshalcredentiala">CredMarshalCredential</a> with a CertCredential.
+     * 
+     * If the credential <b>Type</b> is <b>CRED_TYPE_GENERIC</b>, this member can be non-<b>NULL</b>, but the credential manager ignores the member.
+     * 
+     * This member cannot be longer than <b>CRED_MAX_USERNAME_LENGTH</b> (513) characters.
+     * @type {PWSTR}
+     */
+    UserName{
+        get {
+            if(!this.HasProp("__UserName"))
+                this.__UserName := PWSTR(this.ptr + 72)
+            return this.__UserName
+        }
+    }
+}

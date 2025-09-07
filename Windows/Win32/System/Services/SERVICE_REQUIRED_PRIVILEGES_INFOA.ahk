@@ -1,0 +1,46 @@
+#Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PSTR.ahk
+
+/**
+ * Represents the required privileges for a service. (ANSI)
+ * @remarks
+ * The change in required privileges takes effect the next time the service is started. The SCM determines whether the service can support the specified privileges when it attempts to start the service.
+  * 
+  * It is best to analyze your service and use the minimum set of privileges required.
+  * 
+  * If you do not set the required privileges, the SCM uses all the privileges assigned by default to the process token. If you specify privileges for a service, the SCM will remove the privileges that are not required from the process token when the process starts. If multiple services share a process, the SCM computes the union of privileges required by all services in the process.
+  * 
+  * For compatibility, the SeChangeNotifyPrivilege privilege is never removed from a process token, even if no service in the process has requested the privilege. Therefore, a service need not explicitly specify this privilege.
+  * 
+  * 
+  * 
+  * 
+  * 
+  * > [!NOTE]
+  * > The winsvc.h header defines SERVICE_REQUIRED_PRIVILEGES_INFO as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+ * @see https://learn.microsoft.com/windows/win32/api/winsvc/ns-winsvc-service_required_privileges_infoa
+ * @namespace Windows.Win32.System.Services
+ * @version v4.0.30319
+ * @charset ANSI
+ */
+class SERVICE_REQUIRED_PRIVILEGES_INFOA extends Win32Struct
+{
+    static sizeof => 8
+
+    static packingSize => 8
+
+    /**
+     * A multi-string that specifies the privileges. For a list of possible values, see <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/privilege-constants">Privilege Constants</a>.
+     * 
+     * A multi-string is a sequence of null-terminated strings, terminated by an empty string (\0). The following is an example: <c>String1\0String2\0String3\0LastString\0\0</c>.
+     * @type {PSTR}
+     */
+    pmszRequiredPrivileges{
+        get {
+            if(!this.HasProp("__pmszRequiredPrivileges"))
+                this.__pmszRequiredPrivileges := PSTR(this.ptr + 0)
+            return this.__pmszRequiredPrivileges
+        }
+    }
+}

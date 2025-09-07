@@ -1,0 +1,158 @@
+#Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Struct.ahk
+
+/**
+ * The DNS_KEY_DATA structure represents a DNS key (KEY) resource record (RR) as specified in RFC 3445.
+ * @remarks
+ * The 
+  * <b>DNS_KEY_DATA</b> structure is used in conjunction with the 
+  * <a href="https://docs.microsoft.com/windows/win32/api/windns/ns-windns-dns_recorda">DNS_RECORD</a> structure to programmatically manage DNS entries.
+  * 
+  * The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/dd392295(v=vs.85)">DNS_DNSKEY_DATA</a> structure represents a DNSKEY  resource record as specified in section 2 of  <a href="https://www.ietf.org/rfc/rfc4034.txt">RFC 4034</a>.
+  * 
+  * The 
+  * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/dd392295(v=vs.85)">DNS_DNSKEY_DATA</a> structure is used in conjunction with the 
+  * <a href="https://docs.microsoft.com/windows/win32/api/windns/ns-windns-dns_recorda">DNS_RECORD</a> structure to programmatically manage DNS entries.
+  * 
+  * The value of the <b>wFlags</b> member for <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/dd392295(v=vs.85)">DNS_DNSKEY_DATA</a> is a set of flags that specify key properties as  described in section 2.1.1 of <a href="https://www.ietf.org/rfc/rfc4034.txt">RFC 4034</a>.
+ * @see https://learn.microsoft.com/windows/win32/api/windns/ns-windns-dns_key_data
+ * @namespace Windows.Win32.NetworkManagement.Dns
+ * @version v4.0.30319
+ */
+class DNS_KEY_DATA extends Win32Struct
+{
+    static sizeof => 10
+
+    static packingSize => 2
+
+    /**
+     * A set of flags that specify whether this is a zone key as  described in section 4 of <a href="https://www.ietf.org/rfc/rfc3445.txt">RFC 3445</a>.
+     * @type {Integer}
+     */
+    wFlags {
+        get => NumGet(this, 0, "ushort")
+        set => NumPut("ushort", value, this, 0)
+    }
+
+    /**
+     * A value that specifies the protocol with which <b>Key</b> can be used. The possible values are shown in the following table.
+     * 
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="3"></a><dl>
+     * <dt><b>3</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Domain Name System Security Extensions (DNSSEC)
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @type {Integer}
+     */
+    chProtocol {
+        get => NumGet(this, 2, "char")
+        set => NumPut("char", value, this, 2)
+    }
+
+    /**
+     * A value that specifies the algorithm to use with <b>Key</b>. The possible values are shown in the following table.
+     * 
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="1"></a><dl>
+     * <dt><b>1</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * RSA/MD5 (<a href="https://www.ietf.org/rfc/rfc2537.txt">RFC 2537</a>)
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="2"></a><dl>
+     * <dt><b>2</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Diffie-Hellman (<a href="https://www.ietf.org/rfc/rfc2539.txt">RFC 2539</a>)
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="3"></a><dl>
+     * <dt><b>3</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * DSA (<a href="https://www.ietf.org/rfc/rfc2536.txt">RFC 2536</a>)
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="4"></a><dl>
+     * <dt><b>4</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Elliptic curve cryptography
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="5"></a><dl>
+     * <dt><b>5</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * RSA/SHA-1 (<a href="https://www.ietf.org/rfc/rfc3110.txt">RFC 3110</a>). <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/dd392295(v=vs.85)">DNS_DNSKEY_DATA</a> only.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @type {Integer}
+     */
+    chAlgorithm {
+        get => NumGet(this, 3, "char")
+        set => NumPut("char", value, this, 3)
+    }
+
+    /**
+     * The length, in bytes, of <b>Key</b>. This value is determined by the algorithm type in <b>chAlgorithm</b>.
+     * @type {Integer}
+     */
+    wKeyLength {
+        get => NumGet(this, 4, "ushort")
+        set => NumPut("ushort", value, this, 4)
+    }
+
+    /**
+     * Reserved. Do not use.
+     * @type {Integer}
+     */
+    wPad {
+        get => NumGet(this, 6, "ushort")
+        set => NumPut("ushort", value, this, 6)
+    }
+
+    /**
+     * A <b>BYTE</b> array that contains the public key for the algorithm in <b>chAlgorithm</b>, represented in base 64, as described in Appendix A of <a href="https://www.ietf.org/rfc/rfc2535.txt">RFC 2535</a>.
+     * @type {Array<Byte>}
+     */
+    Key{
+        get {
+            if(!this.HasProp("__KeyProxyArray"))
+                this.__KeyProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "char")
+            return this.__KeyProxyArray
+        }
+    }
+}

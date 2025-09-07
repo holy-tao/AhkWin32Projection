@@ -1,0 +1,34 @@
+#Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PSTR.ahk
+
+/**
+ * @namespace Windows.Win32.Security.Authorization
+ * @version v4.0.30319
+ * @charset ANSI
+ */
+class ACTRL_ACCESS_INFOA extends Win32Struct
+{
+    static sizeof => 16
+
+    static packingSize => 8
+
+    /**
+     * @type {Integer}
+     */
+    fAccessPermission {
+        get => NumGet(this, 0, "uint")
+        set => NumPut("uint", value, this, 0)
+    }
+
+    /**
+     * @type {PSTR}
+     */
+    lpAccessPermissionName{
+        get {
+            if(!this.HasProp("__lpAccessPermissionName"))
+                this.__lpAccessPermissionName := PSTR(this.ptr + 8)
+            return this.__lpAccessPermissionName
+        }
+    }
+}

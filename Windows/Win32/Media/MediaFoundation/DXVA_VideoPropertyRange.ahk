@@ -1,0 +1,45 @@
+#Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Struct.ahk
+
+/**
+ * @namespace Windows.Win32.Media.MediaFoundation
+ * @version v4.0.30319
+ */
+class DXVA_VideoPropertyRange extends Win32Struct
+{
+    static sizeof => 16
+
+    static packingSize => 4
+
+    /**
+     * @type {Float}
+     */
+    MinValue {
+        get => NumGet(this, 0, "float")
+        set => NumPut("float", value, this, 0)
+    }
+
+    /**
+     * @type {Float}
+     */
+    MaxValue {
+        get => NumGet(this, 4, "float")
+        set => NumPut("float", value, this, 4)
+    }
+
+    /**
+     * @type {Float}
+     */
+    DefaultValue {
+        get => NumGet(this, 8, "float")
+        set => NumPut("float", value, this, 8)
+    }
+
+    /**
+     * @type {Float}
+     */
+    StepSize {
+        get => NumGet(this, 12, "float")
+        set => NumPut("float", value, this, 12)
+    }
+}

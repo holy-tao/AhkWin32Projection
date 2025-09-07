@@ -1,0 +1,23 @@
+#Requires AutoHotkey v2.0.0 64-bit
+
+/**
+ * @namespace Windows.Win32.UI.Controls
+ * @version v4.0.30319
+ */
+class POPUPCHECKBACKGROUNDSTATES{
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static MCB_DISABLED => 1
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static MCB_NORMAL => 2
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static MCB_BITMAP => 3
+}

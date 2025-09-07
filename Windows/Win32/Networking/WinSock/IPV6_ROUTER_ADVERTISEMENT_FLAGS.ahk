@@ -1,0 +1,29 @@
+#Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Struct.ahk
+
+/**
+ * @namespace Windows.Win32.Networking.WinSock
+ * @version v4.0.30319
+ */
+class IPV6_ROUTER_ADVERTISEMENT_FLAGS extends Win32Struct
+{
+    static sizeof => 2
+
+    static packingSize => 1
+
+    /**
+     * @type {Integer}
+     */
+    Anonymous {
+        get => NumGet(this, 0, "char")
+        set => NumPut("char", value, this, 0)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Value {
+        get => NumGet(this, 0, "char")
+        set => NumPut("char", value, this, 0)
+    }
+}

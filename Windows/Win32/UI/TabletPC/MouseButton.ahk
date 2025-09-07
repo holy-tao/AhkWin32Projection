@@ -1,0 +1,34 @@
+#Requires AutoHotkey v2.0.0 64-bit
+
+/**
+ * Specifies which mouse button was pressed. (MouseButton)
+ * @see https://learn.microsoft.com/windows/win32/api/inked/ne-inked-mousebutton
+ * @namespace Windows.Win32.UI.TabletPC
+ * @version v4.0.30319
+ */
+class MouseButton{
+
+    /**
+     * Default. No mouse button was pressed.
+     * @type {Integer (Int32)}
+     */
+    static NO_BUTTON => 0
+
+    /**
+     * The left mouse button was pressed.
+     * @type {Integer (Int32)}
+     */
+    static LEFT_BUTTON => 1
+
+    /**
+     * The right mouse button was pressed.
+     * @type {Integer (Int32)}
+     */
+    static RIGHT_BUTTON => 2
+
+    /**
+     * The middle mouse button was pressed.
+     * @type {Integer (Int32)}
+     */
+    static MIDDLE_BUTTON => 4
+}

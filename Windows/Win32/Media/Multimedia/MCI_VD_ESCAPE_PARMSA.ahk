@@ -1,0 +1,34 @@
+#Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PSTR.ahk
+
+/**
+ * @namespace Windows.Win32.Media.Multimedia
+ * @version v4.0.30319
+ * @charset ANSI
+ */
+class MCI_VD_ESCAPE_PARMSA extends Win32Struct
+{
+    static sizeof => 16
+
+    static packingSize => 1
+
+    /**
+     * @type {Pointer}
+     */
+    dwCallback {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
+    }
+
+    /**
+     * @type {PSTR}
+     */
+    lpstrCommand{
+        get {
+            if(!this.HasProp("__lpstrCommand"))
+                this.__lpstrCommand := PSTR(this.ptr + 8)
+            return this.__lpstrCommand
+        }
+    }
+}

@@ -1,0 +1,101 @@
+#Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Storage\IndexServer\DBID.ahk
+
+/**
+ * @namespace Windows.Win32.System.Search
+ * @version v4.0.30319
+ */
+class DBCOLUMNDESC extends Win32Struct
+{
+    static sizeof => 72
+
+    static packingSize => 2
+
+    /**
+     * @type {PWSTR}
+     */
+    pwszTypeName{
+        get {
+            if(!this.HasProp("__pwszTypeName"))
+                this.__pwszTypeName := PWSTR(this.ptr + 0)
+            return this.__pwszTypeName
+        }
+    }
+
+    /**
+     * @type {Pointer<ITypeInfo>}
+     */
+    pTypeInfo {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
+    }
+
+    /**
+     * @type {Pointer<DBPROPSET>}
+     */
+    rgPropertySets {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
+    }
+
+    /**
+     * @type {Pointer<Guid>}
+     */
+    pclsid {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    cPropertySets {
+        get => NumGet(this, 32, "uint")
+        set => NumPut("uint", value, this, 32)
+    }
+
+    /**
+     * @type {Pointer}
+     */
+    ulColumnSize {
+        get => NumGet(this, 36, "ptr")
+        set => NumPut("ptr", value, this, 36)
+    }
+
+    /**
+     * @type {DBID}
+     */
+    dbcid{
+        get {
+            if(!this.HasProp("__dbcid"))
+                this.__dbcid := DBID(this.ptr + 44)
+            return this.__dbcid
+        }
+    }
+
+    /**
+     * @type {Integer}
+     */
+    wType {
+        get => NumGet(this, 68, "ushort")
+        set => NumPut("ushort", value, this, 68)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    bPrecision {
+        get => NumGet(this, 70, "char")
+        set => NumPut("char", value, this, 70)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    bScale {
+        get => NumGet(this, 71, "char")
+        set => NumPut("char", value, this, 71)
+    }
+}

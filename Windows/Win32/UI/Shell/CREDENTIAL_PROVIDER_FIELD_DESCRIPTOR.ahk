@@ -1,0 +1,140 @@
+#Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+
+/**
+ * Describes a single field in a credential. For example, a string or a user image.
+ * @remarks
+ * Each UI element presented to the user on a tile is defined by the credential provider as a field. The <b>CREDENTIAL_PROVIDER_FIELD_DESCRIPTOR</b> is how the credential provider identifies the fields. Once a field has been defined for a particular usage scenario, it can not be added to or subtracted from. Credential providers need to fully define all of their fields before enumerating tiles. If fields are going to appear or disappear as part of the credential acquisition process, those fields still not to be defined ahead of time. Use <a href="https://docs.microsoft.com/windows/win32/api/credentialprovider/ne-credentialprovider-credential_provider_field_state">CREDENTIAL_PROVIDER_FIELD_STATE</a> to hide or display the fields as necessary.
+ * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/ns-credentialprovider-credential_provider_field_descriptor
+ * @namespace Windows.Win32.UI.Shell
+ * @version v4.0.30319
+ */
+class CREDENTIAL_PROVIDER_FIELD_DESCRIPTOR extends Win32Struct
+{
+    static sizeof => 24
+
+    static packingSize => 8
+
+    /**
+     * Type: <b>DWORD</b>
+     * 
+     * The unique ID of the field. Fields should have a unique identifier compared to all other fields on a given credential provider. This is true regardless of whether the fields are displayed or hidden.
+     * @type {Integer}
+     */
+    dwFieldID {
+        get => NumGet(this, 0, "uint")
+        set => NumPut("uint", value, this, 0)
+    }
+
+    /**
+     * Type: <b><a href="https://docs.microsoft.com/windows/win32/api/credentialprovider/ne-credentialprovider-credential_provider_field_type">CREDENTIAL_PROVIDER_FIELD_TYPE</a></b>
+     * 
+     * The field type.
+     * @type {Integer}
+     */
+    cpft {
+        get => NumGet(this, 4, "int")
+        set => NumPut("int", value, this, 4)
+    }
+
+    /**
+     * Type: <b>LPWSTR</b>
+     * 
+     * A pointer to a buffer containing the friendly name of the field as a null-terminated Unicode string. This is used for accessibility and queuing purposes. For example, some standard fields would have friend names of "Username", "Password", and "Log On To".
+     * @type {PWSTR}
+     */
+    pszLabel{
+        get {
+            if(!this.HasProp("__pszLabel"))
+                this.__pszLabel := PWSTR(this.ptr + 8)
+            return this.__pszLabel
+        }
+    }
+
+    /**
+     * Type: <b>GUID</b>
+     * 
+     * A GUID that uniquely identifies a type of field. This member enables you to wrap functionality provided by existing credential providers in their own providers. Wrapping credential providers is not recommended as it can lead to unexpected behavior that disables in-box credential providers.
+     * 
+     * The following table lists the <i>guidFieldType</i> values supported by Windows. These are defined in Shlguid.h. 
+     * 
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="CPFG_LOGON_USERNAME"></a><a id="cpfg_logon_username"></a><dl>
+     * <dt><b>CPFG_LOGON_USERNAME</b></dt>
+     * <dt>da15bbe8-954sd-4fd3-b0f4-1fb5b90b174b</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The user name entered into a text box.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="CPFG_LOGON_PASSWORD"></a><a id="cpfg_logon_password"></a><dl>
+     * <dt><b>CPFG_LOGON_PASSWORD</b></dt>
+     * <dt>60624cfa-a477-47b1-8a8e-3a4a19981827</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The password entered into a text box.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="CPFG_SMARTCARD_USERNAME"></a><a id="cpfg_smartcard_username"></a><dl>
+     * <dt><b>CPFG_SMARTCARD_USERNAME</b></dt>
+     * <dt>3e1ecf69-568c-4d96-9d59-46444174e2d6</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The user name obtained from an inserted smart card.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="CPFG_SMARTCARD_PIN"></a><a id="cpfg_smartcard_pin"></a><dl>
+     * <dt><b>CPFG_SMARTCARD_PIN</b></dt>
+     * <dt>4fe5263b-9181-46c1-b0a4-9dedd4db7dea</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The PIN obtained from an inserted smart card.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="CPFG_CREDENTIAL_PROVIDER_LOGO"></a><a id="cpfg_credential_provider_logo"></a><dl>
+     * <dt><b>CPFG_CREDENTIAL_PROVIDER_LOGO</b></dt>
+     * <dt>2d837775-f6cd-464e-a745-482fd0b47493</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * <b>Introduced in Windows 8</b>: The image used to represent a credential provider on the logon page.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="CPFG_CREDENTIAL_PROVIDER_LABEL"></a><a id="cpfg_credential_provider_label"></a><dl>
+     * <dt><b>CPFG_CREDENTIAL_PROVIDER_LABEL</b></dt>
+     * <dt>286BBFF3-BAD4-438F-B007-79B7267C3D48</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * <b>Introduced in Windows 8</b>: The label associated with a credential provider on the logon page.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @type {Pointer<Guid>}
+     */
+    guidFieldType {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
+    }
+}

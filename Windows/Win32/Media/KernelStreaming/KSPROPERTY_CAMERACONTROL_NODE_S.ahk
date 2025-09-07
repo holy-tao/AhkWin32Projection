@@ -1,0 +1,50 @@
+#Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Struct.ahk
+#Include .\KSIDENTIFIER.ahk
+#Include .\KSP_NODE.ahk
+
+/**
+ * @namespace Windows.Win32.Media.KernelStreaming
+ * @version v4.0.30319
+ */
+class KSPROPERTY_CAMERACONTROL_NODE_S extends Win32Struct
+{
+    static sizeof => 32
+
+    static packingSize => 8
+
+    /**
+     * @type {KSP_NODE}
+     */
+    NodeProperty{
+        get {
+            if(!this.HasProp("__NodeProperty"))
+                this.__NodeProperty := KSP_NODE(this.ptr + 0)
+            return this.__NodeProperty
+        }
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Value {
+        get => NumGet(this, 16, "int")
+        set => NumPut("int", value, this, 16)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Flags {
+        get => NumGet(this, 20, "uint")
+        set => NumPut("uint", value, this, 20)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Capabilities {
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
+    }
+}

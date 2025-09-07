@@ -1,0 +1,23 @@
+#Requires AutoHotkey v2.0.0 64-bit
+
+/**
+ * @namespace Windows.Win32.System.ClrHosting
+ * @version v4.0.30319
+ */
+class StackOverflowType{
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static SO_Managed => 0
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static SO_ClrEngine => 1
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static SO_Other => 2
+}

@@ -1,0 +1,29 @@
+#Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Struct.ahk
+
+/**
+ * @namespace Windows.Win32.System.Power
+ * @version v4.0.30319
+ */
+class POWER_SESSION_CONNECT extends Win32Struct
+{
+    static sizeof => 2
+
+    static packingSize => 1
+
+    /**
+     * @type {Integer}
+     */
+    Connected {
+        get => NumGet(this, 0, "char")
+        set => NumPut("char", value, this, 0)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Console {
+        get => NumGet(this, 1, "char")
+        set => NumPut("char", value, this, 1)
+    }
+}

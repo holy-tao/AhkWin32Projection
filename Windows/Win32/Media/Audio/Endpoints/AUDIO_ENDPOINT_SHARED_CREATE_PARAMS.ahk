@@ -1,0 +1,49 @@
+#Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\WAVEFORMATEX.ahk
+
+/**
+ * @namespace Windows.Win32.Media.Audio.Endpoints
+ * @version v4.0.30319
+ */
+class AUDIO_ENDPOINT_SHARED_CREATE_PARAMS extends Win32Struct
+{
+    static sizeof => 40
+
+    static packingSize => 8
+
+    /**
+     * @type {Integer}
+     */
+    u32Size {
+        get => NumGet(this, 0, "uint")
+        set => NumPut("uint", value, this, 0)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    u32TSSessionId {
+        get => NumGet(this, 4, "uint")
+        set => NumPut("uint", value, this, 4)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    targetEndpointConnectorType {
+        get => NumGet(this, 8, "int")
+        set => NumPut("int", value, this, 8)
+    }
+
+    /**
+     * @type {WAVEFORMATEX}
+     */
+    wfxDeviceFormat{
+        get {
+            if(!this.HasProp("__wfxDeviceFormat"))
+                this.__wfxDeviceFormat := WAVEFORMATEX(this.ptr + 16)
+            return this.__wfxDeviceFormat
+        }
+    }
+}

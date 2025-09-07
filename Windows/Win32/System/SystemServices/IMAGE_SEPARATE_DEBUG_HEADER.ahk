@@ -1,0 +1,120 @@
+#Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Struct.ahk
+
+/**
+ * @namespace Windows.Win32.System.SystemServices
+ * @version v4.0.30319
+ */
+class IMAGE_SEPARATE_DEBUG_HEADER extends Win32Struct
+{
+    static sizeof => 48
+
+    static packingSize => 4
+
+    /**
+     * @type {Integer}
+     */
+    Signature {
+        get => NumGet(this, 0, "ushort")
+        set => NumPut("ushort", value, this, 0)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Flags {
+        get => NumGet(this, 2, "ushort")
+        set => NumPut("ushort", value, this, 2)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Machine {
+        get => NumGet(this, 4, "ushort")
+        set => NumPut("ushort", value, this, 4)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Characteristics {
+        get => NumGet(this, 6, "ushort")
+        set => NumPut("ushort", value, this, 6)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    TimeDateStamp {
+        get => NumGet(this, 8, "uint")
+        set => NumPut("uint", value, this, 8)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    CheckSum {
+        get => NumGet(this, 12, "uint")
+        set => NumPut("uint", value, this, 12)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    ImageBase {
+        get => NumGet(this, 16, "uint")
+        set => NumPut("uint", value, this, 16)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    SizeOfImage {
+        get => NumGet(this, 20, "uint")
+        set => NumPut("uint", value, this, 20)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    NumberOfSections {
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    ExportedNamesSize {
+        get => NumGet(this, 28, "uint")
+        set => NumPut("uint", value, this, 28)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    DebugDirectorySize {
+        get => NumGet(this, 32, "uint")
+        set => NumPut("uint", value, this, 32)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    SectionAlignment {
+        get => NumGet(this, 36, "uint")
+        set => NumPut("uint", value, this, 36)
+    }
+
+    /**
+     * @type {Array<UInt32>}
+     */
+    Reserved{
+        get {
+            if(!this.HasProp("__ReservedProxyArray"))
+                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 40, 4, Primitive, "uint")
+            return this.__ReservedProxyArray
+        }
+    }
+}

@@ -1,0 +1,57 @@
+#Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\DMUS_LFOPARAMS.ahk
+#Include .\DMUS_VEGPARAMS.ahk
+#Include .\DMUS_PEGPARAMS.ahk
+
+/**
+ * @namespace Windows.Win32.Media.Audio.DirectMusic
+ * @version v4.0.30319
+ */
+class DMUS_ARTICPARAMS extends Win32Struct
+{
+    static sizeof => 80
+
+    static packingSize => 8
+
+    /**
+     * @type {DMUS_LFOPARAMS}
+     */
+    LFO{
+        get {
+            if(!this.HasProp("__LFO"))
+                this.__LFO := DMUS_LFOPARAMS(this.ptr + 0)
+            return this.__LFO
+        }
+    }
+
+    /**
+     * @type {DMUS_VEGPARAMS}
+     */
+    VolEG{
+        get {
+            if(!this.HasProp("__VolEG"))
+                this.__VolEG := DMUS_VEGPARAMS(this.ptr + 24)
+            return this.__VolEG
+        }
+    }
+
+    /**
+     * @type {DMUS_PEGPARAMS}
+     */
+    PitchEG{
+        get {
+            if(!this.HasProp("__PitchEG"))
+                this.__PitchEG := DMUS_PEGPARAMS(this.ptr + 48)
+            return this.__PitchEG
+        }
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Misc {
+        get => NumGet(this, 76, "int")
+        set => NumPut("int", value, this, 76)
+    }
+}

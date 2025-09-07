@@ -1,0 +1,69 @@
+#Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Struct.ahk
+#Include .\IN6_ADDR.ahk
+#Include .\SCOPE_ID.ahk
+
+/**
+ * @namespace Windows.Win32.Networking.WinSock
+ * @version v4.0.30319
+ */
+class SOCKADDR_IN6 extends Win32Struct
+{
+    static sizeof => 32
+
+    static packingSize => 8
+
+    /**
+     * @type {Integer}
+     */
+    sin6_family {
+        get => NumGet(this, 0, "ushort")
+        set => NumPut("ushort", value, this, 0)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    sin6_port {
+        get => NumGet(this, 2, "ushort")
+        set => NumPut("ushort", value, this, 2)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    sin6_flowinfo {
+        get => NumGet(this, 4, "uint")
+        set => NumPut("uint", value, this, 4)
+    }
+
+    /**
+     * @type {IN6_ADDR}
+     */
+    sin6_addr{
+        get {
+            if(!this.HasProp("__sin6_addr"))
+                this.__sin6_addr := IN6_ADDR(this.ptr + 8)
+            return this.__sin6_addr
+        }
+    }
+
+    /**
+     * @type {Integer}
+     */
+    sin6_scope_id {
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
+    }
+
+    /**
+     * @type {SCOPE_ID}
+     */
+    sin6_scope_struct{
+        get {
+            if(!this.HasProp("__sin6_scope_struct"))
+                this.__sin6_scope_struct := SCOPE_ID(this.ptr + 24)
+            return this.__sin6_scope_struct
+        }
+    }
+}

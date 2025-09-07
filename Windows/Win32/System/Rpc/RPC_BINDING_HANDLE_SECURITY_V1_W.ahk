@@ -1,0 +1,174 @@
+#Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Struct.ahk
+
+/**
+ * Contains the basic security options with which to create an RPC binding handle. (Unicode)
+ * @remarks
+ * If this structure is not passed to <a href="https://docs.microsoft.com/windows/desktop/api/rpcdce/nf-rpcdce-rpcbindingcreatea">RpcBindingCreate</a> -- that is, if the <i>Security</i> parameter of <b>RpcBindingCreate</b> is set to <b>NULL</b> -- then the following default security behaviors are assumed:
+  * 
+  * 
+  * <ul>
+  * <li>For the protocol sequence ncalrpc (local RPC), RPC will use transport-level security. This means that RPC will use the security mechanisms offered by the Windows kernel to provide security, and RPC will not authenticate the server since it connects using the current thread identity. In this case, the identity tracking is static, the impersonation type is set to "Impersonate", and the authentication level is set to "Privacy".</li>
+  * <li>For the protocol sequence ncacn_np, RPC will also use transport-level security. If the call is remote, RPC uses the security mechanisms provided by the Windows file system redirector and there is no mutual authentication. In this case, the identity is the current thread identity, the identity tracking state is static, the impersonation type is set to "Impersonate", and the authentication level is determined by the policies of the remote machine.
+  * 
+  * If the call is local, RPC uses the security mechanisms provided by the Named Pipe File System (NPFS), and there is also no mutual authentication. In this case, the identity is the current thread identity or any identity established through the "net use" command for the server. The identity tracking state is dynamic, the impersonation type is set to "Impersonate", and the authentication level is set to "Privacy".
+  * 
+  * </li>
+  * <li>For the protocol sequences ncacn_ip_tcp, ncacn_ip_udp  and ncacn_http, no security is used when <i>Security</i> is set to <b>NULL</b>. The server will not perform impersonation, and all data will be sent as clear text. To provide maximum protection for data, the application must always provide security data.</li>
+  * </ul>
+  * 
+  * 
+  * The following table summarizes the default security settings for the different protocol sequences if the <i>Security</i> parameter of <a href="https://docs.microsoft.com/windows/desktop/api/rpcdce/nf-rpcdce-rpcbindingcreatea">RpcBindingCreate</a> is set to <b>NULL</b>.
+  * 
+  * <table>
+  * <tr>
+  * <th>Default Security Settings</th>
+  * <th>ncalrpc</th>
+  * <th>local ncacn_np</th>
+  * <th>remote ncacn_np</th>
+  * <th>ncacn_ip_tcp, ncacn_ip_udp, and ncacn_http</th>
+  * </tr>
+  * <tr>
+  * <th>Security Mechanism</th>
+  * <td>Windows Kernel</td>
+  * <td>NPFS</td>
+  * <td>File system redirector</td>
+  * <td>None</td>
+  * </tr>
+  * <tr>
+  * <th>Authentication Level</th>
+  * <td>Privacy</td>
+  * <td>Privacy</td>
+  * <td>Server policy dependent</td>
+  * <td>None</td>
+  * </tr>
+  * <tr>
+  * <th>Mutual Authentication?</th>
+  * <td>No</td>
+  * <td>No</td>
+  * <td>No</td>
+  * <td>No</td>
+  * </tr>
+  * <tr>
+  * <th>Impersonation Type</th>
+  * <td>Impersonate</td>
+  * <td>Impersonate</td>
+  * <td>Impersonate</td>
+  * <td>N/A</td>
+  * </tr>
+  * <tr>
+  * <th>Identity Tracking Type</th>
+  * <td>Static</td>
+  * <td>Dynamic</td>
+  * <td>Static</td>
+  * <td>N/A</td>
+  * </tr>
+  * <tr>
+  * <th>Effective Only?</th>
+  * <td>Yes</td>
+  * <td>No</td>
+  * <td>N/A</td>
+  * <td>N/A</td>
+  * </tr>
+  * <tr>
+  * <th>Call Identity</th>
+  * <td>Current thread</td>
+  * <td>Current thread</td>
+  * <td>Current thread or "net use" settings</td>
+  * <td>N/A</td>
+  * </tr>
+  * </table>
+  *  
+  * 
+  * <div class="alert"><b>Note</b>  If you create your binding handle by calling the <a href="https://docs.microsoft.com/windows/desktop/api/rpcdce/nf-rpcdce-rpcbindingfromstringbinding">RpcBindingFromStringBinding</a> API, the default identity tracking for ncalrpc in the absence of specific security settings is dynamic. <p class="note">If you create a fast binding handle by calling the <a href="https://docs.microsoft.com/windows/desktop/api/rpcdce/nf-rpcdce-rpcbindingcreatea">RpcBindingCreate</a> API, the default identity tracking for ncalrpc in the absence of specific security settings is static.
+  * 
+  * <p class="note">You should be aware of the differences in these two APIs if you are switching between them in your application.
+  * 
+  * <p class="note">After the binding handle is created, the <a href="https://docs.microsoft.com/windows/desktop/api/rpcdce/nf-rpcdce-rpcbindingsetauthinfo">RpcBindingSetAuthInfo</a> and <a href="https://docs.microsoft.com/windows/desktop/api/rpcdce/nf-rpcdce-rpcbindingsetauthinfoexa">RpcBindingSetAuthInfoEx</a> APIs can be used to change the settings of the binding handle set with this structure.
+  * 
+  * </div>
+  * <div> </div>
+ * @see https://learn.microsoft.com/windows/win32/api/rpcdce/ns-rpcdce-rpc_binding_handle_security_v1_w
+ * @namespace Windows.Win32.System.Rpc
+ * @version v4.0.30319
+ * @charset Unicode
+ */
+class RPC_BINDING_HANDLE_SECURITY_V1_W extends Win32Struct
+{
+    static sizeof => 40
+
+    static packingSize => 8
+
+    /**
+     * The version of this structure. For <b>RPC_BINDING_HANDLE_SECURITY_V1</b> this must be set to 1.
+     * @type {Integer}
+     */
+    Version {
+        get => NumGet(this, 0, "uint")
+        set => NumPut("uint", value, this, 0)
+    }
+
+    /**
+     * Pointer to a string that contains the server principal name referenced by the binding handle. The content of the name and its syntax are defined by the authentication service in use.
+     * @type {Pointer<UInt16>}
+     */
+    ServerPrincName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
+    }
+
+    /**
+     * Level of authentication to be performed on remote procedure calls made using this binding handle. For a list of the RPC-supported authentication levels, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/Rpc/authentication-level-constants">Authentication-Level Constants</a>.
+     * 
+     * If <i>AuthnSvc</i> is set to RPC_C_AUTHN_NONE, this member must likewise be set to RPC_C_AUTHN_NONE.
+     * @type {Integer}
+     */
+    AuthnLevel {
+        get => NumGet(this, 16, "uint")
+        set => NumPut("uint", value, this, 16)
+    }
+
+    /**
+     * Authentication service to use when binding. 
+     * 
+     * 
+     * 
+     * 
+     * Specify RPC_C_AUTHN_NONE to turn off authentication for remote procedure calls made using the binding handle.
+     * 
+     * If RPC_C_AUTHN_DEFAULT is specified, the RPC run-time library uses the RPC_C_AUTHN_WINNT authentication service for remote procedure calls made using the binding handle.
+     * 
+     * If <i>AuthnLevel</i> is set to RPC_C_AUTHN_NONE, this member must likewise be set to RPC_C_AUTHN_NONE.
+     * @type {Integer}
+     */
+    AuthnSvc {
+        get => NumGet(this, 20, "uint")
+        set => NumPut("uint", value, this, 20)
+    }
+
+    /**
+     * <a href="https://docs.microsoft.com/windows/desktop/api/rpcdce/ns-rpcdce-sec_winnt_auth_identity_a">SEC_WINNT_AUTH_IDENTITY</a> structure that contains the client's authentication and authorization credentials appropriate for the selected authentication and authorization service.
+     * @type {Pointer<SEC_WINNT_AUTH_IDENTITY_W>}
+     */
+    AuthIdentity {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
+    }
+
+    /**
+     * <a href="https://docs.microsoft.com/windows/desktop/api/rpcdce/ns-rpcdce-rpc_security_qos">RPC_SECURITY_QOS</a> structure that contains the security quality-of-service settings for the binding handle. 
+     * 
+     * 
+     * 
+     * 
+     * <div class="alert"><b>Note</b>  For a list of the RPC-supported authentication services, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/Rpc/authentication-service-constants">Authentication-Service Constants</a>.</div>
+     * <div> </div>
+     * @type {Pointer<RPC_SECURITY_QOS>}
+     */
+    SecurityQos {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
+    }
+}

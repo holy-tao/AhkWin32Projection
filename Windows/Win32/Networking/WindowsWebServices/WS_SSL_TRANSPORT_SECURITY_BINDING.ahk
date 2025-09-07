@@ -1,0 +1,48 @@
+#Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Struct.ahk
+#Include .\WS_SECURITY_BINDING.ahk
+
+/**
+ * The security binding subtype for specifying the use of SSL/TLS protocol based transport security.
+ * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_ssl_transport_security_binding
+ * @namespace Windows.Win32.Networking.WindowsWebServices
+ * @version v4.0.30319
+ */
+class WS_SSL_TRANSPORT_SECURITY_BINDING extends Win32Struct
+{
+    static sizeof => 32
+
+    static packingSize => 8
+
+    /**
+     * The base type from which this security binding subtype and all other security binding subtypes derive.
+     * @type {WS_SECURITY_BINDING}
+     */
+    binding{
+        get {
+            if(!this.HasProp("__binding"))
+                this.__binding := WS_SECURITY_BINDING(this.ptr + 0)
+            return this.__binding
+        }
+    }
+
+    /**
+     * The local certificate credential to be used with this security binding.
+     *                 
+     * 
+     * Server side: When SSL is used for transport security with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_channel_binding">WS_HTTP_CHANNEL_BINDING</a>, the server certificate must be
+     * registered by the application using the httpcfg
+     * tool and this field must be set to <b>NULL</b>.  In all other cases, the
+     * server SSL certificate must be specified using this field.
+     *                 
+     * 
+     * Client side: If a client certificate is to be used with SSL, it must
+     * be specified using this field.  If no client certificate is to be
+     * used, this field must be set to <b>NULL</b>.
+     * @type {Pointer<WS_CERT_CREDENTIAL>}
+     */
+    localCertCredential {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
+    }
+}

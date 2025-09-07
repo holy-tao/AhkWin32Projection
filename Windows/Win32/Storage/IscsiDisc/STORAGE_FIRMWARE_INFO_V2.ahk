@@ -1,0 +1,108 @@
+#Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Struct.ahk
+#Include .\STORAGE_FIRMWARE_SLOT_INFO_V2.ahk
+
+/**
+ * @namespace Windows.Win32.Storage.IscsiDisc
+ * @version v4.0.30319
+ */
+class STORAGE_FIRMWARE_INFO_V2 extends Win32Struct
+{
+    static sizeof => 32
+
+    static packingSize => 8
+
+    /**
+     * @type {Integer}
+     */
+    Version {
+        get => NumGet(this, 0, "uint")
+        set => NumPut("uint", value, this, 0)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Size {
+        get => NumGet(this, 4, "uint")
+        set => NumPut("uint", value, this, 4)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    UpgradeSupport {
+        get => NumGet(this, 8, "char")
+        set => NumPut("char", value, this, 8)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    SlotCount {
+        get => NumGet(this, 9, "char")
+        set => NumPut("char", value, this, 9)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    ActiveSlot {
+        get => NumGet(this, 10, "char")
+        set => NumPut("char", value, this, 10)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    PendingActivateSlot {
+        get => NumGet(this, 11, "char")
+        set => NumPut("char", value, this, 11)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    FirmwareShared {
+        get => NumGet(this, 12, "char")
+        set => NumPut("char", value, this, 12)
+    }
+
+    /**
+     * @type {Array<Byte>}
+     */
+    Reserved{
+        get {
+            if(!this.HasProp("__ReservedProxyArray"))
+                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 13, 1, Primitive, "char")
+            return this.__ReservedProxyArray
+        }
+    }
+
+    /**
+     * @type {Integer}
+     */
+    ImagePayloadAlignment {
+        get => NumGet(this, 16, "uint")
+        set => NumPut("uint", value, this, 16)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    ImagePayloadMaxSize {
+        get => NumGet(this, 20, "uint")
+        set => NumPut("uint", value, this, 20)
+    }
+
+    /**
+     * @type {Array<STORAGE_FIRMWARE_SLOT_INFO_V2>}
+     */
+    Slot{
+        get {
+            if(!this.HasProp("__SlotProxyArray"))
+                this.__SlotProxyArray := Win32FixedArray(this.ptr + 24, 8, STORAGE_FIRMWARE_SLOT_INFO_V2, "")
+            return this.__SlotProxyArray
+        }
+    }
+}

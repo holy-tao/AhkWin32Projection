@@ -1,0 +1,13 @@
+#Requires AutoHotkey v2.0.0 64-bit
+
+/**
+ * @namespace Windows.Win32.System.Ioctl
+ * @version v4.0.30319
+ */
+class LMR_QUERY_INFO_CLASS{
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static LMRQuerySessionInfo => 1
+}

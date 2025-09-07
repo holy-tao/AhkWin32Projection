@@ -1,0 +1,18 @@
+#Requires AutoHotkey v2.0.0 64-bit
+
+/**
+ * @namespace Windows.Win32.System.Hypervisor
+ * @version v4.0.30319
+ */
+class WHV_NOTIFICATION_PORT_PROPERTY_CODE{
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static WHvNotificationPortPropertyPreferredTargetVp => 1
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static WHvNotificationPortPropertyPreferredTargetDuration => 5
+}

@@ -1,0 +1,64 @@
+#Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Struct.ahk
+
+/**
+ * @namespace Windows.Win32.NetworkManagement.WiFi
+ * @version v4.0.30319
+ */
+class DOT11_MANUFACTURING_SELF_TEST_SET_PARAMS extends Win32Struct
+{
+    static sizeof => 32
+
+    static packingSize => 8
+
+    /**
+     * @type {Integer}
+     */
+    SelfTestType {
+        get => NumGet(this, 0, "int")
+        set => NumPut("int", value, this, 0)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    uTestID {
+        get => NumGet(this, 4, "uint")
+        set => NumPut("uint", value, this, 4)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    uPinBitMask {
+        get => NumGet(this, 8, "uint")
+        set => NumPut("uint", value, this, 8)
+    }
+
+    /**
+     * @type {Pointer<Void>}
+     */
+    pvContext {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    uBufferLength {
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
+    }
+
+    /**
+     * @type {Array<Byte>}
+     */
+    ucBufferIn{
+        get {
+            if(!this.HasProp("__ucBufferInProxyArray"))
+                this.__ucBufferInProxyArray := Win32FixedArray(this.ptr + 28, 1, Primitive, "char")
+            return this.__ucBufferInProxyArray
+        }
+    }
+}

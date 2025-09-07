@@ -1,0 +1,23 @@
+#Requires AutoHotkey v2.0.0 64-bit
+
+/**
+ * @namespace Windows.Win32.Security.Authentication.Identity
+ * @version v4.0.30319
+ */
+class SECPKG_PACKAGE_CHANGE_TYPE{
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SECPKG_PACKAGE_CHANGE_LOAD => 0
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SECPKG_PACKAGE_CHANGE_UNLOAD => 1
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SECPKG_PACKAGE_CHANGE_SELECT => 2
+}

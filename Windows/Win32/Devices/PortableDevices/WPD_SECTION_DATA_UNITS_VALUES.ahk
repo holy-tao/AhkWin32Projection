@@ -1,0 +1,20 @@
+#Requires AutoHotkey v2.0.0 64-bit
+
+/**
+ * The WPD\_SECTION\_DATA\_UNITS\_VALUES enumeration indicates the units for a referenced section of data.
+ * @see https://learn.microsoft.com/windows/win32/wpd_sdk/wpd-section-data-units-values
+ * @namespace Windows.Win32.Devices.PortableDevices
+ * @version v4.0.30319
+ */
+class WPD_SECTION_DATA_UNITS_VALUES{
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static WPD_SECTION_DATA_UNITS_BYTES => 0
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static WPD_SECTION_DATA_UNITS_MILLISECONDS => 1
+}

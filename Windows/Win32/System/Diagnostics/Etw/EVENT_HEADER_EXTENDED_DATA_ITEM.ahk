@@ -1,0 +1,170 @@
+#Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Struct.ahk
+
+/**
+ * The EVENT_HEADER_EXTENDED_DATA_ITEM structure (evntcons.h) defines the extended data that ETW collects as part of the event data.
+ * @see https://learn.microsoft.com/windows/win32/api/evntcons/ns-evntcons-event_header_extended_data_item
+ * @namespace Windows.Win32.System.Diagnostics.Etw
+ * @version v4.0.30319
+ */
+class EVENT_HEADER_EXTENDED_DATA_ITEM extends Win32Struct
+{
+    static sizeof => 16
+
+    static packingSize => 8
+
+    /**
+     * Reserved.
+     * @type {Integer}
+     */
+    Reserved1 {
+        get => NumGet(this, 0, "ushort")
+        set => NumPut("ushort", value, this, 0)
+    }
+
+    /**
+     * Type of extended data. The following are possible values.
+     * 
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="EVENT_HEADER_EXT_TYPE_RELATED_ACTIVITYID"></a><a id="event_header_ext_type_related_activityid"></a><dl>
+     * <dt><b>EVENT_HEADER_EXT_TYPE_RELATED_ACTIVITYID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <b>DataPtr</b> member points to an <a href="https://docs.microsoft.com/windows/win32/api/evntcons/ns-evntcons-event_extended_item_related_activityid">EVENT_EXTENDED_ITEM_RELATED_ACTIVITYID</a> structure that contains the related activity identifier if you called <a href="https://docs.microsoft.com/windows/desktop/api/evntprov/nf-evntprov-eventwritetransfer">EventWriteTransfer</a> to write the event.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="EVENT_HEADER_EXT_TYPE_SID"></a><a id="event_header_ext_type_sid"></a><dl>
+     * <dt><b>EVENT_HEADER_EXT_TYPE_SID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <b>DataPtr</b> member points to a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure that contains the security identifier (SID) of the user that logged the event. ETW includes the SID if you set the <i>EnableProperty</i> parameter of <a href="https://docs.microsoft.com/windows/desktop/ETW/enabletraceex-func">EnableTraceEx</a> to EVENT_ENABLE_PROPERTY_SID.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="EVENT_HEADER_EXT_TYPE_TS_ID"></a><a id="event_header_ext_type_ts_id"></a><dl>
+     * <dt><b>EVENT_HEADER_EXT_TYPE_TS_ID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <b>DataPtr</b> member points to an <a href="https://docs.microsoft.com/windows/desktop/api/evntcons/ns-evntcons-event_extended_item_ts_id">EVENT_EXTENDED_ITEM_TS_ID</a> structure that contains the terminal session identifier. ETW includes the terminal session identifier if you set the <i>EnableProperty</i> parameter of <a href="https://docs.microsoft.com/windows/desktop/ETW/enabletraceex-func">EnableTraceEx</a> to EVENT_ENABLE_PROPERTY_TS_ID.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="EVENT_HEADER_EXT_TYPE_INSTANCE_INFO"></a><a id="event_header_ext_type_instance_info"></a><dl>
+     * <dt><b>EVENT_HEADER_EXT_TYPE_INSTANCE_INFO</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <b>DataPtr</b> member points to an <a href="https://docs.microsoft.com/windows/desktop/api/evntcons/ns-evntcons-event_extended_item_instance">EVENT_EXTENDED_ITEM_INSTANCE</a> structure that contains the activity identifier if you called <a href="https://docs.microsoft.com/windows/desktop/ETW/traceeventinstance">TraceEventInstance</a> to write the event.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="EVENT_HEADER_EXT_TYPE_STACK_TRACE32"></a><a id="event_header_ext_type_stack_trace32"></a><dl>
+     * <dt><b>EVENT_HEADER_EXT_TYPE_STACK_TRACE32</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <b>DataPtr</b> member points to an <a href="https://docs.microsoft.com/windows/win32/api/evntcons/ns-evntcons-event_extended_item_stack_trace32">EVENT_EXTENDED_ITEM_STACK_TRACE32</a> structure that contains the call stack if the event is captured on a 32-bit computer.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="EVENT_HEADER_EXT_TYPE_STACK_TRACE64"></a><a id="event_header_ext_type_stack_trace64"></a><dl>
+     * <dt><b>EVENT_HEADER_EXT_TYPE_STACK_TRACE64</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <b>DataPtr</b> member points to an <a href="https://docs.microsoft.com/windows/win32/api/evntcons/ns-evntcons-event_extended_item_stack_trace64">EVENT_EXTENDED_ITEM_STACK_TRACE64</a> structure that contains the call stack if the event is captured on a 64-bit computer.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="EVENT_HEADER_EXT_TYPE_EVENT_SCHEMA_TL"></a><a id="event_header_ext_type_event_schema_tl"></a><dl>
+     * <dt><b>EVENT_HEADER_EXT_TYPE_EVENT_SCHEMA_TL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <b>DataPtr</b> member points to an extended header item that contains TraceLogging event metadata information.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="_EVENT_HEADER_EXT_TYPE_PROV_TRAITS"></a><a id="_event_header_ext_type_prov_traits"></a><dl>
+     * <dt><b>	EVENT_HEADER_EXT_TYPE_PROV_TRAITS</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <b>DataPtr</b> member points to an extended header item that  contains provider traits data, for example traits set through <a href="https://docs.microsoft.com/windows/desktop/api/evntprov/nf-evntprov-eventsetinformation">EventSetInformation(EventProviderSetTraits)</a> or specified through <a href="https://docs.microsoft.com/windows/desktop/api/evntprov/ns-evntprov-event_data_descriptor">EVENT_DATA_DESCRIPTOR_TYPE_PROVIDER_METADATA</a>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="EVENT_HEADER_EXT_TYPE_EVENT_KEY"></a><a id="event_header_ext_type_event_key"></a><dl>
+     * <dt><b>EVENT_HEADER_EXT_TYPE_EVENT_KEY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <b>DataPtr</b> member points to an EVENT_EXTENDED_ITEM_EVENT_KEY structure containing a unique event identifier that is a 64-bit scalar.
+     * 
+     * The <b>EnableProperty</b> EVENT_ENABLE_PROPERTY_EVENT_KEY needs to be passed in for the <a href="https://docs.microsoft.com/windows/desktop/ETW/enabletrace">EnableTrace</a> call for a given provider to enable this feature.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="EVENT_HEADER_EXT_TYPE_PROCESS_START_KEY"></a><a id="event_header_ext_type_process_start_key"></a><dl>
+     * <dt><b>EVENT_HEADER_EXT_TYPE_PROCESS_START_KEY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <b>DataPtr</b> member points to an EVENT_EXTENDED_ITEM_PROCESS_START_KEY structure that contains a unique process identifier (unique across the boot session). This identifier is a 64-bit scalar. 
+     * 
+     * The <b>EnableProperty</b> EVENT_ENABLE_PROPERTY_PROCESS_START_KEY needs to be passed in for the <a href="https://docs.microsoft.com/windows/desktop/ETW/enabletrace">EnableTrace</a> call for a given provider to enable this feature. 
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @type {Integer}
+     */
+    ExtType {
+        get => NumGet(this, 2, "ushort")
+        set => NumPut("ushort", value, this, 2)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Anonymous {
+        get => NumGet(this, 4, "ushort")
+        set => NumPut("ushort", value, this, 4)
+    }
+
+    /**
+     * Size, in bytes, of the extended data that <b>DataPtr</b> points to.
+     * @type {Integer}
+     */
+    DataSize {
+        get => NumGet(this, 6, "ushort")
+        set => NumPut("ushort", value, this, 6)
+    }
+
+    /**
+     * Pointer to the extended data. The <b>ExtType</b> member determines the type of extended data to which this member points.
+     * @type {Integer}
+     */
+    DataPtr {
+        get => NumGet(this, 8, "uint")
+        set => NumPut("uint", value, this, 8)
+    }
+}

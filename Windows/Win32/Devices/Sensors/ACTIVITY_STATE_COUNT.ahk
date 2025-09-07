@@ -1,0 +1,13 @@
+#Requires AutoHotkey v2.0.0 64-bit
+
+/**
+ * @namespace Windows.Win32.Devices.Sensors
+ * @version v4.0.30319
+ */
+class ACTIVITY_STATE_COUNT{
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static ActivityStateCount => 8
+}

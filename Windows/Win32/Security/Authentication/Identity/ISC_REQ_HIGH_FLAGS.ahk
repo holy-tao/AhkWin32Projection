@@ -1,0 +1,23 @@
+#Requires AutoHotkey v2.0.0 64-bit
+
+/**
+ * @namespace Windows.Win32.Security.Authentication.Identity
+ * @version v4.0.30319
+ */
+class ISC_REQ_HIGH_FLAGS{
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static ISC_REQ_MESSAGES => 4294967296
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static ISC_REQ_DEFERRED_CRED_VALIDATION => 8589934592
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static ISC_REQ_NO_POST_HANDSHAKE_AUTH => 17179869184
+}
