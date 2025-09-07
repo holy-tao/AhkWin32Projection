@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\ISCSI_UNIQUE_SESSION_ID.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * ISCSI_CONNECTION_INFO structure contains information about a connection. (Unicode)
@@ -33,26 +32,20 @@ class ISCSI_CONNECTION_INFOW extends Win32Struct
 
     /**
      * A string that represents the IP address of the initiator.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    InitiatorAddress{
-        get {
-            if(!this.HasProp("__InitiatorAddress"))
-                this.__InitiatorAddress := PWSTR(this.ptr + 16)
-            return this.__InitiatorAddress
-        }
+    InitiatorAddress {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * A string that represents the IP address of the target.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    TargetAddress{
-        get {
-            if(!this.HasProp("__TargetAddress"))
-                this.__TargetAddress := PWSTR(this.ptr + 24)
-            return this.__TargetAddress
-        }
+    TargetAddress {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**

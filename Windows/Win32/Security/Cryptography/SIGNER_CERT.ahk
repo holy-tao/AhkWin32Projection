@@ -1,7 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Foundation\HWND.ahk
 
 /**
  * Specifies a certificate used to sign a document. The certificate can be stored in a Software Publisher Certificate (SPC) file or in a certificate store.
@@ -42,14 +40,11 @@ class SIGNER_CERT extends Win32Struct
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pwszSpcFile{
-        get {
-            if(!this.HasProp("__pwszSpcFile"))
-                this.__pwszSpcFile := PWSTR(this.ptr + 8)
-            return this.__pwszSpcFile
-        }
+    pwszSpcFile {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -70,14 +65,11 @@ class SIGNER_CERT extends Win32Struct
 
     /**
      * The handle of the window to use as the owner of any dialog boxes that are displayed. This member is not currently used and is ignored.
-     * @type {HWND}
+     * @type {Pointer<Ptr>}
      */
-    hwnd{
-        get {
-            if(!this.HasProp("__hwnd"))
-                this.__hwnd := HWND(this.ptr + 16)
-            return this.__hwnd
-        }
+    hwnd {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**

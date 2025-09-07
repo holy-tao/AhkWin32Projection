@@ -20,7 +20,7 @@ class SPC_STATEMENT_TYPE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Ptr>}
      */
     rgpszKeyPurposeId {
         get => NumGet(this, 8, "ptr")

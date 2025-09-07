@@ -1,9 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 #Include .\CRYPT_INTEGER_BLOB.ahk
 #Include .\CRYPT_ALGORITHM_IDENTIFIER.ahk
-#Include .\BCRYPT_KEY_HANDLE.ahk
 
 /**
  * Contains information shared between the PFN_CMSG_GEN_CONTENT_ENCRYPT_KEY, PFN_CMSG_EXPORT_KEY_TRANS, PFN_CMSG_EXPORT_KEY_AGREE, and PFN_CMSG_EXPORT_MAIL_LIST functions.
@@ -178,14 +176,11 @@ class CMSG_CONTENT_ENCRYPT_INFO extends Win32Struct
     }
 
     /**
-     * @type {BCRYPT_KEY_HANDLE}
+     * @type {Pointer<Ptr>}
      */
-    hCNGContentEncryptKey{
-        get {
-            if(!this.HasProp("__hCNGContentEncryptKey"))
-                this.__hCNGContentEncryptKey := BCRYPT_KEY_HANDLE(this.ptr + 88)
-            return this.__hCNGContentEncryptKey
-        }
+    hCNGContentEncryptKey {
+        get => NumGet(this, 88, "ptr")
+        set => NumPut("ptr", value, this, 88)
     }
 
     /**

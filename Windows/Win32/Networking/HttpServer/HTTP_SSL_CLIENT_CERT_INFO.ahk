@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * Contains data about a Secure Sockets Layer (SSL) client certificate that can be used to determine whether the certificate is valid.
@@ -55,14 +54,11 @@ class HTTP_SSL_CLIENT_CERT_INFO extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpsetserviceconfiguration">HttpSetServiceConfiguration</a> function, and the client certificate was successfully mapped to an operating-system user account, then this member contains the handle to a valid 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-tokens">access token</a>. When the 
      * <b>HTTP_SSL_CLIENT_CERT_INFO</b> structure is no longer required, release this token explicitly by closing the handle.
-     * @type {HANDLE}
+     * @type {Pointer<Ptr>}
      */
-    Token{
-        get {
-            if(!this.HasProp("__Token"))
-                this.__Token := HANDLE(this.ptr + 16)
-            return this.__Token
-        }
+    Token {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**

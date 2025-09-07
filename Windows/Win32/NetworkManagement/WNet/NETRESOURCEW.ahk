@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The following structure contains information about a network resource. It is used by several of the network provider functions, including NPOpenEnum and NPAddConnection. (Unicode)
@@ -166,50 +165,38 @@ class NETRESOURCEW extends Win32Struct
      * 
      * 
      * If <b>dwScope</b> is not set to RESOURCE_CONNECTED, this field is undefined.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpLocalName{
-        get {
-            if(!this.HasProp("__lpLocalName"))
-                this.__lpLocalName := PWSTR(this.ptr + 16)
-            return this.__lpLocalName
-        }
+    lpLocalName {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * If the enumerated item is a network resource, this field contains a remote network name. This name may be then passed to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/npapi/nf-npapi-npaddconnection">NPAddConnection</a> to make a network connection if <b>dwUsage</b> is set to RESOURCEUSAGE_CONNECTABLE. If the enumerated item is a current connection, this field will refer to the remote network name that <b>lpLocalName</b> is connected to.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpRemoteName{
-        get {
-            if(!this.HasProp("__lpRemoteName"))
-                this.__lpRemoteName := PWSTR(this.ptr + 24)
-            return this.__lpRemoteName
-        }
+    lpRemoteName {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
      * May be any provider-supplied comment associated with the enumerated item.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpComment{
-        get {
-            if(!this.HasProp("__lpComment"))
-                this.__lpComment := PWSTR(this.ptr + 32)
-            return this.__lpComment
-        }
+    lpComment {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
      * Specifies the name of the provider that owns this enumerated item.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpProvider{
-        get {
-            if(!this.HasProp("__lpProvider"))
-                this.__lpProvider := PWSTR(this.ptr + 40)
-            return this.__lpProvider
-        }
+    lpProvider {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 }

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * Describes an effect shader.
@@ -64,14 +63,11 @@ class D3D10_EFFECT_SHADER_DESC extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>
      * 
      * A string that contains a declaration of the <a href="https://docs.microsoft.com/windows/desktop/direct3d10/d3d10-graphics-programming-guide-pipeline-stages">stream output </a> from a geometry shader.
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    SODecl{
-        get {
-            if(!this.HasProp("__SODecl"))
-                this.__SODecl := PSTR(this.ptr + 32)
-            return this.__SODecl
-        }
+    SODecl {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**

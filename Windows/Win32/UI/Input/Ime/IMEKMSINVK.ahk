@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\HIMC.ahk
 
 /**
  * @namespace Windows.Win32.UI.Input.Ime
@@ -21,14 +20,11 @@ class IMEKMSINVK extends Win32Struct
     }
 
     /**
-     * @type {HIMC}
+     * @type {Pointer<Ptr>}
      */
-    hIMC{
-        get {
-            if(!this.HasProp("__hIMC"))
-                this.__hIMC := HIMC(this.ptr + 4)
-            return this.__hIMC
-        }
+    hIMC {
+        get => NumGet(this, 4, "ptr")
+        set => NumPut("ptr", value, this, 4)
     }
 
     /**

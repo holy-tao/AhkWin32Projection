@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * DRT_SETTINGS structure contains the settings utilized by the local Distributed Routing Table.
@@ -62,14 +61,11 @@ class DRT_SETTINGS extends Win32Struct
 
     /**
      * This string forms the basis of the name of the DRT instance. The name of the instance can be used to locate the Windows performance counters associated with it.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pwzDrtInstancePrefix{
-        get {
-            if(!this.HasProp("__pwzDrtInstancePrefix"))
-                this.__pwzDrtInstancePrefix := PWSTR(this.ptr + 16)
-            return this.__pwzDrtInstancePrefix
-        }
+    pwzDrtInstancePrefix {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**

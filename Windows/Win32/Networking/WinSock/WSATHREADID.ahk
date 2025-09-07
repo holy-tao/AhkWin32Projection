@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * The WSATHREADID structure enables a provider to identify a thread on which asynchronous procedure calls (APCs) can be queued using the WPUQueueApc function.
@@ -18,14 +17,11 @@ class WSATHREADID extends Win32Struct
 
     /**
      * Handle to the thread ID.
-     * @type {HANDLE}
+     * @type {Pointer<Ptr>}
      */
-    ThreadHandle{
-        get {
-            if(!this.HasProp("__ThreadHandle"))
-                this.__ThreadHandle := HANDLE(this.ptr + 0)
-            return this.__ThreadHandle
-        }
+    ThreadHandle {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**

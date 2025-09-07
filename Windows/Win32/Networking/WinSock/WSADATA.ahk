@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * The WSADATA (winsock.h) structure contains information about the Windows Sockets implementation.
@@ -111,13 +110,10 @@ class WSADATA extends Win32Struct
      * 
      * The <b>lpVendorInfo</b> member is retained for compatibility with Windows Sockets specification 1.1. The architecture of Windows Sockets changed in version 2 to support multiple providers, and the <b>WSADATA</b> structure no longer applies to a single vendor's stack. Applications needing to access vendor-specific configuration information should use 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-getsockopt">getsockopt</a> to retrieve the value of option PVD_CONFIG for vendor-specific information.
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpVendorInfo{
-        get {
-            if(!this.HasProp("__lpVendorInfo"))
-                this.__lpVendorInfo := PSTR(this.ptr + 784)
-            return this.__lpVendorInfo
-        }
+    lpVendorInfo {
+        get => NumGet(this, 784, "ptr")
+        set => NumPut("ptr", value, this, 784)
     }
 }

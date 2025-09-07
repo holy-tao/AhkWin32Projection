@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\BG_BASIC_CREDENTIALS.ahk
 #Include .\BG_AUTH_CREDENTIALS_UNION.ahk
 

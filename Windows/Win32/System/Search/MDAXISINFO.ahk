@@ -52,7 +52,7 @@ class MDAXISINFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Ptr>}
      */
     rgpwszDimensionNames {
         get => NumGet(this, 40, "ptr")

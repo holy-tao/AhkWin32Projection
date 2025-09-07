@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * The SmartCardApplication structure identifies a smart card application.
@@ -34,25 +33,19 @@ class SmartCardApplication extends Win32Struct
 
     /**
      * Application name.
-     * @type {BSTR}
+     * @type {Pointer<Ptr>}
      */
-    pbstrApplicationName{
-        get {
-            if(!this.HasProp("__pbstrApplicationName"))
-                this.__pbstrApplicationName := BSTR(this.ptr + 8)
-            return this.__pbstrApplicationName
-        }
+    pbstrApplicationName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * Application URL.
-     * @type {BSTR}
+     * @type {Pointer<Ptr>}
      */
-    pbstrApplicationURL{
-        get {
-            if(!this.HasProp("__pbstrApplicationURL"))
-                this.__pbstrApplicationURL := BSTR(this.ptr + 16)
-            return this.__pbstrApplicationURL
-        }
+    pbstrApplicationURL {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 }

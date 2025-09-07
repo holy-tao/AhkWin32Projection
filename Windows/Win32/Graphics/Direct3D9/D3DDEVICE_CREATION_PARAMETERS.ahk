@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
 
 /**
  * Describes the creation parameters for a device.
@@ -43,14 +42,11 @@ class D3DDEVICE_CREATION_PARAMETERS extends Win32Struct
      * 
      * 
      * Window handle to which focus belongs for this Direct3D device. The value of this parameter mirrors the value passed to the [**CreateDevice**](/windows/win32/api/d3d9/nf-d3d9-idirect3d9-createdevice) call that created this device.
-     * @type {HWND}
+     * @type {Pointer<Ptr>}
      */
-    hFocusWindow{
-        get {
-            if(!this.HasProp("__hFocusWindow"))
-                this.__hFocusWindow := HWND(this.ptr + 8)
-            return this.__hFocusWindow
-        }
+    hFocusWindow {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

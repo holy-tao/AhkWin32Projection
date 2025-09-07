@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Graphics\Gdi\HDC.ahk
 #Include ..\..\Foundation\RECT.ahk
 #Include .\VMR9NormalizedRect.ahk
 
@@ -36,14 +35,11 @@ class VMR9AlphaBitmap extends Win32Struct
 
     /**
      * Handle to the GDI device context (HDC) for the bitmap. If this member contains a non-<b>NULL</b> value, set <b>pDDS</b> to <b>NULL</b> and set the <b>VMR9AlphaBitmap_hDC</b> flag in the <b>dwFlags</b> member. The device context is not compatible with GDI+.
-     * @type {HDC}
+     * @type {Pointer<Ptr>}
      */
-    hdc{
-        get {
-            if(!this.HasProp("__hdc"))
-                this.__hdc := HDC(this.ptr + 8)
-            return this.__hdc
-        }
+    hdc {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

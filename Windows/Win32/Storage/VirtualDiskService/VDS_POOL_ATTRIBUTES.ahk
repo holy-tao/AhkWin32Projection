@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The VDS_POOL_ATTRIBUTES structure (vdshwprv.h) defines the attributes of a storage pool.
@@ -365,14 +364,11 @@ class VDS_POOL_ATTRIBUTES extends Win32Struct
 
     /**
      * A string that specifies the usage of the storage pool. Typically, this may indicate the application that is using the storage pool (for example,  "SQL" or "Exchange") or the business function that is using the storage pool (for example, "Finance" or "Human Resources").
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pwszIntendedUsage{
-        get {
-            if(!this.HasProp("__pwszIntendedUsage"))
-                this.__pwszIntendedUsage := PWSTR(this.ptr + 16)
-            return this.__pwszIntendedUsage
-        }
+    pwszIntendedUsage {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**

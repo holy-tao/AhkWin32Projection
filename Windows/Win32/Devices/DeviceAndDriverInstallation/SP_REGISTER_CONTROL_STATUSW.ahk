@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The SP_REGISTER_CONTROL_STATUS structure contains information about a file being registered or unregistered using the RegisterDlls INF directive to self-register DLLs on Windows 2000. (Unicode)
@@ -29,14 +28,11 @@ class SP_REGISTER_CONTROL_STATUSW extends Win32Struct
 
     /**
      * Fully qualified path of the file being registered or unregistered.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    FileName{
-        get {
-            if(!this.HasProp("__FileName"))
-                this.__FileName := PWSTR(this.ptr + 4)
-            return this.__FileName
-        }
+    FileName {
+        get => NumGet(this, 4, "ptr")
+        set => NumPut("ptr", value, this, 4)
     }
 
     /**

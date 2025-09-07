@@ -1,7 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The MCI_DGV_WINDOW_PARMSW (Unicode) structure contains parameters for MCI_WINDOW command for digital-video devices.
@@ -36,14 +34,11 @@ class MCI_DGV_WINDOW_PARMSW extends Win32Struct
 
     /**
      * Handle to the display window. If this member is MCI_DGV_WINDOW_HWND, the system uses a default window.
-     * @type {HWND}
+     * @type {Pointer<Ptr>}
      */
-    hWnd{
-        get {
-            if(!this.HasProp("__hWnd"))
-                this.__hWnd := HWND(this.ptr + 8)
-            return this.__hWnd
-        }
+    hWnd {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -57,13 +52,10 @@ class MCI_DGV_WINDOW_PARMSW extends Win32Struct
 
     /**
      * Window caption.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpstrText{
-        get {
-            if(!this.HasProp("__lpstrText"))
-                this.__lpstrText := PWSTR(this.ptr + 20)
-            return this.__lpstrText
-        }
+    lpstrText {
+        get => NumGet(this, 20, "ptr")
+        set => NumPut("ptr", value, this, 20)
     }
 }

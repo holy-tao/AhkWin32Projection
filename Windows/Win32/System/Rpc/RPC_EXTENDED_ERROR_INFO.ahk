@@ -1,9 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Foundation\SYSTEMTIME.ahk
 #Include ..\..\Foundation\FILETIME.ahk
-#Include ..\..\Foundation\PSTR.ahk
 #Include .\BinaryParam.ahk
 #Include .\RPC_EE_INFO_PARAM.ahk
 
@@ -36,14 +34,11 @@ class RPC_EXTENDED_ERROR_INFO extends Win32Struct
 
     /**
      * Non-qualified DNS name, expressed in Unicode.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    ComputerName{
-        get {
-            if(!this.HasProp("__ComputerName"))
-                this.__ComputerName := PWSTR(this.ptr + 8)
-            return this.__ComputerName
-        }
+    ComputerName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

@@ -1,7 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include ..\..\Graphics\Gdi\HDC.ahk
 #Include ..\..\Foundation\RECT.ahk
 
 /**
@@ -229,28 +227,22 @@ class DRAWITEMSTRUCT extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
      * 
      * A handle to the control for combo boxes, list boxes, buttons, and static controls. For menus, this member is a handle to the menu that contains the item.
-     * @type {HWND}
+     * @type {Pointer<Ptr>}
      */
-    hwndItem{
-        get {
-            if(!this.HasProp("__hwndItem"))
-                this.__hwndItem := HWND(this.ptr + 24)
-            return this.__hwndItem
-        }
+    hwndItem {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HDC</a></b>
      * 
      * A handle to a device context; this device context must be used when performing drawing operations on the control.
-     * @type {HDC}
+     * @type {Pointer<Ptr>}
      */
-    hDC{
-        get {
-            if(!this.HasProp("__hDC"))
-                this.__hDC := HDC(this.ptr + 32)
-            return this.__hDC
-        }
+    hDC {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**

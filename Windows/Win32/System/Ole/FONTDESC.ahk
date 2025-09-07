@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\Com\CY.ahk
 
 /**
@@ -28,14 +27,11 @@ class FONTDESC extends Win32Struct
      * Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/wtypesbase/nf-wtypesbase-olestr">OLESTR</a> that specifies the caller-owned string specifying the font name.
      * 
      * cySize
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpstrName{
-        get {
-            if(!this.HasProp("__lpstrName"))
-                this.__lpstrName := PWSTR(this.ptr + 8)
-            return this.__lpstrName
-        }
+    lpstrName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

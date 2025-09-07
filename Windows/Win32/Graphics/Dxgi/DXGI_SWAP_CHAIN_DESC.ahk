@@ -3,7 +3,6 @@
 #Include Common\DXGI_RATIONAL.ahk
 #Include Common\DXGI_MODE_DESC.ahk
 #Include Common\DXGI_SAMPLE_DESC.ahk
-#Include ..\..\Foundation\HWND.ahk
 
 /**
  * Describes a swap chain. (DXGI_SWAP_CHAIN_DESC)
@@ -82,14 +81,11 @@ class DXGI_SWAP_CHAIN_DESC extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
      * 
      * An <a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a> handle to the output window. This member must not be <b>NULL</b>.
-     * @type {HWND}
+     * @type {Pointer<Ptr>}
      */
-    OutputWindow{
-        get {
-            if(!this.HasProp("__OutputWindow"))
-                this.__OutputWindow := HWND(this.ptr + 48)
-            return this.__OutputWindow
-        }
+    OutputWindow {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**

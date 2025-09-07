@@ -1,8 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
-#Include ..\..\System\Registry\HKEY.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
@@ -23,25 +20,19 @@ class MONITORINIT extends Win32Struct
     }
 
     /**
-     * @type {HANDLE}
+     * @type {Pointer<Ptr>}
      */
-    hSpooler{
-        get {
-            if(!this.HasProp("__hSpooler"))
-                this.__hSpooler := HANDLE(this.ptr + 8)
-            return this.__hSpooler
-        }
+    hSpooler {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
-     * @type {HKEY}
+     * @type {Pointer<Ptr>}
      */
-    hckRegistryRoot{
-        get {
-            if(!this.HasProp("__hckRegistryRoot"))
-                this.__hckRegistryRoot := HKEY(this.ptr + 16)
-            return this.__hckRegistryRoot
-        }
+    hckRegistryRoot {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
@@ -61,14 +52,11 @@ class MONITORINIT extends Win32Struct
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszServerName{
-        get {
-            if(!this.HasProp("__pszServerName"))
-                this.__pszServerName := PWSTR(this.ptr + 40)
-            return this.__pszServerName
-        }
+    pszServerName {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**

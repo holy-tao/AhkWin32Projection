@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Represents the action the service controller should take on each failure of a service. A service is considered failed when it terminates without reporting a status of SERVICE_STOPPED to the service controller. (Unicode)
@@ -48,14 +47,11 @@ class SERVICE_FAILURE_ACTIONSW extends Win32Struct
      * The string with identifier <i>strID</i> is loaded from <i>dllname</i>; the <i>path</i> is optional. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regloadmuistringa">RegLoadMUIString</a>.
      * 
      * <b>Windows Server 2003 and Windows XP:  </b>Localized strings are not supported until Windows Vista.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpRebootMsg{
-        get {
-            if(!this.HasProp("__lpRebootMsg"))
-                this.__lpRebootMsg := PWSTR(this.ptr + 8)
-            return this.__lpRebootMsg
-        }
+    lpRebootMsg {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -66,14 +62,11 @@ class SERVICE_FAILURE_ACTIONSW extends Win32Struct
      * 
      * 
      * If this value is <b>NULL</b>, the command is unchanged. If the value is an empty string (""), the command is deleted and no program is run when the service fails.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpCommand{
-        get {
-            if(!this.HasProp("__lpCommand"))
-                this.__lpCommand := PWSTR(this.ptr + 16)
-            return this.__lpCommand
-        }
+    lpCommand {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**

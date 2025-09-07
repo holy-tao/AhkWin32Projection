@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\HIC.ahk
 
 /**
  * The ICDRAWSUGGEST structure contains compression parameters used with the ICM_DRAW_SUGGESTFORMAT message to suggest an appropriate input format.
@@ -70,13 +69,10 @@ class ICDRAWSUGGEST extends Win32Struct
 
     /**
      * Handle to a decompressor that supports the format of data described in <b>lpbiIn</b>.
-     * @type {HIC}
+     * @type {Pointer<Ptr>}
      */
-    hicDecompressor{
-        get {
-            if(!this.HasProp("__hicDecompressor"))
-                this.__hicDecompressor := HIC(this.ptr + 32)
-            return this.__hicDecompressor
-        }
+    hicDecompressor {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 }

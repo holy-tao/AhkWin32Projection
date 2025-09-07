@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * Device notification filter structure.
@@ -61,14 +60,11 @@ class CM_NOTIFY_FILTER extends Win32Struct
     }
 
     /**
-     * @type {HANDLE}
+     * @type {Pointer<Ptr>}
      */
-    hTarget{
-        get {
-            if(!this.HasProp("__hTarget"))
-                this.__hTarget := HANDLE(this.ptr + 16)
-            return this.__hTarget
-        }
+    DeviceHandle {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * Contains parameters used to check for strong signatures on certificates, certificate revocation lists (CRLs), online certificate status protocol (OCSP) responses, and PKCS
@@ -99,14 +98,11 @@ class CERT_STRONG_SIGN_PARA extends Win32Struct
     }
 
     /**
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszOID{
-        get {
-            if(!this.HasProp("__pszOID"))
-                this.__pszOID := PSTR(this.ptr + 8)
-            return this.__pszOID
-        }
+    pszOID {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

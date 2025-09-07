@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\HGDIOBJ.ahk
 
 /**
  * The HANDLETABLE structure is an array of handles, each of which identifies a graphics device interface (GDI) object.
@@ -16,12 +15,12 @@ class HANDLETABLE extends Win32Struct
 
     /**
      * An array of handles.
-     * @type {Array<HGDIOBJ>}
+     * @type {Array<Ptr>}
      */
     objectHandle{
         get {
             if(!this.HasProp("__objectHandleProxyArray"))
-                this.__objectHandleProxyArray := Win32FixedArray(this.ptr + 0, 8, HGDIOBJ, "")
+                this.__objectHandleProxyArray := Win32FixedArray(this.ptr + 0, 8, Primitive, "ptr")
             return this.__objectHandleProxyArray
         }
     }

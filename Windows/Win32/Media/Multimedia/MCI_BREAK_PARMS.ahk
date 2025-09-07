@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
 
 /**
  * The MCI\_BREAK\_PARMS structure contains virtual-key code and window information for the MCI\_BREAK command.
@@ -48,13 +47,10 @@ class MCI_BREAK_PARMS extends Win32Struct
 
     /**
      * Handle to the window that must be the current window for break detection.
-     * @type {HWND}
+     * @type {Pointer<Ptr>}
      */
-    hwndBreak{
-        get {
-            if(!this.HasProp("__hwndBreak"))
-                this.__hwndBreak := HWND(this.ptr + 12)
-            return this.__hwndBreak
-        }
+    hwndBreak {
+        get => NumGet(this, 12, "ptr")
+        set => NumPut("ptr", value, this, 12)
     }
 }

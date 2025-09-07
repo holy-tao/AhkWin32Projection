@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
 
 /**
  * Describes the presentation parameters.
@@ -127,14 +126,11 @@ class D3DPRESENT_PARAMETERS extends Win32Struct
      * -   For a windowed-mode application, this handle will be the default target window for [**Present**](/windows/win32/api/d3d9helper/nf-d3d9helper-idirect3ddevice9-present). If this handle is **NULL**, the focus window will be taken.
      * 
      * Note that no attempt is made by the runtime to reflect user changes in window size. The back buffer is not implicitly reset when this window is reset. However, the [**Present**](/windows/win32/api/d3d9helper/nf-d3d9helper-idirect3ddevice9-present) method does automatically track window position changes.
-     * @type {HWND}
+     * @type {Pointer<Ptr>}
      */
-    hDeviceWindow{
-        get {
-            if(!this.HasProp("__hDeviceWindow"))
-                this.__hDeviceWindow := HWND(this.ptr + 32)
-            return this.__hDeviceWindow
-        }
+    hDeviceWindow {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**

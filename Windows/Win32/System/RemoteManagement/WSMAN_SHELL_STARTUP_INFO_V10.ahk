@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The WSMAN_SHELL_STARTUP_INFO_V10 (wsman.h) structure defines the shell startup parameters to be used with the WSManCreateShell function.
@@ -45,14 +44,11 @@ class WSMAN_SHELL_STARTUP_INFO_V10 extends Win32Struct
 
     /**
      * Specifies the starting directory for a shell. It is  used with any execution command. If this member is a <b>NULL</b> value, a default directory will be used by the remote machine when executing the command. An empty value is treated by the underlying protocol as an omitted value.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    workingDirectory{
-        get {
-            if(!this.HasProp("__workingDirectory"))
-                this.__workingDirectory := PWSTR(this.ptr + 24)
-            return this.__workingDirectory
-        }
+    workingDirectory {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**

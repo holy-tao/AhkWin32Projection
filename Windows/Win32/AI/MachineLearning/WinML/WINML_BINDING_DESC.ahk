@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\PWSTR.ahk
 #Include .\WINML_TENSOR_BINDING_DESC.ahk
 #Include .\WINML_SEQUENCE_BINDING_DESC.ahk
 #Include .\WINML_MAP_BINDING_DESC.ahk
@@ -21,14 +20,11 @@ class WINML_BINDING_DESC extends Win32Struct
 
     /**
      * The name of the WinML binding.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    Name{
-        get {
-            if(!this.HasProp("__Name"))
-                this.__Name := PWSTR(this.ptr + 0)
-            return this.__Name
-        }
+    Name {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**

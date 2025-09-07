@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug
@@ -13,24 +12,18 @@ class DBGHELP_DATA_REPORT_STRUCT extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pBinPathNonExist{
-        get {
-            if(!this.HasProp("__pBinPathNonExist"))
-                this.__pBinPathNonExist := PWSTR(this.ptr + 0)
-            return this.__pBinPathNonExist
-        }
+    pBinPathNonExist {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pSymbolPathNonExist{
-        get {
-            if(!this.HasProp("__pSymbolPathNonExist"))
-                this.__pSymbolPathNonExist := PWSTR(this.ptr + 8)
-            return this.__pSymbolPathNonExist
-        }
+    pSymbolPathNonExist {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 }

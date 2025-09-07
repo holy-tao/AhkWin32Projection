@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * The DD_MAPMEMORYDATA structure contains the information necessary to map or unmap a frame buffer into user-mode memory.
@@ -34,14 +33,11 @@ class DD_MAPMEMORYDATA extends Win32Struct
 
     /**
      * Handle to the process whose address space is affected.
-     * @type {HANDLE}
+     * @type {Pointer<Ptr>}
      */
-    hProcess{
-        get {
-            if(!this.HasProp("__hProcess"))
-                this.__hProcess := HANDLE(this.ptr + 16)
-            return this.__hProcess
-        }
+    hProcess {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**

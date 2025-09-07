@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\PSTR.ahk
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
@@ -21,14 +20,11 @@ class SecPkgContext_KeyingMaterial_Inproc extends Win32Struct
     }
 
     /**
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszLabel{
-        get {
-            if(!this.HasProp("__pszLabel"))
-                this.__pszLabel := PSTR(this.ptr + 8)
-            return this.__pszLabel
-        }
+    pszLabel {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

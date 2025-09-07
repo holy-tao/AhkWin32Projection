@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\PSTR.ahk
 
 /**
  * Represents a source file line. (IMAGEHLP_LINE)
@@ -50,14 +49,11 @@ class IMAGEHLP_LINE extends Win32Struct
 
     /**
      * The name of the file, including the full path.
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    FileName{
-        get {
-            if(!this.HasProp("__FileName"))
-                this.__FileName := PSTR(this.ptr + 24)
-            return this.__FileName
-        }
+    FileName {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**

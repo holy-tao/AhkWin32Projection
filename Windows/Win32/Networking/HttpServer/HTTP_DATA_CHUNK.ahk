@@ -1,8 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\HTTP_BYTE_RANGE.ahk
-#Include ..\..\Foundation\HANDLE.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Represents an individual block of data either in memory, in a file, or in the HTTP Server API response-fragment cache.
@@ -53,14 +51,11 @@ class HTTP_DATA_CHUNK extends Win32Struct
     }
 
     /**
-     * @type {HANDLE}
+     * @type {Pointer<Ptr>}
      */
-    FileHandle{
-        get {
-            if(!this.HasProp("__FileHandle"))
-                this.__FileHandle := HANDLE(this.ptr + 24)
-            return this.__FileHandle
-        }
+    FileHandle {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
@@ -72,25 +67,19 @@ class HTTP_DATA_CHUNK extends Win32Struct
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pFragmentName{
-        get {
-            if(!this.HasProp("__pFragmentName"))
-                this.__pFragmentName := PWSTR(this.ptr + 16)
-            return this.__pFragmentName
-        }
+    pFragmentName {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pFragmentName1{
-        get {
-            if(!this.HasProp("__pFragmentName1"))
-                this.__pFragmentName1 := PWSTR(this.ptr + 24)
-            return this.__pFragmentName1
-        }
+    pFragmentName1 {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**

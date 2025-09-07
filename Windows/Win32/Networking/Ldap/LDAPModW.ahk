@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Holds data required to perform a modification operation. (Unicode)
@@ -42,18 +41,15 @@ class LDAPModW extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that specifies the name of  the attribute to modify.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    mod_type{
-        get {
-            if(!this.HasProp("__mod_type"))
-                this.__mod_type := PWSTR(this.ptr + 8)
-            return this.__mod_type
-        }
+    mod_type {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Ptr>}
      */
     modv_strvals {
         get => NumGet(this, 16, "ptr")

@@ -1,9 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
 #Include .\NMHDR.ahk
-#Include ..\..\Graphics\Gdi\HDC.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains information used with custom text notification.
@@ -35,28 +32,22 @@ class NMCUSTOMTEXT extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HDC</a></b>
      * 
      * The device context to draw to.
-     * @type {HDC}
+     * @type {Pointer<Ptr>}
      */
-    hDC{
-        get {
-            if(!this.HasProp("__hDC"))
-                this.__hDC := HDC(this.ptr + 24)
-            return this.__hDC
-        }
+    hDC {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCWSTR</a></b>
      * 
      * The string to draw.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpString{
-        get {
-            if(!this.HasProp("__lpString"))
-                this.__lpString := PWSTR(this.ptr + 32)
-            return this.__lpString
-        }
+    lpString {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**

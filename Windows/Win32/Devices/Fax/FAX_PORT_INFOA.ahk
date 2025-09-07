@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * The FAX_PORT_INFO structure describes one fax port. The data includes, among other items, a device identifier, the port's name and current status, and station identifiers. (ANSI)
@@ -98,41 +97,32 @@ class FAX_PORT_INFOA extends Win32Struct
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that specifies the name of the fax device of interest.
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    DeviceName{
-        get {
-            if(!this.HasProp("__DeviceName"))
-                this.__DeviceName := PSTR(this.ptr + 24)
-            return this.__DeviceName
-        }
+    DeviceName {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that specifies the TSID. This identifier is usually a telephone number. Only printable characters such as English letters, numeric symbols, and punctuation marks (ASCII range 0x20 to 0x7F) can be used in a TSID.
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    Tsid{
-        get {
-            if(!this.HasProp("__Tsid"))
-                this.__Tsid := PSTR(this.ptr + 32)
-            return this.__Tsid
-        }
+    Tsid {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that specifies the called station identifier (CSID). This identifier is usually a telephone number. Only printable characters such as English letters, numeric symbols, and punctuation marks (ASCII range 0x20 to 0x7F) can be used in a CSID.
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    Csid{
-        get {
-            if(!this.HasProp("__Csid"))
-                this.__Csid := PSTR(this.ptr + 40)
-            return this.__Csid
-        }
+    Csid {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 }

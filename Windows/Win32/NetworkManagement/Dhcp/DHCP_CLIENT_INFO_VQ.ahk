@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\DHCP_BINARY_DATA.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\DATE_TIME.ahk
 #Include .\DHCP_HOST_INFO.ahk
 
@@ -51,26 +50,20 @@ class DHCP_CLIENT_INFO_VQ extends Win32Struct
 
     /**
      * Ppointer to a null-terminated Unicode string that represents the DHCPv4 client's machine name.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    ClientName{
-        get {
-            if(!this.HasProp("__ClientName"))
-                this.__ClientName := PWSTR(this.ptr + 24)
-            return this.__ClientName
-        }
+    ClientName {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
      * Pointer to a null-terminated Unicode string that represents the description given to the DHCPv4 client.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    ClientComment{
-        get {
-            if(!this.HasProp("__ClientComment"))
-                this.__ClientComment := PWSTR(this.ptr + 32)
-            return this.__ClientComment
-        }
+    ClientComment {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**

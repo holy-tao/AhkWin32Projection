@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.UI.Input.Ime
@@ -53,12 +52,12 @@ class IMESTRINGCANDIDATEINFO extends Win32Struct
     }
 
     /**
-     * @type {Array<PWSTR>}
+     * @type {Array<Ptr>}
      */
     lpwstr{
         get {
             if(!this.HasProp("__lpwstrProxyArray"))
-                this.__lpwstrProxyArray := Win32FixedArray(this.ptr + 32, 8, PWSTR, "")
+                this.__lpwstrProxyArray := Win32FixedArray(this.ptr + 32, 8, Primitive, "ptr")
             return this.__lpwstrProxyArray
         }
     }

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * @namespace Windows.Win32.Security.WinTrust
@@ -13,14 +12,11 @@ class WIN_TRUST_ACTDATA_CONTEXT_WITH_SUBJECT extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {HANDLE}
+     * @type {Pointer<Ptr>}
      */
-    hClientToken{
-        get {
-            if(!this.HasProp("__hClientToken"))
-                this.__hClientToken := HANDLE(this.ptr + 0)
-            return this.__hClientToken
-        }
+    hClientToken {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**

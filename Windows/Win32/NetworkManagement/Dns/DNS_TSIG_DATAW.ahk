@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The DNS_TSIG_DATA structure represents a secret key transaction authentication (TSIG) resource record (RR) as specified in RFC 2845 and RFC 3645. (Unicode)
@@ -28,14 +27,11 @@ class DNS_TSIG_DATAW extends Win32Struct
 
     /**
      * A pointer to a string that represents the name of the key used to generate <b>pSignature</b> as defined in section 2.3 of <a href="https://www.ietf.org/rfc/rfc2845.txt">RFC 2845</a>.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pNameAlgorithm{
-        get {
-            if(!this.HasProp("__pNameAlgorithm"))
-                this.__pNameAlgorithm := PWSTR(this.ptr + 0)
-            return this.__pNameAlgorithm
-        }
+    pNameAlgorithm {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**

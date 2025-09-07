@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The ADS_FAXNUMBER structure is an ADSI representation of the Facsimile Telephone Number attribute syntax.
@@ -16,14 +15,11 @@ class ADS_FAXNUMBER extends Win32Struct
 
     /**
      * The null-terminated Unicode string value that contains the telephone number of the facsimile (fax) machine.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    TelephoneNumber{
-        get {
-            if(!this.HasProp("__TelephoneNumber"))
-                this.__TelephoneNumber := PWSTR(this.ptr + 0)
-            return this.__TelephoneNumber
-        }
+    TelephoneNumber {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**

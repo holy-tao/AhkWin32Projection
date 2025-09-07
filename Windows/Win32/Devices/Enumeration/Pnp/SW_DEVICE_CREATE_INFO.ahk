@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\PWSTR.ahk
 
 /**
  * Describes info that PnP uses to create the software device.
@@ -27,38 +26,29 @@ class SW_DEVICE_CREATE_INFO extends Win32Struct
 
     /**
      * A string that represents the instance ID portion of the device instance ID. This value is used for <a href="https://docs.microsoft.com/windows-hardware/drivers/kernel/irp-mn-query-id">IRP_MN_QUERY_ID</a> <b>BusQueryInstanceID</b>.  Because all software devices are considered "UniqueId" devices, this string must be a unique name for all devices on this software device enumerator.  For more info, see <a href="https://docs.microsoft.com/windows-hardware/drivers/install/instance-ids">Instance IDs</a>.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszInstanceId{
-        get {
-            if(!this.HasProp("__pszInstanceId"))
-                this.__pszInstanceId := PWSTR(this.ptr + 8)
-            return this.__pszInstanceId
-        }
+    pszInstanceId {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * A list of strings for the hardware IDs for the software device. This value is used for <a href="https://docs.microsoft.com/windows-hardware/drivers/kernel/irp-mn-query-id">IRP_MN_QUERY_ID</a> <b>BusQueryHardwareIDs</b>.  If a client expects a driver or device metadata to bind to the device, the client specifies hardware IDs.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszzHardwareIds{
-        get {
-            if(!this.HasProp("__pszzHardwareIds"))
-                this.__pszzHardwareIds := PWSTR(this.ptr + 16)
-            return this.__pszzHardwareIds
-        }
+    pszzHardwareIds {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * A list of strings for the compatible IDs for the software device. This value is used for <a href="https://docs.microsoft.com/windows-hardware/drivers/kernel/irp-mn-query-id">IRP_MN_QUERY_ID</a> <b>BusQueryCompatibleIDs</b>.  If a client expects a class driver to load, the client specifies compatible IDs that match the class driver.  If a driver isn't needed, we recommend to specify a compatible ID to classify the type of software device.  In addition to the compatible IDs specified in this member, SWD\Generic and possibly SWD\GenericRaw will always be added as the least specific compatible IDs.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszzCompatibleIds{
-        get {
-            if(!this.HasProp("__pszzCompatibleIds"))
-                this.__pszzCompatibleIds := PWSTR(this.ptr + 24)
-            return this.__pszzCompatibleIds
-        }
+    pszzCompatibleIds {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
@@ -156,14 +146,11 @@ class SW_DEVICE_CREATE_INFO extends Win32Struct
      * 
      * </div>
      * <div> </div>
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszDeviceDescription{
-        get {
-            if(!this.HasProp("__pszDeviceDescription"))
-                this.__pszDeviceDescription := PWSTR(this.ptr + 48)
-            return this.__pszDeviceDescription
-        }
+    pszDeviceDescription {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**
@@ -171,14 +158,11 @@ class SW_DEVICE_CREATE_INFO extends Win32Struct
      * 
      * <div class="alert"><b>Note</b>  Specifying a location is uncommon.</div>
      * <div> </div>
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszDeviceLocation{
-        get {
-            if(!this.HasProp("__pszDeviceLocation"))
-                this.__pszDeviceLocation := PWSTR(this.ptr + 56)
-            return this.__pszDeviceLocation
-        }
+    pszDeviceLocation {
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 
     /**

@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\Ndis\NDIS_OBJECT_HEADER.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
@@ -33,14 +32,11 @@ class DOT11_ANQP_QUERY_COMPLETE_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {HANDLE}
+     * @type {Pointer<Ptr>}
      */
-    hContext{
-        get {
-            if(!this.HasProp("__hContext"))
-                this.__hContext := HANDLE(this.ptr + 8)
-            return this.__hContext
-        }
+    hContext {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

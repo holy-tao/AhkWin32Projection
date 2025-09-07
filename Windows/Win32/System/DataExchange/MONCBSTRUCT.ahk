@@ -1,9 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
-#Include .\HCONV.ahk
-#Include .\HSZ.ahk
-#Include .\HDDEDATA.ahk
 #Include ..\..\Security\SECURITY_QUALITY_OF_SERVICE.ahk
 #Include .\CONVCONTEXT.ahk
 
@@ -45,14 +41,11 @@ class MONCBSTRUCT extends Win32Struct
      * Type: <b>HANDLE</b>
      * 
      * A handle to the task (application instance) containing the DDE callback function that received the transaction.
-     * @type {HANDLE}
+     * @type {Pointer<Ptr>}
      */
-    hTask{
-        get {
-            if(!this.HasProp("__hTask"))
-                this.__hTask := HANDLE(this.ptr + 8)
-            return this.__hTask
-        }
+    hTask {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -92,56 +85,44 @@ class MONCBSTRUCT extends Win32Struct
      * Type: <b>HCONV</b>
      * 
      * A handle to the conversation in which the transaction took place.
-     * @type {HCONV}
+     * @type {Pointer<Ptr>}
      */
-    hConv{
-        get {
-            if(!this.HasProp("__hConv"))
-                this.__hConv := HCONV(this.ptr + 32)
-            return this.__hConv
-        }
+    hConv {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
      * Type: <b>HSZ</b>
      * 
      * A handle to a string.
-     * @type {HSZ}
+     * @type {Pointer<Ptr>}
      */
-    hsz1{
-        get {
-            if(!this.HasProp("__hsz1"))
-                this.__hsz1 := HSZ(this.ptr + 40)
-            return this.__hsz1
-        }
+    hsz1 {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
      * Type: <b>HSZ</b>
      * 
      * A handle to a string.
-     * @type {HSZ}
+     * @type {Pointer<Ptr>}
      */
-    hsz2{
-        get {
-            if(!this.HasProp("__hsz2"))
-                this.__hsz2 := HSZ(this.ptr + 48)
-            return this.__hsz2
-        }
+    hsz2 {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**
      * Type: <b>HDDEDATA</b>
      * 
      * A handle to the data exchanged (if any) during the transaction.
-     * @type {HDDEDATA}
+     * @type {Pointer<Ptr>}
      */
-    hData{
-        get {
-            if(!this.HasProp("__hData"))
-                this.__hData := HDDEDATA(this.ptr + 56)
-            return this.__hData
-        }
+    hData {
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 
     /**

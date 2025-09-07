@@ -1,9 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
 #Include .\NMHDR.ahk
-#Include ..\..\Foundation\PSTR.ahk
-#Include ..\..\Foundation\HINSTANCE.ahk
 
 /**
  * Contains information used in handling the TTN_GETDISPINFO notification code. This structure supersedes the TOOLTIPTEXT structure. (ANSI)
@@ -45,14 +42,11 @@ class NMTTDISPINFOA extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPTSTR</a></b>
      * 
      * Pointer to a null-terminated string that will be displayed as the tooltip text. If <b>hinst</b> specifies an instance handle, this member must be the identifier of a string resource.
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpszText{
-        get {
-            if(!this.HasProp("__lpszText"))
-                this.__lpszText := PSTR(this.ptr + 24)
-            return this.__lpszText
-        }
+    lpszText {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
@@ -70,14 +64,11 @@ class NMTTDISPINFOA extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HINSTANCE</a></b>
      * 
      * Handle to the instance that contains a string resource to be used as the tooltip text. If <b>lpszText</b> is the address of the tooltip text string, this member must be <b>NULL</b>.
-     * @type {HINSTANCE}
+     * @type {Pointer<Ptr>}
      */
-    hinst{
-        get {
-            if(!this.HasProp("__hinst"))
-                this.__hinst := HINSTANCE(this.ptr + 112)
-            return this.__hinst
-        }
+    hinst {
+        get => NumGet(this, 112, "ptr")
+        set => NumPut("ptr", value, this, 112)
     }
 
     /**

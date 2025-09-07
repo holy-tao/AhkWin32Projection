@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\PSTR.ahk
 
 /**
  * Contains information about the AuthzID of the security context.
@@ -27,13 +26,10 @@ class SecPkgContext_AuthzID extends Win32Struct
 
     /**
      * The AuthzID.
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    AuthzID{
-        get {
-            if(!this.HasProp("__AuthzID"))
-                this.__AuthzID := PSTR(this.ptr + 8)
-            return this.__AuthzID
-        }
+    AuthzID {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 }

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains information about a workstation environment, including platform-specific information, the names of the domain and the local computer, and information concerning the operating system.
@@ -96,14 +95,11 @@ class WKSTA_INFO_100 extends Win32Struct
      * A pointer to a string specifying the name of the local computer.
      * 
      * This string is Unicode if  <b>_WIN32_WINNT</b> or <b>FORCE_UNICODE</b> are defined.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    wki100_computername{
-        get {
-            if(!this.HasProp("__wki100_computername"))
-                this.__wki100_computername := PWSTR(this.ptr + 8)
-            return this.__wki100_computername
-        }
+    wki100_computername {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -112,14 +108,11 @@ class WKSTA_INFO_100 extends Win32Struct
      * A pointer to a string specifying the name of the domain to which the computer belongs.
      * 
      * This string is Unicode if  <b>_WIN32_WINNT</b> or <b>FORCE_UNICODE</b> are defined.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    wki100_langroup{
-        get {
-            if(!this.HasProp("__wki100_langroup"))
-                this.__wki100_langroup := PWSTR(this.ptr + 16)
-            return this.__wki100_langroup
-        }
+    wki100_langroup {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**

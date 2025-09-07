@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\..\Foundation\PSTR.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
@@ -13,25 +12,19 @@ class GET_SET_SYMPATH extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    Args{
-        get {
-            if(!this.HasProp("__Args"))
-                this.__Args := PSTR(this.ptr + 0)
-            return this.__Args
-        }
+    Args {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    Result{
-        get {
-            if(!this.HasProp("__Result"))
-                this.__Result := PSTR(this.ptr + 8)
-            return this.__Result
-        }
+    Result {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

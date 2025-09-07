@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Storage\IndexServer\DBID.ahk
 
 /**
@@ -14,14 +13,11 @@ class DBCOLUMNDESC extends Win32Struct
     static packingSize => 2
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pwszTypeName{
-        get {
-            if(!this.HasProp("__pwszTypeName"))
-                this.__pwszTypeName := PWSTR(this.ptr + 0)
-            return this.__pwszTypeName
-        }
+    pwszTypeName {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**

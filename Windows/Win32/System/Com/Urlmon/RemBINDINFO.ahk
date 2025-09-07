@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\PWSTR.ahk
 #Include .\REMSECURITY_ATTRIBUTES.ahk
 
 /**
@@ -22,14 +21,11 @@ class RemBINDINFO extends Win32Struct
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    szExtraInfo{
-        get {
-            if(!this.HasProp("__szExtraInfo"))
-                this.__szExtraInfo := PWSTR(this.ptr + 8)
-            return this.__szExtraInfo
-        }
+    szExtraInfo {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -49,14 +45,11 @@ class RemBINDINFO extends Win32Struct
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    szCustomVerb{
-        get {
-            if(!this.HasProp("__szCustomVerb"))
-                this.__szCustomVerb := PWSTR(this.ptr + 24)
-            return this.__szCustomVerb
-        }
+    szCustomVerb {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**

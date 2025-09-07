@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 #Include .\DOT11_IV48_COUNTER.ahk
 
 /**
@@ -30,14 +29,11 @@ class DOT11_WEP_UPLOAD extends Win32Struct
     }
 
     /**
-     * @type {HANDLE}
+     * @type {Pointer<Ptr>}
      */
-    hOffload{
-        get {
-            if(!this.HasProp("__hOffload"))
-                this.__hOffload := HANDLE(this.ptr + 8)
-            return this.__hOffload
-        }
+    hOffload {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

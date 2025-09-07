@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
@@ -69,14 +68,11 @@ class WDBGEXTS_DISASSEMBLE_BUFFER extends Win32Struct
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    DisasmBuffer{
-        get {
-            if(!this.HasProp("__DisasmBuffer"))
-                this.__DisasmBuffer := PWSTR(this.ptr + 40)
-            return this.__DisasmBuffer
-        }
+    DisasmBuffer {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\Com\StructuredStorage\PROPSPEC.ahk
 #Include ..\..\Storage\IndexServer\FULLPROPSPEC.ahk
 
@@ -26,14 +25,11 @@ class CONTENTRESTRICTION extends Win32Struct
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pwcsPhrase{
-        get {
-            if(!this.HasProp("__pwcsPhrase"))
-                this.__pwcsPhrase := PWSTR(this.ptr + 16)
-            return this.__pwcsPhrase
-        }
+    pwcsPhrase {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**

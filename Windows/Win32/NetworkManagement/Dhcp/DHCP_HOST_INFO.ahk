@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The DHCP_HOST_INFO structure defines information on a DHCP server (host).
@@ -27,25 +26,19 @@ class DHCP_HOST_INFO extends Win32Struct
 
     /**
      * Unicode string that contains the NetBIOS name of the DHCP server.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    NetBiosName{
-        get {
-            if(!this.HasProp("__NetBiosName"))
-                this.__NetBiosName := PWSTR(this.ptr + 8)
-            return this.__NetBiosName
-        }
+    NetBiosName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * Unicode string that contains the network name of the DHCP server.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    HostName{
-        get {
-            if(!this.HasProp("__HostName"))
-                this.__HostName := PWSTR(this.ptr + 16)
-            return this.__HostName
-        }
+    HostName {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 }

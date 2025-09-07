@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\HCERTSTOREPROV.ahk
 
 /**
  * Contains information returned by the installed CertDllOpenStoreProv function when a store is opened by using the CertOpenStore function.
@@ -349,14 +348,11 @@ class CERT_STORE_PROV_INFO extends Win32Struct
 
     /**
      * A 32-bit, application-defined value that is the first parameter passed to all callbacks. An application can specify the contents of this member as desired. Typically, this is a pointer to data that is specific to the application, such as provider state information for each store opened.
-     * @type {HCERTSTOREPROV}
+     * @type {Pointer<Ptr>}
      */
-    hStoreProv{
-        get {
-            if(!this.HasProp("__hStoreProv"))
-                this.__hStoreProv := HCERTSTOREPROV(this.ptr + 16)
-            return this.__hStoreProv
-        }
+    hStoreProv {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**

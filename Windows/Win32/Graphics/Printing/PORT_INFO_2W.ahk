@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The PORT\_INFO\_2 structure identifies a supported printer port.
@@ -21,38 +20,29 @@ class PORT_INFO_2W extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that identifies a supported printer port (for example, "LPT1:").
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pPortName{
-        get {
-            if(!this.HasProp("__pPortName"))
-                this.__pPortName := PWSTR(this.ptr + 0)
-            return this.__pPortName
-        }
+    pPortName {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
      * Pointer to a null-terminated string that identifies an installed monitor (for example, "PJL monitor"). This can be **NULL**.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pMonitorName{
-        get {
-            if(!this.HasProp("__pMonitorName"))
-                this.__pMonitorName := PWSTR(this.ptr + 8)
-            return this.__pMonitorName
-        }
+    pMonitorName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * Pointer to a null-terminated string that describes the port in more detail (for example, if **pPortName** is "LPT1:", **pDescription** is "printer port"). This can be **NULL**.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pDescription{
-        get {
-            if(!this.HasProp("__pDescription"))
-                this.__pDescription := PWSTR(this.ptr + 16)
-            return this.__pDescription
-        }
+    pDescription {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**

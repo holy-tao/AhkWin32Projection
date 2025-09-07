@@ -1,7 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains data for a router demand-dial interface. (MPR_INTERFACE_2)
@@ -42,14 +40,11 @@ class MPR_INTERFACE_2 extends Win32Struct
 
     /**
      * A handle to the interface.
-     * @type {HANDLE}
+     * @type {Pointer<Ptr>}
      */
-    hInterface{
-        get {
-            if(!this.HasProp("__hInterface"))
-                this.__hInterface := HANDLE(this.ptr + 520)
-            return this.__hInterface
-        }
+    hInterface {
+        get => NumGet(this, 520, "ptr")
+        set => NumPut("ptr", value, this, 520)
     }
 
     /**
@@ -395,14 +390,11 @@ class MPR_INTERFACE_2 extends Win32Struct
 
     /**
      * A pointer to a list of consecutive null-terminated Unicode strings. The last string is terminated by two consecutive null characters. The strings are alternate phone numbers that the router dials, in the order listed, if the primary number fails to connect. For more information, see <b>szLocalPhoneNumber</b>.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    szAlternates{
-        get {
-            if(!this.HasProp("__szAlternates"))
-                this.__szAlternates := PWSTR(this.ptr + 816)
-            return this.__szAlternates
-        }
+    szAlternates {
+        get => NumGet(this, 816, "ptr")
+        set => NumPut("ptr", value, this, 816)
     }
 
     /**

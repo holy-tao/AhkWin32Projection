@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\CRYPT_XML_DATA_BLOB.ahk
 #Include .\CRYPT_XML_BLOB.ahk
 
@@ -18,14 +17,11 @@ class CRYPT_XML_KEY_ECDSA_KEY_VALUE extends Win32Struct
 
     /**
      * A pointer to a null-terminated Unicode string that contains the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/o-gly">object identifier</a> (OID) of the named curve.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    wszNamedCurve{
-        get {
-            if(!this.HasProp("__wszNamedCurve"))
-                this.__wszNamedCurve := PWSTR(this.ptr + 0)
-            return this.__wszNamedCurve
-        }
+    wszNamedCurve {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**

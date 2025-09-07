@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\DHCP_BINARY_DATA.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\DATE_TIME.ahk
 #Include .\DHCP_HOST_INFO.ahk
 
@@ -49,26 +48,20 @@ class DHCP_CLIENT_INFO_PB extends Win32Struct
 
     /**
      * Pointer to a null-terminated Unicode string that represents the DHCPv4 client machine name.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    ClientName{
-        get {
-            if(!this.HasProp("__ClientName"))
-                this.__ClientName := PWSTR(this.ptr + 24)
-            return this.__ClientName
-        }
+    ClientName {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
      * Pointer to a null-terminated Unicode string that represents the description of the DHCPv4 client.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    ClientComment{
-        get {
-            if(!this.HasProp("__ClientComment"))
-                this.__ClientComment := PWSTR(this.ptr + 32)
-            return this.__ClientComment
-        }
+    ClientComment {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
@@ -340,13 +333,10 @@ class DHCP_CLIENT_INFO_PB extends Win32Struct
 
     /**
      * Pointer to a null-terminated Unicode string that represents the DHCP server policy name that resulted in the IPv4 address assignment to the DHCPv4 client in the lease.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    PolicyName{
-        get {
-            if(!this.HasProp("__PolicyName"))
-                this.__PolicyName := PWSTR(this.ptr + 96)
-            return this.__PolicyName
-        }
+    PolicyName {
+        get => NumGet(this, 96, "ptr")
+        set => NumPut("ptr", value, this, 96)
     }
 }

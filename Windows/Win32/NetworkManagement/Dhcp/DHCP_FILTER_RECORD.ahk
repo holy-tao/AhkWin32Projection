@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\DHCP_ADDR_PATTERN.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains information for a specific link-layer filter.
@@ -29,13 +28,10 @@ class DHCP_FILTER_RECORD extends Win32Struct
 
     /**
      * Pointer to a null-terminated Unicode string which contains the comment associated with the address/pattern.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    Comment{
-        get {
-            if(!this.HasProp("__Comment"))
-                this.__Comment := PWSTR(this.ptr + 272)
-            return this.__Comment
-        }
+    Comment {
+        get => NumGet(this, 272, "ptr")
+        set => NumPut("ptr", value, this, 272)
     }
 }

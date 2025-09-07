@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The NOTIFYCANCEL structure contains the details of a network disconnect operation. It is used by the CancelConnectNotify function.
@@ -16,14 +15,11 @@ class NOTIFYCANCEL extends Win32Struct
 
     /**
      * Pointer to the name of the local device or network resource whose connection is being canceled.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpName{
-        get {
-            if(!this.HasProp("__lpName"))
-                this.__lpName := PWSTR(this.ptr + 0)
-            return this.__lpName
-        }
+    lpName {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
@@ -33,14 +29,11 @@ class NOTIFYCANCEL extends Win32Struct
      * 
      * 
      * For after-the-fact notification, if the cancel operation was successful, this field specifies the name of the network provider that canceled the connection.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpProvider{
-        get {
-            if(!this.HasProp("__lpProvider"))
-                this.__lpProvider := PWSTR(this.ptr + 8)
-            return this.__lpProvider
-        }
+    lpProvider {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

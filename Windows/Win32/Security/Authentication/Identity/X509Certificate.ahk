@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\Foundation\FILETIME.ahk
-#Include ..\..\..\Foundation\PSTR.ahk
 
 /**
  * Represents an X.509 certificate.
@@ -71,26 +70,20 @@ class X509Certificate extends Win32Struct
 
     /**
      * A pointer to a string that specifies the issuer of the certificate.
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszIssuer{
-        get {
-            if(!this.HasProp("__pszIssuer"))
-                this.__pszIssuer := PSTR(this.ptr + 40)
-            return this.__pszIssuer
-        }
+    pszIssuer {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
      * A pointer to a string that specifies the subject of the certificate.
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszSubject{
-        get {
-            if(!this.HasProp("__pszSubject"))
-                this.__pszSubject := PSTR(this.ptr + 48)
-            return this.__pszSubject
-        }
+    pszSubject {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**

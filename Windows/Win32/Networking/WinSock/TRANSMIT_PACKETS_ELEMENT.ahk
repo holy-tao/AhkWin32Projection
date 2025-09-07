@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * Specifies a single data element to be transmitted by the TransmitPackets function.
@@ -84,14 +83,11 @@ class TRANSMIT_PACKETS_ELEMENT extends Win32Struct
     }
 
     /**
-     * @type {HANDLE}
+     * @type {Pointer<Ptr>}
      */
-    hFile{
-        get {
-            if(!this.HasProp("__hFile"))
-                this.__hFile := HANDLE(this.ptr + 16)
-            return this.__hFile
-        }
+    hFile {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**

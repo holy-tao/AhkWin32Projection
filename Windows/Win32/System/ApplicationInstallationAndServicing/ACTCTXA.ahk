@@ -1,7 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
-#Include ..\..\Foundation\HMODULE.ahk
 
 /**
  * The ACTCTX structure is used by the CreateActCtx function to create the activation context. (ANSI)
@@ -138,14 +136,11 @@ class ACTCTXA extends Win32Struct
 
     /**
      * Null-terminated string specifying the path of the manifest file or PE image to be used to create the activation context. If this path refers to an EXE or DLL file, the  <b>lpResourceName</b> member is required.
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpSource{
-        get {
-            if(!this.HasProp("__lpSource"))
-                this.__lpSource := PSTR(this.ptr + 8)
-            return this.__lpSource
-        }
+    lpSource {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -181,50 +176,38 @@ class ACTCTXA extends Win32Struct
 
     /**
      * The base directory in which to perform private assembly probing if assemblies in the activation context are not present in the system-wide store.
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpAssemblyDirectory{
-        get {
-            if(!this.HasProp("__lpAssemblyDirectory"))
-                this.__lpAssemblyDirectory := PSTR(this.ptr + 24)
-            return this.__lpAssemblyDirectory
-        }
+    lpAssemblyDirectory {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
      * Pointer to a null-terminated string that contains the resource name to be loaded from the PE specified in <b>hModule</b> or <b>lpSource</b>. If the resource name is an integer, set this member using MAKEINTRESOURCE. This member is required if   <b>lpSource</b> refers to an EXE or DLL.
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpResourceName{
-        get {
-            if(!this.HasProp("__lpResourceName"))
-                this.__lpResourceName := PSTR(this.ptr + 32)
-            return this.__lpResourceName
-        }
+    lpResourceName {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
      * The name of the current application. If the value of this member is set to null, the name of the executable that launched the current process is used.
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpApplicationName{
-        get {
-            if(!this.HasProp("__lpApplicationName"))
-                this.__lpApplicationName := PSTR(this.ptr + 40)
-            return this.__lpApplicationName
-        }
+    lpApplicationName {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
      * Use this member rather than <b>lpSource</b> if you have already loaded a DLL and wish to use it to create activation contexts rather than using a path in <b>lpSource</b>. See <b>lpResourceName</b> for the rules of looking up resources in this module.
-     * @type {HMODULE}
+     * @type {Pointer<Ptr>}
      */
-    hModule{
-        get {
-            if(!this.HasProp("__hModule"))
-                this.__hModule := HMODULE(this.ptr + 48)
-            return this.__hModule
-        }
+    hModule {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**

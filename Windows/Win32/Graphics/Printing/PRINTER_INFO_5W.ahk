@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The PRINTER\_INFO\_5 structure specifies detailed printer information.
@@ -17,26 +16,20 @@ class PRINTER_INFO_5W extends Win32Struct
 
     /**
      * A pointer to a null-terminated string that specifies the name of the printer.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pPrinterName{
-        get {
-            if(!this.HasProp("__pPrinterName"))
-                this.__pPrinterName := PWSTR(this.ptr + 0)
-            return this.__pPrinterName
-        }
+    pPrinterName {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
      * A pointer to a null-terminated string that identifies the port(s) used to transmit data to the printer. If a printer is connected to more than one port, the names of each port must be separated by commas (for example, "LPT1:,LPT2:,LPT3:").
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pPortName{
-        get {
-            if(!this.HasProp("__pPortName"))
-                this.__pPortName := PWSTR(this.ptr + 8)
-            return this.__pPortName
-        }
+    pPortName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

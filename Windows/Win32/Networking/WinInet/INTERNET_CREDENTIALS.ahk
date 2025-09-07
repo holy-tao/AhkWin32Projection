@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.Networking.WinInet
@@ -13,14 +12,11 @@ class INTERNET_CREDENTIALS extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpcwszHostName{
-        get {
-            if(!this.HasProp("__lpcwszHostName"))
-                this.__lpcwszHostName := PWSTR(this.ptr + 0)
-            return this.__lpcwszHostName
-        }
+    lpcwszHostName {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
@@ -40,25 +36,19 @@ class INTERNET_CREDENTIALS extends Win32Struct
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpcwszUrl{
-        get {
-            if(!this.HasProp("__lpcwszUrl"))
-                this.__lpcwszUrl := PWSTR(this.ptr + 16)
-            return this.__lpcwszUrl
-        }
+    lpcwszUrl {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpcwszRealm{
-        get {
-            if(!this.HasProp("__lpcwszRealm"))
-                this.__lpcwszRealm := PWSTR(this.ptr + 24)
-            return this.__lpcwszRealm
-        }
+    lpcwszRealm {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
@@ -70,25 +60,19 @@ class INTERNET_CREDENTIALS extends Win32Struct
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpcwszUserName{
-        get {
-            if(!this.HasProp("__lpcwszUserName"))
-                this.__lpcwszUserName := PWSTR(this.ptr + 40)
-            return this.__lpcwszUserName
-        }
+    lpcwszUserName {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpcwszPassword{
-        get {
-            if(!this.HasProp("__lpcwszPassword"))
-                this.__lpcwszPassword := PWSTR(this.ptr + 48)
-            return this.__lpcwszPassword
-        }
+    lpcwszPassword {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**

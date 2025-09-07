@@ -1,10 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\HWND.ahk
-#Include ..\..\..\Foundation\HGLOBAL.ahk
-#Include ..\..\..\Graphics\Gdi\HDC.ahk
-#Include ..\..\..\Foundation\HINSTANCE.ahk
-#Include ..\..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains information that the PrintDlg function uses to initialize the Print Dialog Box. After the user closes the dialog box, the system uses this structure to return information about the user's selections. (Unicode)
@@ -48,14 +43,11 @@ class PRINTDLGW extends Win32Struct
      * Type: <b>HWND</b>
      * 
      * A handle to the window that owns the dialog box. This member can be any valid window handle, or it can be <b>NULL</b> if the dialog box has no owner.
-     * @type {HWND}
+     * @type {Pointer<Ptr>}
      */
-    hwndOwner{
-        get {
-            if(!this.HasProp("__hwndOwner"))
-                this.__hwndOwner := HWND(this.ptr + 4)
-            return this.__hwndOwner
-        }
+    hwndOwner {
+        get => NumGet(this, 4, "ptr")
+        set => NumPut("ptr", value, this, 4)
     }
 
     /**
@@ -70,14 +62,11 @@ class PRINTDLGW extends Win32Struct
      * If the device name (specified by the <b>dmDeviceName</b> member of the <a href="https://docs.microsoft.com/windows/win32/api/wingdi/ns-wingdi-devmodea">DEVMODE</a> structure) does not appear in the [devices] section of WIN.INI, <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms646940(v=vs.85)">PrintDlg</a> returns an error. 
      * 
      * For more information about the <b>hDevMode</b> and <b>hDevNames</b> members, see the Remarks section at the end of this topic.
-     * @type {HGLOBAL}
+     * @type {Pointer<Ptr>}
      */
-    hDevMode{
-        get {
-            if(!this.HasProp("__hDevMode"))
-                this.__hDevMode := HGLOBAL(this.ptr + 12)
-            return this.__hDevMode
-        }
+    hDevMode {
+        get => NumGet(this, 12, "ptr")
+        set => NumPut("ptr", value, this, 12)
     }
 
     /**
@@ -88,28 +77,22 @@ class PRINTDLGW extends Win32Struct
      * The <b>hDevNames</b> member can be <b>NULL</b>, in which case, <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms646940(v=vs.85)">PrintDlg</a> allocates memory for the <a href="https://docs.microsoft.com/windows/desktop/api/commdlg/ns-commdlg-devnames">DEVNAMES</a> structure, initializes its members to indicate the user's input, and returns a handle that identifies it. 
      * 
      * For more information about the <b>hDevMode</b> and <b>hDevNames</b> members, see the Remarks section at the end of this topic.
-     * @type {HGLOBAL}
+     * @type {Pointer<Ptr>}
      */
-    hDevNames{
-        get {
-            if(!this.HasProp("__hDevNames"))
-                this.__hDevNames := HGLOBAL(this.ptr + 20)
-            return this.__hDevNames
-        }
+    hDevNames {
+        get => NumGet(this, 20, "ptr")
+        set => NumPut("ptr", value, this, 20)
     }
 
     /**
      * Type: <b>HDC</b>
      * 
      * A handle to a device context or an information context, depending on whether the <b>Flags</b> member specifies the <b>PD_RETURNDC</b> or <b>PC_RETURNIC</b> flag. If neither flag is specified, the value of this member is undefined. If both flags are specified, <b>PD_RETURNDC</b> has priority.
-     * @type {HDC}
+     * @type {Pointer<Ptr>}
      */
-    hDC{
-        get {
-            if(!this.HasProp("__hDC"))
-                this.__hDC := HDC(this.ptr + 28)
-            return this.__hDC
-        }
+    hDC {
+        get => NumGet(this, 28, "ptr")
+        set => NumPut("ptr", value, this, 28)
     }
 
     /**
@@ -184,14 +167,11 @@ class PRINTDLGW extends Win32Struct
      * Type: <b>HINSTANCE</b>
      * 
      * If the <b>PD_ENABLEPRINTTEMPLATE</b> or <b>PD_ENABLESETUPTEMPLATE</b> flag is set in the <b>Flags</b> member, <b>hInstance</b> is a handle to the application or module instance that contains the dialog box template named by the <b>lpPrintTemplateName</b> or <b>lpSetupTemplateName</b> member.
-     * @type {HINSTANCE}
+     * @type {Pointer<Ptr>}
      */
-    hInstance{
-        get {
-            if(!this.HasProp("__hInstance"))
-                this.__hInstance := HINSTANCE(this.ptr + 50)
-            return this.__hInstance
-        }
+    hInstance {
+        get => NumGet(this, 50, "ptr")
+        set => NumPut("ptr", value, this, 50)
     }
 
     /**
@@ -231,55 +211,43 @@ class PRINTDLGW extends Win32Struct
      * Type: <b>LPCTSTR</b>
      * 
      * The name of the dialog box template resource in the module identified by the <b>hInstance</b> member. This template replaces the default <b>Print</b> dialog box template. This member is ignored unless the <b>PD_ENABLEPRINTTEMPLATE</b> flag is set in the <b>Flags</b> member.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpPrintTemplateName{
-        get {
-            if(!this.HasProp("__lpPrintTemplateName"))
-                this.__lpPrintTemplateName := PWSTR(this.ptr + 82)
-            return this.__lpPrintTemplateName
-        }
+    lpPrintTemplateName {
+        get => NumGet(this, 82, "ptr")
+        set => NumPut("ptr", value, this, 82)
     }
 
     /**
      * Type: <b>LPCTSTR</b>
      * 
      * The name of the dialog box template resource in the module identified by the <b>hInstance</b> member. This template replaces the default <b>Print Setup</b> dialog box template. This member is ignored unless the <b>PD_ENABLESETUPTEMPLATE</b> flag is set in the <b>Flags</b> member.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpSetupTemplateName{
-        get {
-            if(!this.HasProp("__lpSetupTemplateName"))
-                this.__lpSetupTemplateName := PWSTR(this.ptr + 90)
-            return this.__lpSetupTemplateName
-        }
+    lpSetupTemplateName {
+        get => NumGet(this, 90, "ptr")
+        set => NumPut("ptr", value, this, 90)
     }
 
     /**
      * Type: <b>HGLOBAL</b>
      * 
      * If the <b>PD_ENABLEPRINTTEMPLATEHANDLE</b> flag is set in the <b>Flags</b> member, <b>hPrintTemplate</b> is a handle to a memory object containing a dialog box template. This template replaces the default <b>Print</b> dialog box template.
-     * @type {HGLOBAL}
+     * @type {Pointer<Ptr>}
      */
-    hPrintTemplate{
-        get {
-            if(!this.HasProp("__hPrintTemplate"))
-                this.__hPrintTemplate := HGLOBAL(this.ptr + 98)
-            return this.__hPrintTemplate
-        }
+    hPrintTemplate {
+        get => NumGet(this, 98, "ptr")
+        set => NumPut("ptr", value, this, 98)
     }
 
     /**
      * Type: <b>HGLOBAL</b>
      * 
      * If the <b>PD_ENABLESETUPTEMPLATEHANDLE</b> flag is set in the <b>Flags</b> member, <b>hSetupTemplate</b> is a handle to a memory object containing a dialog box template. This template replaces the default <b>Print Setup</b> dialog box template.
-     * @type {HGLOBAL}
+     * @type {Pointer<Ptr>}
      */
-    hSetupTemplate{
-        get {
-            if(!this.HasProp("__hSetupTemplate"))
-                this.__hSetupTemplate := HGLOBAL(this.ptr + 106)
-            return this.__hSetupTemplate
-        }
+    hSetupTemplate {
+        get => NumGet(this, 106, "ptr")
+        set => NumPut("ptr", value, this, 106)
     }
 }

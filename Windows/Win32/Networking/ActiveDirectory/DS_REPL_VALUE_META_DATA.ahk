@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Foundation\FILETIME.ahk
 
 /**
@@ -17,26 +16,20 @@ class DS_REPL_VALUE_META_DATA extends Win32Struct
 
     /**
      * Pointer to a null-terminated Unicode string that contains the LDAP display name of the attribute corresponding to this metadata.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszAttributeName{
-        get {
-            if(!this.HasProp("__pszAttributeName"))
-                this.__pszAttributeName := PWSTR(this.ptr + 0)
-            return this.__pszAttributeName
-        }
+    pszAttributeName {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
      * Pointer to a null-terminated Unicode string that contains the distinguished name of the object that this attribute belongs to.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszObjectDn{
-        get {
-            if(!this.HasProp("__pszObjectDn"))
-                this.__pszObjectDn := PWSTR(this.ptr + 8)
-            return this.__pszObjectDn
-        }
+    pszObjectDn {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

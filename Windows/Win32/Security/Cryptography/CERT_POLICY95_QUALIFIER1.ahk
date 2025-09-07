@@ -1,7 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
@@ -14,36 +12,27 @@ class CERT_POLICY95_QUALIFIER1 extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszPracticesReference{
-        get {
-            if(!this.HasProp("__pszPracticesReference"))
-                this.__pszPracticesReference := PWSTR(this.ptr + 0)
-            return this.__pszPracticesReference
-        }
+    pszPracticesReference {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszNoticeIdentifier{
-        get {
-            if(!this.HasProp("__pszNoticeIdentifier"))
-                this.__pszNoticeIdentifier := PSTR(this.ptr + 8)
-            return this.__pszNoticeIdentifier
-        }
+    pszNoticeIdentifier {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszNSINoticeIdentifier{
-        get {
-            if(!this.HasProp("__pszNSINoticeIdentifier"))
-                this.__pszNSINoticeIdentifier := PSTR(this.ptr + 16)
-            return this.__pszNSINoticeIdentifier
-        }
+    pszNSINoticeIdentifier {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**

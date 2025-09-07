@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
 
 /**
  * Holds the parameters for the IShellView2::CreateViewWindow2 method.
@@ -84,14 +83,11 @@ class SV2CVW2_PARAMS extends Win32Struct
      * Type: <b>HWND</b>
      * 
      * A window handle to the new Shell view.
-     * @type {HWND}
+     * @type {Pointer<Ptr>}
      */
-    hwndView{
-        get {
-            if(!this.HasProp("__hwndView"))
-                this.__hwndView := HWND(this.ptr + 48)
-            return this.__hwndView
-        }
+    hwndView {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**

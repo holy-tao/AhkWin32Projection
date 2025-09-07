@@ -32,7 +32,7 @@ class WINML_MAP_BINDING_DESC extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Ptr>}
      */
     pStringKeys {
         get => NumGet(this, 8, "ptr")
@@ -57,7 +57,7 @@ class WINML_MAP_BINDING_DESC extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Ptr>}
      */
     pStringFields {
         get => NumGet(this, 24, "ptr")

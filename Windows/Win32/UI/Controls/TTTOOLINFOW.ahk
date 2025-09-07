@@ -1,9 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
 #Include ..\..\Foundation\RECT.ahk
-#Include ..\..\Foundation\HINSTANCE.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The TOOLINFO structure contains information about a tool in a tooltip control. (Unicode)
@@ -50,14 +47,11 @@ class TTTOOLINFOW extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
      * 
      * Handle to the window that contains the tool. If <b>lpszText</b> includes the LPSTR_TEXTCALLBACK value, this member identifies the window that receives the <a href="https://docs.microsoft.com/windows/desktop/Controls/ttn-getdispinfo">TTN_GETDISPINFO</a> notification codes.
-     * @type {HWND}
+     * @type {Pointer<Ptr>}
      */
-    hwnd{
-        get {
-            if(!this.HasProp("__hwnd"))
-                this.__hwnd := HWND(this.ptr + 8)
-            return this.__hwnd
-        }
+    hwnd {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -89,14 +83,11 @@ class TTTOOLINFOW extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HINSTANCE</a></b>
      * 
      * Handle to the instance that contains the string resource for the tool. If <b>lpszText</b> specifies the identifier of a string resource, this member is used.
-     * @type {HINSTANCE}
+     * @type {Pointer<Ptr>}
      */
-    hinst{
-        get {
-            if(!this.HasProp("__hinst"))
-                this.__hinst := HINSTANCE(this.ptr + 40)
-            return this.__hinst
-        }
+    hinst {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
@@ -104,14 +95,11 @@ class TTTOOLINFOW extends Win32Struct
      * 
      * Pointer to the buffer that contains the text for the tool, or identifier of the string resource that contains the text. This member is sometimes used to return values. If you need to examine the returned value,  must point to a valid buffer of sufficient size. Otherwise, it can be set to <b>NULL</b>. If <b>lpszText</b> is set to LPSTR_TEXTCALLBACK, the control sends
      * the <a href="https://docs.microsoft.com/windows/desktop/Controls/ttn-getdispinfo">TTN_GETDISPINFO</a> notification code to the owner window to retrieve the text.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpszText{
-        get {
-            if(!this.HasProp("__lpszText"))
-                this.__lpszText := PWSTR(this.ptr + 48)
-            return this.__lpszText
-        }
+    lpszText {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**

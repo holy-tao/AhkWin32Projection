@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.Media.Speech
@@ -13,14 +12,11 @@ class SPPHRASERULE extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszName{
-        get {
-            if(!this.HasProp("__pszName"))
-                this.__pszName := PWSTR(this.ptr + 0)
-            return this.__pszName
-        }
+    pszName {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**

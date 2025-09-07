@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.Networking.WinInet
@@ -13,18 +12,15 @@ class INTERNET_DOWNLOAD_MODE_HANDLE extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pcwszFileName{
-        get {
-            if(!this.HasProp("__pcwszFileName"))
-                this.__pcwszFileName := PWSTR(this.ptr + 0)
-            return this.__pcwszFileName
-        }
+    pcwszFileName {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
-     * @type {Pointer<HANDLE>}
+     * @type {Pointer<Ptr>}
      */
     phFile {
         get => NumGet(this, 8, "ptr")

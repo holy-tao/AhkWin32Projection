@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\HDC.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Gdi
@@ -13,14 +12,11 @@ class WGLSWAP extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {HDC}
+     * @type {Pointer<Ptr>}
      */
-    hdc{
-        get {
-            if(!this.HasProp("__hdc"))
-                this.__hdc := HDC(this.ptr + 0)
-            return this.__hdc
-        }
+    hdc {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**

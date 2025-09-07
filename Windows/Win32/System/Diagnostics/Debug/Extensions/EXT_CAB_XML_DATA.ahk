@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
@@ -21,14 +20,11 @@ class EXT_CAB_XML_DATA extends Win32Struct
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    XmlObjectTag{
-        get {
-            if(!this.HasProp("__XmlObjectTag"))
-                this.__XmlObjectTag := PWSTR(this.ptr + 8)
-            return this.__XmlObjectTag
-        }
+    XmlObjectTag {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -40,36 +36,27 @@ class EXT_CAB_XML_DATA extends Win32Struct
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    SubTag{
-        get {
-            if(!this.HasProp("__SubTag"))
-                this.__SubTag := PWSTR(this.ptr + 24)
-            return this.__SubTag
-        }
+    SubTag {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    MatchPattern{
-        get {
-            if(!this.HasProp("__MatchPattern"))
-                this.__MatchPattern := PWSTR(this.ptr + 32)
-            return this.__MatchPattern
-        }
+    MatchPattern {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    ReturnText{
-        get {
-            if(!this.HasProp("__ReturnText"))
-                this.__ReturnText := PWSTR(this.ptr + 40)
-            return this.__ReturnText
-        }
+    ReturnText {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**

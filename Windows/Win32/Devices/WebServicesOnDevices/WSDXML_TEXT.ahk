@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\WSDXML_NODE.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Describes the text in an XML node.
@@ -31,13 +30,10 @@ class WSDXML_TEXT extends Win32Struct
 
     /**
      * The text contained in the XML node. The maximum length of this string is WSD_MAX_TEXT_LENGTH (8192). The text must consist of UTF-16 encoded characters. The text cannot contain raw XML, as special characters are rendered using the equivalent entity reference. For example,  <c>&lt;</code> is rendered as <code>&amp;lt;</c>.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    Text{
-        get {
-            if(!this.HasProp("__Text"))
-                this.__Text := PWSTR(this.ptr + 32)
-            return this.__Text
-        }
+    Text {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 }

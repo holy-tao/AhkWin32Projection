@@ -1,7 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Provides the text of a prompt and information about when and where that prompt is to be displayed when using the CryptProtectData and CryptUnprotectData functions.
@@ -62,26 +60,20 @@ class CRYPTPROTECT_PROMPTSTRUCT extends Win32Struct
 
     /**
      * Window handle to the parent window.
-     * @type {HWND}
+     * @type {Pointer<Ptr>}
      */
-    hwndApp{
-        get {
-            if(!this.HasProp("__hwndApp"))
-                this.__hwndApp := HWND(this.ptr + 8)
-            return this.__hwndApp
-        }
+    hwndApp {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * A string containing the text of a prompt to be displayed.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    szPrompt{
-        get {
-            if(!this.HasProp("__szPrompt"))
-                this.__szPrompt := PWSTR(this.ptr + 16)
-            return this.__szPrompt
-        }
+    szPrompt {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**

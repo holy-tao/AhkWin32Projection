@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Describes a parameter accepted by a method or property.
@@ -16,14 +15,11 @@ class PARAMDATA extends Win32Struct
 
     /**
      * The parameter name. Names should follow standard conventions for programming language access; that is, no embedded spaces or control characters, and 32 or fewer characters. The name should be localized because each type description provides names for a particular locale.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    szName{
-        get {
-            if(!this.HasProp("__szName"))
-                this.__szName := PWSTR(this.ptr + 0)
-            return this.__szName
-        }
+    szName {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**

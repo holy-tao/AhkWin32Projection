@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The SERVER_INFO_503 structure is obsolete. The structure contains information about the specified server.
@@ -214,14 +213,11 @@ class SERVER_INFO_503 extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to a Unicode character string that specifies the name of the server's domain.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    sv503_domain{
-        get {
-            if(!this.HasProp("__sv503_domain"))
-                this.__sv503_domain := PWSTR(this.ptr + 72)
-            return this.__sv503_domain
-        }
+    sv503_domain {
+        get => NumGet(this, 72, "ptr")
+        set => NumPut("ptr", value, this, 72)
     }
 
     /**

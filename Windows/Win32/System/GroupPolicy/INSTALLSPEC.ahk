@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The INSTALLSPEC structure specifies a group policy application by its user-friendly name and group policy GUID or by its file name extension. The Spec member of the INSTALLDATA structure provides this information to the InstallApplication function.
@@ -15,14 +14,11 @@ class INSTALLSPEC extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    Name{
-        get {
-            if(!this.HasProp("__Name"))
-                this.__Name := PWSTR(this.ptr + 0)
-            return this.__Name
-        }
+    Name {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
@@ -38,26 +34,20 @@ class INSTALLSPEC extends Win32Struct
      * 
      * <div class="alert"><b>Note</b>  <a href="https://docs.microsoft.com/windows/desktop/api/appmgmt/nf-appmgmt-installapplication">InstallApplication</a> fails if the <b>Type</b> member of <a href="https://docs.microsoft.com/windows/desktop/api/appmgmt/ns-appmgmt-installdata">INSTALLDATA</a> equals <b>FILEEXT</b> and there is no application deployed to the user with this file name extension.</div>
      * <div> </div>
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    FileExt{
-        get {
-            if(!this.HasProp("__FileExt"))
-                this.__FileExt := PWSTR(this.ptr + 0)
-            return this.__FileExt
-        }
+    FileExt {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
      * This parameter is reserved and should not be used.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    ProgId{
-        get {
-            if(!this.HasProp("__ProgId"))
-                this.__ProgId := PWSTR(this.ptr + 0)
-            return this.__ProgId
-        }
+    ProgId {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**

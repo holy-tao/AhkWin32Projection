@@ -1,9 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DHSURF.ahk
-#Include .\HSURF.ahk
-#Include .\DHPDEV.ahk
-#Include .\HDEV.ahk
 #Include ..\..\Foundation\SIZE.ahk
 
 /**
@@ -28,50 +24,38 @@ class SURFOBJ extends Win32Struct
 
     /**
      * Handle to a surface, provided that the surface is device-managed. Otherwise, this member is zero.
-     * @type {DHSURF}
+     * @type {Pointer<Ptr>}
      */
-    dhsurf{
-        get {
-            if(!this.HasProp("__dhsurf"))
-                this.__dhsurf := DHSURF(this.ptr + 0)
-            return this.__dhsurf
-        }
+    dhsurf {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
      * Handle to the surface.
-     * @type {HSURF}
+     * @type {Pointer<Ptr>}
      */
-    hsurf{
-        get {
-            if(!this.HasProp("__hsurf"))
-                this.__hsurf := HSURF(this.ptr + 8)
-            return this.__hsurf
-        }
+    hsurf {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * Identifies the device's <a href="https://docs.microsoft.com/windows-hardware/drivers/">PDEV</a> that is associated with the specified surface.
-     * @type {DHPDEV}
+     * @type {Pointer<Ptr>}
      */
-    dhpdev{
-        get {
-            if(!this.HasProp("__dhpdev"))
-                this.__dhpdev := DHPDEV(this.ptr + 16)
-            return this.__dhpdev
-        }
+    dhpdev {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * GDI's logical handle to the PDEV associated with this device.
-     * @type {HDEV}
+     * @type {Pointer<Ptr>}
      */
-    hdev{
-        get {
-            if(!this.HasProp("__hdev"))
-                this.__hdev := HDEV(this.ptr + 24)
-            return this.__hdev
-        }
+    hdev {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**

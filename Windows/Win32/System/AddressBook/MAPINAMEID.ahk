@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Describes a named property. Named properties enable clients to define custom properties in a larger namespace than the MAPI-defined property identifier range.
@@ -67,13 +66,10 @@ class MAPINAMEID extends Win32Struct
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpwstrName{
-        get {
-            if(!this.HasProp("__lpwstrName"))
-                this.__lpwstrName := PWSTR(this.ptr + 12)
-            return this.__lpwstrName
-        }
+    lpwstrName {
+        get => NumGet(this, 12, "ptr")
+        set => NumPut("ptr", value, this, 12)
     }
 }

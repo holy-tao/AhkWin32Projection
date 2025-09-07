@@ -24,7 +24,7 @@ class CRYPT_CONTEXTS extends Win32Struct
 
     /**
      * An array of pointers to null-terminated Unicode strings that contain the identifiers of the contexts contained in this set. The <b>cContext</b> member contains the number of elements in this array.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Ptr>}
      */
     rgpszContexts {
         get => NumGet(this, 8, "ptr")

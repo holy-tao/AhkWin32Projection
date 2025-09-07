@@ -1,7 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include ..\..\Foundation\PSTR.ahk
 #Include ..\..\Foundation\FILETIME.ahk
 
 /**
@@ -45,14 +43,11 @@ class CRYPT_PROVIDER_DATA extends Win32Struct
 
     /**
      * A handle to the parent window. If not specified, a handle to the desktop  window is used.
-     * @type {HWND}
+     * @type {Pointer<Ptr>}
      */
-    hWndParent{
-        get {
-            if(!this.HasProp("__hWndParent"))
-                this.__hWndParent := HWND(this.ptr + 24)
-            return this.__hWndParent
-        }
+    hWndParent {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
@@ -138,7 +133,7 @@ class CRYPT_PROVIDER_DATA extends Win32Struct
 
     /**
      * An array of certificate store handles.
-     * @type {Pointer<HCERTSTORE>}
+     * @type {Pointer<Ptr>}
      */
     pahStores {
         get => NumGet(this, 96, "ptr")
@@ -209,23 +204,20 @@ class CRYPT_PROVIDER_DATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PROVDATA_SIP>}
+     * @type {Pointer<Ptr>}
      */
-    pPDSip {
+    Anonymous {
         get => NumGet(this, 160, "ptr")
         set => NumPut("ptr", value, this, 160)
     }
 
     /**
      * A pointer to a null-terminated string that contains the usage <a href="https://docs.microsoft.com/windows/desktop/SecGloss/o-gly">object identifier</a> (OID).
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszUsageOID{
-        get {
-            if(!this.HasProp("__pszUsageOID"))
-                this.__pszUsageOID := PSTR(this.ptr + 168)
-            return this.__pszUsageOID
-        }
+    pszUsageOID {
+        get => NumGet(this, 168, "ptr")
+        set => NumPut("ptr", value, this, 168)
     }
 
     /**
@@ -251,14 +243,11 @@ class CRYPT_PROVIDER_DATA extends Win32Struct
 
     /**
      * A pointer to a null-terminated string that represents the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate trust list</a> (CTL) signer usage OID.
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszCTLSignerUsageOID{
-        get {
-            if(!this.HasProp("__pszCTLSignerUsageOID"))
-                this.__pszCTLSignerUsageOID := PSTR(this.ptr + 192)
-            return this.__pszCTLSignerUsageOID
-        }
+    pszCTLSignerUsageOID {
+        get => NumGet(this, 192, "ptr")
+        set => NumPut("ptr", value, this, 192)
     }
 
     /**

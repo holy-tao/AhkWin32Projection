@@ -2,7 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\ATM_CONNECTION_ID.ahk
 #Include .\FLOWSPEC.ahk
-#Include ..\..\Foundation\PSTR.ahk
 #Include .\WSABUF.ahk
 #Include .\QOS.ahk
 

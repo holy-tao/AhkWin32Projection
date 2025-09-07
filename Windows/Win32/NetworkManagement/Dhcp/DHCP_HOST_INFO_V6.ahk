@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\DHCP_IPV6_ADDRESS.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains network information about a DHCPv6 server (host), such as its IPv6 address and name.
@@ -31,25 +30,19 @@ class DHCP_HOST_INFO_V6 extends Win32Struct
 
     /**
      * Pointer to a Unicode string that contains the NetBIOS name of the DHCPv6 server.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    NetBiosName{
-        get {
-            if(!this.HasProp("__NetBiosName"))
-                this.__NetBiosName := PWSTR(this.ptr + 16)
-            return this.__NetBiosName
-        }
+    NetBiosName {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * Pointer to a Unicode string that contains the network name of the DHCPv6 server.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    HostName{
-        get {
-            if(!this.HasProp("__HostName"))
-                this.__HostName := PWSTR(this.ptr + 24)
-            return this.__HostName
-        }
+    HostName {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 }

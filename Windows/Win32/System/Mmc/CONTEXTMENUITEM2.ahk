@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The CONTEXTMENUITEM2 structure is introduced in MMC 2.0.
@@ -17,27 +16,21 @@ class CONTEXTMENUITEM2 extends Win32Struct
     /**
      * A pointer to a null-terminated string that contains the name of the menu item or of the submenu. This 
      *       member cannot be <b>NULL</b> except for a separator or insertion point.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    strName{
-        get {
-            if(!this.HasProp("__strName"))
-                this.__strName := PWSTR(this.ptr + 0)
-            return this.__strName
-        }
+    strName {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
      * A pointer to a null-terminated string that contains the text that is displayed on the status bar when this 
      *       item is highlighted. This member can be <b>NULL</b>.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    strStatusBarText{
-        get {
-            if(!this.HasProp("__strStatusBarText"))
-                this.__strStatusBarText := PWSTR(this.ptr + 8)
-            return this.__strStatusBarText
-        }
+    strStatusBarText {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -103,13 +96,10 @@ class CONTEXTMENUITEM2 extends Win32Struct
      *       <b>NULL</b> or an empty string unless a separator or insertion point is added; otherwise, 
      *       the <a href="https://docs.microsoft.com/windows/desktop/api/mmc/nf-mmc-icontextmenucallback-additem">IContextMenuCallback::AddItem</a> method 
      *       will fail with <b>E_INVALIDARG</b> as the return value.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    strLanguageIndependentName{
-        get {
-            if(!this.HasProp("__strLanguageIndependentName"))
-                this.__strLanguageIndependentName := PWSTR(this.ptr + 32)
-            return this.__strLanguageIndependentName
-        }
+    strLanguageIndependentName {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 }

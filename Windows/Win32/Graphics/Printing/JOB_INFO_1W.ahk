@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Foundation\SYSTEMTIME.ahk
 
 /**
@@ -29,74 +28,56 @@ class JOB_INFO_1W extends Win32Struct
 
     /**
      * A pointer to a null-terminated string that specifies the name of the printer for which the job is spooled.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pPrinterName{
-        get {
-            if(!this.HasProp("__pPrinterName"))
-                this.__pPrinterName := PWSTR(this.ptr + 8)
-            return this.__pPrinterName
-        }
+    pPrinterName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * A pointer to a null-terminated string that specifies the name of the machine that created the print job.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pMachineName{
-        get {
-            if(!this.HasProp("__pMachineName"))
-                this.__pMachineName := PWSTR(this.ptr + 16)
-            return this.__pMachineName
-        }
+    pMachineName {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * A pointer to a null-terminated string that specifies the name of the user that owns the print job.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pUserName{
-        get {
-            if(!this.HasProp("__pUserName"))
-                this.__pUserName := PWSTR(this.ptr + 24)
-            return this.__pUserName
-        }
+    pUserName {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
      * A pointer to a null-terminated string that specifies the name of the print job (for example, "MS-WORD: Review.doc").
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pDocument{
-        get {
-            if(!this.HasProp("__pDocument"))
-                this.__pDocument := PWSTR(this.ptr + 32)
-            return this.__pDocument
-        }
+    pDocument {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
      * A pointer to a null-terminated string that specifies the type of data used to record the print job.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pDatatype{
-        get {
-            if(!this.HasProp("__pDatatype"))
-                this.__pDatatype := PWSTR(this.ptr + 40)
-            return this.__pDatatype
-        }
+    pDatatype {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
      * A pointer to a null-terminated string that specifies the status of the print job. This member should be checked prior to *Status* and, if *pStatus* is **NULL**, the status is defined by the contents of the Status member.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pStatus{
-        get {
-            if(!this.HasProp("__pStatus"))
-                this.__pStatus := PWSTR(this.ptr + 48)
-            return this.__pStatus
-        }
+    pStatus {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**

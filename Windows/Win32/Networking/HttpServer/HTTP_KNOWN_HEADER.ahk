@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * Contains the header values for a known header from an HTTP request or HTTP response.
@@ -32,13 +31,10 @@ class HTTP_KNOWN_HEADER extends Win32Struct
     /**
      * Pointer to the text of this HTTP header. Use <b>RawValueLength</b> to determine where this text ends rather than relying on the string to have a terminating null. The format of the header text is specified in 
      * <a href="https://www.ietf.org/rfc/rfc2616.txt">RFC 2616</a>.
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    pRawValue{
-        get {
-            if(!this.HasProp("__pRawValue"))
-                this.__pRawValue := PSTR(this.ptr + 8)
-            return this.__pRawValue
-        }
+    pRawValue {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 }

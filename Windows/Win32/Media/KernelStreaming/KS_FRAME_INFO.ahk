@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 #Include ..\..\Foundation\RECT.ahk
 
 /**
@@ -46,25 +45,19 @@ class KS_FRAME_INFO extends Win32Struct
     }
 
     /**
-     * @type {HANDLE}
+     * @type {Pointer<Ptr>}
      */
-    hDirectDraw{
-        get {
-            if(!this.HasProp("__hDirectDraw"))
-                this.__hDirectDraw := HANDLE(this.ptr + 24)
-            return this.__hDirectDraw
-        }
+    hDirectDraw {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
-     * @type {HANDLE}
+     * @type {Pointer<Ptr>}
      */
-    hSurfaceHandle{
-        get {
-            if(!this.HasProp("__hSurfaceHandle"))
-                this.__hSurfaceHandle := HANDLE(this.ptr + 32)
-            return this.__hSurfaceHandle
-        }
+    hSurfaceHandle {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**

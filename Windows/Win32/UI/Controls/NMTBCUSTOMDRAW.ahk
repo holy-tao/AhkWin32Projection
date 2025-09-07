@@ -1,12 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
 #Include .\NMHDR.ahk
-#Include ..\..\Graphics\Gdi\HDC.ahk
 #Include ..\..\Foundation\RECT.ahk
 #Include .\NMCUSTOMDRAW.ahk
-#Include ..\..\Graphics\Gdi\HBRUSH.ahk
-#Include ..\..\Graphics\Gdi\HPEN.ahk
 
 /**
  * Contains information specific to an NM_CUSTOMDRAW notification code sent by a toolbar control.
@@ -40,42 +36,33 @@ class NMTBCUSTOMDRAW extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HBRUSH</a></b>
      * 
      * HBRUSH that the control will use when drawing the background of marked or dithered items. This member is ignored if TBCDRF_NOMARK is returned from the <a href="https://docs.microsoft.com/windows/desktop/Controls/nm-customdraw-toolbar">NM_CUSTOMDRAW</a> notification code.
-     * @type {HBRUSH}
+     * @type {Pointer<Ptr>}
      */
-    hbrMonoDither{
-        get {
-            if(!this.HasProp("__hbrMonoDither"))
-                this.__hbrMonoDither := HBRUSH(this.ptr + 80)
-            return this.__hbrMonoDither
-        }
+    hbrMonoDither {
+        get => NumGet(this, 80, "ptr")
+        set => NumPut("ptr", value, this, 80)
     }
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HBRUSH</a></b>
      * 
      * HBRUSH that the control will use when drawing lines on the buttons.
-     * @type {HBRUSH}
+     * @type {Pointer<Ptr>}
      */
-    hbrLines{
-        get {
-            if(!this.HasProp("__hbrLines"))
-                this.__hbrLines := HBRUSH(this.ptr + 88)
-            return this.__hbrLines
-        }
+    hbrLines {
+        get => NumGet(this, 88, "ptr")
+        set => NumPut("ptr", value, this, 88)
     }
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HPEN</a></b>
      * 
      * HPEN that the control will use when drawing lines on the buttons.
-     * @type {HPEN}
+     * @type {Pointer<Ptr>}
      */
-    hpenLines{
-        get {
-            if(!this.HasProp("__hpenLines"))
-                this.__hpenLines := HPEN(this.ptr + 96)
-            return this.__hpenLines
-        }
+    hpenLines {
+        get => NumGet(this, 96, "ptr")
+        set => NumPut("ptr", value, this, 96)
     }
 
     /**

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
@@ -37,14 +36,11 @@ class CARD_DATA extends Win32Struct
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pwszCardName{
-        get {
-            if(!this.HasProp("__pwszCardName"))
-                this.__pwszCardName := PWSTR(this.ptr + 24)
-            return this.__pwszCardName
-        }
+    pwszCardName {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**

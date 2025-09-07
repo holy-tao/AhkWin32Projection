@@ -2,12 +2,9 @@
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include .\EXCEPTION_RECORD.ahk
 #Include .\EXCEPTION_DEBUG_INFO.ahk
-#Include ..\..\..\Foundation\HANDLE.ahk
 #Include .\CREATE_THREAD_DEBUG_INFO.ahk
 #Include .\CREATE_PROCESS_DEBUG_INFO.ahk
 #Include .\LOAD_DLL_DEBUG_INFO.ahk
-#Include .\UNLOAD_DLL_DEBUG_INFO.ahk
-#Include ..\..\..\Foundation\PSTR.ahk
 #Include .\OUTPUT_DEBUG_STRING_INFO.ahk
 #Include .\RIP_INFO.ahk
 
@@ -122,14 +119,11 @@ class DEBUG_EVENT extends Win32Struct
     }
 
     /**
-     * @type {UNLOAD_DLL_DEBUG_INFO}
+     * @type {Pointer<Ptr>}
      */
-    UnloadDll{
-        get {
-            if(!this.HasProp("__UnloadDll"))
-                this.__UnloadDll := UNLOAD_DLL_DEBUG_INFO(this.ptr + 12)
-            return this.__UnloadDll
-        }
+    UnloadDll {
+        get => NumGet(this, 12, "ptr")
+        set => NumPut("ptr", value, this, 12)
     }
 
     /**

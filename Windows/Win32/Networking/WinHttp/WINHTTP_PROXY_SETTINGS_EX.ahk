@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The WINHTTP_PROXY_SETTINGS_EX structure represents extended proxy settings.
@@ -42,42 +41,33 @@ class WINHTTP_PROXY_SETTINGS_EX extends Win32Struct
      * Type: **[PCWSTR](/windows/win32/winprog/windows-data-types)**
      * 
      * The PAC URL for the network (for example, L"http://proxy.contoso.com/wpad.dat").
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pcwszAutoconfigUrl{
-        get {
-            if(!this.HasProp("__pcwszAutoconfigUrl"))
-                this.__pcwszAutoconfigUrl := PWSTR(this.ptr + 16)
-            return this.__pcwszAutoconfigUrl
-        }
+    pcwszAutoconfigUrl {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * Type: **[PCWSTR](/windows/win32/winprog/windows-data-types)**
      * 
      * The proxy address and port for HTTP traffic (for example, L"http://192.168.1.1:8888").
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pcwszProxy{
-        get {
-            if(!this.HasProp("__pcwszProxy"))
-                this.__pcwszProxy := PWSTR(this.ptr + 24)
-            return this.__pcwszProxy
-        }
+    pcwszProxy {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
      * Type: **[PCWSTR](/windows/win32/winprog/windows-data-types)**
      * 
      * The proxy address and port for HTTPS traffic (for example, L"http://192.168.1.1:8888").
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pcwszSecureProxy{
-        get {
-            if(!this.HasProp("__pcwszSecureProxy"))
-                this.__pcwszSecureProxy := PWSTR(this.ptr + 32)
-            return this.__pcwszSecureProxy
-        }
+    pcwszSecureProxy {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
@@ -95,7 +85,7 @@ class WINHTTP_PROXY_SETTINGS_EX extends Win32Struct
      * Type: **[PCWSTR](/windows/win32/winprog/windows-data-types)\***
      * 
      * An array of strings containing each site in the proxy bypass list. (for example, L"contoso.com").
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Ptr>}
      */
     rgpcwszProxyBypasses {
         get => NumGet(this, 44, "ptr")
@@ -117,13 +107,10 @@ class WINHTTP_PROXY_SETTINGS_EX extends Win32Struct
      * Type: **[PCWSTR](/windows/win32/winprog/windows-data-types)**
      * 
      * The WCM connection name for which settings were retrieved.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pcwszConnectionName{
-        get {
-            if(!this.HasProp("__pcwszConnectionName"))
-                this.__pcwszConnectionName := PWSTR(this.ptr + 56)
-            return this.__pcwszConnectionName
-        }
+    pcwszConnectionName {
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 }

@@ -1,9 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\SPTRANSITIONID.ahk
-#Include .\SPSTATEHANDLE.ahk
-#Include .\SPRULEHANDLE.ahk
-#Include .\SPWORDHANDLE.ahk
 
 /**
  * @namespace Windows.Win32.Media.Speech
@@ -16,25 +12,19 @@ class SPTRANSITIONENTRY extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {SPTRANSITIONID}
+     * @type {Pointer<Ptr>}
      */
-    ID{
-        get {
-            if(!this.HasProp("__ID"))
-                this.__ID := SPTRANSITIONID(this.ptr + 0)
-            return this.__ID
-        }
+    ID {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
-     * @type {SPSTATEHANDLE}
+     * @type {Pointer<Ptr>}
      */
-    hNextState{
-        get {
-            if(!this.HasProp("__hNextState"))
-                this.__hNextState := SPSTATEHANDLE(this.ptr + 8)
-            return this.__hNextState
-        }
+    hNextState {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -70,25 +60,19 @@ class SPTRANSITIONENTRY extends Win32Struct
     }
 
     /**
-     * @type {SPSTATEHANDLE}
+     * @type {Pointer<Ptr>}
      */
-    hRuleInitialState{
-        get {
-            if(!this.HasProp("__hRuleInitialState"))
-                this.__hRuleInitialState := SPSTATEHANDLE(this.ptr + 32)
-            return this.__hRuleInitialState
-        }
+    hRuleInitialState {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
-     * @type {SPRULEHANDLE}
+     * @type {Pointer<Ptr>}
      */
-    hRule{
-        get {
-            if(!this.HasProp("__hRule"))
-                this.__hRule := SPRULEHANDLE(this.ptr + 40)
-            return this.__hRule
-        }
+    hRule {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
@@ -100,14 +84,11 @@ class SPTRANSITIONENTRY extends Win32Struct
     }
 
     /**
-     * @type {SPWORDHANDLE}
+     * @type {Pointer<Ptr>}
      */
-    hWord{
-        get {
-            if(!this.HasProp("__hWord"))
-                this.__hWord := SPWORDHANDLE(this.ptr + 32)
-            return this.__hWord
-        }
+    hWord {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
@@ -119,9 +100,9 @@ class SPTRANSITIONENTRY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {Pointer<Ptr>}
      */
-    pvGrammarCookie {
+    Anonymous3 {
         get => NumGet(this, 32, "ptr")
         set => NumPut("ptr", value, this, 32)
     }

@@ -1,8 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\Com\CY.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Foundation\PSTR.ahk
 #Include .\DB_NUMERIC.ahk
 #Include .\DBTIMESTAMP.ahk
 #Include .\DBOBJECT.ahk
@@ -117,14 +115,11 @@ class SSVARIANT extends Win32Struct
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pwchNCharVal{
-        get {
-            if(!this.HasProp("__pwchNCharVal"))
-                this.__pwchNCharVal := PWSTR(this.ptr + 20)
-            return this.__pwchNCharVal
-        }
+    pwchNCharVal {
+        get => NumGet(this, 20, "ptr")
+        set => NumPut("ptr", value, this, 20)
     }
 
     /**
@@ -147,25 +142,19 @@ class SSVARIANT extends Win32Struct
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pwchReserved{
-        get {
-            if(!this.HasProp("__pwchReserved"))
-                this.__pwchReserved := PWSTR(this.ptr + 44)
-            return this.__pwchReserved
-        }
+    pwchReserved {
+        get => NumGet(this, 44, "ptr")
+        set => NumPut("ptr", value, this, 44)
     }
 
     /**
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    pchCharVal{
-        get {
-            if(!this.HasProp("__pchCharVal"))
-                this.__pchCharVal := PSTR(this.ptr + 20)
-            return this.__pchCharVal
-        }
+    pchCharVal {
+        get => NumGet(this, 20, "ptr")
+        set => NumPut("ptr", value, this, 20)
     }
 
     /**

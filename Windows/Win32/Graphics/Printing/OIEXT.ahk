@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HINSTANCE.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
@@ -29,14 +28,11 @@ class OIEXT extends Win32Struct
     }
 
     /**
-     * @type {HINSTANCE}
+     * @type {Pointer<Ptr>}
      */
-    hInstCaller{
-        get {
-            if(!this.HasProp("__hInstCaller"))
-                this.__hInstCaller := HINSTANCE(this.ptr + 8)
-            return this.__hInstCaller
-        }
+    hInstCaller {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

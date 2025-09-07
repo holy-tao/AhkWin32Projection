@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Foundation\POINT.ahk
 
 /**
@@ -32,14 +31,11 @@ class LVFINDINFOW extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCTSTR</a></b>
      * 
      * Address of a null-terminated string to compare with the item text. It is valid only if LVFI_STRING or LVFI_PARTIAL is set in the <b>flags</b> member.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    psz{
-        get {
-            if(!this.HasProp("__psz"))
-                this.__psz := PWSTR(this.ptr + 8)
-            return this.__psz
-        }
+    psz {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

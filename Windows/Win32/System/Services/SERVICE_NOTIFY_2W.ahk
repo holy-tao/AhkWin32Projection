@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\SERVICE_STATUS_PROCESS.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Represents service status notification information. (Unicode)
@@ -95,13 +94,10 @@ class SERVICE_NOTIFY_2W extends Win32Struct
      * If <b>dwNotificationStatus</b> is <b>ERROR_SUCCESS</b> and the notification is <b>SERVICE_NOTIFY_CREATED</b> or <b>SERVICE_NOTIFY_DELETED</b>, this member is valid and it is a <b>MULTI_SZ</b> string that contains one or more service names. The names of the created services will have a '/' prefix so you can distinguish them from the names of the deleted services.
      * 
      * If this member is valid, the notification callback function must free the string using the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> function.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszServiceNames{
-        get {
-            if(!this.HasProp("__pszServiceNames"))
-                this.__pszServiceNames := PWSTR(this.ptr + 72)
-            return this.__pszServiceNames
-        }
+    pszServiceNames {
+        get => NumGet(this, 72, "ptr")
+        set => NumPut("ptr", value, this, 72)
     }
 }

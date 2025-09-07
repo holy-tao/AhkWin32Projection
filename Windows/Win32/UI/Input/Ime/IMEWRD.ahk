@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains data about a word in the Word data of the Microsoft IME dictionary.
@@ -16,26 +15,20 @@ class IMEWRD extends Win32Struct
 
     /**
      * The reading string.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pwchReading{
-        get {
-            if(!this.HasProp("__pwchReading"))
-                this.__pwchReading := PWSTR(this.ptr + 0)
-            return this.__pwchReading
-        }
+    pwchReading {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
      * The display string.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pwchDisplay{
-        get {
-            if(!this.HasProp("__pwchDisplay"))
-                this.__pwchDisplay := PWSTR(this.ptr + 8)
-            return this.__pwchDisplay
-        }
+    pwchDisplay {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

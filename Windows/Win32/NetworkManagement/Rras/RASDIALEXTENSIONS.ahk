@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
 #Include .\RASEAPINFO.ahk
 #Include .\RASDEVSPECIFICINFO.ahk
 
@@ -31,14 +30,11 @@ class RASDIALEXTENSIONS extends Win32Struct
     }
 
     /**
-     * @type {HWND}
+     * @type {Pointer<Ptr>}
      */
-    hwndParent{
-        get {
-            if(!this.HasProp("__hwndParent"))
-                this.__hwndParent := HWND(this.ptr + 8)
-            return this.__hwndParent
-        }
+    hwndParent {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

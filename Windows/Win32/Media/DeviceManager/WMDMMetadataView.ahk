@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The WMDMMetadataView structure defines the metadata view. Content is organized based on this definition.
@@ -16,14 +15,11 @@ class WMDMMetadataView extends Win32Struct
 
     /**
      * Pointer to a wide-character null-terminated string containing the name of the view. This is used as the name of the root node under which this view is presented.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pwszViewName{
-        get {
-            if(!this.HasProp("__pwszViewName"))
-                this.__pwszViewName := PWSTR(this.ptr + 0)
-            return this.__pwszViewName
-        }
+    pwszViewName {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**

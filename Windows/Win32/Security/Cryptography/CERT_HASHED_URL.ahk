@@ -1,9 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 #Include .\CRYPT_INTEGER_BLOB.ahk
 #Include .\CRYPT_ALGORITHM_IDENTIFIER.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains a hashed URL.
@@ -43,13 +41,10 @@ class CERT_HASHED_URL extends Win32Struct
 
     /**
      * The address of a null-terminated Unicode string that contains the URL. This member is optional for biometric data and may be <b>NULL</b>.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pwszUrl{
-        get {
-            if(!this.HasProp("__pwszUrl"))
-                this.__pwszUrl := PWSTR(this.ptr + 40)
-            return this.__pwszUrl
-        }
+    pwszUrl {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 }

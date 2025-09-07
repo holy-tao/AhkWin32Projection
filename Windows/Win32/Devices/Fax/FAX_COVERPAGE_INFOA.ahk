@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 #Include ..\..\Foundation\SYSTEMTIME.ahk
 
 /**
@@ -40,14 +39,11 @@ class FAX_COVERPAGE_INFOA extends Win32Struct
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that is the name of the cover page file (.cov) to associate with the received fax document. The string can be the file name of the common cover page file, or it can be the UNC path to a local cover page file.
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    CoverPageName{
-        get {
-            if(!this.HasProp("__CoverPageName"))
-                this.__CoverPageName := PSTR(this.ptr + 8)
-            return this.__CoverPageName
-        }
+    CoverPageName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -65,336 +61,264 @@ class FAX_COVERPAGE_INFOA extends Win32Struct
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that specifies the name of the recipient of the fax transmission.
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    RecName{
-        get {
-            if(!this.HasProp("__RecName"))
-                this.__RecName := PSTR(this.ptr + 24)
-            return this.__RecName
-        }
+    RecName {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that specifies the fax number of the recipient of the fax transmission.
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    RecFaxNumber{
-        get {
-            if(!this.HasProp("__RecFaxNumber"))
-                this.__RecFaxNumber := PSTR(this.ptr + 32)
-            return this.__RecFaxNumber
-        }
+    RecFaxNumber {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that specifies the company name of the recipient of the fax transmission.
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    RecCompany{
-        get {
-            if(!this.HasProp("__RecCompany"))
-                this.__RecCompany := PSTR(this.ptr + 40)
-            return this.__RecCompany
-        }
+    RecCompany {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that specifies the street address of the recipient of the fax transmission.
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    RecStreetAddress{
-        get {
-            if(!this.HasProp("__RecStreetAddress"))
-                this.__RecStreetAddress := PSTR(this.ptr + 48)
-            return this.__RecStreetAddress
-        }
+    RecStreetAddress {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that is the city of the recipient of the fax transmission.
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    RecCity{
-        get {
-            if(!this.HasProp("__RecCity"))
-                this.__RecCity := PSTR(this.ptr + 56)
-            return this.__RecCity
-        }
+    RecCity {
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 
     /**
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that is the state of the recipient of the fax transmission.
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    RecState{
-        get {
-            if(!this.HasProp("__RecState"))
-                this.__RecState := PSTR(this.ptr + 64)
-            return this.__RecState
-        }
+    RecState {
+        get => NumGet(this, 64, "ptr")
+        set => NumPut("ptr", value, this, 64)
     }
 
     /**
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that is the postal ZIP code of the recipient of the fax transmission.
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    RecZip{
-        get {
-            if(!this.HasProp("__RecZip"))
-                this.__RecZip := PSTR(this.ptr + 72)
-            return this.__RecZip
-        }
+    RecZip {
+        get => NumGet(this, 72, "ptr")
+        set => NumPut("ptr", value, this, 72)
     }
 
     /**
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that is the country/region of the recipient of the fax transmission.
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    RecCountry{
-        get {
-            if(!this.HasProp("__RecCountry"))
-                this.__RecCountry := PSTR(this.ptr + 80)
-            return this.__RecCountry
-        }
+    RecCountry {
+        get => NumGet(this, 80, "ptr")
+        set => NumPut("ptr", value, this, 80)
     }
 
     /**
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that is the title of the recipient of the fax transmission.
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    RecTitle{
-        get {
-            if(!this.HasProp("__RecTitle"))
-                this.__RecTitle := PSTR(this.ptr + 88)
-            return this.__RecTitle
-        }
+    RecTitle {
+        get => NumGet(this, 88, "ptr")
+        set => NumPut("ptr", value, this, 88)
     }
 
     /**
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that is the department of the recipient of the fax transmission.
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    RecDepartment{
-        get {
-            if(!this.HasProp("__RecDepartment"))
-                this.__RecDepartment := PSTR(this.ptr + 96)
-            return this.__RecDepartment
-        }
+    RecDepartment {
+        get => NumGet(this, 96, "ptr")
+        set => NumPut("ptr", value, this, 96)
     }
 
     /**
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that is the office location of the recipient of the fax transmission.
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    RecOfficeLocation{
-        get {
-            if(!this.HasProp("__RecOfficeLocation"))
-                this.__RecOfficeLocation := PSTR(this.ptr + 104)
-            return this.__RecOfficeLocation
-        }
+    RecOfficeLocation {
+        get => NumGet(this, 104, "ptr")
+        set => NumPut("ptr", value, this, 104)
     }
 
     /**
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that is the home telephone number of the recipient of the fax transmission.
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    RecHomePhone{
-        get {
-            if(!this.HasProp("__RecHomePhone"))
-                this.__RecHomePhone := PSTR(this.ptr + 112)
-            return this.__RecHomePhone
-        }
+    RecHomePhone {
+        get => NumGet(this, 112, "ptr")
+        set => NumPut("ptr", value, this, 112)
     }
 
     /**
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that is the office telephone number of the recipient of the fax transmission.
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    RecOfficePhone{
-        get {
-            if(!this.HasProp("__RecOfficePhone"))
-                this.__RecOfficePhone := PSTR(this.ptr + 120)
-            return this.__RecOfficePhone
-        }
+    RecOfficePhone {
+        get => NumGet(this, 120, "ptr")
+        set => NumPut("ptr", value, this, 120)
     }
 
     /**
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that is the name of the sender who initiated the fax transmission.
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    SdrName{
-        get {
-            if(!this.HasProp("__SdrName"))
-                this.__SdrName := PSTR(this.ptr + 128)
-            return this.__SdrName
-        }
+    SdrName {
+        get => NumGet(this, 128, "ptr")
+        set => NumPut("ptr", value, this, 128)
     }
 
     /**
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that is the fax number of the sender who initiated the fax transmission.
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    SdrFaxNumber{
-        get {
-            if(!this.HasProp("__SdrFaxNumber"))
-                this.__SdrFaxNumber := PSTR(this.ptr + 136)
-            return this.__SdrFaxNumber
-        }
+    SdrFaxNumber {
+        get => NumGet(this, 136, "ptr")
+        set => NumPut("ptr", value, this, 136)
     }
 
     /**
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that is the company name of the sender who initiated the fax transmission.
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    SdrCompany{
-        get {
-            if(!this.HasProp("__SdrCompany"))
-                this.__SdrCompany := PSTR(this.ptr + 144)
-            return this.__SdrCompany
-        }
+    SdrCompany {
+        get => NumGet(this, 144, "ptr")
+        set => NumPut("ptr", value, this, 144)
     }
 
     /**
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that is the address of the sender who initiated the fax transmission.
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    SdrAddress{
-        get {
-            if(!this.HasProp("__SdrAddress"))
-                this.__SdrAddress := PSTR(this.ptr + 152)
-            return this.__SdrAddress
-        }
+    SdrAddress {
+        get => NumGet(this, 152, "ptr")
+        set => NumPut("ptr", value, this, 152)
     }
 
     /**
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that is the title of the sender who initiated the fax transmission.
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    SdrTitle{
-        get {
-            if(!this.HasProp("__SdrTitle"))
-                this.__SdrTitle := PSTR(this.ptr + 160)
-            return this.__SdrTitle
-        }
+    SdrTitle {
+        get => NumGet(this, 160, "ptr")
+        set => NumPut("ptr", value, this, 160)
     }
 
     /**
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that is the department name of the sender who initiated the fax transmission.
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    SdrDepartment{
-        get {
-            if(!this.HasProp("__SdrDepartment"))
-                this.__SdrDepartment := PSTR(this.ptr + 168)
-            return this.__SdrDepartment
-        }
+    SdrDepartment {
+        get => NumGet(this, 168, "ptr")
+        set => NumPut("ptr", value, this, 168)
     }
 
     /**
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that is the office location of the sender who initiated the fax transmission.
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    SdrOfficeLocation{
-        get {
-            if(!this.HasProp("__SdrOfficeLocation"))
-                this.__SdrOfficeLocation := PSTR(this.ptr + 176)
-            return this.__SdrOfficeLocation
-        }
+    SdrOfficeLocation {
+        get => NumGet(this, 176, "ptr")
+        set => NumPut("ptr", value, this, 176)
     }
 
     /**
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that is the home telephone number of the sender who initiated the fax transmission.
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    SdrHomePhone{
-        get {
-            if(!this.HasProp("__SdrHomePhone"))
-                this.__SdrHomePhone := PSTR(this.ptr + 184)
-            return this.__SdrHomePhone
-        }
+    SdrHomePhone {
+        get => NumGet(this, 184, "ptr")
+        set => NumPut("ptr", value, this, 184)
     }
 
     /**
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that is the office telephone number of the sender who initiated the fax transmission.
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    SdrOfficePhone{
-        get {
-            if(!this.HasProp("__SdrOfficePhone"))
-                this.__SdrOfficePhone := PSTR(this.ptr + 192)
-            return this.__SdrOfficePhone
-        }
+    SdrOfficePhone {
+        get => NumGet(this, 192, "ptr")
+        set => NumPut("ptr", value, this, 192)
     }
 
     /**
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that contains the text of a message or note from the sender that pertains to the fax transmission. The text will appear on the cover page.
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    Note{
-        get {
-            if(!this.HasProp("__Note"))
-                this.__Note := PSTR(this.ptr + 200)
-            return this.__Note
-        }
+    Note {
+        get => NumGet(this, 200, "ptr")
+        set => NumPut("ptr", value, this, 200)
     }
 
     /**
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that is the subject line of the fax transmission.
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    Subject{
-        get {
-            if(!this.HasProp("__Subject"))
-                this.__Subject := PSTR(this.ptr + 208)
-            return this.__Subject
-        }
+    Subject {
+        get => NumGet(this, 208, "ptr")
+        set => NumPut("ptr", value, this, 208)
     }
 
     /**

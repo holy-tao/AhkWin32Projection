@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * Defines a shader macro.
@@ -43,25 +42,19 @@ class D3D_SHADER_MACRO extends Win32Struct
 
     /**
      * The macro name.
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    Name{
-        get {
-            if(!this.HasProp("__Name"))
-                this.__Name := PSTR(this.ptr + 0)
-            return this.__Name
-        }
+    Name {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
      * The macro definition.
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    Definition{
-        get {
-            if(!this.HasProp("__Definition"))
-                this.__Definition := PSTR(this.ptr + 8)
-            return this.__Definition
-        }
+    Definition {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 }

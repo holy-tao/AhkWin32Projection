@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The RSOP_TARGET structure contains computer and user information required by the GenerateGroupPolicy function.
@@ -16,26 +15,20 @@ class RSOP_TARGET extends Win32Struct
 
     /**
      * Pointer to the account name of the computer or the user.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pwszAccountName{
-        get {
-            if(!this.HasProp("__pwszAccountName"))
-                this.__pwszAccountName := PWSTR(this.ptr + 0)
-            return this.__pwszAccountName
-        }
+    pwszAccountName {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
      * Pointer to the new domain or organizational unit that is the location for the account identified by the <b>pwszAccountName</b> member. This member can be <b>NULL</b>.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pwszNewSOM{
-        get {
-            if(!this.HasProp("__pwszNewSOM"))
-                this.__pwszNewSOM := PWSTR(this.ptr + 8)
-            return this.__pwszNewSOM
-        }
+    pwszNewSOM {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

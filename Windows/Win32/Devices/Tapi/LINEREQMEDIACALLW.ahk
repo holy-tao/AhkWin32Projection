@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Tapi
@@ -14,14 +13,11 @@ class LINEREQMEDIACALLW extends Win32Struct
     static packingSize => 1
 
     /**
-     * @type {HWND}
+     * @type {Pointer<Ptr>}
      */
-    hWnd{
-        get {
-            if(!this.HasProp("__hWnd"))
-                this.__hWnd := HWND(this.ptr + 0)
-            return this.__hWnd
-        }
+    hWnd {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Networking\WinSock\SOCKET_ADDRESS.ahk
 
 /**
@@ -28,14 +27,11 @@ class PNRPINFO_V1 extends Win32Struct
 
     /**
      * Points  to the Unicode string that contains the identity.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpwszIdentity{
-        get {
-            if(!this.HasProp("__lpwszIdentity"))
-                this.__lpwszIdentity := PWSTR(this.ptr + 8)
-            return this.__lpwszIdentity
-        }
+    lpwszIdentity {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

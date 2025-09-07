@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 #Include .\CRYPT_INTEGER_BLOB.ahk
 
 /**
@@ -17,14 +16,11 @@ class CRYPT_X942_OTHER_INFO extends Win32Struct
 
     /**
      * OID of the content encryption algorithm.
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszContentEncryptionObjId{
-        get {
-            if(!this.HasProp("__pszContentEncryptionObjId"))
-                this.__pszContentEncryptionObjId := PSTR(this.ptr + 0)
-            return this.__pszContentEncryptionObjId
-        }
+    pszContentEncryptionObjId {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**

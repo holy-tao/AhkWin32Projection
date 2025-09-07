@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
 
 /**
  * Contains context menu information used by SHCreateDefaultContextMenu.
@@ -22,14 +21,11 @@ class DEFCONTEXTMENU extends Win32Struct
      * Type: <b>HWND</b>
      * 
      * A handle to the context menu. Set this member to the handle returned from <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-createmenu">CreateMenu</a>.
-     * @type {HWND}
+     * @type {Pointer<Ptr>}
      */
-    hwnd{
-        get {
-            if(!this.HasProp("__hwnd"))
-                this.__hwnd := HWND(this.ptr + 0)
-            return this.__hwnd
-        }
+    hwnd {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
@@ -120,7 +116,7 @@ class DEFCONTEXTMENU extends Win32Struct
      * Type: <b>const HKEY*</b>
      * 
      * A pointer to an HKEY that specifies the registry key from which to load extensions. This parameter is optional and can be <b>NULL</b>. If the value is <b>NULL</b>, the extensions are loaded based on the object that supports interface <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/nn-shlwapi-iqueryassociations">IQueryAssociations</a> as specified in <b>punkAssociationInfo</b>.
-     * @type {Pointer<HKEY>}
+     * @type {Pointer<Ptr>}
      */
     aKeys {
         get => NumGet(this, 64, "ptr")

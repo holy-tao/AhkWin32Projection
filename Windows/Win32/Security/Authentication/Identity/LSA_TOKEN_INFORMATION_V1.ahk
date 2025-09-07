@@ -1,11 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\PSID.ahk
 #Include ..\..\SID_AND_ATTRIBUTES.ahk
 #Include ..\..\TOKEN_USER.ahk
-#Include ..\..\TOKEN_PRIMARY_GROUP.ahk
-#Include ..\..\TOKEN_OWNER.ahk
-#Include ..\..\TOKEN_DEFAULT_DACL.ahk
 
 /**
  * Contains information an authentication package can place in a Version 2 Windows token object and has superceded LSA_TOKEN_INFORMATION_V1.
@@ -63,14 +59,11 @@ class LSA_TOKEN_INFORMATION_V1 extends Win32Struct
      * The SID pointed to by this structure is expected to be in a separately allocated block of memory.
      * 
      * This member is mandatory and must be filled in.
-     * @type {TOKEN_PRIMARY_GROUP}
+     * @type {Pointer<Ptr>}
      */
-    PrimaryGroup{
-        get {
-            if(!this.HasProp("__PrimaryGroup"))
-                this.__PrimaryGroup := TOKEN_PRIMARY_GROUP(this.ptr + 32)
-            return this.__PrimaryGroup
-        }
+    PrimaryGroup {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
@@ -96,14 +89,11 @@ class LSA_TOKEN_INFORMATION_V1 extends Win32Struct
      * 
      * 
      * The <b>Owner.Sid</b> member may be set to <b>NULL</b> to indicate there is no alternate default owner value.
-     * @type {TOKEN_OWNER}
+     * @type {Pointer<Ptr>}
      */
-    Owner{
-        get {
-            if(!this.HasProp("__Owner"))
-                this.__Owner := TOKEN_OWNER(this.ptr + 48)
-            return this.__Owner
-        }
+    Owner {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**
@@ -113,13 +103,10 @@ class LSA_TOKEN_INFORMATION_V1 extends Win32Struct
      * 
      * 
      * The <b>DefaultDacl.DefaultDacl</b> member may be set to <b>NULL</b> to indicate there is no default protection.
-     * @type {TOKEN_DEFAULT_DACL}
+     * @type {Pointer<Ptr>}
      */
-    DefaultDacl{
-        get {
-            if(!this.HasProp("__DefaultDacl"))
-                this.__DefaultDacl := TOKEN_DEFAULT_DACL(this.ptr + 56)
-            return this.__DefaultDacl
-        }
+    DefaultDacl {
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 }

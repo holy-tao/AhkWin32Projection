@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Security\Cryptography\HCERTSTORE.ahk
 
 /**
  * Represents the criteria for matching client compact signatures against messages.
@@ -38,14 +37,11 @@ class WSD_SECURITY_SIGNATURE_VALIDATION extends Win32Struct
 
     /**
      * A handle to a certificate store that contains certificates to be matched against a message.  Only one matching certificate is required for validation.  This parameter can be <b>NULL</b>.
-     * @type {HCERTSTORE}
+     * @type {Pointer<Ptr>}
      */
-    hSigningCertStore{
-        get {
-            if(!this.HasProp("__hSigningCertStore"))
-                this.__hSigningCertStore := HCERTSTORE(this.ptr + 16)
-            return this.__hSigningCertStore
-        }
+    hSigningCertStore {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**

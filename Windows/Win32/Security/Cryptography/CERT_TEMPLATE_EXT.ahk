@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * A certificate template.
@@ -16,14 +15,11 @@ class CERT_TEMPLATE_EXT extends Win32Struct
 
     /**
      * <b>LPSTR</b> object identifier (OID).
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszObjId{
-        get {
-            if(!this.HasProp("__pszObjId"))
-                this.__pszObjId := PSTR(this.ptr + 0)
-            return this.__pszObjId
-        }
+    pszObjId {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**

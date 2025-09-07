@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains the proxy information for a DNS server's name resolution policy table.
@@ -38,13 +37,10 @@ class DNS_PROXY_INFORMATION extends Win32Struct
      * <div class="alert"><b>Note</b>  To free this string, use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/windns/nf-windns-dnsfreeproxyname">DnsFreeProxyName</a> function.</div>
      * <div> </div>
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    proxyName{
-        get {
-            if(!this.HasProp("__proxyName"))
-                this.__proxyName := PWSTR(this.ptr + 8)
-            return this.__proxyName
-        }
+    proxyName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 }

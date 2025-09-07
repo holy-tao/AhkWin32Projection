@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * The MIDIHDR structure defines the header used to identify a MIDI system-exclusive or stream buffer.
@@ -16,14 +15,11 @@ class MIDIHDR extends Win32Struct
 
     /**
      * Pointer to MIDI data.
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpData{
-        get {
-            if(!this.HasProp("__lpData"))
-                this.__lpData := PSTR(this.ptr + 0)
-            return this.__lpData
-        }
+    lpData {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**

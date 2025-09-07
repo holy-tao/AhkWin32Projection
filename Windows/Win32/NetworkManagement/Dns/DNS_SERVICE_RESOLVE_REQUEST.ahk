@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains the query parameters used in a call to [DnsServiceResolve](../windns/nf-windns-dnsserviceresolve.md).
@@ -36,14 +35,11 @@ class DNS_SERVICE_RESOLVE_REQUEST extends Win32Struct
 
     /**
      * A pointer to a string that represents the service name. This is a fully qualified domain name that begins with a service name, and ends with ".local". It takes the generalized form "\<ServiceName\>.\_\<ServiceType\>.\_\<TransportProtocol\>.local". For example, "MyMusicServer._http._tcp.local".
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    QueryName{
-        get {
-            if(!this.HasProp("__QueryName"))
-                this.__QueryName := PWSTR(this.ptr + 8)
-            return this.__QueryName
-        }
+    QueryName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

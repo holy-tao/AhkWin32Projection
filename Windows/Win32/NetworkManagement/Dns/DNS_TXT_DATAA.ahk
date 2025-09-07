@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * The DNS_TXT_DATA structure represents a DNS text (TXT) record as specified in section 3.3.14 of RFC 1035. (ANSI)
@@ -37,12 +36,12 @@ class DNS_TXT_DATAA extends Win32Struct
 
     /**
      * An array of strings representing the descriptive text of the TXT resource record.
-     * @type {Array<PSTR>}
+     * @type {Array<Ptr>}
      */
     pStringArray{
         get {
             if(!this.HasProp("__pStringArrayProxyArray"))
-                this.__pStringArrayProxyArray := Win32FixedArray(this.ptr + 8, 8, PSTR, "")
+                this.__pStringArrayProxyArray := Win32FixedArray(this.ptr + 8, 8, Primitive, "ptr")
             return this.__pStringArrayProxyArray
         }
     }

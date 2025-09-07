@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The SERVER_TRANSPORT_INFO_0 structure contains information about the specified transport protocol, including name, address, and location on the network.
@@ -40,14 +39,11 @@ class SERVER_TRANSPORT_INFO_0 extends Win32Struct
      * ```
      * 
      * This string is Unicode if  <b>_WIN32_WINNT</b> or <b>FORCE_UNICODE</b> are defined.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    svti0_transportname{
-        get {
-            if(!this.HasProp("__svti0_transportname"))
-                this.__svti0_transportname := PWSTR(this.ptr + 8)
-            return this.__svti0_transportname
-        }
+    svti0_transportname {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -83,13 +79,10 @@ class SERVER_TRANSPORT_INFO_0 extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmserver/nf-lmserver-netservertransportaddex">NetServerTransportAddEx</a> function.)
      * 
      * This string is Unicode if  <b>_WIN32_WINNT</b> or <b>FORCE_UNICODE</b> are defined.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    svti0_networkaddress{
-        get {
-            if(!this.HasProp("__svti0_networkaddress"))
-                this.__svti0_networkaddress := PWSTR(this.ptr + 32)
-            return this.__svti0_networkaddress
-        }
+    svti0_networkaddress {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 }

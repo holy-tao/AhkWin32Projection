@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\HANDLE.ahk
 
 /**
  * Describes one entry (block) of a heap that is being examined.
@@ -27,14 +26,11 @@ class HEAPENTRY32 extends Win32Struct
 
     /**
      * A handle to the heap block.
-     * @type {HANDLE}
+     * @type {Pointer<Ptr>}
      */
-    hHandle{
-        get {
-            if(!this.HasProp("__hHandle"))
-                this.__hHandle := HANDLE(this.ptr + 8)
-            return this.__hHandle
-        }
+    hHandle {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

@@ -1,8 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * @namespace Windows.Win32.System.Iis
@@ -15,35 +12,26 @@ class HSE_EXEC_UNICODE_URL_USER_INFO extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {HANDLE}
+     * @type {Pointer<Ptr>}
      */
-    hImpersonationToken{
-        get {
-            if(!this.HasProp("__hImpersonationToken"))
-                this.__hImpersonationToken := HANDLE(this.ptr + 0)
-            return this.__hImpersonationToken
-        }
+    hImpersonationToken {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszCustomUserName{
-        get {
-            if(!this.HasProp("__pszCustomUserName"))
-                this.__pszCustomUserName := PWSTR(this.ptr + 8)
-            return this.__pszCustomUserName
-        }
+    pszCustomUserName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszCustomAuthType{
-        get {
-            if(!this.HasProp("__pszCustomAuthType"))
-                this.__pszCustomAuthType := PSTR(this.ptr + 16)
-            return this.__pszCustomAuthType
-        }
+    pszCustomAuthType {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 }

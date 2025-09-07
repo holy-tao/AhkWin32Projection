@@ -1,8 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include .\HTTP_SERVICE_CONFIG_URLACL_KEY.ahk
-#Include .\HTTP_SERVICE_CONFIG_URLACL_PARAM.ahk
 
 /**
  * Used to add a new record to the URL reservation store or retrieve an existing record from it.
@@ -19,26 +16,20 @@ class HTTP_SERVICE_CONFIG_URLACL_SET extends Win32Struct
     /**
      * An 
      * <a href="https://docs.microsoft.com/windows/desktop/api/http/ns-http-http_service_config_urlacl_key">HTTP_SERVICE_CONFIG_URLACL_KEY</a> structure that identifies the URL reservation record.
-     * @type {HTTP_SERVICE_CONFIG_URLACL_KEY}
+     * @type {Pointer<Ptr>}
      */
-    KeyDesc{
-        get {
-            if(!this.HasProp("__KeyDesc"))
-                this.__KeyDesc := HTTP_SERVICE_CONFIG_URLACL_KEY(this.ptr + 0)
-            return this.__KeyDesc
-        }
+    KeyDesc {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
      * An 
      * <a href="https://docs.microsoft.com/windows/desktop/api/http/ns-http-http_service_config_urlacl_param">HTTP_SERVICE_CONFIG_URLACL_PARAM</a> structure that holds the contents of the specified URL reservation record.
-     * @type {HTTP_SERVICE_CONFIG_URLACL_PARAM}
+     * @type {Pointer<Ptr>}
      */
-    ParamDesc{
-        get {
-            if(!this.HasProp("__ParamDesc"))
-                this.__ParamDesc := HTTP_SERVICE_CONFIG_URLACL_PARAM(this.ptr + 8)
-            return this.__ParamDesc
-        }
+    ParamDesc {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 }

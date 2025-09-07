@@ -60,9 +60,9 @@ class IPSEC_SA_DETAILS1 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<IPSEC_V4_UDP_ENCAPSULATION0>}
+     * @type {Pointer<Ptr>}
      */
-    udpEncapsulation {
+    Anonymous {
         get => NumGet(this, 168, "ptr")
         set => NumPut("ptr", value, this, 168)
     }

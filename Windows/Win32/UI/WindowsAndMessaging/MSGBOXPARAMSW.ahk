@@ -1,8 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include ..\..\Foundation\HINSTANCE.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains information used to display a message box. The MessageBoxIndirect function uses this structure. (Unicode)
@@ -35,14 +32,11 @@ class MSGBOXPARAMSW extends Win32Struct
      * Type: <b>HWND</b>
      * 
      * A handle to the owner window. This member can be <b>NULL</b>.
-     * @type {HWND}
+     * @type {Pointer<Ptr>}
      */
-    hwndOwner{
-        get {
-            if(!this.HasProp("__hwndOwner"))
-                this.__hwndOwner := HWND(this.ptr + 8)
-            return this.__hwndOwner
-        }
+    hwndOwner {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -52,28 +46,22 @@ class MSGBOXPARAMSW extends Win32Struct
      * 					<b>lpszIcon</b> member, and the string resource identified by the 
      * 					<b>lpszText</b> or 
      * 					<b>lpszCaption</b> member.
-     * @type {HINSTANCE}
+     * @type {Pointer<Ptr>}
      */
-    hInstance{
-        get {
-            if(!this.HasProp("__hInstance"))
-                this.__hInstance := HINSTANCE(this.ptr + 16)
-            return this.__hInstance
-        }
+    hInstance {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * Type: <b>LPCTSTR</b>
      * 
      * A null-terminated string, or the identifier of a string resource, that contains the message to be displayed.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpszText{
-        get {
-            if(!this.HasProp("__lpszText"))
-                this.__lpszText := PWSTR(this.ptr + 24)
-            return this.__lpszText
-        }
+    lpszText {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
@@ -81,14 +69,11 @@ class MSGBOXPARAMSW extends Win32Struct
      * 
      * A null-terminated string, or the identifier of a string resource, that contains the message box title. If this member is <b>NULL</b>, the default title 
      * 					<b>Error</b> is used.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpszCaption{
-        get {
-            if(!this.HasProp("__lpszCaption"))
-                this.__lpszCaption := PWSTR(this.ptr + 32)
-            return this.__lpszCaption
-        }
+    lpszCaption {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
@@ -117,14 +102,11 @@ class MSGBOXPARAMSW extends Win32Struct
      * 
      * This member is ignored if the 
      * 						<b>dwStyle</b> member does not specify the <b>MB_USERICON</b> flag.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpszIcon{
-        get {
-            if(!this.HasProp("__lpszIcon"))
-                this.__lpszIcon := PWSTR(this.ptr + 48)
-            return this.__lpszIcon
-        }
+    lpszIcon {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**

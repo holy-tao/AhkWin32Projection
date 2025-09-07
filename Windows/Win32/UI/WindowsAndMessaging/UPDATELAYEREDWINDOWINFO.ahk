@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Graphics\Gdi\HDC.ahk
 
 /**
  * Used by UpdateLayeredWindowIndirect to provide position, size, shape, content, and translucency information for a layered window.
@@ -33,14 +32,11 @@ class UPDATELAYEREDWINDOWINFO extends Win32Struct
      *                     
      * 
      * If <b>hdcSrc</b> is <b>NULL</b>, <b>hdcDst</b> must be <b>NULL</b>.
-     * @type {HDC}
+     * @type {Pointer<Ptr>}
      */
-    hdcDst{
-        get {
-            if(!this.HasProp("__hdcDst"))
-                this.__hdcDst := HDC(this.ptr + 8)
-            return this.__hdcDst
-        }
+    hdcDst {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -69,14 +65,11 @@ class UPDATELAYEREDWINDOWINFO extends Win32Struct
      * Type: <b>HDC</b>
      * 
      * A handle to the DC for the surface that defines the layered window. This handle can be obtained by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-createcompatibledc">CreateCompatibleDC</a> function. If the shape and visual context of the window will not change, <b>hdcSrc</b> can be <b>NULL</b>.
-     * @type {HDC}
+     * @type {Pointer<Ptr>}
      */
-    hdcSrc{
-        get {
-            if(!this.HasProp("__hdcSrc"))
-                this.__hdcSrc := HDC(this.ptr + 32)
-            return this.__hdcSrc
-        }
+    hdcSrc {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**

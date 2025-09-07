@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The ADS_OBJECT_INFO structure specifies the data, including the identity and location, of a directory service object.
@@ -18,61 +17,46 @@ class ADS_OBJECT_INFO extends Win32Struct
 
     /**
      * The null-terminated Unicode string that contains the relative distinguished name of the directory service object.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszRDN{
-        get {
-            if(!this.HasProp("__pszRDN"))
-                this.__pszRDN := PWSTR(this.ptr + 0)
-            return this.__pszRDN
-        }
+    pszRDN {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
      * The null-terminated Unicode string that contains the distinguished name  of the directory service object.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszObjectDN{
-        get {
-            if(!this.HasProp("__pszObjectDN"))
-                this.__pszObjectDN := PWSTR(this.ptr + 8)
-            return this.__pszObjectDN
-        }
+    pszObjectDN {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * The null-terminated Unicode string that contains the distinguished name of the parent object.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszParentDN{
-        get {
-            if(!this.HasProp("__pszParentDN"))
-                this.__pszParentDN := PWSTR(this.ptr + 16)
-            return this.__pszParentDN
-        }
+    pszParentDN {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * The null-terminated Unicode string that contains the distinguished name of the schema class of the object.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszSchemaDN{
-        get {
-            if(!this.HasProp("__pszSchemaDN"))
-                this.__pszSchemaDN := PWSTR(this.ptr + 24)
-            return this.__pszSchemaDN
-        }
+    pszSchemaDN {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
      * The null-terminated Unicode string that contains the name of the class of which this object is an instance.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszClassName{
-        get {
-            if(!this.HasProp("__pszClassName"))
-                this.__pszClassName := PWSTR(this.ptr + 32)
-            return this.__pszClassName
-        }
+    pszClassName {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 }

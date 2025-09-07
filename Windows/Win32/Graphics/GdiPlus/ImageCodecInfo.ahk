@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.GdiPlus
@@ -29,58 +28,43 @@ class ImageCodecInfo extends Win32Struct
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    CodecName{
-        get {
-            if(!this.HasProp("__CodecName"))
-                this.__CodecName := PWSTR(this.ptr + 16)
-            return this.__CodecName
-        }
+    CodecName {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    DllName{
-        get {
-            if(!this.HasProp("__DllName"))
-                this.__DllName := PWSTR(this.ptr + 24)
-            return this.__DllName
-        }
+    DllName {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    FormatDescription{
-        get {
-            if(!this.HasProp("__FormatDescription"))
-                this.__FormatDescription := PWSTR(this.ptr + 32)
-            return this.__FormatDescription
-        }
+    FormatDescription {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    FilenameExtension{
-        get {
-            if(!this.HasProp("__FilenameExtension"))
-                this.__FilenameExtension := PWSTR(this.ptr + 40)
-            return this.__FilenameExtension
-        }
+    FilenameExtension {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    MimeType{
-        get {
-            if(!this.HasProp("__MimeType"))
-                this.__MimeType := PWSTR(this.ptr + 48)
-            return this.__MimeType
-        }
+    MimeType {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**

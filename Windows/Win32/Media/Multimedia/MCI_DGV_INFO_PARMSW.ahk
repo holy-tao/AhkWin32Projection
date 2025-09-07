@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The MCI_DGV_INFO_PARMSW (Unicode) structure (digitalv.h) contains parameters for the MCI_INFO command for digital-video devices.
@@ -35,14 +34,11 @@ class MCI_DGV_INFO_PARMSW extends Win32Struct
 
     /**
      * Pointer to buffer for return string.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpstrReturn{
-        get {
-            if(!this.HasProp("__lpstrReturn"))
-                this.__lpstrReturn := PWSTR(this.ptr + 8)
-            return this.__lpstrReturn
-        }
+    lpstrReturn {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

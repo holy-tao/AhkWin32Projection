@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\BINARY_CONTAINER.ahk
 
 /**
@@ -38,14 +37,11 @@ class BIDI_DATA extends Win32Struct
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    sData{
-        get {
-            if(!this.HasProp("__sData"))
-                this.__sData := PWSTR(this.ptr + 4)
-            return this.__sData
-        }
+    sData {
+        get => NumGet(this, 4, "ptr")
+        set => NumPut("ptr", value, this, 4)
     }
 
     /**

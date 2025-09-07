@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * A resource that describes a tag, defined by the tag's name and its description.
@@ -29,26 +28,20 @@ class DIAGNOSTIC_DATA_EVENT_TAG_DESCRIPTION extends Win32Struct
     /**
      * Type: **[LPWSTR](/windows/desktop/winprog/windows-data-types)**
      * The name of this tag.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    name{
-        get {
-            if(!this.HasProp("__name"))
-                this.__name := PWSTR(this.ptr + 8)
-            return this.__name
-        }
+    name {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * Type: **[LPWSTR](/windows/desktop/winprog/windows-data-types)**
      * The official description for this tag.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    description{
-        get {
-            if(!this.HasProp("__description"))
-                this.__description := PWSTR(this.ptr + 16)
-            return this.__description
-        }
+    description {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 }

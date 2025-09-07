@@ -1,8 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
 #Include .\NMHDR.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains and receives infotip information for a toolbar item. This structure is used with the TBN_GETINFOTIP notification code. (Unicode)
@@ -39,14 +37,11 @@ class NMTBGETINFOTIPW extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPTSTR</a></b>
      * 
      * Address of a character buffer that receives the infotip text.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszText{
-        get {
-            if(!this.HasProp("__pszText"))
-                this.__pszText := PWSTR(this.ptr + 24)
-            return this.__pszText
-        }
+    pszText {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**

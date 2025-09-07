@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains information that controls the operation of the CryptUIWizExport function when a certificate is the object being exported.
@@ -52,14 +51,11 @@ class CRYPTUI_WIZ_EXPORT_CERTCONTEXT_INFO extends Win32Struct
 
     /**
      * A pointer to a null-terminated Unicode string that contains the password used to access the private key.  This is required if <b>fExportPrivateKeys</b> is nonzero and is otherwise ignored.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pwszPassword{
-        get {
-            if(!this.HasProp("__pwszPassword"))
-                this.__pwszPassword := PWSTR(this.ptr + 16)
-            return this.__pwszPassword
-        }
+    pwszPassword {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The CLUSTER_GROUP_ENUM_ITEM structure contains the properties of a cluster group. (CLUSTER_GROUP_ENUM_ITEM)
@@ -35,14 +34,11 @@ class CLUSTER_GROUP_ENUM_ITEM extends Win32Struct
 
     /**
      * The Id of the cluster group.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpszId{
-        get {
-            if(!this.HasProp("__lpszId"))
-                this.__lpszId := PWSTR(this.ptr + 8)
-            return this.__lpszId
-        }
+    lpszId {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -56,14 +52,11 @@ class CLUSTER_GROUP_ENUM_ITEM extends Win32Struct
 
     /**
      * The name of the cluster group.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpszName{
-        get {
-            if(!this.HasProp("__lpszName"))
-                this.__lpszName := PWSTR(this.ptr + 24)
-            return this.__lpszName
-        }
+    lpszName {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
@@ -86,14 +79,11 @@ class CLUSTER_GROUP_ENUM_ITEM extends Win32Struct
 
     /**
      * The name of the cluster node hosting the group.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpszOwnerNode{
-        get {
-            if(!this.HasProp("__lpszOwnerNode"))
-                this.__lpszOwnerNode := PWSTR(this.ptr + 40)
-            return this.__lpszOwnerNode
-        }
+    lpszOwnerNode {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**

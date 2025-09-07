@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Defines the initial cluster configuration.
@@ -25,14 +24,11 @@ class CREATE_CLUSTER_CONFIG extends Win32Struct
 
     /**
      * Name of the cluster.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpszClusterName{
-        get {
-            if(!this.HasProp("__lpszClusterName"))
-                this.__lpszClusterName := PWSTR(this.ptr + 8)
-            return this.__lpszClusterName
-        }
+    lpszClusterName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -46,7 +42,7 @@ class CREATE_CLUSTER_CONFIG extends Win32Struct
 
     /**
      * Address of array of pointers to strings, each naming a node to be added to the new cluster.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Ptr>}
      */
     ppszNodeNames {
         get => NumGet(this, 24, "ptr")

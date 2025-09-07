@@ -2,9 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\Com\CY.ahk
 #Include ..\..\Foundation\FILETIME.ahk
-#Include ..\..\Foundation\PSTR.ahk
 #Include .\SBinary.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\SShortArray.ahk
 #Include .\SLongArray.ahk
 #Include .\SRealArray.ahk
@@ -107,14 +105,11 @@ class __UPV extends Win32Struct
     }
 
     /**
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpszA{
-        get {
-            if(!this.HasProp("__lpszA"))
-                this.__lpszA := PSTR(this.ptr + 0)
-            return this.__lpszA
-        }
+    lpszA {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
@@ -129,14 +124,11 @@ class __UPV extends Win32Struct
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpszW{
-        get {
-            if(!this.HasProp("__lpszW"))
-                this.__lpszW := PWSTR(this.ptr + 0)
-            return this.__lpszW
-        }
+    lpszW {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**

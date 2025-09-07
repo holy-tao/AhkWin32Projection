@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 #Include .\KSIDENTIFIER.ahk
 #Include .\KSEVENTDATA.ahk
 
@@ -31,14 +30,11 @@ class KSRELATIVEEVENT extends Win32Struct
     }
 
     /**
-     * @type {HANDLE}
+     * @type {Pointer<Ptr>}
      */
-    ObjectHandle{
-        get {
-            if(!this.HasProp("__ObjectHandle"))
-                this.__ObjectHandle := HANDLE(this.ptr + 8)
-            return this.__ObjectHandle
-        }
+    ObjectHandle {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

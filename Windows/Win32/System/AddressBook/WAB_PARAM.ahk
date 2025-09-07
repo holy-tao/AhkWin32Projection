@@ -1,7 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * Do not use. Contains the input information to pass to WABOpen.
@@ -30,28 +28,22 @@ class WAB_PARAM extends Win32Struct
      * Type: <b>HWND</b>
      * 
      * Value of type <b>HWND</b> that specifies the window handle of the calling client application. Can be <b>NULL</b>.
-     * @type {HWND}
+     * @type {Pointer<Ptr>}
      */
-    hwnd{
-        get {
-            if(!this.HasProp("__hwnd"))
-                this.__hwnd := HWND(this.ptr + 8)
-            return this.__hwnd
-        }
+    hwnd {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * Type: <b>LPTSTR</b>
      * 
      * Value of type <b>LPTSTR</b> that specifies the WAB file name to open. If this parameter is <b>NULL</b>, the default Address Book file is opened.
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    szFileName{
-        get {
-            if(!this.HasProp("__szFileName"))
-                this.__szFileName := PSTR(this.ptr + 16)
-            return this.__szFileName
-        }
+    szFileName {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**

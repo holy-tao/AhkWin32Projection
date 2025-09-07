@@ -1,7 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\System\Registry\HKEY.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Defines information used by AssocCreateForClasses to retrieve an IQueryAssociations interface for a given file association.
@@ -28,27 +26,21 @@ class ASSOCIATIONELEMENT extends Win32Struct
      * Type: <b>HKEY</b>
      * 
      * A registry key that specifies a class that contains association information.
-     * @type {HKEY}
+     * @type {Pointer<Ptr>}
      */
-    hkClass{
-        get {
-            if(!this.HasProp("__hkClass"))
-                this.__hkClass := HKEY(this.ptr + 4)
-            return this.__hkClass
-        }
+    hkClass {
+        get => NumGet(this, 4, "ptr")
+        set => NumPut("ptr", value, this, 4)
     }
 
     /**
      * Type: <b>PCWSTR</b>
      * 
      * A pointer to the name of a class that contains association information.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszClass{
-        get {
-            if(!this.HasProp("__pszClass"))
-                this.__pszClass := PWSTR(this.ptr + 12)
-            return this.__pszClass
-        }
+    pszClass {
+        get => NumGet(this, 12, "ptr")
+        set => NumPut("ptr", value, this, 12)
     }
 }

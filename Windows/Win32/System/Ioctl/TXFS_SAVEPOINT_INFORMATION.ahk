@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * The FSCTL_TXFS_SAVEPOINT_INFORMATION structure specifies the action to perform, and on which transaction.
@@ -16,14 +15,11 @@ class TXFS_SAVEPOINT_INFORMATION extends Win32Struct
 
     /**
      * Handle to the transaction on which to perform the savepoint operation.
-     * @type {HANDLE}
+     * @type {Pointer<Ptr>}
      */
-    KtmTransaction{
-        get {
-            if(!this.HasProp("__KtmTransaction"))
-                this.__KtmTransaction := HANDLE(this.ptr + 0)
-            return this.__KtmTransaction
-        }
+    KtmTransaction {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**

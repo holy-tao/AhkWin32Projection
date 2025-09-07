@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Security\PSECURITY_DESCRIPTOR.ahk
 
 /**
  * Contains the security descriptor for a DFS link's reparse point.
@@ -27,13 +26,10 @@ class DFS_INFO_150 extends Win32Struct
      * Pointer to a  <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> 
      *       structure that specifies a self-relative security descriptor to be associated with the DFS link's reparse 
      *       point. This field is valid for DFS links only.
-     * @type {PSECURITY_DESCRIPTOR}
+     * @type {Pointer<Ptr>}
      */
-    pSecurityDescriptor{
-        get {
-            if(!this.HasProp("__pSecurityDescriptor"))
-                this.__pSecurityDescriptor := PSECURITY_DESCRIPTOR(this.ptr + 8)
-            return this.__pSecurityDescriptor
-        }
+    pSecurityDescriptor {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 }

@@ -1,7 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\HCERTCHAINENGINE.ahk
-#Include .\HCERTSTORE.ahk
 
 /**
  * Contains parameters used for building a chain for an independent online certificate status protocol (OCSP) response signer certificate.
@@ -26,26 +24,20 @@ class CERT_REVOCATION_CHAIN_PARA extends Win32Struct
 
     /**
      * A handle to the chain engine used by the caller.
-     * @type {HCERTCHAINENGINE}
+     * @type {Pointer<Ptr>}
      */
-    hChainEngine{
-        get {
-            if(!this.HasProp("__hChainEngine"))
-                this.__hChainEngine := HCERTCHAINENGINE(this.ptr + 8)
-            return this.__hChainEngine
-        }
+    hChainEngine {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * A handle to a store that contains the certificates used to build the original chain. The handle can be <b>NULL</b>.
-     * @type {HCERTSTORE}
+     * @type {Pointer<Ptr>}
      */
-    hAdditionalStore{
-        get {
-            if(!this.HasProp("__hAdditionalStore"))
-                this.__hAdditionalStore := HCERTSTORE(this.ptr + 16)
-            return this.__hAdditionalStore
-        }
+    hAdditionalStore {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**

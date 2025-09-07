@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * Contains information used in the CertFindChainInStore function to build certificate chains.
@@ -33,14 +32,11 @@ class CERT_CHAIN_FIND_BY_ISSUER_PARA extends Win32Struct
 
     /**
      * A pointer to a null-terminated ANSI string that contains the usage identifier to be matched. If this member is <b>NULL</b>, a certificate with any usage can be a match.
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszUsageIdentifier{
-        get {
-            if(!this.HasProp("__pszUsageIdentifier"))
-                this.__pszUsageIdentifier := PSTR(this.ptr + 8)
-            return this.__pszUsageIdentifier
-        }
+    pszUsageIdentifier {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\PSTR.ahk
 
 /**
  * The SecPkgContext_KeyingMaterialInfo structure contains information about the exportable keying material in a security context.
@@ -27,14 +26,11 @@ class SecPkgContext_KeyingMaterialInfo extends Win32Struct
      * A NUL-terminated ASCII string. The NUL terminator will be removed by schannel before mixing in pszLabel. 
      * 
      * IANA-registered labels should begin with "EXPORTER" to  avoid collisions with existing PRF labels. Labels beginning with "EXPERIMENTAL" may be used without registration.
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszLabel{
-        get {
-            if(!this.HasProp("__pszLabel"))
-                this.__pszLabel := PSTR(this.ptr + 8)
-            return this.__pszLabel
-        }
+    pszLabel {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

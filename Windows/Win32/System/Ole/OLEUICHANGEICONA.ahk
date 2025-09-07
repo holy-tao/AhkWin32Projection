@@ -1,10 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include ..\..\Foundation\PSTR.ahk
-#Include ..\..\Foundation\HINSTANCE.ahk
-#Include ..\..\Foundation\HRSRC.ahk
-#Include ..\..\Foundation\HGLOBAL.ahk
 
 /**
  * Contains information that the OLE User Interface Library uses to initialize the Change Icon dialog box, and it contains space for the library to return information when the dialog box is dismissed. (ANSI)
@@ -50,26 +45,20 @@ class OLEUICHANGEICONA extends Win32Struct
 
     /**
      * The window that owns the dialog box. This member should not be **NULL**.
-     * @type {HWND}
+     * @type {Pointer<Ptr>}
      */
-    hWndOwner{
-        get {
-            if(!this.HasProp("__hWndOwner"))
-                this.__hWndOwner := HWND(this.ptr + 8)
-            return this.__hWndOwner
-        }
+    hWndOwner {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * Pointer to a string to be used as the title of the dialog box. If **NULL**, then the library uses **Change Icon**.
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpszCaption{
-        get {
-            if(!this.HasProp("__lpszCaption"))
-                this.__lpszCaption := PSTR(this.ptr + 16)
-            return this.__lpszCaption
-        }
+    lpszCaption {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
@@ -92,50 +81,38 @@ class OLEUICHANGEICONA extends Win32Struct
 
     /**
      * Instance that contains a dialog box template specified by the **lpTemplateName** member.
-     * @type {HINSTANCE}
+     * @type {Pointer<Ptr>}
      */
-    hInstance{
-        get {
-            if(!this.HasProp("__hInstance"))
-                this.__hInstance := HINSTANCE(this.ptr + 40)
-            return this.__hInstance
-        }
+    hInstance {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
      * Pointer to a null-terminated string that specifies the name of the resource file for the dialog box template that is to be substituted for the library's **Change Icon** dialog box template.
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpszTemplate{
-        get {
-            if(!this.HasProp("__lpszTemplate"))
-                this.__lpszTemplate := PSTR(this.ptr + 48)
-            return this.__lpszTemplate
-        }
+    lpszTemplate {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**
      * Customized template handle.
-     * @type {HRSRC}
+     * @type {Pointer<Ptr>}
      */
-    hResource{
-        get {
-            if(!this.HasProp("__hResource"))
-                this.__hResource := HRSRC(this.ptr + 56)
-            return this.__hResource
-        }
+    hResource {
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 
     /**
      * Current and final image. The source of the icon is embedded in the metafile itself.
-     * @type {HGLOBAL}
+     * @type {Pointer<Ptr>}
      */
-    hMetaPict{
-        get {
-            if(!this.HasProp("__hMetaPict"))
-                this.__hMetaPict := HGLOBAL(this.ptr + 64)
-            return this.__hMetaPict
-        }
+    hMetaPict {
+        get => NumGet(this, 64, "ptr")
+        set => NumPut("ptr", value, this, 64)
     }
 
     /**

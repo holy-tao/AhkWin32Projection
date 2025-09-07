@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.Media.Speech
@@ -21,14 +20,11 @@ class SPPHRASEREPLACEMENT extends Win32Struct
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszReplacementText{
-        get {
-            if(!this.HasProp("__pszReplacementText"))
-                this.__pszReplacementText := PWSTR(this.ptr + 8)
-            return this.__pszReplacementText
-        }
+    pszReplacementText {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
@@ -21,25 +20,19 @@ class MESSAGEBOX_PARAMS extends Win32Struct
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pTitle{
-        get {
-            if(!this.HasProp("__pTitle"))
-                this.__pTitle := PWSTR(this.ptr + 8)
-            return this.__pTitle
-        }
+    pTitle {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pMessage{
-        get {
-            if(!this.HasProp("__pMessage"))
-                this.__pMessage := PWSTR(this.ptr + 16)
-            return this.__pMessage
-        }
+    pMessage {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**

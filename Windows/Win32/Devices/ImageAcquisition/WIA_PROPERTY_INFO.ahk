@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * @namespace Windows.Win32.Devices.ImageAcquisition
@@ -133,18 +132,15 @@ class WIA_PROPERTY_INFO extends Win32Struct
     }
 
     /**
-     * @type {BSTR}
+     * @type {Pointer<Ptr>}
      */
-    Nom1234{
-        get {
-            if(!this.HasProp("__Nom1234"))
-                this.__Nom1234 := BSTR(this.ptr + 16)
-            return this.__Nom1234
-        }
+    Nom1234 {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
-     * @type {Pointer<BSTR>}
+     * @type {Pointer<Ptr>}
      */
     pList123 {
         get => NumGet(this, 24, "ptr")

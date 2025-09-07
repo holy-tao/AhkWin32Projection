@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 #Include .\D3D11_AUTHENTICATED_QUERY_INPUT.ahk
 
 /**
@@ -29,13 +28,10 @@ class D3D11_AUTHENTICATED_QUERY_CRYPTO_SESSION_INPUT extends Win32Struct
 
     /**
      * A handle to a decoder device.
-     * @type {HANDLE}
+     * @type {Pointer<Ptr>}
      */
-    DecoderHandle{
-        get {
-            if(!this.HasProp("__DecoderHandle"))
-                this.__DecoderHandle := HANDLE(this.ptr + 24)
-            return this.__DecoderHandle
-        }
+    DecoderHandle {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 }

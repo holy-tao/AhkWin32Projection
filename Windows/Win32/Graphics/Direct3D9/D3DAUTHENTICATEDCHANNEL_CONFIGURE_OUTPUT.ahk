@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\D3D_OMAC.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * Contains the response to a call to the IDirect3DAuthenticatedChannel9::Configure method.
@@ -40,14 +39,11 @@ class D3DAUTHENTICATEDCHANNEL_CONFIGURE_OUTPUT extends Win32Struct
 
     /**
      * A handle to the authenticated channel.
-     * @type {HANDLE}
+     * @type {Pointer<Ptr>}
      */
-    hChannel{
-        get {
-            if(!this.HasProp("__hChannel"))
-                this.__hChannel := HANDLE(this.ptr + 24)
-            return this.__hChannel
-        }
+    hChannel {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**

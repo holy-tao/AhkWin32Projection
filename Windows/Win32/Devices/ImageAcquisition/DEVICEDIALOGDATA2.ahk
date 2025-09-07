@@ -1,7 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * DEVICEDIALOGDATA2 structure - Defines the data needed to call a device dialog.
@@ -64,14 +62,11 @@ class DEVICEDIALOGDATA2 extends Win32Struct
      * 
      * 
      * Specifies the handle to the parent window of the dialog.
-     * @type {HWND}
+     * @type {Pointer<Ptr>}
      */
-    hwndParent{
-        get {
-            if(!this.HasProp("__hwndParent"))
-                this.__hwndParent := HWND(this.ptr + 24)
-            return this.__hwndParent
-        }
+    hwndParent {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
@@ -79,14 +74,11 @@ class DEVICEDIALOGDATA2 extends Win32Struct
      * 
      * 
      * Specifies the folder name where the files are transferred.
-     * @type {BSTR}
+     * @type {Pointer<Ptr>}
      */
-    bstrFolderName{
-        get {
-            if(!this.HasProp("__bstrFolderName"))
-                this.__bstrFolderName := BSTR(this.ptr + 32)
-            return this.__bstrFolderName
-        }
+    bstrFolderName {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
@@ -94,14 +86,11 @@ class DEVICEDIALOGDATA2 extends Win32Struct
      * 
      * 
      * Specifies the filename template to be used for files transferred from WIA items to the destination folder designated by **bstrFolderName**. An arbitrary number of unique file names can be created by appending additional characters to the file name template.
-     * @type {BSTR}
+     * @type {Pointer<Ptr>}
      */
-    bstrFilename{
-        get {
-            if(!this.HasProp("__bstrFilename"))
-                this.__bstrFilename := BSTR(this.ptr + 40)
-            return this.__bstrFilename
-        }
+    bstrFilename {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
@@ -121,7 +110,7 @@ class DEVICEDIALOGDATA2 extends Win32Struct
      * 
      * 
      * Pointer to an array of BSTR pointers. Each array element points to a BSTR that contains the destination name of a file that was successfully transferred to the folder identified by bstrFolderName. The method must allocate the storage for this member.
-     * @type {Pointer<BSTR>}
+     * @type {Pointer<Ptr>}
      */
     pbstrFilePaths {
         get => NumGet(this, 56, "ptr")

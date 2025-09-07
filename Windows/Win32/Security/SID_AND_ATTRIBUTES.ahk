@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32Struct.ahk
-#Include .\PSID.ahk
 
 /**
  * Represents a security identifier (SID) and its attributes.
@@ -18,14 +17,11 @@ class SID_AND_ATTRIBUTES extends Win32Struct
 
     /**
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure.
-     * @type {PSID}
+     * @type {Pointer<Ptr>}
      */
-    Sid{
-        get {
-            if(!this.HasProp("__Sid"))
-                this.__Sid := PSID(this.ptr + 0)
-            return this.__Sid
-        }
+    Sid {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**

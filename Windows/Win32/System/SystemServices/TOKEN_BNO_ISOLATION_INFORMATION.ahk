@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.System.SystemServices
@@ -13,14 +12,11 @@ class TOKEN_BNO_ISOLATION_INFORMATION extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    IsolationPrefix{
-        get {
-            if(!this.HasProp("__IsolationPrefix"))
-                this.__IsolationPrefix := PWSTR(this.ptr + 0)
-            return this.__IsolationPrefix
-        }
+    IsolationPrefix {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**

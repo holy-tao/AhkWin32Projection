@@ -1,8 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\CRYPT_INTEGER_BLOB.ahk
-#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * Contains an alternative name in one of a variety of name forms.
@@ -34,25 +32,19 @@ class CERT_ALT_NAME_ENTRY extends Win32Struct
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pwszRfc822Name{
-        get {
-            if(!this.HasProp("__pwszRfc822Name"))
-                this.__pwszRfc822Name := PWSTR(this.ptr + 8)
-            return this.__pwszRfc822Name
-        }
+    pwszRfc822Name {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pwszDNSName{
-        get {
-            if(!this.HasProp("__pwszDNSName"))
-                this.__pwszDNSName := PWSTR(this.ptr + 8)
-            return this.__pwszDNSName
-        }
+    pwszDNSName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -67,14 +59,11 @@ class CERT_ALT_NAME_ENTRY extends Win32Struct
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pwszURL{
-        get {
-            if(!this.HasProp("__pwszURL"))
-                this.__pwszURL := PWSTR(this.ptr + 8)
-            return this.__pwszURL
-        }
+    pwszURL {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -89,13 +78,10 @@ class CERT_ALT_NAME_ENTRY extends Win32Struct
     }
 
     /**
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszRegisteredID{
-        get {
-            if(!this.HasProp("__pszRegisteredID"))
-                this.__pszRegisteredID := PSTR(this.ptr + 8)
-            return this.__pszRegisteredID
-        }
+    pszRegisteredID {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 }

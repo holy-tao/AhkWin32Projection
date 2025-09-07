@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * Contains information about credentials that can be passed as optional input to a remote object retrieval function such as CryptRetrieveObjectByUrl or CryptGetTimeValidObject.
@@ -47,14 +46,11 @@ class CRYPT_CREDENTIALS extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszCredentialsOid{
-        get {
-            if(!this.HasProp("__pszCredentialsOid"))
-                this.__pszCredentialsOid := PSTR(this.ptr + 8)
-            return this.__pszCredentialsOid
-        }
+    pszCredentialsOid {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

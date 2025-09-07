@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
@@ -45,14 +44,11 @@ class PROPSHEETUI_INFO extends Win32Struct
     }
 
     /**
-     * @type {HANDLE}
+     * @type {Pointer<Ptr>}
      */
-    hComPropSheet{
-        get {
-            if(!this.HasProp("__hComPropSheet"))
-                this.__hComPropSheet := HANDLE(this.ptr + 8)
-            return this.__hComPropSheet
-        }
+    hComPropSheet {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

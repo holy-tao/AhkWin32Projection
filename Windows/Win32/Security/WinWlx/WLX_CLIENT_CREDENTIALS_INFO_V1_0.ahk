@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains the client credentials returned by a call to WlxQueryClientCredentials or WlxQueryInetConnectorCredentials.
@@ -25,26 +24,20 @@ class WLX_CLIENT_CREDENTIALS_INFO_V1_0 extends Win32Struct
 
     /**
      * A pointer to the name of the account logged onto.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszUserName{
-        get {
-            if(!this.HasProp("__pszUserName"))
-                this.__pszUserName := PWSTR(this.ptr + 8)
-            return this.__pszUserName
-        }
+    pszUserName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * A pointer to the name of the domain used to log on.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszDomain{
-        get {
-            if(!this.HasProp("__pszDomain"))
-                this.__pszDomain := PWSTR(this.ptr + 16)
-            return this.__pszDomain
-        }
+    pszDomain {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
@@ -53,14 +46,11 @@ class WLX_CLIENT_CREDENTIALS_INFO_V1_0 extends Win32Struct
      * <b>Windows XP/2000:  </b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa366877(v=vs.85)">SecureZeroMemory</a> is not supported. Overwrite the memory allocated for <i>pszPassword</i> to clear the sensitive information.
      * 
      * For more information about protecting passwords, see <a href="https://docs.microsoft.com/windows/desktop/SecBP/handling-passwords">Handling Passwords</a>.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszPassword{
-        get {
-            if(!this.HasProp("__pszPassword"))
-                this.__pszPassword := PWSTR(this.ptr + 24)
-            return this.__pszPassword
-        }
+    pszPassword {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Security\PSECURITY_DESCRIPTOR.ahk
 
 /**
  * Contains the security descriptor associated with the specified share. For more information, see Security Descriptors.
@@ -26,13 +25,10 @@ class SHARE_INFO_1501 extends Win32Struct
     /**
      * Specifies the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> associated with the share.
-     * @type {PSECURITY_DESCRIPTOR}
+     * @type {Pointer<Ptr>}
      */
-    shi1501_security_descriptor{
-        get {
-            if(!this.HasProp("__shi1501_security_descriptor"))
-                this.__shi1501_security_descriptor := PSECURITY_DESCRIPTOR(this.ptr + 8)
-            return this.__shi1501_security_descriptor
-        }
+    shi1501_security_descriptor {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 }

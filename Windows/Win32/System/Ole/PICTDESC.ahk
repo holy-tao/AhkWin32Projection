@@ -1,10 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Graphics\Gdi\HBITMAP.ahk
-#Include ..\..\Graphics\Gdi\HPALETTE.ahk
-#Include ..\..\Graphics\Gdi\HMETAFILE.ahk
-#Include ..\..\UI\WindowsAndMessaging\HICON.ahk
-#Include ..\..\Graphics\Gdi\HENHMETAFILE.ahk
 
 /**
  * Contains parameters to create a picture object through the OleCreatePictureIndirect function.
@@ -37,36 +32,27 @@ class PICTDESC extends Win32Struct
     }
 
     /**
-     * @type {HBITMAP}
+     * @type {Pointer<Ptr>}
      */
-    hbitmap{
-        get {
-            if(!this.HasProp("__hbitmap"))
-                this.__hbitmap := HBITMAP(this.ptr + 8)
-            return this.__hbitmap
-        }
+    hbitmap {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
-     * @type {HPALETTE}
+     * @type {Pointer<Ptr>}
      */
-    hpal{
-        get {
-            if(!this.HasProp("__hpal"))
-                this.__hpal := HPALETTE(this.ptr + 16)
-            return this.__hpal
-        }
+    hpal {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
-     * @type {HMETAFILE}
+     * @type {Pointer<Ptr>}
      */
-    hmeta{
-        get {
-            if(!this.HasProp("__hmeta"))
-                this.__hmeta := HMETAFILE(this.ptr + 8)
-            return this.__hmeta
-        }
+    hmeta {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -86,24 +72,18 @@ class PICTDESC extends Win32Struct
     }
 
     /**
-     * @type {HICON}
+     * @type {Pointer<Ptr>}
      */
-    hicon{
-        get {
-            if(!this.HasProp("__hicon"))
-                this.__hicon := HICON(this.ptr + 8)
-            return this.__hicon
-        }
+    icon {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
-     * @type {HENHMETAFILE}
+     * @type {Pointer<Ptr>}
      */
-    hemf{
-        get {
-            if(!this.HasProp("__hemf"))
-                this.__hemf := HENHMETAFILE(this.ptr + 8)
-            return this.__hemf
-        }
+    emf {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 }

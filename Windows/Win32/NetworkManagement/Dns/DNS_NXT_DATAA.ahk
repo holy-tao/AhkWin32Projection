@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * The DNS_NXT_DATA structure represents a DNS next (NXT) resource record (RR) as specified in section 5 of RFC 2535. (ANSI)
@@ -28,14 +27,11 @@ class DNS_NXT_DATAA extends Win32Struct
 
     /**
      * A pointer to a string that represents the name of the next domain.
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    pNameNext{
-        get {
-            if(!this.HasProp("__pNameNext"))
-                this.__pNameNext := PSTR(this.ptr + 0)
-            return this.__pNameNext
-        }
+    pNameNext {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**

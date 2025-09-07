@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
@@ -22,14 +21,11 @@ class PATCH_OLD_FILE_INFO_A extends Win32Struct
     }
 
     /**
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    OldFileName{
-        get {
-            if(!this.HasProp("__OldFileName"))
-                this.__OldFileName := PSTR(this.ptr + 8)
-            return this.__OldFileName
-        }
+    OldFileName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

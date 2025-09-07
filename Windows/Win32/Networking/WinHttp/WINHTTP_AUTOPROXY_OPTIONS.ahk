@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The WINHTTP_AUTOPROXY_OPTIONS structure is used to indicate to the WinHttpGetProxyForURL function whether to specify the URL of the Proxy Auto-Configuration (PAC) file or to automatically locate the URL with DHCP or DNS queries to the network.
@@ -215,14 +214,11 @@ class WINHTTP_AUTOPROXY_OPTIONS extends Win32Struct
      * If <b>dwFlags</b> includes the WINHTTP_AUTOPROXY_CONFIG_URL flag, the <b>lpszAutoConfigUrl</b> must point to a <b>null</b>-terminated Unicode string that contains the URL of the proxy auto-configuration (PAC) file.
      * 
      * If <b>dwFlags</b> does not include the WINHTTP_AUTOPROXY_CONFIG_URL flag, then <b>lpszAutoConfigUrl</b> must be <b>NULL</b>.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpszAutoConfigUrl{
-        get {
-            if(!this.HasProp("__lpszAutoConfigUrl"))
-                this.__lpszAutoConfigUrl := PWSTR(this.ptr + 8)
-            return this.__lpszAutoConfigUrl
-        }
+    lpszAutoConfigUrl {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

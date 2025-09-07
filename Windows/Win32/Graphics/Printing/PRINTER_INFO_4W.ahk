@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The PRINTER\_INFO\_4 structure specifies general printer information.The structure can be used to retrieve minimal printer information on a call to EnumPrinters.
@@ -23,26 +22,20 @@ class PRINTER_INFO_4W extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that specifies the name of the printer (local or remote).
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pPrinterName{
-        get {
-            if(!this.HasProp("__pPrinterName"))
-                this.__pPrinterName := PWSTR(this.ptr + 0)
-            return this.__pPrinterName
-        }
+    pPrinterName {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
      * Pointer to a null-terminated string that is the name of the server.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pServerName{
-        get {
-            if(!this.HasProp("__pServerName"))
-                this.__pServerName := PWSTR(this.ptr + 8)
-            return this.__pServerName
-        }
+    pServerName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

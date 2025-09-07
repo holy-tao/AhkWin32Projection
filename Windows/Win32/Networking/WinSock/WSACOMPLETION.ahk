@@ -1,7 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * Specifies completion notification settings for I/O control calls made to a registered namespace.
@@ -59,14 +57,11 @@ class WSACOMPLETION extends Win32Struct
     }
 
     /**
-     * @type {HWND}
+     * @type {Pointer<Ptr>}
      */
-    hWnd{
-        get {
-            if(!this.HasProp("__hWnd"))
-                this.__hWnd := HWND(this.ptr + 8)
-            return this.__hWnd
-        }
+    hWnd {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -86,6 +81,14 @@ class WSACOMPLETION extends Win32Struct
     }
 
     /**
+     * @type {Pointer<Ptr>}
+     */
+    Event {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
+    }
+
+    /**
      * @type {Pointer<OVERLAPPED>}
      */
     lpOverlapped {
@@ -102,14 +105,11 @@ class WSACOMPLETION extends Win32Struct
     }
 
     /**
-     * @type {HANDLE}
+     * @type {Pointer<Ptr>}
      */
-    hPort{
-        get {
-            if(!this.HasProp("__hPort"))
-                this.__hPort := HANDLE(this.ptr + 16)
-            return this.__hPort
-        }
+    hPort {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**

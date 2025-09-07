@@ -2,7 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\FILETIME.ahk
 #Include .\SAFER_IDENTIFICATION_HEADER.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Represents a path identification rule.
@@ -39,14 +38,11 @@ class SAFER_PATHNAME_IDENTIFICATION extends Win32Struct
 
     /**
      * A pointer to a <b>null</b>-terminated wide character string that specifies the fully qualified path and file name to be used for path-based discrimination checks. The image name is also used to open and read the file to identify any other discrimination criteria not supplied in this structure. This member can be set to <b>NULL</b>. If the <b>dwCheckFlags</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/winsafer/ns-winsafer-safer_identification_header">SAFER_IDENTIFICATION_HEADER</a> structure specified by the <b>header</b> member includes SAFER_CRITERIA_AUTHENTICODE, either the <b>hImageFileHandle</b> member or the <b>ImagePath</b> member of the <b>SAFER_IDENTIFICATION_HEADER</b> structure must be set.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    ImageName{
-        get {
-            if(!this.HasProp("__ImageName"))
-                this.__ImageName := PWSTR(this.ptr + 536)
-            return this.__ImageName
-        }
+    ImageName {
+        get => NumGet(this, 536, "ptr")
+        set => NumPut("ptr", value, this, 536)
     }
 
     /**

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
 #Include ..\..\Foundation\RECT.ahk
 
 /**
@@ -41,84 +40,66 @@ class GUITHREADINFO extends Win32Struct
      * Type: <b>HWND</b>
      * 
      * A handle to the active window within the thread.
-     * @type {HWND}
+     * @type {Pointer<Ptr>}
      */
-    hwndActive{
-        get {
-            if(!this.HasProp("__hwndActive"))
-                this.__hwndActive := HWND(this.ptr + 8)
-            return this.__hwndActive
-        }
+    hwndActive {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * Type: <b>HWND</b>
      * 
      * A handle to the window that has the keyboard focus.
-     * @type {HWND}
+     * @type {Pointer<Ptr>}
      */
-    hwndFocus{
-        get {
-            if(!this.HasProp("__hwndFocus"))
-                this.__hwndFocus := HWND(this.ptr + 16)
-            return this.__hwndFocus
-        }
+    hwndFocus {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * Type: <b>HWND</b>
      * 
      * A handle to the window that has captured the mouse.
-     * @type {HWND}
+     * @type {Pointer<Ptr>}
      */
-    hwndCapture{
-        get {
-            if(!this.HasProp("__hwndCapture"))
-                this.__hwndCapture := HWND(this.ptr + 24)
-            return this.__hwndCapture
-        }
+    hwndCapture {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
      * Type: <b>HWND</b>
      * 
      * A handle to the window that owns any active menus.
-     * @type {HWND}
+     * @type {Pointer<Ptr>}
      */
-    hwndMenuOwner{
-        get {
-            if(!this.HasProp("__hwndMenuOwner"))
-                this.__hwndMenuOwner := HWND(this.ptr + 32)
-            return this.__hwndMenuOwner
-        }
+    hwndMenuOwner {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
      * Type: <b>HWND</b>
      * 
      * A handle to the window in a move or size loop.
-     * @type {HWND}
+     * @type {Pointer<Ptr>}
      */
-    hwndMoveSize{
-        get {
-            if(!this.HasProp("__hwndMoveSize"))
-                this.__hwndMoveSize := HWND(this.ptr + 40)
-            return this.__hwndMoveSize
-        }
+    hwndMoveSize {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
      * Type: <b>HWND</b>
      * 
      * A handle to the window that is displaying the caret.
-     * @type {HWND}
+     * @type {Pointer<Ptr>}
      */
-    hwndCaret{
-        get {
-            if(!this.HasProp("__hwndCaret"))
-                this.__hwndCaret := HWND(this.ptr + 48)
-            return this.__hwndCaret
-        }
+    hwndCaret {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**

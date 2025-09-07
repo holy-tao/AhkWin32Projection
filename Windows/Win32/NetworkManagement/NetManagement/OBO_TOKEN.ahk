@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.NetManagement
@@ -29,36 +28,27 @@ class OBO_TOKEN extends Win32Struct
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszwManufacturer{
-        get {
-            if(!this.HasProp("__pszwManufacturer"))
-                this.__pszwManufacturer := PWSTR(this.ptr + 16)
-            return this.__pszwManufacturer
-        }
+    pszwManufacturer {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszwProduct{
-        get {
-            if(!this.HasProp("__pszwProduct"))
-                this.__pszwProduct := PWSTR(this.ptr + 24)
-            return this.__pszwProduct
-        }
+    pszwProduct {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszwDisplayName{
-        get {
-            if(!this.HasProp("__pszwDisplayName"))
-                this.__pszwDisplayName := PWSTR(this.ptr + 32)
-            return this.__pszwDisplayName
-        }
+    pszwDisplayName {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**

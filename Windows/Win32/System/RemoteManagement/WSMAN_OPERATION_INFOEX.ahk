@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\WSMAN_FRAGMENT.ahk
 #Include .\WSMAN_FILTER.ahk
 #Include .\WSMAN_SELECTOR_SET.ahk
@@ -69,24 +68,18 @@ class WSMAN_OPERATION_INFOEX extends Win32Struct
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    uiLocale{
-        get {
-            if(!this.HasProp("__uiLocale"))
-                this.__uiLocale := PWSTR(this.ptr + 88)
-            return this.__uiLocale
-        }
+    uiLocale {
+        get => NumGet(this, 88, "ptr")
+        set => NumPut("ptr", value, this, 88)
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    dataLocale{
-        get {
-            if(!this.HasProp("__dataLocale"))
-                this.__dataLocale := PWSTR(this.ptr + 96)
-            return this.__dataLocale
-        }
+    dataLocale {
+        get => NumGet(this, 96, "ptr")
+        set => NumPut("ptr", value, this, 96)
     }
 }

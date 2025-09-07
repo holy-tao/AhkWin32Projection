@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\DHCP_BINARY_DATA.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The DHCP_IP_RESERVATION_INFO structure defines an IPv4 reservation for a DHCPv4 client.
@@ -38,26 +37,20 @@ class DHCP_IP_RESERVATION_INFO extends Win32Struct
 
     /**
      * Pointer to a null-terminated Unicode string that represents the DHCPv4 reserved client machine name.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    ReservedClientName{
-        get {
-            if(!this.HasProp("__ReservedClientName"))
-                this.__ReservedClientName := PWSTR(this.ptr + 24)
-            return this.__ReservedClientName
-        }
+    ReservedClientName {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
      * Pointer to a null-terminated Unicode string that represents the description of the DHCPv4 reserved client.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    ReservedClientDesc{
-        get {
-            if(!this.HasProp("__ReservedClientDesc"))
-                this.__ReservedClientDesc := PWSTR(this.ptr + 32)
-            return this.__ReservedClientDesc
-        }
+    ReservedClientDesc {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**

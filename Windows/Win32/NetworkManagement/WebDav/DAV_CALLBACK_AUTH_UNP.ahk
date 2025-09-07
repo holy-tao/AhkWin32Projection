@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Stores user name and password information that was retrieved by the DavAuthCallback callback function.
@@ -20,14 +19,11 @@ class DAV_CALLBACK_AUTH_UNP extends Win32Struct
 
     /**
      * A pointer to a string that contains the user name. This string is allocated by the <a href="https://docs.microsoft.com/windows/desktop/api/davclnt/nc-davclnt-pfndavauthcallback">DavAuthCallback</a> callback function.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszUserName{
-        get {
-            if(!this.HasProp("__pszUserName"))
-                this.__pszUserName := PWSTR(this.ptr + 0)
-            return this.__pszUserName
-        }
+    pszUserName {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
@@ -41,14 +37,11 @@ class DAV_CALLBACK_AUTH_UNP extends Win32Struct
 
     /**
      * A pointer to a string that contains the password. This string is allocated by <a href="https://docs.microsoft.com/windows/desktop/api/davclnt/nc-davclnt-pfndavauthcallback">DavAuthCallback</a>.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszPassword{
-        get {
-            if(!this.HasProp("__pszPassword"))
-                this.__pszPassword := PWSTR(this.ptr + 16)
-            return this.__pszPassword
-        }
+    pszPassword {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**

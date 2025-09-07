@@ -24,7 +24,7 @@ class CRYPT_DEFAULT_CONTEXT_MULTI_OID_PARA extends Win32Struct
 
     /**
      * An array of pointers to null-terminated ANSI strings that contain the object identifier strings of the certificate signature algorithm to install the default provider for, for example, <b>szOID_OIWSEC_md5RSA</b>. The <b>cOID</b> member of this structure contains the number of elements in this array.
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Ptr>}
      */
     rgpszOID {
         get => NumGet(this, 8, "ptr")

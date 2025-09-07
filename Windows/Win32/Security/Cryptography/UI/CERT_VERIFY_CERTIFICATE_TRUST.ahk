@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\PSTR.ahk
 
 /**
  * @namespace Windows.Win32.Security.Cryptography.UI
@@ -53,14 +52,11 @@ class CERT_VERIFY_CERTIFICATE_TRUST extends Win32Struct
     }
 
     /**
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszUsageOid{
-        get {
-            if(!this.HasProp("__pszUsageOid"))
-                this.__pszUsageOid := PSTR(this.ptr + 32)
-            return this.__pszUsageOid
-        }
+    pszUsageOid {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
@@ -80,7 +76,7 @@ class CERT_VERIFY_CERTIFICATE_TRUST extends Win32Struct
     }
 
     /**
-     * @type {Pointer<HCERTSTORE>}
+     * @type {Pointer<Ptr>}
      */
     rghstoreRoots {
         get => NumGet(this, 56, "ptr")
@@ -96,7 +92,7 @@ class CERT_VERIFY_CERTIFICATE_TRUST extends Win32Struct
     }
 
     /**
-     * @type {Pointer<HCERTSTORE>}
+     * @type {Pointer<Ptr>}
      */
     rghstoreCAs {
         get => NumGet(this, 72, "ptr")
@@ -112,7 +108,7 @@ class CERT_VERIFY_CERTIFICATE_TRUST extends Win32Struct
     }
 
     /**
-     * @type {Pointer<HCERTSTORE>}
+     * @type {Pointer<Ptr>}
      */
     rghstoreTrust {
         get => NumGet(this, 88, "ptr")

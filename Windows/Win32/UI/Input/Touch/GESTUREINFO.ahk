@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\HWND.ahk
 #Include ..\..\..\Foundation\POINTS.ahk
 
 /**
@@ -144,14 +143,11 @@ class GESTUREINFO extends Win32Struct
 
     /**
      * A handle to the window that is targeted by this gesture.
-     * @type {HWND}
+     * @type {Pointer<Ptr>}
      */
-    hwndTarget{
-        get {
-            if(!this.HasProp("__hwndTarget"))
-                this.__hwndTarget := HWND(this.ptr + 16)
-            return this.__hwndTarget
-        }
+    hwndTarget {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**

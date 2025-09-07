@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\CERT_TRUST_STATUS.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The CERT_CHAIN_ELEMENT structure is a single element in a simple certificate chain.
@@ -74,14 +73,11 @@ class CERT_CHAIN_ELEMENT extends Win32Struct
 
     /**
      * A pointer to a <b>null</b>-terminated wide character string that contains extended error information. If <b>NULL</b>, there is no extended error information.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pwszExtendedErrorInfo{
-        get {
-            if(!this.HasProp("__pwszExtendedErrorInfo"))
-                this.__pwszExtendedErrorInfo := PWSTR(this.ptr + 48)
-            return this.__pwszExtendedErrorInfo
-        }
+    pwszExtendedErrorInfo {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**

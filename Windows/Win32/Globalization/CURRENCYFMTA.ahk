@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32Struct.ahk
-#Include ..\Foundation\PSTR.ahk
 
 /**
  * Contains information that defines the format of a currency string. The GetCurrencyFormat function uses this information to customize a currency string for a specified locale. (ANSI)
@@ -50,26 +49,20 @@ class CURRENCYFMTA extends Win32Struct
 
     /**
      * Pointer to a null-terminated decimal separator string.
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpDecimalSep{
-        get {
-            if(!this.HasProp("__lpDecimalSep"))
-                this.__lpDecimalSep := PSTR(this.ptr + 16)
-            return this.__lpDecimalSep
-        }
+    lpDecimalSep {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * Pointer to a null-terminated thousand separator string.
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpThousandSep{
-        get {
-            if(!this.HasProp("__lpThousandSep"))
-                this.__lpThousandSep := PSTR(this.ptr + 24)
-            return this.__lpThousandSep
-        }
+    lpThousandSep {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
@@ -92,13 +85,10 @@ class CURRENCYFMTA extends Win32Struct
 
     /**
      * Pointer to a null-terminated currency symbol string.
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpCurrencySymbol{
-        get {
-            if(!this.HasProp("__lpCurrencySymbol"))
-                this.__lpCurrencySymbol := PSTR(this.ptr + 40)
-            return this.__lpCurrencySymbol
-        }
+    lpCurrencySymbol {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 }

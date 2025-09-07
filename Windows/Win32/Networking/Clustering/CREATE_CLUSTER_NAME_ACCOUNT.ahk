@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Describes a cluster name resource and domain credentials used by the CreateClusterNameAccount function to add a cluster to a domain. PCREATE_CLUSTER_NAME_ACCOUNT defines a pointer to this structure.
@@ -25,14 +24,11 @@ class CREATE_CLUSTER_NAME_ACCOUNT extends Win32Struct
 
     /**
      * The cluster name that represents the cluster on the domain.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpszClusterName{
-        get {
-            if(!this.HasProp("__lpszClusterName"))
-                this.__lpszClusterName := PWSTR(this.ptr + 8)
-            return this.__lpszClusterName
-        }
+    lpszClusterName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -46,38 +42,29 @@ class CREATE_CLUSTER_NAME_ACCOUNT extends Win32Struct
 
     /**
      * The user name for the domain credentials.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszUserName{
-        get {
-            if(!this.HasProp("__pszUserName"))
-                this.__pszUserName := PWSTR(this.ptr + 24)
-            return this.__pszUserName
-        }
+    pszUserName {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
      * The password for the domain credentials.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszPassword{
-        get {
-            if(!this.HasProp("__pszPassword"))
-                this.__pszPassword := PWSTR(this.ptr + 32)
-            return this.__pszPassword
-        }
+    pszPassword {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
      * The domain name to join.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszDomain{
-        get {
-            if(!this.HasProp("__pszDomain"))
-                this.__pszDomain := PWSTR(this.ptr + 40)
-            return this.__pszDomain
-        }
+    pszDomain {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**

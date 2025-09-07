@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains information about a vSwitch event.
@@ -33,14 +32,11 @@ class FWPM_VSWITCH_EVENT0 extends Win32Struct
      * Type: <b>wchar_t*</b>
      * 
      * GUID that identifies a vSwitch.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    vSwitchId{
-        get {
-            if(!this.HasProp("__vSwitchId"))
-                this.__vSwitchId := PWSTR(this.ptr + 8)
-            return this.__vSwitchId
-        }
+    vSwitchId {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -52,7 +48,7 @@ class FWPM_VSWITCH_EVENT0 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Ptr>}
      */
     vSwitchFilterExtensions {
         get => NumGet(this, 24, "ptr")

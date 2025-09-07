@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * A MapiMessageW structure contains information about a message.
@@ -32,14 +31,11 @@ class MapiMessageW extends Win32Struct
      * Pointer to the text string describing the message subject, typically limited to 256 characters or less.
      * 
      * If this member is empty or <b>NULL</b>, there is no subject text.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpszSubject{
-        get {
-            if(!this.HasProp("__lpszSubject"))
-                this.__lpszSubject := PWSTR(this.ptr + 8)
-            return this.__lpszSubject
-        }
+    lpszSubject {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -48,14 +44,11 @@ class MapiMessageW extends Win32Struct
      * Pointer to a string containing the message text.
      * 
      * If this member is empty or <b>NULL</b>, there is no message text.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpszNoteText{
-        get {
-            if(!this.HasProp("__lpszNoteText"))
-                this.__lpszNoteText := PWSTR(this.ptr + 16)
-            return this.__lpszNoteText
-        }
+    lpszNoteText {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
@@ -64,42 +57,33 @@ class MapiMessageW extends Win32Struct
      * Pointer to a string that indicates the message type of when the message is not an IPM.
      * 
      * If your Client supports Interpersonal Messages (IPMs) exclusively, set the <b>lpszMessageType</b> member to empty or <b>NULL</b> when sending messages and ignore the member when reading messages.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpszMessageType{
-        get {
-            if(!this.HasProp("__lpszMessageType"))
-                this.__lpszMessageType := PWSTR(this.ptr + 24)
-            return this.__lpszMessageType
-        }
+    lpszMessageType {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">PWSTR</a></b>
      * 
      * Pointer to a string indicating the date when the message was received. The format is <i>YYYY</i>/<i>MM</i>/<i>DD</i><i>HH</i>:<i>MM</i>, using a 24-hour clock.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpszDateReceived{
-        get {
-            if(!this.HasProp("__lpszDateReceived"))
-                this.__lpszDateReceived := PWSTR(this.ptr + 32)
-            return this.__lpszDateReceived
-        }
+    lpszDateReceived {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">PWSTR</a></b>
      * 
      * Pointer to a string identifying the conversation thread to which the message belongs. Some messaging systems ignore this member.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpszConversationID{
-        get {
-            if(!this.HasProp("__lpszConversationID"))
-                this.__lpszConversationID := PWSTR(this.ptr + 40)
-            return this.__lpszConversationID
-        }
+    lpszConversationID {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**

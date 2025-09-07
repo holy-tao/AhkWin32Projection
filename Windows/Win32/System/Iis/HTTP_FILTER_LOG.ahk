@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * @namespace Windows.Win32.System.Iis
@@ -13,69 +12,51 @@ class HTTP_FILTER_LOG extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszClientHostName{
-        get {
-            if(!this.HasProp("__pszClientHostName"))
-                this.__pszClientHostName := PSTR(this.ptr + 0)
-            return this.__pszClientHostName
-        }
+    pszClientHostName {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszClientUserName{
-        get {
-            if(!this.HasProp("__pszClientUserName"))
-                this.__pszClientUserName := PSTR(this.ptr + 8)
-            return this.__pszClientUserName
-        }
+    pszClientUserName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszServerName{
-        get {
-            if(!this.HasProp("__pszServerName"))
-                this.__pszServerName := PSTR(this.ptr + 16)
-            return this.__pszServerName
-        }
+    pszServerName {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszOperation{
-        get {
-            if(!this.HasProp("__pszOperation"))
-                this.__pszOperation := PSTR(this.ptr + 24)
-            return this.__pszOperation
-        }
+    pszOperation {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszTarget{
-        get {
-            if(!this.HasProp("__pszTarget"))
-                this.__pszTarget := PSTR(this.ptr + 32)
-            return this.__pszTarget
-        }
+    pszTarget {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszParameters{
-        get {
-            if(!this.HasProp("__pszParameters"))
-                this.__pszParameters := PSTR(this.ptr + 40)
-            return this.__pszParameters
-        }
+    pszParameters {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**

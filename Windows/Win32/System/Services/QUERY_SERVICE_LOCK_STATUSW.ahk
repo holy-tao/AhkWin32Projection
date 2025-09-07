@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains information about the lock status of a service control manager database. It is used by the QueryServiceLockStatus function. (Unicode)
@@ -29,14 +28,11 @@ class QUERY_SERVICE_LOCK_STATUSW extends Win32Struct
 
     /**
      * The name of the user who acquired the lock.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpLockOwner{
-        get {
-            if(!this.HasProp("__lpLockOwner"))
-                this.__lpLockOwner := PWSTR(this.ptr + 8)
-            return this.__lpLockOwner
-        }
+    lpLockOwner {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

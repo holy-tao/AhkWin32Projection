@@ -1,7 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Security\PSECURITY_DESCRIPTOR.ahk
 
 /**
  * The PRINTER\_INFO\_2 structure specifies detailed printer information.
@@ -18,86 +16,65 @@ class PRINTER_INFO_2W extends Win32Struct
 
     /**
      * A pointer to a null-terminated string identifying the server that controls the printer. If this string is **NULL**, the printer is controlled locally.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pServerName{
-        get {
-            if(!this.HasProp("__pServerName"))
-                this.__pServerName := PWSTR(this.ptr + 0)
-            return this.__pServerName
-        }
+    pServerName {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
      * A pointer to a null-terminated string that specifies the name of the printer.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pPrinterName{
-        get {
-            if(!this.HasProp("__pPrinterName"))
-                this.__pPrinterName := PWSTR(this.ptr + 8)
-            return this.__pPrinterName
-        }
+    pPrinterName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * A pointer to a null-terminated string that identifies the share point for the printer. (This string is used only if the PRINTER\_ATTRIBUTE\_SHARED constant was set for the **Attributes** member.)
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pShareName{
-        get {
-            if(!this.HasProp("__pShareName"))
-                this.__pShareName := PWSTR(this.ptr + 16)
-            return this.__pShareName
-        }
+    pShareName {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * A pointer to a null-terminated string that identifies the port(s) used to transmit data to the printer. If a printer is connected to more than one port, the names of each port must be separated by commas (for example, "LPT1:,LPT2:,LPT3:").
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pPortName{
-        get {
-            if(!this.HasProp("__pPortName"))
-                this.__pPortName := PWSTR(this.ptr + 24)
-            return this.__pPortName
-        }
+    pPortName {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
      * A pointer to a null-terminated string that specifies the name of the printer driver.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pDriverName{
-        get {
-            if(!this.HasProp("__pDriverName"))
-                this.__pDriverName := PWSTR(this.ptr + 32)
-            return this.__pDriverName
-        }
+    pDriverName {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
      * A pointer to a null-terminated string that provides a brief description of the printer.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pComment{
-        get {
-            if(!this.HasProp("__pComment"))
-                this.__pComment := PWSTR(this.ptr + 40)
-            return this.__pComment
-        }
+    pComment {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
      * A pointer to a null-terminated string that specifies the physical location of the printer (for example, "Bldg. 38, Room 1164").
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pLocation{
-        get {
-            if(!this.HasProp("__pLocation"))
-                this.__pLocation := PWSTR(this.ptr + 48)
-            return this.__pLocation
-        }
+    pLocation {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**
@@ -111,62 +88,47 @@ class PRINTER_INFO_2W extends Win32Struct
 
     /**
      * A pointer to a null-terminated string that specifies the name of the file used to create the separator page. This page is used to separate print jobs sent to the printer.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pSepFile{
-        get {
-            if(!this.HasProp("__pSepFile"))
-                this.__pSepFile := PWSTR(this.ptr + 64)
-            return this.__pSepFile
-        }
+    pSepFile {
+        get => NumGet(this, 64, "ptr")
+        set => NumPut("ptr", value, this, 64)
     }
 
     /**
      * A pointer to a null-terminated string that specifies the name of the print processor used by the printer. You can use the [**EnumPrintProcessors**](enumprintprocessors.md) function to obtain a list of print processors installed on a server.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pPrintProcessor{
-        get {
-            if(!this.HasProp("__pPrintProcessor"))
-                this.__pPrintProcessor := PWSTR(this.ptr + 72)
-            return this.__pPrintProcessor
-        }
+    pPrintProcessor {
+        get => NumGet(this, 72, "ptr")
+        set => NumPut("ptr", value, this, 72)
     }
 
     /**
      * A pointer to a null-terminated string that specifies the data type used to record the print job. You can use the [**EnumPrintProcessorDatatypes**](enumprintprocessordatatypes.md) function to obtain a list of data types supported by a specific print processor.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pDatatype{
-        get {
-            if(!this.HasProp("__pDatatype"))
-                this.__pDatatype := PWSTR(this.ptr + 80)
-            return this.__pDatatype
-        }
+    pDatatype {
+        get => NumGet(this, 80, "ptr")
+        set => NumPut("ptr", value, this, 80)
     }
 
     /**
      * A pointer to a null-terminated string that specifies the default print-processor parameters.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pParameters{
-        get {
-            if(!this.HasProp("__pParameters"))
-                this.__pParameters := PWSTR(this.ptr + 88)
-            return this.__pParameters
-        }
+    pParameters {
+        get => NumGet(this, 88, "ptr")
+        set => NumPut("ptr", value, this, 88)
     }
 
     /**
      * A pointer to a [**SECURITY\_DESCRIPTOR**](/windows/desktop/api/winnt/ns-winnt-security_descriptor) structure for the printer. This member may be **NULL**.
-     * @type {PSECURITY_DESCRIPTOR}
+     * @type {Pointer<Ptr>}
      */
-    pSecurityDescriptor{
-        get {
-            if(!this.HasProp("__pSecurityDescriptor"))
-                this.__pSecurityDescriptor := PSECURITY_DESCRIPTOR(this.ptr + 96)
-            return this.__pSecurityDescriptor
-        }
+    pSecurityDescriptor {
+        get => NumGet(this, 96, "ptr")
+        set => NumPut("ptr", value, this, 96)
     }
 
     /**

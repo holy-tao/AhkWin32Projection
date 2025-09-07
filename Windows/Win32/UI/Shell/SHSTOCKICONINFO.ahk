@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\WindowsAndMessaging\HICON.ahk
 
 /**
  * Receives information used to retrieve a stock Shell icon. This structure is used in a call SHGetStockIconInfo.
@@ -29,14 +28,11 @@ class SHSTOCKICONINFO extends Win32Struct
      * Type: <b>HICON</b>
      * 
      * When <a href="https://docs.microsoft.com/windows/desktop/api/shellapi/nf-shellapi-shgetstockiconinfo">SHGetStockIconInfo</a> is called with the SHGSI_ICON flag, this member receives a handle to the icon.
-     * @type {HICON}
+     * @type {Pointer<Ptr>}
      */
-    hIcon{
-        get {
-            if(!this.HasProp("__hIcon"))
-                this.__hIcon := HICON(this.ptr + 4)
-            return this.__hIcon
-        }
+    hIcon {
+        get => NumGet(this, 4, "ptr")
+        set => NumPut("ptr", value, this, 4)
     }
 
     /**

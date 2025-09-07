@@ -2,7 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\RANGEVALUE.ahk
 #Include .\SCANWINDOW.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * @namespace Windows.Win32.Devices.ImageAcquisition
@@ -288,12 +287,12 @@ class SCANINFO extends Win32Struct
     }
 
     /**
-     * @type {Array<HANDLE>}
+     * @type {Array<Ptr>}
      */
     DeviceIOHandles{
         get {
             if(!this.HasProp("__DeviceIOHandlesProxyArray"))
-                this.__DeviceIOHandlesProxyArray := Win32FixedArray(this.ptr + 168, 8, HANDLE, "")
+                this.__DeviceIOHandlesProxyArray := Win32FixedArray(this.ptr + 168, 8, Primitive, "ptr")
             return this.__DeviceIOHandlesProxyArray
         }
     }

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
@@ -29,14 +28,11 @@ class SSL_KEY_PIN_EXTRA_CERT_CHAIN_POLICY_PARA extends Win32Struct
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pwszServerName{
-        get {
-            if(!this.HasProp("__pwszServerName"))
-                this.__pwszServerName := PWSTR(this.ptr + 8)
-            return this.__pwszServerName
-        }
+    pwszServerName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

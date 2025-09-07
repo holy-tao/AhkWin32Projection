@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Represents a WS-Eventing SubscriptionEnd response message.
@@ -62,14 +61,11 @@ class RESPONSEBODY_SubscriptionEnd extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    Status{
-        get {
-            if(!this.HasProp("__Status"))
-                this.__Status := PWSTR(this.ptr + 8)
-            return this.__Status
-        }
+    Status {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

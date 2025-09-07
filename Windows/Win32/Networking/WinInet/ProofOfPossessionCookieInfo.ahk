@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * 
@@ -18,26 +17,20 @@ class ProofOfPossessionCookieInfo extends Win32Struct
 
     /**
      * 
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    name{
-        get {
-            if(!this.HasProp("__name"))
-                this.__name := PWSTR(this.ptr + 0)
-            return this.__name
-        }
+    name {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
      * 
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    data{
-        get {
-            if(!this.HasProp("__data"))
-                this.__data := PWSTR(this.ptr + 8)
-            return this.__data
-        }
+    data {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -51,13 +44,10 @@ class ProofOfPossessionCookieInfo extends Win32Struct
 
     /**
      * 
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    p3pHeader{
-        get {
-            if(!this.HasProp("__p3pHeader"))
-                this.__p3pHeader := PWSTR(this.ptr + 24)
-            return this.__p3pHeader
-        }
+    p3pHeader {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 }

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.Security.ExtensibleAuthenticationProtocol
@@ -77,14 +76,11 @@ class LEGACY_IDENTITY_UI_PARAMS extends Win32Struct
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pwszIdentity{
-        get {
-            if(!this.HasProp("__pwszIdentity"))
-                this.__pwszIdentity := PWSTR(this.ptr + 56)
-            return this.__pwszIdentity
-        }
+    pwszIdentity {
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 
     /**

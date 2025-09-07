@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * @namespace Windows.Win32.System.Rpc
@@ -110,14 +109,11 @@ class RPC_CALL_ATTRIBUTES_V3_W extends Win32Struct
     }
 
     /**
-     * @type {HANDLE}
+     * @type {Pointer<Ptr>}
      */
-    ClientPID{
-        get {
-            if(!this.HasProp("__ClientPID"))
-                this.__ClientPID := HANDLE(this.ptr + 64)
-            return this.__ClientPID
-        }
+    ClientPID {
+        get => NumGet(this, 64, "ptr")
+        set => NumPut("ptr", value, this, 64)
     }
 
     /**

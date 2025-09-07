@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains information about the certificate that the EAP method uses for authentication.
@@ -28,13 +27,10 @@ class EapCertificateCredential extends Win32Struct
 
     /**
      * If the certificate is present on the system and strong private key protection is turned on for this certificate, this field contains the password to access the certificate.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    password{
-        get {
-            if(!this.HasProp("__password"))
-                this.__password := PWSTR(this.ptr + 24)
-            return this.__password
-        }
+    password {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 }

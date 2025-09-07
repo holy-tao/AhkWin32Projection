@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * This resource describes an individual diagnostic data record (event).
@@ -53,40 +52,31 @@ class DIAGNOSTIC_DATA_RECORD extends Win32Struct
     /**
      * Type: **[LPWSTR](/windows/desktop/com/structure-of-com-error-codes)**
      * The full event name.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    fullEventName{
-        get {
-            if(!this.HasProp("__fullEventName"))
-                this.__fullEventName := PWSTR(this.ptr + 24)
-            return this.__fullEventName
-        }
+    fullEventName {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
      * Type: **[LPWSTR](/windows/desktop/com/structure-of-com-error-codes)**
      * The provider group GUID for this event.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    providerGroupGuid{
-        get {
-            if(!this.HasProp("__providerGroupGuid"))
-                this.__providerGroupGuid := PWSTR(this.ptr + 32)
-            return this.__providerGroupGuid
-        }
+    providerGroupGuid {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
      * Type: **[LPWSTR](/windows/desktop/com/structure-of-com-error-codes)**
      * The name of the producer associated with this event.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    producerName{
-        get {
-            if(!this.HasProp("__producerName"))
-                this.__producerName := PWSTR(this.ptr + 40)
-            return this.__producerName
-        }
+    producerName {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
@@ -141,37 +131,28 @@ class DIAGNOSTIC_DATA_RECORD extends Win32Struct
 
     /**
      * 
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    extra1{
-        get {
-            if(!this.HasProp("__extra1"))
-                this.__extra1 := PWSTR(this.ptr + 80)
-            return this.__extra1
-        }
+    extra1 {
+        get => NumGet(this, 80, "ptr")
+        set => NumPut("ptr", value, this, 80)
     }
 
     /**
      * 
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    extra2{
-        get {
-            if(!this.HasProp("__extra2"))
-                this.__extra2 := PWSTR(this.ptr + 88)
-            return this.__extra2
-        }
+    extra2 {
+        get => NumGet(this, 88, "ptr")
+        set => NumPut("ptr", value, this, 88)
     }
 
     /**
      * 
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    extra3{
-        get {
-            if(!this.HasProp("__extra3"))
-                this.__extra3 := PWSTR(this.ptr + 96)
-            return this.__extra3
-        }
+    extra3 {
+        get => NumGet(this, 96, "ptr")
+        set => NumPut("ptr", value, this, 96)
     }
 }

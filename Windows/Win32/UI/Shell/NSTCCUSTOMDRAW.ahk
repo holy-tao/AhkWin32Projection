@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Custom draw structure used by INameSpaceTreeControlCustomDraw methods.
@@ -51,14 +50,11 @@ class NSTCCUSTOMDRAW extends Win32Struct
      * Type: <b>LPCWSTR</b>
      * 
      * A pointer to a null-terminated Unicode string that contains the item text, if the structure specifies item attributes.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszText{
-        get {
-            if(!this.HasProp("__pszText"))
-                this.__pszText := PWSTR(this.ptr + 16)
-            return this.__pszText
-        }
+    pszText {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**

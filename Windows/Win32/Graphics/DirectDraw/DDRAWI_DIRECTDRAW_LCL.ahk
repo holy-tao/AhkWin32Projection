@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HINSTANCE.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
@@ -125,14 +124,11 @@ class DDRAWI_DIRECTDRAW_LCL extends Win32Struct
     }
 
     /**
-     * @type {HINSTANCE}
+     * @type {Pointer<Ptr>}
      */
-    hD3DInstance{
-        get {
-            if(!this.HasProp("__hD3DInstance"))
-                this.__hD3DInstance := HINSTANCE(this.ptr + 96)
-            return this.__hD3DInstance
-        }
+    hD3DInstance {
+        get => NumGet(this, 96, "ptr")
+        set => NumPut("ptr", value, this, 96)
     }
 
     /**

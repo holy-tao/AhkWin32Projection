@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\DEVPROPKEY.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\Properties\DEVPROPCOMPKEY.ahk
 #Include ..\Properties\DEVPROPERTY.ahk
 

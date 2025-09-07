@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * The berval structure represents arbitrary binary data that is encoded according to Basic Encoding Rules (BER). Use a berval to represent any attribute that cannot be represented by a null-terminated string.
@@ -27,13 +26,10 @@ class LDAP_BERVAL extends Win32Struct
 
     /**
      * Pointer to the binary data.
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    bv_val{
-        get {
-            if(!this.HasProp("__bv_val"))
-                this.__bv_val := PSTR(this.ptr + 8)
-            return this.__bv_val
-        }
+    bv_val {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 }

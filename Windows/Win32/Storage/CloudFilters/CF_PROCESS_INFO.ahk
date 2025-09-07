@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains information about a user process.
@@ -34,38 +33,29 @@ class CF_PROCESS_INFO extends Win32Struct
 
     /**
      * The absolute path of the main executable file including the volume name in the format of NT file path. If the platform failed to retrieve the image path, `UNKNOWN` will be returned.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    ImagePath{
-        get {
-            if(!this.HasProp("__ImagePath"))
-                this.__ImagePath := PWSTR(this.ptr + 8)
-            return this.__ImagePath
-        }
+    ImagePath {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * Used for modern applications. The app package name.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    PackageName{
-        get {
-            if(!this.HasProp("__PackageName"))
-                this.__PackageName := PWSTR(this.ptr + 16)
-            return this.__PackageName
-        }
+    PackageName {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * Used for modern applications. The application ID.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    ApplicationId{
-        get {
-            if(!this.HasProp("__ApplicationId"))
-                this.__ApplicationId := PWSTR(this.ptr + 24)
-            return this.__ApplicationId
-        }
+    ApplicationId {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
@@ -73,14 +63,11 @@ class CF_PROCESS_INFO extends Win32Struct
      * >This member was added in Windows 10, version 1803.
      * 
      * The string that is used to start the process. If the platform failed to retrieve the command line, `UNKNOWN` will be returned.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    CommandLine{
-        get {
-            if(!this.HasProp("__CommandLine"))
-                this.__CommandLine := PWSTR(this.ptr + 32)
-            return this.__CommandLine
-        }
+    CommandLine {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**

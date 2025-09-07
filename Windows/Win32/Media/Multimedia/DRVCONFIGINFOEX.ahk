@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.Media.Multimedia
@@ -21,25 +20,19 @@ class DRVCONFIGINFOEX extends Win32Struct
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpszDCISectionName{
-        get {
-            if(!this.HasProp("__lpszDCISectionName"))
-                this.__lpszDCISectionName := PWSTR(this.ptr + 4)
-            return this.__lpszDCISectionName
-        }
+    lpszDCISectionName {
+        get => NumGet(this, 4, "ptr")
+        set => NumPut("ptr", value, this, 4)
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpszDCIAliasName{
-        get {
-            if(!this.HasProp("__lpszDCIAliasName"))
-                this.__lpszDCIAliasName := PWSTR(this.ptr + 12)
-            return this.__lpszDCIAliasName
-        }
+    lpszDCIAliasName {
+        get => NumGet(this, 12, "ptr")
+        set => NumPut("ptr", value, this, 12)
     }
 
     /**

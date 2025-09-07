@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The ShellCommandInfo structure contains data required to launch an additional application for manual repair options.
@@ -91,56 +90,44 @@ class ShellCommandInfo extends Win32Struct
      * Type: <b>[string] LPWSTR</b>
      * 
      * A pointer to a null-terminated string that contains the action to be performed. The set of available verbs that specifies the action depends on the particular file or folder. Generally, the actions available from an object's shortcut menu are available verbs. For more information, see the Remarks section.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pwszOperation{
-        get {
-            if(!this.HasProp("__pwszOperation"))
-                this.__pwszOperation := PWSTR(this.ptr + 0)
-            return this.__pwszOperation
-        }
+    pwszOperation {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
      * Type: <b>[string] LPWSTR</b>
      * 
      * A pointer to a null-terminated string that specifies the file or object on which to execute the specified verb. To specify a Shell namespace object, pass the fully qualified parse name. Note that not all verbs are supported on all objects. For example, not all document types support the "print" verb.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pwszFile{
-        get {
-            if(!this.HasProp("__pwszFile"))
-                this.__pwszFile := PWSTR(this.ptr + 8)
-            return this.__pwszFile
-        }
+    pwszFile {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * Type: <b>[string] LPWSTR</b>
      * 
      * A pointer to a null-terminated strings that specifies the parameters to be passed to the application, only if the <i>pwszFile</i> parameter specifies an executable file. The format of this string is determined by the verb that is to be invoked. If <i>pwszFile</i> specifies a document file, <i>pwszParameters</i> should be <b>NULL</b>.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pwszParameters{
-        get {
-            if(!this.HasProp("__pwszParameters"))
-                this.__pwszParameters := PWSTR(this.ptr + 16)
-            return this.__pwszParameters
-        }
+    pwszParameters {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * Type: <b>[string] LPWSTR</b>
      * 
      * A pointer to a null-terminated string that specifies the default directory.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pwszDirectory{
-        get {
-            if(!this.HasProp("__pwszDirectory"))
-                this.__pwszDirectory := PWSTR(this.ptr + 24)
-            return this.__pwszDirectory
-        }
+    pwszDirectory {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**

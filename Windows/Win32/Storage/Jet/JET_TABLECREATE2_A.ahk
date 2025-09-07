@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * @namespace Windows.Win32.Storage.Jet
@@ -22,25 +21,19 @@ class JET_TABLECREATE2_A extends Win32Struct
     }
 
     /**
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    szTableName{
-        get {
-            if(!this.HasProp("__szTableName"))
-                this.__szTableName := PSTR(this.ptr + 8)
-            return this.__szTableName
-        }
+    szTableName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    szTemplateTableName{
-        get {
-            if(!this.HasProp("__szTemplateTableName"))
-                this.__szTemplateTableName := PSTR(this.ptr + 16)
-            return this.__szTemplateTableName
-        }
+    szTemplateTableName {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
@@ -92,14 +85,11 @@ class JET_TABLECREATE2_A extends Win32Struct
     }
 
     /**
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    szCallback{
-        get {
-            if(!this.HasProp("__szCallback"))
-                this.__szCallback := PSTR(this.ptr + 64)
-            return this.__szCallback
-        }
+    szCallback {
+        get => NumGet(this, 64, "ptr")
+        set => NumPut("ptr", value, this, 64)
     }
 
     /**

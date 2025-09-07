@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Graphics\Gdi\HDC.ahk
 
 /**
  * The FAX_CONTEXT_INFO structure contains information about a fax printer device context. The SizeOfStruct member is required. Information for the other members is supplied by a call to the FaxStartPrintJob function. (ANSI)
@@ -39,14 +38,11 @@ class FAX_CONTEXT_INFOA extends Win32Struct
      * Type: <b>HDC</b>
      * 
      * Handle to a fax printer device context. A call to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winfax/nf-winfax-faxstartprintjoba">FaxStartPrintJob</a> function supplies the data for this member.
-     * @type {HDC}
+     * @type {Pointer<Ptr>}
      */
-    hDC{
-        get {
-            if(!this.HasProp("__hDC"))
-                this.__hDC := HDC(this.ptr + 8)
-            return this.__hDC
-        }
+    hDC {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

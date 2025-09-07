@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HINSTANCE.ahk
 
 /**
  * Adds a bitmap that contains button images to a toolbar.
@@ -25,14 +24,11 @@ class TBADDBITMAP extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HINSTANCE</a></b>
      * 
      * Handle to the module instance with the executable file that contains a bitmap resource. To use bitmap handles instead of resource IDs, set this member to <b>NULL</b>.
-     * @type {HINSTANCE}
+     * @type {Pointer<Ptr>}
      */
-    hInst{
-        get {
-            if(!this.HasProp("__hInst"))
-                this.__hInst := HINSTANCE(this.ptr + 0)
-            return this.__hInst
-        }
+    hInst {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**

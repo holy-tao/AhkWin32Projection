@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * @namespace Windows.Win32.Storage.Jet
@@ -14,14 +13,11 @@ class JET_USERDEFINEDDEFAULT_A extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    szCallback{
-        get {
-            if(!this.HasProp("__szCallback"))
-                this.__szCallback := PSTR(this.ptr + 0)
-            return this.__szCallback
-        }
+    szCallback {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
@@ -41,13 +37,10 @@ class JET_USERDEFINEDDEFAULT_A extends Win32Struct
     }
 
     /**
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    szDependantColumns{
-        get {
-            if(!this.HasProp("__szDependantColumns"))
-                this.__szDependantColumns := PSTR(this.ptr + 24)
-            return this.__szDependantColumns
-        }
+    szDependantColumns {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 }

@@ -1,9 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HINSTANCE.ahk
-#Include .\HMENU.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * Defines the initialization parameters passed to the window procedure of an application. These members are identical to the parameters of the CreateWindowEx function. (ANSI)
@@ -67,42 +63,33 @@ class CREATESTRUCTA extends Win32Struct
      * Type: <b>HINSTANCE</b>
      * 
      * A handle to the module that owns the new window.
-     * @type {HINSTANCE}
+     * @type {Pointer<Ptr>}
      */
-    hInstance{
-        get {
-            if(!this.HasProp("__hInstance"))
-                this.__hInstance := HINSTANCE(this.ptr + 8)
-            return this.__hInstance
-        }
+    hInstance {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * Type: <b>HMENU</b>
      * 
      * A handle to the menu to be used by the new window.
-     * @type {HMENU}
+     * @type {Pointer<Ptr>}
      */
-    hMenu{
-        get {
-            if(!this.HasProp("__hMenu"))
-                this.__hMenu := HMENU(this.ptr + 16)
-            return this.__hMenu
-        }
+    hMenu {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * Type: <b>HWND</b>
      * 
      * A handle to the parent window, if the window is a child window. If the window is owned, this member identifies the owner window. If the window is not a child or owned window, this member is <b>NULL</b>.
-     * @type {HWND}
+     * @type {Pointer<Ptr>}
      */
-    hwndParent{
-        get {
-            if(!this.HasProp("__hwndParent"))
-                this.__hwndParent := HWND(this.ptr + 24)
-            return this.__hwndParent
-        }
+    hwndParent {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
@@ -164,28 +151,22 @@ class CREATESTRUCTA extends Win32Struct
      * Type: <b>LPCTSTR</b>
      * 
      * The name of the new window.
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpszName{
-        get {
-            if(!this.HasProp("__lpszName"))
-                this.__lpszName := PSTR(this.ptr + 56)
-            return this.__lpszName
-        }
+    lpszName {
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 
     /**
      * Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string or an atom that specifies the class name of the new window.
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpszClass{
-        get {
-            if(!this.HasProp("__lpszClass"))
-                this.__lpszClass := PSTR(this.ptr + 64)
-            return this.__lpszClass
-        }
+    lpszClass {
+        get => NumGet(this, 64, "ptr")
+        set => NumPut("ptr", value, this, 64)
     }
 
     /**

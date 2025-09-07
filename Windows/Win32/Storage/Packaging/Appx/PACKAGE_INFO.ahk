@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\PWSTR.ahk
 #Include .\PACKAGE_VERSION.ahk
 #Include .\PACKAGE_ID.ahk
 
@@ -44,42 +43,33 @@ class PACKAGE_INFO extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">PWSTR</a></b>
      * 
      * The location of the package.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    path{
-        get {
-            if(!this.HasProp("__path"))
-                this.__path := PWSTR(this.ptr + 8)
-            return this.__path
-        }
+    path {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">PWSTR</a></b>
      * 
      * The package full name.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    packageFullName{
-        get {
-            if(!this.HasProp("__packageFullName"))
-                this.__packageFullName := PWSTR(this.ptr + 16)
-            return this.__packageFullName
-        }
+    packageFullName {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">PWSTR</a></b>
      * 
      * The package family name.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    packageFamilyName{
-        get {
-            if(!this.HasProp("__packageFamilyName"))
-                this.__packageFamilyName := PWSTR(this.ptr + 24)
-            return this.__packageFamilyName
-        }
+    packageFamilyName {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**

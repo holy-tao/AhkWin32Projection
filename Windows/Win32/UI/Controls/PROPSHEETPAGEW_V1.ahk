@@ -1,8 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HINSTANCE.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\WindowsAndMessaging\HICON.ahk
 
 /**
  * @namespace Windows.Win32.UI.Controls
@@ -31,25 +28,19 @@ class PROPSHEETPAGEW_V1 extends Win32Struct
     }
 
     /**
-     * @type {HINSTANCE}
+     * @type {Pointer<Ptr>}
      */
-    hInstance{
-        get {
-            if(!this.HasProp("__hInstance"))
-                this.__hInstance := HINSTANCE(this.ptr + 8)
-            return this.__hInstance
-        }
+    hInstance {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszTemplate{
-        get {
-            if(!this.HasProp("__pszTemplate"))
-                this.__pszTemplate := PWSTR(this.ptr + 16)
-            return this.__pszTemplate
-        }
+    pszTemplate {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
@@ -61,36 +52,27 @@ class PROPSHEETPAGEW_V1 extends Win32Struct
     }
 
     /**
-     * @type {HICON}
+     * @type {Pointer<Ptr>}
      */
-    hIcon{
-        get {
-            if(!this.HasProp("__hIcon"))
-                this.__hIcon := HICON(this.ptr + 24)
-            return this.__hIcon
-        }
+    hIcon {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszIcon{
-        get {
-            if(!this.HasProp("__pszIcon"))
-                this.__pszIcon := PWSTR(this.ptr + 24)
-            return this.__pszIcon
-        }
+    pszIcon {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszTitle{
-        get {
-            if(!this.HasProp("__pszTitle"))
-                this.__pszTitle := PWSTR(this.ptr + 32)
-            return this.__pszTitle
-        }
+    pszTitle {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Graphics\Gdi\HDC.ahk
 
 /**
  * Contains information about an image list draw operation and is used with the IImageList::Draw function. (IMAGELISTDRAWPARAMS)
@@ -57,14 +56,11 @@ class IMAGELISTDRAWPARAMS extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HDC</a></b>
      * 
      * A handle to the destination device context.
-     * @type {HDC}
+     * @type {Pointer<Ptr>}
      */
-    hdcDst{
-        get {
-            if(!this.HasProp("__hdcDst"))
-                this.__hdcDst := HDC(this.ptr + 24)
-            return this.__hdcDst
-        }
+    hdcDst {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**

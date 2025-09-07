@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Information about the Relying Party.
@@ -27,37 +26,28 @@ class WEBAUTHN_RP_ENTITY_INFORMATION extends Win32Struct
 
     /**
      * Identifier for the Relying Party. This field is required.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pwszId{
-        get {
-            if(!this.HasProp("__pwszId"))
-                this.__pwszId := PWSTR(this.ptr + 8)
-            return this.__pwszId
-        }
+    pwszId {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * Contains the friendly name of the Relying Party, such as "Acme Corporation", "Widgets Inc", or "Contoso". This field is required.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pwszName{
-        get {
-            if(!this.HasProp("__pwszName"))
-                this.__pwszName := PWSTR(this.ptr + 16)
-            return this.__pwszName
-        }
+    pwszName {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * Optional URL pointing to the Relying Party's logo.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pwszIcon{
-        get {
-            if(!this.HasProp("__pwszIcon"))
-                this.__pwszIcon := PWSTR(this.ptr + 24)
-            return this.__pwszIcon
-        }
+    pwszIcon {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 }

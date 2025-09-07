@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * Structure represents a DNS Security Extensions (DNSSEC) cryptographic signature (SIG) resource record (RR) as specified in RFC 4034. (ANSI)
@@ -157,14 +156,11 @@ class DNS_SIG_DATAA extends Win32Struct
 
     /**
      * A pointer to a string that represents  the name of the <b>Signature</b> generator.
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    pNameSigner{
-        get {
-            if(!this.HasProp("__pNameSigner"))
-                this.__pNameSigner := PSTR(this.ptr + 24)
-            return this.__pNameSigner
-        }
+    pNameSigner {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**

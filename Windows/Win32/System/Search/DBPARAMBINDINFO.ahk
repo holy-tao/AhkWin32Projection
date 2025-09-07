@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.System.Search
@@ -13,25 +12,19 @@ class DBPARAMBINDINFO extends Win32Struct
     static packingSize => 2
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pwszDataSourceType{
-        get {
-            if(!this.HasProp("__pwszDataSourceType"))
-                this.__pwszDataSourceType := PWSTR(this.ptr + 0)
-            return this.__pwszDataSourceType
-        }
+    pwszDataSourceType {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pwszName{
-        get {
-            if(!this.HasProp("__pwszName"))
-                this.__pwszName := PWSTR(this.ptr + 8)
-            return this.__pwszName
-        }
+    pwszName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

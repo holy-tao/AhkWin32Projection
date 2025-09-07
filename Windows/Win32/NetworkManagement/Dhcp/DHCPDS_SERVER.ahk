@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The DHCPDS_SERVER structure defines information on a DHCP server in the context of directory services.
@@ -25,14 +24,11 @@ class DHCPDS_SERVER extends Win32Struct
 
     /**
      * Unicode string that contains the unique name of the DHCP server.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    ServerName{
-        get {
-            if(!this.HasProp("__ServerName"))
-                this.__ServerName := PWSTR(this.ptr + 8)
-            return this.__ServerName
-        }
+    ServerName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -64,14 +60,11 @@ class DHCPDS_SERVER extends Win32Struct
 
     /**
      * Unicode string that contains the active directory path to the DHCP server.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    DsLocation{
-        get {
-            if(!this.HasProp("__DsLocation"))
-                this.__DsLocation := PWSTR(this.ptr + 32)
-            return this.__DsLocation
-        }
+    DsLocation {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**

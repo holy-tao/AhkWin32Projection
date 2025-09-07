@@ -1,9 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\Foundation\LUID.ahk
-#Include ..\..\..\Foundation\PWSTR.ahk
 #Include .\LSA_UNICODE_STRING.ahk
-#Include ..\..\PSID.ahk
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
@@ -71,14 +69,11 @@ class SECPKG_PRIMARY_CRED_EX extends Win32Struct
     }
 
     /**
-     * @type {PSID}
+     * @type {Pointer<Ptr>}
      */
-    UserSid{
-        get {
-            if(!this.HasProp("__UserSid"))
-                this.__UserSid := PSID(this.ptr + 72)
-            return this.__UserSid
-        }
+    UserSid {
+        get => NumGet(this, 72, "ptr")
+        set => NumPut("ptr", value, this, 72)
     }
 
     /**

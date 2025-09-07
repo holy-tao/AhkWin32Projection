@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains detailed information about the root cause of an incident.
@@ -18,14 +17,11 @@ class RootCauseInfo extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      * A string that describes the problem that caused the incident.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pwszDescription{
-        get {
-            if(!this.HasProp("__pwszDescription"))
-                this.__pwszDescription := PWSTR(this.ptr + 0)
-            return this.__pwszDescription
-        }
+    pwszDescription {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**

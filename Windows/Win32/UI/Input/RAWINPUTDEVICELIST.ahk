@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * Contains information about a raw input device.
@@ -18,14 +17,11 @@ class RAWINPUTDEVICELIST extends Win32Struct
      * Type: <b>HANDLE</b>
      * 
      * A handle to the raw input device.
-     * @type {HANDLE}
+     * @type {Pointer<Ptr>}
      */
-    hDevice{
-        get {
-            if(!this.HasProp("__hDevice"))
-                this.__hDevice := HANDLE(this.ptr + 0)
-            return this.__hDevice
-        }
+    hDevice {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**

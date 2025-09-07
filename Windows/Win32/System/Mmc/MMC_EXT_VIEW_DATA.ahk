@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The MMC_EXT_VIEW_DATA structure is introduced in MMC 2.0.
@@ -29,38 +28,29 @@ class MMC_EXT_VIEW_DATA extends Win32Struct
 
     /**
      * URL to the HTML used in the result pane; this typically points to an HTML resource in the snap-in's DLL.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszURL{
-        get {
-            if(!this.HasProp("__pszURL"))
-                this.__pszURL := PWSTR(this.ptr + 8)
-            return this.__pszURL
-        }
+    pszURL {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * Title of the view extension.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszViewTitle{
-        get {
-            if(!this.HasProp("__pszViewTitle"))
-                this.__pszViewTitle := PWSTR(this.ptr + 16)
-            return this.__pszViewTitle
-        }
+    pszViewTitle {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * This value is reserved for future use.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszTooltipText{
-        get {
-            if(!this.HasProp("__pszTooltipText"))
-                this.__pszTooltipText := PWSTR(this.ptr + 24)
-            return this.__pszTooltipText
-        }
+    pszTooltipText {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**

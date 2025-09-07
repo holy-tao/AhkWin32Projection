@@ -1,8 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
 #Include .\NMHDR.ahk
-#Include ..\..\Graphics\Gdi\HDC.ahk
 #Include ..\..\Foundation\RECT.ahk
 
 /**
@@ -46,14 +44,11 @@ class NMCUSTOMDRAW extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HDC</a></b>
      * 
      * A handle to the control's device context. Use this HDC to perform any GDI functions.
-     * @type {HDC}
+     * @type {Pointer<Ptr>}
      */
-    hdc{
-        get {
-            if(!this.HasProp("__hdc"))
-                this.__hdc := HDC(this.ptr + 32)
-            return this.__hdc
-        }
+    hdc {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**

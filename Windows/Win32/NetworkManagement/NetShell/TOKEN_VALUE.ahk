@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.NetShell
@@ -13,14 +12,11 @@ class TOKEN_VALUE extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pwszToken{
-        get {
-            if(!this.HasProp("__pwszToken"))
-                this.__pwszToken := PWSTR(this.ptr + 0)
-            return this.__pwszToken
-        }
+    pwszToken {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**

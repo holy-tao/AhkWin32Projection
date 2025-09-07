@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The DHCP_POL_COND structure defines the DHCP server policy condition.
@@ -52,14 +51,11 @@ class DHCP_POL_COND extends Win32Struct
 
     /**
      * A pointer to a null-terminated Unicode string that represents the vendor name.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    VendorName{
-        get {
-            if(!this.HasProp("__VendorName"))
-                this.__VendorName := PWSTR(this.ptr + 16)
-            return this.__VendorName
-        }
+    VendorName {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**

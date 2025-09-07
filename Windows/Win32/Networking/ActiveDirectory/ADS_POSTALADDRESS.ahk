@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The ADS_POSTALADDRESS structure is an ADSI representation of the Postal Address attribute.
@@ -16,12 +15,12 @@ class ADS_POSTALADDRESS extends Win32Struct
 
     /**
      * An array of six null-terminated Unicode strings that represent the postal address.
-     * @type {Array<PWSTR>}
+     * @type {Array<Ptr>}
      */
     PostalAddress{
         get {
             if(!this.HasProp("__PostalAddressProxyArray"))
-                this.__PostalAddressProxyArray := Win32FixedArray(this.ptr + 0, 8, PWSTR, "")
+                this.__PostalAddressProxyArray := Win32FixedArray(this.ptr + 0, 8, Primitive, "ptr")
             return this.__PostalAddressProxyArray
         }
     }

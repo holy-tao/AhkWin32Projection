@@ -1,10 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include ..\..\Foundation\PSTR.ahk
-#Include ..\..\Foundation\HINSTANCE.ahk
-#Include ..\..\Foundation\HRSRC.ahk
-#Include ..\..\Media\HTASK.ahk
 
 /**
  * Contains information that the OLE User Interface Library uses to initialize the Busy dialog box, and space for the library to return information when the dialog box is dismissed. (ANSI)
@@ -89,26 +84,20 @@ class OLEUIBUSYA extends Win32Struct
 
     /**
      * The window that owns the dialog box. This member should not be <b>NULL</b>.
-     * @type {HWND}
+     * @type {Pointer<Ptr>}
      */
-    hWndOwner{
-        get {
-            if(!this.HasProp("__hWndOwner"))
-                this.__hWndOwner := HWND(this.ptr + 8)
-            return this.__hWndOwner
-        }
+    hWndOwner {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * A pointer to a string to be used as the title of the dialog box. If <b>NULL</b>, then the library uses <b>Busy</b>.
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpszCaption{
-        get {
-            if(!this.HasProp("__lpszCaption"))
-                this.__lpszCaption := PSTR(this.ptr + 16)
-            return this.__lpszCaption
-        }
+    lpszCaption {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
@@ -131,55 +120,43 @@ class OLEUIBUSYA extends Win32Struct
 
     /**
      * Instance that contains a dialog box template specified by the <b>lpTemplateName</b> member.
-     * @type {HINSTANCE}
+     * @type {Pointer<Ptr>}
      */
-    hInstance{
-        get {
-            if(!this.HasProp("__hInstance"))
-                this.__hInstance := HINSTANCE(this.ptr + 40)
-            return this.__hInstance
-        }
+    hInstance {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
      * Pointer to a null-terminated string that specifies the name of the resource file for the dialog box template that is to be substituted for the library's <b>Busy</b> dialog box template.
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpszTemplate{
-        get {
-            if(!this.HasProp("__lpszTemplate"))
-                this.__lpszTemplate := PSTR(this.ptr + 48)
-            return this.__lpszTemplate
-        }
+    lpszTemplate {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**
      * Customized template handle.
-     * @type {HRSRC}
+     * @type {Pointer<Ptr>}
      */
-    hResource{
-        get {
-            if(!this.HasProp("__hResource"))
-                this.__hResource := HRSRC(this.ptr + 56)
-            return this.__hResource
-        }
+    hResource {
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 
     /**
      * Input only. Handle to the task that is blocking.
-     * @type {HTASK}
+     * @type {Pointer<Ptr>}
      */
-    hTask{
-        get {
-            if(!this.HasProp("__hTask"))
-                this.__hTask := HTASK(this.ptr + 64)
-            return this.__hTask
-        }
+    hTask {
+        get => NumGet(this, 64, "ptr")
+        set => NumPut("ptr", value, this, 64)
     }
 
     /**
      * Pointer to the dialog box's <b>HWND</b>.
-     * @type {Pointer<HWND>}
+     * @type {Pointer<Ptr>}
      */
     lphWndDialog {
         get => NumGet(this, 72, "ptr")

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains the DNS query parameters used in a call to [DnsQueryEx](/windows/win32/api/windns/nf-windns-dnsqueryex).
@@ -36,14 +35,11 @@ class DNS_QUERY_REQUEST3 extends Win32Struct
      * 
      * > [!NOTE]
      * > If *QueryName* is **NULL**, then the query is for the local machine name.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    QueryName{
-        get {
-            if(!this.HasProp("__QueryName"))
-                this.__QueryName := PWSTR(this.ptr + 8)
-            return this.__QueryName
-        }
+    QueryName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

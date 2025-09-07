@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Describes a DNS-over-HTTPS server.
@@ -25,14 +24,11 @@ class DNS_DOH_SERVER_SETTINGS extends Win32Struct
      * 
      * > [!IMPORTANT]
      * > The URI template mustn't contain an IP address as hostname that's different from the IP address of the referenced server. For example, if the referenced server is 1.1.1.1, and the URI template is `https://1.0.0.1/dns-query`, then that wouldn't be valid because 1.0.0.1 doesn't match the server IP 1.1.1.1.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    Template{
-        get {
-            if(!this.HasProp("__Template"))
-                this.__Template := PWSTR(this.ptr + 0)
-            return this.__Template
-        }
+    Template {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains information about a software update.
@@ -49,42 +48,33 @@ class SOFTDISTINFO extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      * A string that contains the contents of the TITLE flag from the associated .cdf file.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    szTitle{
-        get {
-            if(!this.HasProp("__szTitle"))
-                this.__szTitle := PWSTR(this.ptr + 16)
-            return this.__szTitle
-        }
+    szTitle {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * Type: <b>LPWSTR</b>
      * 
      * A string that contains the contents of the ABSTRACT flag from the associated .cdf file.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    szAbstract{
-        get {
-            if(!this.HasProp("__szAbstract"))
-                this.__szAbstract := PWSTR(this.ptr + 24)
-            return this.__szAbstract
-        }
+    szAbstract {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
      * Type: <b>LPWSTR</b>
      * 
      * A string that contains the URL of the webpage to advertise or install the update.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    szHREF{
-        get {
-            if(!this.HasProp("__szHREF"))
-                this.__szHREF := PWSTR(this.ptr + 32)
-            return this.__szHREF
-        }
+    szHREF {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**

@@ -1,8 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
 #Include .\NMHDR.ahk
-#Include ..\..\Foundation\PSTR.ahk
 #Include ..\..\Foundation\SYSTEMTIME.ahk
 
 /**
@@ -39,14 +37,11 @@ class NMDATETIMESTRINGA extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCTSTR</a></b>
      * 
      * The address of the zero-terminated string that the user entered.
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszUserString{
-        get {
-            if(!this.HasProp("__pszUserString"))
-                this.__pszUserString := PSTR(this.ptr + 24)
-            return this.__pszUserString
-        }
+    pszUserString {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**

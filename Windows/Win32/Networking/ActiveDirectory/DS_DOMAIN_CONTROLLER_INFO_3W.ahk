@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The DS_DOMAIN_CONTROLLER_INFO_3 structure contains data about a domain controller. This structure is returned by the DsGetDomainControllerInfo function. (Unicode)
@@ -26,86 +25,65 @@ class DS_DOMAIN_CONTROLLER_INFO_3W extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that specifies the NetBIOS name of the domain controller.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    NetbiosName{
-        get {
-            if(!this.HasProp("__NetbiosName"))
-                this.__NetbiosName := PWSTR(this.ptr + 0)
-            return this.__NetbiosName
-        }
+    NetbiosName {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
      * Pointer to a null-terminated  string that specifies the DNS host name of the domain controller.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    DnsHostName{
-        get {
-            if(!this.HasProp("__DnsHostName"))
-                this.__DnsHostName := PWSTR(this.ptr + 8)
-            return this.__DnsHostName
-        }
+    DnsHostName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * Pointer to a null-terminated  string that specifies the site to which the domain controller belongs.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    SiteName{
-        get {
-            if(!this.HasProp("__SiteName"))
-                this.__SiteName := PWSTR(this.ptr + 16)
-            return this.__SiteName
-        }
+    SiteName {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * Pointer to a null-terminated  string that specifies the name of the site object on the domain controller.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    SiteObjectName{
-        get {
-            if(!this.HasProp("__SiteObjectName"))
-                this.__SiteObjectName := PWSTR(this.ptr + 24)
-            return this.__SiteObjectName
-        }
+    SiteObjectName {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
      * Pointer to a null-terminated  string that specifies the name of the computer object on the domain controller.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    ComputerObjectName{
-        get {
-            if(!this.HasProp("__ComputerObjectName"))
-                this.__ComputerObjectName := PWSTR(this.ptr + 32)
-            return this.__ComputerObjectName
-        }
+    ComputerObjectName {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
      * Pointer to a null-terminated  string that specifies the name of the server object on the domain controller.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    ServerObjectName{
-        get {
-            if(!this.HasProp("__ServerObjectName"))
-                this.__ServerObjectName := PWSTR(this.ptr + 40)
-            return this.__ServerObjectName
-        }
+    ServerObjectName {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
      * Pointer to a null-terminated  string that specifies the name of the NTDS DSA object on the domain controller.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    NtdsDsaObjectName{
-        get {
-            if(!this.HasProp("__NtdsDsaObjectName"))
-                this.__NtdsDsaObjectName := PWSTR(this.ptr + 48)
-            return this.__NtdsDsaObjectName
-        }
+    NtdsDsaObjectName {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**

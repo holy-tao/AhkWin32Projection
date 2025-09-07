@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Graphics\Gdi\HDC.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Display
@@ -21,14 +20,11 @@ class EMFINFO extends Win32Struct
     }
 
     /**
-     * @type {HDC}
+     * @type {Pointer<Ptr>}
      */
-    hdc{
-        get {
-            if(!this.HasProp("__hdc"))
-                this.__hdc := HDC(this.ptr + 8)
-            return this.__hdc
-        }
+    hdc {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

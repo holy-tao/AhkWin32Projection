@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\HANDLE.ahk
 #Include .\MINIDUMP_MEMORY_INFO.ahk
 
 /**
@@ -72,14 +71,11 @@ class MINIDUMP_CALLBACK_OUTPUT extends Win32Struct
     }
 
     /**
-     * @type {HANDLE}
+     * @type {Pointer<Ptr>}
      */
-    Handle{
-        get {
-            if(!this.HasProp("__Handle"))
-                this.__Handle := HANDLE(this.ptr + 0)
-            return this.__Handle
-        }
+    Handle {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**

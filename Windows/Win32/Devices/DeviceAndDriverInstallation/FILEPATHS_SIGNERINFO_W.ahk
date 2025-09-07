@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The FILEPATHS_SINGNERINFO structure stores source and target path information, and also file signature information. (Unicode)
@@ -20,27 +19,21 @@ class FILEPATHS_SIGNERINFO_W extends Win32Struct
 
     /**
      * Path to the target file.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    Target{
-        get {
-            if(!this.HasProp("__Target"))
-                this.__Target := PWSTR(this.ptr + 0)
-            return this.__Target
-        }
+    Target {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
      * Path to the source file. This member is not used when the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/setupapi/ns-setupapi-filepaths_a">FILEPATHS</a> structure is used with a file delete operation.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    Source{
-        get {
-            if(!this.HasProp("__Source"))
-                this.__Source := PWSTR(this.ptr + 8)
-            return this.__Source
-        }
+    Source {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -69,37 +62,28 @@ class FILEPATHS_SIGNERINFO_W extends Win32Struct
 
     /**
      * Digital signer of the file.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    DigitalSigner{
-        get {
-            if(!this.HasProp("__DigitalSigner"))
-                this.__DigitalSigner := PWSTR(this.ptr + 24)
-            return this.__DigitalSigner
-        }
+    DigitalSigner {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
      * Version of the file.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    Version{
-        get {
-            if(!this.HasProp("__Version"))
-                this.__Version := PWSTR(this.ptr + 32)
-            return this.__Version
-        }
+    Version {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
      * Catalog file.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    CatalogFile{
-        get {
-            if(!this.HasProp("__CatalogFile"))
-                this.__CatalogFile := PWSTR(this.ptr + 40)
-            return this.__CatalogFile
-        }
+    CatalogFile {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 }

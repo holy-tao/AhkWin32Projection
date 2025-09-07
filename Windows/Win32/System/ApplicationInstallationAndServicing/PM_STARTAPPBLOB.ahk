@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
@@ -29,25 +28,19 @@ class PM_STARTAPPBLOB extends Win32Struct
     }
 
     /**
-     * @type {BSTR}
+     * @type {Pointer<Ptr>}
      */
-    AppTitle{
-        get {
-            if(!this.HasProp("__AppTitle"))
-                this.__AppTitle := BSTR(this.ptr + 16)
-            return this.__AppTitle
-        }
+    AppTitle {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
-     * @type {BSTR}
+     * @type {Pointer<Ptr>}
      */
-    IconPath{
-        get {
-            if(!this.HasProp("__IconPath"))
-                this.__IconPath := BSTR(this.ptr + 24)
-            return this.__IconPath
-        }
+    IconPath {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**

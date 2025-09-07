@@ -2,7 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\BIND_OPTS.ahk
 #Include .\BIND_OPTS2.ahk
-#Include ..\..\Foundation\HWND.ahk
 
 /**
  * The BIND_OPTS3 structure contains parameters used during a moniker-binding operation.
@@ -33,13 +32,10 @@ class BIND_OPTS3 extends Win32Struct
 
     /**
      * A handle to the window that becomes the owner of the elevation UI, if applicable. If <b>hwnd</b> is <b>NULL</b>, COM will call the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getactivewindow">GetActiveWindow</a> function to find a window handle associated with the current thread. This case might occur if the client is a script, which cannot fill in a <b>BIND_OPTS3</b> structure. In this case, COM will try to use the window associated with the script thread.
-     * @type {HWND}
+     * @type {Pointer<Ptr>}
      */
-    hwnd{
-        get {
-            if(!this.HasProp("__hwnd"))
-                this.__hwnd := HWND(this.ptr + 40)
-            return this.__hwnd
-        }
+    hwnd {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 }

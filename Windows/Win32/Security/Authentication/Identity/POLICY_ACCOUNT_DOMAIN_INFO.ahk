@@ -1,8 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\PWSTR.ahk
 #Include .\LSA_UNICODE_STRING.ahk
-#Include ..\..\PSID.ahk
 
 /**
  * Used to set and query the name and SID of the system's account domain.
@@ -31,13 +29,10 @@ class POLICY_ACCOUNT_DOMAIN_INFO extends Win32Struct
 
     /**
      * Pointer to the SID of the account domain.
-     * @type {PSID}
+     * @type {Pointer<Ptr>}
      */
-    DomainSid{
-        get {
-            if(!this.HasProp("__DomainSid"))
-                this.__DomainSid := PSID(this.ptr + 16)
-            return this.__DomainSid
-        }
+    DomainSid {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 }

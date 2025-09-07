@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains the data and metadata of files to write into the app package.
@@ -25,26 +24,20 @@ class APPX_PACKAGE_WRITER_PAYLOAD_STREAM extends Win32Struct
 
     /**
      * Name of the payload file.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    fileName{
-        get {
-            if(!this.HasProp("__fileName"))
-                this.__fileName := PWSTR(this.ptr + 8)
-            return this.__fileName
-        }
+    fileName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * The content type of the payload file.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    contentType{
-        get {
-            if(!this.HasProp("__contentType"))
-                this.__contentType := PWSTR(this.ptr + 16)
-            return this.__contentType
-        }
+    contentType {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**

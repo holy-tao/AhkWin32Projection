@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\SPVPITCH.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\SPVCONTEXT.ahk
 #Include .\SPVSTATE.ahk
 
@@ -35,14 +34,11 @@ class SPVTEXTFRAG extends Win32Struct
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pTextStart{
-        get {
-            if(!this.HasProp("__pTextStart"))
-                this.__pTextStart := PWSTR(this.ptr + 88)
-            return this.__pTextStart
-        }
+    pTextStart {
+        get => NumGet(this, 88, "ptr")
+        set => NumPut("ptr", value, this, 88)
     }
 
     /**

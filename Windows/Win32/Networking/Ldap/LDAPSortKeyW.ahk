@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The LDAPSortKey structure stores sorting criteria for use by sort controls. (Unicode)
@@ -28,26 +27,20 @@ class LDAPSortKeyW extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that specifies the name of the attribute to use as a sort key. Use multiple <b>LDAPSortKey</b> structures to specify multiple sort keys. Be aware that Active Directory supports only a single sort key.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    sk_attrtype{
-        get {
-            if(!this.HasProp("__sk_attrtype"))
-                this.__sk_attrtype := PWSTR(this.ptr + 0)
-            return this.__sk_attrtype
-        }
+    sk_attrtype {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
      * Pointer to a null-terminated string that specifies the object identifier of the matching rule for the sort. Should be set to <b>NULL</b> if you do not want to explicitly specify a matching rule for the sort. Specifying an explicitly set matching rule is supported only by Windows Server 2003.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    sk_matchruleoid{
-        get {
-            if(!this.HasProp("__sk_matchruleoid"))
-                this.__sk_matchruleoid := PWSTR(this.ptr + 8)
-            return this.__sk_matchruleoid
-        }
+    sk_matchruleoid {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

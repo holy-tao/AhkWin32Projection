@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains the authentication information for the credential manager.
@@ -43,50 +42,38 @@ class MFNetCredentialManagerGetParam extends Win32Struct
 
     /**
      * The original URL that requires authentication.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszUrl{
-        get {
-            if(!this.HasProp("__pszUrl"))
-                this.__pszUrl := PWSTR(this.ptr + 16)
-            return this.__pszUrl
-        }
+    pszUrl {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * The name of the site or proxy that requires authentication.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszSite{
-        get {
-            if(!this.HasProp("__pszSite"))
-                this.__pszSite := PWSTR(this.ptr + 24)
-            return this.__pszSite
-        }
+    pszSite {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
      * The name of the realm for this authentication.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszRealm{
-        get {
-            if(!this.HasProp("__pszRealm"))
-                this.__pszRealm := PWSTR(this.ptr + 32)
-            return this.__pszRealm
-        }
+    pszRealm {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
      * The name of the authentication package. For example, "Digest" or "MBS_BASIC".
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszPackage{
-        get {
-            if(!this.HasProp("__pszPackage"))
-                this.__pszPackage := PWSTR(this.ptr + 40)
-            return this.__pszPackage
-        }
+    pszPackage {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**

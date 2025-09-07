@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The WINHTTP_PROXY_RESULT_ENTRY structure contains a result entry from a call to WinHttpGetProxyResult.
@@ -45,14 +44,11 @@ class WINHTTP_PROXY_RESULT_ENTRY extends Win32Struct
 
     /**
      * A string that contains the hostname of the proxy.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pwszProxy{
-        get {
-            if(!this.HasProp("__pwszProxy"))
-                this.__pwszProxy := PWSTR(this.ptr + 16)
-            return this.__pwszProxy
-        }
+    pwszProxy {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**

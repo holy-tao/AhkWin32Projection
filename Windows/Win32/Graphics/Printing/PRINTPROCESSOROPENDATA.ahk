@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
@@ -21,36 +20,27 @@ class PRINTPROCESSOROPENDATA extends Win32Struct
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pDatatype{
-        get {
-            if(!this.HasProp("__pDatatype"))
-                this.__pDatatype := PWSTR(this.ptr + 8)
-            return this.__pDatatype
-        }
+    pDatatype {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pParameters{
-        get {
-            if(!this.HasProp("__pParameters"))
-                this.__pParameters := PWSTR(this.ptr + 16)
-            return this.__pParameters
-        }
+    pParameters {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pDocumentName{
-        get {
-            if(!this.HasProp("__pDocumentName"))
-                this.__pDocumentName := PWSTR(this.ptr + 24)
-            return this.__pDocumentName
-        }
+    pDocumentName {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
@@ -62,24 +52,18 @@ class PRINTPROCESSOROPENDATA extends Win32Struct
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pOutputFile{
-        get {
-            if(!this.HasProp("__pOutputFile"))
-                this.__pOutputFile := PWSTR(this.ptr + 40)
-            return this.__pOutputFile
-        }
+    pOutputFile {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pPrinterName{
-        get {
-            if(!this.HasProp("__pPrinterName"))
-                this.__pPrinterName := PWSTR(this.ptr + 48)
-            return this.__pPrinterName
-        }
+    pPrinterName {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 }

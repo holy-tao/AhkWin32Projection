@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The FILE_IN_CABINET_INFO structure provides information about a file found in the cabinet. (Unicode)
@@ -20,14 +19,11 @@ class FILE_IN_CABINET_INFO_W extends Win32Struct
 
     /**
      * File name as it exists within the cabinet file.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    NameInCabinet{
-        get {
-            if(!this.HasProp("__NameInCabinet"))
-                this.__NameInCabinet := PWSTR(this.ptr + 0)
-            return this.__NameInCabinet
-        }
+    NameInCabinet {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**

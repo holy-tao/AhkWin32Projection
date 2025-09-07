@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Represents a DNS custom server. A **DNS_CUSTOM_SERVER** object is passed to [DnsQueryEx](/windows/win32/api/windns/nf-windns-dnsqueryex) via the [DNS_QUERY_REQUEST3](/windows/win32/api/windns/ns-windns-dns_query_request3) structure.
@@ -48,14 +47,11 @@ class DNS_CUSTOM_SERVER extends Win32Struct
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pwszTemplate{
-        get {
-            if(!this.HasProp("__pwszTemplate"))
-                this.__pwszTemplate := PWSTR(this.ptr + 16)
-            return this.__pwszTemplate
-        }
+    Anonymous1 {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**

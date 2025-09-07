@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Describes security authentication information for content access.
@@ -40,27 +39,21 @@ class AUTHENTICATION_INFO extends Win32Struct
      * Type: <b>LPCWSTR</b>
      * 
      * Pointer to a null-terminated Unicode string containing the user name.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pcwszUser{
-        get {
-            if(!this.HasProp("__pcwszUser"))
-                this.__pcwszUser := PWSTR(this.ptr + 8)
-            return this.__pcwszUser
-        }
+    pcwszUser {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * Type: <b>LPCWSTR</b>
      * 
      * Pointer to a null-terminated Unicode string containing the password for <b> pcwszUser</b>.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pcwszPassword{
-        get {
-            if(!this.HasProp("__pcwszPassword"))
-                this.__pcwszPassword := PWSTR(this.ptr + 16)
-            return this.__pcwszPassword
-        }
+    pcwszPassword {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 }

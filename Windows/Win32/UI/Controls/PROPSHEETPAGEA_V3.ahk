@@ -1,9 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HINSTANCE.ahk
-#Include ..\..\Foundation\PSTR.ahk
-#Include ..\WindowsAndMessaging\HICON.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * The PROPSHEETPAGEA_V3 (ANSI) structure defines a page in a property sheet.
@@ -36,25 +32,19 @@ class PROPSHEETPAGEA_V3 extends Win32Struct
     }
 
     /**
-     * @type {HINSTANCE}
+     * @type {Pointer<Ptr>}
      */
-    hInstance{
-        get {
-            if(!this.HasProp("__hInstance"))
-                this.__hInstance := HINSTANCE(this.ptr + 8)
-            return this.__hInstance
-        }
+    hInstance {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszTemplate{
-        get {
-            if(!this.HasProp("__pszTemplate"))
-                this.__pszTemplate := PSTR(this.ptr + 16)
-            return this.__pszTemplate
-        }
+    pszTemplate {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
@@ -66,36 +56,27 @@ class PROPSHEETPAGEA_V3 extends Win32Struct
     }
 
     /**
-     * @type {HICON}
+     * @type {Pointer<Ptr>}
      */
-    hIcon{
-        get {
-            if(!this.HasProp("__hIcon"))
-                this.__hIcon := HICON(this.ptr + 24)
-            return this.__hIcon
-        }
+    hIcon {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszIcon{
-        get {
-            if(!this.HasProp("__pszIcon"))
-                this.__pszIcon := PSTR(this.ptr + 24)
-            return this.__pszIcon
-        }
+    pszIcon {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszTitle{
-        get {
-            if(!this.HasProp("__pszTitle"))
-                this.__pszTitle := PSTR(this.ptr + 32)
-            return this.__pszTitle
-        }
+    pszTitle {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
@@ -143,14 +124,11 @@ class PROPSHEETPAGEA_V3 extends Win32Struct
      * <li>Set the PSH_WIZARD97 flag in the <b>dwFlags</b> member of the page's <a href="https://docs.microsoft.com/windows/desktop/api/prsht/ns-prsht-propsheetheadera_v2">PROPSHEETHEADER</a> structure.</li>
      * <li>Make sure that the PSP_HIDEHEADER flag in the <b>dwFlags</b> member is not set.</li>
      * </ul>
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszHeaderTitle{
-        get {
-            if(!this.HasProp("__pszHeaderTitle"))
-                this.__pszHeaderTitle := PSTR(this.ptr + 72)
-            return this.__pszHeaderTitle
-        }
+    pszHeaderTitle {
+        get => NumGet(this, 72, "ptr")
+        set => NumPut("ptr", value, this, 72)
     }
 
     /**
@@ -168,14 +146,11 @@ class PROPSHEETPAGEA_V3 extends Win32Struct
      * </ul>
      * <div class="alert"><b>Note</b>  This member is ignored when using the Aero-style wizard (<a href="https://docs.microsoft.com/windows/desktop/api/prsht/ns-prsht-propsheetheadera_v2">PSH_AEROWIZARD</a>).</div>
      * <div> </div>
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszHeaderSubTitle{
-        get {
-            if(!this.HasProp("__pszHeaderSubTitle"))
-                this.__pszHeaderSubTitle := PSTR(this.ptr + 80)
-            return this.__pszHeaderSubTitle
-        }
+    pszHeaderSubTitle {
+        get => NumGet(this, 80, "ptr")
+        set => NumPut("ptr", value, this, 80)
     }
 
     /**
@@ -183,13 +158,10 @@ class PROPSHEETPAGEA_V3 extends Win32Struct
      * 
      * 
      * <a href="https://docs.microsoft.com/windows/desktop/Controls/common-control-versions">Version 6.0</a> or later. An activation context handle. Set this member to the handle that is returned when you create the activation context with <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-createactctxa">CreateActCtx</a>. The system will activate this context before creating the dialog box. You do not need to use this member if you use a global manifest. See the Remarks.
-     * @type {HANDLE}
+     * @type {Pointer<Ptr>}
      */
-    hActCtx{
-        get {
-            if(!this.HasProp("__hActCtx"))
-                this.__hActCtx := HANDLE(this.ptr + 88)
-            return this.__hActCtx
-        }
+    hActCtx {
+        get => NumGet(this, 88, "ptr")
+        set => NumPut("ptr", value, this, 88)
     }
 }

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Specifies a BLOB to sign.
@@ -52,14 +51,11 @@ class SIGNER_BLOB_INFO extends Win32Struct
 
     /**
      * The display name of the BLOB. This member can be set to **NULL**.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pwszDisplayName{
-        get {
-            if(!this.HasProp("__pwszDisplayName"))
-                this.__pwszDisplayName := PWSTR(this.ptr + 32)
-            return this.__pwszDisplayName
-        }
+    pwszDisplayName {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**

@@ -1,8 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\HWND.ahk
-#Include ..\..\..\Foundation\HINSTANCE.ahk
-#Include ..\..\..\Foundation\PWSTR.ahk
 
 /**
  * The CERT_VIEWPROPERTIES_STRUCT structure defines information used when the CertViewProperties function is called to display a certificate's properties. (Unicode)
@@ -31,26 +28,20 @@ class CERT_VIEWPROPERTIES_STRUCT_W extends Win32Struct
 
     /**
      * A handle to the parent window.
-     * @type {HWND}
+     * @type {Pointer<Ptr>}
      */
-    hwndParent{
-        get {
-            if(!this.HasProp("__hwndParent"))
-                this.__hwndParent := HWND(this.ptr + 8)
-            return this.__hwndParent
-        }
+    hwndParent {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * A handle to the module instance.
-     * @type {HINSTANCE}
+     * @type {Pointer<Ptr>}
      */
-    hInstance{
-        get {
-            if(!this.HasProp("__hInstance"))
-                this.__hInstance := HINSTANCE(this.ptr + 16)
-            return this.__hInstance
-        }
+    hInstance {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
@@ -64,14 +55,11 @@ class CERT_VIEWPROPERTIES_STRUCT_W extends Win32Struct
 
     /**
      * A pointer to a null-terminated string for the title of the user interface.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    szTitle{
-        get {
-            if(!this.HasProp("__szTitle"))
-                this.__szTitle := PWSTR(this.ptr + 32)
-            return this.__szTitle
-        }
+    szTitle {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
@@ -85,7 +73,7 @@ class CERT_VIEWPROPERTIES_STRUCT_W extends Win32Struct
 
     /**
      * A pointer to an array of null-terminated strings that specify the certificate purposes.
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Ptr>}
      */
     arrayPurposes {
         get => NumGet(this, 48, "ptr")
@@ -112,7 +100,7 @@ class CERT_VIEWPROPERTIES_STRUCT_W extends Win32Struct
 
     /**
      * Array of Root certificate store handles.
-     * @type {Pointer<HCERTSTORE>}
+     * @type {Pointer<Ptr>}
      */
     rghstoreRoots {
         get => NumGet(this, 64, "ptr")
@@ -130,7 +118,7 @@ class CERT_VIEWPROPERTIES_STRUCT_W extends Win32Struct
 
     /**
      * Array of other certificate store handles.
-     * @type {Pointer<HCERTSTORE>}
+     * @type {Pointer<Ptr>}
      */
     rghstoreCAs {
         get => NumGet(this, 80, "ptr")
@@ -148,7 +136,7 @@ class CERT_VIEWPROPERTIES_STRUCT_W extends Win32Struct
 
     /**
      * Array of trust certificate store handles.
-     * @type {Pointer<HCERTSTORE>}
+     * @type {Pointer<Ptr>}
      */
     rghstoreTrust {
         get => NumGet(this, 96, "ptr")
@@ -184,14 +172,11 @@ class CERT_VIEWPROPERTIES_STRUCT_W extends Win32Struct
 
     /**
      * A pointer to a null-terminated string for the Help file name.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    szHelpFileName{
-        get {
-            if(!this.HasProp("__szHelpFileName"))
-                this.__szHelpFileName := PWSTR(this.ptr + 128)
-            return this.__szHelpFileName
-        }
+    szHelpFileName {
+        get => NumGet(this, 128, "ptr")
+        set => NumPut("ptr", value, this, 128)
     }
 
     /**

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The FUSION_INSTALL_REFERENCE structure contains information about the application which references the side-by-side assembly.
@@ -43,26 +42,20 @@ class FUSION_INSTALL_REFERENCE extends Win32Struct
 
     /**
      * A pointer to a string value that identifies the application that references assembly. The meaning of this identifier depends on the <b>guidScheme</b> parameter.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    szIdentifier{
-        get {
-            if(!this.HasProp("__szIdentifier"))
-                this.__szIdentifier := PWSTR(this.ptr + 16)
-            return this.__szIdentifier
-        }
+    szIdentifier {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * A string that is used only by the application that reference the assembly.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    szNonCannonicalData{
-        get {
-            if(!this.HasProp("__szNonCannonicalData"))
-                this.__szNonCannonicalData := PWSTR(this.ptr + 24)
-            return this.__szNonCannonicalData
-        }
+    szNonCannonicalData {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains the old and new path names for each file that was moved, copied, or renamed by the SHFileOperation function. (Unicode)
@@ -28,28 +27,22 @@ class SHNAMEMAPPINGW extends Win32Struct
      * Type: <b>LPTSTR</b>
      * 
      * The address of a character buffer that contains the old path name.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszOldPath{
-        get {
-            if(!this.HasProp("__pszOldPath"))
-                this.__pszOldPath := PWSTR(this.ptr + 0)
-            return this.__pszOldPath
-        }
+    pszOldPath {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
      * Type: <b>LPTSTR</b>
      * 
      * The address of a character buffer that contains the new path name.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszNewPath{
-        get {
-            if(!this.HasProp("__pszNewPath"))
-                this.__pszNewPath := PWSTR(this.ptr + 8)
-            return this.__pszNewPath
-        }
+    pszNewPath {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

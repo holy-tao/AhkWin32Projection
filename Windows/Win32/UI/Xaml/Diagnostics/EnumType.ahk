@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
 
 /**
  * Represents a XAML Runtime enumeration.
@@ -16,14 +15,11 @@ class EnumType extends Win32Struct
 
     /**
      * The name of the enumeration.
-     * @type {BSTR}
+     * @type {Pointer<Ptr>}
      */
-    Name{
-        get {
-            if(!this.HasProp("__Name"))
-                this.__Name := BSTR(this.ptr + 0)
-            return this.__Name
-        }
+    Name {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**

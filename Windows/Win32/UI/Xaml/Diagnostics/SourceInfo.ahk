@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
 
 /**
  * Represents information about an object’s XAML source document.
@@ -16,14 +15,11 @@ class SourceInfo extends Win32Struct
 
     /**
      * The name of the source document file where the element is declared.
-     * @type {BSTR}
+     * @type {Pointer<Ptr>}
      */
-    FileName{
-        get {
-            if(!this.HasProp("__FileName"))
-                this.__FileName := BSTR(this.ptr + 0)
-            return this.__FileName
-        }
+    FileName {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
@@ -55,13 +51,10 @@ class SourceInfo extends Win32Struct
 
     /**
      * The hash of the source document.
-     * @type {BSTR}
+     * @type {Pointer<Ptr>}
      */
-    Hash{
-        get {
-            if(!this.HasProp("__Hash"))
-                this.__Hash := BSTR(this.ptr + 24)
-            return this.__Hash
-        }
+    Hash {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 }

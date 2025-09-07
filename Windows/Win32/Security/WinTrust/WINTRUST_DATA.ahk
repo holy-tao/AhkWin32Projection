@@ -1,7 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Used when calling WinVerifyTrust to pass necessary information into the trust providers.
@@ -120,26 +118,20 @@ class WINTRUST_DATA extends Win32Struct
 
     /**
      * A handle to the state data. The contents of this member depends on the value of the <b>dwStateAction</b> member.
-     * @type {HANDLE}
+     * @type {Pointer<Ptr>}
      */
-    hWVTStateData{
-        get {
-            if(!this.HasProp("__hWVTStateData"))
-                this.__hWVTStateData := HANDLE(this.ptr + 56)
-            return this.__hWVTStateData
-        }
+    hWVTStateData {
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 
     /**
      * Reserved for future use. Set to <b>NULL</b>.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pwszURLReference{
-        get {
-            if(!this.HasProp("__pwszURLReference"))
-                this.__pwszURLReference := PWSTR(this.ptr + 64)
-            return this.__pwszURLReference
-        }
+    pwszURLReference {
+        get => NumGet(this, 64, "ptr")
+        set => NumPut("ptr", value, this, 64)
     }
 
     /**

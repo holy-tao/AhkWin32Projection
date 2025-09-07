@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The SERVER_TRANSPORT_INFO_3 structure contains information about the specified transport protocol, including name, address and password (credentials). This information level is valid only for the NetServerTransportAddEx function.
@@ -56,14 +55,11 @@ class SERVER_TRANSPORT_INFO_3 extends Win32Struct
      * ```
      * 
      * This string is Unicode if  <b>_WIN32_WINNT</b> or <b>FORCE_UNICODE</b> are defined.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    svti3_transportname{
-        get {
-            if(!this.HasProp("__svti3_transportname"))
-                this.__svti3_transportname := PWSTR(this.ptr + 8)
-            return this.__svti3_transportname
-        }
+    svti3_transportname {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -99,14 +95,11 @@ class SERVER_TRANSPORT_INFO_3 extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmserver/nf-lmserver-netservertransportaddex">NetServerTransportAddEx</a> function.)
      * 
      * This string is Unicode if  <b>_WIN32_WINNT</b> or <b>FORCE_UNICODE</b> are defined.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    svti3_networkaddress{
-        get {
-            if(!this.HasProp("__svti3_networkaddress"))
-                this.__svti3_networkaddress := PWSTR(this.ptr + 32)
-            return this.__svti3_networkaddress
-        }
+    svti3_networkaddress {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
@@ -116,14 +109,11 @@ class SERVER_TRANSPORT_INFO_3 extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmserver/nf-lmserver-netservertransportenum">NetServerTransportEnum</a>, this member is the name of the domain to which the server is announcing its presence.)
      * 
      * This string is Unicode if  <b>_WIN32_WINNT</b> or <b>FORCE_UNICODE</b> are defined.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    svti3_domain{
-        get {
-            if(!this.HasProp("__svti3_domain"))
-                this.__svti3_domain := PWSTR(this.ptr + 40)
-            return this.__svti3_domain
-        }
+    svti3_domain {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**

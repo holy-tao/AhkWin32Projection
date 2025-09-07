@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\BINARY_CONTAINER.ahk
 #Include .\BIDI_DATA.ahk
 #Include .\BIDI_REQUEST_DATA.ahk

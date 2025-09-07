@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 #Include .\D3DAUTHENTICATEDCHANNEL_QUERY_INPUT.ahk
 
 /**
@@ -29,13 +28,10 @@ class D3DAUTHENTICATEDCHANNEL_QUERYCRYPTOSESSION_INPUT extends Win32Struct
 
     /**
      * A handle to a DirectX Video Acceleration 2 (DXVA-2) decoder device.
-     * @type {HANDLE}
+     * @type {Pointer<Ptr>}
      */
-    DXVA2DecodeHandle{
-        get {
-            if(!this.HasProp("__DXVA2DecodeHandle"))
-                this.__DXVA2DecodeHandle := HANDLE(this.ptr + 24)
-            return this.__DXVA2DecodeHandle
-        }
+    DXVA2DecodeHandle {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 }

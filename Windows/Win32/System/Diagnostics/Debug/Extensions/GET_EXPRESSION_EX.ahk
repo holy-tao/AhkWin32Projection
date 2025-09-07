@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\..\Foundation\PSTR.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
@@ -13,25 +12,19 @@ class GET_EXPRESSION_EX extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    Expression{
-        get {
-            if(!this.HasProp("__Expression"))
-                this.__Expression := PSTR(this.ptr + 0)
-            return this.__Expression
-        }
+    Expression {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    Remainder{
-        get {
-            if(!this.HasProp("__Remainder"))
-                this.__Remainder := PSTR(this.ptr + 8)
-            return this.__Remainder
-        }
+    Remainder {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

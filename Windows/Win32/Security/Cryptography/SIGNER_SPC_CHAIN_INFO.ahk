@@ -1,7 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include .\HCERTSTORE.ahk
 
 /**
  * Specifies a Software Publisher Certificate (SPC) and certificate chain used to sign a document.
@@ -26,14 +24,11 @@ class SIGNER_SPC_CHAIN_INFO extends Win32Struct
 
     /**
      * The name of the SPC file to use to sign a document.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pwszSpcFile{
-        get {
-            if(!this.HasProp("__pwszSpcFile"))
-                this.__pwszSpcFile := PWSTR(this.ptr + 8)
-            return this.__pwszSpcFile
-        }
+    pwszSpcFile {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -55,14 +50,11 @@ class SIGNER_SPC_CHAIN_INFO extends Win32Struct
 
     /**
      * Optional. A handle to an additional certificate store.
-     * @type {HCERTSTORE}
+     * @type {Pointer<Ptr>}
      */
-    hCertStore{
-        get {
-            if(!this.HasProp("__hCertStore"))
-                this.__hCertStore := HCERTSTORE(this.ptr + 24)
-            return this.__hCertStore
-        }
+    hCertStore {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**

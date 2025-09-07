@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The VDS_ISCSI_TARGET_PROP structure (vdshwprv.h) defines the properties of an iSCSI target.
@@ -25,27 +24,21 @@ class VDS_ISCSI_TARGET_PROP extends Win32Struct
 
     /**
      * A null-terminated, human-readable string that is the iSCSI name of the target.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pwszIscsiName{
-        get {
-            if(!this.HasProp("__pwszIscsiName"))
-                this.__pwszIscsiName := PWSTR(this.ptr + 8)
-            return this.__pwszIscsiName
-        }
+    pwszIscsiName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * A null-terminated, human-readable string that is the friendly name of the target. This corresponds to the 
      *      iSCSI alias.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pwszFriendlyName{
-        get {
-            if(!this.HasProp("__pwszFriendlyName"))
-                this.__pwszFriendlyName := PWSTR(this.ptr + 16)
-            return this.__pwszFriendlyName
-        }
+    pwszFriendlyName {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**

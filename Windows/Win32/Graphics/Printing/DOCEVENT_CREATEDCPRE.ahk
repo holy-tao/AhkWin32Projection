@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
@@ -13,25 +12,19 @@ class DOCEVENT_CREATEDCPRE extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszDriver{
-        get {
-            if(!this.HasProp("__pszDriver"))
-                this.__pszDriver := PWSTR(this.ptr + 0)
-            return this.__pszDriver
-        }
+    pszDriver {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszDevice{
-        get {
-            if(!this.HasProp("__pszDevice"))
-                this.__pszDevice := PWSTR(this.ptr + 8)
-            return this.__pszDevice
-        }
+    pszDevice {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

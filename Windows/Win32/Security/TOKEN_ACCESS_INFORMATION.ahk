@@ -2,7 +2,6 @@
 #Include ..\..\..\Win32Struct.ahk
 #Include ..\Foundation\LUID.ahk
 #Include .\TOKEN_MANDATORY_POLICY.ahk
-#Include .\PSID.ahk
 
 /**
  * Specifies all the information in a token that is necessary to perform an access check.
@@ -109,14 +108,11 @@ class TOKEN_ACCESS_INFORMATION extends Win32Struct
      * The app container SID or <b>NULL</b> if this is not an app container token.
      * 
      * <b>Windows Server 2008 R2, Windows 7, Windows Server 2008 and Windows Vista:  </b>This member is not available.
-     * @type {PSID}
+     * @type {Pointer<Ptr>}
      */
-    PackageSid{
-        get {
-            if(!this.HasProp("__PackageSid"))
-                this.__PackageSid := PSID(this.ptr + 56)
-            return this.__PackageSid
-        }
+    PackageSid {
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 
     /**
@@ -132,14 +128,11 @@ class TOKEN_ACCESS_INFORMATION extends Win32Struct
 
     /**
      * The protected process trust level of the token.
-     * @type {PSID}
+     * @type {Pointer<Ptr>}
      */
-    TrustLevelSid{
-        get {
-            if(!this.HasProp("__TrustLevelSid"))
-                this.__TrustLevelSid := PSID(this.ptr + 72)
-            return this.__TrustLevelSid
-        }
+    TrustLevelSid {
+        get => NumGet(this, 72, "ptr")
+        set => NumPut("ptr", value, this, 72)
     }
 
     /**

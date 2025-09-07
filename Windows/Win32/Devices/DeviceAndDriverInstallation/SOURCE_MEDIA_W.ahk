@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The SOURCE_MEDIA structure is used with the SPFILENOTIFY_NEEDMEDIA notification to pass source media information. (Unicode)
@@ -20,62 +19,47 @@ class SOURCE_MEDIA_W extends Win32Struct
 
     /**
      * This member is not currently used.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    Reserved{
-        get {
-            if(!this.HasProp("__Reserved"))
-                this.__Reserved := PWSTR(this.ptr + 0)
-            return this.__Reserved
-        }
+    Reserved {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
      * Optional  tag file that can be used to identify the source media.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    Tagfile{
-        get {
-            if(!this.HasProp("__Tagfile"))
-                this.__Tagfile := PWSTR(this.ptr + 8)
-            return this.__Tagfile
-        }
+    Tagfile {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * Human-readable description of the source media.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    Description{
-        get {
-            if(!this.HasProp("__Description"))
-                this.__Description := PWSTR(this.ptr + 16)
-            return this.__Description
-        }
+    Description {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * Path to the source that needs the new media.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    SourcePath{
-        get {
-            if(!this.HasProp("__SourcePath"))
-                this.__SourcePath := PWSTR(this.ptr + 24)
-            return this.__SourcePath
-        }
+    SourcePath {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
      * Source file to be retrieved from the new media.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    SourceFile{
-        get {
-            if(!this.HasProp("__SourceFile"))
-                this.__SourceFile := PWSTR(this.ptr + 32)
-            return this.__SourceFile
-        }
+    SourceFile {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**

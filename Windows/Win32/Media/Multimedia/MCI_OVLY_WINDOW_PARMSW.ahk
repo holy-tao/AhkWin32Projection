@@ -1,7 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.Media.Multimedia
@@ -23,14 +21,11 @@ class MCI_OVLY_WINDOW_PARMSW extends Win32Struct
     }
 
     /**
-     * @type {HWND}
+     * @type {Pointer<Ptr>}
      */
-    hWnd{
-        get {
-            if(!this.HasProp("__hWnd"))
-                this.__hWnd := HWND(this.ptr + 8)
-            return this.__hWnd
-        }
+    hWnd {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -42,13 +37,10 @@ class MCI_OVLY_WINDOW_PARMSW extends Win32Struct
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpstrText{
-        get {
-            if(!this.HasProp("__lpstrText"))
-                this.__lpstrText := PWSTR(this.ptr + 20)
-            return this.__lpstrText
-        }
+    lpstrText {
+        get => NumGet(this, 20, "ptr")
+        set => NumPut("ptr", value, this, 20)
     }
 }

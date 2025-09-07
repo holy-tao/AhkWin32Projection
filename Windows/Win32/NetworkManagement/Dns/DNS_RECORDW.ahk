@@ -1,8 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\DNS_SOA_DATAW.ahk
-#Include .\DNS_PTR_DATAW.ahk
 #Include .\DNS_MINFO_DATAW.ahk
 #Include .\DNS_MX_DATAW.ahk
 #Include .\DNS_TXT_DATAW.ahk
@@ -27,7 +25,6 @@
 #Include .\DNS_NSEC3_DATA.ahk
 #Include .\DNS_NSEC3PARAM_DATA.ahk
 #Include .\DNS_TLSA_DATA.ahk
-#Include ..\..\Foundation\PSTR.ahk
 #Include .\DNS_SVCB_DATA.ahk
 #Include .\DNS_UNKNOWN_DATA.ahk
 
@@ -67,14 +64,11 @@ class DNS_RECORDW extends Win32Struct
 
     /**
      * A pointer to a string that represents the domain name of the record set. This must be in the string format that corresponds to the function called, such as ANSI, Unicode, or UTF8.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pName{
-        get {
-            if(!this.HasProp("__pName"))
-                this.__pName := PWSTR(this.ptr + 8)
-            return this.__pName
-        }
+    pName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -172,201 +166,147 @@ class DNS_RECORDW extends Win32Struct
     }
 
     /**
-     * @type {DNS_PTR_DATAW}
+     * @type {Pointer<Ptr>}
      */
-    PTR{
-        get {
-            if(!this.HasProp("__PTR"))
-                this.__PTR := DNS_PTR_DATAW(this.ptr + 32)
-            return this.__PTR
-        }
+    PTR {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
-     * @type {DNS_PTR_DATAW}
+     * @type {Pointer<Ptr>}
      */
-    Ptr1{
-        get {
-            if(!this.HasProp("__Ptr1"))
-                this.__Ptr1 := DNS_PTR_DATAW(this.ptr + 32)
-            return this.__Ptr1
-        }
+    Ptr1 {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
-     * @type {DNS_PTR_DATAW}
+     * @type {Pointer<Ptr>}
      */
-    NS{
-        get {
-            if(!this.HasProp("__NS"))
-                this.__NS := DNS_PTR_DATAW(this.ptr + 32)
-            return this.__NS
-        }
+    NS {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
-     * @type {DNS_PTR_DATAW}
+     * @type {Pointer<Ptr>}
      */
-    Ns1{
-        get {
-            if(!this.HasProp("__Ns1"))
-                this.__Ns1 := DNS_PTR_DATAW(this.ptr + 32)
-            return this.__Ns1
-        }
+    Ns1 {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
-     * @type {DNS_PTR_DATAW}
+     * @type {Pointer<Ptr>}
      */
-    CNAME{
-        get {
-            if(!this.HasProp("__CNAME"))
-                this.__CNAME := DNS_PTR_DATAW(this.ptr + 32)
-            return this.__CNAME
-        }
+    CNAME {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
-     * @type {DNS_PTR_DATAW}
+     * @type {Pointer<Ptr>}
      */
-    Cname1{
-        get {
-            if(!this.HasProp("__Cname1"))
-                this.__Cname1 := DNS_PTR_DATAW(this.ptr + 32)
-            return this.__Cname1
-        }
+    Cname1 {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
-     * @type {DNS_PTR_DATAW}
+     * @type {Pointer<Ptr>}
      */
-    DNAME{
-        get {
-            if(!this.HasProp("__DNAME"))
-                this.__DNAME := DNS_PTR_DATAW(this.ptr + 32)
-            return this.__DNAME
-        }
+    DNAME {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
-     * @type {DNS_PTR_DATAW}
+     * @type {Pointer<Ptr>}
      */
-    Dname1{
-        get {
-            if(!this.HasProp("__Dname1"))
-                this.__Dname1 := DNS_PTR_DATAW(this.ptr + 32)
-            return this.__Dname1
-        }
+    Dname1 {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
-     * @type {DNS_PTR_DATAW}
+     * @type {Pointer<Ptr>}
      */
-    MB{
-        get {
-            if(!this.HasProp("__MB"))
-                this.__MB := DNS_PTR_DATAW(this.ptr + 32)
-            return this.__MB
-        }
+    MB {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
-     * @type {DNS_PTR_DATAW}
+     * @type {Pointer<Ptr>}
      */
-    Mb1{
-        get {
-            if(!this.HasProp("__Mb1"))
-                this.__Mb1 := DNS_PTR_DATAW(this.ptr + 32)
-            return this.__Mb1
-        }
+    Mb1 {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
-     * @type {DNS_PTR_DATAW}
+     * @type {Pointer<Ptr>}
      */
-    MD{
-        get {
-            if(!this.HasProp("__MD"))
-                this.__MD := DNS_PTR_DATAW(this.ptr + 32)
-            return this.__MD
-        }
+    MD {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
-     * @type {DNS_PTR_DATAW}
+     * @type {Pointer<Ptr>}
      */
-    Md1{
-        get {
-            if(!this.HasProp("__Md1"))
-                this.__Md1 := DNS_PTR_DATAW(this.ptr + 32)
-            return this.__Md1
-        }
+    Md1 {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
-     * @type {DNS_PTR_DATAW}
+     * @type {Pointer<Ptr>}
      */
-    MF{
-        get {
-            if(!this.HasProp("__MF"))
-                this.__MF := DNS_PTR_DATAW(this.ptr + 32)
-            return this.__MF
-        }
+    MF {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
-     * @type {DNS_PTR_DATAW}
+     * @type {Pointer<Ptr>}
      */
-    Mf1{
-        get {
-            if(!this.HasProp("__Mf1"))
-                this.__Mf1 := DNS_PTR_DATAW(this.ptr + 32)
-            return this.__Mf1
-        }
+    Mf1 {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
-     * @type {DNS_PTR_DATAW}
+     * @type {Pointer<Ptr>}
      */
-    MG{
-        get {
-            if(!this.HasProp("__MG"))
-                this.__MG := DNS_PTR_DATAW(this.ptr + 32)
-            return this.__MG
-        }
+    MG {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
-     * @type {DNS_PTR_DATAW}
+     * @type {Pointer<Ptr>}
      */
-    Mg1{
-        get {
-            if(!this.HasProp("__Mg1"))
-                this.__Mg1 := DNS_PTR_DATAW(this.ptr + 32)
-            return this.__Mg1
-        }
+    Mg1 {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
-     * @type {DNS_PTR_DATAW}
+     * @type {Pointer<Ptr>}
      */
-    MR{
-        get {
-            if(!this.HasProp("__MR"))
-                this.__MR := DNS_PTR_DATAW(this.ptr + 32)
-            return this.__MR
-        }
+    MR {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
-     * @type {DNS_PTR_DATAW}
+     * @type {Pointer<Ptr>}
      */
-    Mr1{
-        get {
-            if(!this.HasProp("__Mr1"))
-                this.__Mr1 := DNS_PTR_DATAW(this.ptr + 32)
-            return this.__Mr1
-        }
+    Mr1 {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**

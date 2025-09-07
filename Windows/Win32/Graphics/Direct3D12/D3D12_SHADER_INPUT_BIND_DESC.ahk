@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * Describes how a shader resource is bound to a shader input. (D3D12_SHADER_INPUT_BIND_DESC)
@@ -18,14 +17,11 @@ class D3D12_SHADER_INPUT_BIND_DESC extends Win32Struct
 
     /**
      * Name of the shader resource.
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    Name{
-        get {
-            if(!this.HasProp("__Name"))
-                this.__Name := PSTR(this.ptr + 0)
-            return this.__Name
-        }
+    Name {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**

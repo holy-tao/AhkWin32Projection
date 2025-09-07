@@ -4,7 +4,6 @@
 #Include .\PANOSE.ahk
 #Include ..\..\Foundation\RECT.ahk
 #Include ..\..\Foundation\POINT.ahk
-#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * The OUTLINETEXTMETRIC structure contains metrics describing a TrueType font. (ANSI)
@@ -336,49 +335,37 @@ class OUTLINETEXTMETRICA extends Win32Struct
 
     /**
      * The offset from the beginning of the structure to a string specifying the family name for the font.
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    otmpFamilyName{
-        get {
-            if(!this.HasProp("__otmpFamilyName"))
-                this.__otmpFamilyName := PSTR(this.ptr + 208)
-            return this.__otmpFamilyName
-        }
+    otmpFamilyName {
+        get => NumGet(this, 208, "ptr")
+        set => NumPut("ptr", value, this, 208)
     }
 
     /**
      * The offset from the beginning of the structure to a string specifying the typeface name for the font. (This typeface name corresponds to the name specified in the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-logfonta">LOGFONT</a> structure.)
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    otmpFaceName{
-        get {
-            if(!this.HasProp("__otmpFaceName"))
-                this.__otmpFaceName := PSTR(this.ptr + 216)
-            return this.__otmpFaceName
-        }
+    otmpFaceName {
+        get => NumGet(this, 216, "ptr")
+        set => NumPut("ptr", value, this, 216)
     }
 
     /**
      * The offset from the beginning of the structure to a string specifying the style name for the font.
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    otmpStyleName{
-        get {
-            if(!this.HasProp("__otmpStyleName"))
-                this.__otmpStyleName := PSTR(this.ptr + 224)
-            return this.__otmpStyleName
-        }
+    otmpStyleName {
+        get => NumGet(this, 224, "ptr")
+        set => NumPut("ptr", value, this, 224)
     }
 
     /**
      * The offset from the beginning of the structure to a string specifying the full name for the font. This name is unique for the font and often contains a version number or other identifying information.
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    otmpFullName{
-        get {
-            if(!this.HasProp("__otmpFullName"))
-                this.__otmpFullName := PSTR(this.ptr + 232)
-            return this.__otmpFullName
-        }
+    otmpFullName {
+        get => NumGet(this, 232, "ptr")
+        set => NumPut("ptr", value, this, 232)
     }
 }

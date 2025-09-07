@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * Used to associate a URL Group with a request queue.
@@ -25,13 +24,10 @@ class HTTP_BINDING_INFO extends Win32Struct
 
     /**
      * The request queue that is associated with the URL group. The structure can be used to remove an existing binding by setting this parameter to <b>NULL</b>.
-     * @type {HANDLE}
+     * @type {Pointer<Ptr>}
      */
-    RequestQueueHandle{
-        get {
-            if(!this.HasProp("__RequestQueueHandle"))
-                this.__RequestQueueHandle := HANDLE(this.ptr + 8)
-            return this.__RequestQueueHandle
-        }
+    RequestQueueHandle {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 }

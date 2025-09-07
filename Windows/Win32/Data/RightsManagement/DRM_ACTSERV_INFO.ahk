@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The DRM_ACTSERV_INFO structure stores information about the activation server.
@@ -27,25 +26,19 @@ class DRM_ACTSERV_INFO extends Win32Struct
 
     /**
      * This member is reserved and must be set to <b>NULL</b>.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    wszPubKey{
-        get {
-            if(!this.HasProp("__wszPubKey"))
-                this.__wszPubKey := PWSTR(this.ptr + 8)
-            return this.__wszPubKey
-        }
+    wszPubKey {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * URL for a service that performs activation. Use <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmgetservicelocation">DRMGetServiceLocation</a> to find a service location if none is known, or pass in <b>NULL</b> to use Passport service discovery. The URL should have the form <b>http://</b><i>CompanyName</i><b>/_wmcs/certification</b>, for example, http://blueyonderairlines/_wmcs/certification. The parameter defaults to <b>NULL</b> in C++.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    wszURL{
-        get {
-            if(!this.HasProp("__wszURL"))
-                this.__wszURL := PWSTR(this.ptr + 16)
-            return this.__wszURL
-        }
+    wszURL {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 }

@@ -4,7 +4,6 @@
 #Include ..\..\Foundation\SYSTEMTIME.ahk
 #Include .\ADS_PROV_SPECIFIC.ahk
 #Include .\ADS_TIMESTAMP.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\ADS_BACKLINK.ahk
 #Include .\ADS_HOLD.ahk
 #Include .\ADS_EMAIL.ahk

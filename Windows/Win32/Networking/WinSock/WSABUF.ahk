@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * The WSABUF structure enables the creation or manipulation of a data buffer used by some Winsock functions.
@@ -25,13 +24,10 @@ class WSABUF extends Win32Struct
 
     /**
      * A pointer to the buffer.
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    buf{
-        get {
-            if(!this.HasProp("__buf"))
-                this.__buf := PSTR(this.ptr + 8)
-            return this.__buf
-        }
+    buf {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 }

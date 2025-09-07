@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Describes object-specific performance information, for example, the number of instances of the object and the number of counters that the object defines.
@@ -66,14 +65,11 @@ class PERF_OBJECT_TYPE extends Win32Struct
 
     /**
      * Reserved.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    ObjectNameTitle{
-        get {
-            if(!this.HasProp("__ObjectNameTitle"))
-                this.__ObjectNameTitle := PWSTR(this.ptr + 16)
-            return this.__ObjectNameTitle
-        }
+    ObjectNameTitle {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
@@ -89,14 +85,11 @@ class PERF_OBJECT_TYPE extends Win32Struct
 
     /**
      * Reserved.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    ObjectHelpTitle{
-        get {
-            if(!this.HasProp("__ObjectHelpTitle"))
-                this.__ObjectHelpTitle := PWSTR(this.ptr + 32)
-            return this.__ObjectHelpTitle
-        }
+    ObjectHelpTitle {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**

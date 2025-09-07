@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The WINHTTP_PROXY_SETTINGS_PARAM structure represents extended proxy settings.
@@ -31,27 +30,21 @@ class WINHTTP_PROXY_SETTINGS_PARAM extends Win32Struct
      * Type: **[PCWSTR](/windows/win32/winprog/windows-data-types)**
      * 
      * The WCM connection name for which settings were retrieved.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pcwszConnectionName{
-        get {
-            if(!this.HasProp("__pcwszConnectionName"))
-                this.__pcwszConnectionName := PWSTR(this.ptr + 8)
-            return this.__pcwszConnectionName
-        }
+    pcwszConnectionName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * Type: **[PCWSTR](/windows/win32/winprog/windows-data-types)**
      * 
      * TBD
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pcwszProbeHost{
-        get {
-            if(!this.HasProp("__pcwszProbeHost"))
-                this.__pcwszProbeHost := PWSTR(this.ptr + 16)
-            return this.__pcwszProbeHost
-        }
+    pcwszProbeHost {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 }

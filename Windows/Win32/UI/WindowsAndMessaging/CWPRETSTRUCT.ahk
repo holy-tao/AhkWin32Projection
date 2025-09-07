@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
 
 /**
  * Defines the message parameters passed to a WH_CALLWNDPROCRET hook procedure, CallWndRetProc.
@@ -66,13 +65,10 @@ class CWPRETSTRUCT extends Win32Struct
      * 
      * A handle to the window that processed the message specified by the 
      * 					<b>message</b> value.
-     * @type {HWND}
+     * @type {Pointer<Ptr>}
      */
-    hwnd{
-        get {
-            if(!this.HasProp("__hwnd"))
-                this.__hwnd := HWND(this.ptr + 32)
-            return this.__hwnd
-        }
+    hwnd {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 }

@@ -1,10 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\HWND.ahk
-#Include ..\..\..\Foundation\HGLOBAL.ahk
-#Include ..\..\..\Graphics\Gdi\HDC.ahk
-#Include ..\..\..\Foundation\HINSTANCE.ahk
-#Include ..\..\..\Foundation\PSTR.ahk
 
 /**
  * Contains information that the PrintDlgEx function uses to initialize the Print property sheet. After the user closes the property sheet, the system uses this structure to return information about the user's selections. (ANSI)
@@ -49,14 +44,11 @@ class PRINTDLGEXA extends Win32Struct
      * Type: <b>HWND</b>
      * 
      * A handle to the window that owns the property sheet. This member must be a valid window handle; it cannot be <b>NULL</b>.
-     * @type {HWND}
+     * @type {Pointer<Ptr>}
      */
-    hwndOwner{
-        get {
-            if(!this.HasProp("__hwndOwner"))
-                this.__hwndOwner := HWND(this.ptr + 4)
-            return this.__hwndOwner
-        }
+    hwndOwner {
+        get => NumGet(this, 4, "ptr")
+        set => NumPut("ptr", value, this, 4)
     }
 
     /**
@@ -67,14 +59,11 @@ class PRINTDLGEXA extends Win32Struct
      * If <b>hDevMode</b> is <b>NULL</b> on input, <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms646942(v=vs.85)">PrintDlgEx</a> allocates memory for the <a href="https://docs.microsoft.com/windows/win32/api/wingdi/ns-wingdi-devmodea">DEVMODE</a> structure, initializes its members to indicate the user's input, and returns a handle that identifies it. 
      * 
      * For more information about the <b>hDevMode</b> and <b>hDevNames</b> members, see the Remarks section at the end of this topic.
-     * @type {HGLOBAL}
+     * @type {Pointer<Ptr>}
      */
-    hDevMode{
-        get {
-            if(!this.HasProp("__hDevMode"))
-                this.__hDevMode := HGLOBAL(this.ptr + 12)
-            return this.__hDevMode
-        }
+    hDevMode {
+        get => NumGet(this, 12, "ptr")
+        set => NumPut("ptr", value, this, 12)
     }
 
     /**
@@ -85,28 +74,22 @@ class PRINTDLGEXA extends Win32Struct
      * The <b>hDevNames</b> member can be <b>NULL</b>, in which case, <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms646942(v=vs.85)">PrintDlgEx</a> allocates memory for the <a href="https://docs.microsoft.com/windows/desktop/api/commdlg/ns-commdlg-devnames">DEVNAMES</a> structure, initializes its members to indicate the user's input, and returns a handle that identifies it. 
      * 
      * For more information about the <b>hDevMode</b> and <b>hDevNames</b> members, see the Remarks section at the end of this topic.
-     * @type {HGLOBAL}
+     * @type {Pointer<Ptr>}
      */
-    hDevNames{
-        get {
-            if(!this.HasProp("__hDevNames"))
-                this.__hDevNames := HGLOBAL(this.ptr + 20)
-            return this.__hDevNames
-        }
+    hDevNames {
+        get => NumGet(this, 20, "ptr")
+        set => NumPut("ptr", value, this, 20)
     }
 
     /**
      * Type: <b>HDC</b>
      * 
      * A handle to a device context or an information context, depending on whether the <b>Flags</b> member specifies the <b>PD_RETURNDC</b> or <b>PC_RETURNIC</b> flag. If neither flag is specified, the value of this member is undefined. If both flags are specified, <b>PD_RETURNDC</b> has priority.
-     * @type {HDC}
+     * @type {Pointer<Ptr>}
      */
-    hDC{
-        get {
-            if(!this.HasProp("__hDC"))
-                this.__hDC := HDC(this.ptr + 28)
-            return this.__hDC
-        }
+    hDC {
+        get => NumGet(this, 28, "ptr")
+        set => NumPut("ptr", value, this, 28)
     }
 
     /**
@@ -208,28 +191,22 @@ class PRINTDLGEXA extends Win32Struct
      * Type: <b>HINSTANCE</b>
      * 
      * If the <b>PD_ENABLEPRINTTEMPLATE</b> flag is set in the <b>Flags</b> member, <b>hInstance</b> is a handle to the application or module instance that contains the dialog box template named by the <b>lpPrintTemplateName</b> member. If the <b>PD_ENABLEPRINTTEMPLATEHANDLE</b> flag is set in the <b>Flags</b> member, <b>hInstance</b> is a handle to a memory object containing a dialog box template. If neither of the template flags is set in the <b>Flags</b> member, <b>hInstance</b> should be <b>NULL</b>.
-     * @type {HINSTANCE}
+     * @type {Pointer<Ptr>}
      */
-    hInstance{
-        get {
-            if(!this.HasProp("__hInstance"))
-                this.__hInstance := HINSTANCE(this.ptr + 76)
-            return this.__hInstance
-        }
+    hInstance {
+        get => NumGet(this, 76, "ptr")
+        set => NumPut("ptr", value, this, 76)
     }
 
     /**
      * Type: <b>LPCTSTR</b>
      * 
      * The name of the dialog box template resource in the module identified by the <b>hInstance</b> member. This template replaces the default dialog box template in the lower portion of the <b>General</b> page. The default template contains controls similar to those of the <b>Print</b> dialog box. This member is ignored unless the PD_ENABLEPRINTTEMPLATE flag is set in the <b>Flags</b> member.
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpPrintTemplateName{
-        get {
-            if(!this.HasProp("__lpPrintTemplateName"))
-                this.__lpPrintTemplateName := PSTR(this.ptr + 84)
-            return this.__lpPrintTemplateName
-        }
+    lpPrintTemplateName {
+        get => NumGet(this, 84, "ptr")
+        set => NumPut("ptr", value, this, 84)
     }
 
     /**
@@ -265,7 +242,7 @@ class PRINTDLGEXA extends Win32Struct
      * Type: <b>HPROPSHEETPAGE*</b>
      * 
      * Contains an array of property page handles to add to the <b>Print</b> property sheet. The additional property pages follow the <b>General</b> page. Use the <a href="https://docs.microsoft.com/windows/desktop/api/prsht/nf-prsht-createpropertysheetpagea">CreatePropertySheetPage</a> function to create these additional pages. When the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms646942(v=vs.85)">PrintDlgEx</a> function returns, all the <b>HPROPSHEETPAGE</b> handles in the <b>lphPropertyPages</b> array have been destroyed. If <b>nPropertyPages</b> is zero, <b>lphPropertyPages</b> should be <b>NULL</b>.
-     * @type {Pointer<HPROPSHEETPAGE>}
+     * @type {Pointer<Ptr>}
      */
     lphPropertyPages {
         get => NumGet(this, 104, "ptr")

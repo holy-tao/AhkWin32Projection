@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.NetManagement
@@ -21,14 +20,11 @@ class SERVER_INFO_103 extends Win32Struct
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    sv103_name{
-        get {
-            if(!this.HasProp("__sv103_name"))
-                this.__sv103_name := PWSTR(this.ptr + 8)
-            return this.__sv103_name
-        }
+    sv103_name {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -56,14 +52,11 @@ class SERVER_INFO_103 extends Win32Struct
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    sv103_comment{
-        get {
-            if(!this.HasProp("__sv103_comment"))
-                this.__sv103_comment := PWSTR(this.ptr + 32)
-            return this.__sv103_comment
-        }
+    sv103_comment {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
@@ -115,14 +108,11 @@ class SERVER_INFO_103 extends Win32Struct
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    sv103_userpath{
-        get {
-            if(!this.HasProp("__sv103_userpath"))
-                this.__sv103_userpath := PWSTR(this.ptr + 64)
-            return this.__sv103_userpath
-        }
+    sv103_userpath {
+        get => NumGet(this, 64, "ptr")
+        set => NumPut("ptr", value, this, 64)
     }
 
     /**

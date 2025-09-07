@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The PROVIDOR\_INFO\_1 structure identifies a print provider.
@@ -17,37 +16,28 @@ class PROVIDOR_INFO_1W extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that is the name of the print provider.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pName{
-        get {
-            if(!this.HasProp("__pName"))
-                this.__pName := PWSTR(this.ptr + 0)
-            return this.__pName
-        }
+    pName {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
      * Pointer to a null-terminated environment string specifying the environment the provider dynamic-link library (DLL) is designed to run in.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pEnvironment{
-        get {
-            if(!this.HasProp("__pEnvironment"))
-                this.__pEnvironment := PWSTR(this.ptr + 8)
-            return this.__pEnvironment
-        }
+    pEnvironment {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * Pointer to a null-terminated string that is the name of the provider .dll.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pDLLName{
-        get {
-            if(!this.HasProp("__pDLLName"))
-                this.__pDLLName := PWSTR(this.ptr + 16)
-            return this.__pDLLName
-        }
+    pDLLName {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 }

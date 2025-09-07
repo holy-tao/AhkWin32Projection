@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * Contains optional extended parameters for CreateFile2.
@@ -437,13 +436,10 @@ class CREATEFILE2_EXTENDED_PARAMETERS extends Win32Struct
      * When opening an existing file, [CreateFile2](/windows/win32/api/fileapi/nf-fileapi-createfile2) ignores this parameter.
      * 
      * When opening a new encrypted file, the file inherits the discretionary access control list from its parent directory. For additional information, see [File Encryption](/windows/win32/FileIO/file-encryption).
-     * @type {HANDLE}
+     * @type {Pointer<Ptr>}
      */
-    hTemplateFile{
-        get {
-            if(!this.HasProp("__hTemplateFile"))
-                this.__hTemplateFile := HANDLE(this.ptr + 24)
-            return this.__hTemplateFile
-        }
+    hTemplateFile {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 }

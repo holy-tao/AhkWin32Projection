@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 #Include .\CRYPT_INTEGER_BLOB.ahk
 
 /**
@@ -35,14 +34,11 @@ class CERT_PHYSICAL_STORE_INFO extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptinstalloidfunctionaddress">CryptInstallOIDFunctionAddress</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptregisteroidfunction">CryptRegisterOIDFunction</a>. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/extending-certopenstore-functionality">CertOpenStore</a>.
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszOpenStoreProvider{
-        get {
-            if(!this.HasProp("__pszOpenStoreProvider"))
-                this.__pszOpenStoreProvider := PSTR(this.ptr + 8)
-            return this.__pszOpenStoreProvider
-        }
+    pszOpenStoreProvider {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

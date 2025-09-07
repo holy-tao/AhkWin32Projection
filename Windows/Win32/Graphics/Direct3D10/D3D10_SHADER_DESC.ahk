@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * Describes a shader. (D3D10_SHADER_DESC)
@@ -31,14 +30,11 @@ class D3D10_SHADER_DESC extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>
      * 
      * The name of the originator of the shader.
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    Creator{
-        get {
-            if(!this.HasProp("__Creator"))
-                this.__Creator := PSTR(this.ptr + 8)
-            return this.__Creator
-        }
+    Creator {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

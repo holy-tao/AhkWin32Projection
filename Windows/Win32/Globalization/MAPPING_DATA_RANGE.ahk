@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32Struct.ahk
-#Include ..\Foundation\PWSTR.ahk
 
 /**
  * Contains text recognition results for a recognized text subrange. An array of structures of this type is retrieved by an Extended Linguistic Services (ELS) service in a MAPPING_PROPERTY_BAG structure.
@@ -37,14 +36,11 @@ class MAPPING_DATA_RANGE extends Win32Struct
 
     /**
      * Reserved.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszDescription{
-        get {
-            if(!this.HasProp("__pszDescription"))
-                this.__pszDescription := PWSTR(this.ptr + 8)
-            return this.__pszDescription
-        }
+    pszDescription {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -79,14 +75,11 @@ class MAPPING_DATA_RANGE extends Win32Struct
      * 
      * <div class="alert"><b>Note</b>  In Windows 7, the ELS services support only the content type "text/plain". A content type specification can be found at <a href="https://www.iana.org/assignments/media-types/text">Text Media Types</a>.</div>
      * <div> </div>
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszContentType{
-        get {
-            if(!this.HasProp("__pszContentType"))
-                this.__pszContentType := PWSTR(this.ptr + 40)
-            return this.__pszContentType
-        }
+    pszContentType {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
@@ -94,7 +87,7 @@ class MAPPING_DATA_RANGE extends Win32Struct
      * 
      * <div class="alert"><b>Note</b>  In Windows 7, the ELS services do not expose any actions.</div>
      * <div> </div>
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Ptr>}
      */
     prgActionIds {
         get => NumGet(this, 48, "ptr")
@@ -118,7 +111,7 @@ class MAPPING_DATA_RANGE extends Win32Struct
      * 
      * <div class="alert"><b>Note</b>  In Windows 7, the ELS services do not expose any actions.</div>
      * <div> </div>
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Ptr>}
      */
     prgActionDisplayNames {
         get => NumGet(this, 64, "ptr")

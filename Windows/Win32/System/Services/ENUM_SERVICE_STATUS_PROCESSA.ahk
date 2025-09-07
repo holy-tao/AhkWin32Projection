@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 #Include .\SERVICE_STATUS_PROCESS.ahk
 
 /**
@@ -21,26 +20,20 @@ class ENUM_SERVICE_STATUS_PROCESSA extends Win32Struct
 
     /**
      * The name of a service in the service control manager database. The maximum string length is 256 characters. The service control manager database preserves the case of the characters, but service name comparisons are always case insensitive. A slash (/), backslash (\\), comma, and space are invalid service name characters.
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpServiceName{
-        get {
-            if(!this.HasProp("__lpServiceName"))
-                this.__lpServiceName := PSTR(this.ptr + 0)
-            return this.__lpServiceName
-        }
+    lpServiceName {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
      * A display name that can be used by service control programs, such as Services in Control Panel, to identify the service. This string has a maximum length of 256 characters. The case is preserved in the service control manager. Display name comparisons are always case-insensitive.
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpDisplayName{
-        get {
-            if(!this.HasProp("__lpDisplayName"))
-                this.__lpDisplayName := PSTR(this.ptr + 8)
-            return this.__lpDisplayName
-        }
+    lpDisplayName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

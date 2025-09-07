@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Graphics\Gdi\HBRUSH.ahk
 
 /**
  * Contains information about a menu.
@@ -58,14 +57,11 @@ class MENUINFO extends Win32Struct
      * Type: <b>HBRUSH</b>
      * 
      * A handle to the brush to be used for the menu's background.
-     * @type {HBRUSH}
+     * @type {Pointer<Ptr>}
      */
-    hbrBack{
-        get {
-            if(!this.HasProp("__hbrBack"))
-                this.__hbrBack := HBRUSH(this.ptr + 16)
-            return this.__hbrBack
-        }
+    hbrBack {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**

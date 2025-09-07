@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\PSTR.ahk
 #Include ..\..\..\Foundation\SYSTEMTIME.ahk
 
 /**
@@ -22,14 +21,11 @@ class HIT_LOGGING_INFO extends Win32Struct
     }
 
     /**
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpszLoggedUrlName{
-        get {
-            if(!this.HasProp("__lpszLoggedUrlName"))
-                this.__lpszLoggedUrlName := PSTR(this.ptr + 8)
-            return this.__lpszLoggedUrlName
-        }
+    lpszLoggedUrlName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -55,13 +51,10 @@ class HIT_LOGGING_INFO extends Win32Struct
     }
 
     /**
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpszExtendedInfo{
-        get {
-            if(!this.HasProp("__lpszExtendedInfo"))
-                this.__lpszExtendedInfo := PSTR(this.ptr + 48)
-            return this.__lpszExtendedInfo
-        }
+    lpszExtendedInfo {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 }

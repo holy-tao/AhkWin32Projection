@@ -2,7 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\DHCP_IPV6_ADDRESS.ahk
 #Include .\DHCP_BINARY_DATA.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\DATE_TIME.ahk
 #Include .\DHCP_HOST_INFO_V6.ahk
 
@@ -91,26 +90,20 @@ class DHCP_CLIENT_INFO_V6 extends Win32Struct
 
     /**
      * A pointer to a null-terminated Unicode string containing the name of the DHCPv6 client.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    ClientName{
-        get {
-            if(!this.HasProp("__ClientName"))
-                this.__ClientName := PWSTR(this.ptr + 40)
-            return this.__ClientName
-        }
+    ClientName {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
      * A pointer to a null-terminated Unicode string containing a comment relating to the DHCPv6 client.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    ClientComment{
-        get {
-            if(!this.HasProp("__ClientComment"))
-                this.__ClientComment := PWSTR(this.ptr + 48)
-            return this.__ClientComment
-        }
+    ClientComment {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**

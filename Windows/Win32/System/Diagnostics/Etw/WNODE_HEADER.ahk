@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\HANDLE.ahk
 
 /**
  * The WNODE\_HEADER structure is a member of the EVENT\_TRACE\_PROPERTIES structure.
@@ -78,14 +77,11 @@ class WNODE_HEADER extends Win32Struct
     }
 
     /**
-     * @type {HANDLE}
+     * @type {Pointer<Ptr>}
      */
-    KernelHandle{
-        get {
-            if(!this.HasProp("__KernelHandle"))
-                this.__KernelHandle := HANDLE(this.ptr + 16)
-            return this.__KernelHandle
-        }
+    KernelHandle {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**

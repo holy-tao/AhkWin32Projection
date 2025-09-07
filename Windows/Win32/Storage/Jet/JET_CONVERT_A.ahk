@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * @namespace Windows.Win32.Storage.Jet
@@ -14,14 +13,11 @@ class JET_CONVERT_A extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    szOldDll{
-        get {
-            if(!this.HasProp("__szOldDll"))
-                this.__szOldDll := PSTR(this.ptr + 0)
-            return this.__szOldDll
-        }
+    szOldDll {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**

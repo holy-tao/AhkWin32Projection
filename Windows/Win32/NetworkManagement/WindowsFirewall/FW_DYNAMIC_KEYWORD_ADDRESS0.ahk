@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Allows the client to create a dynamic keyword address, which holds a list of IP addresses.
@@ -31,14 +30,11 @@ class FW_DYNAMIC_KEYWORD_ADDRESS0 extends Win32Struct
      * Type: **[PCWSTR](/windows/win32/api/guiddef/ns-guiddef-guid)**
      * 
      * Either a string (for management convenience), or a resolvable string (that is, a FQDN or hostname) when the **FW_DYNAMIC_KEYWORD_ADDRESS_FLAGS_AUTO_RESOLVE** flag is set.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    keyword{
-        get {
-            if(!this.HasProp("__keyword"))
-                this.__keyword := PWSTR(this.ptr + 8)
-            return this.__keyword
-        }
+    keyword {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -56,13 +52,10 @@ class FW_DYNAMIC_KEYWORD_ADDRESS0 extends Win32Struct
      * Type: **[PCWSTR](/windows/win32/api/guiddef/ns-guiddef-guid)**
      * 
      * The list of IP addresses for this keyword. If the **FW_DYNAMIC_KEYWORD_ADDRESS_FLAGS_AUTO_RESOLVE** flag is set, then this indicates that the *addresses* field was populated outside the firewall service.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    addresses{
-        get {
-            if(!this.HasProp("__addresses"))
-                this.__addresses := PWSTR(this.ptr + 24)
-            return this.__addresses
-        }
+    addresses {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 }

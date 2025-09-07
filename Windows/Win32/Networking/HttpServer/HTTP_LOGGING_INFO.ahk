@@ -1,7 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Security\PSECURITY_DESCRIPTOR.ahk
 
 /**
  * Used to enable server side logging on a URL Group or on a server session.
@@ -197,14 +195,11 @@ class HTTP_LOGGING_INFO extends Win32Struct
 
     /**
      * The optional software name string used in W3C type logging. This name is not used for other types of logging. If this parameter is <b>NULL</b>, the HTTP Server API logs a default string.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    SoftwareName{
-        get {
-            if(!this.HasProp("__SoftwareName"))
-                this.__SoftwareName := PWSTR(this.ptr + 8)
-            return this.__SoftwareName
-        }
+    SoftwareName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -231,14 +226,11 @@ class HTTP_LOGGING_INFO extends Win32Struct
      * The logging directory under which the log files are created. The directory string must be a fully qualified path including the drive letter.
      * 
      *   Applications can use a UNC path to a remote machine to enable UNC logging.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    DirectoryName{
-        get {
-            if(!this.HasProp("__DirectoryName"))
-                this.__DirectoryName := PWSTR(this.ptr + 24)
-            return this.__DirectoryName
-        }
+    DirectoryName {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
@@ -416,13 +408,10 @@ class HTTP_LOGGING_INFO extends Win32Struct
 
     /**
      * The security descriptor that is applied to the log files directory and all sub-directories. If this member is <b>NULL</b>, either the system default ACL is used or the ACL is inherited from the parent directory.
-     * @type {PSECURITY_DESCRIPTOR}
+     * @type {Pointer<Ptr>}
      */
-    pSecurityDescriptor{
-        get {
-            if(!this.HasProp("__pSecurityDescriptor"))
-                this.__pSecurityDescriptor := PSECURITY_DESCRIPTOR(this.ptr + 64)
-            return this.__pSecurityDescriptor
-        }
+    pSecurityDescriptor {
+        get => NumGet(this, 64, "ptr")
+        set => NumPut("ptr", value, this, 64)
     }
 }

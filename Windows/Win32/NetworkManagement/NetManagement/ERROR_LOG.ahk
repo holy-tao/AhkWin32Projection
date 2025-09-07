@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.NetManagement
@@ -45,25 +44,19 @@ class ERROR_LOG extends Win32Struct
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    el_name{
-        get {
-            if(!this.HasProp("__el_name"))
-                this.__el_name := PWSTR(this.ptr + 16)
-            return this.__el_name
-        }
+    el_name {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    el_text{
-        get {
-            if(!this.HasProp("__el_text"))
-                this.__el_text := PWSTR(this.ptr + 24)
-            return this.__el_text
-        }
+    el_text {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * The TF_LMLATTELEMENT structure contains information about a lattice element. A lattice element is used in speech recognition. This structure is used with the IEnumTfLatticeElements::Next method.
@@ -51,13 +50,10 @@ class TF_LMLATTELEMENT extends Win32Struct
 
     /**
      * Contains the display text for the element. If the spoken word is "two", the display text will be "2". The caller must free this string using <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a> when it is no longer required.
-     * @type {BSTR}
+     * @type {Pointer<Ptr>}
      */
-    bstrText{
-        get {
-            if(!this.HasProp("__bstrText"))
-                this.__bstrText := BSTR(this.ptr + 16)
-            return this.__bstrText
-        }
+    bstrText {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 }

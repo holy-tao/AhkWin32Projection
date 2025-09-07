@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * The PDH_COUNTER_PATH_ELEMENTS structure contains the components of a counter path. (ANSI)
@@ -21,50 +20,38 @@ class PDH_COUNTER_PATH_ELEMENTS_A extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that specifies the computer name.
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    szMachineName{
-        get {
-            if(!this.HasProp("__szMachineName"))
-                this.__szMachineName := PSTR(this.ptr + 0)
-            return this.__szMachineName
-        }
+    szMachineName {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
      * Pointer to a null-terminated string that specifies the object name.
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    szObjectName{
-        get {
-            if(!this.HasProp("__szObjectName"))
-                this.__szObjectName := PSTR(this.ptr + 8)
-            return this.__szObjectName
-        }
+    szObjectName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * Pointer to a null-terminated string that specifies the instance name. Can contain a wildcard character.
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    szInstanceName{
-        get {
-            if(!this.HasProp("__szInstanceName"))
-                this.__szInstanceName := PSTR(this.ptr + 16)
-            return this.__szInstanceName
-        }
+    szInstanceName {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * Pointer to a null-terminated string that specifies the parent instance name. Can contain a wildcard character.
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    szParentInstance{
-        get {
-            if(!this.HasProp("__szParentInstance"))
-                this.__szParentInstance := PSTR(this.ptr + 24)
-            return this.__szParentInstance
-        }
+    szParentInstance {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
@@ -78,13 +65,10 @@ class PDH_COUNTER_PATH_ELEMENTS_A extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that specifies the counter name.
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    szCounterName{
-        get {
-            if(!this.HasProp("__szCounterName"))
-                this.__szCounterName := PSTR(this.ptr + 40)
-            return this.__szCounterName
-        }
+    szCounterName {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 }

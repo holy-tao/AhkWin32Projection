@@ -1,7 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * Contains information about a property value to retrieve from the protocol.
@@ -41,25 +39,19 @@ class WTS_PROPERTY_VALUE extends Win32Struct
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pstrVal{
-        get {
-            if(!this.HasProp("__pstrVal"))
-                this.__pstrVal := PWSTR(this.ptr + 12)
-            return this.__pstrVal
-        }
+    pstrVal {
+        get => NumGet(this, 12, "ptr")
+        set => NumPut("ptr", value, this, 12)
     }
 
     /**
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    pbVal{
-        get {
-            if(!this.HasProp("__pbVal"))
-                this.__pbVal := PSTR(this.ptr + 12)
-            return this.__pbVal
-        }
+    pbVal {
+        get => NumGet(this, 12, "ptr")
+        set => NumPut("ptr", value, this, 12)
     }
 
     /**

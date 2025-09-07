@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * Represents activation parameters for a spatial audio render stream for metadata, extending SpatialAudioObjectRenderStreamForMetadataActivationParams with the ability to specify stream options.
@@ -105,14 +104,11 @@ class SpatialAudioObjectRenderStreamForMetadataActivationParams2 extends Win32St
 
     /**
      * The event that will signal the client to provide more audio data. This handle will be duplicated internally before it is used.
-     * @type {HANDLE}
+     * @type {Pointer<Ptr>}
      */
-    EventHandle{
-        get {
-            if(!this.HasProp("__EventHandle"))
-                this.__EventHandle := HANDLE(this.ptr + 24)
-            return this.__EventHandle
-        }
+    EventHandle {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**

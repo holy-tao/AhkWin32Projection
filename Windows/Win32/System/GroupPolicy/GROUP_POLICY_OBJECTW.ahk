@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The GROUP_POLICY_OBJECT structure provides information about a GPO in a GPO list. (Unicode)
@@ -53,38 +52,29 @@ class GROUP_POLICY_OBJECTW extends Win32Struct
 
     /**
      * Pointer to a string that specifies the path to the directory service portion of the GPO.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpDSPath{
-        get {
-            if(!this.HasProp("__lpDSPath"))
-                this.__lpDSPath := PWSTR(this.ptr + 8)
-            return this.__lpDSPath
-        }
+    lpDSPath {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * Pointer to a string that specifies the path to the file system portion of the GPO.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpFileSysPath{
-        get {
-            if(!this.HasProp("__lpFileSysPath"))
-                this.__lpFileSysPath := PWSTR(this.ptr + 16)
-            return this.__lpFileSysPath
-        }
+    lpFileSysPath {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * Pointer to the display name of the GPO.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpDisplayName{
-        get {
-            if(!this.HasProp("__lpDisplayName"))
-                this.__lpDisplayName := PWSTR(this.ptr + 24)
-            return this.__lpDisplayName
-        }
+    lpDisplayName {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
@@ -134,14 +124,11 @@ class GROUP_POLICY_OBJECTW extends Win32Struct
 
     /**
      * Extensions that have stored data in this GPO. The format is a string of <b>GUID</b>s grouped in brackets. For more information, see the following Remarks section.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpExtensions{
-        get {
-            if(!this.HasProp("__lpExtensions"))
-                this.__lpExtensions := PWSTR(this.ptr + 160)
-            return this.__lpExtensions
-        }
+    lpExtensions {
+        get => NumGet(this, 160, "ptr")
+        set => NumPut("ptr", value, this, 160)
     }
 
     /**
@@ -155,13 +142,10 @@ class GROUP_POLICY_OBJECTW extends Win32Struct
 
     /**
      * Path to the Active Directory site, domain, or organization unit to which this GPO is linked. If the GPO is linked to the local GPO, this member is "Local".
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpLink{
-        get {
-            if(!this.HasProp("__lpLink"))
-                this.__lpLink := PWSTR(this.ptr + 176)
-            return this.__lpLink
-        }
+    lpLink {
+        get => NumGet(this, 176, "ptr")
+        set => NumPut("ptr", value, this, 176)
     }
 }

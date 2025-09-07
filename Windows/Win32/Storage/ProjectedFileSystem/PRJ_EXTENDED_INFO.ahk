@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Specifies optional extended information for directory enumeration and placeholder information.
@@ -35,13 +34,10 @@ class PRJ_EXTENDED_INFO extends Win32Struct
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    TargetName{
-        get {
-            if(!this.HasProp("__TargetName"))
-                this.__TargetName := PWSTR(this.ptr + 8)
-            return this.__TargetName
-        }
+    Anonymous {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 }

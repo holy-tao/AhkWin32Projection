@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\SPGRAMMARHANDLE.ahk
 
 /**
  * @namespace Windows.Win32.Media.Speech
@@ -61,14 +60,11 @@ class SPRECORESULTINFO extends Win32Struct
     }
 
     /**
-     * @type {SPGRAMMARHANDLE}
+     * @type {Pointer<Ptr>}
      */
-    hGrammar{
-        get {
-            if(!this.HasProp("__hGrammar"))
-                this.__hGrammar := SPGRAMMARHANDLE(this.ptr + 32)
-            return this.__hGrammar
-        }
+    hGrammar {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**

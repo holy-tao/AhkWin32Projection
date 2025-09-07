@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\HWND.ahk
 
 /**
  * @namespace Windows.Win32.UI.Input.Ime
@@ -21,14 +20,11 @@ class IMEKMSINIT extends Win32Struct
     }
 
     /**
-     * @type {HWND}
+     * @type {Pointer<Ptr>}
      */
-    hWnd{
-        get {
-            if(!this.HasProp("__hWnd"))
-                this.__hWnd := HWND(this.ptr + 4)
-            return this.__hWnd
-        }
+    hWnd {
+        get => NumGet(this, 4, "ptr")
+        set => NumPut("ptr", value, this, 4)
     }
 
     /**

@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\MPRAPI_OBJECT_HEADER.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * Used for enabling clients to bypass Point-to-Point (PPP) authentication during Secure Socket Tunneling Protocol (SSTP) connection establishment.
@@ -34,14 +33,11 @@ class AUTH_VALIDATION_EX extends Win32Struct
      * A handle to the RAS connection for which PPP authentication is being bypassed. This can be a handle returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasdiala">RasDial</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasenumconnectionsa">RasEnumConnections</a> function.
-     * @type {HANDLE}
+     * @type {Pointer<Ptr>}
      */
-    hRasConnection{
-        get {
-            if(!this.HasProp("__hRasConnection"))
-                this.__hRasConnection := HANDLE(this.ptr + 8)
-            return this.__hRasConnection
-        }
+    hRasConnection {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

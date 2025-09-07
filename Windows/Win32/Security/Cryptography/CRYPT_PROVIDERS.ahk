@@ -24,7 +24,7 @@ class CRYPT_PROVIDERS extends Win32Struct
 
     /**
      * An array of null-terminated Unicode strings that contains the names of the registered providers.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Ptr>}
      */
     rgpszProviders {
         get => NumGet(this, 8, "ptr")

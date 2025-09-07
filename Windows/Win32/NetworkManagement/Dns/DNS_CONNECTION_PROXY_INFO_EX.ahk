@@ -1,8 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\DNS_CONNECTION_PROXY_INFO.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Dns
@@ -34,14 +32,11 @@ class DNS_CONNECTION_PROXY_INFO_EX extends Win32Struct
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pwszConnectionName{
-        get {
-            if(!this.HasProp("__pwszConnectionName"))
-                this.__pwszConnectionName := PWSTR(this.ptr + 56)
-            return this.__pwszConnectionName
-        }
+    pwszConnectionName {
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 
     /**
@@ -53,13 +48,10 @@ class DNS_CONNECTION_PROXY_INFO_EX extends Win32Struct
     }
 
     /**
-     * @type {HANDLE}
+     * @type {Pointer<Ptr>}
      */
-    hConnection{
-        get {
-            if(!this.HasProp("__hConnection"))
-                this.__hConnection := HANDLE(this.ptr + 72)
-            return this.__hConnection
-        }
+    hConnection {
+        get => NumGet(this, 72, "ptr")
+        set => NumPut("ptr", value, this, 72)
     }
 }

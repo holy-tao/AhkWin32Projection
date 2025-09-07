@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\D3D_OMAC.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 #Include .\D3DAUTHENTICATEDCHANNEL_QUERY_OUTPUT.ahk
 
 /**
@@ -30,13 +29,10 @@ class D3DAUTHENTICATEDCHANNEL_QUERYDEVICEHANDLE_OUTPUT extends Win32Struct
 
     /**
      * A handle to the device.
-     * @type {HANDLE}
+     * @type {Pointer<Ptr>}
      */
-    DeviceHandle{
-        get {
-            if(!this.HasProp("__DeviceHandle"))
-                this.__DeviceHandle := HANDLE(this.ptr + 40)
-            return this.__DeviceHandle
-        }
+    DeviceHandle {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 }

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Specifies attributes for an Authenticode signature.
@@ -43,26 +42,20 @@ class SIGNER_ATTR_AUTHCODE extends Win32Struct
 
     /**
      * The display name of the file upon download.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pwszName{
-        get {
-            if(!this.HasProp("__pwszName"))
-                this.__pwszName := PWSTR(this.ptr + 16)
-            return this.__pwszName
-        }
+    pwszName {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * The display name of the URL of the file upon download.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pwszInfo{
-        get {
-            if(!this.HasProp("__pwszInfo"))
-                this.__pwszInfo := PWSTR(this.ptr + 24)
-            return this.__pwszInfo
-        }
+    pwszInfo {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**

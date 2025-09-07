@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * @namespace Windows.Win32.System.Search
@@ -109,36 +108,27 @@ class SUBSCRIPTIONINFO extends Win32Struct
     }
 
     /**
-     * @type {BSTR}
+     * @type {Pointer<Ptr>}
      */
-    bstrUserName{
-        get {
-            if(!this.HasProp("__bstrUserName"))
-                this.__bstrUserName := BSTR(this.ptr + 64)
-            return this.__bstrUserName
-        }
+    bstrUserName {
+        get => NumGet(this, 64, "ptr")
+        set => NumPut("ptr", value, this, 64)
     }
 
     /**
-     * @type {BSTR}
+     * @type {Pointer<Ptr>}
      */
-    bstrPassword{
-        get {
-            if(!this.HasProp("__bstrPassword"))
-                this.__bstrPassword := BSTR(this.ptr + 72)
-            return this.__bstrPassword
-        }
+    bstrPassword {
+        get => NumGet(this, 72, "ptr")
+        set => NumPut("ptr", value, this, 72)
     }
 
     /**
-     * @type {BSTR}
+     * @type {Pointer<Ptr>}
      */
-    bstrFriendlyName{
-        get {
-            if(!this.HasProp("__bstrFriendlyName"))
-                this.__bstrFriendlyName := BSTR(this.ptr + 80)
-            return this.__bstrFriendlyName
-        }
+    bstrFriendlyName {
+        get => NumGet(this, 80, "ptr")
+        set => NumPut("ptr", value, this, 80)
     }
 
     /**

@@ -2,7 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\Com\CY.ahk
 #Include ..\..\Foundation\DECIMAL.ahk
-#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * @namespace Windows.Win32.System.Ole
@@ -373,14 +372,11 @@ class _wireVARIANT extends Win32Struct
     }
 
     /**
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    pcVal{
-        get {
-            if(!this.HasProp("__pcVal"))
-                this.__pcVal := PSTR(this.ptr + 16)
-            return this.__pcVal
-        }
+    pcVal {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**

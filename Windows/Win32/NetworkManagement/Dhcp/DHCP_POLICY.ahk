@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The DHCP_POLICY structure defines a DHCP server policy.
@@ -16,14 +15,11 @@ class DHCP_POLICY extends Win32Struct
 
     /**
      * Pointer to a null-terminated Unicode string that represents the DHCP server policy name.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    PolicyName{
-        get {
-            if(!this.HasProp("__PolicyName"))
-                this.__PolicyName := PWSTR(this.ptr + 0)
-            return this.__PolicyName
-        }
+    PolicyName {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
@@ -82,14 +78,11 @@ class DHCP_POLICY extends Win32Struct
 
     /**
      * A pointer to a null-terminated Unicode string that contains the description of the DHCP server policy.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    Description{
-        get {
-            if(!this.HasProp("__Description"))
-                this.__Description := PWSTR(this.ptr + 48)
-            return this.__Description
-        }
+    Description {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**

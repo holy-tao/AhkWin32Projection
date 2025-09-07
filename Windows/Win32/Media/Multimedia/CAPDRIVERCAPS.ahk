@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * The CAPDRIVERCAPS structure defines the capabilities of the capture driver.An application should use the WM_CAP_DRIVER_GET_CAPS message or capDriverGetCaps macro to place a copy of the driver capabilities in a CAPDRIVERCAPS structure whenever the application connects a capture window to a capture driver.
@@ -79,49 +78,37 @@ class CAPDRIVERCAPS extends Win32Struct
 
     /**
      * Not used in Win32 applications.
-     * @type {HANDLE}
+     * @type {Pointer<Ptr>}
      */
-    hVideoIn{
-        get {
-            if(!this.HasProp("__hVideoIn"))
-                this.__hVideoIn := HANDLE(this.ptr + 32)
-            return this.__hVideoIn
-        }
+    hVideoIn {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
      * Not used in Win32 applications.
-     * @type {HANDLE}
+     * @type {Pointer<Ptr>}
      */
-    hVideoOut{
-        get {
-            if(!this.HasProp("__hVideoOut"))
-                this.__hVideoOut := HANDLE(this.ptr + 40)
-            return this.__hVideoOut
-        }
+    hVideoOut {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
      * Not used in Win32 applications.
-     * @type {HANDLE}
+     * @type {Pointer<Ptr>}
      */
-    hVideoExtIn{
-        get {
-            if(!this.HasProp("__hVideoExtIn"))
-                this.__hVideoExtIn := HANDLE(this.ptr + 48)
-            return this.__hVideoExtIn
-        }
+    hVideoExtIn {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**
      * Not used in Win32 applications.
-     * @type {HANDLE}
+     * @type {Pointer<Ptr>}
      */
-    hVideoExtOut{
-        get {
-            if(!this.HasProp("__hVideoExtOut"))
-                this.__hVideoExtOut := HANDLE(this.ptr + 56)
-            return this.__hVideoExtOut
-        }
+    hVideoExtOut {
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 }

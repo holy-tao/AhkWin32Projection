@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\DNS_INTERFACE_SETTINGS.ahk
 
 /**
@@ -33,13 +32,10 @@ class DNS_INTERFACE_SETTINGS_EX extends Win32Struct
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    SupplementalSearchList{
-        get {
-            if(!this.HasProp("__SupplementalSearchList"))
-                this.__SupplementalSearchList := PWSTR(this.ptr + 72)
-            return this.__SupplementalSearchList
-        }
+    SupplementalSearchList {
+        get => NumGet(this, 72, "ptr")
+        set => NumPut("ptr", value, this, 72)
     }
 }

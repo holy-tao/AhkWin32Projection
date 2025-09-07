@@ -1,9 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include ..\..\Foundation\HINSTANCE.ahk
-#Include ..\WindowsAndMessaging\HICON.ahk
-#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * @namespace Windows.Win32.UI.Controls
@@ -32,58 +28,43 @@ class PROPSHEETHEADERA_V1 extends Win32Struct
     }
 
     /**
-     * @type {HWND}
+     * @type {Pointer<Ptr>}
      */
-    hwndParent{
-        get {
-            if(!this.HasProp("__hwndParent"))
-                this.__hwndParent := HWND(this.ptr + 8)
-            return this.__hwndParent
-        }
+    hwndParent {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
-     * @type {HINSTANCE}
+     * @type {Pointer<Ptr>}
      */
-    hInstance{
-        get {
-            if(!this.HasProp("__hInstance"))
-                this.__hInstance := HINSTANCE(this.ptr + 16)
-            return this.__hInstance
-        }
+    hInstance {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
-     * @type {HICON}
+     * @type {Pointer<Ptr>}
      */
-    hIcon{
-        get {
-            if(!this.HasProp("__hIcon"))
-                this.__hIcon := HICON(this.ptr + 24)
-            return this.__hIcon
-        }
+    hIcon {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszIcon{
-        get {
-            if(!this.HasProp("__pszIcon"))
-                this.__pszIcon := PSTR(this.ptr + 24)
-            return this.__pszIcon
-        }
+    pszIcon {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszCaption{
-        get {
-            if(!this.HasProp("__pszCaption"))
-                this.__pszCaption := PSTR(this.ptr + 32)
-            return this.__pszCaption
-        }
+    pszCaption {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
@@ -103,14 +84,11 @@ class PROPSHEETHEADERA_V1 extends Win32Struct
     }
 
     /**
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    pStartPage{
-        get {
-            if(!this.HasProp("__pStartPage"))
-                this.__pStartPage := PSTR(this.ptr + 44)
-            return this.__pStartPage
-        }
+    pStartPage {
+        get => NumGet(this, 44, "ptr")
+        set => NumPut("ptr", value, this, 44)
     }
 
     /**
@@ -122,7 +100,7 @@ class PROPSHEETHEADERA_V1 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<HPROPSHEETPAGE>}
+     * @type {Pointer<Ptr>}
      */
     phpage {
         get => NumGet(this, 48, "ptr")

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains callback specific parameters such as file offset, length, flags, etc.
@@ -112,14 +111,11 @@ class CF_CALLBACK_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    Pattern{
-        get {
-            if(!this.HasProp("__Pattern"))
-                this.__Pattern := PWSTR(this.ptr + 12)
-            return this.__Pattern
-        }
+    Pattern {
+        get => NumGet(this, 12, "ptr")
+        set => NumPut("ptr", value, this, 12)
     }
 
     /**
@@ -131,24 +127,18 @@ class CF_CALLBACK_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    TargetPath{
-        get {
-            if(!this.HasProp("__TargetPath"))
-                this.__TargetPath := PWSTR(this.ptr + 12)
-            return this.__TargetPath
-        }
+    TargetPath {
+        get => NumGet(this, 12, "ptr")
+        set => NumPut("ptr", value, this, 12)
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    SourcePath{
-        get {
-            if(!this.HasProp("__SourcePath"))
-                this.__SourcePath := PWSTR(this.ptr + 12)
-            return this.__SourcePath
-        }
+    SourcePath {
+        get => NumGet(this, 12, "ptr")
+        set => NumPut("ptr", value, this, 12)
     }
 }

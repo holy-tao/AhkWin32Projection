@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * The TF_LBBALLOONINFO structure contains information about a language bar balloon item.
@@ -25,13 +24,10 @@ class TF_LBBALLOONINFO extends Win32Struct
 
     /**
      * Contains a <b>BSTR</b> that contains the string for the balloon. This string must be allocated using the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysallocstring">SysAllocString</a> function. The caller free this buffer when it is no longer required by calling <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a>.
-     * @type {BSTR}
+     * @type {Pointer<Ptr>}
      */
-    bstrText{
-        get {
-            if(!this.HasProp("__bstrText"))
-                this.__bstrText := BSTR(this.ptr + 8)
-            return this.__bstrText
-        }
+    bstrText {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 }

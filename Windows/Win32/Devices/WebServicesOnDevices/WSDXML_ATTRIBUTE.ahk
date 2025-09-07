@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Describes an XML attribute.
@@ -45,13 +44,10 @@ class WSDXML_ATTRIBUTE extends Win32Struct
 
     /**
      * The value of the attribute.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    Value{
-        get {
-            if(!this.HasProp("__Value"))
-                this.__Value := PWSTR(this.ptr + 24)
-            return this.__Value
-        }
+    Value {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 }

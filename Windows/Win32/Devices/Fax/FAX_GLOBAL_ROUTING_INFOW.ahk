@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The FAX_GLOBAL_ROUTING_INFO structure contains information about one fax routing method, as it pertains globally to the fax service. (Unicode)
@@ -58,69 +57,54 @@ class FAX_GLOBAL_ROUTING_INFOW extends Win32Struct
      *                     
      * 
      * For more information about fax routing methods, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-about-the-fax-routing-extension-api">About the Fax Routing Extension API</a>.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    Guid{
-        get {
-            if(!this.HasProp("__Guid"))
-                this.__Guid := PWSTR(this.ptr + 8)
-            return this.__Guid
-        }
+    Guid {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that specifies the user-friendly name to display for the fax routing method.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    FriendlyName{
-        get {
-            if(!this.HasProp("__FriendlyName"))
-                this.__FriendlyName := PWSTR(this.ptr + 16)
-            return this.__FriendlyName
-        }
+    FriendlyName {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that is the name of the function that executes the specified fax routing method. The fax routing extension DLL identified by the <b>ExtensionImageName</b> member exports the function.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    FunctionName{
-        get {
-            if(!this.HasProp("__FunctionName"))
-                this.__FunctionName := PWSTR(this.ptr + 24)
-            return this.__FunctionName
-        }
+    FunctionName {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that specifies the name of the fax routing extension DLL that implements the fax routing method.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    ExtensionImageName{
-        get {
-            if(!this.HasProp("__ExtensionImageName"))
-                this.__ExtensionImageName := PWSTR(this.ptr + 32)
-            return this.__ExtensionImageName
-        }
+    ExtensionImageName {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that specifies the user-friendly name to display for the fax routing extension DLL that implements the fax routing method.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    ExtensionFriendlyName{
-        get {
-            if(!this.HasProp("__ExtensionFriendlyName"))
-                this.__ExtensionFriendlyName := PWSTR(this.ptr + 40)
-            return this.__ExtensionFriendlyName
-        }
+    ExtensionFriendlyName {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 }

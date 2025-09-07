@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains information used for setting up the initial environment.
@@ -34,13 +33,10 @@ class WLX_PROFILE_V1_0 extends Win32Struct
      * 
      * 
      * The string pointed to by <b>pszProfile</b> must be separately allocated by your <a href="https://docs.microsoft.com/windows/desktop/SecGloss/g-gly">GINA</a> DLL. It will be deallocated by <a href="https://docs.microsoft.com/windows/desktop/SecGloss/w-gly">Winlogon</a>.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszProfile{
-        get {
-            if(!this.HasProp("__pszProfile"))
-                this.__pszProfile := PWSTR(this.ptr + 8)
-            return this.__pszProfile
-        }
+    pszProfile {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 }

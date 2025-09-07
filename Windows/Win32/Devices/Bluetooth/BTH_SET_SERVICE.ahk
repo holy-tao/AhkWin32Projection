@@ -68,7 +68,7 @@ class BTH_SET_SERVICE extends Win32Struct
 
     /**
      * Handle to the SDP record. Corresponds to SDP ServiceRecordHandle. Returned by the add record operations, and subsequently used to delete the record.
-     * @type {Pointer<HANDLE>}
+     * @type {Pointer<Ptr>}
      */
     pRecordHandle {
         get => NumGet(this, 8, "ptr")

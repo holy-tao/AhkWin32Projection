@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains information about the high contrast accessibility feature. (Unicode)
@@ -45,14 +44,11 @@ class HIGHCONTRASTW extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPTSTR</a></b>
      * 
      * Points to a string that contains the name of the color scheme that will be set to the default scheme. The system allocates this buffer, free it with LocalFree.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpszDefaultScheme{
-        get {
-            if(!this.HasProp("__lpszDefaultScheme"))
-                this.__lpszDefaultScheme := PWSTR(this.ptr + 8)
-            return this.__lpszDefaultScheme
-        }
+    lpszDefaultScheme {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

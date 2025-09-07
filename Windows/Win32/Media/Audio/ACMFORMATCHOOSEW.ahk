@@ -1,8 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Foundation\HINSTANCE.ahk
 
 /**
  * @namespace Windows.Win32.Media.Audio
@@ -32,14 +29,11 @@ class ACMFORMATCHOOSEW extends Win32Struct
     }
 
     /**
-     * @type {HWND}
+     * @type {Pointer<Ptr>}
      */
-    hwndOwner{
-        get {
-            if(!this.HasProp("__hwndOwner"))
-                this.__hwndOwner := HWND(this.ptr + 8)
-            return this.__hwndOwner
-        }
+    hwndOwner {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -59,14 +53,11 @@ class ACMFORMATCHOOSEW extends Win32Struct
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszTitle{
-        get {
-            if(!this.HasProp("__pszTitle"))
-                this.__pszTitle := PWSTR(this.ptr + 28)
-            return this.__pszTitle
-        }
+    pszTitle {
+        get => NumGet(this, 28, "ptr")
+        set => NumPut("ptr", value, this, 28)
     }
 
     /**
@@ -86,14 +77,11 @@ class ACMFORMATCHOOSEW extends Win32Struct
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszName{
-        get {
-            if(!this.HasProp("__pszName"))
-                this.__pszName := PWSTR(this.ptr + 388)
-            return this.__pszName
-        }
+    pszName {
+        get => NumGet(this, 388, "ptr")
+        set => NumPut("ptr", value, this, 388)
     }
 
     /**
@@ -121,25 +109,19 @@ class ACMFORMATCHOOSEW extends Win32Struct
     }
 
     /**
-     * @type {HINSTANCE}
+     * @type {Pointer<Ptr>}
      */
-    hInstance{
-        get {
-            if(!this.HasProp("__hInstance"))
-                this.__hInstance := HINSTANCE(this.ptr + 412)
-            return this.__hInstance
-        }
+    hInstance {
+        get => NumGet(this, 412, "ptr")
+        set => NumPut("ptr", value, this, 412)
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszTemplateName{
-        get {
-            if(!this.HasProp("__pszTemplateName"))
-                this.__pszTemplateName := PWSTR(this.ptr + 420)
-            return this.__pszTemplateName
-        }
+    pszTemplateName {
+        get => NumGet(this, 420, "ptr")
+        set => NumPut("ptr", value, this, 420)
     }
 
     /**

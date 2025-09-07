@@ -1,8 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\RECT.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Graphics\Gdi\HMONITOR.ahk
 
 /**
  * Deprecated. Data used in IBrowserService2::_GetToolbarItem, IBrowserService2::v_MayGetNextToolbarFocus, and IBrowserService2::_SetFocus to define a toolbar item.
@@ -45,14 +43,11 @@ class TOOLBARITEM extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to a buffer that contains the name of the toolbar item as a Unicode string.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pwszItem{
-        get {
-            if(!this.HasProp("__pwszItem"))
-                this.__pwszItem := PWSTR(this.ptr + 24)
-            return this.__pwszItem
-        }
+    pwszItem {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
@@ -70,13 +65,10 @@ class TOOLBARITEM extends Win32Struct
      * Type: <b>HMONITOR</b>
      * 
      * The handle of the monitor on which the toolbar item appears.
-     * @type {HMONITOR}
+     * @type {Pointer<Ptr>}
      */
-    hMon{
-        get {
-            if(!this.HasProp("__hMon"))
-                this.__hMon := HMONITOR(this.ptr + 40)
-            return this.__hMon
-        }
+    hMon {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 }

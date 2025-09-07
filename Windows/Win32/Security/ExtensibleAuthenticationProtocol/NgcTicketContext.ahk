@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * @namespace Windows.Win32.Security.ExtensibleAuthenticationProtocol
@@ -29,13 +28,10 @@ class NgcTicketContext extends Win32Struct
     }
 
     /**
-     * @type {HANDLE}
+     * @type {Pointer<Ptr>}
      */
-    hImpersonateToken{
-        get {
-            if(!this.HasProp("__hImpersonateToken"))
-                this.__hImpersonateToken := HANDLE(this.ptr + 104)
-            return this.__hImpersonateToken
-        }
+    hImpersonateToken {
+        get => NumGet(this, 104, "ptr")
+        set => NumPut("ptr", value, this, 104)
     }
 }

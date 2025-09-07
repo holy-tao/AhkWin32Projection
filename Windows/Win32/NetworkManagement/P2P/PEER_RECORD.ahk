@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Foundation\FILETIME.ahk
 #Include .\PEER_DATA.ahk
 
@@ -82,26 +81,20 @@ class PEER_RECORD extends Win32Struct
 
     /**
      * Pointer to the unique ID of a record creator.   This member is set to <b>NULL</b> for calls to <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergraphaddrecord">PeerGraphAddRecord</a> and <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergraphupdaterecord">PeerGraphUpdateRecord</a>. An application cannot set this member.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pwzCreatorId{
-        get {
-            if(!this.HasProp("__pwzCreatorId"))
-                this.__pwzCreatorId := PWSTR(this.ptr + 32)
-            return this.__pwzCreatorId
-        }
+    pwzCreatorId {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
      * Specifies the unique ID of  the last person who changes a record. An application cannot set this member.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pwzModifiedById{
-        get {
-            if(!this.HasProp("__pwzModifiedById"))
-                this.__pwzModifiedById := PWSTR(this.ptr + 40)
-            return this.__pwzModifiedById
-        }
+    pwzModifiedById {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
@@ -116,14 +109,11 @@ class PEER_RECORD extends Win32Struct
      * <li><b>peercreationtime</b></li>
      * <li><b>peerlastmodificationtime</b></li>
      * </ul>
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pwzAttributes{
-        get {
-            if(!this.HasProp("__pwzAttributes"))
-                this.__pwzAttributes := PWSTR(this.ptr + 48)
-            return this.__pwzAttributes
-        }
+    pwzAttributes {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**

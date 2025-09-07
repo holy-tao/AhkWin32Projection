@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\CRYPT_BIT_BLOB.ahk
 
 /**
@@ -22,14 +21,11 @@ class CRYPT_CSP_PROVIDER extends Win32Struct
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pwszProviderName{
-        get {
-            if(!this.HasProp("__pwszProviderName"))
-                this.__pwszProviderName := PWSTR(this.ptr + 8)
-            return this.__pwszProviderName
-        }
+    pwszProviderName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

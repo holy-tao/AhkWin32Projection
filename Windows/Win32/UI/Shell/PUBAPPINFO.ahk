@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Foundation\SYSTEMTIME.ahk
 
 /**
@@ -41,14 +40,11 @@ class PUBAPPINFO extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to a string containing the display name of the publisher. This name appears in <b>Add/Remove Programs</b> if duplicate application names are encountered. The string buffer must be allocated using the Shell task allocator.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszSource{
-        get {
-            if(!this.HasProp("__pszSource"))
-                this.__pszSource := PWSTR(this.ptr + 8)
-            return this.__pszSource
-        }
+    pszSource {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

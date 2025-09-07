@@ -1,9 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Foundation\SIZE.ahk
 #Include ..\..\Foundation\RECTL.ahk
-#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * Contains information about a localizable print form.
@@ -49,14 +47,11 @@ class FORM_INFO_2W extends Win32Struct
 
     /**
      * A pointer to a null-terminated string that specifies the name of the form. The form name cannot exceed 31 characters.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pName{
-        get {
-            if(!this.HasProp("__pName"))
-                this.__pName := PWSTR(this.ptr + 8)
-            return this.__pName
-        }
+    pName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -85,14 +80,11 @@ class FORM_INFO_2W extends Win32Struct
 
     /**
      * A pointer to a non-localizable string identifier of the form. When passed to [**AddForm**](addform.md) or [**SetForm**](setform.md), this gives the caller a means of identifying the form in all locales.
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    pKeyword{
-        get {
-            if(!this.HasProp("__pKeyword"))
-                this.__pKeyword := PSTR(this.ptr + 40)
-            return this.__pKeyword
-        }
+    pKeyword {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
@@ -114,14 +106,11 @@ class FORM_INFO_2W extends Win32Struct
 
     /**
      * The [Multilingual User Interface](/windows/desktop/Intl/mui-resource-management) localized resource DLL that contains the localized display name.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pMuiDll{
-        get {
-            if(!this.HasProp("__pMuiDll"))
-                this.__pMuiDll := PWSTR(this.ptr + 56)
-            return this.__pMuiDll
-        }
+    pMuiDll {
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 
     /**
@@ -135,14 +124,11 @@ class FORM_INFO_2W extends Win32Struct
 
     /**
      * The form's display name in the language specified by **wLangId**.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pDisplayName{
-        get {
-            if(!this.HasProp("__pDisplayName"))
-                this.__pDisplayName := PWSTR(this.ptr + 72)
-            return this.__pDisplayName
-        }
+    pDisplayName {
+        get => NumGet(this, 72, "ptr")
+        set => NumPut("ptr", value, this, 72)
     }
 
     /**

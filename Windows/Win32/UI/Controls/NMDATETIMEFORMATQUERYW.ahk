@@ -1,8 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
 #Include .\NMHDR.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Foundation\SIZE.ahk
 
 /**
@@ -39,14 +37,11 @@ class NMDATETIMEFORMATQUERYW extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCTSTR</a></b>
      * 
      * A pointer to a substring that defines a DTP control callback field. The substring is one or more "X" characters followed by a <b>NULL</b>. (For additional information about callback fields, see <a href="https://docs.microsoft.com/windows/desktop/Controls/date-and-time-picker-controls">Callback fields</a>.)
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszFormat{
-        get {
-            if(!this.HasProp("__pszFormat"))
-                this.__pszFormat := PWSTR(this.ptr + 24)
-            return this.__pszFormat
-        }
+    pszFormat {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**

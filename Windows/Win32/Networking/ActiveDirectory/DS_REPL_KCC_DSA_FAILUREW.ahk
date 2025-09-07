@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Foundation\FILETIME.ahk
 
 /**
@@ -17,14 +16,11 @@ class DS_REPL_KCC_DSA_FAILUREW extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that contains the  distinguished name of the directory system agent object in the directory that corresponds to the source server.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszDsaDN{
-        get {
-            if(!this.HasProp("__pszDsaDN"))
-                this.__pszDsaDN := PWSTR(this.ptr + 0)
-            return this.__pszDsaDN
-        }
+    pszDsaDN {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**

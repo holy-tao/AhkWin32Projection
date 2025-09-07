@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains information about a custom event.
@@ -29,13 +28,10 @@ class UIAutomationEventInfo extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCWSTR</a></b>
      * 
      * The programmatic name of the event (a non-localizable string).
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pProgrammaticName{
-        get {
-            if(!this.HasProp("__pProgrammaticName"))
-                this.__pProgrammaticName := PWSTR(this.ptr + 8)
-            return this.__pProgrammaticName
-        }
+    pProgrammaticName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 }

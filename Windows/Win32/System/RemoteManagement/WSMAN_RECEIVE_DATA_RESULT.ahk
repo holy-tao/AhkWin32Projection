@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\WSMAN_DATA_TEXT.ahk
 #Include .\WSMAN_DATA_BINARY.ahk
 #Include .\WSMAN_DATA.ahk
@@ -19,14 +18,11 @@ class WSMAN_RECEIVE_DATA_RESULT extends Win32Struct
 
     /**
      * Represents the <b>streamId</b> for which <b>streamData</b> is defined.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    streamId{
-        get {
-            if(!this.HasProp("__streamId"))
-                this.__streamId := PWSTR(this.ptr + 0)
-            return this.__streamId
-        }
+    streamId {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
@@ -43,14 +39,11 @@ class WSMAN_RECEIVE_DATA_RESULT extends Win32Struct
 
     /**
      * Specifies the status of the command. If this member is set to <b>WSMAN_COMMAND_STATE_DONE</b>, the command should be immediately closed.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    commandState{
-        get {
-            if(!this.HasProp("__commandState"))
-                this.__commandState := PWSTR(this.ptr + 24)
-            return this.__commandState
-        }
+    commandState {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**

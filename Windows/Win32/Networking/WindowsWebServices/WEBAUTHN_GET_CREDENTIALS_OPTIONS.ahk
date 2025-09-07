@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains the options for the WebAuthNGetPlatformCredentialsList function.
@@ -27,14 +26,11 @@ class WEBAUTHN_GET_CREDENTIALS_OPTIONS extends Win32Struct
 
     /**
      * The Id of the relying party that is making the request. This field is _optional_.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pwszRpId{
-        get {
-            if(!this.HasProp("__pwszRpId"))
-                this.__pwszRpId := PWSTR(this.ptr + 8)
-            return this.__pwszRpId
-        }
+    pwszRpId {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

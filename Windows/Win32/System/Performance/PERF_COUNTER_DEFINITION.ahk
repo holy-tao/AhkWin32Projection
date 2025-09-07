@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Describes a performance counter.
@@ -42,14 +41,11 @@ class PERF_COUNTER_DEFINITION extends Win32Struct
 
     /**
      * Reserved.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    CounterNameTitle{
-        get {
-            if(!this.HasProp("__CounterNameTitle"))
-                this.__CounterNameTitle := PWSTR(this.ptr + 8)
-            return this.__CounterNameTitle
-        }
+    CounterNameTitle {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -67,14 +63,11 @@ class PERF_COUNTER_DEFINITION extends Win32Struct
 
     /**
      * Reserved.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    CounterHelpTitle{
-        get {
-            if(!this.HasProp("__CounterHelpTitle"))
-                this.__CounterHelpTitle := PWSTR(this.ptr + 24)
-            return this.__CounterHelpTitle
-        }
+    CounterHelpTitle {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**

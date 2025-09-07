@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
 #Include .\SourceInfo.ahk
 
 /**
@@ -26,26 +25,20 @@ class PropertyChainSource extends Win32Struct
 
     /**
      * The target type of the style, defined in markup.
-     * @type {BSTR}
+     * @type {Pointer<Ptr>}
      */
-    TargetType{
-        get {
-            if(!this.HasProp("__TargetType"))
-                this.__TargetType := BSTR(this.ptr + 8)
-            return this.__TargetType
-        }
+    TargetType {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * The name of the style, if it has an <a href="https://docs.microsoft.com/windows/uwp/xaml-platform/x-name-attribute">x:Name</a> defined in markup.
-     * @type {BSTR}
+     * @type {Pointer<Ptr>}
      */
-    Name{
-        get {
-            if(!this.HasProp("__Name"))
-                this.__Name := BSTR(this.ptr + 16)
-            return this.__Name
-        }
+    Name {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**

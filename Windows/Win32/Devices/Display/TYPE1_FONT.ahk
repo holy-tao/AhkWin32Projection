@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * The TYPE1_FONT structure contains the information necessary for a PostScript driver to access a Type1 font through GDI.
@@ -20,26 +19,20 @@ class TYPE1_FONT extends Win32Struct
 
     /**
      * Handle to the PostScript Type1 .<a href="https://docs.microsoft.com/windows-hardware/drivers/">pfm</a> file.
-     * @type {HANDLE}
+     * @type {Pointer<Ptr>}
      */
-    hPFM{
-        get {
-            if(!this.HasProp("__hPFM"))
-                this.__hPFM := HANDLE(this.ptr + 0)
-            return this.__hPFM
-        }
+    hPFM {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
      * Handle to the PostScript Type1 .<i>pfb</i> file.
-     * @type {HANDLE}
+     * @type {Pointer<Ptr>}
      */
-    hPFB{
-        get {
-            if(!this.HasProp("__hPFB"))
-                this.__hPFB := HANDLE(this.ptr + 8)
-            return this.__hPFB
-        }
+    hPFB {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Defines a level-2 control query response from a domain controller.
@@ -129,14 +128,11 @@ class NETLOGON_INFO_2 extends Win32Struct
 
     /**
      * A marshaled pointer to a string that contains the name of the trusted domain controller.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    netlog2_trusted_dc_name{
-        get {
-            if(!this.HasProp("__netlog2_trusted_dc_name"))
-                this.__netlog2_trusted_dc_name := PWSTR(this.ptr + 8)
-            return this.__netlog2_trusted_dc_name
-        }
+    netlog2_trusted_dc_name {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

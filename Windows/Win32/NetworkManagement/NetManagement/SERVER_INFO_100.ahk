@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The SERVER_INFO_100 structure contains information about the specified server, including the name and platform.
@@ -94,13 +93,10 @@ class SERVER_INFO_100 extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to a Unicode string that specifies the name of the server.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    sv100_name{
-        get {
-            if(!this.HasProp("__sv100_name"))
-                this.__sv100_name := PWSTR(this.ptr + 8)
-            return this.__sv100_name
-        }
+    sv100_name {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 }

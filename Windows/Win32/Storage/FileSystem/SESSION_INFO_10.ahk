@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains information about the session, including name of the computer; name of the user; and active and idle times for the session.
@@ -16,26 +15,20 @@ class SESSION_INFO_10 extends Win32Struct
 
     /**
      * Pointer to a Unicode string specifying the name of the computer that established the session. This string cannot contain a backslash (\\).
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    sesi10_cname{
-        get {
-            if(!this.HasProp("__sesi10_cname"))
-                this.__sesi10_cname := PWSTR(this.ptr + 0)
-            return this.__sesi10_cname
-        }
+    sesi10_cname {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
      * Pointer to a Unicode string specifying the name of the user who established the session.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    sesi10_username{
-        get {
-            if(!this.HasProp("__sesi10_username"))
-                this.__sesi10_username := PWSTR(this.ptr + 8)
-            return this.__sesi10_username
-        }
+    sesi10_username {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\CRYPT_XML_BLOB.ahk
 
 /**
@@ -27,14 +26,11 @@ class CRYPT_XML_ALGORITHM extends Win32Struct
     /**
      * A pointer to a null-terminated Unicode string that contains the <b>Algorithm</b> attribute. 
      *     When the <b>Encoded</b> member contains an element that is proved by an application, this member is set to <b>NULL</b>.XML
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    wszAlgorithm{
-        get {
-            if(!this.HasProp("__wszAlgorithm"))
-                this.__wszAlgorithm := PWSTR(this.ptr + 8)
-            return this.__wszAlgorithm
-        }
+    wszAlgorithm {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

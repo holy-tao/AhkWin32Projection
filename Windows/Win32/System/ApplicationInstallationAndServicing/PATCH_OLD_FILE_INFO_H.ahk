@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
@@ -21,14 +20,11 @@ class PATCH_OLD_FILE_INFO_H extends Win32Struct
     }
 
     /**
-     * @type {HANDLE}
+     * @type {Pointer<Ptr>}
      */
-    OldFileHandle{
-        get {
-            if(!this.HasProp("__OldFileHandle"))
-                this.__OldFileHandle := HANDLE(this.ptr + 8)
-            return this.__OldFileHandle
-        }
+    OldFileHandle {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

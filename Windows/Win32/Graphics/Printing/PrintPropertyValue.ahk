@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
@@ -29,14 +28,11 @@ class PrintPropertyValue extends Win32Struct
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    propertyString{
-        get {
-            if(!this.HasProp("__propertyString"))
-                this.__propertyString := PWSTR(this.ptr + 4)
-            return this.__propertyString
-        }
+    propertyString {
+        get => NumGet(this, 4, "ptr")
+        set => NumPut("ptr", value, this, 4)
     }
 
     /**

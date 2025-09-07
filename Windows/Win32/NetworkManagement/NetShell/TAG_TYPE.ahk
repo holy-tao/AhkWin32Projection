@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Specifies tags used for the PreprocessCommand function.
@@ -16,14 +15,11 @@ class TAG_TYPE extends Win32Struct
 
     /**
      * A tag string, in UNICODE.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pwszTag{
-        get {
-            if(!this.HasProp("__pwszTag"))
-                this.__pwszTag := PWSTR(this.ptr + 0)
-            return this.__pwszTag
-        }
+    pwszTag {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**

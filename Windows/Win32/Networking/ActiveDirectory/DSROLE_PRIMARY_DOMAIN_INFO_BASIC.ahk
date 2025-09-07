@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Used with the DsRoleGetPrimaryDomainInformation function to contain domain data.
@@ -34,38 +33,29 @@ class DSROLE_PRIMARY_DOMAIN_INFO_BASIC extends Win32Struct
 
     /**
      * Pointer to a null-terminated Unicode string that contains the NetBIOS domain name.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    DomainNameFlat{
-        get {
-            if(!this.HasProp("__DomainNameFlat"))
-                this.__DomainNameFlat := PWSTR(this.ptr + 8)
-            return this.__DomainNameFlat
-        }
+    DomainNameFlat {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * Pointer to a null-terminated Unicode string that contains the DNS domain name. This member is optional and may be <b>NULL</b>.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    DomainNameDns{
-        get {
-            if(!this.HasProp("__DomainNameDns"))
-                this.__DomainNameDns := PWSTR(this.ptr + 16)
-            return this.__DomainNameDns
-        }
+    DomainNameDns {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * Pointer to a null-terminated Unicode string that contains the forest name. This member is optional and may be <b>NULL</b>.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    DomainForestName{
-        get {
-            if(!this.HasProp("__DomainForestName"))
-                this.__DomainForestName := PWSTR(this.ptr + 24)
-            return this.__DomainForestName
-        }
+    DomainForestName {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**

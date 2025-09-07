@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 #Include .\CRYPT_INTEGER_BLOB.ahk
 #Include .\CRYPT_ALGORITHM_IDENTIFIER.ahk
 #Include .\OCSP_CERT_ID.ahk
@@ -85,9 +84,9 @@ class OCSP_BASIC_RESPONSE_ENTRY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<OCSP_BASIC_REVOKED_INFO>}
+     * @type {Pointer<Ptr>}
      */
-    pRevokedInfo {
+    Anonymous {
         get => NumGet(this, 80, "ptr")
         set => NumPut("ptr", value, this, 80)
     }

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Passed to the PFXExportCertStoreEx function as pvPara when the PKCS12_EXPORT_PBES2_PARAMS flag is set for dwFlags to provide information about the encryption algorithm to use.
@@ -40,13 +39,10 @@ class PKCS12_PBES2_EXPORT_PARAMS extends Win32Struct
      * | Value | Meaning |
      * |-------|---------|
      * | **PKCS12_PBES2_ALG_AES256_SHA256**</br>AES256-SHA256 | AES256 will be used for key/certificate encryption, and SHA256 will be used for KDF2, and MacData hashing. |
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pwszPbes2Alg{
-        get {
-            if(!this.HasProp("__pwszPbes2Alg"))
-                this.__pwszPbes2Alg := PWSTR(this.ptr + 16)
-            return this.__pwszPbes2Alg
-        }
+    pwszPbes2Alg {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 }

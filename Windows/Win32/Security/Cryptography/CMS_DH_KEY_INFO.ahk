@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 #Include .\CRYPT_INTEGER_BLOB.ahk
 
 /**
@@ -35,14 +34,11 @@ class CMS_DH_KEY_INFO extends Win32Struct
 
     /**
      * The address of a null-terminated ANSI string that contains the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/o-gly">object identifier</a> (OID) of the content encryption algorithm.
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszContentEncObjId{
-        get {
-            if(!this.HasProp("__pszContentEncObjId"))
-                this.__pszContentEncObjId := PSTR(this.ptr + 8)
-            return this.__pszContentEncObjId
-        }
+    pszContentEncObjId {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

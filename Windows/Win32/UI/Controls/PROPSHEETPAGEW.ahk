@@ -1,10 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HINSTANCE.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\WindowsAndMessaging\HICON.ahk
-#Include ..\..\Foundation\HANDLE.ahk
-#Include ..\..\Graphics\Gdi\HBITMAP.ahk
 
 /**
  * @namespace Windows.Win32.UI.Controls
@@ -34,25 +29,19 @@ class PROPSHEETPAGEW extends Win32Struct
     }
 
     /**
-     * @type {HINSTANCE}
+     * @type {Pointer<Ptr>}
      */
-    hInstance{
-        get {
-            if(!this.HasProp("__hInstance"))
-                this.__hInstance := HINSTANCE(this.ptr + 8)
-            return this.__hInstance
-        }
+    hInstance {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszTemplate{
-        get {
-            if(!this.HasProp("__pszTemplate"))
-                this.__pszTemplate := PWSTR(this.ptr + 16)
-            return this.__pszTemplate
-        }
+    pszTemplate {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
@@ -64,36 +53,27 @@ class PROPSHEETPAGEW extends Win32Struct
     }
 
     /**
-     * @type {HICON}
+     * @type {Pointer<Ptr>}
      */
-    hIcon{
-        get {
-            if(!this.HasProp("__hIcon"))
-                this.__hIcon := HICON(this.ptr + 24)
-            return this.__hIcon
-        }
+    hIcon {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszIcon{
-        get {
-            if(!this.HasProp("__pszIcon"))
-                this.__pszIcon := PWSTR(this.ptr + 24)
-            return this.__pszIcon
-        }
+    pszIcon {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszTitle{
-        get {
-            if(!this.HasProp("__pszTitle"))
-                this.__pszTitle := PWSTR(this.ptr + 32)
-            return this.__pszTitle
-        }
+    pszTitle {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
@@ -129,57 +109,42 @@ class PROPSHEETPAGEW extends Win32Struct
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszHeaderTitle{
-        get {
-            if(!this.HasProp("__pszHeaderTitle"))
-                this.__pszHeaderTitle := PWSTR(this.ptr + 72)
-            return this.__pszHeaderTitle
-        }
+    pszHeaderTitle {
+        get => NumGet(this, 72, "ptr")
+        set => NumPut("ptr", value, this, 72)
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszHeaderSubTitle{
-        get {
-            if(!this.HasProp("__pszHeaderSubTitle"))
-                this.__pszHeaderSubTitle := PWSTR(this.ptr + 80)
-            return this.__pszHeaderSubTitle
-        }
+    pszHeaderSubTitle {
+        get => NumGet(this, 80, "ptr")
+        set => NumPut("ptr", value, this, 80)
     }
 
     /**
-     * @type {HANDLE}
+     * @type {Pointer<Ptr>}
      */
-    hActCtx{
-        get {
-            if(!this.HasProp("__hActCtx"))
-                this.__hActCtx := HANDLE(this.ptr + 88)
-            return this.__hActCtx
-        }
+    hActCtx {
+        get => NumGet(this, 88, "ptr")
+        set => NumPut("ptr", value, this, 88)
     }
 
     /**
-     * @type {HBITMAP}
+     * @type {Pointer<Ptr>}
      */
-    hbmHeader{
-        get {
-            if(!this.HasProp("__hbmHeader"))
-                this.__hbmHeader := HBITMAP(this.ptr + 96)
-            return this.__hbmHeader
-        }
+    hbmHeader {
+        get => NumGet(this, 96, "ptr")
+        set => NumPut("ptr", value, this, 96)
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszbmHeader{
-        get {
-            if(!this.HasProp("__pszbmHeader"))
-                this.__pszbmHeader := PWSTR(this.ptr + 96)
-            return this.__pszbmHeader
-        }
+    pszbmHeader {
+        get => NumGet(this, 96, "ptr")
+        set => NumPut("ptr", value, this, 96)
     }
 }

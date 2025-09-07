@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 #Include .\LDAP_BERVAL.ahk
 
 /**
@@ -33,14 +32,11 @@ class LDAPControlA extends Win32Struct
 
     /**
      * Pointer to a wide, null-terminated string that indicates  control type, such as "1.2.840.113556.1.4.805".
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    ldctl_oid{
-        get {
-            if(!this.HasProp("__ldctl_oid"))
-                this.__ldctl_oid := PSTR(this.ptr + 0)
-            return this.__ldctl_oid
-        }
+    ldctl_oid {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**

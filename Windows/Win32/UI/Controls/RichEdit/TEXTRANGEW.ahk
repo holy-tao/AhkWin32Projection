@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include .\CHARRANGE.ahk
-#Include ..\..\..\Foundation\PWSTR.ahk
 
 /**
  * A range of text from a rich edit control. This structure is filled in by the EM_GETTEXTRANGE message. The buffer pointed to by the lpstrText member must be large enough to receive all characters and the terminating null character. (Unicode)
@@ -37,13 +36,10 @@ class TEXTRANGEW extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPSTR</a></b>
      * 
      * The text.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpstrText{
-        get {
-            if(!this.HasProp("__lpstrText"))
-                this.__lpstrText := PWSTR(this.ptr + 8)
-            return this.__lpstrText
-        }
+    lpstrText {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 }

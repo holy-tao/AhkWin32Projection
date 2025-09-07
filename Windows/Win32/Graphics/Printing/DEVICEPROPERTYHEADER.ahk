@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
@@ -29,14 +28,11 @@ class DEVICEPROPERTYHEADER extends Win32Struct
     }
 
     /**
-     * @type {HANDLE}
+     * @type {Pointer<Ptr>}
      */
-    hPrinter{
-        get {
-            if(!this.HasProp("__hPrinter"))
-                this.__hPrinter := HANDLE(this.ptr + 8)
-            return this.__hPrinter
-        }
+    hPrinter {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

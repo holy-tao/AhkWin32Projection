@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * The MPR_INTERFACE_0 structure contains information for a particular router interface.
@@ -25,14 +24,11 @@ class MPR_INTERFACE_0 extends Win32Struct
 
     /**
      * Handle to the interface.
-     * @type {HANDLE}
+     * @type {Pointer<Ptr>}
      */
-    hInterface{
-        get {
-            if(!this.HasProp("__hInterface"))
-                this.__hInterface := HANDLE(this.ptr + 520)
-            return this.__hInterface
-        }
+    hInterface {
+        get => NumGet(this, 520, "ptr")
+        set => NumPut("ptr", value, this, 520)
     }
 
     /**

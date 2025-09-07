@@ -1,7 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include .\HCS_OPERATION.ahk
 
 /**
  * HCS_EVENT
@@ -33,25 +31,19 @@ class HCS_EVENT extends Win32Struct
      * |`HcsEventSystemCrashInitiated`|[`CrashReport`](../SchemaReference.md#CrashReport)|
      * |`HcsEventSystemCrashReport`|[`CrashReport`](../SchemaReference.md#CrashReport)|
      * |`HcsEventProcessExited`|[`ProcessStatus`](../SchemaReference.md#ProcessStatus)|
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    EventData{
-        get {
-            if(!this.HasProp("__EventData"))
-                this.__EventData := PWSTR(this.ptr + 8)
-            return this.__EventData
-        }
+    EventData {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * Handle to a completed operation, if `Type` is `HcsEventOperationCallback`. This is only possible when [`HcsSetComputeSystemCallback`](./HcsSetComputeSystemCallback.md) has specified event option `HcsEventOptionEnableOperationCallbacks`.
-     * @type {HCS_OPERATION}
+     * @type {Pointer<Ptr>}
      */
-    Operation{
-        get {
-            if(!this.HasProp("__Operation"))
-                this.__Operation := HCS_OPERATION(this.ptr + 16)
-            return this.__Operation
-        }
+    Operation {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 }

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 #Include ..\..\Foundation\FILETIME.ahk
 
 /**
@@ -210,26 +209,20 @@ class CREDENTIALA extends Win32Struct
      * If the <b>Type</b> is CRED_TYPE_GENERIC, this member should identify the service that uses the credential in addition to the actual target. Microsoft suggests the name be prefixed by the name of the company implementing the service. Microsoft will use the prefix "Microsoft". Services written by Microsoft should append their service name, for example <b>Microsoft_RAS_</b><i>TargetName</i>. This member cannot be longer than <b>CRED_MAX_GENERIC_TARGET_NAME_LENGTH</b> (32767) characters.
      * 
      * This member is case-insensitive.
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    TargetName{
-        get {
-            if(!this.HasProp("__TargetName"))
-                this.__TargetName := PSTR(this.ptr + 8)
-            return this.__TargetName
-        }
+    TargetName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * A string comment from the user that describes this credential. This member cannot be longer than <b>CRED_MAX_STRING_LENGTH</b> (256) characters.
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    Comment{
-        get {
-            if(!this.HasProp("__Comment"))
-                this.__Comment := PSTR(this.ptr + 16)
-            return this.__Comment
-        }
+    Comment {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
@@ -349,14 +342,11 @@ class CREDENTIALA extends Win32Struct
      * Alias for the <b>TargetName</b> member. This member can be read and written. It cannot be longer than <b>CRED_MAX_STRING_LENGTH</b> (256) characters.
      * 
      * If the credential <b>Type</b> is <b>CRED_TYPE_GENERIC</b>, this member can be non-<b>NULL</b>, but the credential manager ignores the member.
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    TargetAlias{
-        get {
-            if(!this.HasProp("__TargetAlias"))
-                this.__TargetAlias := PSTR(this.ptr + 64)
-            return this.__TargetAlias
-        }
+    TargetAlias {
+        get => NumGet(this, 64, "ptr")
+        set => NumPut("ptr", value, this, 64)
     }
 
     /**
@@ -372,13 +362,10 @@ class CREDENTIALA extends Win32Struct
      * If the credential <b>Type</b> is <b>CRED_TYPE_GENERIC</b>, this member can be non-<b>NULL</b>, but the credential manager ignores the member.
      * 
      * This member cannot be longer than <b>CRED_MAX_USERNAME_LENGTH</b> (513) characters.
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    UserName{
-        get {
-            if(!this.HasProp("__UserName"))
-                this.__UserName := PSTR(this.ptr + 72)
-            return this.__UserName
-        }
+    UserName {
+        get => NumGet(this, 72, "ptr")
+        set => NumPut("ptr", value, this, 72)
     }
 }

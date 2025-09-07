@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\PWSTR.ahk
 
 /**
  * The AudioFXExtensionParams structure is passed to the system effects ControlPanel Extension PropertyPage via IShellPropSheetExt::AddPages.
@@ -25,14 +24,11 @@ class AudioFXExtensionParams extends Win32Struct
 
     /**
      * The ID for the audio endpoint.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pwstrEndpointID{
-        get {
-            if(!this.HasProp("__pwstrEndpointID"))
-                this.__pwstrEndpointID := PWSTR(this.ptr + 8)
-            return this.__pwstrEndpointID
-        }
+    pwstrEndpointID {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The structure containing the common data for an attestation.
@@ -27,14 +26,11 @@ class WEBAUTHN_COMMON_ATTESTATION extends Win32Struct
 
     /**
      * The hash and padding algorithm. This won't be set for _fido-u2f_ which assumes **"ES256"**.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pwszAlg{
-        get {
-            if(!this.HasProp("__pwszAlg"))
-                this.__pwszAlg := PWSTR(this.ptr + 8)
-            return this.__pwszAlg
-        }
+    pwszAlg {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -84,14 +80,11 @@ class WEBAUTHN_COMMON_ATTESTATION extends Win32Struct
 
     /**
      * A pointer to the version of the attestation statement. (This is set for tpm.)
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pwszVer{
-        get {
-            if(!this.HasProp("__pwszVer"))
-                this.__pwszVer := PWSTR(this.ptr + 48)
-            return this.__pwszVer
-        }
+    pwszVer {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**

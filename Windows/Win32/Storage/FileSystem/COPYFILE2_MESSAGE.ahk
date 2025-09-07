@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * Passed to the CopyFile2ProgressRoutine callback function with information about a pending copy operation.
@@ -142,25 +141,19 @@ class COPYFILE2_MESSAGE extends Win32Struct
     }
 
     /**
-     * @type {HANDLE}
+     * @type {Pointer<Ptr>}
      */
-    hSourceFile{
-        get {
-            if(!this.HasProp("__hSourceFile"))
-                this.__hSourceFile := HANDLE(this.ptr + 16)
-            return this.__hSourceFile
-        }
+    hSourceFile {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
-     * @type {HANDLE}
+     * @type {Pointer<Ptr>}
      */
-    hDestinationFile{
-        get {
-            if(!this.HasProp("__hDestinationFile"))
-                this.__hDestinationFile := HANDLE(this.ptr + 24)
-            return this.__hDestinationFile
-        }
+    hDestinationFile {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**

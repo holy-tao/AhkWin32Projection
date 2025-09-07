@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HGLOBAL.ahk
 
 /**
  * @namespace Windows.Win32.Devices.ImageAcquisition
@@ -45,14 +44,11 @@ class VAL extends Win32Struct
     }
 
     /**
-     * @type {HGLOBAL}
+     * @type {Pointer<Ptr>}
      */
-    handle{
-        get {
-            if(!this.HasProp("__handle"))
-                this.__handle := HGLOBAL(this.ptr + 32)
-            return this.__handle
-        }
+    handle {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
@@ -64,7 +60,7 @@ class VAL extends Win32Struct
     }
 
     /**
-     * @type {Pointer<HANDLE>}
+     * @type {Pointer<Ptr>}
      */
     pHandle {
         get => NumGet(this, 48, "ptr")

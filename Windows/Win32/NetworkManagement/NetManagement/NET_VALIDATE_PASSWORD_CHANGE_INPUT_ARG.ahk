@@ -2,7 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\FILETIME.ahk
 #Include .\NET_VALIDATE_PERSISTED_FIELDS.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\NET_VALIDATE_PASSWORD_HASH.ahk
 
 /**
@@ -31,26 +30,20 @@ class NET_VALIDATE_PASSWORD_CHANGE_INPUT_ARG extends Win32Struct
 
     /**
      * Pointer to a Unicode string specifying the new password, in plaintext format.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    ClearPassword{
-        get {
-            if(!this.HasProp("__ClearPassword"))
-                this.__ClearPassword := PWSTR(this.ptr + 48)
-            return this.__ClearPassword
-        }
+    ClearPassword {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**
      * Pointer to a Unicode string specifying the name of the user account.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    UserAccountName{
-        get {
-            if(!this.HasProp("__UserAccountName"))
-                this.__UserAccountName := PWSTR(this.ptr + 56)
-            return this.__UserAccountName
-        }
+    UserAccountName {
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 
     /**

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * This resource contains details of the search criteria when fetching a diagnostic data record.
@@ -19,7 +18,7 @@ class DIAGNOSTIC_DATA_SEARCH_CRITERIA extends Win32Struct
     /**
      * Type: **[LPCWSTR\*](/windows/desktop/winprog/windows-data-types)**
      * List of producer names to search for. A diagnostic data record that matches at least one of the producer names is included as a result in this search criteria. Use `nullptr` for this value to indicate no filter by producers.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Ptr>}
      */
     producerNames {
         get => NumGet(this, 0, "ptr")
@@ -39,14 +38,11 @@ class DIAGNOSTIC_DATA_SEARCH_CRITERIA extends Win32Struct
     /**
      * Type: **[LPCWSTR](/windows/desktop/winprog/windows-data-types)**
      * The sub-string to search for within diagnostic data records. This text is case insensitive.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    textToMatch{
-        get {
-            if(!this.HasProp("__textToMatch"))
-                this.__textToMatch := PWSTR(this.ptr + 16)
-            return this.__textToMatch
-        }
+    textToMatch {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**

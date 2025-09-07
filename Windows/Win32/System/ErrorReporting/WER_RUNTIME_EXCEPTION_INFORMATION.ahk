@@ -1,10 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 #Include ..\Diagnostics\Debug\EXCEPTION_RECORD.ahk
 #Include ..\Diagnostics\Debug\ARM64_NT_NEON128.ahk
 #Include ..\Diagnostics\Debug\CONTEXT.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains the exception information that you use to determine whether you want to claim the crash.
@@ -29,26 +27,20 @@ class WER_RUNTIME_EXCEPTION_INFORMATION extends Win32Struct
 
     /**
      * The handle to the process that crashed.
-     * @type {HANDLE}
+     * @type {Pointer<Ptr>}
      */
-    hProcess{
-        get {
-            if(!this.HasProp("__hProcess"))
-                this.__hProcess := HANDLE(this.ptr + 8)
-            return this.__hProcess
-        }
+    hProcess {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * The handle to the thread that crashed.
-     * @type {HANDLE}
+     * @type {Pointer<Ptr>}
      */
-    hThread{
-        get {
-            if(!this.HasProp("__hThread"))
-                this.__hThread := HANDLE(this.ptr + 16)
-            return this.__hThread
-        }
+    hThread {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
@@ -77,14 +69,11 @@ class WER_RUNTIME_EXCEPTION_INFORMATION extends Win32Struct
 
     /**
      * A pointer to a constant, null-terminated string that contains the size of the exception information.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pwszReportId{
-        get {
-            if(!this.HasProp("__pwszReportId"))
-                this.__pwszReportId := PWSTR(this.ptr + 832)
-            return this.__pwszReportId
-        }
+    pwszReportId {
+        get => NumGet(this, 832, "ptr")
+        set => NumPut("ptr", value, this, 832)
     }
 
     /**

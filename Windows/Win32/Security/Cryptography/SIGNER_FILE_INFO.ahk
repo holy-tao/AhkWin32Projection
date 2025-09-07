@@ -1,7 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * Specifies a file to sign.
@@ -26,26 +24,20 @@ class SIGNER_FILE_INFO extends Win32Struct
 
     /**
      * A pointer to a null-terminated string that contains the name of the file to sign.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pwszFileName{
-        get {
-            if(!this.HasProp("__pwszFileName"))
-                this.__pwszFileName := PWSTR(this.ptr + 8)
-            return this.__pwszFileName
-        }
+    pwszFileName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * An open handle to the file specified by the **pwszFileName** member. If this member contains a valid handle, this handle is used to access the file. This member can be set to **NULL**.
-     * @type {HANDLE}
+     * @type {Pointer<Ptr>}
      */
-    hFile{
-        get {
-            if(!this.HasProp("__hFile"))
-                this.__hFile := HANDLE(this.ptr + 16)
-            return this.__hFile
-        }
+    hFile {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**

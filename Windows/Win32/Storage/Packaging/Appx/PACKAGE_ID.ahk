@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include .\PACKAGE_VERSION.ahk
-#Include ..\..\..\Foundation\PWSTR.ahk
 
 /**
  * Represents package identification information, such as name, version, and publisher.
@@ -65,55 +64,43 @@ class PACKAGE_ID extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">PWSTR</a></b>
      * 
      * The name of the package.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    name{
-        get {
-            if(!this.HasProp("__name"))
-                this.__name := PWSTR(this.ptr + 16)
-            return this.__name
-        }
+    name {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">PWSTR</a></b>
      * 
      * The publisher of the package. If there is no publisher for the package, this member is <b>NULL</b>.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    publisher{
-        get {
-            if(!this.HasProp("__publisher"))
-                this.__publisher := PWSTR(this.ptr + 24)
-            return this.__publisher
-        }
+    publisher {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">PWSTR</a></b>
      * 
      * The resource identifier (ID) of the package. If there is no resource ID for the package, this member is <b>NULL</b>.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    resourceId{
-        get {
-            if(!this.HasProp("__resourceId"))
-                this.__resourceId := PWSTR(this.ptr + 32)
-            return this.__resourceId
-        }
+    resourceId {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">PWSTR</a></b>
      * 
      * The publisher identifier (ID) of the package. If there is no publisher ID for the package, this member is <b>NULL</b>.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    publisherId{
-        get {
-            if(!this.HasProp("__publisherId"))
-                this.__publisherId := PWSTR(this.ptr + 40)
-            return this.__publisherId
-        }
+    publisherId {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 }

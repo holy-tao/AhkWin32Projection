@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
@@ -29,14 +28,11 @@ class CPSUICBPARAM extends Win32Struct
     }
 
     /**
-     * @type {HWND}
+     * @type {Pointer<Ptr>}
      */
-    hDlg{
-        get {
-            if(!this.HasProp("__hDlg"))
-                this.__hDlg := HWND(this.ptr + 8)
-            return this.__hDlg
-        }
+    hDlg {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

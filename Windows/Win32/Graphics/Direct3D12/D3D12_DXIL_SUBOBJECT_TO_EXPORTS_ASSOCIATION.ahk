@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * This subobject is unsupported in the current release.
@@ -16,14 +15,11 @@ class D3D12_DXIL_SUBOBJECT_TO_EXPORTS_ASSOCIATION extends Win32Struct
 
     /**
      * 
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    SubobjectToAssociate{
-        get {
-            if(!this.HasProp("__SubobjectToAssociate"))
-                this.__SubobjectToAssociate := PWSTR(this.ptr + 0)
-            return this.__SubobjectToAssociate
-        }
+    SubobjectToAssociate {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
@@ -37,7 +33,7 @@ class D3D12_DXIL_SUBOBJECT_TO_EXPORTS_ASSOCIATION extends Win32Struct
 
     /**
      * The array of exports with which the subobject is associated.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Ptr>}
      */
     pExports {
         get => NumGet(this, 16, "ptr")

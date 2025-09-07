@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\Cryptography\HCERTCHAINENGINE.ahk
 
 /**
  * @namespace Windows.Win32.Security.WinTrust
@@ -38,14 +37,11 @@ class WTD_GENERIC_CHAIN_POLICY_CREATE_INFO extends Win32Struct
     }
 
     /**
-     * @type {HCERTCHAINENGINE}
+     * @type {Pointer<Ptr>}
      */
-    hChainEngine{
-        get {
-            if(!this.HasProp("__hChainEngine"))
-                this.__hChainEngine := HCERTCHAINENGINE(this.ptr + 8)
-            return this.__hChainEngine
-        }
+    hChainEngine {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

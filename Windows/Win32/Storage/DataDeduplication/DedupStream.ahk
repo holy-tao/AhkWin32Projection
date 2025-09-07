@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * @namespace Windows.Win32.Storage.DataDeduplication
@@ -13,14 +12,11 @@ class DedupStream extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {BSTR}
+     * @type {Pointer<Ptr>}
      */
-    Path{
-        get {
-            if(!this.HasProp("__Path"))
-                this.__Path := BSTR(this.ptr + 0)
-            return this.__Path
-        }
+    Path {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**

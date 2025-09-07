@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
@@ -29,14 +28,11 @@ class SecPkgContext_CertInfo extends Win32Struct
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pwszSubjectName{
-        get {
-            if(!this.HasProp("__pwszSubjectName"))
-                this.__pwszSubjectName := PWSTR(this.ptr + 8)
-            return this.__pwszSubjectName
-        }
+    pwszSubjectName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -48,14 +44,11 @@ class SecPkgContext_CertInfo extends Win32Struct
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pwszIssuerName{
-        get {
-            if(!this.HasProp("__pwszIssuerName"))
-                this.__pwszIssuerName := PWSTR(this.ptr + 24)
-            return this.__pwszIssuerName
-        }
+    pwszIssuerName {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**

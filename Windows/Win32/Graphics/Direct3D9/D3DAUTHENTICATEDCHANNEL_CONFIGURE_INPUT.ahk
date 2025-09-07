@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\D3D_OMAC.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * Contains input data for the IDirect3DAuthenticatedChannel9::Configure method.
@@ -38,14 +37,11 @@ class D3DAUTHENTICATEDCHANNEL_CONFIGURE_INPUT extends Win32Struct
 
     /**
      * A handle to the authenticated channel. To get the handle, call [**IDirect3DDevice9Video::CreateAuthenticatedChannel**](/windows/desktop/api/d3d9/nf-d3d9-idirect3ddevice9video-createauthenticatedchannel).
-     * @type {HANDLE}
+     * @type {Pointer<Ptr>}
      */
-    hChannel{
-        get {
-            if(!this.HasProp("__hChannel"))
-                this.__hChannel := HANDLE(this.ptr + 24)
-            return this.__hChannel
-        }
+    hChannel {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**

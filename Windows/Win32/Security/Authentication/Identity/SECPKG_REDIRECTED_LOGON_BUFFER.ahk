@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\HANDLE.ahk
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
@@ -21,14 +20,11 @@ class SECPKG_REDIRECTED_LOGON_BUFFER extends Win32Struct
     }
 
     /**
-     * @type {HANDLE}
+     * @type {Pointer<Ptr>}
      */
-    RedirectedLogonHandle{
-        get {
-            if(!this.HasProp("__RedirectedLogonHandle"))
-                this.__RedirectedLogonHandle := HANDLE(this.ptr + 8)
-            return this.__RedirectedLogonHandle
-        }
+    RedirectedLogonHandle {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

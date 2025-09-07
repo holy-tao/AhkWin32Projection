@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains information about a credential.
@@ -45,13 +44,10 @@ class WEBAUTHN_CREDENTIAL extends Win32Struct
 
     /**
      * Well-known credential type specifying the type of this particular credential.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pwszCredentialType{
-        get {
-            if(!this.HasProp("__pwszCredentialType"))
-                this.__pwszCredentialType := PWSTR(this.ptr + 16)
-            return this.__pwszCredentialType
-        }
+    pwszCredentialType {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 }

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug
@@ -21,47 +20,35 @@ class DebugPropertyInfo extends Win32Struct
     }
 
     /**
-     * @type {BSTR}
+     * @type {Pointer<Ptr>}
      */
-    m_bstrName{
-        get {
-            if(!this.HasProp("__m_bstrName"))
-                this.__m_bstrName := BSTR(this.ptr + 8)
-            return this.__m_bstrName
-        }
+    m_bstrName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
-     * @type {BSTR}
+     * @type {Pointer<Ptr>}
      */
-    m_bstrType{
-        get {
-            if(!this.HasProp("__m_bstrType"))
-                this.__m_bstrType := BSTR(this.ptr + 16)
-            return this.__m_bstrType
-        }
+    m_bstrType {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
-     * @type {BSTR}
+     * @type {Pointer<Ptr>}
      */
-    m_bstrValue{
-        get {
-            if(!this.HasProp("__m_bstrValue"))
-                this.__m_bstrValue := BSTR(this.ptr + 24)
-            return this.__m_bstrValue
-        }
+    m_bstrValue {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
-     * @type {BSTR}
+     * @type {Pointer<Ptr>}
      */
-    m_bstrFullName{
-        get {
-            if(!this.HasProp("__m_bstrFullName"))
-                this.__m_bstrFullName := BSTR(this.ptr + 32)
-            return this.__m_bstrFullName
-        }
+    m_bstrFullName {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**

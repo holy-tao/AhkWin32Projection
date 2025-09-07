@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\WEBAUTHN_EXTENSIONS.ahk
 
 /**
@@ -33,14 +32,11 @@ class WEBAUTHN_CREDENTIAL_ATTESTATION extends Win32Struct
 
     /**
      * The attestation format type.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pwszFormatType{
-        get {
-            if(!this.HasProp("__pwszFormatType"))
-                this.__pwszFormatType := PWSTR(this.ptr + 8)
-            return this.__pwszFormatType
-        }
+    pwszFormatType {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

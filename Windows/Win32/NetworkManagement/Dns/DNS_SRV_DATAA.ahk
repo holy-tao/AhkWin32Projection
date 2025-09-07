@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * The DNS_SRV_DATA structure represents a DNS service (SRV) record as specified in RFC 2782. (ANSI)
@@ -28,14 +27,11 @@ class DNS_SRV_DATAA extends Win32Struct
 
     /**
      * A pointer to a string that represents the target host.
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    pNameTarget{
-        get {
-            if(!this.HasProp("__pNameTarget"))
-                this.__pNameTarget := PSTR(this.ptr + 0)
-            return this.__pNameTarget
-        }
+    pNameTarget {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**

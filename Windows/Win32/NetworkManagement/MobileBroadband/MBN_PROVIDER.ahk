@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * The MBN_PROVIDER structure represents a network service provider.
@@ -16,14 +15,11 @@ class MBN_PROVIDER extends Win32Struct
 
     /**
      * Contains the provider ID.  For GSM networks, this string is a concatenation of a 3-digit mobile country code (MCC) and a 2- or 3-digit mobile network code (MNC).  For CDMA networks, this string is a 5-digit SID.  The maximum length of this string is defined by <b>MBN_PROVIDERID_LEN</b> from <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/ne-mbnapi-mbn_provider_constants">MBN_PROVIDER_CONSTANTS</a>.  The caller must free this string by calling <a href="https://docs.microsoft.com/windows/win32/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a>.
-     * @type {BSTR}
+     * @type {Pointer<Ptr>}
      */
-    providerID{
-        get {
-            if(!this.HasProp("__providerID"))
-                this.__providerID := BSTR(this.ptr + 0)
-            return this.__providerID
-        }
+    providerID {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
@@ -37,14 +33,11 @@ class MBN_PROVIDER extends Win32Struct
 
     /**
      * Contains the provider name.  The contents of this member should be ignored when setting the preferred provider list.  The maximum length of this string is defined by <b>MBN_PROVIDERNAME_LEN</b> from <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/ne-mbnapi-mbn_provider_constants">MBN_PROVIDER_CONSTANTS</a>.  The string can be empty.  The caller must free this string by calling <a href="https://docs.microsoft.com/windows/win32/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a>.
-     * @type {BSTR}
+     * @type {Pointer<Ptr>}
      */
-    providerName{
-        get {
-            if(!this.HasProp("__providerName"))
-                this.__providerName := BSTR(this.ptr + 16)
-            return this.__providerName
-        }
+    providerName {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**

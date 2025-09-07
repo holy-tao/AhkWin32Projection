@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The DNS_TKEY_DATA structure represents a DNS TKEY resource record, used to establish and delete an algorithm's shared-secret keys between a DNS resolver and server as specified in RFC 2930. (Unicode)
@@ -28,14 +27,11 @@ class DNS_TKEY_DATAW extends Win32Struct
 
     /**
      * A pointer to a string that represents the name of the key as defined in section 2.1 of <a href="https://www.ietf.org/rfc/rfc2930.txt">RFC 2930</a>.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pNameAlgorithm{
-        get {
-            if(!this.HasProp("__pNameAlgorithm"))
-                this.__pNameAlgorithm := PWSTR(this.ptr + 0)
-            return this.__pNameAlgorithm
-        }
+    pNameAlgorithm {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**

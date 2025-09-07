@@ -1,8 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\PWSTR.ahk
 #Include .\LSA_UNICODE_STRING.ahk
-#Include ..\..\PSID.ahk
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
@@ -37,14 +35,11 @@ class TRUSTED_DOMAIN_INFORMATION_EX2 extends Win32Struct
     }
 
     /**
-     * @type {PSID}
+     * @type {Pointer<Ptr>}
      */
-    Sid{
-        get {
-            if(!this.HasProp("__Sid"))
-                this.__Sid := PSID(this.ptr + 32)
-            return this.__Sid
-        }
+    Sid {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**

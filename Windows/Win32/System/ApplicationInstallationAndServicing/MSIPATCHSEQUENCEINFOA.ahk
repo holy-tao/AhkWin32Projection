@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * The MSIPATCHSEQUENCEINFO structure is used by the MsiDeterminePatchSequence and MsiDetermineApplicablePatches functions. (ANSI)
@@ -20,14 +19,11 @@ class MSIPATCHSEQUENCEINFOA extends Win32Struct
 
     /**
      * Pointer to the path of a patch file, an XML blob, or an XML file.
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    szPatchData{
-        get {
-            if(!this.HasProp("__szPatchData"))
-                this.__szPatchData := PSTR(this.ptr + 0)
-            return this.__szPatchData
-        }
+    szPatchData {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**

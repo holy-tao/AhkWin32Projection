@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * Contains information about the SoundSentry accessibility feature. When the SoundSentry feature is on, the computer displays a visual indication only when a sound is generated. (ANSI)
@@ -185,14 +184,11 @@ class SOUNDSENTRYA extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPTSTR</a></b>
      * 
      * This member is reserved for future use. It should be set to <b>NULL</b>.
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpszWindowsEffectDLL{
-        get {
-            if(!this.HasProp("__lpszWindowsEffectDLL"))
-                this.__lpszWindowsEffectDLL := PSTR(this.ptr + 40)
-            return this.__lpszWindowsEffectDLL
-        }
+    lpszWindowsEffectDLL {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**

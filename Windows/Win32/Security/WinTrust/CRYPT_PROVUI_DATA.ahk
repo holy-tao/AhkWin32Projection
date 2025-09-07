@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Provides user interface (UI) data for a provider. This structure is used by the CRYPT_PROVUI_FUNCS structure.
@@ -34,85 +33,64 @@ class CRYPT_PROVUI_DATA extends Win32Struct
 
     /**
      * A pointer to a <b>null</b>-terminated string for the <b>Yes</b> button text. If this parameter is <b>NULL</b>, then "&amp;Yes" is used.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pYesButtonText{
-        get {
-            if(!this.HasProp("__pYesButtonText"))
-                this.__pYesButtonText := PWSTR(this.ptr + 8)
-            return this.__pYesButtonText
-        }
+    pYesButtonText {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * A pointer to a <b>null</b>-terminated string for the <b>No</b> button text. If this parameter is <b>NULL</b>, then "&amp;No"  is used.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pNoButtonText{
-        get {
-            if(!this.HasProp("__pNoButtonText"))
-                this.__pNoButtonText := PWSTR(this.ptr + 16)
-            return this.__pNoButtonText
-        }
+    pNoButtonText {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * A pointer to a <b>null</b>-terminated string for the <b>More Info</b> button text. If this parameter is <b>NULL</b>, then "&amp;More Info" is used.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pMoreInfoButtonText{
-        get {
-            if(!this.HasProp("__pMoreInfoButtonText"))
-                this.__pMoreInfoButtonText := PWSTR(this.ptr + 24)
-            return this.__pMoreInfoButtonText
-        }
+    pMoreInfoButtonText {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
      * A pointer to a <b>null</b>-terminated string for the <b>Advanced</b>  button  text.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pAdvancedLinkText{
-        get {
-            if(!this.HasProp("__pAdvancedLinkText"))
-                this.__pAdvancedLinkText := PWSTR(this.ptr + 32)
-            return this.__pAdvancedLinkText
-        }
+    pAdvancedLinkText {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
      * A pointer to a <b>null</b>-terminated string for the text used when the trust is valid and a time stamp is used. If this parameter is <b>NULL</b>, then "Do you want to install and run ""%1"" signed on %2 and distributed by:" is used.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pCopyActionText{
-        get {
-            if(!this.HasProp("__pCopyActionText"))
-                this.__pCopyActionText := PWSTR(this.ptr + 40)
-            return this.__pCopyActionText
-        }
+    pCopyActionText {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
      * A pointer to a <b>null</b>-terminated string for the text used when the trust is valid but a time stamp is not used. If this parameter is <b>NULL</b>, then "Do you want to install and run ""%1"" signed on an unknown date/time and distributed by:" is used.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pCopyActionTextNoTS{
-        get {
-            if(!this.HasProp("__pCopyActionTextNoTS"))
-                this.__pCopyActionTextNoTS := PWSTR(this.ptr + 48)
-            return this.__pCopyActionTextNoTS
-        }
+    pCopyActionTextNoTS {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**
      * A pointer to a <b>null</b>-terminated string for the text used when a signature is not provided.  If this parameter is <b>NULL</b>, then "Do you want to install and run ""%1""?" is used.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pCopyActionTextNotSigned{
-        get {
-            if(!this.HasProp("__pCopyActionTextNotSigned"))
-                this.__pCopyActionTextNotSigned := PWSTR(this.ptr + 56)
-            return this.__pCopyActionTextNotSigned
-        }
+    pCopyActionTextNotSigned {
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 }

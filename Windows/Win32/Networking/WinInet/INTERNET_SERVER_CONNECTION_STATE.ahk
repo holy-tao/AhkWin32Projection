@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.Networking.WinInet
@@ -13,14 +12,11 @@ class INTERNET_SERVER_CONNECTION_STATE extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpcwszHostName{
-        get {
-            if(!this.HasProp("__lpcwszHostName"))
-                this.__lpcwszHostName := PWSTR(this.ptr + 0)
-            return this.__lpcwszHostName
-        }
+    lpcwszHostName {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**

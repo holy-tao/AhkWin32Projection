@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * Applications use the WIA_DEV_CAP structure to enumerate device capabilities. A device capability is defined by an event or command that the device supports. For more information, see IEnumWIA_DEV_CAPS.
@@ -60,55 +59,43 @@ class WIA_DEV_CAP extends Win32Struct
      * Type: <b>BSTR</b>
      * 
      * Specifies a string that contains a short version of the capability name.
-     * @type {BSTR}
+     * @type {Pointer<Ptr>}
      */
-    bstrName{
-        get {
-            if(!this.HasProp("__bstrName"))
-                this.__bstrName := BSTR(this.ptr + 16)
-            return this.__bstrName
-        }
+    bstrName {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * Type: <b>BSTR</b>
      * 
      * Specifies a string that contains a description of the capability that is displayed to the user.
-     * @type {BSTR}
+     * @type {Pointer<Ptr>}
      */
-    bstrDescription{
-        get {
-            if(!this.HasProp("__bstrDescription"))
-                this.__bstrDescription := BSTR(this.ptr + 24)
-            return this.__bstrDescription
-        }
+    bstrDescription {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
      * Type: <b>BSTR</b>
      * 
      * Specifies a string that represents the location and resource ID of the icon that represents this capability or handler. The string must be of the following form: <i>drive</i><b>:\\</b><i>path</i><b>\\</b><i>module</i><b>,</b><i>n</i>, where <i>n</i> is the icon's negated resource ID (that is, if the resource ID of the icon is 100, then <i>n</i> is -100).
-     * @type {BSTR}
+     * @type {Pointer<Ptr>}
      */
-    bstrIcon{
-        get {
-            if(!this.HasProp("__bstrIcon"))
-                this.__bstrIcon := BSTR(this.ptr + 32)
-            return this.__bstrIcon
-        }
+    bstrIcon {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
      * Type: <b>BSTR</b>
      * 
      * Specifies a string that represents command line arguments.
-     * @type {BSTR}
+     * @type {Pointer<Ptr>}
      */
-    bstrCommandline{
-        get {
-            if(!this.HasProp("__bstrCommandline"))
-                this.__bstrCommandline := BSTR(this.ptr + 40)
-            return this.__bstrCommandline
-        }
+    bstrCommandline {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 }

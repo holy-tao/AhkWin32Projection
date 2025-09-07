@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The structure containing the COSE credential parameter information.
@@ -27,14 +26,11 @@ class WEBAUTHN_COSE_CREDENTIAL_PARAMETER extends Win32Struct
 
     /**
      * Well-known credential type specifying a credential to create.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pwszCredentialType{
-        get {
-            if(!this.HasProp("__pwszCredentialType"))
-                this.__pwszCredentialType := PWSTR(this.ptr + 8)
-            return this.__pwszCredentialType
-        }
+    pwszCredentialType {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

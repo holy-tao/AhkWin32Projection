@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The ADDJOB\_INFO\_1 structure identifies a print job as well as the directory and file in which an application can store that job.
@@ -17,14 +16,11 @@ class ADDJOB_INFO_1W extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that contains the path and file name that the application can use to store the print job.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    Path{
-        get {
-            if(!this.HasProp("__Path"))
-                this.__Path := PWSTR(this.ptr + 0)
-            return this.__Path
-        }
+    Path {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**

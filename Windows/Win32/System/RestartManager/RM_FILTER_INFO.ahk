@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Foundation\FILETIME.ahk
 #Include .\RM_UNIQUE_PROCESS.ahk
 
@@ -46,14 +45,11 @@ class RM_FILTER_INFO extends Win32Struct
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    strFilename{
-        get {
-            if(!this.HasProp("__strFilename"))
-                this.__strFilename := PWSTR(this.ptr + 16)
-            return this.__strFilename
-        }
+    strFilename {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
@@ -68,13 +64,10 @@ class RM_FILTER_INFO extends Win32Struct
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    strServiceShortName{
-        get {
-            if(!this.HasProp("__strServiceShortName"))
-                this.__strServiceShortName := PWSTR(this.ptr + 16)
-            return this.__strServiceShortName
-        }
+    strServiceShortName {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 }

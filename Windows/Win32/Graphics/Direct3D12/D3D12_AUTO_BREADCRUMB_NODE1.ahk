@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12
@@ -21,14 +20,11 @@ class D3D12_AUTO_BREADCRUMB_NODE1 extends Win32Struct
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pCommandListDebugNameW{
-        get {
-            if(!this.HasProp("__pCommandListDebugNameW"))
-                this.__pCommandListDebugNameW := PWSTR(this.ptr + 8)
-            return this.__pCommandListDebugNameW
-        }
+    pCommandListDebugNameW {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -40,14 +36,11 @@ class D3D12_AUTO_BREADCRUMB_NODE1 extends Win32Struct
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pCommandQueueDebugNameW{
-        get {
-            if(!this.HasProp("__pCommandQueueDebugNameW"))
-                this.__pCommandQueueDebugNameW := PWSTR(this.ptr + 24)
-            return this.__pCommandQueueDebugNameW
-        }
+    pCommandQueueDebugNameW {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**

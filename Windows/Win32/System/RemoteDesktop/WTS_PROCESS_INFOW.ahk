@@ -1,7 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Security\PSID.ahk
 
 /**
  * Contains information about a process running on a Remote Desktop Session Host (RD Session Host) server. (Unicode)
@@ -39,27 +37,21 @@ class WTS_PROCESS_INFOW extends Win32Struct
 
     /**
      * Pointer to a null-terminated string containing the name of the executable file associated with the process.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pProcessName{
-        get {
-            if(!this.HasProp("__pProcessName"))
-                this.__pProcessName := PWSTR(this.ptr + 8)
-            return this.__pProcessName
-        }
+    pProcessName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * Pointer to the user 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-identifiers">Security Identifiers</a> in the process's primary access token. For more information about SIDs and access tokens, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-control">Access Control</a>.
-     * @type {PSID}
+     * @type {Pointer<Ptr>}
      */
-    pUserSid{
-        get {
-            if(!this.HasProp("__pUserSid"))
-                this.__pUserSid := PSID(this.ptr + 16)
-            return this.__pUserSid
-        }
+    pUserSid {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 }

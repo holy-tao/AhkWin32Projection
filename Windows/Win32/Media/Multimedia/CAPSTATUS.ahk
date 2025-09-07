@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\POINT.ahk
-#Include ..\..\Graphics\Gdi\HPALETTE.ahk
 
 /**
  * The CAPSTATUS structure defines the current state of the capture window.
@@ -139,14 +138,11 @@ class CAPSTATUS extends Win32Struct
 
     /**
      * Handle to current palette.
-     * @type {HPALETTE}
+     * @type {Pointer<Ptr>}
      */
-    hPalCurrent{
-        get {
-            if(!this.HasProp("__hPalCurrent"))
-                this.__hPalCurrent := HPALETTE(this.ptr + 64)
-            return this.__hPalCurrent
-        }
+    hPalCurrent {
+        get => NumGet(this, 64, "ptr")
+        set => NumPut("ptr", value, this, 64)
     }
 
     /**

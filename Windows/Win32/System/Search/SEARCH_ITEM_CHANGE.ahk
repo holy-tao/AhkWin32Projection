@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Specifies the changes to an indexed item.
@@ -52,27 +51,21 @@ class SEARCH_ITEM_CHANGE extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      * Pointer to a null-terminated Unicode string containing the URL of the item in a SEARCH_CHANGE_MOVE_RENAME, SEARCH_CHANGE_ADD, or SEARCH_CHANGE_MODIFY notification. In the case of a move, this member contains the new URL of the item.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpwszURL{
-        get {
-            if(!this.HasProp("__lpwszURL"))
-                this.__lpwszURL := PWSTR(this.ptr + 16)
-            return this.__lpwszURL
-        }
+    lpwszURL {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * Type: <b>LPWSTR</b>
      * 
      * Pointer to a null-terminated Unicode string containing the old URL of the item in a SEARCH_CHANGE_MOVE_RENAME or SEARCH_CHANGE_DELETE notification.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpwszOldURL{
-        get {
-            if(!this.HasProp("__lpwszOldURL"))
-                this.__lpwszOldURL := PWSTR(this.ptr + 24)
-            return this.__lpwszOldURL
-        }
+    lpwszOldURL {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 }

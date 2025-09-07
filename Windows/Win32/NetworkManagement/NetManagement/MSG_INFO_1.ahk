@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The MSG_INFO_1 structure specifies a message alias. This structure exists only for compatibility. Message forwarding is not supported.
@@ -16,14 +15,11 @@ class MSG_INFO_1 extends Win32Struct
 
     /**
      * Pointer to a Unicode string that specifies the alias to which the message is to be sent. The constant LEN specifies the maximum number of characters in the string.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    msgi1_name{
-        get {
-            if(!this.HasProp("__msgi1_name"))
-                this.__msgi1_name := PWSTR(this.ptr + 0)
-            return this.__msgi1_name
-        }
+    msgi1_name {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
@@ -37,13 +33,10 @@ class MSG_INFO_1 extends Win32Struct
 
     /**
      * This member must be <b>NULL</b>.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    msgi1_forward{
-        get {
-            if(!this.HasProp("__msgi1_forward"))
-                this.__msgi1_forward := PWSTR(this.ptr + 16)
-            return this.__msgi1_forward
-        }
+    msgi1_forward {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 }

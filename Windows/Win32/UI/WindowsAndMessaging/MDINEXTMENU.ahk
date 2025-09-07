@@ -1,7 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\HMENU.ahk
-#Include ..\..\Foundation\HWND.ahk
 
 /**
  * Contains information about the menu to be activated.
@@ -19,41 +17,32 @@ class MDINEXTMENU extends Win32Struct
      * Type: <b>HMENU</b>
      * 
      * A handle to the current menu.
-     * @type {HMENU}
+     * @type {Pointer<Ptr>}
      */
-    hmenuIn{
-        get {
-            if(!this.HasProp("__hmenuIn"))
-                this.__hmenuIn := HMENU(this.ptr + 0)
-            return this.__hmenuIn
-        }
+    hmenuIn {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
      * Type: <b>HMENU</b>
      * 
      * A handle to the menu to be activated.
-     * @type {HMENU}
+     * @type {Pointer<Ptr>}
      */
-    hmenuNext{
-        get {
-            if(!this.HasProp("__hmenuNext"))
-                this.__hmenuNext := HMENU(this.ptr + 8)
-            return this.__hmenuNext
-        }
+    hmenuNext {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * Type: <b>HWND</b>
      * 
      * A handle to the window to receive the menu notification messages.
-     * @type {HWND}
+     * @type {Pointer<Ptr>}
      */
-    hwndNext{
-        get {
-            if(!this.HasProp("__hwndNext"))
-                this.__hwndNext := HWND(this.ptr + 16)
-            return this.__hwndNext
-        }
+    hwndNext {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 }

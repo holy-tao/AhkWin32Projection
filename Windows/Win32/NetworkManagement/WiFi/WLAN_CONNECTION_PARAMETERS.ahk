@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Specifies the parameters used when using the WlanConnect function.
@@ -31,14 +30,11 @@ class WLAN_CONNECTION_PARAMETERS extends Win32Struct
      * If  <b>wlanConnectionMode</b> is set to <b>wlan_connection_mode_profile</b>, then <b>strProfile</b> specifies the name of the profile used for the connection. If <b>wlanConnectionMode</b> is set to <b>wlan_connection_mode_temporary_profile</b>, then <b>strProfile</b> specifies the XML representation of the profile used for the connection. If <b>wlanConnectionMode</b> is set to <b>wlan_connection_mode_discovery_secure</b> or <b>wlan_connection_mode_discovery_unsecure</b>, then <b>strProfile</b> should be set to <b>NULL</b>.
      * 
      * <b>Windows XP with SP3 and Wireless LAN API for Windows XP with SP2:  </b>The profile must meet the compatibility criteria described in <a href="https://docs.microsoft.com/windows/desktop/NativeWiFi/wireless-profile-compatibility">Wireless Profile Compatibility</a>.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    strProfile{
-        get {
-            if(!this.HasProp("__strProfile"))
-                this.__strProfile := PWSTR(this.ptr + 8)
-            return this.__strProfile
-        }
+    strProfile {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

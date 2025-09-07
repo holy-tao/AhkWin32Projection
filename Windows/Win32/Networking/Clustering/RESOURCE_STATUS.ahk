@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * Contains information about a resource that is being brought online or taken offline. This structure is used as a parameter to the callback function SetResourceStatus.
@@ -67,13 +66,10 @@ class RESOURCE_STATUS extends Win32Struct
 
     /**
      * Handle to an event that indicates when the resource has failed.
-     * @type {HANDLE}
+     * @type {Pointer<Ptr>}
      */
-    EventHandle{
-        get {
-            if(!this.HasProp("__EventHandle"))
-                this.__EventHandle := HANDLE(this.ptr + 16)
-            return this.__EventHandle
-        }
+    EventHandle {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 }

@@ -3,7 +3,6 @@
 #Include ..\..\Foundation\FILETIME.ahk
 #Include .\FWP_BYTE_ARRAY16.ahk
 #Include .\FWP_BYTE_BLOB.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains information common to all events. (FWPM_NET_EVENT_HEADER3)
@@ -178,14 +177,11 @@ class FWPM_NET_EVENT_HEADER3 extends Win32Struct
 
     /**
      * The enterprise identifier for use with enterprise data protection (EDP).
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    enterpriseId{
-        get {
-            if(!this.HasProp("__enterpriseId"))
-                this.__enterpriseId := PWSTR(this.ptr + 80)
-            return this.__enterpriseId
-        }
+    enterpriseId {
+        get => NumGet(this, 80, "ptr")
+        set => NumPut("ptr", value, this, 80)
     }
 
     /**

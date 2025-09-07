@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Represents a generated SOAP fault.
@@ -25,7 +24,7 @@ class WSD_SOAP_FAULT extends Win32Struct
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/wsdtypes/ns-wsdtypes-wsd_soap_fault_reason">WSD_SOAP_FAULT_REASON</a> structure that contains localized human readable explanations of the fault.
-     * @type {Pointer<WSD_SOAP_FAULT_REASON>}
+     * @type {Pointer<Ptr>}
      */
     Reason {
         get => NumGet(this, 8, "ptr")
@@ -34,26 +33,20 @@ class WSD_SOAP_FAULT extends Win32Struct
 
     /**
      * The SOAP node on the SOAP message path that caused the fault.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    Node{
-        get {
-            if(!this.HasProp("__Node"))
-                this.__Node := PWSTR(this.ptr + 16)
-            return this.__Node
-        }
+    Node {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * The SOAP role in which the <b>Node</b> was acting at the time the fault occurred.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    Role{
-        get {
-            if(!this.HasProp("__Role"))
-                this.__Role := PWSTR(this.ptr + 24)
-            return this.__Role
-        }
+    Role {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**

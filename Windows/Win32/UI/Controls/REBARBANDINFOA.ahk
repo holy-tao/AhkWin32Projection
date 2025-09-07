@@ -1,8 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include ..\..\Graphics\Gdi\HBITMAP.ahk
 #Include ..\..\Foundation\RECT.ahk
 
 /**
@@ -368,14 +365,11 @@ class REBARBANDINFOA extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPTSTR</a></b>
      * 
      * Pointer to a buffer that contains the display text for the band. If band information is being requested from the control and  RBBIM_TEXT is specified in <b>fMask</b>, this member must be initialized to the address of the buffer that will receive the text.
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpText{
-        get {
-            if(!this.HasProp("__lpText"))
-                this.__lpText := PSTR(this.ptr + 24)
-            return this.__lpText
-        }
+    lpText {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
@@ -404,14 +398,11 @@ class REBARBANDINFOA extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
      * 
      * Handle to the child window contained in the band, if any.
-     * @type {HWND}
+     * @type {Pointer<Ptr>}
      */
-    hwndChild{
-        get {
-            if(!this.HasProp("__hwndChild"))
-                this.__hwndChild := HWND(this.ptr + 40)
-            return this.__hwndChild
-        }
+    hwndChild {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
@@ -451,14 +442,11 @@ class REBARBANDINFOA extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HBITMAP</a></b>
      * 
      * Handle to a bitmap that is used as the background for this band.
-     * @type {HBITMAP}
+     * @type {Pointer<Ptr>}
      */
-    hbmBack{
-        get {
-            if(!this.HasProp("__hbmBack"))
-                this.__hbmBack := HBITMAP(this.ptr + 64)
-            return this.__hbmBack
-        }
+    hbmBack {
+        get => NumGet(this, 64, "ptr")
+        set => NumPut("ptr", value, this, 64)
     }
 
     /**

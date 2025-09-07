@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\Cryptography\CRYPT_INTEGER_BLOB.ahk
 #Include .\SPC_SERIALIZED_OBJECT.ahk
 
@@ -23,14 +22,11 @@ class SPC_LINK extends Win32Struct
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pwszUrl{
-        get {
-            if(!this.HasProp("__pwszUrl"))
-                this.__pwszUrl := PWSTR(this.ptr + 8)
-            return this.__pwszUrl
-        }
+    pwszUrl {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -45,13 +41,10 @@ class SPC_LINK extends Win32Struct
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pwszFile{
-        get {
-            if(!this.HasProp("__pwszFile"))
-                this.__pwszFile := PWSTR(this.ptr + 8)
-            return this.__pwszFile
-        }
+    pwszFile {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 }

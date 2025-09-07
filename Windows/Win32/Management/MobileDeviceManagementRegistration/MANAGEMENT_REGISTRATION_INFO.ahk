@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.Management.MobileDeviceManagementRegistration
@@ -29,24 +28,18 @@ class MANAGEMENT_REGISTRATION_INFO extends Win32Struct
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszUPN{
-        get {
-            if(!this.HasProp("__pszUPN"))
-                this.__pszUPN := PWSTR(this.ptr + 8)
-            return this.__pszUPN
-        }
+    pszUPN {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszMDMServiceUri{
-        get {
-            if(!this.HasProp("__pszMDMServiceUri"))
-                this.__pszMDMServiceUri := PWSTR(this.ptr + 16)
-            return this.__pszMDMServiceUri
-        }
+    pszMDMServiceUri {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 }

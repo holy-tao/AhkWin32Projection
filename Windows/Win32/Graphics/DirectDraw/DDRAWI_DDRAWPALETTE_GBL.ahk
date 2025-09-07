@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\Gdi\HPALETTE.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
@@ -61,14 +60,11 @@ class DDRAWI_DDRAWPALETTE_GBL extends Win32Struct
     }
 
     /**
-     * @type {HPALETTE}
+     * @type {Pointer<Ptr>}
      */
-    hHELGDIPalette{
-        get {
-            if(!this.HasProp("__hHELGDIPalette"))
-                this.__hHELGDIPalette := HPALETTE(this.ptr + 32)
-            return this.__hHELGDIPalette
-        }
+    hHELGDIPalette {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**

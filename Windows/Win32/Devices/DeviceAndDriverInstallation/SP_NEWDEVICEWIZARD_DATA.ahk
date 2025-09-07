@@ -1,8 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\SP_CLASSINSTALL_HEADER.ahk
-#Include ..\..\UI\Controls\HPROPSHEETPAGE.ahk
-#Include ..\..\Foundation\HWND.ahk
 
 /**
  * An SP_NEWDEVICEWIZARD_DATA structure is used by installers to extend the operation of the hardware installation wizard by adding custom pages. It is used with DIF_NEWDEVICEWIZARD_XXX installation requests.
@@ -41,12 +39,12 @@ class SP_NEWDEVICEWIZARD_DATA extends Win32Struct
 
     /**
      * An array of property sheet page handles. An installer can add the handles of custom wizard pages to this array.
-     * @type {Array<HPROPSHEETPAGE>}
+     * @type {Array<Ptr>}
      */
     DynamicPages{
         get {
             if(!this.HasProp("__DynamicPagesProxyArray"))
-                this.__DynamicPagesProxyArray := Win32FixedArray(this.ptr + 12, 8, HPROPSHEETPAGE, "")
+                this.__DynamicPagesProxyArray := Win32FixedArray(this.ptr + 12, 8, Primitive, "ptr")
             return this.__DynamicPagesProxyArray
         }
     }
@@ -64,13 +62,10 @@ class SP_NEWDEVICEWIZARD_DATA extends Win32Struct
 
     /**
      * The handle to the top-level window of the hardware installation wizard .
-     * @type {HWND}
+     * @type {Pointer<Ptr>}
      */
-    hwndWizardDlg{
-        get {
-            if(!this.HasProp("__hwndWizardDlg"))
-                this.__hwndWizardDlg := HWND(this.ptr + 176)
-            return this.__hwndWizardDlg
-        }
+    hwndWizardDlg {
+        get => NumGet(this, 176, "ptr")
+        set => NumPut("ptr", value, this, 176)
     }
 }

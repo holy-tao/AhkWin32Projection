@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * @namespace Windows.Win32.Storage.Jet
@@ -22,14 +21,11 @@ class JET_INSTANCE_INFO_A extends Win32Struct
     }
 
     /**
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    szInstanceName{
-        get {
-            if(!this.HasProp("__szInstanceName"))
-                this.__szInstanceName := PSTR(this.ptr + 8)
-            return this.__szInstanceName
-        }
+    szInstanceName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

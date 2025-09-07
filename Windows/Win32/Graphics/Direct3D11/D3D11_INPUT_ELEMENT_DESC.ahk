@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * A description of a single element for the input-assembler stage. (D3D11_INPUT_ELEMENT_DESC)
@@ -21,14 +20,11 @@ class D3D11_INPUT_ELEMENT_DESC extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>
      * 
      * The HLSL semantic associated with this element in a shader input-signature. See <a href="https://docs.microsoft.com/windows/win32/direct3dhlsl/dx-graphics-hlsl-semantics">HLSL Semantics</a> for more info.
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    SemanticName{
-        get {
-            if(!this.HasProp("__SemanticName"))
-                this.__SemanticName := PSTR(this.ptr + 0)
-            return this.__SemanticName
-        }
+    SemanticName {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**

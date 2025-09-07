@@ -1,13 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\HWND.ahk
 #Include ..\..\..\Foundation\POINT.ahk
 #Include ..\..\..\Graphics\Gdi\LOGFONTA.ahk
 #Include ..\..\..\Graphics\Gdi\LOGFONTW.ahk
 #Include ..\..\..\Foundation\RECT.ahk
 #Include .\COMPOSITIONFORM.ahk
 #Include .\CANDIDATEFORM.ahk
-#Include .\HIMCC.ahk
 
 /**
  * @namespace Windows.Win32.UI.Input.Ime
@@ -20,14 +18,11 @@ class INPUTCONTEXT extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {HWND}
+     * @type {Pointer<Ptr>}
      */
-    hWnd{
-        get {
-            if(!this.HasProp("__hWnd"))
-                this.__hWnd := HWND(this.ptr + 0)
-            return this.__hWnd
-        }
+    hWnd {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
@@ -121,47 +116,35 @@ class INPUTCONTEXT extends Win32Struct
     }
 
     /**
-     * @type {HIMCC}
+     * @type {Pointer<Ptr>}
      */
-    hCompStr{
-        get {
-            if(!this.HasProp("__hCompStr"))
-                this.__hCompStr := HIMCC(this.ptr + 168)
-            return this.__hCompStr
-        }
+    hCompStr {
+        get => NumGet(this, 168, "ptr")
+        set => NumPut("ptr", value, this, 168)
     }
 
     /**
-     * @type {HIMCC}
+     * @type {Pointer<Ptr>}
      */
-    hCandInfo{
-        get {
-            if(!this.HasProp("__hCandInfo"))
-                this.__hCandInfo := HIMCC(this.ptr + 176)
-            return this.__hCandInfo
-        }
+    hCandInfo {
+        get => NumGet(this, 176, "ptr")
+        set => NumPut("ptr", value, this, 176)
     }
 
     /**
-     * @type {HIMCC}
+     * @type {Pointer<Ptr>}
      */
-    hGuideLine{
-        get {
-            if(!this.HasProp("__hGuideLine"))
-                this.__hGuideLine := HIMCC(this.ptr + 184)
-            return this.__hGuideLine
-        }
+    hGuideLine {
+        get => NumGet(this, 184, "ptr")
+        set => NumPut("ptr", value, this, 184)
     }
 
     /**
-     * @type {HIMCC}
+     * @type {Pointer<Ptr>}
      */
-    hPrivate{
-        get {
-            if(!this.HasProp("__hPrivate"))
-                this.__hPrivate := HIMCC(this.ptr + 192)
-            return this.__hPrivate
-        }
+    hPrivate {
+        get => NumGet(this, 192, "ptr")
+        set => NumPut("ptr", value, this, 192)
     }
 
     /**
@@ -173,14 +156,11 @@ class INPUTCONTEXT extends Win32Struct
     }
 
     /**
-     * @type {HIMCC}
+     * @type {Pointer<Ptr>}
      */
-    hMsgBuf{
-        get {
-            if(!this.HasProp("__hMsgBuf"))
-                this.__hMsgBuf := HIMCC(this.ptr + 208)
-            return this.__hMsgBuf
-        }
+    hMsgBuf {
+        get => NumGet(this, 208, "ptr")
+        set => NumPut("ptr", value, this, 208)
     }
 
     /**

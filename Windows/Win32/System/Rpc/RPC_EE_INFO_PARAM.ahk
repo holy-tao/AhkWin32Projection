@@ -1,7 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\BinaryParam.ahk
 
 /**
@@ -42,25 +40,19 @@ class RPC_EE_INFO_PARAM extends Win32Struct
     }
 
     /**
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    AnsiString{
-        get {
-            if(!this.HasProp("__AnsiString"))
-                this.__AnsiString := PSTR(this.ptr + 4)
-            return this.__AnsiString
-        }
+    AnsiString {
+        get => NumGet(this, 4, "ptr")
+        set => NumPut("ptr", value, this, 4)
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    UnicodeString{
-        get {
-            if(!this.HasProp("__UnicodeString"))
-                this.__UnicodeString := PWSTR(this.ptr + 4)
-            return this.__UnicodeString
-        }
+    UnicodeString {
+        get => NumGet(this, 4, "ptr")
+        set => NumPut("ptr", value, this, 4)
     }
 
     /**

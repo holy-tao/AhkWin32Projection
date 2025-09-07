@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * The MCI_DGV_RESERVE_PARMSA (ANSI) structure (digitalv.h) contains information for the MCI_RESERVE command for digital-video devices.
@@ -35,14 +34,11 @@ class MCI_DGV_RESERVE_PARMSA extends Win32Struct
 
     /**
      * Pointer to a null-terminated string containing the location of a temporary file. The buffer contains only the drive and directory path of the file used to hold recorded data; the filename is specified by the device driver.
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpstrPath{
-        get {
-            if(!this.HasProp("__lpstrPath"))
-                this.__lpstrPath := PSTR(this.ptr + 8)
-            return this.__lpstrPath
-        }
+    lpstrPath {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

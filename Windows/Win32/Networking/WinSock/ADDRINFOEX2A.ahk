@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * Used by the GetAddrInfoEx function to hold host address information when both a canonical name and a fully qualified domain name have been requested. (ANSI)
@@ -462,14 +461,11 @@ class ADDRINFOEX2A extends Win32Struct
 
     /**
      * The canonical name for the host.
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    ai_canonname{
-        get {
-            if(!this.HasProp("__ai_canonname"))
-                this.__ai_canonname := PSTR(this.ptr + 24)
-            return this.__ai_canonname
-        }
+    ai_canonname {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
@@ -530,13 +526,10 @@ class ADDRINFOEX2A extends Win32Struct
 
     /**
      * The fully qualified domain name for the host.
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    ai_fqdn{
-        get {
-            if(!this.HasProp("__ai_fqdn"))
-                this.__ai_fqdn := PSTR(this.ptr + 80)
-            return this.__ai_fqdn
-        }
+    ai_fqdn {
+        get => NumGet(this, 80, "ptr")
+        set => NumPut("ptr", value, this, 80)
     }
 }

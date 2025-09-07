@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The ADS_CLASS_DEF structure is used only as a part of IDirectorySchemaMgmt, which is an obsolete interface. The information that follows is provided for legacy purposes only. The ADS_CLASS_DEF structure holds the definitions of an object class.
@@ -16,14 +15,11 @@ class ADS_CLASS_DEF extends Win32Struct
 
     /**
      * The null-terminated Unicode string that specifies the class name.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszClassName{
-        get {
-            if(!this.HasProp("__pszClassName"))
-                this.__pszClassName := PWSTR(this.ptr + 0)
-            return this.__pszClassName
-        }
+    pszClassName {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
@@ -37,7 +33,7 @@ class ADS_CLASS_DEF extends Win32Struct
 
     /**
      * Pointer to an array of  null-terminated Unicode strings that contain the names of the mandatory attributes.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Ptr>}
      */
     ppszMandatoryAttrs {
         get => NumGet(this, 16, "ptr")
@@ -55,7 +51,7 @@ class ADS_CLASS_DEF extends Win32Struct
 
     /**
      * Pointer to an array of null-terminated Unicode strings that contain the names of the optional attributes.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Ptr>}
      */
     ppszOptionalAttrs {
         get => NumGet(this, 32, "ptr")
@@ -73,7 +69,7 @@ class ADS_CLASS_DEF extends Win32Struct
 
     /**
      * Pointer to an array of null-terminated Unicode strings that contain the names of the naming attributes.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Ptr>}
      */
     ppszNamingAttrs {
         get => NumGet(this, 48, "ptr")
@@ -91,7 +87,7 @@ class ADS_CLASS_DEF extends Win32Struct
 
     /**
      * Pointer to an array of null-terminated Unicode strings that contain the names of the super classes.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Ptr>}
      */
     ppszSuperClasses {
         get => NumGet(this, 64, "ptr")

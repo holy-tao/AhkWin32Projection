@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\RECT.ahk
-#Include ..\..\Foundation\HWND.ahk
 
 /**
  * Contains combo box status information.
@@ -76,42 +75,33 @@ class COMBOBOXINFO extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
      * 
      * A handle to the combo box.
-     * @type {HWND}
+     * @type {Pointer<Ptr>}
      */
-    hwndCombo{
-        get {
-            if(!this.HasProp("__hwndCombo"))
-                this.__hwndCombo := HWND(this.ptr + 48)
-            return this.__hwndCombo
-        }
+    hwndCombo {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
      * 
      * A handle to the edit box.
-     * @type {HWND}
+     * @type {Pointer<Ptr>}
      */
-    hwndItem{
-        get {
-            if(!this.HasProp("__hwndItem"))
-                this.__hwndItem := HWND(this.ptr + 56)
-            return this.__hwndItem
-        }
+    hwndItem {
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
      * 
      * A handle to the drop-down list.
-     * @type {HWND}
+     * @type {Pointer<Ptr>}
      */
-    hwndList{
-        get {
-            if(!this.HasProp("__hwndList"))
-                this.__hwndList := HWND(this.ptr + 64)
-            return this.__hwndList
-        }
+    hwndList {
+        get => NumGet(this, 64, "ptr")
+        set => NumPut("ptr", value, this, 64)
     }
 
     /**

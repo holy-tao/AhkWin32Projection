@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * Provides a context for handling the response to a two-way request.
@@ -25,14 +24,11 @@ class WSD_SYNCHRONOUS_RESPONSE_CONTEXT extends Win32Struct
 
     /**
      * The event handle to be signaled when the response is ready.
-     * @type {HANDLE}
+     * @type {Pointer<Ptr>}
      */
-    eventHandle{
-        get {
-            if(!this.HasProp("__eventHandle"))
-                this.__eventHandle := HANDLE(this.ptr + 8)
-            return this.__eventHandle
-        }
+    eventHandle {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

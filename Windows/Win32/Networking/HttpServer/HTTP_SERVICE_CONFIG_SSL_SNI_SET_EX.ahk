@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\WinSock\SOCKADDR_STORAGE.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\HTTP_SERVICE_CONFIG_SSL_SNI_KEY.ahk
 #Include .\HTTP2_SETTINGS_LIMITS_PARAM.ahk
 #Include .\HTTP_PERFORMANCE_PARAM.ahk

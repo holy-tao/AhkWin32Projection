@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * The PHONEINITIALIZEEXPARAMS structure contains parameters used to establish the association between an application and TAPI; for example, the application's selected event notification mechanism. The phoneInitializeEx function uses this structure.
@@ -55,25 +54,19 @@ class PHONEINITIALIZEEXPARAMS extends Win32Struct
     }
 
     /**
-     * @type {HANDLE}
+     * @type {Pointer<Ptr>}
      */
-    hEvent{
-        get {
-            if(!this.HasProp("__hEvent"))
-                this.__hEvent := HANDLE(this.ptr + 16)
-            return this.__hEvent
-        }
+    hEvent {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
-     * @type {HANDLE}
+     * @type {Pointer<Ptr>}
      */
-    hCompletionPort{
-        get {
-            if(!this.HasProp("__hCompletionPort"))
-                this.__hCompletionPort := HANDLE(this.ptr + 16)
-            return this.__hCompletionPort
-        }
+    hCompletionPort {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**

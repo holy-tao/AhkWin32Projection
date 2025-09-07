@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\Foundation\LUID.ahk
-#Include ..\..\..\Foundation\HANDLE.ahk
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
@@ -81,14 +80,11 @@ class SECPKG_CLIENT_INFO_EX extends Win32Struct
     }
 
     /**
-     * @type {HANDLE}
+     * @type {Pointer<Ptr>}
      */
-    ClientToken{
-        get {
-            if(!this.HasProp("__ClientToken"))
-                this.__ClientToken := HANDLE(this.ptr + 24)
-            return this.__ClientToken
-        }
+    ClientToken {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
@@ -103,13 +99,10 @@ class SECPKG_CLIENT_INFO_EX extends Win32Struct
     }
 
     /**
-     * @type {HANDLE}
+     * @type {Pointer<Ptr>}
      */
-    IdentificationToken{
-        get {
-            if(!this.HasProp("__IdentificationToken"))
-                this.__IdentificationToken := HANDLE(this.ptr + 40)
-            return this.__IdentificationToken
-        }
+    IdentificationToken {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 }

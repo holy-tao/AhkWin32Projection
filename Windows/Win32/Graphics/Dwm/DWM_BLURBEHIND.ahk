@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\Gdi\HRGN.ahk
 
 /**
  * Specifies Desktop Window Manager (DWM) blur-behind properties. Used by the DwmEnableBlurBehindWindow function.
@@ -34,14 +33,11 @@ class DWM_BLURBEHIND extends Win32Struct
 
     /**
      * The region within the client area where the blur behind will be applied. A <b>NULL</b> value will apply the blur behind the entire client area.
-     * @type {HRGN}
+     * @type {Pointer<Ptr>}
      */
-    hRgnBlur{
-        get {
-            if(!this.HasProp("__hRgnBlur"))
-                this.__hRgnBlur := HRGN(this.ptr + 8)
-            return this.__hRgnBlur
-        }
+    hRgnBlur {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

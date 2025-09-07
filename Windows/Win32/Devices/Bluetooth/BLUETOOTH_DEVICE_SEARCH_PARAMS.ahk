@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * Specifies search criteria for Bluetooth device searches.
@@ -79,13 +78,10 @@ class BLUETOOTH_DEVICE_SEARCH_PARAMS extends Win32Struct
 
     /**
      * A handle for the radio on which to perform the inquiry. Set to <b>NULL</b> to perform the inquiry on all local Bluetooth radios.
-     * @type {HANDLE}
+     * @type {Pointer<Ptr>}
      */
-    hRadio{
-        get {
-            if(!this.HasProp("__hRadio"))
-                this.__hRadio := HANDLE(this.ptr + 32)
-            return this.__hRadio
-        }
+    hRadio {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 }

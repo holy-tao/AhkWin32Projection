@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include ..\..\Kernel\LIST_ENTRY.ahk
-#Include ..\..\..\Foundation\PSTR.ahk
 
 /**
  * Contains debugging information.
@@ -132,14 +131,11 @@ class IMAGE_DEBUG_INFORMATION extends Win32Struct
 
     /**
      * A pointer to a series of null-terminated strings that name all the functions exported from the image.
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    ReservedExportedNames{
-        get {
-            if(!this.HasProp("__ReservedExportedNames"))
-                this.__ReservedExportedNames := PSTR(this.ptr + 72)
-            return this.__ReservedExportedNames
-        }
+    ReservedExportedNames {
+        get => NumGet(this, 72, "ptr")
+        set => NumPut("ptr", value, this, 72)
     }
 
     /**
@@ -236,38 +232,29 @@ class IMAGE_DEBUG_INFORMATION extends Win32Struct
 
     /**
      * The relative path to the image file name.
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    ImageFilePath{
-        get {
-            if(!this.HasProp("__ImageFilePath"))
-                this.__ImageFilePath := PSTR(this.ptr + 152)
-            return this.__ImageFilePath
-        }
+    ImageFilePath {
+        get => NumGet(this, 152, "ptr")
+        set => NumPut("ptr", value, this, 152)
     }
 
     /**
      * The image file name.
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    ImageFileName{
-        get {
-            if(!this.HasProp("__ImageFileName"))
-                this.__ImageFileName := PSTR(this.ptr + 160)
-            return this.__ImageFileName
-        }
+    ImageFileName {
+        get => NumGet(this, 160, "ptr")
+        set => NumPut("ptr", value, this, 160)
     }
 
     /**
      * The full path to the symbol file.
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    ReservedDebugFilePath{
-        get {
-            if(!this.HasProp("__ReservedDebugFilePath"))
-                this.__ReservedDebugFilePath := PSTR(this.ptr + 168)
-            return this.__ReservedDebugFilePath
-        }
+    ReservedDebugFilePath {
+        get => NumGet(this, 168, "ptr")
+        set => NumPut("ptr", value, this, 168)
     }
 
     /**

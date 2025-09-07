@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\DDPIXELFORMAT.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
@@ -81,14 +80,11 @@ class DDRAWI_DDMOTIONCOMP_LCL extends Win32Struct
     }
 
     /**
-     * @type {HANDLE}
+     * @type {Pointer<Ptr>}
      */
-    hMoComp{
-        get {
-            if(!this.HasProp("__hMoComp"))
-                this.__hMoComp := HANDLE(this.ptr + 72)
-            return this.__hMoComp
-        }
+    hMoComp {
+        get => NumGet(this, 72, "ptr")
+        set => NumPut("ptr", value, this, 72)
     }
 
     /**

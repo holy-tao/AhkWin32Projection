@@ -1,7 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The GPOBROWSEINFO structure contains information that the BrowseForGPO function uses to initialize a GPO browser dialog box. After the user closes the dialog box, the system returns information about the user's actions in this structure.
@@ -35,50 +33,38 @@ class GPOBROWSEINFO extends Win32Struct
 
     /**
      * Specifies the handle to the parent window. If this member is <b>NULL</b>, the dialog box has no owner.
-     * @type {HWND}
+     * @type {Pointer<Ptr>}
      */
-    hwndOwner{
-        get {
-            if(!this.HasProp("__hwndOwner"))
-                this.__hwndOwner := HWND(this.ptr + 8)
-            return this.__hwndOwner
-        }
+    hwndOwner {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * Specifies the title bar text. If this member is <b>NULL</b>, the title bar text is <b>Browse for a Group Policy Object</b>.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpTitle{
-        get {
-            if(!this.HasProp("__lpTitle"))
-                this.__lpTitle := PWSTR(this.ptr + 16)
-            return this.__lpTitle
-        }
+    lpTitle {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * Specifies the initial domain or organizational unit.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpInitialOU{
-        get {
-            if(!this.HasProp("__lpInitialOU"))
-                this.__lpInitialOU := PWSTR(this.ptr + 24)
-            return this.__lpInitialOU
-        }
+    lpInitialOU {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
      * Pointer to a buffer that receives the Active Directory path of the GPO.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpDSPath{
-        get {
-            if(!this.HasProp("__lpDSPath"))
-                this.__lpDSPath := PWSTR(this.ptr + 32)
-            return this.__lpDSPath
-        }
+    lpDSPath {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
@@ -94,14 +80,11 @@ class GPOBROWSEINFO extends Win32Struct
      * Pointer to a buffer that receives either the computer name or the friendly (display) name of the GPO. If the user opens or creates a GPO in the <b>Computers</b> tab, this member contains the computer name. If the user opens or creates a GPO in the Active Directory, this member contains the friendly name. To determine the GPO type, see the description for the <b>gpoType</b> member.
      * 
      * This member can be <b>NULL</b>.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpName{
-        get {
-            if(!this.HasProp("__lpName"))
-                this.__lpName := PWSTR(this.ptr + 48)
-            return this.__lpName
-        }
+    lpName {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**

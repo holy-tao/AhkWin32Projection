@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\HANDLE.ahk
 
 /**
  * @namespace Windows.Win32.Media.Audio.DirectSound
@@ -21,13 +20,10 @@ class DSBPOSITIONNOTIFY extends Win32Struct
     }
 
     /**
-     * @type {HANDLE}
+     * @type {Pointer<Ptr>}
      */
-    hEventNotify{
-        get {
-            if(!this.HasProp("__hEventNotify"))
-                this.__hEventNotify := HANDLE(this.ptr + 8)
-            return this.__hEventNotify
-        }
+    hEventNotify {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 }

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
 
 /**
  * Contains information passed to a WH_CBT hook procedure, CBTProc, before a window is created. (ANSI)
@@ -33,13 +32,10 @@ class CBT_CREATEWNDA extends Win32Struct
      * Type: <b>HWND</b>
      * 
      * A handle to the window whose position in the Z order precedes that of the window being created. This member can also be <b>NULL</b>.
-     * @type {HWND}
+     * @type {Pointer<Ptr>}
      */
-    hwndInsertAfter{
-        get {
-            if(!this.HasProp("__hwndInsertAfter"))
-                this.__hwndInsertAfter := HWND(this.ptr + 8)
-            return this.__hwndInsertAfter
-        }
+    hwndInsertAfter {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 }

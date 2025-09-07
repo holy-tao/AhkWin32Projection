@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * @namespace Windows.Win32.System.Iis
@@ -13,25 +12,19 @@ class HTTP_FILTER_URL_MAP_EX extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszURL{
-        get {
-            if(!this.HasProp("__pszURL"))
-                this.__pszURL := PSTR(this.ptr + 0)
-            return this.__pszURL
-        }
+    pszURL {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszPhysicalPath{
-        get {
-            if(!this.HasProp("__pszPhysicalPath"))
-                this.__pszPhysicalPath := PSTR(this.ptr + 8)
-            return this.__pszPhysicalPath
-        }
+    pszPhysicalPath {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -67,13 +60,10 @@ class HTTP_FILTER_URL_MAP_EX extends Win32Struct
     }
 
     /**
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszScriptMapEntry{
-        get {
-            if(!this.HasProp("__pszScriptMapEntry"))
-                this.__pszScriptMapEntry := PSTR(this.ptr + 32)
-            return this.__pszScriptMapEntry
-        }
+    pszScriptMapEntry {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 }

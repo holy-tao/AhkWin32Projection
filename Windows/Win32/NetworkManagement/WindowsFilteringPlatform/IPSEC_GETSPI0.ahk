@@ -36,9 +36,9 @@ class IPSEC_GETSPI0 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<IPSEC_V4_UDP_ENCAPSULATION0>}
+     * @type {Pointer<Ptr>}
      */
-    inboundUdpEncapsulation {
+    Anonymous {
         get => NumGet(this, 40, "ptr")
         set => NumPut("ptr", value, this, 40)
     }

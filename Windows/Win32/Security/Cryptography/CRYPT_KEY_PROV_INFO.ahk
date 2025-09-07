@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The CRYPT_KEY_PROV_INFO structure contains information about a key container within a cryptographic service provider (CSP).
@@ -18,28 +17,22 @@ class CRYPT_KEY_PROV_INFO extends Win32Struct
      * A pointer to a null-terminated Unicode string that contains the name of the key container.
      * 
      * When the <b>dwProvType</b> member is zero, this string contains the name of a key within a CNG key storage provider. This string is passed as the <i>pwszKeyName</i> parameter to the <a href="https://docs.microsoft.com/windows/desktop/api/ncrypt/nf-ncrypt-ncryptopenkey">NCryptOpenKey</a> function.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pwszContainerName{
-        get {
-            if(!this.HasProp("__pwszContainerName"))
-                this.__pwszContainerName := PWSTR(this.ptr + 0)
-            return this.__pwszContainerName
-        }
+    pwszContainerName {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
      * A pointer to a null-terminated Unicode string that contains the name of the CSP.
      * 
      * When the <b>dwProvType</b> member is zero, this string contains the name of a CNG key storage provider. This string is passed as the <i>pwszProviderName</i> parameter to the <a href="https://docs.microsoft.com/windows/desktop/api/ncrypt/nf-ncrypt-ncryptopenstorageprovider">NCryptOpenStorageProvider</a> function.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pwszProvName{
-        get {
-            if(!this.HasProp("__pwszProvName"))
-                this.__pwszProvName := PWSTR(this.ptr + 8)
-            return this.__pwszProvName
-        }
+    pwszProvName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

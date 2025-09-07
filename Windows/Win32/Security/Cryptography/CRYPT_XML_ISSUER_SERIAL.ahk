@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains an X.509 issued distinguished name�serial number pair.
@@ -16,25 +15,19 @@ class CRYPT_XML_ISSUER_SERIAL extends Win32Struct
 
     /**
      * A pointer to a null-terminated wide character string that contains the issuer of the certificate.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    wszIssuer{
-        get {
-            if(!this.HasProp("__wszIssuer"))
-                this.__wszIssuer := PWSTR(this.ptr + 0)
-            return this.__wszIssuer
-        }
+    wszIssuer {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
      * A pointer to a null-terminated wide character string that contains the serial number of the certificate.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    wszSerial{
-        get {
-            if(!this.HasProp("__wszSerial"))
-                this.__wszSerial := PWSTR(this.ptr + 8)
-            return this.__wszSerial
-        }
+    wszSerial {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 }

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Represents the DNS settings that can be configured on a given interface by calling the [**SetInterfaceDnsSettings**](/windows/win32/api/netioapi/nf-netioapi-setinterfacednssettings) function. (DNS_INTERFACE_SETTINGS)
@@ -58,14 +57,11 @@ class DNS_INTERFACE_SETTINGS extends Win32Struct
      * Type: **[PWSTR](/windows/win32/winprog/windows-data-types)**
      * 
      * A NULL-terminated wide string containing the adapter domain name.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    Domain{
-        get {
-            if(!this.HasProp("__Domain"))
-                this.__Domain := PWSTR(this.ptr + 16)
-            return this.__Domain
-        }
+    Domain {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
@@ -74,28 +70,22 @@ class DNS_INTERFACE_SETTINGS extends Win32Struct
      * A NULL-terminated wide string containing a series of comma- or space-separated DNS servers. For example, L"1.1.1.1 8.8.8.8", or L"1.1.1.1,8.8.8.8".
      *  
      * If the **DNS_SETTING_IPV6** flag is present, then the servers must be IPv6 addresses. For example, L"2606:4700:4700::1001,2606:4700:4700::1111".
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    NameServer{
-        get {
-            if(!this.HasProp("__NameServer"))
-                this.__NameServer := PWSTR(this.ptr + 24)
-            return this.__NameServer
-        }
+    NameServer {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
      * Type: **[PWSTR](/windows/win32/winprog/windows-data-types)**
      * 
      * A NULL-terminated wide string containing a series of comma- or space-separated search names. For example, L"contoso1.com contoso2.com", or L"contoso1.com, contoso2.com".
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    SearchList{
-        get {
-            if(!this.HasProp("__SearchList"))
-                this.__SearchList := PWSTR(this.ptr + 32)
-            return this.__SearchList
-        }
+    SearchList {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
@@ -148,13 +138,10 @@ class DNS_INTERFACE_SETTINGS extends Win32Struct
      * A NULL-terminated wide string containing a series of comma- or space-separated DNS servers. For example, L"1.1.1.1 8.8.8.8" or L"1.1.1.1,8.8.8.8".
      *  
      * If the **DNS_SETTING_IPV6** flag is present, then the servers must be IPv6 addresses. For example, L"2606:4700:4700::1001,2606:4700:4700::1111".
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    ProfileNameServer{
-        get {
-            if(!this.HasProp("__ProfileNameServer"))
-                this.__ProfileNameServer := PWSTR(this.ptr + 56)
-            return this.__ProfileNameServer
-        }
+    ProfileNameServer {
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 }

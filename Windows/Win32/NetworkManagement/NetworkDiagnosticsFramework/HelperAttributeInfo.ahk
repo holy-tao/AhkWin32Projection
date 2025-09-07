@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The HelperAttributeInfo structure contains the name of the helper attribute and its type.
@@ -18,14 +17,11 @@ class HelperAttributeInfo extends Win32Struct
      * Type: <b>[string] LPWSTR</b>
      * 
      * Pointer to a null-terminated string that contains the name of the helper attribute.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pwszName{
-        get {
-            if(!this.HasProp("__pwszName"))
-                this.__pwszName := PWSTR(this.ptr + 0)
-            return this.__pwszName
-        }
+    pwszName {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**

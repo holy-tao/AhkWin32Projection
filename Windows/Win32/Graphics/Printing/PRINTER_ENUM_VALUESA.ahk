@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * The PRINTER\_ENUM\_VALUES structure specifies the value name, type, and data for a printer configuration value returned by the EnumPrinterDataEx function.
@@ -17,14 +16,11 @@ class PRINTER_ENUM_VALUESA extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that specifies the name of the retrieved value.
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    pValueName{
-        get {
-            if(!this.HasProp("__pValueName"))
-                this.__pValueName := PSTR(this.ptr + 0)
-            return this.__pValueName
-        }
+    pValueName {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**

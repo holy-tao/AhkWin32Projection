@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * This structure is used by the WdsTransportClientStartSession function.
@@ -66,39 +65,30 @@ class WDS_TRANSPORTCLIENT_REQUEST extends Win32Struct
 
     /**
      * Server name.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pwszServer{
-        get {
-            if(!this.HasProp("__pwszServer"))
-                this.__pwszServer := PWSTR(this.ptr + 16)
-            return this.__pwszServer
-        }
+    pwszServer {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * Namespace of the object to retrieve.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pwszNamespace{
-        get {
-            if(!this.HasProp("__pwszNamespace"))
-                this.__pwszNamespace := PWSTR(this.ptr + 24)
-            return this.__pwszNamespace
-        }
+    pwszNamespace {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
      * Specifies the name of the object to retrieve.  Object names are
      *      provider dependent.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pwszObjectName{
-        get {
-            if(!this.HasProp("__pwszObjectName"))
-                this.__pwszObjectName := PWSTR(this.ptr + 32)
-            return this.__pwszObjectName
-        }
+    pwszObjectName {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**

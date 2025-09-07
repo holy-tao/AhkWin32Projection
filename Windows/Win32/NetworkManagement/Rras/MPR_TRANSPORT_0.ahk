@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * The MPR_TRANSPORT_0 structure contains information for a particular transport.
@@ -25,14 +24,11 @@ class MPR_TRANSPORT_0 extends Win32Struct
 
     /**
      * Handle to the transport.
-     * @type {HANDLE}
+     * @type {Pointer<Ptr>}
      */
-    hTransport{
-        get {
-            if(!this.HasProp("__hTransport"))
-                this.__hTransport := HANDLE(this.ptr + 8)
-            return this.__hTransport
-        }
+    hTransport {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

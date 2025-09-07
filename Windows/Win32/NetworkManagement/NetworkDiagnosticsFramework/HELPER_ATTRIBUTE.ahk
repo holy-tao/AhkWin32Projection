@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Foundation\FILETIME.ahk
 #Include .\LIFE_TIME.ahk
 #Include .\DIAG_SOCKADDR.ahk
@@ -22,14 +21,11 @@ class HELPER_ATTRIBUTE extends Win32Struct
      * Type: <b>[string] LPWSTR</b>
      * 
      * A pointer to a null-terminated string that contains the name of the attribute.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pwszName{
-        get {
-            if(!this.HasProp("__pwszName"))
-                this.__pwszName := PWSTR(this.ptr + 0)
-            return this.__pwszName
-        }
+    pwszName {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
@@ -116,14 +112,11 @@ class HELPER_ATTRIBUTE extends Win32Struct
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    PWStr{
-        get {
-            if(!this.HasProp("__PWStr"))
-                this.__PWStr := PWSTR(this.ptr + 12)
-            return this.__PWStr
-        }
+    PWStr {
+        get => NumGet(this, 12, "ptr")
+        set => NumPut("ptr", value, this, 12)
     }
 
     /**

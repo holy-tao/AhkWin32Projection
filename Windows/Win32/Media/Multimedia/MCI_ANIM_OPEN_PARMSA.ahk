@@ -1,7 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
-#Include ..\..\Foundation\HWND.ahk
 
 /**
  * @namespace Windows.Win32.Media.Multimedia
@@ -31,36 +29,27 @@ class MCI_ANIM_OPEN_PARMSA extends Win32Struct
     }
 
     /**
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpstrDeviceType{
-        get {
-            if(!this.HasProp("__lpstrDeviceType"))
-                this.__lpstrDeviceType := PSTR(this.ptr + 12)
-            return this.__lpstrDeviceType
-        }
+    lpstrDeviceType {
+        get => NumGet(this, 12, "ptr")
+        set => NumPut("ptr", value, this, 12)
     }
 
     /**
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpstrElementName{
-        get {
-            if(!this.HasProp("__lpstrElementName"))
-                this.__lpstrElementName := PSTR(this.ptr + 20)
-            return this.__lpstrElementName
-        }
+    lpstrElementName {
+        get => NumGet(this, 20, "ptr")
+        set => NumPut("ptr", value, this, 20)
     }
 
     /**
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpstrAlias{
-        get {
-            if(!this.HasProp("__lpstrAlias"))
-                this.__lpstrAlias := PSTR(this.ptr + 28)
-            return this.__lpstrAlias
-        }
+    lpstrAlias {
+        get => NumGet(this, 28, "ptr")
+        set => NumPut("ptr", value, this, 28)
     }
 
     /**
@@ -72,13 +61,10 @@ class MCI_ANIM_OPEN_PARMSA extends Win32Struct
     }
 
     /**
-     * @type {HWND}
+     * @type {Pointer<Ptr>}
      */
-    hWndParent{
-        get {
-            if(!this.HasProp("__hWndParent"))
-                this.__hWndParent := HWND(this.ptr + 40)
-            return this.__hWndParent
-        }
+    hWndParent {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 }

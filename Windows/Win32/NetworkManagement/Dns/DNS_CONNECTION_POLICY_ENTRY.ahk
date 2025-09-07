@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Dns
@@ -13,25 +12,19 @@ class DNS_CONNECTION_POLICY_ENTRY extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pwszHost{
-        get {
-            if(!this.HasProp("__pwszHost"))
-                this.__pwszHost := PWSTR(this.ptr + 0)
-            return this.__pwszHost
-        }
+    pwszHost {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pwszAppId{
-        get {
-            if(!this.HasProp("__pwszAppId"))
-                this.__pwszAppId := PWSTR(this.ptr + 8)
-            return this.__pwszAppId
-        }
+    pwszAppId {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -59,7 +52,7 @@ class DNS_CONNECTION_POLICY_ENTRY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Ptr>}
      */
     ppwszConnections {
         get => NumGet(this, 40, "ptr")

@@ -1,7 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains information that the SHFileOperation function uses to perform file operations. (Unicode)
@@ -100,14 +98,11 @@ class SHFILEOPSTRUCTW extends Win32Struct
      * Type: <b>HWND</b>
      * 
      * A window handle to the dialog box to display information about the status of the file operation.
-     * @type {HWND}
+     * @type {Pointer<Ptr>}
      */
-    hwnd{
-        get {
-            if(!this.HasProp("__hwnd"))
-                this.__hwnd := HWND(this.ptr + 0)
-            return this.__hwnd
-        }
+    hwnd {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
@@ -129,14 +124,11 @@ class SHFILEOPSTRUCTW extends Win32Struct
      * Standard MS-DOS wildcard characters, such as "*", are permitted <i>only</i> in the file-name position. Using a wildcard character elsewhere in the string will lead to unpredictable results.
      * 
      * Although this member is declared as a single null-terminated string, it is actually a buffer that can hold multiple null-delimited file names. Each file name is terminated by a single <b>NULL</b> character. The last file name is terminated with a double <b>NULL</b> character ("\0\0") to indicate the end of the buffer.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pFrom{
-        get {
-            if(!this.HasProp("__pFrom"))
-                this.__pFrom := PWSTR(this.ptr + 12)
-            return this.__pFrom
-        }
+    pFrom {
+        get => NumGet(this, 12, "ptr")
+        set => NumPut("ptr", value, this, 12)
     }
 
     /**
@@ -155,14 +147,11 @@ class SHFILEOPSTRUCTW extends Win32Struct
      * <li>Pack multiple names into the <b>pTo</b> string in the same way as for <b>pFrom</b>.</li>
      * <li>Use fully qualified paths. Using relative paths is not prohibited, but can have unpredictable results.</li>
      * </ul>
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pTo{
-        get {
-            if(!this.HasProp("__pTo"))
-                this.__pTo := PWSTR(this.ptr + 20)
-            return this.__pTo
-        }
+    pTo {
+        get => NumGet(this, 20, "ptr")
+        set => NumPut("ptr", value, this, 20)
     }
 
     /**
@@ -202,13 +191,10 @@ class SHFILEOPSTRUCTW extends Win32Struct
      * Type: <b>PCTSTR</b>
      * 
      * A pointer to the title of a progress dialog box. This is a null-terminated string. This member is used only if <b>fFlags</b> includes the <b>FOF_SIMPLEPROGRESS</b> flag.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpszProgressTitle{
-        get {
-            if(!this.HasProp("__lpszProgressTitle"))
-                this.__lpszProgressTitle := PWSTR(this.ptr + 42)
-            return this.__lpszProgressTitle
-        }
+    lpszProgressTitle {
+        get => NumGet(this, 42, "ptr")
+        set => NumPut("ptr", value, this, 42)
     }
 }

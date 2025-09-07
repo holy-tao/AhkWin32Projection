@@ -2,7 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\WEBAUTHN_CREDENTIALS.ahk
 #Include .\WEBAUTHN_EXTENSIONS.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * A structure that contains the options to get an assertion.
@@ -89,14 +88,11 @@ class WEBAUTHN_AUTHENTICATOR_GET_ASSERTION_OPTIONS extends Win32Struct
 
     /**
      * _Optional_ identifier for the U2F AppId. Converted to UTF8 before being hashed. Not lower-cased.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pwszU2fAppId{
-        get {
-            if(!this.HasProp("__pwszU2fAppId"))
-                this.__pwszU2fAppId := PWSTR(this.ptr + 56)
-            return this.__pwszU2fAppId
-        }
+    pwszU2fAppId {
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 
     /**

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\System\Com\BLOB.ahk
 
 /**
@@ -43,42 +42,33 @@ class SERVICE_INFOW extends Win32Struct
      * 
      * If you are calling the 
      * <b>SetService</b> function with the <i>dwNameSpace</i> parameter set to a specific service name, the network service name can be a common name or a distinguished name. A distinguished name distinguishes the service to a unique location with a directory service. An example of a distinguished name for a network service is "MS\\SYS\\NT\\DEV\\My SQL Server".
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpServiceName{
-        get {
-            if(!this.HasProp("__lpServiceName"))
-                this.__lpServiceName := PWSTR(this.ptr + 8)
-            return this.__lpServiceName
-        }
+    lpServiceName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * Type: <b>LPTSTR</b>
      * 
      * A pointer to a <b>NULL</b>-terminated string that is a comment or description for the network service. For example, "Used for development upgrades."
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpComment{
-        get {
-            if(!this.HasProp("__lpComment"))
-                this.__lpComment := PWSTR(this.ptr + 16)
-            return this.__lpComment
-        }
+    lpComment {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * Type: <b>LPTSTR</b>
      * 
      * A pointer to a <b>NULL</b>-terminated string that contains locale information.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpLocale{
-        get {
-            if(!this.HasProp("__lpLocale"))
-                this.__lpLocale := PWSTR(this.ptr + 24)
-            return this.__lpLocale
-        }
+    lpLocale {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
@@ -116,14 +106,11 @@ class SERVICE_INFOW extends Win32Struct
      * Type: <b>LPTSTR</b>
      * 
      * A pointer to a <b>NULL</b>-terminated string that is the name of the computer on which the network service is running.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpMachineName{
-        get {
-            if(!this.HasProp("__lpMachineName"))
-                this.__lpMachineName := PWSTR(this.ptr + 48)
-            return this.__lpMachineName
-        }
+    lpMachineName {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**

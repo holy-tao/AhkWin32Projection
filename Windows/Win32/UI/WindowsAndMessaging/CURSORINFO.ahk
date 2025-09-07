@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\HCURSOR.ahk
 #Include ..\..\Foundation\POINT.ahk
 
 /**
@@ -39,14 +38,11 @@ class CURSORINFO extends Win32Struct
      * Type: <b>HCURSOR</b>
      * 
      * A handle to the cursor.
-     * @type {HCURSOR}
+     * @type {Pointer<Ptr>}
      */
-    hCursor{
-        get {
-            if(!this.HasProp("__hCursor"))
-                this.__hCursor := HCURSOR(this.ptr + 8)
-            return this.__hCursor
-        }
+    hCursor {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

@@ -1,7 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Foundation\HWND.ahk
 
 /**
  * Facilitates and manages the visibility, authentication, and selection of Bluetooth devices and services.
@@ -49,26 +47,20 @@ class BLUETOOTH_SELECT_DEVICE_PARAMS extends Win32Struct
 
     /**
      * Sets the information text when not <b>NULL</b>.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszInfo{
-        get {
-            if(!this.HasProp("__pszInfo"))
-                this.__pszInfo := PWSTR(this.ptr + 16)
-            return this.__pszInfo
-        }
+    pszInfo {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * Handle to the parent window. Set to <b>NULL</b> for no parent.
-     * @type {HWND}
+     * @type {Pointer<Ptr>}
      */
-    hwndParent{
-        get {
-            if(!this.HasProp("__hwndParent"))
-                this.__hwndParent := HWND(this.ptr + 24)
-            return this.__hwndParent
-        }
+    hwndParent {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**

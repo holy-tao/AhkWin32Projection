@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\FWPM_DISPLAY_DATA0.ahk
 
 /**
@@ -116,14 +115,11 @@ class FWPM_SESSION0 extends Win32Struct
 
     /**
      * User name of the client.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    username{
-        get {
-            if(!this.HasProp("__username"))
-                this.__username := PWSTR(this.ptr + 48)
-            return this.__username
-        }
+    username {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**

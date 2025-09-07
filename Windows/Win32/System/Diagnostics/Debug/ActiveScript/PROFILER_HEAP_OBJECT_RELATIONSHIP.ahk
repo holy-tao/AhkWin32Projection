@@ -1,7 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\..\Foundation\PWSTR.ahk
-#Include ..\..\..\..\Foundation\BSTR.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
@@ -38,25 +36,19 @@ class PROFILER_HEAP_OBJECT_RELATIONSHIP extends Win32Struct
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    stringValue{
-        get {
-            if(!this.HasProp("__stringValue"))
-                this.__stringValue := PWSTR(this.ptr + 8)
-            return this.__stringValue
-        }
+    stringValue {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
-     * @type {BSTR}
+     * @type {Pointer<Ptr>}
      */
-    bstrValue{
-        get {
-            if(!this.HasProp("__bstrValue"))
-                this.__bstrValue := BSTR(this.ptr + 8)
-            return this.__bstrValue
-        }
+    bstrValue {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

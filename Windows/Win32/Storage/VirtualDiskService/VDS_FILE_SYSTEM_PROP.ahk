@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Defines the properties of a file system.
@@ -73,13 +72,10 @@ class VDS_FILE_SYSTEM_PROP extends Win32Struct
 
     /**
      * A string containing the file-system label.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pwszLabel{
-        get {
-            if(!this.HasProp("__pwszLabel"))
-                this.__pwszLabel := PWSTR(this.ptr + 48)
-            return this.__pwszLabel
-        }
+    pwszLabel {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 }

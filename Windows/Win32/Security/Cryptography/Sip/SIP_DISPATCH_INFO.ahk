@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\HANDLE.ahk
 
 /**
  * Contains a set of function pointers assigned by the CryptSIPLoad function that your application uses to perform subject interface package (SIP) operations.
@@ -27,14 +26,11 @@ class SIP_DISPATCH_INFO extends Win32Struct
 
     /**
      * This member is reserved and must be set to <b>NULL</b>.
-     * @type {HANDLE}
+     * @type {Pointer<Ptr>}
      */
-    hSIP{
-        get {
-            if(!this.HasProp("__hSIP"))
-                this.__hSIP := HANDLE(this.ptr + 8)
-            return this.__hSIP
-        }
+    hSIP {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

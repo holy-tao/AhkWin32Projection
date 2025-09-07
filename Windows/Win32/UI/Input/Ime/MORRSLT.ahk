@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.UI.Input.Ime
@@ -21,14 +20,11 @@ class MORRSLT extends Win32Struct
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pwchOutput{
-        get {
-            if(!this.HasProp("__pwchOutput"))
-                this.__pwchOutput := PWSTR(this.ptr + 4)
-            return this.__pwchOutput
-        }
+    pwchOutput {
+        get => NumGet(this, 4, "ptr")
+        set => NumPut("ptr", value, this, 4)
     }
 
     /**
@@ -40,25 +36,19 @@ class MORRSLT extends Win32Struct
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pwchRead{
-        get {
-            if(!this.HasProp("__pwchRead"))
-                this.__pwchRead := PWSTR(this.ptr + 14)
-            return this.__pwchRead
-        }
+    pwchRead {
+        get => NumGet(this, 14, "ptr")
+        set => NumPut("ptr", value, this, 14)
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pwchComp{
-        get {
-            if(!this.HasProp("__pwchComp"))
-                this.__pwchComp := PWSTR(this.ptr + 14)
-            return this.__pwchComp
-        }
+    pwchComp {
+        get => NumGet(this, 14, "ptr")
+        set => NumPut("ptr", value, this, 14)
     }
 
     /**

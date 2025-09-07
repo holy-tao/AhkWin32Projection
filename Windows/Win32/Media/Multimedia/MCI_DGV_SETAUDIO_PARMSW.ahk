@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The MCI_DGV_SETAUDIO_PARMSW (Unicode) structure (digitalv.h) contains parameters for the MCI_SETAUDIO command for digital-video devices.
@@ -62,25 +61,19 @@ class MCI_DGV_SETAUDIO_PARMSW extends Win32Struct
 
     /**
      * Pointer to a null-terminated string containing the name of the audio-compression algorithm.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpstrAlgorithm{
-        get {
-            if(!this.HasProp("__lpstrAlgorithm"))
-                this.__lpstrAlgorithm := PWSTR(this.ptr + 20)
-            return this.__lpstrAlgorithm
-        }
+    lpstrAlgorithm {
+        get => NumGet(this, 20, "ptr")
+        set => NumPut("ptr", value, this, 20)
     }
 
     /**
      * Pointer to a null-terminated string containing a descriptor of the audio-compression algorithm.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpstrQuality{
-        get {
-            if(!this.HasProp("__lpstrQuality"))
-                this.__lpstrQuality := PWSTR(this.ptr + 28)
-            return this.__lpstrQuality
-        }
+    lpstrQuality {
+        get => NumGet(this, 28, "ptr")
+        set => NumPut("ptr", value, this, 28)
     }
 }

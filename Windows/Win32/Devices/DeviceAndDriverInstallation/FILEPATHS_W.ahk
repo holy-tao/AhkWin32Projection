@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The FILEPATHS structure stores source and target path information. The setup functions send the FILEPATHS structure as a parameter in several of the notifications sent to callback routines. For more information, see Notifications. (Unicode)
@@ -20,27 +19,21 @@ class FILEPATHS_W extends Win32Struct
 
     /**
      * Path to the target file.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    Target{
-        get {
-            if(!this.HasProp("__Target"))
-                this.__Target := PWSTR(this.ptr + 0)
-            return this.__Target
-        }
+    Target {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
      * Path to the source file. This member is not used when the 
      * <b>FILEPATHS</b> structure is used with a file delete operation.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    Source{
-        get {
-            if(!this.HasProp("__Source"))
-                this.__Source := PWSTR(this.ptr + 8)
-            return this.__Source
-        }
+    Source {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

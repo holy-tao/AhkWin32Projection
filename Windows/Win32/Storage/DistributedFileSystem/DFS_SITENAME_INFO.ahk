@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.Storage.DistributedFileSystem
@@ -21,13 +20,10 @@ class DFS_SITENAME_INFO extends Win32Struct
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    SiteName{
-        get {
-            if(!this.HasProp("__SiteName"))
-                this.__SiteName := PWSTR(this.ptr + 8)
-            return this.__SiteName
-        }
+    SiteName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 }

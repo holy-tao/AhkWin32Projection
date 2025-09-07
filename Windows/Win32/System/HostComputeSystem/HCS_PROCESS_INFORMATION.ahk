@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * HCS_PROCESS_INFORMATION
@@ -34,37 +33,28 @@ class HCS_PROCESS_INFORMATION extends Win32Struct
 
     /**
      * If created, standard input handle of the process.
-     * @type {HANDLE}
+     * @type {Pointer<Ptr>}
      */
-    StdInput{
-        get {
-            if(!this.HasProp("__StdInput"))
-                this.__StdInput := HANDLE(this.ptr + 8)
-            return this.__StdInput
-        }
+    StdInput {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * If created, standard output handle of the process.
-     * @type {HANDLE}
+     * @type {Pointer<Ptr>}
      */
-    StdOutput{
-        get {
-            if(!this.HasProp("__StdOutput"))
-                this.__StdOutput := HANDLE(this.ptr + 16)
-            return this.__StdOutput
-        }
+    StdOutput {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * If created, standard error handle of the process.
-     * @type {HANDLE}
+     * @type {Pointer<Ptr>}
      */
-    StdError{
-        get {
-            if(!this.HasProp("__StdError"))
-                this.__StdError := HANDLE(this.ptr + 24)
-            return this.__StdError
-        }
+    StdError {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 }

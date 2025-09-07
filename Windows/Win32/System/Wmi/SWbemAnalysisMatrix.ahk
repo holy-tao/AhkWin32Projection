@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.System.Wmi
@@ -29,14 +28,11 @@ class SWbemAnalysisMatrix extends Win32Struct
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    m_pszProperty{
-        get {
-            if(!this.HasProp("__m_pszProperty"))
-                this.__m_pszProperty := PWSTR(this.ptr + 8)
-            return this.__m_pszProperty
-        }
+    m_pszProperty {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

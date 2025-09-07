@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The WSASERVICECLASSINFO structure contains information about a specified service class. For each service class in Windows Sockets 2, there is a single WSASERVICECLASSINFO structure. (Unicode)
@@ -29,14 +28,11 @@ class WSASERVICECLASSINFOW extends Win32Struct
 
     /**
      * Well known name associated with the service class.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpszServiceClassName{
-        get {
-            if(!this.HasProp("__lpszServiceClassName"))
-                this.__lpszServiceClassName := PWSTR(this.ptr + 8)
-            return this.__lpszServiceClassName
-        }
+    lpszServiceClassName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

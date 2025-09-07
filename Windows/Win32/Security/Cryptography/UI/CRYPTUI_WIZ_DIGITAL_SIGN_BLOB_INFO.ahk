@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains information about the public key BLOB used by the CryptUIWizDigitalSign function.
@@ -52,13 +51,10 @@ class CRYPTUI_WIZ_DIGITAL_SIGN_BLOB_INFO extends Win32Struct
 
     /**
      * A pointer to a null-terminated Unicode string that contains the display name of the BLOB to sign.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pwszDisplayName{
-        get {
-            if(!this.HasProp("__pwszDisplayName"))
-                this.__pwszDisplayName := PWSTR(this.ptr + 32)
-            return this.__pwszDisplayName
-        }
+    pwszDisplayName {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 }

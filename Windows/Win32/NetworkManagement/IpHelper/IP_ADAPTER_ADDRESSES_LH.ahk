@@ -1,7 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\Ndis\NET_LUID_LH.ahk
 #Include ..\..\Networking\WinSock\SOCKET_ADDRESS.ahk
 
@@ -147,14 +145,11 @@ class IP_ADAPTER_ADDRESSES_LH extends Win32Struct
      * An array of characters that contains the name of the adapter with which these addresses are associated. 
      *       Unlike an adapter's friendly name, the adapter name specified in <b>AdapterName</b> is 
      *       permanent and cannot be modified by the user.
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    AdapterName{
-        get {
-            if(!this.HasProp("__AdapterName"))
-                this.__AdapterName := PSTR(this.ptr + 16)
-            return this.__AdapterName
-        }
+    AdapterName {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
@@ -213,28 +208,22 @@ class IP_ADAPTER_ADDRESSES_LH extends Win32Struct
      * Type: <b>PWCHAR</b>
      * 
      * The Domain Name System (DNS) suffix associated with this adapter.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    DnsSuffix{
-        get {
-            if(!this.HasProp("__DnsSuffix"))
-                this.__DnsSuffix := PWSTR(this.ptr + 56)
-            return this.__DnsSuffix
-        }
+    DnsSuffix {
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 
     /**
      * Type: <b>PWCHAR</b>
      * 
      * A description for the adapter. This member is read-only.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    Description{
-        get {
-            if(!this.HasProp("__Description"))
-                this.__Description := PWSTR(this.ptr + 64)
-            return this.__Description
-        }
+    Description {
+        get => NumGet(this, 64, "ptr")
+        set => NumPut("ptr", value, this, 64)
     }
 
     /**
@@ -249,14 +238,11 @@ class IP_ADAPTER_ADDRESSES_LH extends Win32Struct
      *        <a href="https://www.ietf.org/rfc/rfc2863.txt">RFC 2863</a>. The ifAlias field can be set by an 
      *        NDIS interface provider when the NDIS driver is installed. For NDIS miniport drivers, this field is set by 
      *        NDIS.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    FriendlyName{
-        get {
-            if(!this.HasProp("__FriendlyName"))
-                this.__FriendlyName := PWSTR(this.ptr + 72)
-            return this.__FriendlyName
-        }
+    FriendlyName {
+        get => NumGet(this, 72, "ptr")
+        set => NumPut("ptr", value, this, 72)
     }
 
     /**

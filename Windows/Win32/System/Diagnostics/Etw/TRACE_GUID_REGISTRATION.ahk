@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\HANDLE.ahk
 
 /**
  * Used with RegisterTraceGuids to register event trace classes.
@@ -38,13 +37,10 @@ class TRACE_GUID_REGISTRATION extends Win32Struct
      * when calling the
      * [TraceEventInstance](/windows/win32/api/evntrace/nf-evntrace-traceeventinstance)
      * function.
-     * @type {HANDLE}
+     * @type {Pointer<Ptr>}
      */
-    RegHandle{
-        get {
-            if(!this.HasProp("__RegHandle"))
-                this.__RegHandle := HANDLE(this.ptr + 8)
-            return this.__RegHandle
-        }
+    RegHandle {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 }

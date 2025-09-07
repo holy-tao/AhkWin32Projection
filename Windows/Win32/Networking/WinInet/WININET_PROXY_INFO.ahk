@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.Networking.WinInet
@@ -37,14 +36,11 @@ class WININET_PROXY_INFO extends Win32Struct
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pwszProxy{
-        get {
-            if(!this.HasProp("__pwszProxy"))
-                this.__pwszProxy := PWSTR(this.ptr + 16)
-            return this.__pwszProxy
-        }
+    pwszProxy {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**

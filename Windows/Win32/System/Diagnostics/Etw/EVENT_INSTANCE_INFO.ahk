@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\HANDLE.ahk
 
 /**
  * The EVENT_INSTANCE_INFO structure maps a unique transaction identifier to a registered event trace class for TraceEventInstance.
@@ -19,14 +18,11 @@ class EVENT_INSTANCE_INFO extends Win32Struct
 
     /**
      * Handle to a registered event trace class.
-     * @type {HANDLE}
+     * @type {Pointer<Ptr>}
      */
-    RegHandle{
-        get {
-            if(!this.HasProp("__RegHandle"))
-                this.__RegHandle := HANDLE(this.ptr + 0)
-            return this.__RegHandle
-        }
+    RegHandle {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**

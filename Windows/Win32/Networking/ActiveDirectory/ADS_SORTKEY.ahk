@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The ADS_SORTKEY structure specifies how to sort a query.
@@ -20,26 +19,20 @@ class ADS_SORTKEY extends Win32Struct
 
     /**
      * The null-terminated Unicode string that contains the attribute type.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszAttrType{
-        get {
-            if(!this.HasProp("__pszAttrType"))
-                this.__pszAttrType := PWSTR(this.ptr + 0)
-            return this.__pszAttrType
-        }
+    pszAttrType {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
      * Reserved.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszReserved{
-        get {
-            if(!this.HasProp("__pszReserved"))
-                this.__pszReserved := PWSTR(this.ptr + 8)
-            return this.__pszReserved
-        }
+    pszReserved {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

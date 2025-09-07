@@ -1,9 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 #Include ..\..\Foundation\LUID.ahk
 #Include ..\QUOTA_LIMITS.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains the client credentials returned by a call to WlxGetConsoleSwitchCredentials.
@@ -28,14 +26,11 @@ class WLX_CONSOLESWITCH_CREDENTIALS_INFO_V1_0 extends Win32Struct
 
     /**
      * Handle of the users token.
-     * @type {HANDLE}
+     * @type {Pointer<Ptr>}
      */
-    UserToken{
-        get {
-            if(!this.HasProp("__UserToken"))
-                this.__UserToken := HANDLE(this.ptr + 8)
-            return this.__UserToken
-        }
+    UserToken {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -64,26 +59,20 @@ class WLX_CONSOLESWITCH_CREDENTIALS_INFO_V1_0 extends Win32Struct
 
     /**
      * User's name as a string.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    UserName{
-        get {
-            if(!this.HasProp("__UserName"))
-                this.__UserName := PWSTR(this.ptr + 72)
-            return this.__UserName
-        }
+    UserName {
+        get => NumGet(this, 72, "ptr")
+        set => NumPut("ptr", value, this, 72)
     }
 
     /**
      * User's domain as a string.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    Domain{
-        get {
-            if(!this.HasProp("__Domain"))
-                this.__Domain := PWSTR(this.ptr + 80)
-            return this.__Domain
-        }
+    Domain {
+        get => NumGet(this, 80, "ptr")
+        set => NumPut("ptr", value, this, 80)
     }
 
     /**
@@ -202,74 +191,56 @@ class WLX_CONSOLESWITCH_CREDENTIALS_INFO_V1_0 extends Win32Struct
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/subauth/ns-subauth-unicode_string">UNICODE_STRING</a> containing the relative path to the account's logon script.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    LogonScript{
-        get {
-            if(!this.HasProp("__LogonScript"))
-                this.__LogonScript := PWSTR(this.ptr + 160)
-            return this.__LogonScript
-        }
+    LogonScript {
+        get => NumGet(this, 160, "ptr")
+        set => NumPut("ptr", value, this, 160)
     }
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/subauth/ns-subauth-unicode_string">UNICODE_STRING</a> containing the home directory for the user.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    HomeDirectory{
-        get {
-            if(!this.HasProp("__HomeDirectory"))
-                this.__HomeDirectory := PWSTR(this.ptr + 168)
-            return this.__HomeDirectory
-        }
+    HomeDirectory {
+        get => NumGet(this, 168, "ptr")
+        set => NumPut("ptr", value, this, 168)
     }
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/subauth/ns-subauth-unicode_string">UNICODE_STRING</a> containing the full name of the user.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    FullName{
-        get {
-            if(!this.HasProp("__FullName"))
-                this.__FullName := PWSTR(this.ptr + 176)
-            return this.__FullName
-        }
+    FullName {
+        get => NumGet(this, 176, "ptr")
+        set => NumPut("ptr", value, this, 176)
     }
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/subauth/ns-subauth-unicode_string">UNICODE_STRING</a> specifying the path to the user's roaming profile if the user has a roaming profile. For example: \\SomeServer\SomeShare\MyUserName
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    ProfilePath{
-        get {
-            if(!this.HasProp("__ProfilePath"))
-                this.__ProfilePath := PWSTR(this.ptr + 184)
-            return this.__ProfilePath
-        }
+    ProfilePath {
+        get => NumGet(this, 184, "ptr")
+        set => NumPut("ptr", value, this, 184)
     }
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/subauth/ns-subauth-unicode_string">UNICODE_STRING</a> containing the drive letter (for example, C:\ or D:\) of the home directory.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    HomeDirectoryDrive{
-        get {
-            if(!this.HasProp("__HomeDirectoryDrive"))
-                this.__HomeDirectoryDrive := PWSTR(this.ptr + 192)
-            return this.__HomeDirectoryDrive
-        }
+    HomeDirectoryDrive {
+        get => NumGet(this, 192, "ptr")
+        set => NumPut("ptr", value, this, 192)
     }
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/subauth/ns-subauth-unicode_string">UNICODE_STRING</a> containing the name of the server that processed the logon request.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    LogonServer{
-        get {
-            if(!this.HasProp("__LogonServer"))
-                this.__LogonServer := PWSTR(this.ptr + 200)
-            return this.__LogonServer
-        }
+    LogonServer {
+        get => NumGet(this, 200, "ptr")
+        set => NumPut("ptr", value, this, 200)
     }
 
     /**

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The REGFILTERPINS structure contains pin information for registering a filter.
@@ -24,14 +23,11 @@ class REGFILTERPINS extends Win32Struct
 
     /**
      * Name of the pin. (Obsolete.)
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    strName{
-        get {
-            if(!this.HasProp("__strName"))
-                this.__strName := PWSTR(this.ptr + 0)
-            return this.__strName
-        }
+    strName {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
@@ -81,14 +77,11 @@ class REGFILTERPINS extends Win32Struct
 
     /**
      * Name of the pin to which this pin connects. (Obsolete.)
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    strConnectsToPin{
-        get {
-            if(!this.HasProp("__strConnectsToPin"))
-                this.__strConnectsToPin := PWSTR(this.ptr + 32)
-            return this.__strConnectsToPin
-        }
+    strConnectsToPin {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**

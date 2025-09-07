@@ -49,9 +49,9 @@ class IKEEXT_SA_DETAILS0 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<IPSEC_V4_UDP_ENCAPSULATION0>}
+     * @type {Pointer<Ptr>}
      */
-    v4UdpEncapsulation {
+    Anonymous {
         get => NumGet(this, 16, "ptr")
         set => NumPut("ptr", value, this, 16)
     }

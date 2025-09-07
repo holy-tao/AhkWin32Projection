@@ -1,7 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include ..\WindowsAndMessaging\HICON.ahk
 
 /**
  * Contains information that the system needs to display notifications in the notification area. Used by Shell_NotifyIcon. (ANSI)
@@ -43,14 +41,11 @@ class NOTIFYICONDATAA extends Win32Struct
      * Type: <b>HWND</b>
      * 
      * A handle to the window that receives notifications associated with an icon in the notification area.
-     * @type {HWND}
+     * @type {Pointer<Ptr>}
      */
-    hWnd{
-        get {
-            if(!this.HasProp("__hWnd"))
-                this.__hWnd := HWND(this.ptr + 4)
-            return this.__hWnd
-        }
+    hWnd {
+        get => NumGet(this, 4, "ptr")
+        set => NumPut("ptr", value, this, 4)
     }
 
     /**
@@ -107,14 +102,11 @@ class NOTIFYICONDATAA extends Win32Struct
      * A handle to the icon to be added, modified, or deleted. Windows XP and later support icons of up to 32 BPP.
      * 
      * If only a 16x16 pixel icon is provided, it is scaled to a larger size in a system set to a high dpi value. This can lead to an unattractive result. It is recommended that you provide both a 16x16 pixel icon and a 32x32 icon in your resource file. Use <a href="https://docs.microsoft.com/windows/desktop/api/commctrl/nf-commctrl-loadiconmetric">LoadIconMetric</a> to ensure that the correct icon is loaded and scaled appropriately. See Remarks for a code example.
-     * @type {HICON}
+     * @type {Pointer<Ptr>}
      */
-    hIcon{
-        get {
-            if(!this.HasProp("__hIcon"))
-                this.__hIcon := HICON(this.ptr + 24)
-            return this.__hIcon
-        }
+    hIcon {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
@@ -228,14 +220,11 @@ class NOTIFYICONDATAA extends Win32Struct
      * Type: <b>HICON</b>
      * 
      * <b>Windows Vista and later</b>. The handle of a customized notification icon provided by the application that should be used independently of the notification area icon. If this member is non-NULL and the NIIF_USER flag is set in the <b>dwInfoFlags</b> member, this icon is used as the notification icon. If this member is <b>NULL</b>, the legacy behavior is carried out.
-     * @type {HICON}
+     * @type {Pointer<Ptr>}
      */
-    hBalloonIcon{
-        get {
-            if(!this.HasProp("__hBalloonIcon"))
-                this.__hBalloonIcon := HICON(this.ptr + 504)
-            return this.__hBalloonIcon
-        }
+    hBalloonIcon {
+        get => NumGet(this, 504, "ptr")
+        set => NumPut("ptr", value, this, 504)
     }
 
     /**

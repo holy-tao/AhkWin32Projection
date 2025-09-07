@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The RESULTDATAITEM structure specifies or receives the attributes of result items in the result pane of the snap-in.
@@ -74,14 +73,11 @@ class RESULTDATAITEM extends Win32Struct
      * Be aware that the snap-in can use <b>MMC_TEXTCALLBACK</b> instead of <b>MMC_CALLBACK</b>. The <b>MMC_TEXTCALLBACK</b> value is a type-correct (no casting necessary) version of <b>MMC_CALLBACK</b>.
      * 
      * <b>MMC_TEXTCALLBACK</b> is introduced in MMC version 1.2.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    str{
-        get {
-            if(!this.HasProp("__str"))
-                this.__str := PWSTR(this.ptr + 24)
-            return this.__str
-        }
+    str {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**

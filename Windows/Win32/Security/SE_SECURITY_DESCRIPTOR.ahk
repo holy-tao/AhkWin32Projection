@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32Struct.ahk
-#Include .\PSECURITY_DESCRIPTOR.ahk
 
 /**
  * @namespace Windows.Win32.Security
@@ -29,13 +28,10 @@ class SE_SECURITY_DESCRIPTOR extends Win32Struct
     }
 
     /**
-     * @type {PSECURITY_DESCRIPTOR}
+     * @type {Pointer<Ptr>}
      */
-    SecurityDescriptor{
-        get {
-            if(!this.HasProp("__SecurityDescriptor"))
-                this.__SecurityDescriptor := PSECURITY_DESCRIPTOR(this.ptr + 8)
-            return this.__SecurityDescriptor
-        }
+    SecurityDescriptor {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 }

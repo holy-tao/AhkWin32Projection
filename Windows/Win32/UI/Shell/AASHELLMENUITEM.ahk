@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains information about a menu item. (AASHELLMENUITEM)
@@ -74,13 +73,10 @@ class AASHELLMENUITEM extends Win32Struct
      * Type: <b>LPTSTR</b>
      * 
      * A pointer to the string that contains the text to use if there is no file.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    psz{
-        get {
-            if(!this.HasProp("__psz"))
-                this.__psz := PWSTR(this.ptr + 24)
-            return this.__psz
-        }
+    psz {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 }

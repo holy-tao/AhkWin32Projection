@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 #Include ..\..\Foundation\POINT.ahk
 
 /**
@@ -50,14 +49,11 @@ class HELPINFO extends Win32Struct
      * Type: <b>HANDLE</b>
      * 
      * The identifier of the child window or control if <b>iContextType</b> is <b>HELPINFO_WINDOW</b>, or identifier of the associated menu if <b>iContextType</b> is <b>HELPINFO_MENUITEM</b>.
-     * @type {HANDLE}
+     * @type {Pointer<Ptr>}
      */
-    hItemHandle{
-        get {
-            if(!this.HasProp("__hItemHandle"))
-                this.__hItemHandle := HANDLE(this.ptr + 16)
-            return this.__hItemHandle
-        }
+    hItemHandle {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**

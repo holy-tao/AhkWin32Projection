@@ -1,8 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Foundation\PSTR.ahk
-#Include ..\..\Security\PSID.ahk
 
 /**
  * Contains event data or property values.
@@ -129,25 +126,19 @@ class EVT_VARIANT extends Win32Struct
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    StringVal{
-        get {
-            if(!this.HasProp("__StringVal"))
-                this.__StringVal := PWSTR(this.ptr + 0)
-            return this.__StringVal
-        }
+    StringVal {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    AnsiStringVal{
-        get {
-            if(!this.HasProp("__AnsiStringVal"))
-                this.__AnsiStringVal := PSTR(this.ptr + 0)
-            return this.__AnsiStringVal
-        }
+    AnsiStringVal {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
@@ -159,14 +150,11 @@ class EVT_VARIANT extends Win32Struct
     }
 
     /**
-     * @type {PSID}
+     * @type {Pointer<Ptr>}
      */
-    SidVal{
-        get {
-            if(!this.HasProp("__SidVal"))
-                this.__SidVal := PSID(this.ptr + 0)
-            return this.__SidVal
-        }
+    SidVal {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
@@ -290,7 +278,7 @@ class EVT_VARIANT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Ptr>}
      */
     StringArr {
         get => NumGet(this, 0, "ptr")
@@ -298,7 +286,7 @@ class EVT_VARIANT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Ptr>}
      */
     AnsiStringArr {
         get => NumGet(this, 0, "ptr")
@@ -306,7 +294,7 @@ class EVT_VARIANT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PSID>}
+     * @type {Pointer<Ptr>}
      */
     SidArr {
         get => NumGet(this, 0, "ptr")
@@ -330,18 +318,15 @@ class EVT_VARIANT extends Win32Struct
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    XmlVal{
-        get {
-            if(!this.HasProp("__XmlVal"))
-                this.__XmlVal := PWSTR(this.ptr + 0)
-            return this.__XmlVal
-        }
+    XmlVal {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Ptr>}
      */
     XmlValArr {
         get => NumGet(this, 0, "ptr")

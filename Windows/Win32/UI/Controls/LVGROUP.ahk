@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Used to set and retrieve groups.
@@ -43,14 +42,11 @@ class LVGROUP extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPWSTR</a></b>
      * 
      * Pointer to a null-terminated string that contains the header text when item information is being set. If group information is being retrieved, this member specifies the address of the buffer that receives the header text.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszHeader{
-        get {
-            if(!this.HasProp("__pszHeader"))
-                this.__pszHeader := PWSTR(this.ptr + 8)
-            return this.__pszHeader
-        }
+    pszHeader {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -68,14 +64,11 @@ class LVGROUP extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPWSTR</a></b>
      * 
      * Pointer to a null-terminated string that contains the footer text when item information is being set. If group information is being retrieved, this member specifies the address of the buffer that receives the footer text.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszFooter{
-        get {
-            if(!this.HasProp("__pszFooter"))
-                this.__pszFooter := PWSTR(this.ptr + 24)
-            return this.__pszFooter
-        }
+    pszFooter {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
@@ -133,14 +126,11 @@ class LVGROUP extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPWSTR</a></b>
      * 
      * Pointer to a null-terminated string that contains the subtitle text when item information is being set. If group information is being retrieved, this member specifies the address of the buffer that receives the subtitle text. This element is drawn under the header text.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszSubtitle{
-        get {
-            if(!this.HasProp("__pszSubtitle"))
-                this.__pszSubtitle := PWSTR(this.ptr + 56)
-            return this.__pszSubtitle
-        }
+    pszSubtitle {
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 
     /**
@@ -158,14 +148,11 @@ class LVGROUP extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPWSTR</a></b>
      * 
      * Pointer to a null-terminated string that contains the text for a task link when item information is being set. If group information is being retrieved, this member specifies the address of the buffer that receives the task text. This item is drawn right-aligned opposite the header text. When clicked by the user, the task link generates an <a href="https://docs.microsoft.com/windows/desktop/Controls/lvn-linkclick">LVN_LINKCLICK</a> notification.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszTask{
-        get {
-            if(!this.HasProp("__pszTask"))
-                this.__pszTask := PWSTR(this.ptr + 72)
-            return this.__pszTask
-        }
+    pszTask {
+        get => NumGet(this, 72, "ptr")
+        set => NumPut("ptr", value, this, 72)
     }
 
     /**
@@ -183,14 +170,11 @@ class LVGROUP extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPWSTR</a></b>
      * 
      * Pointer to a null-terminated string that contains the top description text when item information is being set. If group information is being retrieved, this member specifies the address of the buffer that receives the top description text. This item is drawn opposite the title image when there is a title image, no extended image, and <b>uAlign</b>==<b>LVGA_HEADER_CENTER</b>.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszDescriptionTop{
-        get {
-            if(!this.HasProp("__pszDescriptionTop"))
-                this.__pszDescriptionTop := PWSTR(this.ptr + 88)
-            return this.__pszDescriptionTop
-        }
+    pszDescriptionTop {
+        get => NumGet(this, 88, "ptr")
+        set => NumPut("ptr", value, this, 88)
     }
 
     /**
@@ -208,14 +192,11 @@ class LVGROUP extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPWSTR</a></b>
      * 
      * Pointer to a null-terminated string that contains the bottom description text when item information is being set. If group information is being retrieved, this member specifies the address of the buffer that receives the bottom description text. This item is drawn under the top description text when there is a title image, no extended image, and <b>uAlign</b>==<b>LVGA_HEADER_CENTER</b>.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszDescriptionBottom{
-        get {
-            if(!this.HasProp("__pszDescriptionBottom"))
-                this.__pszDescriptionBottom := PWSTR(this.ptr + 104)
-            return this.__pszDescriptionBottom
-        }
+    pszDescriptionBottom {
+        get => NumGet(this, 104, "ptr")
+        set => NumPut("ptr", value, this, 104)
     }
 
     /**
@@ -277,14 +258,11 @@ class LVGROUP extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPWSTR</a></b>
      * 
      * <b>NULL</b> if group is not a subset. Pointer to a null-terminated string that contains the subset title text when item information is being set. If group information is being retrieved, this member specifies the address of the buffer that receives the subset title text.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszSubsetTitle{
-        get {
-            if(!this.HasProp("__pszSubsetTitle"))
-                this.__pszSubsetTitle := PWSTR(this.ptr + 136)
-            return this.__pszSubsetTitle
-        }
+    pszSubsetTitle {
+        get => NumGet(this, 136, "ptr")
+        set => NumPut("ptr", value, this, 136)
     }
 
     /**

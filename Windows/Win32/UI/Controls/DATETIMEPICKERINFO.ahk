@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\RECT.ahk
-#Include ..\..\Foundation\HWND.ahk
 
 /**
  * Contains information about a date and time picker (DTP) control.
@@ -80,42 +79,33 @@ class DATETIMEPICKERINFO extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
      * 
      * A handle to the edit control. For information see, <a href="https://docs.microsoft.com/windows/desktop/Controls/edit-controls">Edit Controls</a>.
-     * @type {HWND}
+     * @type {Pointer<Ptr>}
      */
-    hwndEdit{
-        get {
-            if(!this.HasProp("__hwndEdit"))
-                this.__hwndEdit := HWND(this.ptr + 56)
-            return this.__hwndEdit
-        }
+    hwndEdit {
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
      * 
      * A handle to the up/down control—an alternative to using the drop-down grid (looks like month calendar control). For more information, see <a href="https://docs.microsoft.com/windows/desktop/Controls/up-down-controls">Up-Down Controls</a>.
-     * @type {HWND}
+     * @type {Pointer<Ptr>}
      */
-    hwndUD{
-        get {
-            if(!this.HasProp("__hwndUD"))
-                this.__hwndUD := HWND(this.ptr + 64)
-            return this.__hwndUD
-        }
+    hwndUD {
+        get => NumGet(this, 64, "ptr")
+        set => NumPut("ptr", value, this, 64)
     }
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
      * 
      * A handle to the drop-down grid.
-     * @type {HWND}
+     * @type {Pointer<Ptr>}
      */
-    hwndDropDown{
-        get {
-            if(!this.HasProp("__hwndDropDown"))
-                this.__hwndDropDown := HWND(this.ptr + 72)
-            return this.__hwndDropDown
-        }
+    hwndDropDown {
+        get => NumGet(this, 72, "ptr")
+        set => NumPut("ptr", value, this, 72)
     }
 
     /**

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.NetManagement
@@ -157,14 +156,11 @@ class SERVER_INFO_599 extends Win32Struct
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    sv599_domain{
-        get {
-            if(!this.HasProp("__sv599_domain"))
-                this.__sv599_domain := PWSTR(this.ptr + 72)
-            return this.__sv599_domain
-        }
+    sv599_domain {
+        get => NumGet(this, 72, "ptr")
+        set => NumPut("ptr", value, this, 72)
     }
 
     /**

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains optional information to pass to the CryptRetrieveObjectByUrl function.
@@ -71,14 +70,11 @@ class CRYPT_RETRIEVE_AUX_INFO extends Win32Struct
 
     /**
      * A pointer to a string that contains a prefix for a cached file name. If not <b>NULL</b>, the specified prefix string is concatenated to the front of the cached file name.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pwszCacheFileNamePrefix{
-        get {
-            if(!this.HasProp("__pwszCacheFileNamePrefix"))
-                this.__pwszCacheFileNamePrefix := PWSTR(this.ptr + 48)
-            return this.__pwszCacheFileNamePrefix
-        }
+    pwszCacheFileNamePrefix {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**
@@ -110,7 +106,7 @@ class CRYPT_RETRIEVE_AUX_INFO extends Win32Struct
 
     /**
      * 
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Ptr>}
      */
     ppwszErrorResponseHeaders {
         get => NumGet(this, 72, "ptr")

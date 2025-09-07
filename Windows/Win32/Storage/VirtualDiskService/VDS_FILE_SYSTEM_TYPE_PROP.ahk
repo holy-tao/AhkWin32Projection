@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Defines the properties of a file system type.
@@ -63,13 +62,10 @@ class VDS_FILE_SYSTEM_TYPE_PROP extends Win32Struct
 
     /**
      * A string containing all characters that are not valid for this file system type.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pwszIllegalLabelCharSet{
-        get {
-            if(!this.HasProp("__pwszIllegalLabelCharSet"))
-                this.__pwszIllegalLabelCharSet := PWSTR(this.ptr + 32)
-            return this.__pwszIllegalLabelCharSet
-        }
+    pwszIllegalLabelCharSet {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 }

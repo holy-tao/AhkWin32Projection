@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The PORT\_INFO\_3 structure specifies the status value of a printer port.
@@ -48,14 +47,11 @@ class PORT_INFO_3W extends Win32Struct
 
     /**
      * Pointer to a new printer port status value string to set. Use this member if there is no suitable status value among those listed for **dwStatus**.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszStatus{
-        get {
-            if(!this.HasProp("__pszStatus"))
-                this.__pszStatus := PWSTR(this.ptr + 8)
-            return this.__pszStatus
-        }
+    pszStatus {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

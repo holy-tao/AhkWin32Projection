@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Specifies the cryptographic service provider (CSP) and private key information used to create a digital signature.
@@ -25,14 +24,11 @@ class SIGNER_PROVIDER_INFO extends Win32Struct
 
     /**
      * The name of the CSP used to create the digital signature. If the value of this member is **NULL**, the default provider is used.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pwszProviderName{
-        get {
-            if(!this.HasProp("__pwszProviderName"))
-                this.__pwszProviderName := PWSTR(this.ptr + 8)
-            return this.__pwszProviderName
-        }
+    pwszProviderName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -70,25 +66,19 @@ class SIGNER_PROVIDER_INFO extends Win32Struct
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pwszPvkFileName{
-        get {
-            if(!this.HasProp("__pwszPvkFileName"))
-                this.__pwszPvkFileName := PWSTR(this.ptr + 32)
-            return this.__pwszPvkFileName
-        }
+    pwszPvkFileName {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pwszKeyContainer{
-        get {
-            if(!this.HasProp("__pwszKeyContainer"))
-                this.__pwszKeyContainer := PWSTR(this.ptr + 32)
-            return this.__pwszKeyContainer
-        }
+    pwszKeyContainer {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**

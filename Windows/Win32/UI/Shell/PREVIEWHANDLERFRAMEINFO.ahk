@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\WindowsAndMessaging\HACCEL.ahk
 
 /**
  * Accelerator table structure. Used by IPreviewHandlerFrame::GetWindowContext.
@@ -18,14 +17,11 @@ class PREVIEWHANDLERFRAMEINFO extends Win32Struct
      * Type: <b>HACCEL</b>
      * 
      * A handle to the accelerator table.
-     * @type {HACCEL}
+     * @type {Pointer<Ptr>}
      */
-    haccel{
-        get {
-            if(!this.HasProp("__haccel"))
-                this.__haccel := HACCEL(this.ptr + 0)
-            return this.__haccel
-        }
+    haccel {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**

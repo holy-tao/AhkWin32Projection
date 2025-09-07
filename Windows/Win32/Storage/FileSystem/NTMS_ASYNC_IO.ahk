@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * @namespace Windows.Win32.Storage.FileSystem
@@ -53,14 +52,11 @@ class NTMS_ASYNC_IO extends Win32Struct
     }
 
     /**
-     * @type {HANDLE}
+     * @type {Pointer<Ptr>}
      */
-    hEvent{
-        get {
-            if(!this.HasProp("__hEvent"))
-                this.__hEvent := HANDLE(this.ptr + 32)
-            return this.__hEvent
-        }
+    hEvent {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**

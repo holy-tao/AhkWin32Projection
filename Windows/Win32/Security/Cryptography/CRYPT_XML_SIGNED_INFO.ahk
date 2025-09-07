@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\CRYPT_XML_BLOB.ahk
 #Include .\CRYPT_XML_ALGORITHM.ahk
 
@@ -27,14 +26,11 @@ class CRYPT_XML_SIGNED_INFO extends Win32Struct
 
     /**
      * Optional.  A pointer to a null-terminated Unicode string that contains the <b>Id</b> attribute.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    wszId{
-        get {
-            if(!this.HasProp("__wszId"))
-                this.__wszId := PWSTR(this.ptr + 8)
-            return this.__wszId
-        }
+    wszId {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

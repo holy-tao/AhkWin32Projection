@@ -1,7 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * The ADS_SEARCH_COLUMN structure specifies the contents of a search column in the query returned from the directory service database.
@@ -21,14 +19,11 @@ class ADS_SEARCH_COLUMN extends Win32Struct
 
     /**
      * A  null-terminated Unicode string that contains the name of the attribute whose values are contained in the current search column.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszAttrName{
-        get {
-            if(!this.HasProp("__pszAttrName"))
-                this.__pszAttrName := PWSTR(this.ptr + 0)
-            return this.__pszAttrName
-        }
+    pszAttrName {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
@@ -60,13 +55,10 @@ class ADS_SEARCH_COLUMN extends Win32Struct
 
     /**
      * Reserved for internal use by providers.
-     * @type {HANDLE}
+     * @type {Pointer<Ptr>}
      */
-    hReserved{
-        get {
-            if(!this.HasProp("__hReserved"))
-                this.__hReserved := HANDLE(this.ptr + 32)
-            return this.__hReserved
-        }
+    hReserved {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 }

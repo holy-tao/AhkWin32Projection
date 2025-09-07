@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\MMC_TASK_DISPLAY_BITMAP.ahk
 #Include .\MMC_TASK_DISPLAY_SYMBOL.ahk
 #Include .\MMC_TASK_DISPLAY_OBJECT.ahk
@@ -37,26 +36,20 @@ class MMC_TASK extends Win32Struct
 
     /**
      * A pointer to a null-terminated string that contains the text placed directly to the right of the mouse-over image. This text serves as the label for the task. This text should be an action in the imperative such as "Add a new user."
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    szText{
-        get {
-            if(!this.HasProp("__szText"))
-                this.__szText := PWSTR(this.ptr + 24)
-            return this.__szText
-        }
+    szText {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
      * A pointer to a null-terminated string that contains the descriptive text placed in the upper-right corner when the user moves the mouse over the mouse-over image or the label text for the task. This text serves as the description for the task such as "Creates a new account, creates a mailbox, and sets up everything a user must access the network."
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    szHelpString{
-        get {
-            if(!this.HasProp("__szHelpString"))
-                this.__szHelpString := PWSTR(this.ptr + 32)
-            return this.__szHelpString
-        }
+    szHelpString {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
@@ -80,24 +73,18 @@ class MMC_TASK extends Win32Struct
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    szActionURL{
-        get {
-            if(!this.HasProp("__szActionURL"))
-                this.__szActionURL := PWSTR(this.ptr + 48)
-            return this.__szActionURL
-        }
+    szActionURL {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    szScript{
-        get {
-            if(!this.HasProp("__szScript"))
-                this.__szScript := PWSTR(this.ptr + 48)
-            return this.__szScript
-        }
+    szScript {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 }

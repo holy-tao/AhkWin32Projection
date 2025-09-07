@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.Security.WinWlx
@@ -13,46 +12,34 @@ class WLX_SC_NOTIFICATION_INFO extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszCard{
-        get {
-            if(!this.HasProp("__pszCard"))
-                this.__pszCard := PWSTR(this.ptr + 0)
-            return this.__pszCard
-        }
+    pszCard {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszReader{
-        get {
-            if(!this.HasProp("__pszReader"))
-                this.__pszReader := PWSTR(this.ptr + 8)
-            return this.__pszReader
-        }
+    pszReader {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszContainer{
-        get {
-            if(!this.HasProp("__pszContainer"))
-                this.__pszContainer := PWSTR(this.ptr + 16)
-            return this.__pszContainer
-        }
+    pszContainer {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszCryptoProvider{
-        get {
-            if(!this.HasProp("__pszCryptoProvider"))
-                this.__pszCryptoProvider := PWSTR(this.ptr + 24)
-            return this.__pszCryptoProvider
-        }
+    pszCryptoProvider {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 }

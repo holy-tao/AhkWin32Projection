@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * @namespace Windows.Win32.Devices.AllJoyn
@@ -29,47 +28,35 @@ class alljoyn_interfacedescription_member extends Win32Struct
     }
 
     /**
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    name{
-        get {
-            if(!this.HasProp("__name"))
-                this.__name := PSTR(this.ptr + 16)
-            return this.__name
-        }
+    name {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    signature{
-        get {
-            if(!this.HasProp("__signature"))
-                this.__signature := PSTR(this.ptr + 24)
-            return this.__signature
-        }
+    signature {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    returnSignature{
-        get {
-            if(!this.HasProp("__returnSignature"))
-                this.__returnSignature := PSTR(this.ptr + 32)
-            return this.__returnSignature
-        }
+    returnSignature {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    argNames{
-        get {
-            if(!this.HasProp("__argNames"))
-                this.__argNames := PSTR(this.ptr + 40)
-            return this.__argNames
-        }
+    argNames {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**

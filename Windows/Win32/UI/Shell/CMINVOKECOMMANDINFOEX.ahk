@@ -1,9 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include ..\..\Foundation\PSTR.ahk
-#Include ..\..\Foundation\HANDLE.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Foundation\POINT.ahk
 
 /**
@@ -54,14 +50,11 @@ class CMINVOKECOMMANDINFOEX extends Win32Struct
      * Type: <b>HWND</b>
      * 
      * A handle to the window that is the owner of the shortcut menu. An extension can also use this handle as the owner of any message boxes or dialog boxes it displays. Callers must specify a legitimate HWND that can be used as the owner window for any UI that may be displayed. Failing to specify an HWND when calling from a UI thread (one with windows already created) will result in reentrancy and possible bugs in the implementation of a <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-icontextmenu-invokecommand">IContextMenu::InvokeCommand</a> call.
-     * @type {HWND}
+     * @type {Pointer<Ptr>}
      */
-    hwnd{
-        get {
-            if(!this.HasProp("__hwnd"))
-                this.__hwnd := HWND(this.ptr + 8)
-            return this.__hwnd
-        }
+    hwnd {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -98,42 +91,33 @@ class CMINVOKECOMMANDINFOEX extends Win32Struct
      * If a canonical verb exists and a menu handler does not implement the canonical verb, it must return a failure code to enable the next handler to be able to handle this verb. Failing to do this will break functionality in the system including <a href="https://docs.microsoft.com/windows/desktop/api/shellapi/nf-shellapi-shellexecutea">ShellExecute</a>.
      * 
      * Alternatively, rather than a pointer, this parameter can be <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-makeintresourcea">MAKEINTRESOURCE</a>(offset) where <i>offset</i> is the menu-identifier offset of the command to carry out. Implementations can use the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-is_intresource">IS_INTRESOURCE</a> macro to detect that this alternative is being employed. The Shell uses this alternative when the user chooses a menu command.
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpVerb{
-        get {
-            if(!this.HasProp("__lpVerb"))
-                this.__lpVerb := PSTR(this.ptr + 16)
-            return this.__lpVerb
-        }
+    lpVerb {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * Type: <b>LPCSTR</b>
      * 
      * Optional parameters. This member is always <b>NULL</b> for menu items inserted by a Shell extension.
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpParameters{
-        get {
-            if(!this.HasProp("__lpParameters"))
-                this.__lpParameters := PSTR(this.ptr + 24)
-            return this.__lpParameters
-        }
+    lpParameters {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
      * Type: <b>LPCSTR</b>
      * 
      * An optional working directory name. This member is always <b>NULL</b> for menu items inserted by a Shell extension.
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpDirectory{
-        get {
-            if(!this.HasProp("__lpDirectory"))
-                this.__lpDirectory := PSTR(this.ptr + 32)
-            return this.__lpDirectory
-        }
+    lpDirectory {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
@@ -163,84 +147,66 @@ class CMINVOKECOMMANDINFOEX extends Win32Struct
      * Type: <b>HANDLE</b>
      * 
      * An icon to use for any application activated by the command. If the <b>fMask</b> member does not specify <b>CMIC_MASK_ICON</b>, this member is ignored.
-     * @type {HANDLE}
+     * @type {Pointer<Ptr>}
      */
-    hIcon{
-        get {
-            if(!this.HasProp("__hIcon"))
-                this.__hIcon := HANDLE(this.ptr + 48)
-            return this.__hIcon
-        }
+    hIcon {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**
      * Type: <b>LPCSTR</b>
      * 
      * An ASCII title.
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpTitle{
-        get {
-            if(!this.HasProp("__lpTitle"))
-                this.__lpTitle := PSTR(this.ptr + 56)
-            return this.__lpTitle
-        }
+    lpTitle {
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 
     /**
      * Type: <b>LPCWSTR</b>
      * 
      * A Unicode verb, for those commands that can use it.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpVerbW{
-        get {
-            if(!this.HasProp("__lpVerbW"))
-                this.__lpVerbW := PWSTR(this.ptr + 64)
-            return this.__lpVerbW
-        }
+    lpVerbW {
+        get => NumGet(this, 64, "ptr")
+        set => NumPut("ptr", value, this, 64)
     }
 
     /**
      * Type: <b>LPCWSTR</b>
      * 
      * A Unicode parameters, for those commands that can use it.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpParametersW{
-        get {
-            if(!this.HasProp("__lpParametersW"))
-                this.__lpParametersW := PWSTR(this.ptr + 72)
-            return this.__lpParametersW
-        }
+    lpParametersW {
+        get => NumGet(this, 72, "ptr")
+        set => NumPut("ptr", value, this, 72)
     }
 
     /**
      * Type: <b>LPCWSTR</b>
      * 
      * A Unicode directory, for those commands that can use it.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpDirectoryW{
-        get {
-            if(!this.HasProp("__lpDirectoryW"))
-                this.__lpDirectoryW := PWSTR(this.ptr + 80)
-            return this.__lpDirectoryW
-        }
+    lpDirectoryW {
+        get => NumGet(this, 80, "ptr")
+        set => NumPut("ptr", value, this, 80)
     }
 
     /**
      * Type: <b>LPCWSTR</b>
      * 
      * A Unicode title.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpTitleW{
-        get {
-            if(!this.HasProp("__lpTitleW"))
-                this.__lpTitleW := PWSTR(this.ptr + 88)
-            return this.__lpTitleW
-        }
+    lpTitleW {
+        get => NumGet(this, 88, "ptr")
+        set => NumPut("ptr", value, this, 88)
     }
 
     /**

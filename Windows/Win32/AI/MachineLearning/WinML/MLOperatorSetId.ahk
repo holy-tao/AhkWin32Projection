@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\PSTR.ahk
 
 /**
  * @namespace Windows.Win32.AI.MachineLearning.WinML
@@ -13,14 +12,11 @@ class MLOperatorSetId extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    domain{
-        get {
-            if(!this.HasProp("__domain"))
-                this.__domain := PSTR(this.ptr + 0)
-            return this.__domain
-        }
+    domain {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**

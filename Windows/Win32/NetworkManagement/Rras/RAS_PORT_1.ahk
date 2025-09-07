@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * The RAS_PORT_1 structure contains detailed information regarding a specific RAS port, such as line speed or errors. For more general information about a port, such as port condition or port name, see RAS_PORT_0.
@@ -16,26 +15,20 @@ class RAS_PORT_1 extends Win32Struct
 
     /**
      * Handle to the port.
-     * @type {HANDLE}
+     * @type {Pointer<Ptr>}
      */
-    hPort{
-        get {
-            if(!this.HasProp("__hPort"))
-                this.__hPort := HANDLE(this.ptr + 0)
-            return this.__hPort
-        }
+    hPort {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
      * Handle to the connection.
-     * @type {HANDLE}
+     * @type {Pointer<Ptr>}
      */
-    hConnection{
-        get {
-            if(!this.HasProp("__hConnection"))
-                this.__hConnection := HANDLE(this.ptr + 8)
-            return this.__hConnection
-        }
+    hConnection {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

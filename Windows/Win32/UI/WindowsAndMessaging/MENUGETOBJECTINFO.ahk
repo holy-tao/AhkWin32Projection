@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\HMENU.ahk
 
 /**
  * Contains information about the menu that the mouse cursor is on.
@@ -46,14 +45,11 @@ class MENUGETOBJECTINFO extends Win32Struct
      * Type: <b>HMENU</b>
      * 
      * A handle to the menu the mouse cursor is on.
-     * @type {HMENU}
+     * @type {Pointer<Ptr>}
      */
-    hmenu{
-        get {
-            if(!this.HasProp("__hmenu"))
-                this.__hmenu := HMENU(this.ptr + 8)
-            return this.__hmenu
-        }
+    hmenu {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

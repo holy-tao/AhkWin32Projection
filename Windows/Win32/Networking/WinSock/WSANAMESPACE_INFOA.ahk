@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * Contains all registration information for a namespace provider. (WSANAMESPACE_INFOA)
@@ -172,13 +171,10 @@ class WSANAMESPACE_INFOA extends Win32Struct
      * Type: <b>LPTSTR</b>
      * 
      * A display string that identifies the namespace provider.
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpszIdentifier{
-        get {
-            if(!this.HasProp("__lpszIdentifier"))
-                this.__lpszIdentifier := PSTR(this.ptr + 24)
-            return this.__lpszIdentifier
-        }
+    lpszIdentifier {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 }

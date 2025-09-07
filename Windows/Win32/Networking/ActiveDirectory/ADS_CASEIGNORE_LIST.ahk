@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The ADS_CASEIGNORE_LIST structure is an ADSI representation of the Case Ignore List attribute syntax.
@@ -27,13 +26,10 @@ class ADS_CASEIGNORE_LIST extends Win32Struct
 
     /**
      * The null-terminated Unicode string value of the current entry of the list.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    String{
-        get {
-            if(!this.HasProp("__String"))
-                this.__String := PWSTR(this.ptr + 8)
-            return this.__String
-        }
+    String {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 }

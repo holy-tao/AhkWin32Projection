@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\HANDLE.ahk
 #Include .\ARM64_NT_NEON128.ahk
 #Include .\CONTEXT.ahk
 
@@ -27,14 +26,11 @@ class MINIDUMP_THREAD_CALLBACK extends Win32Struct
 
     /**
      * A handle to the thread
-     * @type {HANDLE}
+     * @type {Pointer<Ptr>}
      */
-    ThreadHandle{
-        get {
-            if(!this.HasProp("__ThreadHandle"))
-                this.__ThreadHandle := HANDLE(this.ptr + 4)
-            return this.__ThreadHandle
-        }
+    ThreadHandle {
+        get => NumGet(this, 4, "ptr")
+        set => NumPut("ptr", value, this, 4)
     }
 
     /**

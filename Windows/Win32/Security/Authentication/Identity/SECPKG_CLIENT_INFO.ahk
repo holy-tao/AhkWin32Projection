@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\Foundation\LUID.ahk
-#Include ..\..\..\Foundation\HANDLE.ahk
 
 /**
  * The SECPKG_CLIENT_INFO structure holds information about a security package's client. This structure is used by the GetClientInfo function.
@@ -92,13 +91,10 @@ class SECPKG_CLIENT_INFO extends Win32Struct
 
     /**
      * 
-     * @type {HANDLE}
+     * @type {Pointer<Ptr>}
      */
-    ClientToken{
-        get {
-            if(!this.HasProp("__ClientToken"))
-                this.__ClientToken := HANDLE(this.ptr + 24)
-            return this.__ClientToken
-        }
+    ClientToken {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 }

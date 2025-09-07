@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Describes a provider.
@@ -26,26 +25,20 @@ class PXE_PROVIDER extends Win32Struct
     /**
      * Address of a null-terminated string that specifies the display name of the provider. This name is displayed 
      *       to the user and must be unique among registered providers.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pwszName{
-        get {
-            if(!this.HasProp("__pwszName"))
-                this.__pwszName := PWSTR(this.ptr + 8)
-            return this.__pwszName
-        }
+    pwszName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * Address of a null-terminated string that specifies the full path to the provider DLL.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pwszFilePath{
-        get {
-            if(!this.HasProp("__pwszFilePath"))
-                this.__pwszFilePath := PWSTR(this.ptr + 16)
-            return this.__pwszFilePath
-        }
+    pwszFilePath {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**

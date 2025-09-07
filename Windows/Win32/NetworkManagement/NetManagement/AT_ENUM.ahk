@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The AT_ENUM structure contains information about a submitted job. The NetScheduleJobEnum function uses this structure to enumerate and return information about an entire queue of submitted jobs.
@@ -84,13 +83,10 @@ class AT_ENUM extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to a Unicode string that contains the name of the command, batch program, or binary file to execute.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    Command{
-        get {
-            if(!this.HasProp("__Command"))
-                this.__Command := PWSTR(this.ptr + 24)
-            return this.__Command
-        }
+    Command {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 }

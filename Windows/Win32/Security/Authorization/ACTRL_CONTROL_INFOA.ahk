@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * @namespace Windows.Win32.Security.Authorization
@@ -14,24 +13,18 @@ class ACTRL_CONTROL_INFOA extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpControlId{
-        get {
-            if(!this.HasProp("__lpControlId"))
-                this.__lpControlId := PSTR(this.ptr + 0)
-            return this.__lpControlId
-        }
+    lpControlId {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpControlName{
-        get {
-            if(!this.HasProp("__lpControlName"))
-                this.__lpControlName := PSTR(this.ptr + 8)
-            return this.__lpControlName
-        }
+    lpControlName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 }

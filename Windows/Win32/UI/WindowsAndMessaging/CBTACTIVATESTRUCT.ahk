@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
 
 /**
  * Contains information passed to a WH_CBT hook procedure, CBTProc, before a window is activated.
@@ -29,13 +28,10 @@ class CBTACTIVATESTRUCT extends Win32Struct
      * Type: <b>HWND</b>
      * 
      * A handle to the active window.
-     * @type {HWND}
+     * @type {Pointer<Ptr>}
      */
-    hWndActive{
-        get {
-            if(!this.HasProp("__hWndActive"))
-                this.__hWndActive := HWND(this.ptr + 8)
-            return this.__hWndActive
-        }
+    hWndActive {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 }

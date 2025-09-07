@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * Identifies a particular property sheet in a printer's property pages and whether that property sheet should be modal. Optionally used with the SHInvokePrinterCommand function. (ANSI)
@@ -38,14 +37,11 @@ class OPEN_PRINTER_PROPS_INFOA extends Win32Struct
      * Type: <b>LPSTR</b>
      * 
      * The name of the property sheet. If the specified sheet is not found, the property sheet still appears with the default first page.
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszSheetName{
-        get {
-            if(!this.HasProp("__pszSheetName"))
-                this.__pszSheetName := PSTR(this.ptr + 4)
-            return this.__pszSheetName
-        }
+    pszSheetName {
+        get => NumGet(this, 4, "ptr")
+        set => NumPut("ptr", value, this, 4)
     }
 
     /**

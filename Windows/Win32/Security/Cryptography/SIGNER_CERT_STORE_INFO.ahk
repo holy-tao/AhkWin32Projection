@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\HCERTSTORE.ahk
 
 /**
  * Specifies the certificate store used to sign a document.
@@ -51,14 +50,11 @@ class SIGNER_CERT_STORE_INFO extends Win32Struct
 
     /**
      * Optional. A handle to an additional certificate store.
-     * @type {HCERTSTORE}
+     * @type {Pointer<Ptr>}
      */
-    hCertStore{
-        get {
-            if(!this.HasProp("__hCertStore"))
-                this.__hCertStore := HCERTSTORE(this.ptr + 24)
-            return this.__hCertStore
-        }
+    hCertStore {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**

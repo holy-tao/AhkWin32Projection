@@ -4,16 +4,10 @@
 #Include ..\..\Foundation\FILETIME.ahk
 #Include .\GOPHER_MOD_DATE_ATTRIBUTE_TYPE.ahk
 #Include .\GOPHER_SCORE_RANGE_ATTRIBUTE_TYPE.ahk
-#Include .\GOPHER_SITE_ATTRIBUTE_TYPE.ahk
-#Include .\GOPHER_ORGANIZATION_ATTRIBUTE_TYPE.ahk
-#Include .\GOPHER_LOCATION_ATTRIBUTE_TYPE.ahk
 #Include .\GOPHER_GEOGRAPHICAL_LOCATION_ATTRIBUTE_TYPE.ahk
-#Include .\GOPHER_PROVIDER_ATTRIBUTE_TYPE.ahk
-#Include .\GOPHER_VERSION_ATTRIBUTE_TYPE.ahk
 #Include .\GOPHER_ABSTRACT_ATTRIBUTE_TYPE.ahk
 #Include .\GOPHER_VIEW_ATTRIBUTE_TYPE.ahk
 #Include .\GOPHER_ASK_ATTRIBUTE_TYPE.ahk
-#Include .\GOPHER_UNKNOWN_ATTRIBUTE_TYPE.ahk
 
 /**
  * Contains the relevant information of a single Gopher attribute for an object.
@@ -104,36 +98,27 @@ class GOPHER_ATTRIBUTE_TYPE extends Win32Struct
     }
 
     /**
-     * @type {GOPHER_SITE_ATTRIBUTE_TYPE}
+     * @type {Pointer<Ptr>}
      */
-    Site{
-        get {
-            if(!this.HasProp("__Site"))
-                this.__Site := GOPHER_SITE_ATTRIBUTE_TYPE(this.ptr + 8)
-            return this.__Site
-        }
+    Site {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
-     * @type {GOPHER_ORGANIZATION_ATTRIBUTE_TYPE}
+     * @type {Pointer<Ptr>}
      */
-    Organization{
-        get {
-            if(!this.HasProp("__Organization"))
-                this.__Organization := GOPHER_ORGANIZATION_ATTRIBUTE_TYPE(this.ptr + 8)
-            return this.__Organization
-        }
+    Organization {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
-     * @type {GOPHER_LOCATION_ATTRIBUTE_TYPE}
+     * @type {Pointer<Ptr>}
      */
-    Location{
-        get {
-            if(!this.HasProp("__Location"))
-                this.__Location := GOPHER_LOCATION_ATTRIBUTE_TYPE(this.ptr + 8)
-            return this.__Location
-        }
+    Location {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -156,25 +141,19 @@ class GOPHER_ATTRIBUTE_TYPE extends Win32Struct
     }
 
     /**
-     * @type {GOPHER_PROVIDER_ATTRIBUTE_TYPE}
+     * @type {Pointer<Ptr>}
      */
-    Provider{
-        get {
-            if(!this.HasProp("__Provider"))
-                this.__Provider := GOPHER_PROVIDER_ATTRIBUTE_TYPE(this.ptr + 8)
-            return this.__Provider
-        }
+    Provider {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
-     * @type {GOPHER_VERSION_ATTRIBUTE_TYPE}
+     * @type {Pointer<Ptr>}
      */
-    Version{
-        get {
-            if(!this.HasProp("__Version"))
-                this.__Version := GOPHER_VERSION_ATTRIBUTE_TYPE(this.ptr + 8)
-            return this.__Version
-        }
+    Version {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -219,13 +198,10 @@ class GOPHER_ATTRIBUTE_TYPE extends Win32Struct
     }
 
     /**
-     * @type {GOPHER_UNKNOWN_ATTRIBUTE_TYPE}
+     * @type {Pointer<Ptr>}
      */
-    Unknown{
-        get {
-            if(!this.HasProp("__Unknown"))
-                this.__Unknown := GOPHER_UNKNOWN_ATTRIBUTE_TYPE(this.ptr + 8)
-            return this.__Unknown
-        }
+    Unknown {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 }

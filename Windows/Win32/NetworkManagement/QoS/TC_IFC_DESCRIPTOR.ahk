@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\Ndis\NETWORK_ADDRESS.ahk
 #Include ..\Ndis\NETWORK_ADDRESS_LIST.ahk
 #Include .\ADDRESS_LIST_DESCRIPTOR.ahk
@@ -30,26 +29,20 @@ class TC_IFC_DESCRIPTOR extends Win32Struct
 
     /**
      * Pointer to a zero-terminated Unicode string representing the name of the packet shaper interface. This name is used in subsequent TC API calls to reference the interface.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pInterfaceName{
-        get {
-            if(!this.HasProp("__pInterfaceName"))
-                this.__pInterfaceName := PWSTR(this.ptr + 8)
-            return this.__pInterfaceName
-        }
+    pInterfaceName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * Pointer to a zero-terminated Unicode string naming the DeviceName of the interface.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pInterfaceID{
-        get {
-            if(!this.HasProp("__pInterfaceID"))
-                this.__pInterfaceID := PWSTR(this.ptr + 16)
-            return this.__pInterfaceID
-        }
+    pInterfaceID {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**

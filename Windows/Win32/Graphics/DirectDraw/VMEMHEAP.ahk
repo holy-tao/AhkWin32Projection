@@ -3,7 +3,6 @@
 #Include .\SURFACEALIGNMENT.ahk
 #Include .\HEAPALIGNMENT.ahk
 #Include .\DDSCAPSEX.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * The VMEMHEAP structure contains information about the heap.
@@ -145,14 +144,11 @@ class VMEMHEAP extends Win32Struct
 
     /**
      * Reserved for system use and should be ignored by the driver.
-     * @type {HANDLE}
+     * @type {Pointer<Ptr>}
      */
-    hdevAGP{
-        get {
-            if(!this.HasProp("__hdevAGP"))
-                this.__hdevAGP := HANDLE(this.ptr + 224)
-            return this.__hdevAGP
-        }
+    hdevAGP {
+        get => NumGet(this, 224, "ptr")
+        set => NumPut("ptr", value, this, 224)
     }
 
     /**

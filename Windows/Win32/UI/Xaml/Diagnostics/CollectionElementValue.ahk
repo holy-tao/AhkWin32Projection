@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
 
 /**
  * Represents an element in a collection.
@@ -25,26 +24,20 @@ class CollectionElementValue extends Win32Struct
 
     /**
      * The type of the element object.
-     * @type {BSTR}
+     * @type {Pointer<Ptr>}
      */
-    ValueType{
-        get {
-            if(!this.HasProp("__ValueType"))
-                this.__ValueType := BSTR(this.ptr + 8)
-            return this.__ValueType
-        }
+    ValueType {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * The value of the element.
-     * @type {BSTR}
+     * @type {Pointer<Ptr>}
      */
-    Value{
-        get {
-            if(!this.HasProp("__Value"))
-                this.__Value := BSTR(this.ptr + 16)
-            return this.__Value
-        }
+    Value {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**

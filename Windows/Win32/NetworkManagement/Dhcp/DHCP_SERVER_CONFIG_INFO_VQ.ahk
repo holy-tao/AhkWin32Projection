@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Defines settings for the DHCP server.
@@ -76,38 +75,29 @@ class DHCP_SERVER_CONFIG_INFO_VQ extends Win32Struct
 
     /**
      * Pointer to a null-terminated Unicode string that represents the DHCP server database name that is used by the DHCP server for persistent storage.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    DatabaseName{
-        get {
-            if(!this.HasProp("__DatabaseName"))
-                this.__DatabaseName := PWSTR(this.ptr + 8)
-            return this.__DatabaseName
-        }
+    DatabaseName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * Pointer to a null-terminated Unicode string that contains the absolute path, where the DHCP server database is stored.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    DatabasePath{
-        get {
-            if(!this.HasProp("__DatabasePath"))
-                this.__DatabasePath := PWSTR(this.ptr + 16)
-            return this.__DatabasePath
-        }
+    DatabasePath {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * Pointer to a null-terminated Unicode string that contains the absolute path for backup storage that is used by the DHCP server for backup.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    BackupPath{
-        get {
-            if(!this.HasProp("__BackupPath"))
-                this.__BackupPath := PWSTR(this.ptr + 24)
-            return this.__BackupPath
-        }
+    BackupPath {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
@@ -535,14 +525,11 @@ class DHCP_SERVER_CONFIG_INFO_VQ extends Win32Struct
 
     /**
      * Pointer to a null-terminated Unicode string that contains the absolute path of the BOOTP TABLE given to the BOOTP client.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    wszBootTableString{
-        get {
-            if(!this.HasProp("__wszBootTableString"))
-                this.__wszBootTableString := PWSTR(this.ptr + 64)
-            return this.__wszBootTableString
-        }
+    wszBootTableString {
+        get => NumGet(this, 64, "ptr")
+        set => NumPut("ptr", value, this, 64)
     }
 
     /**

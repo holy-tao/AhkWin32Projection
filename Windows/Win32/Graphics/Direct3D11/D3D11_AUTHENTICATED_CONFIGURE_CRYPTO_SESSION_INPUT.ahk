@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\D3D11_OMAC.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 #Include .\D3D11_AUTHENTICATED_CONFIGURE_INPUT.ahk
 
 /**
@@ -30,37 +29,28 @@ class D3D11_AUTHENTICATED_CONFIGURE_CRYPTO_SESSION_INPUT extends Win32Struct
 
     /**
      * A handle to the decoder device. Get this from <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11videodecoder-getdriverhandle">ID3D11VideoDecoder::GetDriverHandle</a>.
-     * @type {HANDLE}
+     * @type {Pointer<Ptr>}
      */
-    DecoderHandle{
-        get {
-            if(!this.HasProp("__DecoderHandle"))
-                this.__DecoderHandle := HANDLE(this.ptr + 40)
-            return this.__DecoderHandle
-        }
+    DecoderHandle {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
      * A handle to the cryptographic session. Get this from <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11cryptosession-getcryptosessionhandle">ID3D11CryptoSession::GetCryptoSessionHandle</a>.
-     * @type {HANDLE}
+     * @type {Pointer<Ptr>}
      */
-    CryptoSessionHandle{
-        get {
-            if(!this.HasProp("__CryptoSessionHandle"))
-                this.__CryptoSessionHandle := HANDLE(this.ptr + 48)
-            return this.__CryptoSessionHandle
-        }
+    CryptoSessionHandle {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**
      * A handle to the Direct3D device. Get this from <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11videocontext-queryauthenticatedchannel">D3D11VideoContext::QueryAuthenticatedChannel</a> using <b>D3D11_AUTHENTICATED_QUERY_DEVICE_HANDLE</b>.
-     * @type {HANDLE}
+     * @type {Pointer<Ptr>}
      */
-    DeviceHandle{
-        get {
-            if(!this.HasProp("__DeviceHandle"))
-                this.__DeviceHandle := HANDLE(this.ptr + 56)
-            return this.__DeviceHandle
-        }
+    DeviceHandle {
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 }

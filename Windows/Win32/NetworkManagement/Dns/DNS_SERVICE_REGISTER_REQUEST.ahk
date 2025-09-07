@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * Contains the information necessary to advertise a service using [DnsServiceRegister](../windns/nf-windns-dnsserviceregister.md), or to stop advertising it using [DnsServiceDeRegister](../windns/nf-windns-dnsservicederegister.md).
@@ -63,14 +62,11 @@ class DNS_SERVICE_REGISTER_REQUEST extends Win32Struct
 
     /**
      * Not used.
-     * @type {HANDLE}
+     * @type {Pointer<Ptr>}
      */
-    hCredentials{
-        get {
-            if(!this.HasProp("__hCredentials"))
-                this.__hCredentials := HANDLE(this.ptr + 32)
-            return this.__hCredentials
-        }
+    hCredentials {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**

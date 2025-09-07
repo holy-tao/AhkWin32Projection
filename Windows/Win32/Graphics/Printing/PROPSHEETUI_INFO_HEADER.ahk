@@ -1,8 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include ..\..\Foundation\HINSTANCE.ahk
-#Include ..\..\UI\WindowsAndMessaging\HICON.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
@@ -39,36 +36,27 @@ class PROPSHEETUI_INFO_HEADER extends Win32Struct
     }
 
     /**
-     * @type {HWND}
+     * @type {Pointer<Ptr>}
      */
-    hWndParent{
-        get {
-            if(!this.HasProp("__hWndParent"))
-                this.__hWndParent := HWND(this.ptr + 16)
-            return this.__hWndParent
-        }
+    hWndParent {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
-     * @type {HINSTANCE}
+     * @type {Pointer<Ptr>}
      */
-    hInst{
-        get {
-            if(!this.HasProp("__hInst"))
-                this.__hInst := HINSTANCE(this.ptr + 24)
-            return this.__hInst
-        }
+    hInst {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
-     * @type {HICON}
+     * @type {Pointer<Ptr>}
      */
-    hIcon{
-        get {
-            if(!this.HasProp("__hIcon"))
-                this.__hIcon := HICON(this.ptr + 32)
-            return this.__hIcon
-        }
+    hIcon {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**

@@ -1,7 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * The PPP_EAP_INPUT structure is used in the interaction between the RAS Connection Manager Service PPP implementation and the EAP.
@@ -173,26 +171,20 @@ class PPP_EAP_INPUT extends Win32Struct
      * 
      * 
      * If the authentication protocol is able to derive the user's identity from an additional source, for example a certificate, it should verify that the derived identity matches the value of <b>pwszIdentity</b>.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pwszIdentity{
-        get {
-            if(!this.HasProp("__pwszIdentity"))
-                this.__pwszIdentity := PWSTR(this.ptr + 16)
-            return this.__pwszIdentity
-        }
+    pwszIdentity {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * Pointer to a Unicode string that contains the user's account password. Available only if <b>fAuthenticator</b> is <b>FALSE</b>. This member may be <b>NULL</b>.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pwszPassword{
-        get {
-            if(!this.HasProp("__pwszPassword"))
-                this.__pwszPassword := PWSTR(this.ptr + 24)
-            return this.__pwszPassword
-        }
+    pwszPassword {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
@@ -236,14 +228,11 @@ class PPP_EAP_INPUT extends Win32Struct
 
     /**
      * Handle to an impersonation token for the user requesting authentication. This member is valid only on the client side. For more information on impersonation tokens, see <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-tokens">Access Tokens</a>.
-     * @type {HANDLE}
+     * @type {Pointer<Ptr>}
      */
-    hTokenImpersonateUser{
-        get {
-            if(!this.HasProp("__hTokenImpersonateUser"))
-                this.__hTokenImpersonateUser := HANDLE(this.ptr + 56)
-            return this.__hTokenImpersonateUser
-        }
+    hTokenImpersonateUser {
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 
     /**
@@ -338,14 +327,11 @@ class PPP_EAP_INPUT extends Win32Struct
 
     /**
      * This member is reserved.
-     * @type {HANDLE}
+     * @type {Pointer<Ptr>}
      */
-    hReserved{
-        get {
-            if(!this.HasProp("__hReserved"))
-                this.__hReserved := HANDLE(this.ptr + 120)
-            return this.__hReserved
-        }
+    hReserved {
+        get => NumGet(this, 120, "ptr")
+        set => NumPut("ptr", value, this, 120)
     }
 
     /**

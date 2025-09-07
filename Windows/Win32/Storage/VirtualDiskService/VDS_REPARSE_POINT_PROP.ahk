@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Defines the reparse-point properties of a volume object.
@@ -27,13 +26,10 @@ class VDS_REPARSE_POINT_PROP extends Win32Struct
 
     /**
      * A string for a path without a drive letter. For example, "\mount".
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pwszPath{
-        get {
-            if(!this.HasProp("__pwszPath"))
-                this.__pwszPath := PWSTR(this.ptr + 8)
-            return this.__pwszPath
-        }
+    pwszPath {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 }

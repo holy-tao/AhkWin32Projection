@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\CRYPT_XML_ISSUER_SERIAL.ahk
 #Include .\CRYPT_XML_DATA_BLOB.ahk
 #Include .\CRYPT_XML_BLOB.ahk
@@ -49,14 +48,11 @@ class CRYPT_XML_X509DATA_ITEM extends Win32Struct
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    wszSubjectName{
-        get {
-            if(!this.HasProp("__wszSubjectName"))
-                this.__wszSubjectName := PWSTR(this.ptr + 8)
-            return this.__wszSubjectName
-        }
+    wszSubjectName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

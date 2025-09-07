@@ -35,7 +35,7 @@ class D3D12_SUBOBJECT_TO_EXPORTS_ASSOCIATION extends Win32Struct
 
     /**
      * The array of exports with which the subobject is associated.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Ptr>}
      */
     pExports {
         get => NumGet(this, 16, "ptr")

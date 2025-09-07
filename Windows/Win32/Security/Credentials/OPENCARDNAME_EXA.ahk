@@ -1,8 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include ..\..\Foundation\PSTR.ahk
-#Include ..\..\UI\WindowsAndMessaging\HICON.ahk
 
 /**
  * The OPENCARDNAME_EX structure contains the information that the SCardUIDlgSelectCard function uses to initialize a smart card Select Card dialog box. (ANSI)
@@ -42,14 +39,11 @@ class OPENCARDNAME_EXA extends Win32Struct
 
     /**
      * The window that owns the dialog box. This member can be any valid window handle, or it can be <b>NULL</b> for the desktop default.
-     * @type {HWND}
+     * @type {Pointer<Ptr>}
      */
-    hwndOwner{
-        get {
-            if(!this.HasProp("__hwndOwner"))
-                this.__hwndOwner := HWND(this.ptr + 16)
-            return this.__hwndOwner
-        }
+    hwndOwner {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
@@ -100,38 +94,29 @@ class OPENCARDNAME_EXA extends Win32Struct
 
     /**
      * A pointer to a string to be placed in the title bar of the dialog box. If this member is <b>NULL</b>, the system uses the default title "Select Card:".
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpstrTitle{
-        get {
-            if(!this.HasProp("__lpstrTitle"))
-                this.__lpstrTitle := PSTR(this.ptr + 32)
-            return this.__lpstrTitle
-        }
+    lpstrTitle {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
      * A pointer to a string to be displayed to the user as a prompt to insert the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">smart card</a>. If this member is <b>NULL</b>, the system uses the default text "Please insert a smart card".
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpstrSearchDesc{
-        get {
-            if(!this.HasProp("__lpstrSearchDesc"))
-                this.__lpstrSearchDesc := PSTR(this.ptr + 40)
-            return this.__lpstrSearchDesc
-        }
+    lpstrSearchDesc {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
      * A handle to an icon (32 x 32 pixels). You can specify a vendor-specific icon to display in the dialog box. If this value is <b>NULL</b>, a generic, smart card reader–loaded icon is displayed.
-     * @type {HICON}
+     * @type {Pointer<Ptr>}
      */
-    hIcon{
-        get {
-            if(!this.HasProp("__hIcon"))
-                this.__hIcon := HICON(this.ptr + 48)
-            return this.__hIcon
-        }
+    hIcon {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**
@@ -200,14 +185,11 @@ class OPENCARDNAME_EXA extends Win32Struct
 
     /**
      * If the card is located, the <b>lpstrRdr</b> buffer contains the name of the reader that contains the located card. The buffer should be at least 256 characters long.
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpstrRdr{
-        get {
-            if(!this.HasProp("__lpstrRdr"))
-                this.__lpstrRdr := PSTR(this.ptr + 88)
-            return this.__lpstrRdr
-        }
+    lpstrRdr {
+        get => NumGet(this, 88, "ptr")
+        set => NumPut("ptr", value, this, 88)
     }
 
     /**
@@ -222,14 +204,11 @@ class OPENCARDNAME_EXA extends Win32Struct
 
     /**
      * If the card is located, the <i>lpstrCard</i> buffer contains the name of the located card. The buffer should be at least 256 characters long.
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpstrCard{
-        get {
-            if(!this.HasProp("__lpstrCard"))
-                this.__lpstrCard := PSTR(this.ptr + 104)
-            return this.__lpstrCard
-        }
+    lpstrCard {
+        get => NumGet(this, 104, "ptr")
+        set => NumPut("ptr", value, this, 104)
     }
 
     /**

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Under WIP policy, includes a single identity that a file is protected to.
@@ -31,13 +30,10 @@ class ENCRYPTION_PROTECTOR extends Win32Struct
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpProtectorDescriptor{
-        get {
-            if(!this.HasProp("__lpProtectorDescriptor"))
-                this.__lpProtectorDescriptor := PWSTR(this.ptr + 16)
-            return this.__lpProtectorDescriptor
-        }
+    lpProtectorDescriptor {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 }

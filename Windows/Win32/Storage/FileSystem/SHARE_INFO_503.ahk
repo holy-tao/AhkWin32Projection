@@ -1,7 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Security\PSECURITY_DESCRIPTOR.ahk
 
 /**
  * Contains information about the shared resource. It is identical to the SHARE_INFO_502 structure, except that it also contains the server name.
@@ -20,14 +18,11 @@ class SHARE_INFO_503 extends Win32Struct
     /**
      * A pointer to a Unicode string specifying the name of a shared resource. Calls to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmshare/nf-lmshare-netsharesetinfo">NetShareSetInfo</a> function ignore this member.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    shi503_netname{
-        get {
-            if(!this.HasProp("__shi503_netname"))
-                this.__shi503_netname := PWSTR(this.ptr + 0)
-            return this.__shi503_netname
-        }
+    shi503_netname {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
@@ -42,14 +37,11 @@ class SHARE_INFO_503 extends Win32Struct
 
     /**
      * A pointer to a Unicode string specifying an optional comment about the shared resource.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    shi503_remark{
-        get {
-            if(!this.HasProp("__shi503_remark"))
-                this.__shi503_remark := PWSTR(this.ptr + 16)
-            return this.__shi503_remark
-        }
+    shi503_remark {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
@@ -91,14 +83,11 @@ class SHARE_INFO_503 extends Win32Struct
     /**
      * A pointer to a Unicode string that contains the local path for the shared resource. For disks, this member is the path being shared. For print queues, this member is the name of the print queue being shared. Calls to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmshare/nf-lmshare-netsharesetinfo">NetShareSetInfo</a> function ignore this member.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    shi503_path{
-        get {
-            if(!this.HasProp("__shi503_path"))
-                this.__shi503_path := PWSTR(this.ptr + 40)
-            return this.__shi503_path
-        }
+    shi503_path {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
@@ -109,26 +98,20 @@ class SHARE_INFO_503 extends Win32Struct
      * 
      * This member can be no longer than SHPWLEN+1 bytes (including a terminating null character). Calls to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmshare/nf-lmshare-netsharesetinfo">NetShareSetInfo</a> function ignore this member.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    shi503_passwd{
-        get {
-            if(!this.HasProp("__shi503_passwd"))
-                this.__shi503_passwd := PWSTR(this.ptr + 48)
-            return this.__shi503_passwd
-        }
+    shi503_passwd {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**
      * A pointer to a string that specifies the DNS or NetBIOS name of the remote server on which the shared resource resides. A value of "*" indicates no configured server name.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    shi503_servername{
-        get {
-            if(!this.HasProp("__shi503_servername"))
-                this.__shi503_servername := PWSTR(this.ptr + 56)
-            return this.__shi503_servername
-        }
+    shi503_servername {
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 
     /**
@@ -144,13 +127,10 @@ class SHARE_INFO_503 extends Win32Struct
     /**
      * Specifies the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> associated with this share.
-     * @type {PSECURITY_DESCRIPTOR}
+     * @type {Pointer<Ptr>}
      */
-    shi503_security_descriptor{
-        get {
-            if(!this.HasProp("__shi503_security_descriptor"))
-                this.__shi503_security_descriptor := PSECURITY_DESCRIPTOR(this.ptr + 72)
-            return this.__shi503_security_descriptor
-        }
+    shi503_security_descriptor {
+        get => NumGet(this, 72, "ptr")
+        set => NumPut("ptr", value, this, 72)
     }
 }

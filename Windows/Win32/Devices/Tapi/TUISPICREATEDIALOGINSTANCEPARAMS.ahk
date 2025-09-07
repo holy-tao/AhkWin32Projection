@@ -1,7 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\HDRVDIALOGINSTANCE.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The TUISPI data structure is defined below.
@@ -27,14 +25,11 @@ class TUISPICREATEDIALOGINSTANCEPARAMS extends Win32Struct
 
     /**
      * The service provider's identifier for the association with the instance of the generic dialog box. Because it is possible for multiple instances of the generic dialog box to be open in the same or multiple applications, the service provider must ensure that its handle is unique within the scope of existing instances within the context of the provider.
-     * @type {HDRVDIALOGINSTANCE}
+     * @type {Pointer<Ptr>}
      */
-    hdDlgInst{
-        get {
-            if(!this.HasProp("__hdDlgInst"))
-                this.__hdDlgInst := HDRVDIALOGINSTANCE(this.ptr + 8)
-            return this.__hdDlgInst
-        }
+    hdDlgInst {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -48,14 +43,11 @@ class TUISPICREATEDIALOGINSTANCEPARAMS extends Win32Struct
 
     /**
      * Pointer to a <b>NULL</b>-terminated string specifying the fully qualified name of the UI DLL to load in the application context.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpszUIDLLName{
-        get {
-            if(!this.HasProp("__lpszUIDLLName"))
-                this.__lpszUIDLLName := PWSTR(this.ptr + 24)
-            return this.__lpszUIDLLName
-        }
+    lpszUIDLLName {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**

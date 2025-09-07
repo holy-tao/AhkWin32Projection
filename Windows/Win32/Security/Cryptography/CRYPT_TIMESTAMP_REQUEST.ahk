@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 #Include .\CRYPT_INTEGER_BLOB.ahk
 #Include .\CRYPT_ALGORITHM_IDENTIFIER.ahk
 
@@ -51,14 +50,11 @@ class CRYPT_TIMESTAMP_REQUEST extends Win32Struct
 
     /**
      * Optional. A pointer to a null-terminated string that specifies the Time Stamping Authority (TSA) policy under which the time stamp token should be provided.
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszTSAPolicyId{
-        get {
-            if(!this.HasProp("__pszTSAPolicyId"))
-                this.__pszTSAPolicyId := PSTR(this.ptr + 48)
-            return this.__pszTSAPolicyId
-        }
+    pszTSAPolicyId {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**

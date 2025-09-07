@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
 
 /**
  * Defines information for the raw input devices.
@@ -53,13 +52,10 @@ class RAWINPUTDEVICE extends Win32Struct
      * Type: <b>HWND</b>
      * 
      * A handle to the target window. If <b>NULL</b> it follows the keyboard focus.
-     * @type {HWND}
+     * @type {Pointer<Ptr>}
      */
-    hwndTarget{
-        get {
-            if(!this.HasProp("__hwndTarget"))
-                this.__hwndTarget := HWND(this.ptr + 8)
-            return this.__hwndTarget
-        }
+    hwndTarget {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 }

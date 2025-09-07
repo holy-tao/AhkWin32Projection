@@ -2,7 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\SIZE.ahk
 #Include ..\..\Foundation\POINT.ahk
-#Include ..\..\Graphics\Gdi\HBITMAP.ahk
 
 /**
  * Contains the information needed to create a drag image.
@@ -62,14 +61,11 @@ class SHDRAGIMAGE extends Win32Struct
      * Type: <b>HBITMAP</b>
      * 
      * The drag image's bitmap handle.
-     * @type {HBITMAP}
+     * @type {Pointer<Ptr>}
      */
-    hbmpDragImage{
-        get {
-            if(!this.HasProp("__hbmpDragImage"))
-                this.__hbmpDragImage := HBITMAP(this.ptr + 16)
-            return this.__hbmpDragImage
-        }
+    hbmpDragImage {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**

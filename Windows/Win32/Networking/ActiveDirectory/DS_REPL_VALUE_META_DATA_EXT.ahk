@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Foundation\FILETIME.ahk
 
 /**
@@ -14,25 +13,19 @@ class DS_REPL_VALUE_META_DATA_EXT extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszAttributeName{
-        get {
-            if(!this.HasProp("__pszAttributeName"))
-                this.__pszAttributeName := PWSTR(this.ptr + 0)
-            return this.__pszAttributeName
-        }
+    pszAttributeName {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszObjectDn{
-        get {
-            if(!this.HasProp("__pszObjectDn"))
-                this.__pszObjectDn := PWSTR(this.ptr + 8)
-            return this.__pszObjectDn
-        }
+    pszObjectDn {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -117,14 +110,11 @@ class DS_REPL_VALUE_META_DATA_EXT extends Win32Struct
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszLastOriginatingDsaDN{
-        get {
-            if(!this.HasProp("__pszLastOriginatingDsaDN"))
-                this.__pszLastOriginatingDsaDN := PWSTR(this.ptr + 88)
-            return this.__pszLastOriginatingDsaDN
-        }
+    pszLastOriginatingDsaDN {
+        get => NumGet(this, 88, "ptr")
+        set => NumPut("ptr", value, this, 88)
     }
 
     /**

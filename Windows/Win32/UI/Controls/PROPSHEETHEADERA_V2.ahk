@@ -1,11 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include ..\..\Foundation\HINSTANCE.ahk
-#Include ..\WindowsAndMessaging\HICON.ahk
-#Include ..\..\Foundation\PSTR.ahk
-#Include ..\..\Graphics\Gdi\HBITMAP.ahk
-#Include ..\..\Graphics\Gdi\HPALETTE.ahk
 
 /**
  * The PROPSHEETHEADERA_V2 (ANSI) structure defines the frame and pages of a property sheet.
@@ -61,58 +55,43 @@ class PROPSHEETHEADERA_V2 extends Win32Struct
     }
 
     /**
-     * @type {HWND}
+     * @type {Pointer<Ptr>}
      */
-    hwndParent{
-        get {
-            if(!this.HasProp("__hwndParent"))
-                this.__hwndParent := HWND(this.ptr + 8)
-            return this.__hwndParent
-        }
+    hwndParent {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
-     * @type {HINSTANCE}
+     * @type {Pointer<Ptr>}
      */
-    hInstance{
-        get {
-            if(!this.HasProp("__hInstance"))
-                this.__hInstance := HINSTANCE(this.ptr + 16)
-            return this.__hInstance
-        }
+    hInstance {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
-     * @type {HICON}
+     * @type {Pointer<Ptr>}
      */
-    hIcon{
-        get {
-            if(!this.HasProp("__hIcon"))
-                this.__hIcon := HICON(this.ptr + 24)
-            return this.__hIcon
-        }
+    hIcon {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszIcon{
-        get {
-            if(!this.HasProp("__pszIcon"))
-                this.__pszIcon := PSTR(this.ptr + 24)
-            return this.__pszIcon
-        }
+    pszIcon {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszCaption{
-        get {
-            if(!this.HasProp("__pszCaption"))
-                this.__pszCaption := PSTR(this.ptr + 32)
-            return this.__pszCaption
-        }
+    pszCaption {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
@@ -132,14 +111,11 @@ class PROPSHEETHEADERA_V2 extends Win32Struct
     }
 
     /**
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    pStartPage{
-        get {
-            if(!this.HasProp("__pStartPage"))
-                this.__pStartPage := PSTR(this.ptr + 44)
-            return this.__pStartPage
-        }
+    pStartPage {
+        get => NumGet(this, 44, "ptr")
+        set => NumPut("ptr", value, this, 44)
     }
 
     /**
@@ -151,7 +127,7 @@ class PROPSHEETHEADERA_V2 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<HPROPSHEETPAGE>}
+     * @type {Pointer<Ptr>}
      */
     phpage {
         get => NumGet(this, 48, "ptr")
@@ -167,25 +143,19 @@ class PROPSHEETHEADERA_V2 extends Win32Struct
     }
 
     /**
-     * @type {HBITMAP}
+     * @type {Pointer<Ptr>}
      */
-    hbmWatermark{
-        get {
-            if(!this.HasProp("__hbmWatermark"))
-                this.__hbmWatermark := HBITMAP(this.ptr + 64)
-            return this.__hbmWatermark
-        }
+    hbmWatermark {
+        get => NumGet(this, 64, "ptr")
+        set => NumPut("ptr", value, this, 64)
     }
 
     /**
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszbmWatermark{
-        get {
-            if(!this.HasProp("__pszbmWatermark"))
-                this.__pszbmWatermark := PSTR(this.ptr + 64)
-            return this.__pszbmWatermark
-        }
+    pszbmWatermark {
+        get => NumGet(this, 64, "ptr")
+        set => NumPut("ptr", value, this, 64)
     }
 
     /**
@@ -193,35 +163,26 @@ class PROPSHEETHEADERA_V2 extends Win32Struct
      * 
      * 
      * <a href="https://docs.microsoft.com/windows/desktop/Controls/common-control-versions">Version 5.80</a> or later. <b>HPALETTE</b> structure used for drawing the watermark bitmap and/or header bitmap. If the <b>dwFlags</b> member does not include PSH_USEHPLWATERMARK, this member is ignored.
-     * @type {HPALETTE}
+     * @type {Pointer<Ptr>}
      */
-    hplWatermark{
-        get {
-            if(!this.HasProp("__hplWatermark"))
-                this.__hplWatermark := HPALETTE(this.ptr + 72)
-            return this.__hplWatermark
-        }
+    hplWatermark {
+        get => NumGet(this, 72, "ptr")
+        set => NumPut("ptr", value, this, 72)
     }
 
     /**
-     * @type {HBITMAP}
+     * @type {Pointer<Ptr>}
      */
-    hbmHeader{
-        get {
-            if(!this.HasProp("__hbmHeader"))
-                this.__hbmHeader := HBITMAP(this.ptr + 80)
-            return this.__hbmHeader
-        }
+    hbmHeader {
+        get => NumGet(this, 80, "ptr")
+        set => NumPut("ptr", value, this, 80)
     }
 
     /**
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszbmHeader{
-        get {
-            if(!this.HasProp("__pszbmHeader"))
-                this.__pszbmHeader := PSTR(this.ptr + 80)
-            return this.__pszbmHeader
-        }
+    pszbmHeader {
+        get => NumGet(this, 80, "ptr")
+        set => NumPut("ptr", value, this, 80)
     }
 }

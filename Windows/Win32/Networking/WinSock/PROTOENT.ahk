@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * The PROTOENT (winsock.h) structure contains the name and protocol numbers that correspond to a given protocol name.
@@ -16,14 +15,11 @@ class PROTOENT extends Win32Struct
 
     /**
      * Official name of the protocol.
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    p_name{
-        get {
-            if(!this.HasProp("__p_name"))
-                this.__p_name := PSTR(this.ptr + 0)
-            return this.__p_name
-        }
+    p_name {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**

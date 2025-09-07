@@ -1,7 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The BASEBROWSERDATALH structure contains protected members of the base class. (BASEBROWSERDATALH structure)
@@ -19,14 +17,11 @@ class BASEBROWSERDATALH extends Win32Struct
      * Type: <b>HWND</b>
      * 
      * The handle of the browser's top-level window.
-     * @type {HWND}
+     * @type {Pointer<Ptr>}
      */
-    _hwnd{
-        get {
-            if(!this.HasProp("___hwnd"))
-                this.___hwnd := HWND(this.ptr + 0)
-            return this.___hwnd
-        }
+    _hwnd {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
@@ -174,28 +169,22 @@ class BASEBROWSERDATALH extends Win32Struct
      * Type: <b>HWND</b>
      * 
      * A handle to the window returned by <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ishellview-createviewwindow">_psv->CreateViewWindow</a>.
-     * @type {HWND}
+     * @type {Pointer<Ptr>}
      */
-    _hwndView{
-        get {
-            if(!this.HasProp("___hwndView"))
-                this.___hwndView := HWND(this.ptr + 104)
-            return this.___hwndView
-        }
+    _hwndView {
+        get => NumGet(this, 104, "ptr")
+        set => NumPut("ptr", value, this, 104)
     }
 
     /**
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to a buffer containing the Unicode title text for the current location.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    _pszTitleCur{
-        get {
-            if(!this.HasProp("___pszTitleCur"))
-                this.___pszTitleCur := PWSTR(this.ptr + 112)
-            return this.___pszTitleCur
-        }
+    _pszTitleCur {
+        get => NumGet(this, 112, "ptr")
+        set => NumPut("ptr", value, this, 112)
     }
 
     /**
@@ -235,28 +224,22 @@ class BASEBROWSERDATALH extends Win32Struct
      * Type: <b>HWND</b>
      * 
      * A handle to the pending target location's view window. Once navigation is complete, this value moves to <b>_hwndView</b>.
-     * @type {HWND}
+     * @type {Pointer<Ptr>}
      */
-    _hwndViewPending{
-        get {
-            if(!this.HasProp("___hwndViewPending"))
-                this.___hwndViewPending := HWND(this.ptr + 144)
-            return this.___hwndViewPending
-        }
+    _hwndViewPending {
+        get => NumGet(this, 144, "ptr")
+        set => NumPut("ptr", value, this, 144)
     }
 
     /**
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to a buffer containing the Unicode title text for the pending target location. Once navigation is complete, this value moves to <b>_pszTitleCur</b>.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    _pszTitlePending{
-        get {
-            if(!this.HasProp("___pszTitlePending"))
-                this.___pszTitlePending := PWSTR(this.ptr + 152)
-            return this.___pszTitlePending
-        }
+    _pszTitlePending {
+        get => NumGet(this, 152, "ptr")
+        set => NumPut("ptr", value, this, 152)
     }
 
     /**
@@ -301,14 +284,11 @@ class BASEBROWSERDATALH extends Win32Struct
 
     /**
      * Type: <b>HWND</b>
-     * @type {HWND}
+     * @type {Pointer<Ptr>}
      */
-    _hwndFrame{
-        get {
-            if(!this.HasProp("___hwndFrame"))
-                this.___hwndFrame := HWND(this.ptr + 184)
-            return this.___hwndFrame
-        }
+    _hwndFrame {
+        get => NumGet(this, 184, "ptr")
+        set => NumPut("ptr", value, this, 184)
     }
 
     /**

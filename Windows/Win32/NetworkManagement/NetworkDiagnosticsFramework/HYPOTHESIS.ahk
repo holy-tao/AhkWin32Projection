@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The HYPOTHESIS structure contains data used to submit a hypothesis to NDF for another helper class.
@@ -18,28 +17,22 @@ class HYPOTHESIS extends Win32Struct
      * Type: <b>[string] LPWSTR</b>
      * 
      * A pointer to a null-terminated string that contains the name of the helper class.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pwszClassName{
-        get {
-            if(!this.HasProp("__pwszClassName"))
-                this.__pwszClassName := PWSTR(this.ptr + 0)
-            return this.__pwszClassName
-        }
+    pwszClassName {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
      * Type: <b>[string] LPWSTR</b>
      * 
      * A  pointer to a null-terminated string that contains a user-friendly description of the data being passed to the helper class..
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pwszDescription{
-        get {
-            if(!this.HasProp("__pwszDescription"))
-                this.__pwszDescription := PWSTR(this.ptr + 8)
-            return this.__pwszDescription
-        }
+    pwszDescription {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

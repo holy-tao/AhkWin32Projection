@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The GROUP_INFO_2 structure contains information about a global group, including name, identifier, and resource attributes.
@@ -24,26 +23,20 @@ class GROUP_INFO_2 extends Win32Struct
      * 
      * When you call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netgroupsetinfo">NetGroupSetInfo</a> function this member is ignored.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    grpi2_name{
-        get {
-            if(!this.HasProp("__grpi2_name"))
-                this.__grpi2_name := PWSTR(this.ptr + 0)
-            return this.__grpi2_name
-        }
+    grpi2_name {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
      * Pointer to a null-terminated Unicode character string that contains a remark associated with the global group. This member can be a null string. The comment can contain MAXCOMMENTSZ characters.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    grpi2_comment{
-        get {
-            if(!this.HasProp("__grpi2_comment"))
-                this.__grpi2_comment := PWSTR(this.ptr + 8)
-            return this.__grpi2_comment
-        }
+    grpi2_comment {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

@@ -1,8 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\RECT.ahk
-#Include .\HMENU.ahk
-#Include ..\..\Foundation\HWND.ahk
 
 /**
  * Contains menu bar information.
@@ -45,28 +43,22 @@ class MENUBARINFO extends Win32Struct
      * Type: <b>HMENU</b>
      * 
      * A handle to the menu bar or popup menu.
-     * @type {HMENU}
+     * @type {Pointer<Ptr>}
      */
-    hMenu{
-        get {
-            if(!this.HasProp("__hMenu"))
-                this.__hMenu := HMENU(this.ptr + 24)
-            return this.__hMenu
-        }
+    hMenu {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
      * Type: <b>HWND</b>
      * 
      * A handle to the submenu.
-     * @type {HWND}
+     * @type {Pointer<Ptr>}
      */
-    hwndMenu{
-        get {
-            if(!this.HasProp("__hwndMenu"))
-                this.__hwndMenu := HWND(this.ptr + 32)
-            return this.__hwndMenu
-        }
+    hwndMenu {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**

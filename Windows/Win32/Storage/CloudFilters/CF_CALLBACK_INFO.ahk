@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains common callback information.
@@ -51,26 +50,20 @@ class CF_CALLBACK_INFO extends Win32Struct
 
     /**
      * GUID name of the volume on which the placeholder file/directory to be serviced resides. It is in the form: “\\?\Volume{GUID}”.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    VolumeGuidName{
-        get {
-            if(!this.HasProp("__VolumeGuidName"))
-                this.__VolumeGuidName := PWSTR(this.ptr + 24)
-            return this.__VolumeGuidName
-        }
+    VolumeGuidName {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
      * DOS drive letter of the volume in the form of "X:" where **X** is the drive letter.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    VolumeDosName{
-        get {
-            if(!this.HasProp("__VolumeDosName"))
-                this.__VolumeDosName := PWSTR(this.ptr + 32)
-            return this.__VolumeDosName
-        }
+    VolumeDosName {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
@@ -147,14 +140,11 @@ class CF_CALLBACK_INFO extends Win32Struct
 
     /**
      * The absolute path of the placeholder file or directory to be serviced on the volume identified by VolumeGuidName/VolumeDosName. It starts from the root directory of the volume. See the [Remarks](#-remarks) section for more details.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    NormalizedPath{
-        get {
-            if(!this.HasProp("__NormalizedPath"))
-                this.__NormalizedPath := PWSTR(this.ptr + 104)
-            return this.__NormalizedPath
-        }
+    NormalizedPath {
+        get => NumGet(this, 104, "ptr")
+        set => NumPut("ptr", value, this, 104)
     }
 
     /**

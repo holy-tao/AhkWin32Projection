@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\HANDLE.ahk
 
 /**
  * Contains information about a deferred symbol load. (IMAGEHLP_DEFERRED_SYMBOL_LOAD)
@@ -76,13 +75,10 @@ class IMAGEHLP_DEFERRED_SYMBOL_LOAD extends Win32Struct
 
     /**
      * A handle to a file. This member is used with <b>CBA_DEFERRED_SYMBOL_LOAD_PARTIAL</b> and <b>IMAGEHLP_DEFERRED_SYMBOL_LOAD_FAILURE</b> callbacks.
-     * @type {HANDLE}
+     * @type {Pointer<Ptr>}
      */
-    hFile{
-        get {
-            if(!this.HasProp("__hFile"))
-                this.__hFile := HANDLE(this.ptr + 544)
-            return this.__hFile
-        }
+    hFile {
+        get => NumGet(this, 544, "ptr")
+        set => NumPut("ptr", value, this, 544)
     }
 }

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Dns
@@ -13,14 +12,11 @@ class DNS_CONNECTION_IFINDEX_ENTRY extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pwszConnectionName{
-        get {
-            if(!this.HasProp("__pwszConnectionName"))
-                this.__pwszConnectionName := PWSTR(this.ptr + 0)
-            return this.__pwszConnectionName
-        }
+    pwszConnectionName {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**

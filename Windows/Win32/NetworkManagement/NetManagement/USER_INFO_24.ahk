@@ -1,7 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Security\PSID.ahk
 
 /**
  * Contains user account information on an account which is connected to an Internet identity. This information includes the Internet provider name for the user, the user's Internet name, and the user's security identifier (SID).
@@ -43,37 +41,28 @@ class USER_INFO_24 extends Win32Struct
 
     /**
      * A pointer to a Unicode string that specifies the Internet provider name.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    usri24_internet_provider_name{
-        get {
-            if(!this.HasProp("__usri24_internet_provider_name"))
-                this.__usri24_internet_provider_name := PWSTR(this.ptr + 8)
-            return this.__usri24_internet_provider_name
-        }
+    usri24_internet_provider_name {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * A pointer to a Unicode string that specifies the user's Internet name.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    usri24_internet_principal_name{
-        get {
-            if(!this.HasProp("__usri24_internet_principal_name"))
-                this.__usri24_internet_principal_name := PWSTR(this.ptr + 16)
-            return this.__usri24_internet_principal_name
-        }
+    usri24_internet_principal_name {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * The local account SID of the user.
-     * @type {PSID}
+     * @type {Pointer<Ptr>}
      */
-    usri24_user_sid{
-        get {
-            if(!this.HasProp("__usri24_user_sid"))
-                this.__usri24_user_sid := PSID(this.ptr + 24)
-            return this.__usri24_user_sid
-        }
+    usri24_user_sid {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 }

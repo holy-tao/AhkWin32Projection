@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.Storage.VirtualDiskService
@@ -13,58 +12,43 @@ class VDS_ADVANCEDDISK_PROP extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pwszId{
-        get {
-            if(!this.HasProp("__pwszId"))
-                this.__pwszId := PWSTR(this.ptr + 0)
-            return this.__pwszId
-        }
+    pwszId {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pwszPathname{
-        get {
-            if(!this.HasProp("__pwszPathname"))
-                this.__pwszPathname := PWSTR(this.ptr + 8)
-            return this.__pwszPathname
-        }
+    pwszPathname {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pwszLocation{
-        get {
-            if(!this.HasProp("__pwszLocation"))
-                this.__pwszLocation := PWSTR(this.ptr + 16)
-            return this.__pwszLocation
-        }
+    pwszLocation {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pwszFriendlyName{
-        get {
-            if(!this.HasProp("__pwszFriendlyName"))
-                this.__pwszFriendlyName := PWSTR(this.ptr + 24)
-            return this.__pwszFriendlyName
-        }
+    pwszFriendlyName {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pswzIdentifier{
-        get {
-            if(!this.HasProp("__pswzIdentifier"))
-                this.__pswzIdentifier := PWSTR(this.ptr + 32)
-            return this.__pswzIdentifier
-        }
+    pswzIdentifier {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
@@ -84,47 +68,35 @@ class VDS_ADVANCEDDISK_PROP extends Win32Struct
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pwszSerialNumber{
-        get {
-            if(!this.HasProp("__pwszSerialNumber"))
-                this.__pwszSerialNumber := PWSTR(this.ptr + 48)
-            return this.__pwszSerialNumber
-        }
+    pwszSerialNumber {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pwszFirmwareVersion{
-        get {
-            if(!this.HasProp("__pwszFirmwareVersion"))
-                this.__pwszFirmwareVersion := PWSTR(this.ptr + 56)
-            return this.__pwszFirmwareVersion
-        }
+    pwszFirmwareVersion {
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pwszManufacturer{
-        get {
-            if(!this.HasProp("__pwszManufacturer"))
-                this.__pwszManufacturer := PWSTR(this.ptr + 64)
-            return this.__pwszManufacturer
-        }
+    pwszManufacturer {
+        get => NumGet(this, 64, "ptr")
+        set => NumPut("ptr", value, this, 64)
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pwszModel{
-        get {
-            if(!this.HasProp("__pwszModel"))
-                this.__pwszModel := PWSTR(this.ptr + 72)
-            return this.__pwszModel
-        }
+    pwszModel {
+        get => NumGet(this, 72, "ptr")
+        set => NumPut("ptr", value, this, 72)
     }
 
     /**

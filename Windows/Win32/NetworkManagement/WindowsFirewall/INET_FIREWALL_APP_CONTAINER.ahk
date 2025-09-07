@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\INET_FIREWALL_AC_CAPABILITIES.ahk
 #Include .\INET_FIREWALL_AC_BINARIES.ahk
 
@@ -44,42 +43,33 @@ class INET_FIREWALL_APP_CONTAINER extends Win32Struct
      * The app container's globally unique name.
      * 
      *  Also referred to as the  Package Family Name, for the app container of a Windows Store app.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    appContainerName{
-        get {
-            if(!this.HasProp("__appContainerName"))
-                this.__appContainerName := PWSTR(this.ptr + 16)
-            return this.__appContainerName
-        }
+    appContainerName {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * Type: <b>LPWSTR</b>
      * 
      * Friendly name of the app container
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    displayName{
-        get {
-            if(!this.HasProp("__displayName"))
-                this.__displayName := PWSTR(this.ptr + 24)
-            return this.__displayName
-        }
+    displayName {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
      * Type: <b>LPWSTR</b>
      * 
      * A description of the app container (its use, the objective of the application that uses it, etc.)
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    description{
-        get {
-            if(!this.HasProp("__description"))
-                this.__description := PWSTR(this.ptr + 32)
-            return this.__description
-        }
+    description {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
@@ -112,25 +102,19 @@ class INET_FIREWALL_APP_CONTAINER extends Win32Struct
 
     /**
      * 
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    workingDirectory{
-        get {
-            if(!this.HasProp("__workingDirectory"))
-                this.__workingDirectory := PWSTR(this.ptr + 72)
-            return this.__workingDirectory
-        }
+    workingDirectory {
+        get => NumGet(this, 72, "ptr")
+        set => NumPut("ptr", value, this, 72)
     }
 
     /**
      * 
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    packageFullName{
-        get {
-            if(!this.HasProp("__packageFullName"))
-                this.__packageFullName := PWSTR(this.ptr + 80)
-            return this.__packageFullName
-        }
+    packageFullName {
+        get => NumGet(this, 80, "ptr")
+        set => NumPut("ptr", value, this, 80)
     }
 }

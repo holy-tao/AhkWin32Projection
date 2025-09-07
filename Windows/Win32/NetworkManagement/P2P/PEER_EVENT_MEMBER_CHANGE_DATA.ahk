@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The PEER_EVENT_MEMBER_CHANGE_DATA structure contains data that describes a change in the status of a peer group member.
@@ -35,13 +34,10 @@ class PEER_EVENT_MEMBER_CHANGE_DATA extends Win32Struct
 
     /**
      * Pointer to a Unicode string that contains the peer name of the peer group member.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pwzIdentity{
-        get {
-            if(!this.HasProp("__pwzIdentity"))
-                this.__pwzIdentity := PWSTR(this.ptr + 8)
-            return this.__pwzIdentity
-        }
+    pwzIdentity {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 }

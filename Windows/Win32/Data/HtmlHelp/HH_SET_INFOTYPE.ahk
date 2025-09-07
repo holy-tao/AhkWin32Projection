@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * @namespace Windows.Win32.Data.HtmlHelp
@@ -21,24 +20,18 @@ class HH_SET_INFOTYPE extends Win32Struct
     }
 
     /**
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszCatName{
-        get {
-            if(!this.HasProp("__pszCatName"))
-                this.__pszCatName := PSTR(this.ptr + 8)
-            return this.__pszCatName
-        }
+    pszCatName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszInfoTypeName{
-        get {
-            if(!this.HasProp("__pszInfoTypeName"))
-                this.__pszInfoTypeName := PSTR(this.ptr + 16)
-            return this.__pszInfoTypeName
-        }
+    pszInfoTypeName {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 }

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Represents a RelatesTo SOAP envelope header block, as specified by the WS-Addressing specification.
@@ -25,13 +24,10 @@ class WSD_HEADER_RELATESTO extends Win32Struct
 
     /**
      * The identifier of the related message.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    MessageID{
-        get {
-            if(!this.HasProp("__MessageID"))
-                this.__MessageID := PWSTR(this.ptr + 8)
-            return this.__MessageID
-        }
+    MessageID {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 }

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The CABINET_INFO structure stores information about a cabinet file. The SetupIterateCabinet function specifies this structure as a parameter when it sends a SPFILENOTIFY_NEEDNEWCABINET notification to the cabinet callback routine. (Unicode)
@@ -20,38 +19,29 @@ class CABINET_INFO_W extends Win32Struct
 
     /**
      * Path to the cabinet file.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    CabinetPath{
-        get {
-            if(!this.HasProp("__CabinetPath"))
-                this.__CabinetPath := PWSTR(this.ptr + 0)
-            return this.__CabinetPath
-        }
+    CabinetPath {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
      * Name of the cabinet file.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    CabinetFile{
-        get {
-            if(!this.HasProp("__CabinetFile"))
-                this.__CabinetFile := PWSTR(this.ptr + 8)
-            return this.__CabinetFile
-        }
+    CabinetFile {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * Name of the source media that contains the cabinet file.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    DiskName{
-        get {
-            if(!this.HasProp("__DiskName"))
-                this.__DiskName := PWSTR(this.ptr + 16)
-            return this.__DiskName
-        }
+    DiskName {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**

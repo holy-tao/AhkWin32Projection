@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Dns
@@ -21,14 +20,11 @@ class DNS_CONNECTION_PROXY_INFO extends Win32Struct
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pwszFriendlyName{
-        get {
-            if(!this.HasProp("__pwszFriendlyName"))
-                this.__pwszFriendlyName := PWSTR(this.ptr + 8)
-            return this.__pwszFriendlyName
-        }
+    pwszFriendlyName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -48,58 +44,43 @@ class DNS_CONNECTION_PROXY_INFO extends Win32Struct
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pwszServer{
-        get {
-            if(!this.HasProp("__pwszServer"))
-                this.__pwszServer := PWSTR(this.ptr + 24)
-            return this.__pwszServer
-        }
+    pwszServer {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pwszUsername{
-        get {
-            if(!this.HasProp("__pwszUsername"))
-                this.__pwszUsername := PWSTR(this.ptr + 32)
-            return this.__pwszUsername
-        }
+    pwszUsername {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pwszPassword{
-        get {
-            if(!this.HasProp("__pwszPassword"))
-                this.__pwszPassword := PWSTR(this.ptr + 40)
-            return this.__pwszPassword
-        }
+    pwszPassword {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pwszException{
-        get {
-            if(!this.HasProp("__pwszException"))
-                this.__pwszException := PWSTR(this.ptr + 48)
-            return this.__pwszException
-        }
+    pwszException {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pwszExtraInfo{
-        get {
-            if(!this.HasProp("__pwszExtraInfo"))
-                this.__pwszExtraInfo := PWSTR(this.ptr + 56)
-            return this.__pwszExtraInfo
-        }
+    pwszExtraInfo {
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 
     /**
@@ -111,13 +92,10 @@ class DNS_CONNECTION_PROXY_INFO extends Win32Struct
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pwszScript{
-        get {
-            if(!this.HasProp("__pwszScript"))
-                this.__pwszScript := PWSTR(this.ptr + 24)
-            return this.__pwszScript
-        }
+    pwszScript {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 }

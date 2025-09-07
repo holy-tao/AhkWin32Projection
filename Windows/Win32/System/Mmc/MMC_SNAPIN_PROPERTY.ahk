@@ -1,9 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\Com\CY.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\Foundation\PSTR.ahk
 #Include ..\..\Foundation\DECIMAL.ahk
 #Include ..\Variant\VARIANT.ahk
 
@@ -21,14 +18,11 @@ class MMC_SNAPIN_PROPERTY extends Win32Struct
 
     /**
      * Name of the property.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszPropName{
-        get {
-            if(!this.HasProp("__pszPropName"))
-                this.__pszPropName := PWSTR(this.ptr + 0)
-            return this.__pszPropName
-        }
+    pszPropName {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**

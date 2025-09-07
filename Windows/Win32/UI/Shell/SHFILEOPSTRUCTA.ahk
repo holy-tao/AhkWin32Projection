@@ -1,7 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * Contains information that the SHFileOperation function uses to perform file operations. (ANSI)
@@ -100,14 +98,11 @@ class SHFILEOPSTRUCTA extends Win32Struct
      * Type: <b>HWND</b>
      * 
      * A window handle to the dialog box to display information about the status of the file operation.
-     * @type {HWND}
+     * @type {Pointer<Ptr>}
      */
-    hwnd{
-        get {
-            if(!this.HasProp("__hwnd"))
-                this.__hwnd := HWND(this.ptr + 0)
-            return this.__hwnd
-        }
+    hwnd {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
@@ -196,13 +191,10 @@ class SHFILEOPSTRUCTA extends Win32Struct
      * Type: <b>PCTSTR</b>
      * 
      * A pointer to the title of a progress dialog box. This is a null-terminated string. This member is used only if <b>fFlags</b> includes the <b>FOF_SIMPLEPROGRESS</b> flag.
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpszProgressTitle{
-        get {
-            if(!this.HasProp("__lpszProgressTitle"))
-                this.__lpszProgressTitle := PSTR(this.ptr + 42)
-            return this.__lpszProgressTitle
-        }
+    lpszProgressTitle {
+        get => NumGet(this, 42, "ptr")
+        set => NumPut("ptr", value, this, 42)
     }
 }

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
@@ -45,13 +44,10 @@ class DOC_INFO_INTERNAL extends Win32Struct
     }
 
     /**
-     * @type {HANDLE}
+     * @type {Pointer<Ptr>}
      */
-    hTokenLowIL{
-        get {
-            if(!this.HasProp("__hTokenLowIL"))
-                this.__hTokenLowIL := HANDLE(this.ptr + 32)
-            return this.__hTokenLowIL
-        }
+    hTokenLowIL {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 }

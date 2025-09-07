@@ -1,8 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\Com\CY.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\Foundation\PSTR.ahk
 #Include ..\..\Foundation\DECIMAL.ahk
 
 /**
@@ -141,14 +139,11 @@ class VARIANT extends Win32Struct
     }
 
     /**
-     * @type {BSTR}
+     * @type {Pointer<Ptr>}
      */
-    bstrVal{
-        get {
-            if(!this.HasProp("__bstrVal"))
-                this.__bstrVal := BSTR(this.ptr + 8)
-            return this.__bstrVal
-        }
+    bstrVal {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -264,7 +259,7 @@ class VARIANT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<BSTR>}
+     * @type {Pointer<Ptr>}
      */
     pbstrVal {
         get => NumGet(this, 8, "ptr")
@@ -368,14 +363,11 @@ class VARIANT extends Win32Struct
     }
 
     /**
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    pcVal{
-        get {
-            if(!this.HasProp("__pcVal"))
-                this.__pcVal := PSTR(this.ptr + 8)
-            return this.__pcVal
-        }
+    pcVal {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

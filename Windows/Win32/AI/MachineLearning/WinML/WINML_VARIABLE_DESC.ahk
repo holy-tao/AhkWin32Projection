@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\PWSTR.ahk
 #Include .\WINML_TENSOR_VARIABLE_DESC.ahk
 #Include .\WINML_SEQUENCE_VARIABLE_DESC.ahk
 #Include .\WINML_MAP_VARIABLE_DESC.ahk
@@ -20,26 +19,20 @@ class WINML_VARIABLE_DESC extends Win32Struct
 
     /**
      * The name of the variable.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    Name{
-        get {
-            if(!this.HasProp("__Name"))
-                this.__Name := PWSTR(this.ptr + 0)
-            return this.__Name
-        }
+    Name {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
      * The description of the variable.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    Description{
-        get {
-            if(!this.HasProp("__Description"))
-                this.__Description := PWSTR(this.ptr + 8)
-            return this.__Description
-        }
+    Description {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

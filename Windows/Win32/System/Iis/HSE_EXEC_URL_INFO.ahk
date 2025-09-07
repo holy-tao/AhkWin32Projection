@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * @namespace Windows.Win32.System.Iis
@@ -13,36 +12,27 @@ class HSE_EXEC_URL_INFO extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszUrl{
-        get {
-            if(!this.HasProp("__pszUrl"))
-                this.__pszUrl := PSTR(this.ptr + 0)
-            return this.__pszUrl
-        }
+    pszUrl {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszMethod{
-        get {
-            if(!this.HasProp("__pszMethod"))
-                this.__pszMethod := PSTR(this.ptr + 8)
-            return this.__pszMethod
-        }
+    pszMethod {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszChildHeaders{
-        get {
-            if(!this.HasProp("__pszChildHeaders"))
-                this.__pszChildHeaders := PSTR(this.ptr + 16)
-            return this.__pszChildHeaders
-        }
+    pszChildHeaders {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**

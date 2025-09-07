@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 #Include .\CRYPT_INTEGER_BLOB.ahk
 
 /**
@@ -51,14 +50,11 @@ class CERT_QC_STATEMENT extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszStatementId{
-        get {
-            if(!this.HasProp("__pszStatementId"))
-                this.__pszStatementId := PSTR(this.ptr + 0)
-            return this.__pszStatementId
-        }
+    pszStatementId {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**

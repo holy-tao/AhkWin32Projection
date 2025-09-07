@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * @namespace Windows.Win32.System.JobObjects
@@ -13,14 +12,11 @@ class JOB_SET_ARRAY extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {HANDLE}
+     * @type {Pointer<Ptr>}
      */
-    JobHandle{
-        get {
-            if(!this.HasProp("__JobHandle"))
-                this.__JobHandle := HANDLE(this.ptr + 0)
-            return this.__JobHandle
-        }
+    JobHandle {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**

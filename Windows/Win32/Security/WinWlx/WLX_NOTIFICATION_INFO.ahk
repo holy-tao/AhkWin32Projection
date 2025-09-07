@@ -1,8 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Foundation\HANDLE.ahk
-#Include ..\..\System\StationsAndDesktops\HDESK.ahk
 
 /**
  * This structure stores information about a Winlogon event.
@@ -36,63 +33,48 @@ class WLX_NOTIFICATION_INFO extends Win32Struct
 
     /**
      * String that specifies the name of the user currently logged on to the system. If the event occurs before a user logs on, this value is <b>NULL</b>.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    UserName{
-        get {
-            if(!this.HasProp("__UserName"))
-                this.__UserName := PWSTR(this.ptr + 8)
-            return this.__UserName
-        }
+    UserName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * String that specifies the name of the domain the user is currently logged on to. If the event occurs before a user logs on, this value is <b>NULL</b>.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    Domain{
-        get {
-            if(!this.HasProp("__Domain"))
-                this.__Domain := PWSTR(this.ptr + 16)
-            return this.__Domain
-        }
+    Domain {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * Specifies the name of the window station the user is currently logged on to. If the event occurs before a user logs on, this value is <b>NULL</b>. Note that most configurations use a single, default window station. Some applications, such as 
      * <a href="https://docs.microsoft.com/windows/desktop/TermServ/about-terminal-services">About Terminal Services</a>, use multiple window stations.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    WindowStation{
-        get {
-            if(!this.HasProp("__WindowStation"))
-                this.__WindowStation := PWSTR(this.ptr + 24)
-            return this.__WindowStation
-        }
+    WindowStation {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
      * A handle to the user's token. This value is <b>NULL</b> if the event occurs before a user logs on.
-     * @type {HANDLE}
+     * @type {Pointer<Ptr>}
      */
-    hToken{
-        get {
-            if(!this.HasProp("__hToken"))
-                this.__hToken := HANDLE(this.ptr + 32)
-            return this.__hToken
-        }
+    hToken {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
      * A handle to the desktop that is currently active.
-     * @type {HDESK}
+     * @type {Pointer<Ptr>}
      */
-    hDesktop{
-        get {
-            if(!this.HasProp("__hDesktop"))
-                this.__hDesktop := HDESK(this.ptr + 40)
-            return this.__hDesktop
-        }
+    hDesktop {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**

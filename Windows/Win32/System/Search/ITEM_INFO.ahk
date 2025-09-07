@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains information passed to the IUrlAccessor object about the current item; for example, the application name and catalog name.
@@ -29,55 +28,43 @@ class ITEM_INFO extends Win32Struct
      * Type: <b>LPCWSTR</b>
      * 
      * Pointer to a null-terminated Unicode string containing an email address that is notified in case of error.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pcwszFromEMail{
-        get {
-            if(!this.HasProp("__pcwszFromEMail"))
-                this.__pcwszFromEMail := PWSTR(this.ptr + 8)
-            return this.__pcwszFromEMail
-        }
+    pcwszFromEMail {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * Type: <b>LPCWSTR</b>
      * 
      * Pointer to a null-terminated Unicode string containing the application name.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pcwszApplicationName{
-        get {
-            if(!this.HasProp("__pcwszApplicationName"))
-                this.__pcwszApplicationName := PWSTR(this.ptr + 16)
-            return this.__pcwszApplicationName
-        }
+    pcwszApplicationName {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * Type: <b>LPCWSTR</b>
      * 
      * Pointer to a null-terminated Unicode string containing the workspace name from which the crawl to this content source was initiated.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pcwszCatalogName{
-        get {
-            if(!this.HasProp("__pcwszCatalogName"))
-                this.__pcwszCatalogName := PWSTR(this.ptr + 24)
-            return this.__pcwszCatalogName
-        }
+    pcwszCatalogName {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
      * Type: <b>LPCWSTR</b>
      * 
      * Not used by protocol handlers.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pcwszContentClass{
-        get {
-            if(!this.HasProp("__pcwszContentClass"))
-                this.__pcwszContentClass := PWSTR(this.ptr + 32)
-            return this.__pcwszContentClass
-        }
+    pcwszContentClass {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 }

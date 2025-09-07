@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains information to register a cloud backup provider with Windows Server Backup.
@@ -16,14 +15,11 @@ class WSB_OB_REGISTRATION_INFO extends Win32Struct
 
     /**
      * The complete path to the resource DLL where the provider name and icon resources can be loaded from.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    m_wszResourceDLL{
-        get {
-            if(!this.HasProp("__m_wszResourceDLL"))
-                this.__m_wszResourceDLL := PWSTR(this.ptr + 0)
-            return this.__m_wszResourceDLL
-        }
+    m_wszResourceDLL {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**

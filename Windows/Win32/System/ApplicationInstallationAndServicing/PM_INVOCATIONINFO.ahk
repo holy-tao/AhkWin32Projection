@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
@@ -13,24 +12,18 @@ class PM_INVOCATIONINFO extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {BSTR}
+     * @type {Pointer<Ptr>}
      */
-    URIBaseOrAUMID{
-        get {
-            if(!this.HasProp("__URIBaseOrAUMID"))
-                this.__URIBaseOrAUMID := BSTR(this.ptr + 0)
-            return this.__URIBaseOrAUMID
-        }
+    URIBaseOrAUMID {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
-     * @type {BSTR}
+     * @type {Pointer<Ptr>}
      */
-    URIFragmentOrArgs{
-        get {
-            if(!this.HasProp("__URIFragmentOrArgs"))
-                this.__URIFragmentOrArgs := BSTR(this.ptr + 8)
-            return this.__URIFragmentOrArgs
-        }
+    URIFragmentOrArgs {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 }

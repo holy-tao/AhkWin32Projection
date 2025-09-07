@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * Contains information about a worker thread.
@@ -25,14 +24,11 @@ class CLUS_WORKER extends Win32Struct
 
     /**
      * Handle to the worker thread.
-     * @type {HANDLE}
+     * @type {Pointer<Ptr>}
      */
-    hThread{
-        get {
-            if(!this.HasProp("__hThread"))
-                this.__hThread := HANDLE(this.ptr + 0)
-            return this.__hThread
-        }
+    hThread {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**

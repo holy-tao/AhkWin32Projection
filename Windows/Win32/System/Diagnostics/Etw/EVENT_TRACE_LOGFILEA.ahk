@@ -1,10 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\PSTR.ahk
 #Include .\EVENT_TRACE_HEADER.ahk
 #Include .\ETW_BUFFER_CONTEXT.ahk
 #Include .\EVENT_TRACE.ahk
-#Include ..\..\..\Foundation\PWSTR.ahk
 #Include ..\..\..\Foundation\SYSTEMTIME.ahk
 #Include ..\..\Time\TIME_ZONE_INFORMATION.ahk
 #Include .\TRACE_LOGFILE_HEADER.ahk
@@ -86,14 +84,11 @@ class EVENT_TRACE_LOGFILEA extends Win32Struct
      * > This can also occur if the file was created using the
      * > **EVENT_TRACE_FILE_MODE_NEWFILE** mode, in which case the generated ETL file
      * > will include a sequence number.
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    LogFileName{
-        get {
-            if(!this.HasProp("__LogFileName"))
-                this.__LogFileName := PSTR(this.ptr + 0)
-            return this.__LogFileName
-        }
+    LogFileName {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
@@ -116,14 +111,11 @@ class EVENT_TRACE_LOGFILEA extends Win32Struct
      * [EventAccessControl](/windows/desktop/api/evntcons/nf-evntcons-eventaccesscontrol).
      * 
      * **Windows XP and Windows 2000:** Anyone can consume real time events.
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    LoggerName{
-        get {
-            if(!this.HasProp("__LoggerName"))
-                this.__LoggerName := PSTR(this.ptr + 8)
-            return this.__LoggerName
-        }
+    LoggerName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

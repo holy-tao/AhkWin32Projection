@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The interface context that is part of the NET_INTERFACE_CONTEXT_TABLE structure.
@@ -25,13 +24,10 @@ class NET_INTERFACE_CONTEXT extends Win32Struct
 
     /**
      * The configuration name.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    ConfigurationName{
-        get {
-            if(!this.HasProp("__ConfigurationName"))
-                this.__ConfigurationName := PWSTR(this.ptr + 8)
-            return this.__ConfigurationName
-        }
+    ConfigurationName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 }

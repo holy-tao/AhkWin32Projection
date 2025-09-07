@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The DRIVER\_INFO\_5 structure contains printer driver information.
@@ -26,62 +25,47 @@ class DRIVER_INFO_5W extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that specifies the name of the driver (for example, QMS 810).
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pName{
-        get {
-            if(!this.HasProp("__pName"))
-                this.__pName := PWSTR(this.ptr + 8)
-            return this.__pName
-        }
+    pName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * Pointer to a null-terminated string that specifies the environment for which the driver was written (for example, Windows x86, Windows IA64, and Windows x64).
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pEnvironment{
-        get {
-            if(!this.HasProp("__pEnvironment"))
-                this.__pEnvironment := PWSTR(this.ptr + 16)
-            return this.__pEnvironment
-        }
+    pEnvironment {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * Pointer to a null-terminated string that specifies a file name or a full path and file name for the file that contains the device driver (for example, C:\\DRIVERS\\Pscript.dll).
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pDriverPath{
-        get {
-            if(!this.HasProp("__pDriverPath"))
-                this.__pDriverPath := PWSTR(this.ptr + 24)
-            return this.__pDriverPath
-        }
+    pDriverPath {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
      * Pointer to a null-terminated string that specifies a file name or a full path and file name for the file that contains driver data (for example, C:\\DRIVERS\\Qms810.ppd).
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pDataFile{
-        get {
-            if(!this.HasProp("__pDataFile"))
-                this.__pDataFile := PWSTR(this.ptr + 32)
-            return this.__pDataFile
-        }
+    pDataFile {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
      * Pointer to a null-terminated string that specifies a file name or a full path and file name for the device driver's configuration dynamic-link library (for example, C:\\DRIVERS\\Pscrptui.dll).
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pConfigFile{
-        get {
-            if(!this.HasProp("__pConfigFile"))
-                this.__pConfigFile := PWSTR(this.ptr + 40)
-            return this.__pConfigFile
-        }
+    pConfigFile {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * @namespace Windows.Win32.Storage.Jet
@@ -22,25 +21,19 @@ class JET_INDEXCREATE3_A extends Win32Struct
     }
 
     /**
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    szIndexName{
-        get {
-            if(!this.HasProp("__szIndexName"))
-                this.__szIndexName := PSTR(this.ptr + 8)
-            return this.__szIndexName
-        }
+    szIndexName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    szKey{
-        get {
-            if(!this.HasProp("__szKey"))
-                this.__szKey := PSTR(this.ptr + 16)
-            return this.__szKey
-        }
+    szKey {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**

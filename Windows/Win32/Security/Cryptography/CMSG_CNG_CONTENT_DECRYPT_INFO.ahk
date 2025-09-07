@@ -1,9 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 #Include .\CRYPT_INTEGER_BLOB.ahk
 #Include .\CRYPT_ALGORITHM_IDENTIFIER.ahk
-#Include .\BCRYPT_KEY_HANDLE.ahk
 
 /**
  * Contains all the relevant information passed between CryptMsgControl and object identifier (OID) installable functions for the import and decryption of a Cryptography API:\_Next Generation (CNG) content encryption key (CEK).
@@ -85,14 +83,11 @@ class CMSG_CNG_CONTENT_DECRYPT_INFO extends Win32Struct
 
     /**
      * The <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nc-wincrypt-pfn_cmsg_cng_import_content_encrypt_key">PFN_CMSG_CNG_IMPORT_CONTENT_ENCRYPT_KEY</a> function must update this member with the generated <b>BCRYPT_KEY_HANDLE</b> to be used for content decryption. Even for an error, you must release this handle by using the <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptdestroykey">BCryptDestroyKey</a> function.
-     * @type {BCRYPT_KEY_HANDLE}
+     * @type {Pointer<Ptr>}
      */
-    hCNGContentEncryptKey{
-        get {
-            if(!this.HasProp("__hCNGContentEncryptKey"))
-                this.__hCNGContentEncryptKey := BCRYPT_KEY_HANDLE(this.ptr + 72)
-            return this.__hCNGContentEncryptKey
-        }
+    hCNGContentEncryptKey {
+        get => NumGet(this, 72, "ptr")
+        set => NumPut("ptr", value, this, 72)
     }
 
     /**

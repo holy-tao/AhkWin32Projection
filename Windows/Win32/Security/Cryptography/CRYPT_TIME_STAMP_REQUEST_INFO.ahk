@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 #Include .\CRYPT_INTEGER_BLOB.ahk
 
 /**
@@ -17,26 +16,20 @@ class CRYPT_TIME_STAMP_REQUEST_INFO extends Win32Struct
 
     /**
      * The <a href="https://docs.microsoft.com/windows/desktop/SecGloss/o-gly">object identifier</a> (OID) that specifies the desired format of the time stamp, usually UTC.
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszTimeStampAlgorithm{
-        get {
-            if(!this.HasProp("__pszTimeStampAlgorithm"))
-                this.__pszTimeStampAlgorithm := PSTR(this.ptr + 0)
-            return this.__pszTimeStampAlgorithm
-        }
+    pszTimeStampAlgorithm {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
      * The OID of the Content Type of the content, usually DATA.
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszContentType{
-        get {
-            if(!this.HasProp("__pszContentType"))
-                this.__pszContentType := PSTR(this.ptr + 8)
-            return this.__pszContentType
-        }
+    pszContentType {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

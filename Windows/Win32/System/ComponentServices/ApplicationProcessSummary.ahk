@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Represents summary information about a process hosting COM+ applications.
@@ -61,14 +60,11 @@ class ApplicationProcessSummary extends Win32Struct
 
     /**
      * The name of the process's executable image. Space for this string is allocated by the method called and freed by the caller (for more information, see <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a>). This member is not returned by default. To return this member, specify the GATD_INCLUDE_PROCESS_EXE_NAME flag when you call a method that returns an <b>ApplicationProcessSummary</b> structure.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    ProcessExeName{
-        get {
-            if(!this.HasProp("__ProcessExeName"))
-                this.__ProcessExeName := PWSTR(this.ptr + 32)
-            return this.__ProcessExeName
-        }
+    ProcessExeName {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**

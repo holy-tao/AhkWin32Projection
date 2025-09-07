@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains information about how a user interacted with a notification toast in the action center. This structure is used by Activate.
@@ -18,25 +17,19 @@ class NOTIFICATION_USER_INPUT_DATA extends Win32Struct
 
     /**
      * The ID of the user input field in the XML payload.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    Key{
-        get {
-            if(!this.HasProp("__Key"))
-                this.__Key := PWSTR(this.ptr + 0)
-            return this.__Key
-        }
+    Key {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
      * The input value selected by the user for a given input field.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    Value{
-        get {
-            if(!this.HasProp("__Value"))
-                this.__Value := PWSTR(this.ptr + 8)
-            return this.__Value
-        }
+    Value {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 }

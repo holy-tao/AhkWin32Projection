@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.Devices.ImageAcquisition
@@ -29,35 +28,26 @@ class WIA_DEV_CAP_DRV extends Win32Struct
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    wszName{
-        get {
-            if(!this.HasProp("__wszName"))
-                this.__wszName := PWSTR(this.ptr + 16)
-            return this.__wszName
-        }
+    wszName {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    wszDescription{
-        get {
-            if(!this.HasProp("__wszDescription"))
-                this.__wszDescription := PWSTR(this.ptr + 24)
-            return this.__wszDescription
-        }
+    wszDescription {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    wszIcon{
-        get {
-            if(!this.HasProp("__wszIcon"))
-                this.__wszIcon := PWSTR(this.ptr + 32)
-            return this.__wszIcon
-        }
+    wszIcon {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 }

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.System.Com
@@ -29,58 +28,43 @@ class uCLSSPEC extends Win32Struct
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pFileExt{
-        get {
-            if(!this.HasProp("__pFileExt"))
-                this.__pFileExt := PWSTR(this.ptr + 8)
-            return this.__pFileExt
-        }
+    pFileExt {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pMimeType{
-        get {
-            if(!this.HasProp("__pMimeType"))
-                this.__pMimeType := PWSTR(this.ptr + 8)
-            return this.__pMimeType
-        }
+    pMimeType {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pProgId{
-        get {
-            if(!this.HasProp("__pProgId"))
-                this.__pProgId := PWSTR(this.ptr + 8)
-            return this.__pProgId
-        }
+    pProgId {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pFileName{
-        get {
-            if(!this.HasProp("__pFileName"))
-                this.__pFileName := PWSTR(this.ptr + 8)
-            return this.__pFileName
-        }
+    pFileName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pPackageName{
-        get {
-            if(!this.HasProp("__pPackageName"))
-                this.__pPackageName := PWSTR(this.ptr + 8)
-            return this.__pPackageName
-        }
+    pPackageName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

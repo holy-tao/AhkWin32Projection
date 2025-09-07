@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * @namespace Windows.Win32.Networking.Clustering
@@ -29,14 +28,11 @@ class RESOURCE_STATUS_EX extends Win32Struct
     }
 
     /**
-     * @type {HANDLE}
+     * @type {Pointer<Ptr>}
      */
-    EventHandle{
-        get {
-            if(!this.HasProp("__EventHandle"))
-                this.__EventHandle := HANDLE(this.ptr + 8)
-            return this.__EventHandle
-        }
+    EventHandle {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

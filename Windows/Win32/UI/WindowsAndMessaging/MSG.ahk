@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
 #Include ..\..\Foundation\POINT.ahk
 
 /**
@@ -19,14 +18,11 @@ class MSG extends Win32Struct
      * Type: <b>HWND</b>
      * 
      * A handle to the window whose window procedure receives the message. This member is <b>NULL</b> when the message is a thread message.
-     * @type {HWND}
+     * @type {Pointer<Ptr>}
      */
-    hwnd{
-        get {
-            if(!this.HasProp("__hwnd"))
-                this.__hwnd := HWND(this.ptr + 0)
-            return this.__hwnd
-        }
+    hwnd {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**

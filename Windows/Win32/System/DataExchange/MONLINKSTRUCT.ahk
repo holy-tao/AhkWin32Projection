@@ -1,8 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
-#Include .\HSZ.ahk
-#Include .\HCONV.ahk
 
 /**
  * Contains information about a Dynamic Data Exchange (DDE) advise loop. A DDE monitoring application can use this structure to obtain information about an advise loop that has started or ended.
@@ -47,14 +44,11 @@ class MONLINKSTRUCT extends Win32Struct
      * Type: <b>HANDLE</b>
      * 
      * A handle to a task (application instance) that is a partner in the advise loop.
-     * @type {HANDLE}
+     * @type {Pointer<Ptr>}
      */
-    hTask{
-        get {
-            if(!this.HasProp("__hTask"))
-                this.__hTask := HANDLE(this.ptr + 8)
-            return this.__hTask
-        }
+    hTask {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -83,42 +77,33 @@ class MONLINKSTRUCT extends Win32Struct
      * Type: <b>HSZ</b>
      * 
      * A handle to the service name of the server in the advise loop.
-     * @type {HSZ}
+     * @type {Pointer<Ptr>}
      */
-    hszSvc{
-        get {
-            if(!this.HasProp("__hszSvc"))
-                this.__hszSvc := HSZ(this.ptr + 24)
-            return this.__hszSvc
-        }
+    hszSvc {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
      * Type: <b>HSZ</b>
      * 
      * A handle to the topic name on which the advise loop is established.
-     * @type {HSZ}
+     * @type {Pointer<Ptr>}
      */
-    hszTopic{
-        get {
-            if(!this.HasProp("__hszTopic"))
-                this.__hszTopic := HSZ(this.ptr + 32)
-            return this.__hszTopic
-        }
+    hszTopic {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
      * Type: <b>HSZ</b>
      * 
      * A handle to the item name that is the subject of the advise loop.
-     * @type {HSZ}
+     * @type {Pointer<Ptr>}
      */
-    hszItem{
-        get {
-            if(!this.HasProp("__hszItem"))
-                this.__hszItem := HSZ(this.ptr + 40)
-            return this.__hszItem
-        }
+    hszItem {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
@@ -147,27 +132,21 @@ class MONLINKSTRUCT extends Win32Struct
      * Type: <b>HCONV</b>
      * 
      * A handle to the server conversation.
-     * @type {HCONV}
+     * @type {Pointer<Ptr>}
      */
-    hConvServer{
-        get {
-            if(!this.HasProp("__hConvServer"))
-                this.__hConvServer := HCONV(this.ptr + 56)
-            return this.__hConvServer
-        }
+    hConvServer {
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 
     /**
      * Type: <b>HCONV</b>
      * 
      * A handle to the client conversation.
-     * @type {HCONV}
+     * @type {Pointer<Ptr>}
      */
-    hConvClient{
-        get {
-            if(!this.HasProp("__hConvClient"))
-                this.__hConvClient := HCONV(this.ptr + 64)
-            return this.__hConvClient
-        }
+    hConvClient {
+        get => NumGet(this, 64, "ptr")
+        set => NumPut("ptr", value, this, 64)
     }
 }

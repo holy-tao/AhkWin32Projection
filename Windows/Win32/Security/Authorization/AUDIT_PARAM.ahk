@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.Security.Authorization
@@ -45,14 +44,11 @@ class AUDIT_PARAM extends Win32Struct
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    String{
-        get {
-            if(!this.HasProp("__String"))
-                this.__String := PWSTR(this.ptr + 12)
-            return this.__String
-        }
+    String {
+        get => NumGet(this, 12, "ptr")
+        set => NumPut("ptr", value, this, 12)
     }
 
     /**

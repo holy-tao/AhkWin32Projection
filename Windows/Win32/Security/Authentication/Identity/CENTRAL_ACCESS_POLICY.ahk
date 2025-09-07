@@ -1,7 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\PSID.ahk
-#Include ..\..\..\Foundation\PWSTR.ahk
 #Include .\LSA_UNICODE_STRING.ahk
 
 /**
@@ -18,14 +16,11 @@ class CENTRAL_ACCESS_POLICY extends Win32Struct
 
     /**
      * The identifier of the central access policy.
-     * @type {PSID}
+     * @type {Pointer<Ptr>}
      */
-    CAPID{
-        get {
-            if(!this.HasProp("__CAPID"))
-                this.__CAPID := PSID(this.ptr + 0)
-            return this.__CAPID
-        }
+    CAPID {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**

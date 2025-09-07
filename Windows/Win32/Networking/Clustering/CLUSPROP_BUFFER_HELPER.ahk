@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Used to build or parse a property list or, a value list.
@@ -70,14 +69,11 @@ class CLUSPROP_BUFFER_HELPER extends Win32Struct
 
     /**
      * Pointer to a buffer containing a <b>NULL</b>-terminated Unicode string value.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    psz{
-        get {
-            if(!this.HasProp("__psz"))
-                this.__psz := PWSTR(this.ptr + 0)
-            return this.__psz
-        }
+    psz {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**

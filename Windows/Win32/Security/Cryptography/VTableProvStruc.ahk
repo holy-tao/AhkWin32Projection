@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * Contains pointers to callback functions that can be used by cryptographic service provider (CSP) functions.
@@ -97,13 +96,10 @@ class VTableProvStruc extends Win32Struct
      * A string that contains the name of the provider.
      * 
      * This is a version 3 member.
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszProvName{
-        get {
-            if(!this.HasProp("__pszProvName"))
-                this.__pszProvName := PSTR(this.ptr + 48)
-            return this.__pszProvName
-        }
+    pszProvName {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 }

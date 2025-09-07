@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * This structure contains information about a connection event.
@@ -16,26 +15,20 @@ class AAAccountingData extends Win32Struct
 
     /**
      * The user name.
-     * @type {BSTR}
+     * @type {Pointer<Ptr>}
      */
-    userName{
-        get {
-            if(!this.HasProp("__userName"))
-                this.__userName := BSTR(this.ptr + 0)
-            return this.__userName
-        }
+    userName {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
      * The name of the client computer.
-     * @type {BSTR}
+     * @type {Pointer<Ptr>}
      */
-    clientName{
-        get {
-            if(!this.HasProp("__clientName"))
-                this.__clientName := BSTR(this.ptr + 8)
-            return this.__clientName
-        }
+    clientName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -49,14 +42,11 @@ class AAAccountingData extends Win32Struct
 
     /**
      * The name of the remote computer.
-     * @type {BSTR}
+     * @type {Pointer<Ptr>}
      */
-    resourceName{
-        get {
-            if(!this.HasProp("__resourceName"))
-                this.__resourceName := BSTR(this.ptr + 24)
-            return this.__resourceName
-        }
+    resourceName {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
@@ -70,14 +60,11 @@ class AAAccountingData extends Win32Struct
 
     /**
      * The name of the protocol used by the connection.
-     * @type {BSTR}
+     * @type {Pointer<Ptr>}
      */
-    protocolName{
-        get {
-            if(!this.HasProp("__protocolName"))
-                this.__protocolName := BSTR(this.ptr + 40)
-            return this.__protocolName
-        }
+    protocolName {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
@@ -100,14 +87,11 @@ class AAAccountingData extends Win32Struct
 
     /**
      * The reason the connection was disconnected.
-     * @type {BSTR}
+     * @type {Pointer<Ptr>}
      */
-    reasonForDisconnect{
-        get {
-            if(!this.HasProp("__reasonForDisconnect"))
-                this.__reasonForDisconnect := BSTR(this.ptr + 56)
-            return this.__reasonForDisconnect
-        }
+    reasonForDisconnect {
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 
     /**

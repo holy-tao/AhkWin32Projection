@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * Specifies the method for I/O completion to be used with a RIONotify function for sending or receiving network data with the Winsock registered I/O extensions.
@@ -36,14 +35,11 @@ class RIO_NOTIFICATION_COMPLETION extends Win32Struct
     }
 
     /**
-     * @type {HANDLE}
+     * @type {Pointer<Ptr>}
      */
-    EventHandle{
-        get {
-            if(!this.HasProp("__EventHandle"))
-                this.__EventHandle := HANDLE(this.ptr + 8)
-            return this.__EventHandle
-        }
+    EventHandle {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -55,14 +51,11 @@ class RIO_NOTIFICATION_COMPLETION extends Win32Struct
     }
 
     /**
-     * @type {HANDLE}
+     * @type {Pointer<Ptr>}
      */
-    IocpHandle{
-        get {
-            if(!this.HasProp("__IocpHandle"))
-                this.__IocpHandle := HANDLE(this.ptr + 8)
-            return this.__IocpHandle
-        }
+    IocpHandle {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

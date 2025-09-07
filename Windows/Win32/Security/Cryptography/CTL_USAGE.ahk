@@ -24,7 +24,7 @@ class CTL_USAGE extends Win32Struct
 
     /**
      * Array of object identifiers (OIDs) of CTL extensions.
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Ptr>}
      */
     rgpszUsageIdentifier {
         get => NumGet(this, 8, "ptr")

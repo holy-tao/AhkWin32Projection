@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * The RPC_CALL_ATTRIBUTES_V2 structure provides parameters to the RpcServerInqCallAttributes function. Version 2 specifies support for local addresses and client process IDs. (ANSI)
@@ -202,14 +201,11 @@ class RPC_CALL_ATTRIBUTES_V2_A extends Win32Struct
 
     /**
      * Handle that contains the process ID of the calling client. This field is only supported for the ncalrpc protocol sequence, and is populated only when <b>RPC_QUERY_CLIENT_PID</b> is specified in the <i>Flags</i> parameter.
-     * @type {HANDLE}
+     * @type {Pointer<Ptr>}
      */
-    ClientPID{
-        get {
-            if(!this.HasProp("__ClientPID"))
-                this.__ClientPID := HANDLE(this.ptr + 64)
-            return this.__ClientPID
-        }
+    ClientPID {
+        get => NumGet(this, 64, "ptr")
+        set => NumPut("ptr", value, this, 64)
     }
 
     /**

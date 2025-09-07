@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The VDS_LUN_PROP structure (vdshwprv.h) defines the properties of a LUN object.
@@ -37,26 +36,20 @@ class VDS_LUN_PROP extends Win32Struct
 
     /**
      * The name of the LUN; a zero-terminated, human-readable string.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pwszFriendlyName{
-        get {
-            if(!this.HasProp("__pwszFriendlyName"))
-                this.__pwszFriendlyName := PWSTR(this.ptr + 16)
-            return this.__pwszFriendlyName
-        }
+    pwszFriendlyName {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * The unique LUN identifier; a zero-terminated, human-readable string.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pwszIdentification{
-        get {
-            if(!this.HasProp("__pwszIdentification"))
-                this.__pwszIdentification := PWSTR(this.ptr + 24)
-            return this.__pwszIdentification
-        }
+    pwszIdentification {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
@@ -79,14 +72,11 @@ class VDS_LUN_PROP extends Win32Struct
      * 
      * <div class="alert"><b>Note</b>  The unmasking list can contain the same WWN or IQN more than once. Duplicates are ignored.</div>
      * <div> </div>
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pwszUnmaskingList{
-        get {
-            if(!this.HasProp("__pwszUnmaskingList"))
-                this.__pwszUnmaskingList := PWSTR(this.ptr + 32)
-            return this.__pwszUnmaskingList
-        }
+    pwszUnmaskingList {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**

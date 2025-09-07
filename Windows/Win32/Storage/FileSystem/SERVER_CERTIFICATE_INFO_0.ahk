@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.Storage.FileSystem
@@ -13,113 +12,83 @@ class SERVER_CERTIFICATE_INFO_0 extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    srvci0_name{
-        get {
-            if(!this.HasProp("__srvci0_name"))
-                this.__srvci0_name := PWSTR(this.ptr + 0)
-            return this.__srvci0_name
-        }
+    srvci0_name {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    srvci0_subject{
-        get {
-            if(!this.HasProp("__srvci0_subject"))
-                this.__srvci0_subject := PWSTR(this.ptr + 8)
-            return this.__srvci0_subject
-        }
+    srvci0_subject {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    srvci0_issuer{
-        get {
-            if(!this.HasProp("__srvci0_issuer"))
-                this.__srvci0_issuer := PWSTR(this.ptr + 16)
-            return this.__srvci0_issuer
-        }
+    srvci0_issuer {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    srvci0_thumbprint{
-        get {
-            if(!this.HasProp("__srvci0_thumbprint"))
-                this.__srvci0_thumbprint := PWSTR(this.ptr + 24)
-            return this.__srvci0_thumbprint
-        }
+    srvci0_thumbprint {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    srvci0_friendlyname{
-        get {
-            if(!this.HasProp("__srvci0_friendlyname"))
-                this.__srvci0_friendlyname := PWSTR(this.ptr + 32)
-            return this.__srvci0_friendlyname
-        }
+    srvci0_friendlyname {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    srvci0_notbefore{
-        get {
-            if(!this.HasProp("__srvci0_notbefore"))
-                this.__srvci0_notbefore := PWSTR(this.ptr + 40)
-            return this.__srvci0_notbefore
-        }
+    srvci0_notbefore {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    srvci0_notafter{
-        get {
-            if(!this.HasProp("__srvci0_notafter"))
-                this.__srvci0_notafter := PWSTR(this.ptr + 48)
-            return this.__srvci0_notafter
-        }
+    srvci0_notafter {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    srvci0_storelocation{
-        get {
-            if(!this.HasProp("__srvci0_storelocation"))
-                this.__srvci0_storelocation := PWSTR(this.ptr + 56)
-            return this.__srvci0_storelocation
-        }
+    srvci0_storelocation {
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    srvci0_storename{
-        get {
-            if(!this.HasProp("__srvci0_storename"))
-                this.__srvci0_storename := PWSTR(this.ptr + 64)
-            return this.__srvci0_storename
-        }
+    srvci0_storename {
+        get => NumGet(this, 64, "ptr")
+        set => NumPut("ptr", value, this, 64)
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    srvci0_renewalchain{
-        get {
-            if(!this.HasProp("__srvci0_renewalchain"))
-                this.__srvci0_renewalchain := PWSTR(this.ptr + 72)
-            return this.__srvci0_renewalchain
-        }
+    srvci0_renewalchain {
+        get => NumGet(this, 72, "ptr")
+        set => NumPut("ptr", value, this, 72)
     }
 
     /**

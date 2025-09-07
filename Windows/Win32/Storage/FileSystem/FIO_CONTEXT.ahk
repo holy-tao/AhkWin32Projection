@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * @namespace Windows.Win32.Storage.FileSystem
@@ -29,14 +28,11 @@ class FIO_CONTEXT extends Win32Struct
     }
 
     /**
-     * @type {HANDLE}
+     * @type {Pointer<Ptr>}
      */
-    m_hFile{
-        get {
-            if(!this.HasProp("__m_hFile"))
-                this.__m_hFile := HANDLE(this.ptr + 8)
-            return this.__m_hFile
-        }
+    m_hFile {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

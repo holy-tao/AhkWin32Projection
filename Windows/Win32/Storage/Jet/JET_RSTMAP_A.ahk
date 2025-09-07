@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * @namespace Windows.Win32.Storage.Jet
@@ -14,24 +13,18 @@ class JET_RSTMAP_A extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    szDatabaseName{
-        get {
-            if(!this.HasProp("__szDatabaseName"))
-                this.__szDatabaseName := PSTR(this.ptr + 0)
-            return this.__szDatabaseName
-        }
+    szDatabaseName {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    szNewDatabaseName{
-        get {
-            if(!this.HasProp("__szNewDatabaseName"))
-                this.__szNewDatabaseName := PSTR(this.ptr + 8)
-            return this.__szNewDatabaseName
-        }
+    szNewDatabaseName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 }

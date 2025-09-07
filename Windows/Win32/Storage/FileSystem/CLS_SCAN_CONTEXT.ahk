@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\CLFS_NODE_ID.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * The CLS_SCAN_CONTEXT structure contains information about the containers that are being scanned by ScanLogContainers.
@@ -31,14 +30,11 @@ class CLS_SCAN_CONTEXT extends Win32Struct
 
     /**
      * A handle to the log being scanned that is obtained from <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-createlogfile">CreateLogFile</a> with permissions  to scan the log containers.
-     * @type {HANDLE}
+     * @type {Pointer<Ptr>}
      */
-    hLog{
-        get {
-            if(!this.HasProp("__hLog"))
-                this.__hLog := HANDLE(this.ptr + 8)
-            return this.__hLog
-        }
+    hLog {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

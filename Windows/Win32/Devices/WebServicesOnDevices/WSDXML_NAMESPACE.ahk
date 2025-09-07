@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Specifies an XML namespace.
@@ -22,26 +21,20 @@ class WSDXML_NAMESPACE extends Win32Struct
 
     /**
      * The URI that identifies the namespace.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    Uri{
-        get {
-            if(!this.HasProp("__Uri"))
-                this.__Uri := PWSTR(this.ptr + 0)
-            return this.__Uri
-        }
+    Uri {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
      * The preferred prefix to be used in XML prefix mappings.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    PreferredPrefix{
-        get {
-            if(!this.HasProp("__PreferredPrefix"))
-                this.__PreferredPrefix := PWSTR(this.ptr + 8)
-            return this.__PreferredPrefix
-        }
+    PreferredPrefix {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

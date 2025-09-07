@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains information about the PVK file that contains the certificates used by the CryptUIWizDigitalSign function.
@@ -25,14 +24,11 @@ class CRYPTUI_WIZ_DIGITAL_SIGN_CERT_PVK_INFO extends Win32Struct
 
     /**
      * A pointer to a null-terminated Unicode string that contains the path and file named of the file that contains the signing certificates.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pwszSigningCertFileName{
-        get {
-            if(!this.HasProp("__pwszSigningCertFileName"))
-                this.__pwszSigningCertFileName := PWSTR(this.ptr + 8)
-            return this.__pwszSigningCertFileName
-        }
+    pwszSigningCertFileName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

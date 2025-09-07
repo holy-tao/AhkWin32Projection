@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains information regarding the size and placement of strikethroughs.
@@ -79,14 +78,11 @@ class DWRITE_STRIKETHROUGH extends Win32Struct
      * Type: <b>const WCHAR*</b>
      * 
      * An array of characters containing the locale of the  text that is the strikethrough is being drawn over.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    localeName{
-        get {
-            if(!this.HasProp("__localeName"))
-                this.__localeName := PWSTR(this.ptr + 24)
-            return this.__localeName
-        }
+    localeName {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**

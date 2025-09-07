@@ -1,7 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 #Include .\DDEML_MSG_HOOK_DATA.ahk
 
 /**
@@ -31,14 +29,11 @@ class MONMSGSTRUCT extends Win32Struct
      * Type: <b>HWND</b>
      * 
      * A handle to the window that receives the DDE message.
-     * @type {HWND}
+     * @type {Pointer<Ptr>}
      */
-    hwndTo{
-        get {
-            if(!this.HasProp("__hwndTo"))
-                this.__hwndTo := HWND(this.ptr + 8)
-            return this.__hwndTo
-        }
+    hwndTo {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -56,14 +51,11 @@ class MONMSGSTRUCT extends Win32Struct
      * Type: <b>HANDLE</b>
      * 
      * A handle to the task (application instance) containing the window that receives the DDE message.
-     * @type {HANDLE}
+     * @type {Pointer<Ptr>}
      */
-    hTask{
-        get {
-            if(!this.HasProp("__hTask"))
-                this.__hTask := HANDLE(this.ptr + 24)
-            return this.__hTask
-        }
+    hTask {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**

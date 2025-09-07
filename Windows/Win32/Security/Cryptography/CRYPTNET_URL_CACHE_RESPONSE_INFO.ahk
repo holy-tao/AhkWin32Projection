@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\FILETIME.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains response information used by the Cryptnet URL Cache (CUC) service to maintain a URL cache entry.
@@ -111,14 +110,11 @@ class CRYPTNET_URL_CACHE_RESPONSE_INFO extends Win32Struct
 
     /**
      * A pointer to a string that contains the <b>ETag</b> response-header field value of the cached HTTP response for the URL.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pwszETag{
-        get {
-            if(!this.HasProp("__pwszETag"))
-                this.__pwszETag := PWSTR(this.ptr + 24)
-            return this.__pwszETag
-        }
+    pwszETag {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**

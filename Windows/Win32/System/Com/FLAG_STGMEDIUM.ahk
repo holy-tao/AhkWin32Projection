@@ -1,9 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Graphics\Gdi\HBITMAP.ahk
-#Include ..\..\Graphics\Gdi\HENHMETAFILE.ahk
-#Include ..\..\Foundation\HGLOBAL.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\STGMEDIUM.ahk
 
 /**

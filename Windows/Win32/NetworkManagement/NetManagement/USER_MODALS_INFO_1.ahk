@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The USER_MODALS_INFO_1 structure contains logon server and domain controller information.
@@ -81,13 +80,10 @@ class USER_MODALS_INFO_1 extends Win32Struct
 
     /**
      * Pointer to a Unicode string that specifies the name of the domain controller that stores the primary copy of the database for the user account manager.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    usrmod1_primary{
-        get {
-            if(!this.HasProp("__usrmod1_primary"))
-                this.__usrmod1_primary := PWSTR(this.ptr + 8)
-            return this.__usrmod1_primary
-        }
+    usrmod1_primary {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 }

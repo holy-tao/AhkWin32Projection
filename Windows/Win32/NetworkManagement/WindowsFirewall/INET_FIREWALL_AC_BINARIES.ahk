@@ -24,7 +24,7 @@ class INET_FIREWALL_AC_BINARIES extends Win32Struct
 
     /**
      * Paths to the applications running in the app container.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Ptr>}
      */
     binaries {
         get => NumGet(this, 8, "ptr")

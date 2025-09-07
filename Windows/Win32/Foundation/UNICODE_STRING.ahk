@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32Struct.ahk
-#Include .\PWSTR.ahk
 
 /**
  * Used by various Local Security Authority (LSA) functions to specify a Unicode string.
@@ -40,13 +39,10 @@ class UNICODE_STRING extends Win32Struct
      * Pointer to a wide-character string. Note that the strings returned by the various LSA functions might not be <b>null</b>-terminated.
      * 
      * <b>Windows 7, Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:  </b>When the <b>Length</b> structure member is zero and the <b>MaximumLength</b> structure member is 1, the <b>Buffer</b> structure member can be an empty string or contain solely a null character. This behavior changed beginning with Windows Server 2008 R2 and Windows 7 with SP1.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    Buffer{
-        get {
-            if(!this.HasProp("__Buffer"))
-                this.__Buffer := PWSTR(this.ptr + 8)
-            return this.__Buffer
-        }
+    Buffer {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 }

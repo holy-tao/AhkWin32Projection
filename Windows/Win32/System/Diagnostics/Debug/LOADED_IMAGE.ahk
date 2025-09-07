@@ -1,7 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\PSTR.ahk
-#Include ..\..\..\Foundation\HANDLE.ahk
 #Include ..\..\Kernel\LIST_ENTRY.ahk
 
 /**
@@ -28,26 +26,20 @@ class LOADED_IMAGE extends Win32Struct
 
     /**
      * The file name of the mapped file.
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    ModuleName{
-        get {
-            if(!this.HasProp("__ModuleName"))
-                this.__ModuleName := PSTR(this.ptr + 0)
-            return this.__ModuleName
-        }
+    ModuleName {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
      * A handle to the mapped file.
-     * @type {HANDLE}
+     * @type {Pointer<Ptr>}
      */
-    hFile{
-        get {
-            if(!this.HasProp("__hFile"))
-                this.__hFile := HANDLE(this.ptr + 8)
-            return this.__hFile
-        }
+    hFile {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

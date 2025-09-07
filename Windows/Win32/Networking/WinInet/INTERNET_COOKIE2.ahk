@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Foundation\FILETIME.ahk
 
 /**
@@ -20,50 +19,38 @@ class INTERNET_COOKIE2 extends Win32Struct
 
     /**
      * Pointer to a string containing the cookie name. May be NULL if value is not NULL.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pwszName{
-        get {
-            if(!this.HasProp("__pwszName"))
-                this.__pwszName := PWSTR(this.ptr + 0)
-            return this.__pwszName
-        }
+    pwszName {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
      * Pointer to a string containing the cookie value. May be NULL if name is not NULL.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pwszValue{
-        get {
-            if(!this.HasProp("__pwszValue"))
-                this.__pwszValue := PWSTR(this.ptr + 8)
-            return this.__pwszValue
-        }
+    pwszValue {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * Pointer to a string containing the cookie domain. May be NULL.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pwszDomain{
-        get {
-            if(!this.HasProp("__pwszDomain"))
-                this.__pwszDomain := PWSTR(this.ptr + 16)
-            return this.__pwszDomain
-        }
+    pwszDomain {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * Pointer to a string containing the cookie path. May be NULL.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pwszPath{
-        get {
-            if(!this.HasProp("__pwszPath"))
-                this.__pwszPath := PWSTR(this.ptr + 24)
-            return this.__pwszPath
-        }
+    pwszPath {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**

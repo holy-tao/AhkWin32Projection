@@ -1,8 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\PWSTR.ahk
 #Include .\LSA_UNICODE_STRING.ahk
-#Include ..\..\PSECURITY_DESCRIPTOR.ahk
 
 /**
  * Represents a central access policy entry containing a list of security descriptors and staged security descriptors.
@@ -81,14 +79,11 @@ class CENTRAL_ACCESS_POLICY_ENTRY extends Win32Struct
 
     /**
      * A buffer of security descriptors associated with the entry.
-     * @type {PSECURITY_DESCRIPTOR}
+     * @type {Pointer<Ptr>}
      */
-    SD{
-        get {
-            if(!this.HasProp("__SD"))
-                this.__SD := PSECURITY_DESCRIPTOR(this.ptr + 72)
-            return this.__SD
-        }
+    SD {
+        get => NumGet(this, 72, "ptr")
+        set => NumPut("ptr", value, this, 72)
     }
 
     /**
@@ -102,14 +97,11 @@ class CENTRAL_ACCESS_POLICY_ENTRY extends Win32Struct
 
     /**
      * A buffer of staged security descriptors associated with the entry.
-     * @type {PSECURITY_DESCRIPTOR}
+     * @type {Pointer<Ptr>}
      */
-    StagedSD{
-        get {
-            if(!this.HasProp("__StagedSD"))
-                this.__StagedSD := PSECURITY_DESCRIPTOR(this.ptr + 88)
-            return this.__StagedSD
-        }
+    StagedSD {
+        get => NumGet(this, 88, "ptr")
+        set => NumPut("ptr", value, this, 88)
     }
 
     /**

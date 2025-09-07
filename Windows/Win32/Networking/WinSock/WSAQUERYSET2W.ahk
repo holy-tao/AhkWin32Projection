@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Provides relevant information about a given service, including service class ID, service name , applicable namespace identifier and protocol information, as well as a set of transport addresses at which the service listens. (Unicode)
@@ -42,14 +41,11 @@ class WSAQUERYSET2W extends Win32Struct
      * Type: <b>LPTSTR</b>
      * 
      * A pointer to an optional <b>NULL</b>-terminated string  that contains service name. The semantics for using wildcards within the string are not defined, but can be supported by certain namespace providers.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpszServiceInstanceName{
-        get {
-            if(!this.HasProp("__lpszServiceInstanceName"))
-                this.__lpszServiceInstanceName := PWSTR(this.ptr + 8)
-            return this.__lpszServiceInstanceName
-        }
+    lpszServiceInstanceName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -67,14 +63,11 @@ class WSAQUERYSET2W extends Win32Struct
      * Type: <b>LPTSTR</b>
      * 
      * This member is ignored for queries.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpszComment{
-        get {
-            if(!this.HasProp("__lpszComment"))
-                this.__lpszComment := PWSTR(this.ptr + 24)
-            return this.__lpszComment
-        }
+    lpszComment {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
@@ -185,14 +178,11 @@ class WSAQUERYSET2W extends Win32Struct
      * Type: <b>LPTSTR</b>
      * 
      * A pointer to an optional starting point of the query in a hierarchical namespace.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpszContext{
-        get {
-            if(!this.HasProp("__lpszContext"))
-                this.__lpszContext := PWSTR(this.ptr + 48)
-            return this.__lpszContext
-        }
+    lpszContext {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**
@@ -222,14 +212,11 @@ class WSAQUERYSET2W extends Win32Struct
      * Type: <b>LPTSTR</b>
      * 
      * A pointer to an optional <b>NULL</b>-terminated query string. Some namespaces, such as Whois++, support enriched SQL-like queries that are contained in a simple text string. This parameter is used to specify that string.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpszQueryString{
-        get {
-            if(!this.HasProp("__lpszQueryString"))
-                this.__lpszQueryString := PWSTR(this.ptr + 72)
-            return this.__lpszQueryString
-        }
+    lpszQueryString {
+        get => NumGet(this, 72, "ptr")
+        set => NumPut("ptr", value, this, 72)
     }
 
     /**

@@ -1,8 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\HWND.ahk
-#Include ..\..\..\Foundation\PSTR.ahk
-#Include ..\..\..\Foundation\HANDLE.ahk
 
 /**
  * Contains information about a certificate to view. This structure is used in the CryptUIDlgViewCertificate function. (ANSI)
@@ -31,14 +28,11 @@ class CRYPTUI_VIEWCERTIFICATE_STRUCTA extends Win32Struct
 
     /**
      * A handle to the window that is the parent of the dialog box produced by <a href="https://docs.microsoft.com/windows/desktop/api/cryptuiapi/nf-cryptuiapi-cryptuidlgviewcertificatea">CryptUIDlgViewCertificate</a>.
-     * @type {HWND}
+     * @type {Pointer<Ptr>}
      */
-    hwndParent{
-        get {
-            if(!this.HasProp("__hwndParent"))
-                this.__hwndParent := HWND(this.ptr + 8)
-            return this.__hwndParent
-        }
+    hwndParent {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -52,14 +46,11 @@ class CRYPTUI_VIEWCERTIFICATE_STRUCTA extends Win32Struct
 
     /**
      * A pointer to a null-terminated string that contains the title for the window.
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    szTitle{
-        get {
-            if(!this.HasProp("__szTitle"))
-                this.__szTitle := PSTR(this.ptr + 24)
-            return this.__szTitle
-        }
+    szTitle {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
@@ -73,7 +64,7 @@ class CRYPTUI_VIEWCERTIFICATE_STRUCTA extends Win32Struct
 
     /**
      * An array of pointers to null-terminated strings that contain the purposes for which this certificate will be validated.
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Ptr>}
      */
     rgszPurposes {
         get => NumGet(this, 40, "ptr")
@@ -98,14 +89,11 @@ class CRYPTUI_VIEWCERTIFICATE_STRUCTA extends Win32Struct
     }
 
     /**
-     * @type {HANDLE}
+     * @type {Pointer<Ptr>}
      */
-    hWVTStateData{
-        get {
-            if(!this.HasProp("__hWVTStateData"))
-                this.__hWVTStateData := HANDLE(this.ptr + 56)
-            return this.__hWVTStateData
-        }
+    hWVTStateData {
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 
     /**
@@ -164,7 +152,7 @@ class CRYPTUI_VIEWCERTIFICATE_STRUCTA extends Win32Struct
 
     /**
      * An array of <b>HCERTSTORE</b> handles to other certificate stores to search when building and validating the certificate chain.
-     * @type {Pointer<HCERTSTORE>}
+     * @type {Pointer<Ptr>}
      */
     rghStores {
         get => NumGet(this, 88, "ptr")

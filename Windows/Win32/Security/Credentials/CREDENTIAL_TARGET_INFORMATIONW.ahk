@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The CREDENTIAL_TARGET_INFORMATION structure contains the target computer's name, domain, and tree. (Unicode)
@@ -20,86 +19,65 @@ class CREDENTIAL_TARGET_INFORMATIONW extends Win32Struct
 
     /**
      * Name of the target server as specified by the caller accessing the target. It is typically the NetBIOS or DNS name of the target server.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    TargetName{
-        get {
-            if(!this.HasProp("__TargetName"))
-                this.__TargetName := PWSTR(this.ptr + 0)
-            return this.__TargetName
-        }
+    TargetName {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
      * NetBIOS name of the target server. If the name is not known, this member can be <b>NULL</b>.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    NetbiosServerName{
-        get {
-            if(!this.HasProp("__NetbiosServerName"))
-                this.__NetbiosServerName := PWSTR(this.ptr + 8)
-            return this.__NetbiosServerName
-        }
+    NetbiosServerName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * DNS name of the target server. If the name is not known, this member can be <b>NULL</b>.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    DnsServerName{
-        get {
-            if(!this.HasProp("__DnsServerName"))
-                this.__DnsServerName := PWSTR(this.ptr + 16)
-            return this.__DnsServerName
-        }
+    DnsServerName {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * NetBIOS name of the target server's domain. If the name is not known, this member can be <b>NULL</b>. If the target server is a member of a workgroup, this member must be <b>NULL</b>.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    NetbiosDomainName{
-        get {
-            if(!this.HasProp("__NetbiosDomainName"))
-                this.__NetbiosDomainName := PWSTR(this.ptr + 24)
-            return this.__NetbiosDomainName
-        }
+    NetbiosDomainName {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
      * DNS name of the target server's domain. If the name is not known, this member can be <b>NULL</b>. If the target server is a member of a workgroup, this member must be <b>NULL</b>.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    DnsDomainName{
-        get {
-            if(!this.HasProp("__DnsDomainName"))
-                this.__DnsDomainName := PWSTR(this.ptr + 32)
-            return this.__DnsDomainName
-        }
+    DnsDomainName {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
      * DNS name of the target server's tree. If the tree name is not known, this member can be <b>NULL</b>. If the target server is a member of a workgroup, this member must be <b>NULL</b>.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    DnsTreeName{
-        get {
-            if(!this.HasProp("__DnsTreeName"))
-                this.__DnsTreeName := PWSTR(this.ptr + 40)
-            return this.__DnsTreeName
-        }
+    DnsTreeName {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
      * Name of the authentication package that determined the values <b>NetbiosServerName</b>, <b>DnsServerName</b>, <b>NetbiosDomainName</b>, <b>DnsDomainName</b>, and <b>DnsTreeName</b> as a function of <b>TargetName</b>. This member can be passed to <a href="https://docs.microsoft.com/windows/desktop/api/sspi/nf-sspi-acquirecredentialshandlea">AcquireCredentialsHandle</a> as the package name.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    PackageName{
-        get {
-            if(!this.HasProp("__PackageName"))
-                this.__PackageName := PWSTR(this.ptr + 48)
-            return this.__PackageName
-        }
+    PackageName {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**

@@ -1,8 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\System\Registry\HKEY.ahk
-#Include ..\..\Foundation\PSTR.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The CERT_SYSTEM_STORE_RELOCATE_PARA structure contains data to be passed to CertOpenStore when that function's dwFlags parameter is set to CERT_SYSTEM_STORE_RELOCATE_FLAG.
@@ -20,14 +17,11 @@ class CERT_SYSTEM_STORE_RELOCATE_PARA extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {HKEY}
+     * @type {Pointer<Ptr>}
      */
-    hKeyBase{
-        get {
-            if(!this.HasProp("__hKeyBase"))
-                this.__hKeyBase := HKEY(this.ptr + 0)
-            return this.__hKeyBase
-        }
+    hKeyBase {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
@@ -47,24 +41,18 @@ class CERT_SYSTEM_STORE_RELOCATE_PARA extends Win32Struct
     }
 
     /**
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszSystemStore{
-        get {
-            if(!this.HasProp("__pszSystemStore"))
-                this.__pszSystemStore := PSTR(this.ptr + 8)
-            return this.__pszSystemStore
-        }
+    pszSystemStore {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pwszSystemStore{
-        get {
-            if(!this.HasProp("__pwszSystemStore"))
-                this.__pwszSystemStore := PWSTR(this.ptr + 8)
-            return this.__pwszSystemStore
-        }
+    pwszSystemStore {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 }

@@ -1,8 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
-#Include .\HSZ.ahk
-#Include .\HCONV.ahk
 
 /**
  * Contains information about a Dynamic Data Exchange (DDE) conversation. A DDE monitoring application can use this structure to obtain information about a conversation that has been established or has terminated.
@@ -57,69 +54,54 @@ class MONCONVSTRUCT extends Win32Struct
      * Type: <b>HANDLE</b>
      * 
      * A handle to a task (application instance) that is a partner in the conversation.
-     * @type {HANDLE}
+     * @type {Pointer<Ptr>}
      */
-    hTask{
-        get {
-            if(!this.HasProp("__hTask"))
-                this.__hTask := HANDLE(this.ptr + 16)
-            return this.__hTask
-        }
+    hTask {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * Type: <b>HSZ</b>
      * 
      * A handle to the service name on which the conversation is established.
-     * @type {HSZ}
+     * @type {Pointer<Ptr>}
      */
-    hszSvc{
-        get {
-            if(!this.HasProp("__hszSvc"))
-                this.__hszSvc := HSZ(this.ptr + 24)
-            return this.__hszSvc
-        }
+    hszSvc {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
      * Type: <b>HSZ</b>
      * 
      * A handle to the topic name on which the conversation is established.
-     * @type {HSZ}
+     * @type {Pointer<Ptr>}
      */
-    hszTopic{
-        get {
-            if(!this.HasProp("__hszTopic"))
-                this.__hszTopic := HSZ(this.ptr + 32)
-            return this.__hszTopic
-        }
+    hszTopic {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
      * Type: <b>HCONV</b>
      * 
      * A handle to the client conversation.
-     * @type {HCONV}
+     * @type {Pointer<Ptr>}
      */
-    hConvClient{
-        get {
-            if(!this.HasProp("__hConvClient"))
-                this.__hConvClient := HCONV(this.ptr + 40)
-            return this.__hConvClient
-        }
+    hConvClient {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
      * Type: <b>HCONV</b>
      * 
      * A handle to the server conversation.
-     * @type {HCONV}
+     * @type {Pointer<Ptr>}
      */
-    hConvServer{
-        get {
-            if(!this.HasProp("__hConvServer"))
-                this.__hConvServer := HCONV(this.ptr + 48)
-            return this.__hConvServer
-        }
+    hConvServer {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 }

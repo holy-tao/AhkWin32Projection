@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\DHCP_HOST_INFO.ahk
 
 /**
@@ -35,26 +34,20 @@ class DHCP_SUBNET_INFO extends Win32Struct
 
     /**
      * Unicode string that specifies the network name of the subnet.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    SubnetName{
-        get {
-            if(!this.HasProp("__SubnetName"))
-                this.__SubnetName := PWSTR(this.ptr + 8)
-            return this.__SubnetName
-        }
+    SubnetName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * Unicode string that contains an optional comment particular to this subnet.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    SubnetComment{
-        get {
-            if(!this.HasProp("__SubnetComment"))
-                this.__SubnetComment := PWSTR(this.ptr + 16)
-            return this.__SubnetComment
-        }
+    SubnetComment {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Graphics\Gdi\HBITMAP.ahk
 
 /**
  * The IMEMENUITEMINFOA (ANSI) structure (immdev.h) contains information about IME menu items.
@@ -56,26 +55,20 @@ class IMEMENUITEMINFOA extends Win32Struct
 
     /**
      * Handle to the bitmap to display next to the item if it is checked. If this member is <b>NULL</b>, a default bitmap is used. If the IMFT_RADIOCHECK type value is specified, the default bitmap is a bullet. Otherwise, it is a check mark.
-     * @type {HBITMAP}
+     * @type {Pointer<Ptr>}
      */
-    hbmpChecked{
-        get {
-            if(!this.HasProp("__hbmpChecked"))
-                this.__hbmpChecked := HBITMAP(this.ptr + 16)
-            return this.__hbmpChecked
-        }
+    hbmpChecked {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * Handle to the bitmap to display next to the item if it is not checked. If this member is <b>NULL</b>, no bitmap is used.
-     * @type {HBITMAP}
+     * @type {Pointer<Ptr>}
      */
-    hbmpUnchecked{
-        get {
-            if(!this.HasProp("__hbmpUnchecked"))
-                this.__hbmpUnchecked := HBITMAP(this.ptr + 24)
-            return this.__hbmpUnchecked
-        }
+    hbmpUnchecked {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
@@ -98,14 +91,11 @@ class IMEMENUITEMINFOA extends Win32Struct
 
     /**
      * Handle to a bitmap to display.
-     * @type {HBITMAP}
+     * @type {Pointer<Ptr>}
      */
-    hbmpItem{
-        get {
-            if(!this.HasProp("__hbmpItem"))
-                this.__hbmpItem := HBITMAP(this.ptr + 120)
-            return this.__hbmpItem
-        }
+    hbmpItem {
+        get => NumGet(this, 120, "ptr")
+        set => NumPut("ptr", value, this, 120)
     }
 
     /**

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * @namespace Windows.Win32.System.Hypervisor
@@ -13,14 +12,11 @@ class DOS_IMAGE_INFO extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    PdbName{
-        get {
-            if(!this.HasProp("__PdbName"))
-                this.__PdbName := PSTR(this.ptr + 0)
-            return this.__PdbName
-        }
+    PdbName {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Font property used for filtering font sets and building a font set with explicit properties.
@@ -25,14 +24,11 @@ class DWRITE_FONT_PROPERTY extends Win32Struct
 
     /**
      * Specifies the value, such as "Segoe UI".
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    propertyValue{
-        get {
-            if(!this.HasProp("__propertyValue"))
-                this.__propertyValue := PWSTR(this.ptr + 8)
-            return this.__propertyValue
-        }
+    propertyValue {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -40,13 +36,10 @@ class DWRITE_FONT_PROPERTY extends Win32Struct
      *           with the font set filtering functions, as they will find a match regardless of
      *           language. For passing to AddFontFaceReference, the localeName specifies the language
      *           of the property value.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    localeName{
-        get {
-            if(!this.HasProp("__localeName"))
-                this.__localeName := PWSTR(this.ptr + 16)
-            return this.__localeName
-        }
+    localeName {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 }

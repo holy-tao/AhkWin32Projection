@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\SERVICE_TYPE_VALUE_ABSW.ahk
 
 /**
@@ -34,14 +33,11 @@ class SERVICE_TYPE_INFO_ABSW extends Win32Struct
      * Pointer to a zero-terminated string that is the name of the network service type. This name is the same in all namespaces, and is used by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/nspapi/nf-nspapi-gettypebynamea">GetTypeByName</a> and 
      * <b>GetNameByType</b> functions.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpTypeName{
-        get {
-            if(!this.HasProp("__lpTypeName"))
-                this.__lpTypeName := PWSTR(this.ptr + 0)
-            return this.__lpTypeName
-        }
+    lpTypeName {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**

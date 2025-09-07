@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Represents a custom Domain Name System (DNS) server, used in the Winsock APIs.
@@ -57,13 +56,10 @@ class ADDRINFO_DNS_SERVER extends Win32Struct
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    ai_template{
-        get {
-            if(!this.HasProp("__ai_template"))
-                this.__ai_template := PWSTR(this.ptr + 32)
-            return this.__ai_template
-        }
+    Anonymous {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 }

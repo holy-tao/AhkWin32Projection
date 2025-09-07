@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The USER_INFO_11 structure contains information about a user account, including the account name, privilege level, the path to the user's home directory, and other user-related network statistics.
@@ -21,56 +20,44 @@ class USER_INFO_11 extends Win32Struct
      * 
      * A pointer to a Unicode character that specifies the name of the user account. Calls to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netusersetinfo">NetUserSetInfo</a> function ignore this member. For more information, see the following Remarks section.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    usri11_name{
-        get {
-            if(!this.HasProp("__usri11_name"))
-                this.__usri11_name := PWSTR(this.ptr + 0)
-            return this.__usri11_name
-        }
+    usri11_name {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to a Unicode string that contains a comment associated with the user account. This string can be a <b>NULL</b> string, or it can have any number of characters before the terminating null character.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    usri11_comment{
-        get {
-            if(!this.HasProp("__usri11_comment"))
-                this.__usri11_comment := PWSTR(this.ptr + 8)
-            return this.__usri11_comment
-        }
+    usri11_comment {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to a Unicode string that contains a user comment. This string can be a <b>NULL</b> string, or it can have any number of characters before the terminating null character.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    usri11_usr_comment{
-        get {
-            if(!this.HasProp("__usri11_usr_comment"))
-                this.__usri11_usr_comment := PWSTR(this.ptr + 16)
-            return this.__usri11_usr_comment
-        }
+    usri11_usr_comment {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to a Unicode string that contains the full name of the user. This string can be a <b>NULL</b> string, or it can have any number of characters before the terminating null character.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    usri11_full_name{
-        get {
-            if(!this.HasProp("__usri11_full_name"))
-                this.__usri11_full_name := PWSTR(this.ptr + 24)
-            return this.__usri11_full_name
-        }
+    usri11_full_name {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
@@ -137,28 +124,22 @@ class USER_INFO_11 extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to a Unicode string specifying the path of the home directory for the user specified in the <b>usri11_name</b> member. The string can be <b>NULL</b>.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    usri11_home_dir{
-        get {
-            if(!this.HasProp("__usri11_home_dir"))
-                this.__usri11_home_dir := PWSTR(this.ptr + 48)
-            return this.__usri11_home_dir
-        }
+    usri11_home_dir {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to a Unicode string that is reserved for use by applications. This string can be a <b>NULL</b> string, or it can have any number of characters before the terminating null character. Microsoft products use this member to store user configuration information. Do not modify this information.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    usri11_parms{
-        get {
-            if(!this.HasProp("__usri11_parms"))
-                this.__usri11_parms := PWSTR(this.ptr + 56)
-            return this.__usri11_parms
-        }
+    usri11_parms {
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 
     /**
@@ -248,14 +229,11 @@ class USER_INFO_11 extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netuserenum">NetUserEnum</a> return \\*. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netuseradd">NetUserAdd</a> and 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netusersetinfo">NetUserSetInfo</a> functions ignore this member.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    usri11_logon_server{
-        get {
-            if(!this.HasProp("__usri11_logon_server"))
-                this.__usri11_logon_server := PWSTR(this.ptr + 80)
-            return this.__usri11_logon_server
-        }
+    usri11_logon_server {
+        get => NumGet(this, 80, "ptr")
+        set => NumPut("ptr", value, this, 80)
     }
 
     /**
@@ -273,14 +251,11 @@ class USER_INFO_11 extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to a Unicode string that contains the names of workstations from which the user can log on. As many as eight workstations can be specified; the names must be separated by commas. A <b>NULL</b> string indicates that there is no restriction. To disable logons from all workstations to this account, set the UF_ACCOUNTDISABLE value in the <b>usri11_flags</b> member.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    usri11_workstations{
-        get {
-            if(!this.HasProp("__usri11_workstations"))
-                this.__usri11_workstations := PWSTR(this.ptr + 96)
-            return this.__usri11_workstations
-        }
+    usri11_workstations {
+        get => NumGet(this, 96, "ptr")
+        set => NumPut("ptr", value, this, 96)
     }
 
     /**

@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\KSIDENTIFIER.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 #Include .\KSPRIORITY.ahk
 
 /**
@@ -45,14 +44,11 @@ class KSPIN_CONNECT extends Win32Struct
     }
 
     /**
-     * @type {HANDLE}
+     * @type {Pointer<Ptr>}
      */
-    PinToHandle{
-        get {
-            if(!this.HasProp("__PinToHandle"))
-                this.__PinToHandle := HANDLE(this.ptr + 24)
-            return this.__PinToHandle
-        }
+    PinToHandle {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**

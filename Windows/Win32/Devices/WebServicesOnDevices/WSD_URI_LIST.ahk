@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Represents a node in a linked list of URIs.
@@ -25,13 +24,10 @@ class WSD_URI_LIST extends Win32Struct
 
     /**
      * The URI referenced by this node.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    Element{
-        get {
-            if(!this.HasProp("__Element"))
-                this.__Element := PWSTR(this.ptr + 8)
-            return this.__Element
-        }
+    Element {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 }

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The SP_FILE_COPY_PARAMS structure describes a single file copy operation. (Unicode)
@@ -39,86 +38,65 @@ class SP_FILE_COPY_PARAMS_W extends Win32Struct
 
     /**
      * Optional pointer to the root of the source for this copy, such as A:\.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    SourceRootPath{
-        get {
-            if(!this.HasProp("__SourceRootPath"))
-                this.__SourceRootPath := PWSTR(this.ptr + 12)
-            return this.__SourceRootPath
-        }
+    SourceRootPath {
+        get => NumGet(this, 12, "ptr")
+        set => NumPut("ptr", value, this, 12)
     }
 
     /**
      * Optional pointer to the path relative to <b>SourceRootPath</b> where the file can be found.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    SourcePath{
-        get {
-            if(!this.HasProp("__SourcePath"))
-                this.__SourcePath := PWSTR(this.ptr + 20)
-            return this.__SourcePath
-        }
+    SourcePath {
+        get => NumGet(this, 20, "ptr")
+        set => NumPut("ptr", value, this, 20)
     }
 
     /**
      * File name part of the file to be copied.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    SourceFilename{
-        get {
-            if(!this.HasProp("__SourceFilename"))
-                this.__SourceFilename := PWSTR(this.ptr + 28)
-            return this.__SourceFilename
-        }
+    SourceFilename {
+        get => NumGet(this, 28, "ptr")
+        set => NumPut("ptr", value, this, 28)
     }
 
     /**
      * Optional pointer to a description of the source media to be used during disk prompts.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    SourceDescription{
-        get {
-            if(!this.HasProp("__SourceDescription"))
-                this.__SourceDescription := PWSTR(this.ptr + 36)
-            return this.__SourceDescription
-        }
+    SourceDescription {
+        get => NumGet(this, 36, "ptr")
+        set => NumPut("ptr", value, this, 36)
     }
 
     /**
      * Optional pointer to a tag file whose presence at <b>SourceRootPath</b> indicates the presence of the source media. If not specified, the file itself will be used as the tag file if required.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    SourceTagfile{
-        get {
-            if(!this.HasProp("__SourceTagfile"))
-                this.__SourceTagfile := PWSTR(this.ptr + 44)
-            return this.__SourceTagfile
-        }
+    SourceTagfile {
+        get => NumGet(this, 44, "ptr")
+        set => NumPut("ptr", value, this, 44)
     }
 
     /**
      * Directory where the file is to be copied.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    TargetDirectory{
-        get {
-            if(!this.HasProp("__TargetDirectory"))
-                this.__TargetDirectory := PWSTR(this.ptr + 52)
-            return this.__TargetDirectory
-        }
+    TargetDirectory {
+        get => NumGet(this, 52, "ptr")
+        set => NumPut("ptr", value, this, 52)
     }
 
     /**
      * Optional pointer to the name of the target file. If not specified, the target file will have the same name as the source file.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    TargetFilename{
-        get {
-            if(!this.HasProp("__TargetFilename"))
-                this.__TargetFilename := PWSTR(this.ptr + 60)
-            return this.__TargetFilename
-        }
+    TargetFilename {
+        get => NumGet(this, 60, "ptr")
+        set => NumPut("ptr", value, this, 60)
     }
 
     /**
@@ -141,14 +119,11 @@ class SP_FILE_COPY_PARAMS_W extends Win32Struct
 
     /**
      * An optional Security Descriptor String specifying the ACL to apply to the file.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    SecurityDescriptor{
-        get {
-            if(!this.HasProp("__SecurityDescriptor"))
-                this.__SecurityDescriptor := PWSTR(this.ptr + 80)
-            return this.__SecurityDescriptor
-        }
+    SecurityDescriptor {
+        get => NumGet(this, 80, "ptr")
+        set => NumPut("ptr", value, this, 80)
     }
 
     /**

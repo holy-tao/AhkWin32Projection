@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Graphics\Gdi\HPALETTE.ahk
 
 /**
  * Specifies container information for IQuickActivate::QuickActivate.
@@ -126,14 +125,11 @@ class QACONTAINER extends Win32Struct
 
     /**
      * Specifies Palette, an ambient property supplied by the container with a DISPID = -726.
-     * @type {HPALETTE}
+     * @type {Pointer<Ptr>}
      */
-    hpal{
-        get {
-            if(!this.HasProp("__hpal"))
-                this.__hpal := HPALETTE(this.ptr + 80)
-            return this.__hpal
-        }
+    hpal {
+        get => NumGet(this, 80, "ptr")
+        set => NumPut("ptr", value, this, 80)
     }
 
     /**

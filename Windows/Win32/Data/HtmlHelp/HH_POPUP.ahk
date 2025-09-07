@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HINSTANCE.ahk
 #Include ..\..\Foundation\POINT.ahk
 #Include ..\..\Foundation\RECT.ahk
 
@@ -27,14 +26,11 @@ class HH_POPUP extends Win32Struct
 
     /**
      * Instance handle of the program or DLL to retrieve the string resource from. Ignored if <i>idString</i> is zero, or if <i>idString</i> specifies a file name.
-     * @type {HINSTANCE}
+     * @type {Pointer<Ptr>}
      */
-    hinst{
-        get {
-            if(!this.HasProp("__hinst"))
-                this.__hinst := HINSTANCE(this.ptr + 8)
-            return this.__hinst
-        }
+    hinst {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

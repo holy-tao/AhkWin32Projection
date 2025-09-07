@@ -1,7 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * A structure identifying the host and source file to be evaluated.
@@ -37,25 +35,19 @@ class WLDP_HOST_INFORMATION extends Win32Struct
 
     /**
      * Full path and script name with the extension. NULL for **WLDP\_HOST\_ID\_GLOBAL**, or manual script execution.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    szSource{
-        get {
-            if(!this.HasProp("__szSource"))
-                this.__szSource := PWSTR(this.ptr + 8)
-            return this.__szSource
-        }
+    szSource {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * In addition to the name, the caller can specify a handle to the file used for validation.
-     * @type {HANDLE}
+     * @type {Pointer<Ptr>}
      */
-    hSource{
-        get {
-            if(!this.HasProp("__hSource"))
-                this.__hSource := HANDLE(this.ptr + 16)
-            return this.__hSource
-        }
+    hSource {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 }

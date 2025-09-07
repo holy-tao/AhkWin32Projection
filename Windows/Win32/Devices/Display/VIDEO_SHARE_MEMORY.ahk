@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Display
@@ -13,14 +12,11 @@ class VIDEO_SHARE_MEMORY extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {HANDLE}
+     * @type {Pointer<Ptr>}
      */
-    ProcessHandle{
-        get {
-            if(!this.HasProp("__ProcessHandle"))
-                this.__ProcessHandle := HANDLE(this.ptr + 0)
-            return this.__ProcessHandle
-        }
+    ProcessHandle {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**

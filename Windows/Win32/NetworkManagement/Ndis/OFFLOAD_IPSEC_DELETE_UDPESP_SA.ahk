@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Ndis
@@ -13,24 +12,18 @@ class OFFLOAD_IPSEC_DELETE_UDPESP_SA extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {HANDLE}
+     * @type {Pointer<Ptr>}
      */
-    OffloadHandle{
-        get {
-            if(!this.HasProp("__OffloadHandle"))
-                this.__OffloadHandle := HANDLE(this.ptr + 0)
-            return this.__OffloadHandle
-        }
+    OffloadHandle {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
-     * @type {HANDLE}
+     * @type {Pointer<Ptr>}
      */
-    EncapTypeEntryOffldHandle{
-        get {
-            if(!this.HasProp("__EncapTypeEntryOffldHandle"))
-                this.__EncapTypeEntryOffldHandle := HANDLE(this.ptr + 8)
-            return this.__EncapTypeEntryOffldHandle
-        }
+    EncapTypeEntryOffldHandle {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 }

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * Contains the header information that is part of the raw input data.
@@ -40,14 +39,11 @@ class RAWINPUTHEADER extends Win32Struct
      * Type: <b>HANDLE</b>
      * 
      * A handle to the device generating the raw input data.
-     * @type {HANDLE}
+     * @type {Pointer<Ptr>}
      */
-    hDevice{
-        get {
-            if(!this.HasProp("__hDevice"))
-                this.__hDevice := HANDLE(this.ptr + 8)
-            return this.__hDevice
-        }
+    hDevice {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

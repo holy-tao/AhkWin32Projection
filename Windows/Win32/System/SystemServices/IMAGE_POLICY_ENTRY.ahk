@@ -1,7 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.System.SystemServices
@@ -110,24 +108,18 @@ class IMAGE_POLICY_ENTRY extends Win32Struct
     }
 
     /**
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    AnsiStringValue{
-        get {
-            if(!this.HasProp("__AnsiStringValue"))
-                this.__AnsiStringValue := PSTR(this.ptr + 8)
-            return this.__AnsiStringValue
-        }
+    AnsiStringValue {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    UnicodeStringValue{
-        get {
-            if(!this.HasProp("__UnicodeStringValue"))
-                this.__UnicodeStringValue := PWSTR(this.ptr + 8)
-            return this.__UnicodeStringValue
-        }
+    UnicodeStringValue {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 }

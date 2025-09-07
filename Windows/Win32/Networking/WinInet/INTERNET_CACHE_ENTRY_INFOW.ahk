@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Foundation\FILETIME.ahk
 
 /**
@@ -39,26 +38,20 @@ class INTERNET_CACHE_ENTRY_INFOW extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that contains the URL name. The string occupies the memory area at the end of this structure.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpszSourceUrlName{
-        get {
-            if(!this.HasProp("__lpszSourceUrlName"))
-                this.__lpszSourceUrlName := PWSTR(this.ptr + 8)
-            return this.__lpszSourceUrlName
-        }
+    lpszSourceUrlName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * Pointer to a null-terminated string that contains the local file name. The string occupies the memory area at the end of this structure.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpszLocalFileName{
-        get {
-            if(!this.HasProp("__lpszLocalFileName"))
-                this.__lpszLocalFileName := PWSTR(this.ptr + 16)
-            return this.__lpszLocalFileName
-        }
+    lpszLocalFileName {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
@@ -263,14 +256,11 @@ class INTERNET_CACHE_ENTRY_INFOW extends Win32Struct
 
     /**
      * Pointer to a buffer that contains the header information. The buffer occupies the memory at the end of this structure.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpHeaderInfo{
-        get {
-            if(!this.HasProp("__lpHeaderInfo"))
-                this.__lpHeaderInfo := PWSTR(this.ptr + 80)
-            return this.__lpHeaderInfo
-        }
+    lpHeaderInfo {
+        get => NumGet(this, 80, "ptr")
+        set => NumPut("ptr", value, this, 80)
     }
 
     /**
@@ -285,14 +275,11 @@ class INTERNET_CACHE_ENTRY_INFOW extends Win32Struct
 
     /**
      * Pointer to a string that contains the file name extension used to retrieve the data as a file. The string occupies the memory area at the end of this structure.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpszFileExtension{
-        get {
-            if(!this.HasProp("__lpszFileExtension"))
-                this.__lpszFileExtension := PWSTR(this.ptr + 96)
-            return this.__lpszFileExtension
-        }
+    lpszFileExtension {
+        get => NumGet(this, 96, "ptr")
+        set => NumPut("ptr", value, this, 96)
     }
 
     /**

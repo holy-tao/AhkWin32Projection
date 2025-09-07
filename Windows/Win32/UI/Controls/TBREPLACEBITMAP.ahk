@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HINSTANCE.ahk
 
 /**
  * Used with the TB_REPLACEBITMAP message to replace one toolbar bitmap with another.
@@ -21,14 +20,11 @@ class TBREPLACEBITMAP extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HINSTANCE</a></b>
      * 
      * Module instance handle to the bitmap resource being replaced. Set this member to <b>NULL</b> to instead use a bitmap handle.
-     * @type {HINSTANCE}
+     * @type {Pointer<Ptr>}
      */
-    hInstOld{
-        get {
-            if(!this.HasProp("__hInstOld"))
-                this.__hInstOld := HINSTANCE(this.ptr + 0)
-            return this.__hInstOld
-        }
+    hInstOld {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
@@ -47,14 +43,11 @@ class TBREPLACEBITMAP extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HINSTANCE</a></b>
      * 
      * Module instance handle that contains the new bitmap resource. Set this member to <b>NULL</b> to instead use a bitmap handle.
-     * @type {HINSTANCE}
+     * @type {Pointer<Ptr>}
      */
-    hInstNew{
-        get {
-            if(!this.HasProp("__hInstNew"))
-                this.__hInstNew := HINSTANCE(this.ptr + 16)
-            return this.__hInstNew
-        }
+    hInstNew {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Describes an XSD type.
@@ -16,14 +15,11 @@ class WSDXML_TYPE extends Win32Struct
 
     /**
      * The optional URI that identifies the type.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    Uri{
-        get {
-            if(!this.HasProp("__Uri"))
-                this.__Uri := PWSTR(this.ptr + 0)
-            return this.__Uri
-        }
+    Uri {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**

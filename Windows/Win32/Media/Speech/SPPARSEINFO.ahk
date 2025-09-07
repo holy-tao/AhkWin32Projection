@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\SPRULEHANDLE.ahk
 
 /**
  * @namespace Windows.Win32.Media.Speech
@@ -21,14 +20,11 @@ class SPPARSEINFO extends Win32Struct
     }
 
     /**
-     * @type {SPRULEHANDLE}
+     * @type {Pointer<Ptr>}
      */
-    hRule{
-        get {
-            if(!this.HasProp("__hRule"))
-                this.__hRule := SPRULEHANDLE(this.ptr + 8)
-            return this.__hRule
-        }
+    hRule {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

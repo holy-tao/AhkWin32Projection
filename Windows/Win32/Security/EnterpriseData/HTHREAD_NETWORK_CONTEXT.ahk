@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * @namespace Windows.Win32.Security.EnterpriseData
@@ -21,13 +20,10 @@ class HTHREAD_NETWORK_CONTEXT extends Win32Struct
     }
 
     /**
-     * @type {HANDLE}
+     * @type {Pointer<Ptr>}
      */
-    ThreadContext{
-        get {
-            if(!this.HasProp("__ThreadContext"))
-                this.__ThreadContext := HANDLE(this.ptr + 8)
-            return this.__ThreadContext
-        }
+    ThreadContext {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 }

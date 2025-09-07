@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\DWORD_DWORD.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\DHCP_BINARY_DATA.ahk
 
 /**
@@ -69,14 +68,11 @@ class DHCP_OPTION_DATA_ELEMENT extends Win32Struct
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    StringDataOption{
-        get {
-            if(!this.HasProp("__StringDataOption"))
-                this.__StringDataOption := PWSTR(this.ptr + 8)
-            return this.__StringDataOption
-        }
+    StringDataOption {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -102,13 +98,10 @@ class DHCP_OPTION_DATA_ELEMENT extends Win32Struct
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    Ipv6AddressDataOption{
-        get {
-            if(!this.HasProp("__Ipv6AddressDataOption"))
-                this.__Ipv6AddressDataOption := PWSTR(this.ptr + 8)
-            return this.__Ipv6AddressDataOption
-        }
+    Ipv6AddressDataOption {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 }

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains information about a specified server.
@@ -51,14 +50,11 @@ class SERVER_INFO_402 extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to a Unicode string that specifies the list of user names on the server. Spaces separate the names.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    sv402_alerts{
-        get {
-            if(!this.HasProp("__sv402_alerts"))
-                this.__sv402_alerts := PWSTR(this.ptr + 16)
-            return this.__sv402_alerts
-        }
+    sv402_alerts {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
@@ -96,14 +92,11 @@ class SERVER_INFO_402 extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to a Unicode string that specifies the name of a reserved account for guest users on the server. The constant UNLEN specifies the maximum number of characters in the string.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    sv402_guestacct{
-        get {
-            if(!this.HasProp("__sv402_guestacct"))
-                this.__sv402_guestacct := PWSTR(this.ptr + 40)
-            return this.__sv402_guestacct
-        }
+    sv402_guestacct {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
@@ -352,13 +345,10 @@ class SERVER_INFO_402 extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to a Unicode string containing flags that control operations on a server.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    sv402_srvheuristics{
-        get {
-            if(!this.HasProp("__sv402_srvheuristics"))
-                this.__sv402_srvheuristics := PWSTR(this.ptr + 136)
-            return this.__sv402_srvheuristics
-        }
+    sv402_srvheuristics {
+        get => NumGet(this, 136, "ptr")
+        set => NumPut("ptr", value, this, 136)
     }
 }

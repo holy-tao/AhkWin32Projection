@@ -2,7 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\IPNG_ADDRESS.ahk
 #Include .\MCAST_SCOPE_CTX.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Foundation\UNICODE_STRING.ahk
 
 /**

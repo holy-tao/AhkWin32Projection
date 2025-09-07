@@ -1,7 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\HDEV.ahk
-#Include .\DHPDEV.ahk
 
 /**
  * The DRIVEROBJ structure is used to track a resource, allocated by a driver, that requires use GDI services.
@@ -49,25 +47,19 @@ class DRIVEROBJ extends Win32Struct
 
     /**
      * GDI handle to the physical device associated with the object.
-     * @type {HDEV}
+     * @type {Pointer<Ptr>}
      */
-    hdev{
-        get {
-            if(!this.HasProp("__hdev"))
-                this.__hdev := HDEV(this.ptr + 16)
-            return this.__hdev
-        }
+    hdev {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * Pointer to the driver's private instance data; that is, this member identifies the driver's <a href="https://docs.microsoft.com/windows-hardware/drivers/">PDEV</a>.
-     * @type {DHPDEV}
+     * @type {Pointer<Ptr>}
      */
-    dhpdev{
-        get {
-            if(!this.HasProp("__dhpdev"))
-                this.__dhpdev := DHPDEV(this.ptr + 24)
-            return this.__dhpdev
-        }
+    dhpdev {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 }

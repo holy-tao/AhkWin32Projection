@@ -1,7 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * Specifies information for a plug-in request.
@@ -36,26 +34,20 @@ class WSMAN_PLUGIN_REQUEST extends Win32Struct
      * <li>The request is rejected with an invalid locale error.</li>
      * </ul>
      * Any call into the plug-in will have the locale on the thread set to the  locale that is specified in this member.  If the plug-in has other threads working on the request, the plug-in will need to set the locale accordingly on each thread that it uses.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    locale{
-        get {
-            if(!this.HasProp("__locale"))
-                this.__locale := PWSTR(this.ptr + 8)
-            return this.__locale
-        }
+    locale {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * Specifies the <a href="https://docs.microsoft.com/windows/desktop/WinRM/windows-remote-management-glossary">resource URI</a> for this operation.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    resourceUri{
-        get {
-            if(!this.HasProp("__resourceUri"))
-                this.__resourceUri := PWSTR(this.ptr + 16)
-            return this.__resourceUri
-        }
+    resourceUri {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
@@ -78,25 +70,19 @@ class WSMAN_PLUGIN_REQUEST extends Win32Struct
 
     /**
      * If the operation is canceled, <b>shutdownNotification</b> is signaled.
-     * @type {HANDLE}
+     * @type {Pointer<Ptr>}
      */
-    shutdownNotificationHandle{
-        get {
-            if(!this.HasProp("__shutdownNotificationHandle"))
-                this.__shutdownNotificationHandle := HANDLE(this.ptr + 40)
-            return this.__shutdownNotificationHandle
-        }
+    shutdownNotificationHandle {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
      * 
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    dataLocale{
-        get {
-            if(!this.HasProp("__dataLocale"))
-                this.__dataLocale := PWSTR(this.ptr + 48)
-            return this.__dataLocale
-        }
+    dataLocale {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 }

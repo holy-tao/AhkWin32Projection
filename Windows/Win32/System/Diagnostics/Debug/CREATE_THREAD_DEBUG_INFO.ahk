@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\HANDLE.ahk
 
 /**
  * Contains thread-creation information that can be used by a debugger.
@@ -16,14 +15,11 @@ class CREATE_THREAD_DEBUG_INFO extends Win32Struct
 
     /**
      * A handle to the thread whose creation caused the debugging event. If this member is <b>NULL</b>, the handle is not valid. Otherwise, the debugger has THREAD_GET_CONTEXT, THREAD_SET_CONTEXT, and THREAD_SUSPEND_RESUME access to the thread, allowing the debugger to read from and write to the registers of the thread and control execution of the thread.
-     * @type {HANDLE}
+     * @type {Pointer<Ptr>}
      */
-    hThread{
-        get {
-            if(!this.HasProp("__hThread"))
-                this.__hThread := HANDLE(this.ptr + 0)
-            return this.__hThread
-        }
+    hThread {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**

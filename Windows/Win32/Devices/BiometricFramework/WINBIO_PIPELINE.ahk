@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * Contains shared context information used by the sensor, engine, and storage adapter components in a single biometric unit.
@@ -18,38 +17,29 @@ class WINBIO_PIPELINE extends Win32Struct
 
     /**
      * File handle to the sensor device associated with the biometric unit. Adapters should treat this as a read-only field.
-     * @type {HANDLE}
+     * @type {Pointer<Ptr>}
      */
-    SensorHandle{
-        get {
-            if(!this.HasProp("__SensorHandle"))
-                this.__SensorHandle := HANDLE(this.ptr + 0)
-            return this.__SensorHandle
-        }
+    SensorHandle {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
      * File handle to the dedicated hardware matching engine, if one is present. This is modified only by the engine adapter. It is read by the Windows Biometric Framework.
-     * @type {HANDLE}
+     * @type {Pointer<Ptr>}
      */
-    EngineHandle{
-        get {
-            if(!this.HasProp("__EngineHandle"))
-                this.__EngineHandle := HANDLE(this.ptr + 8)
-            return this.__EngineHandle
-        }
+    EngineHandle {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * File handle to the template storage database. This is read by the Windows Biometric Framework, but it is modified only by the storage adapter.
-     * @type {HANDLE}
+     * @type {Pointer<Ptr>}
      */
-    StorageHandle{
-        get {
-            if(!this.HasProp("__StorageHandle"))
-                this.__StorageHandle := HANDLE(this.ptr + 16)
-            return this.__StorageHandle
-        }
+    StorageHandle {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**

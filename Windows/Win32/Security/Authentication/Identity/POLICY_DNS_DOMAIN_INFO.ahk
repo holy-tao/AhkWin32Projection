@@ -1,8 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\PWSTR.ahk
 #Include .\LSA_UNICODE_STRING.ahk
-#Include ..\..\PSID.ahk
 
 /**
  * The POLICY_DNS_DOMAIN_INFO structure is used to set and query Domain Name System (DNS) information about the primary domain associated with a Policy object.
@@ -71,13 +69,10 @@ class POLICY_DNS_DOMAIN_INFO extends Win32Struct
 
     /**
      * Pointer to the SID of the primary domain. This is the same as the primary domain SID in the <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/ns-ntsecapi-policy_primary_domain_info">POLICY_PRIMARY_DOMAIN_INFO</a> structure.
-     * @type {PSID}
+     * @type {Pointer<Ptr>}
      */
-    Sid{
-        get {
-            if(!this.HasProp("__Sid"))
-                this.__Sid := PSID(this.ptr + 56)
-            return this.__Sid
-        }
+    Sid {
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 }

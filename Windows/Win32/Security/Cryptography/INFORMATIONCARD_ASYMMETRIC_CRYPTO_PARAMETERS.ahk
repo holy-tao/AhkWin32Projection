@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
@@ -21,24 +20,18 @@ class INFORMATIONCARD_ASYMMETRIC_CRYPTO_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    keyExchangeAlgorithm{
-        get {
-            if(!this.HasProp("__keyExchangeAlgorithm"))
-                this.__keyExchangeAlgorithm := PWSTR(this.ptr + 8)
-            return this.__keyExchangeAlgorithm
-        }
+    keyExchangeAlgorithm {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    signatureAlgorithm{
-        get {
-            if(!this.HasProp("__signatureAlgorithm"))
-                this.__signatureAlgorithm := PWSTR(this.ptr + 16)
-            return this.__signatureAlgorithm
-        }
+    signatureAlgorithm {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 }

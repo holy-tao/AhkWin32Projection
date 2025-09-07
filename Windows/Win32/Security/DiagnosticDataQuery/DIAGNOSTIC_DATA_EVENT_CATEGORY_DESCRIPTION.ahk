@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * A resource that represents a category, defined by an identifier and a name. A category is an organizational construct to categorize records for a given producer. For example, "Browsing Data" could be a category for the producer "Microsoft Edge".
@@ -29,13 +28,10 @@ class DIAGNOSTIC_DATA_EVENT_CATEGORY_DESCRIPTION extends Win32Struct
     /**
      * Type: **[LPWSTR](/windows/desktop/winprog/windows-data-types)**
      * The name of this category.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    name{
-        get {
-            if(!this.HasProp("__name"))
-                this.__name := PWSTR(this.ptr + 8)
-            return this.__name
-        }
+    name {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 }

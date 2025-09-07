@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The MMC_RESTORE_VIEW structure is introduced in MMC 1.1.
@@ -41,14 +40,11 @@ class MMC_RESTORE_VIEW extends Win32Struct
     /**
      * A pointer to a string that specifies the view type used to display the result pane for the item specified by cookie. For more information about view types, see the ppViewType parameter for 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/nf-mmc-icomponent-getresultviewtype">IComponent::GetResultViewType</a>.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pViewType{
-        get {
-            if(!this.HasProp("__pViewType"))
-                this.__pViewType := PWSTR(this.ptr + 16)
-            return this.__pViewType
-        }
+    pViewType {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**

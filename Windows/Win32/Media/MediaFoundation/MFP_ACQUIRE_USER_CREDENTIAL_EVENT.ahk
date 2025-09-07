@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\MFP_EVENT_HEADER.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Event structure for the MFP_EVENT_TYPE_ACQUIRE_USER_CREDENTIAL event.
@@ -78,50 +77,38 @@ class MFP_ACQUIRE_USER_CREDENTIAL_EVENT extends Win32Struct
 
     /**
      * The original URL that requires authentication.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pwszURL{
-        get {
-            if(!this.HasProp("__pwszURL"))
-                this.__pwszURL := PWSTR(this.ptr + 48)
-            return this.__pwszURL
-        }
+    pwszURL {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**
      * The name of the site or proxy that requires authentication.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pwszSite{
-        get {
-            if(!this.HasProp("__pwszSite"))
-                this.__pwszSite := PWSTR(this.ptr + 56)
-            return this.__pwszSite
-        }
+    pwszSite {
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 
     /**
      * The name of the realm for this authentication.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pwszRealm{
-        get {
-            if(!this.HasProp("__pwszRealm"))
-                this.__pwszRealm := PWSTR(this.ptr + 64)
-            return this.__pwszRealm
-        }
+    pwszRealm {
+        get => NumGet(this, 64, "ptr")
+        set => NumPut("ptr", value, this, 64)
     }
 
     /**
      * The name of the authentication package, such as "Digest" or "MBS_BASIC".
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pwszPackage{
-        get {
-            if(!this.HasProp("__pwszPackage"))
-                this.__pwszPackage := PWSTR(this.ptr + 72)
-            return this.__pwszPackage
-        }
+    pwszPackage {
+        get => NumGet(this, 72, "ptr")
+        set => NumPut("ptr", value, this, 72)
     }
 
     /**

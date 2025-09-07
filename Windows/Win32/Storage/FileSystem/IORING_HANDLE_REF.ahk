@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * Represents a reference to a file handle used in an I/O ring operation.
@@ -26,14 +25,11 @@ class IORING_HANDLE_REF extends Win32Struct
     }
 
     /**
-     * @type {HANDLE}
+     * @type {Pointer<Ptr>}
      */
-    Handle{
-        get {
-            if(!this.HasProp("__Handle"))
-                this.__Handle := HANDLE(this.ptr + 8)
-            return this.__Handle
-        }
+    Handle {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

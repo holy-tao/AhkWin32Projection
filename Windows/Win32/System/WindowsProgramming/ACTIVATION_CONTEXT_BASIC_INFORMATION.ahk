@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * @namespace Windows.Win32.System.WindowsProgramming
@@ -13,14 +12,11 @@ class ACTIVATION_CONTEXT_BASIC_INFORMATION extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {HANDLE}
+     * @type {Pointer<Ptr>}
      */
-    hActCtx{
-        get {
-            if(!this.HasProp("__hActCtx"))
-                this.__hActCtx := HANDLE(this.ptr + 0)
-            return this.__hActCtx
-        }
+    hActCtx {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**

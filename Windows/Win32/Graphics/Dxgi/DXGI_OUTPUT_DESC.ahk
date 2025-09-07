@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\RECT.ahk
-#Include ..\Gdi\HMONITOR.ahk
 
 /**
  * Describes an output or physical connection between the adapter (video card) and a device.
@@ -69,13 +68,10 @@ class DXGI_OUTPUT_DESC extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HMONITOR</a></b>
      * 
      * An <a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HMONITOR</a> handle that represents the display monitor. For more information, see <a href="https://docs.microsoft.com/windows/desktop/gdi/hmonitor-and-the-device-context">HMONITOR and the Device Context</a>.
-     * @type {HMONITOR}
+     * @type {Pointer<Ptr>}
      */
-    Monitor{
-        get {
-            if(!this.HasProp("__Monitor"))
-                this.__Monitor := HMONITOR(this.ptr + 88)
-            return this.__Monitor
-        }
+    Monitor {
+        get => NumGet(this, 88, "ptr")
+        set => NumPut("ptr", value, this, 88)
     }
 }

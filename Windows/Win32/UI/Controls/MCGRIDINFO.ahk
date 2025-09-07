@@ -2,7 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\SYSTEMTIME.ahk
 #Include ..\..\Foundation\RECT.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains information about part of a calendar control.
@@ -142,14 +141,11 @@ class MCGRIDINFO extends Win32Struct
      * <li>MCGIP_CALENDARCELL: Returns the text of the cell indicated by <b>iRow</b> and <b>iCol</b>, for instance "11" if the 11th day was specified.</li>
      * <li>MCGIP_CALENDARHEADER: Returns the text of what it says in the calendar header, for instance "July, 2006".</li>
      * </ul>
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszName{
-        get {
-            if(!this.HasProp("__pszName"))
-                this.__pszName := PWSTR(this.ptr + 80)
-            return this.__pszName
-        }
+    pszName {
+        get => NumGet(this, 80, "ptr")
+        set => NumPut("ptr", value, this, 80)
     }
 
     /**

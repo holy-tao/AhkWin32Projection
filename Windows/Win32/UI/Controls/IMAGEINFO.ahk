@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Graphics\Gdi\HBITMAP.ahk
 #Include ..\..\Foundation\RECT.ahk
 
 /**
@@ -19,28 +18,22 @@ class IMAGEINFO extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HBITMAP</a></b>
      * 
      * A handle to the bitmap that contains the images.
-     * @type {HBITMAP}
+     * @type {Pointer<Ptr>}
      */
-    hbmImage{
-        get {
-            if(!this.HasProp("__hbmImage"))
-                this.__hbmImage := HBITMAP(this.ptr + 0)
-            return this.__hbmImage
-        }
+    hbmImage {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HBITMAP</a></b>
      * 
      * A handle to a monochrome bitmap that contains the masks for the images. If the image list does not contain a mask, this member is <b>NULL</b>.
-     * @type {HBITMAP}
+     * @type {Pointer<Ptr>}
      */
-    hbmMask{
-        get {
-            if(!this.HasProp("__hbmMask"))
-                this.__hbmMask := HBITMAP(this.ptr + 8)
-            return this.__hbmMask
-        }
+    hbmMask {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

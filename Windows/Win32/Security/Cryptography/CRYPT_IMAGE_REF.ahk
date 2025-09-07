@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains information about a CNG provider module.
@@ -16,14 +15,11 @@ class CRYPT_IMAGE_REF extends Win32Struct
 
     /**
      * A pointer to a null-terminated Unicode string that contains the name of the provider module.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszImage{
-        get {
-            if(!this.HasProp("__pszImage"))
-                this.__pszImage := PWSTR(this.ptr + 0)
-            return this.__pszImage
-        }
+    pszImage {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**

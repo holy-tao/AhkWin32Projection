@@ -1,7 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * The WINTRUST_FILE_INFO structure is used when calling WinVerifyTrust to verify an individual file.
@@ -26,26 +24,20 @@ class WINTRUST_FILE_INFO extends Win32Struct
 
     /**
      * Full path and file name of the file to be verified. This parameter cannot be <b>NULL</b>.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pcwszFilePath{
-        get {
-            if(!this.HasProp("__pcwszFilePath"))
-                this.__pcwszFilePath := PWSTR(this.ptr + 8)
-            return this.__pcwszFilePath
-        }
+    pcwszFilePath {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * Optional. File handle to the open file to be verified. This handle must be to a file that has at least read permission. This member can be set to <b>NULL</b>.
-     * @type {HANDLE}
+     * @type {Pointer<Ptr>}
      */
-    hFile{
-        get {
-            if(!this.HasProp("__hFile"))
-                this.__hFile := HANDLE(this.ptr + 16)
-            return this.__hFile
-        }
+    hFile {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**

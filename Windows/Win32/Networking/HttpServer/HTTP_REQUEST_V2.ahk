@@ -1,8 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\HTTP_VERSION.ahk
-#Include ..\..\Foundation\PSTR.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\HTTP_COOKED_URL.ahk
 #Include .\HTTP_TRANSPORT_ADDRESS.ahk
 #Include .\HTTP_KNOWN_HEADER.ahk

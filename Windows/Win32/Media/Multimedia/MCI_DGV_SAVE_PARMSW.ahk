@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Foundation\RECT.ahk
 
 /**
@@ -36,14 +35,11 @@ class MCI_DGV_SAVE_PARMSW extends Win32Struct
 
     /**
      * String for filename to save.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpstrFileName{
-        get {
-            if(!this.HasProp("__lpstrFileName"))
-                this.__lpstrFileName := PWSTR(this.ptr + 8)
-            return this.__lpstrFileName
-        }
+    lpstrFileName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

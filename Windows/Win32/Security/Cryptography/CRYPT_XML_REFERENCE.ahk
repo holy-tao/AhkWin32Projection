@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\CRYPT_XML_BLOB.ahk
 #Include .\CRYPT_XML_ALGORITHM.ahk
 #Include .\CRYPT_INTEGER_BLOB.ahk
@@ -37,38 +36,29 @@ class CRYPT_XML_REFERENCE extends Win32Struct
 
     /**
      * Optional. A pointer to a null-terminated Unicode string that contains the value of the <b>Id</b> attribute.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    wszId{
-        get {
-            if(!this.HasProp("__wszId"))
-                this.__wszId := PWSTR(this.ptr + 16)
-            return this.__wszId
-        }
+    wszId {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * A pointer to a null-terminated Unicode string that contains a <b>URI</b> attribute.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    wszUri{
-        get {
-            if(!this.HasProp("__wszUri"))
-                this.__wszUri := PWSTR(this.ptr + 24)
-            return this.__wszUri
-        }
+    wszUri {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
      * A pointer to a null-terminated Unicode string that contains the value of the <b>Type</b> attribute.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    wszType{
-        get {
-            if(!this.HasProp("__wszType"))
-                this.__wszType := PWSTR(this.ptr + 32)
-            return this.__wszType
-        }
+    wszType {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**

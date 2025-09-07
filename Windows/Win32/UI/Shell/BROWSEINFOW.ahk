@@ -1,7 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains parameters for the SHBrowseForFolder function and receives information about the folder selected by the user. (Unicode)
@@ -23,14 +21,11 @@ class BROWSEINFOW extends Win32Struct
      * Type: <b>HWND</b>
      * 
      * A handle to the owner window for the dialog box.
-     * @type {HWND}
+     * @type {Pointer<Ptr>}
      */
-    hwndOwner{
-        get {
-            if(!this.HasProp("__hwndOwner"))
-                this.__hwndOwner := HWND(this.ptr + 0)
-            return this.__hwndOwner
-        }
+    hwndOwner {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
@@ -48,28 +43,22 @@ class BROWSEINFOW extends Win32Struct
      * Type: <b>LPTSTR</b>
      * 
      * Pointer to a buffer to receive the display name of the folder selected by the user. The size of this buffer is assumed to be MAX_PATH characters.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszDisplayName{
-        get {
-            if(!this.HasProp("__pszDisplayName"))
-                this.__pszDisplayName := PWSTR(this.ptr + 16)
-            return this.__pszDisplayName
-        }
+    pszDisplayName {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a null-terminated string that is displayed above the tree view control in the dialog box. This string can be used to specify instructions to the user.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpszTitle{
-        get {
-            if(!this.HasProp("__lpszTitle"))
-                this.__lpszTitle := PWSTR(this.ptr + 24)
-            return this.__lpszTitle
-        }
+    lpszTitle {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**

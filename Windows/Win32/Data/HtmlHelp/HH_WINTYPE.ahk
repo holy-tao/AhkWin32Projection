@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\RECT.ahk
-#Include ..\..\Foundation\HWND.ahk
 
 /**
  * Use this structure to specify or modify the attributes of a window type.
@@ -127,26 +126,20 @@ class HH_WINTYPE extends Win32Struct
 
     /**
      * Specifies the handle of the window if the window has been created.
-     * @type {HWND}
+     * @type {Pointer<Ptr>}
      */
-    hwndHelp{
-        get {
-            if(!this.HasProp("__hwndHelp"))
-                this.__hwndHelp := HWND(this.ptr + 64)
-            return this.__hwndHelp
-        }
+    hwndHelp {
+        get => NumGet(this, 64, "ptr")
+        set => NumPut("ptr", value, this, 64)
     }
 
     /**
      * Specifies the window that will receive HTML Help notification messages. <a href="https://docs.microsoft.com/previous-versions/windows/desktop/htmlhelp/about-notification-messages">Notification messages</a> are sent via Windows <b>WM_NOTIFY</b> messages.
-     * @type {HWND}
+     * @type {Pointer<Ptr>}
      */
-    hwndCaller{
-        get {
-            if(!this.HasProp("__hwndCaller"))
-                this.__hwndCaller := HWND(this.ptr + 72)
-            return this.__hwndCaller
-        }
+    hwndCaller {
+        get => NumGet(this, 72, "ptr")
+        set => NumPut("ptr", value, this, 72)
     }
 
     /**
@@ -160,38 +153,29 @@ class HH_WINTYPE extends Win32Struct
 
     /**
      * Specifies the handle of the toolbar.
-     * @type {HWND}
+     * @type {Pointer<Ptr>}
      */
-    hwndToolBar{
-        get {
-            if(!this.HasProp("__hwndToolBar"))
-                this.__hwndToolBar := HWND(this.ptr + 88)
-            return this.__hwndToolBar
-        }
+    hwndToolBar {
+        get => NumGet(this, 88, "ptr")
+        set => NumPut("ptr", value, this, 88)
     }
 
     /**
      * Specifies the handle of the Navigation pane.
-     * @type {HWND}
+     * @type {Pointer<Ptr>}
      */
-    hwndNavigation{
-        get {
-            if(!this.HasProp("__hwndNavigation"))
-                this.__hwndNavigation := HWND(this.ptr + 96)
-            return this.__hwndNavigation
-        }
+    hwndNavigation {
+        get => NumGet(this, 96, "ptr")
+        set => NumPut("ptr", value, this, 96)
     }
 
     /**
      * Specifies the handle of the Topic pane, which hosts Shdocvw.dll.
-     * @type {HWND}
+     * @type {Pointer<Ptr>}
      */
-    hwndHTML{
-        get {
-            if(!this.HasProp("__hwndHTML"))
-                this.__hwndHTML := HWND(this.ptr + 104)
-            return this.__hwndHTML
-        }
+    hwndHTML {
+        get => NumGet(this, 104, "ptr")
+        set => NumPut("ptr", value, this, 104)
     }
 
     /**

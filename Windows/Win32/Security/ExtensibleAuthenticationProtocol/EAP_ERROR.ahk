@@ -2,7 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\EAP_TYPE.ahk
 #Include .\EAP_METHOD_TYPE.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains information about an error that occurred during an EAPHost operation.
@@ -533,25 +532,19 @@ class EAP_ERROR extends Win32Struct
 
     /**
      * A localized and readable string that describes the root cause of the error.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pRootCauseString{
-        get {
-            if(!this.HasProp("__pRootCauseString"))
-                this.__pRootCauseString := PWSTR(this.ptr + 56)
-            return this.__pRootCauseString
-        }
+    pRootCauseString {
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 
     /**
      * A localized and readable string that describes the possible repair action.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pRepairString{
-        get {
-            if(!this.HasProp("__pRepairString"))
-                this.__pRepairString := PWSTR(this.ptr + 64)
-            return this.__pRepairString
-        }
+    pRepairString {
+        get => NumGet(this, 64, "ptr")
+        set => NumPut("ptr", value, this, 64)
     }
 }

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * Contains a handle and text description corresponding to a physical monitor.
@@ -18,14 +17,11 @@ class PHYSICAL_MONITOR extends Win32Struct
 
     /**
      * Handle to the physical monitor.
-     * @type {HANDLE}
+     * @type {Pointer<Ptr>}
      */
-    hPhysicalMonitor{
-        get {
-            if(!this.HasProp("__hPhysicalMonitor"))
-                this.__hPhysicalMonitor := HANDLE(this.ptr + 0)
-            return this.__hPhysicalMonitor
-        }
+    hPhysicalMonitor {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**

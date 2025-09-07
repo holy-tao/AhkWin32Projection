@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Foundation\FILETIME.ahk
 
 /**
@@ -17,14 +16,11 @@ class DS_REPL_ATTR_META_DATA_2 extends Win32Struct
 
     /**
      * Pointer to a null-terminated Unicode string that contains the LDAP display name of the attribute that corresponds to this metadata.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszAttributeName{
-        get {
-            if(!this.HasProp("__pszAttributeName"))
-                this.__pszAttributeName := PWSTR(this.ptr + 0)
-            return this.__pszAttributeName
-        }
+    pszAttributeName {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
@@ -77,13 +73,10 @@ class DS_REPL_ATTR_META_DATA_2 extends Win32Struct
 
     /**
      * Pointer to a null-terminated Unicode string that contains the distinguished name of the directory system agent server that originated the last replication.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszLastOriginatingDsaDN{
-        get {
-            if(!this.HasProp("__pszLastOriginatingDsaDN"))
-                this.__pszLastOriginatingDsaDN := PWSTR(this.ptr + 48)
-            return this.__pszLastOriginatingDsaDN
-        }
+    pszLastOriginatingDsaDN {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 }

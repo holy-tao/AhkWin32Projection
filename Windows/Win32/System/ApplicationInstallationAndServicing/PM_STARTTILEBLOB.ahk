@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include .\PM_INVOCATIONINFO.ahk
 
 /**
@@ -30,14 +29,11 @@ class PM_STARTTILEBLOB extends Win32Struct
     }
 
     /**
-     * @type {BSTR}
+     * @type {Pointer<Ptr>}
      */
-    TileID{
-        get {
-            if(!this.HasProp("__TileID"))
-                this.__TileID := BSTR(this.ptr + 16)
-            return this.__TileID
-        }
+    TileID {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**

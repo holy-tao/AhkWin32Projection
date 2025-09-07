@@ -2,18 +2,14 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\NODERESTRICTION.ahk
 #Include .\VECTORRESTRICTION.ahk
-#Include .\NOTRESTRICTION.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\Com\StructuredStorage\PROPSPEC.ahk
 #Include ..\..\Storage\IndexServer\FULLPROPSPEC.ahk
 #Include .\CONTENTRESTRICTION.ahk
 #Include .\NATLANGUAGERESTRICTION.ahk
 #Include ..\Com\CY.ahk
 #Include ..\..\Foundation\FILETIME.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\StructuredStorage\BSTRBLOB.ahk
 #Include ..\Com\BLOB.ahk
-#Include ..\..\Foundation\PSTR.ahk
 #Include ..\Com\StructuredStorage\CAC.ahk
 #Include ..\Com\StructuredStorage\CAUB.ahk
 #Include ..\Com\StructuredStorage\CAI.ahk
@@ -111,14 +107,11 @@ class RESTRICTION extends Win32Struct
     }
 
     /**
-     * @type {NOTRESTRICTION}
+     * @type {Pointer<Ptr>}
      */
-    nr{
-        get {
-            if(!this.HasProp("__nr"))
-                this.__nr := NOTRESTRICTION(this.ptr + 8)
-            return this.__nr
-        }
+    nr {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

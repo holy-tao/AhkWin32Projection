@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
@@ -13,14 +12,11 @@ class KSQUALITY_MANAGER extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {HANDLE}
+     * @type {Pointer<Ptr>}
      */
-    QualityManager{
-        get {
-            if(!this.HasProp("__QualityManager"))
-                this.__QualityManager := HANDLE(this.ptr + 0)
-            return this.__QualityManager
-        }
+    QualityManager {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**

@@ -1,7 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * The PDH_BROWSE_DLG_CONFIG structure is used by the PdhBrowseCounters function to configure the Browse Performance Counters dialog box. (ANSI)
@@ -30,40 +28,31 @@ class PDH_BROWSE_DLG_CONFIG_A extends Win32Struct
 
     /**
      * Handle of the window to own the dialog. If <b>NULL</b>, the owner is the desktop.
-     * @type {HWND}
+     * @type {Pointer<Ptr>}
      */
-    hWndOwner{
-        get {
-            if(!this.HasProp("__hWndOwner"))
-                this.__hWndOwner := HWND(this.ptr + 8)
-            return this.__hWndOwner
-        }
+    hWndOwner {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * Pointer to a <b>null</b>-terminated string that specifies the name of the log file from which the list of counters is retrieved. If <b>NULL</b>, the list of counters is retrieved from the local computer (or remote computer if specified).
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    szDataSource{
-        get {
-            if(!this.HasProp("__szDataSource"))
-                this.__szDataSource := PSTR(this.ptr + 16)
-            return this.__szDataSource
-        }
+    szDataSource {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * Pointer to a MULTI_SZ that contains the selected counter paths. 
      * 
      * If <b>bInitializePath</b> is <b>TRUE</b>, you can use this member to specify a counter path whose components are used to highlight entries in computer, object, counter, and instance lists when the dialog is first displayed.
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    szReturnPathBuffer{
-        get {
-            if(!this.HasProp("__szReturnPathBuffer"))
-                this.__szReturnPathBuffer := PSTR(this.ptr + 24)
-            return this.__szReturnPathBuffer
-        }
+    szReturnPathBuffer {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
@@ -123,13 +112,10 @@ class PDH_BROWSE_DLG_CONFIG_A extends Win32Struct
 
     /**
      * Pointer to a <b>null</b>-terminated string that specifies the optional caption to display in the caption bar of the dialog box. If this member is <b>NULL</b>, the caption will be <b>Browse Performance Counters</b>.
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    szDialogBoxCaption{
-        get {
-            if(!this.HasProp("__szDialogBoxCaption"))
-                this.__szDialogBoxCaption := PSTR(this.ptr + 64)
-            return this.__szDialogBoxCaption
-        }
+    szDialogBoxCaption {
+        get => NumGet(this, 64, "ptr")
+        set => NumPut("ptr", value, this, 64)
     }
 }

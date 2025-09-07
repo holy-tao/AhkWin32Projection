@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
@@ -13,35 +12,26 @@ class BranchOfficeJobDataPipelineFailed extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pDocumentName{
-        get {
-            if(!this.HasProp("__pDocumentName"))
-                this.__pDocumentName := PWSTR(this.ptr + 0)
-            return this.__pDocumentName
-        }
+    pDocumentName {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pPrinterName{
-        get {
-            if(!this.HasProp("__pPrinterName"))
-                this.__pPrinterName := PWSTR(this.ptr + 8)
-            return this.__pPrinterName
-        }
+    pPrinterName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pExtraErrorInfo{
-        get {
-            if(!this.HasProp("__pExtraErrorInfo"))
-                this.__pExtraErrorInfo := PWSTR(this.ptr + 16)
-            return this.__pExtraErrorInfo
-        }
+    pExtraErrorInfo {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 }

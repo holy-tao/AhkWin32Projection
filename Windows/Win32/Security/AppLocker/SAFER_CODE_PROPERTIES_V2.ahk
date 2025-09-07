@@ -1,8 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Foundation\HANDLE.ahk
-#Include ..\..\Foundation\HWND.ahk
 
 /**
  * Contains code image information and criteria to be checked on the code image.S
@@ -114,26 +111,20 @@ class SAFER_CODE_PROPERTIES_V2 extends Win32Struct
 
     /**
      * A string specifying the fully qualified path and file name to be used for discrimination checks based on the path. The image path is also used to open and read the file to identify any other discrimination criteria not supplied in this structure. This member can be <b>NULL</b>; however, if the <b>dwCheckFlags</b> member includes <b>SAFER_CRITERIA_AUTHENTICODE</b>, either this member or the <b>hImageFileHandle</b> member must be set.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    ImagePath{
-        get {
-            if(!this.HasProp("__ImagePath"))
-                this.__ImagePath := PWSTR(this.ptr + 8)
-            return this.__ImagePath
-        }
+    ImagePath {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * A file handle to a code image with at least GENERIC_READ access. The handle is used instead of explicitly reopening the file  to compute discrimination criteria not supplied in this structure. This member can be <b>NULL</b>; however, if <b>dwCheckFlags</b> includes <b>SAFER_CRITERIA_AUTHENTICODE</b>, either this member or the <b>ImagePath</b> member must be set.
-     * @type {HANDLE}
+     * @type {Pointer<Ptr>}
      */
-    hImageFileHandle{
-        get {
-            if(!this.HasProp("__hImageFileHandle"))
-                this.__hImageFileHandle := HANDLE(this.ptr + 16)
-            return this.__hImageFileHandle
-        }
+    hImageFileHandle {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
@@ -218,14 +209,11 @@ class SAFER_CODE_PROPERTIES_V2 extends Win32Struct
 
     /**
      * The arguments used for Authenticode signer certificate verification. These arguments are passed to the <a href="https://docs.microsoft.com/windows/desktop/api/wintrust/nf-wintrust-winverifytrust">WinVerifyTrust</a> function and control the user interface (UI) that prompts the user to accept or reject entrusted certificates.
-     * @type {HWND}
+     * @type {Pointer<Ptr>}
      */
-    hWndParent{
-        get {
-            if(!this.HasProp("__hWndParent"))
-                this.__hWndParent := HWND(this.ptr + 120)
-            return this.__hWndParent
-        }
+    hWndParent {
+        get => NumGet(this, 120, "ptr")
+        set => NumPut("ptr", value, this, 120)
     }
 
     /**
@@ -293,42 +281,33 @@ class SAFER_CODE_PROPERTIES_V2 extends Win32Struct
      * The package moniker property. For use by Windows Store apps.
      * 
      * <b>Windows Server 2008 R2, Windows 7, Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:  </b>This member is not available.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    PackageMoniker{
-        get {
-            if(!this.HasProp("__PackageMoniker"))
-                this.__PackageMoniker := PWSTR(this.ptr + 136)
-            return this.__PackageMoniker
-        }
+    PackageMoniker {
+        get => NumGet(this, 136, "ptr")
+        set => NumPut("ptr", value, this, 136)
     }
 
     /**
      * The package publisher property. For use by Windows Store apps.
      * 
      * <b>Windows Server 2008 R2, Windows 7, Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:  </b>This member is not available.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    PackagePublisher{
-        get {
-            if(!this.HasProp("__PackagePublisher"))
-                this.__PackagePublisher := PWSTR(this.ptr + 144)
-            return this.__PackagePublisher
-        }
+    PackagePublisher {
+        get => NumGet(this, 144, "ptr")
+        set => NumPut("ptr", value, this, 144)
     }
 
     /**
      * The package name property. For use by Windows Store apps.
      * 
      * <b>Windows Server 2008 R2, Windows 7, Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:  </b>This member is not available.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    PackageName{
-        get {
-            if(!this.HasProp("__PackageName"))
-                this.__PackageName := PWSTR(this.ptr + 152)
-            return this.__PackageName
-        }
+    PackageName {
+        get => NumGet(this, 152, "ptr")
+        set => NumPut("ptr", value, this, 152)
     }
 
     /**

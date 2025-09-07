@@ -1,7 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\SPWORDHANDLE.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.Media.Speech
@@ -14,14 +12,11 @@ class SPWORDENTRY extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {SPWORDHANDLE}
+     * @type {Pointer<Ptr>}
      */
-    hWord{
-        get {
-            if(!this.HasProp("__hWord"))
-                this.__hWord := SPWORDHANDLE(this.ptr + 0)
-            return this.__hWord
-        }
+    hWord {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
@@ -33,25 +28,19 @@ class SPWORDENTRY extends Win32Struct
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszDisplayText{
-        get {
-            if(!this.HasProp("__pszDisplayText"))
-                this.__pszDisplayText := PWSTR(this.ptr + 16)
-            return this.__pszDisplayText
-        }
+    pszDisplayText {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszLexicalForm{
-        get {
-            if(!this.HasProp("__pszLexicalForm"))
-                this.__pszLexicalForm := PWSTR(this.ptr + 24)
-            return this.__pszLexicalForm
-        }
+    pszLexicalForm {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**

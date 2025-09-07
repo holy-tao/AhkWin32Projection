@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\POINT.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.UI.Shell
@@ -42,14 +41,11 @@ class DRAGINFOW extends Win32Struct
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpFileList{
-        get {
-            if(!this.HasProp("__lpFileList"))
-                this.__lpFileList := PWSTR(this.ptr + 16)
-            return this.__lpFileList
-        }
+    lpFileList {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**

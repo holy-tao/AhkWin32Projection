@@ -1,8 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\HANDLE.ahk
 #Include ..\..\..\Foundation\FILETIME.ahk
-#Include ..\..\..\Foundation\PWSTR.ahk
 
 /**
  * Holds information about a handle returned by PssWalkSnapshot.
@@ -20,14 +18,11 @@ class PSS_HANDLE_ENTRY extends Win32Struct
 
     /**
      * The handle value.
-     * @type {HANDLE}
+     * @type {Pointer<Ptr>}
      */
-    Handle{
-        get {
-            if(!this.HasProp("__Handle"))
-                this.__Handle := HANDLE(this.ptr + 0)
-            return this.__Handle
-        }
+    Handle {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
@@ -137,14 +132,11 @@ class PSS_HANDLE_ENTRY extends Win32Struct
 
     /**
      * The type name of the object referenced by this handle. The buffer may not terminated by a <b>NULL</b> character. The pointer is valid for the lifetime of the walk marker passed to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/processsnapshot/nf-processsnapshot-psswalksnapshot">PssWalkSnapshot</a>.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    TypeName{
-        get {
-            if(!this.HasProp("__TypeName"))
-                this.__TypeName := PWSTR(this.ptr + 64)
-            return this.__TypeName
-        }
+    TypeName {
+        get => NumGet(this, 64, "ptr")
+        set => NumPut("ptr", value, this, 64)
     }
 
     /**
@@ -158,14 +150,11 @@ class PSS_HANDLE_ENTRY extends Win32Struct
 
     /**
      * Specifies the name of the object referenced by this handle. The buffer may not terminated by a <b>NULL</b> character. The pointer is valid for the lifetime of the walk marker passed to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/processsnapshot/nf-processsnapshot-psswalksnapshot">PssWalkSnapshot</a>.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    ObjectName{
-        get {
-            if(!this.HasProp("__ObjectName"))
-                this.__ObjectName := PWSTR(this.ptr + 80)
-            return this.__ObjectName
-        }
+    ObjectName {
+        get => NumGet(this, 80, "ptr")
+        set => NumPut("ptr", value, this, 80)
     }
 
     /**

@@ -4,7 +4,6 @@
 #Include .\PEER_EVENT_INCOMING_DATA.ahk
 #Include .\PEER_EVENT_RECORD_CHANGE_DATA.ahk
 #Include .\PEER_EVENT_CONNECTION_CHANGE_DATA.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\PEER_EVENT_NODE_CHANGE_DATA.ahk
 #Include .\PEER_EVENT_SYNCHRONIZED_DATA.ahk
 

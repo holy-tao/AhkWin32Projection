@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\PWSTR.ahk
 #Include ..\..\..\Foundation\SYSTEMTIME.ahk
 #Include ..\..\Time\TIME_ZONE_INFORMATION.ahk
 
@@ -191,14 +190,11 @@ class TRACE_LOGFILE_HEADER extends Win32Struct
      * 
      * The name of the event tracing session is the first null-terminated string
      * following this structure in memory.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    LoggerName{
-        get {
-            if(!this.HasProp("__LoggerName"))
-                this.__LoggerName := PWSTR(this.ptr + 48)
-            return this.__LoggerName
-        }
+    LoggerName {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**
@@ -206,14 +202,11 @@ class TRACE_LOGFILE_HEADER extends Win32Struct
      * 
      * The name of the event tracing log file is the second null-terminated string
      * following this structure in memory. The first string is the name of the session.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    LogFileName{
-        get {
-            if(!this.HasProp("__LogFileName"))
-                this.__LogFileName := PWSTR(this.ptr + 56)
-            return this.__LogFileName
-        }
+    LogFileName {
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 
     /**

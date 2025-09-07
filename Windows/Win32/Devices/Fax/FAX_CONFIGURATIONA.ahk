@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\FAX_TIME.ahk
-#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * The FAX_CONFIGURATION structure contains information about the global configuration settings of a fax server. (ANSI)
@@ -156,25 +155,19 @@ class FAX_CONFIGURATIONA extends Win32Struct
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that contains the fully qualified path of the directory in which outgoing fax transmissions will be archived. The path can be a UNC path or a path beginning with a drive letter. The fax server ignores this member if the <b>ArchiveOutgoingFaxes</b> member is <b>FALSE</b>. This member can be <b>NULL</b> if the <b>ArchiveOutgoingFaxes</b> member is <b>FALSE</b>.
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    ArchiveDirectory{
-        get {
-            if(!this.HasProp("__ArchiveDirectory"))
-                this.__ArchiveDirectory := PSTR(this.ptr + 48)
-            return this.__ArchiveDirectory
-        }
+    ArchiveDirectory {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**
      * 
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    Reserved{
-        get {
-            if(!this.HasProp("__Reserved"))
-                this.__Reserved := PSTR(this.ptr + 56)
-            return this.__Reserved
-        }
+    Reserved {
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 }

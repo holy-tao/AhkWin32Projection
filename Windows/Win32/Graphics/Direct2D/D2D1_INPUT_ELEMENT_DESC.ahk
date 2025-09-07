@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * A description of a single element to the vertex layout.
@@ -20,14 +19,11 @@ class D2D1_INPUT_ELEMENT_DESC extends Win32Struct
 
     /**
      * The <a href="https://docs.microsoft.com/windows/desktop/direct3dhlsl/dx-graphics-hlsl-semantics">HLSL semantic</a> associated with this element in a <a href="https://docs.microsoft.com/windows/desktop/direct3dhlsl/dx-graphics-hlsl-signatures">shader input-signature</a>.
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    semanticName{
-        get {
-            if(!this.HasProp("__semanticName"))
-                this.__semanticName := PSTR(this.ptr + 0)
-            return this.__semanticName
-        }
+    semanticName {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**

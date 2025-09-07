@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Graphics\Gdi\HBITMAP.ahk
 
 /**
  * Contains information about an icon or a cursor.
@@ -57,27 +56,21 @@ class ICONINFO extends Win32Struct
      * Type: <b>HBITMAP</b>
      * 
      * A handle to the icon monochrome mask <a href="https://docs.microsoft.com/windows/win32/gdi/bitmaps">bitmap</a>.
-     * @type {HBITMAP}
+     * @type {Pointer<Ptr>}
      */
-    hbmMask{
-        get {
-            if(!this.HasProp("__hbmMask"))
-                this.__hbmMask := HBITMAP(this.ptr + 16)
-            return this.__hbmMask
-        }
+    hbmMask {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * Type: <b>HBITMAP</b>
      * 
      * A handle to the icon color <a href="https://docs.microsoft.com/windows/win32/gdi/bitmaps">bitmap</a>.
-     * @type {HBITMAP}
+     * @type {Pointer<Ptr>}
      */
-    hbmColor{
-        get {
-            if(!this.HasProp("__hbmColor"))
-                this.__hbmColor := HBITMAP(this.ptr + 24)
-            return this.__hbmColor
-        }
+    hbmColor {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 }

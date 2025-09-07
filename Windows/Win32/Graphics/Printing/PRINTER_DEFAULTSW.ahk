@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The PRINTER\_DEFAULTS structure specifies the default data type, environment, initialization data, and access rights for a printer.
@@ -17,14 +16,11 @@ class PRINTER_DEFAULTSW extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that specifies the default data type for a printer.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pDatatype{
-        get {
-            if(!this.HasProp("__pDatatype"))
-                this.__pDatatype := PWSTR(this.ptr + 0)
-            return this.__pDatatype
-        }
+    pDatatype {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**

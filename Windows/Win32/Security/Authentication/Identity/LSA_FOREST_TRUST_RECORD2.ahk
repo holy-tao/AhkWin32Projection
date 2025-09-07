@@ -1,8 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\PWSTR.ahk
 #Include .\LSA_UNICODE_STRING.ahk
-#Include ..\..\PSID.ahk
 #Include .\LSA_FOREST_TRUST_DOMAIN_INFO.ahk
 #Include .\LSA_FOREST_TRUST_BINARY_DATA.ahk
 #Include .\LSA_FOREST_TRUST_SCANNER_INFO.ahk

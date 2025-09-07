@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.Storage.Jet
@@ -13,14 +12,11 @@ class JET_UNICODEINDEX2 extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    szLocaleName{
-        get {
-            if(!this.HasProp("__szLocaleName"))
-                this.__szLocaleName := PWSTR(this.ptr + 0)
-            return this.__szLocaleName
-        }
+    szLocaleName {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**

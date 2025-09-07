@@ -1,7 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include ..\..\UI\WindowsAndMessaging\HACCEL.ahk
 
 /**
  * Contains information about the accelerators supported by a container during an in-place session. The structure is used in the IOleInPlaceSite::GetWindowContext method and the OleTranslateAccelerator function.
@@ -37,26 +35,20 @@ class OLEINPLACEFRAMEINFO extends Win32Struct
 
     /**
      * A handle to the container's top-level frame window.
-     * @type {HWND}
+     * @type {Pointer<Ptr>}
      */
-    hwndFrame{
-        get {
-            if(!this.HasProp("__hwndFrame"))
-                this.__hwndFrame := HWND(this.ptr + 8)
-            return this.__hwndFrame
-        }
+    hwndFrame {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * A handle to the accelerator table that the container wants to use during an in-place editing session.
-     * @type {HACCEL}
+     * @type {Pointer<Ptr>}
      */
-    haccel{
-        get {
-            if(!this.HasProp("__haccel"))
-                this.__haccel := HACCEL(this.ptr + 16)
-            return this.__haccel
-        }
+    haccel {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 #Include ..\..\Foundation\RECT.ahk
 
 /**
@@ -36,14 +35,11 @@ class MCI_DGV_CAPTURE_PARMSA extends Win32Struct
 
     /**
      * Pointer to a null-terminated string specifying the destination path and filename for the file that receives the captured data.
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpstrFileName{
-        get {
-            if(!this.HasProp("__lpstrFileName"))
-                this.__lpstrFileName := PSTR(this.ptr + 8)
-            return this.__lpstrFileName
-        }
+    lpstrFileName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

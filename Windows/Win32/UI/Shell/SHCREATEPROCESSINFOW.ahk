@@ -1,8 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * Contains the information needed by SHCreateProcessAsUserW to create a process.
@@ -52,14 +49,11 @@ class SHCREATEPROCESSINFOW extends Win32Struct
      * Type: <b>HWND</b>
      * 
      * A parent window handle.
-     * @type {HWND}
+     * @type {Pointer<Ptr>}
      */
-    hwnd{
-        get {
-            if(!this.HasProp("__hwnd"))
-                this.__hwnd := HWND(this.ptr + 8)
-            return this.__hwnd
-        }
+    hwnd {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -69,56 +63,44 @@ class SHCREATEPROCESSINFOW extends Win32Struct
      * 
      * <div class="alert"><b>Note</b>   If the path is not included with the file name, the current directory is assumed.</div>
      * <div> </div>
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszFile{
-        get {
-            if(!this.HasProp("__pszFile"))
-                this.__pszFile := PWSTR(this.ptr + 16)
-            return this.__pszFile
-        }
+    pszFile {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * Type: <b>LPCWSTR</b>
      * 
      * A pointer to a null-terminated Unicode string containing the application parameters. The parameters must be separated by spaces.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszParameters{
-        get {
-            if(!this.HasProp("__pszParameters"))
-                this.__pszParameters := PWSTR(this.ptr + 24)
-            return this.__pszParameters
-        }
+    pszParameters {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
      * Type: <b>LPCWSTR</b>
      * 
      * A null-terminated Unicode string that contains the current directory.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszCurrentDirectory{
-        get {
-            if(!this.HasProp("__pszCurrentDirectory"))
-                this.__pszCurrentDirectory := PWSTR(this.ptr + 32)
-            return this.__pszCurrentDirectory
-        }
+    pszCurrentDirectory {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
      * Type: <b>HANDLE</b>
      * 
      * An <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-tokens">Access token</a> that can be used to represent a particular user. It is needed when there are multiple users for those folders that are treated as belonging to a single user. The calling application must have appropriate security privileges for the particular user, including TOKEN_QUERY and TOKEN_IMPERSONATE, and the user's registry hive must be currently mounted. For further discussion of access control issues, see <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-control">Access Control</a>.
-     * @type {HANDLE}
+     * @type {Pointer<Ptr>}
      */
-    hUserToken{
-        get {
-            if(!this.HasProp("__hUserToken"))
-                this.__hUserToken := HANDLE(this.ptr + 40)
-            return this.__hUserToken
-        }
+    hUserToken {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**

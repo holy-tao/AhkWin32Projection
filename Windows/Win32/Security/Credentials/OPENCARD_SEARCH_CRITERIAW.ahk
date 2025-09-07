@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The OPENCARD_SEARCH_CRITERIA structure is used by the SCardUIDlgSelectCard function in order to recognize cards that meet the requirements set forth by the caller. You can, however, call SCardUIDlgSelectCard without using this structure. (Unicode)
@@ -29,14 +28,11 @@ class OPENCARD_SEARCH_CRITERIAW extends Win32Struct
 
     /**
      * A pointer to a buffer containing null-terminated group name strings. The last string in the buffer must be terminated by two null characters. Each string is the name of a group of cards that is to be included in the search. If <b>lpstrGroupNames</b> is <b>NULL</b>, the default group (<a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">Scard$DefaultReaders</a>) is searched.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpstrGroupNames{
-        get {
-            if(!this.HasProp("__lpstrGroupNames"))
-                this.__lpstrGroupNames := PWSTR(this.ptr + 8)
-            return this.__lpstrGroupNames
-        }
+    lpstrGroupNames {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -68,14 +64,11 @@ class OPENCARD_SEARCH_CRITERIAW extends Win32Struct
 
     /**
      * A pointer to a buffer that contains null-terminated card name strings. The last string in the buffer must be terminated by two null characters. Each string is the name of a card that is to be located.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpstrCardNames{
-        get {
-            if(!this.HasProp("__lpstrCardNames"))
-                this.__lpstrCardNames := PWSTR(this.ptr + 40)
-            return this.__lpstrCardNames
-        }
+    lpstrCardNames {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**

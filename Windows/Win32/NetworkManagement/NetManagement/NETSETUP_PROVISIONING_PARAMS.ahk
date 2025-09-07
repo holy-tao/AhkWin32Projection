@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The NETSETUP_PROVISIONING_PARAMS structure contains information that is used when creating a provisioning package using the NetCreateProvisionPackage function.
@@ -59,52 +58,40 @@ class NETSETUP_PROVISIONING_PARAMS extends Win32Struct
 
     /**
      * A pointer to a <b>NULL</b>-terminated character string that specifies the name of the domain where the computer account is created.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpDomain{
-        get {
-            if(!this.HasProp("__lpDomain"))
-                this.__lpDomain := PWSTR(this.ptr + 8)
-            return this.__lpDomain
-        }
+    lpDomain {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * A pointer to a <b>NULL</b>-terminated character string that specifies the short name of the machine from which the computer account attribute sAMAccountName is derived by appending a '$'. This parameter must contain a valid DNS or NetBIOS machine name.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpHostName{
-        get {
-            if(!this.HasProp("__lpHostName"))
-                this.__lpHostName := PWSTR(this.ptr + 16)
-            return this.__lpHostName
-        }
+    lpHostName {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * A optional pointer to a <b>NULL</b>-terminated character string that contains the RFC 1779 format name of the organizational unit (OU) where the computer account will be created. If you specify this parameter, the string must contain a full path, for example, OU=testOU,DC=domain,DC=Domain,DC=com. Otherwise, this parameter must be <b>NULL</b>.
      * 
      * If this parameter is <b>NULL</b>, the well known computer object container will be used as published in the domain.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpMachineAccountOU{
-        get {
-            if(!this.HasProp("__lpMachineAccountOU"))
-                this.__lpMachineAccountOU := PWSTR(this.ptr + 24)
-            return this.__lpMachineAccountOU
-        }
+    lpMachineAccountOU {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
      * An optional pointer to a <b>NULL</b>-terminated character string that contains the name of the domain controller to target.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpDcName{
-        get {
-            if(!this.HasProp("__lpDcName"))
-                this.__lpDcName := PWSTR(this.ptr + 32)
-            return this.__lpDcName
-        }
+    lpDcName {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
@@ -118,7 +105,7 @@ class NETSETUP_PROVISIONING_PARAMS extends Win32Struct
 
     /**
      * A pointer to an array of <b>NULL</b>-terminated certificate template names.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Ptr>}
      */
     aCertTemplateNames {
         get => NumGet(this, 48, "ptr")
@@ -136,7 +123,7 @@ class NETSETUP_PROVISIONING_PARAMS extends Win32Struct
 
     /**
      * A pointer to an array of <b>NULL</b>-terminated  machine policy names.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Ptr>}
      */
     aMachinePolicyNames {
         get => NumGet(this, 64, "ptr")
@@ -156,7 +143,7 @@ class NETSETUP_PROVISIONING_PARAMS extends Win32Struct
      * A pointer to an array of  character strings. Each array element is a NULL-terminated character string which specifies the full or partial path to a file in the Registry Policy File format. For more information on the Registry Policy File Format , see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/Policy/registry-policy-file-format">Registry Policy File Format</a>
      * 
      * This path could be a UNC path on a remote server.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Ptr>}
      */
     aMachinePolicyPaths {
         get => NumGet(this, 80, "ptr")
@@ -174,37 +161,28 @@ class NETSETUP_PROVISIONING_PARAMS extends Win32Struct
 
     /**
      * TBD
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpNetbiosName{
-        get {
-            if(!this.HasProp("__lpNetbiosName"))
-                this.__lpNetbiosName := PWSTR(this.ptr + 96)
-            return this.__lpNetbiosName
-        }
+    lpNetbiosName {
+        get => NumGet(this, 96, "ptr")
+        set => NumPut("ptr", value, this, 96)
     }
 
     /**
      * TBD
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpSiteName{
-        get {
-            if(!this.HasProp("__lpSiteName"))
-                this.__lpSiteName := PWSTR(this.ptr + 104)
-            return this.__lpSiteName
-        }
+    lpSiteName {
+        get => NumGet(this, 104, "ptr")
+        set => NumPut("ptr", value, this, 104)
     }
 
     /**
      * TBD
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpPrimaryDNSDomain{
-        get {
-            if(!this.HasProp("__lpPrimaryDNSDomain"))
-                this.__lpPrimaryDNSDomain := PWSTR(this.ptr + 112)
-            return this.__lpPrimaryDNSDomain
-        }
+    lpPrimaryDNSDomain {
+        get => NumGet(this, 112, "ptr")
+        set => NumPut("ptr", value, this, 112)
     }
 }

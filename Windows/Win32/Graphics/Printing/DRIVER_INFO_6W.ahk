@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Foundation\FILETIME.ahk
 
 /**
@@ -31,122 +30,92 @@ class DRIVER_INFO_6W extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that specifies the name of the driver (for example, QMS 810).
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pName{
-        get {
-            if(!this.HasProp("__pName"))
-                this.__pName := PWSTR(this.ptr + 8)
-            return this.__pName
-        }
+    pName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * Pointer to a null-terminated string that specifies the environment for which the driver was written (for example, Windows NT x86, Windows IA64, and Windows x64.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pEnvironment{
-        get {
-            if(!this.HasProp("__pEnvironment"))
-                this.__pEnvironment := PWSTR(this.ptr + 16)
-            return this.__pEnvironment
-        }
+    pEnvironment {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * Pointer to a null-terminated string that specifies a file name or a full path and file name for the file that contains the device driver (for example, C:\\DRIVERS\\Pscript.dll).
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pDriverPath{
-        get {
-            if(!this.HasProp("__pDriverPath"))
-                this.__pDriverPath := PWSTR(this.ptr + 24)
-            return this.__pDriverPath
-        }
+    pDriverPath {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
      * Pointer to a null-terminated string that specifies a file name or a full path and file name for the file that contains driver data (for example, C:\\DRIVERS\\Qms810.ppd).
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pDataFile{
-        get {
-            if(!this.HasProp("__pDataFile"))
-                this.__pDataFile := PWSTR(this.ptr + 32)
-            return this.__pDataFile
-        }
+    pDataFile {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
      * Pointer to a null-terminated string that specifies a file name or a full path and file name for the device driver's configuration dynamic-link library (for example, C:\\DRIVERS\\Pscrptui.dll).
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pConfigFile{
-        get {
-            if(!this.HasProp("__pConfigFile"))
-                this.__pConfigFile := PWSTR(this.ptr + 40)
-            return this.__pConfigFile
-        }
+    pConfigFile {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
      * Pointer to a null-terminated string that specifies a file name or a full path and file name for the device driver's help file (for example, C:\\DRIVERS\\Pscrptui.hlp).
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pHelpFile{
-        get {
-            if(!this.HasProp("__pHelpFile"))
-                this.__pHelpFile := PWSTR(this.ptr + 48)
-            return this.__pHelpFile
-        }
+    pHelpFile {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**
      * A pointer to a MultiSZ buffer that contains a sequence of null-terminated strings. Each null-terminated string in the buffer contains the name of a file the driver depends on. The sequence of strings is terminated by an empty, zero-length string. If **pDependentFiles** is not **NULL** and does not contain any file names, it will point to a buffer that contains two empty strings.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pDependentFiles{
-        get {
-            if(!this.HasProp("__pDependentFiles"))
-                this.__pDependentFiles := PWSTR(this.ptr + 56)
-            return this.__pDependentFiles
-        }
+    pDependentFiles {
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 
     /**
      * A pointer to a null-terminated string that specifies a language monitor (for example, "PJL monitor"). This member can be **NULL** and should be specified only for printers capable of bidirectional communication.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pMonitorName{
-        get {
-            if(!this.HasProp("__pMonitorName"))
-                this.__pMonitorName := PWSTR(this.ptr + 64)
-            return this.__pMonitorName
-        }
+    pMonitorName {
+        get => NumGet(this, 64, "ptr")
+        set => NumPut("ptr", value, this, 64)
     }
 
     /**
      * A pointer to a null-terminated string that specifies the default data type of the print job (for example, "EMF").
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pDefaultDataType{
-        get {
-            if(!this.HasProp("__pDefaultDataType"))
-                this.__pDefaultDataType := PWSTR(this.ptr + 72)
-            return this.__pDefaultDataType
-        }
+    pDefaultDataType {
+        get => NumGet(this, 72, "ptr")
+        set => NumPut("ptr", value, this, 72)
     }
 
     /**
      * A pointer to a null-terminated string that specifies previous printer driver names that are compatible with this driver. For example, OldName1\\0OldName2\\0\\0.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszzPreviousNames{
-        get {
-            if(!this.HasProp("__pszzPreviousNames"))
-                this.__pszzPreviousNames := PWSTR(this.ptr + 80)
-            return this.__pszzPreviousNames
-        }
+    pszzPreviousNames {
+        get => NumGet(this, 80, "ptr")
+        set => NumPut("ptr", value, this, 80)
     }
 
     /**
@@ -172,49 +141,37 @@ class DRIVER_INFO_6W extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that specifies the manufacturer's name.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszMfgName{
-        get {
-            if(!this.HasProp("__pszMfgName"))
-                this.__pszMfgName := PWSTR(this.ptr + 104)
-            return this.__pszMfgName
-        }
+    pszMfgName {
+        get => NumGet(this, 104, "ptr")
+        set => NumPut("ptr", value, this, 104)
     }
 
     /**
      * Pointer to a null-terminated string that specifies the URL for the manufacturer.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszOEMUrl{
-        get {
-            if(!this.HasProp("__pszOEMUrl"))
-                this.__pszOEMUrl := PWSTR(this.ptr + 112)
-            return this.__pszOEMUrl
-        }
+    pszOEMUrl {
+        get => NumGet(this, 112, "ptr")
+        set => NumPut("ptr", value, this, 112)
     }
 
     /**
      * Pointer to a null-terminated string that specifies the hardware ID for the printer driver.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszHardwareID{
-        get {
-            if(!this.HasProp("__pszHardwareID"))
-                this.__pszHardwareID := PWSTR(this.ptr + 120)
-            return this.__pszHardwareID
-        }
+    pszHardwareID {
+        get => NumGet(this, 120, "ptr")
+        set => NumPut("ptr", value, this, 120)
     }
 
     /**
      * Pointer to a null-terminated string that specifies the provider of the printer driver (for example, "Microsoft Windows 2000")
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszProvider{
-        get {
-            if(!this.HasProp("__pszProvider"))
-                this.__pszProvider := PWSTR(this.ptr + 128)
-            return this.__pszProvider
-        }
+    pszProvider {
+        get => NumGet(this, 128, "ptr")
+        set => NumPut("ptr", value, this, 128)
     }
 }

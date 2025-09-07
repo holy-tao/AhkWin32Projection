@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains data about an element in a domain tree obtained with the IDsBrowseDomainTree::GetDomains method.
@@ -18,62 +17,47 @@ class DOMAINDESC extends Win32Struct
 
     /**
      * Pointer to a Unicode string that contains the domain name.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszName{
-        get {
-            if(!this.HasProp("__pszName"))
-                this.__pszName := PWSTR(this.ptr + 0)
-            return this.__pszName
-        }
+    pszName {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
      * Pointer to a Unicode string that contains the path of the domain. Reserved.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszPath{
-        get {
-            if(!this.HasProp("__pszPath"))
-                this.__pszPath := PWSTR(this.ptr + 8)
-            return this.__pszPath
-        }
+    pszPath {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * Pointer to a Unicode string that contains the fully qualified name of the domain in the form "DC=myDom, DC=Fabrikam, DC=com". This member is  blank if the <b>DBDTF_RETURNFQDN</b> flag is not set in the <i>dwFlags</i> parameter in <a href="https://docs.microsoft.com/windows/desktop/api/dsclient/nf-dsclient-idsbrowsedomaintree-getdomains">IDsBrowseDomainTree::GetDomains</a>.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszNCName{
-        get {
-            if(!this.HasProp("__pszNCName"))
-                this.__pszNCName := PWSTR(this.ptr + 16)
-            return this.__pszNCName
-        }
+    pszNCName {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * Pointer to a Unicode string that contains the name of the parent domain. This member is <b>NULL</b> if the domain has no parent.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszTrustParent{
-        get {
-            if(!this.HasProp("__pszTrustParent"))
-                this.__pszTrustParent := PWSTR(this.ptr + 24)
-            return this.__pszTrustParent
-        }
+    pszTrustParent {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
      * Pointer to a Unicode string that contains the object class name of the domain.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszObjectClass{
-        get {
-            if(!this.HasProp("__pszObjectClass"))
-                this.__pszObjectClass := PWSTR(this.ptr + 32)
-            return this.__pszObjectClass
-        }
+    pszObjectClass {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The USER_INFO_22 structure contains information about a user account, including the account name, privilege level, the path to the user's home directory, a one-way encrypted LAN Manager 2.x-compatible password, and other user-related network statistics.
@@ -21,14 +20,11 @@ class USER_INFO_22 extends Win32Struct
      * 
      * A pointer to a Unicode string that specifies the name of the user account. Calls to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netusersetinfo">NetUserSetInfo</a> function ignore this member. For more information, see the following Remarks section.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    usri22_name{
-        get {
-            if(!this.HasProp("__usri22_name"))
-                this.__usri22_name := PWSTR(this.ptr + 0)
-            return this.__usri22_name
-        }
+    usri22_name {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
@@ -76,28 +72,22 @@ class USER_INFO_22 extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to a Unicode string specifying the path of the home directory for the user specified by the <b>usri22_name</b> member. The string can be null.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    usri22_home_dir{
-        get {
-            if(!this.HasProp("__usri22_home_dir"))
-                this.__usri22_home_dir := PWSTR(this.ptr + 32)
-            return this.__usri22_home_dir
-        }
+    usri22_home_dir {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to a Unicode string that contains a comment associated with the user account. This string can be a null string, or it can have any number of characters before the terminating null character.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    usri22_comment{
-        get {
-            if(!this.HasProp("__usri22_comment"))
-                this.__usri22_comment := PWSTR(this.ptr + 40)
-            return this.__usri22_comment
-        }
+    usri22_comment {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
@@ -113,14 +103,11 @@ class USER_INFO_22 extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to a Unicode string specifying the path for the user's logon script file. The script file can be a .CMD file, an .EXE file, or a .BAT file. The string can also be null.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    usri22_script_path{
-        get {
-            if(!this.HasProp("__usri22_script_path"))
-                this.__usri22_script_path := PWSTR(this.ptr + 56)
-            return this.__usri22_script_path
-        }
+    usri22_script_path {
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 
     /**
@@ -156,42 +143,33 @@ class USER_INFO_22 extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to a Unicode string that contains the full name of the user. This string can be a null string, or it can have any number of characters before the terminating null character.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    usri22_full_name{
-        get {
-            if(!this.HasProp("__usri22_full_name"))
-                this.__usri22_full_name := PWSTR(this.ptr + 72)
-            return this.__usri22_full_name
-        }
+    usri22_full_name {
+        get => NumGet(this, 72, "ptr")
+        set => NumPut("ptr", value, this, 72)
     }
 
     /**
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to a Unicode string that contains a user comment. This string can be a null string, or it can have any number of characters before the terminating null character.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    usri22_usr_comment{
-        get {
-            if(!this.HasProp("__usri22_usr_comment"))
-                this.__usri22_usr_comment := PWSTR(this.ptr + 80)
-            return this.__usri22_usr_comment
-        }
+    usri22_usr_comment {
+        get => NumGet(this, 80, "ptr")
+        set => NumPut("ptr", value, this, 80)
     }
 
     /**
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to a Unicode string that is reserved for use by applications. This string can be a null string, or it can have any number of characters before the terminating null character. Microsoft products use this member to store user configuration information. Do not modify this information.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    usri22_parms{
-        get {
-            if(!this.HasProp("__usri22_parms"))
-                this.__usri22_parms := PWSTR(this.ptr + 88)
-            return this.__usri22_parms
-        }
+    usri22_parms {
+        get => NumGet(this, 88, "ptr")
+        set => NumPut("ptr", value, this, 88)
     }
 
     /**
@@ -201,14 +179,11 @@ class USER_INFO_22 extends Win32Struct
      * > You should no longer use **usri22_workstations**. Instead, you can control sign-in access to workstations by configuring the User Rights Assignment settings (**Allow log on locally** and **Deny log on locally**, or **Allow log on through Remote Desktop Services** and **Deny log on through Remote Desktop Services**).
      * 
      * A pointer to a Unicode string that contains the names of workstations from which the user can log on. As many as eight workstations can be specified; the names must be separated by commas. A null string indicates that there is no restriction. To disable logons from all workstations to this account, set the UF_ACCOUNTDISABLE value in the <b>usri22_flags</b> member.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    usri22_workstations{
-        get {
-            if(!this.HasProp("__usri22_workstations"))
-                this.__usri22_workstations := PWSTR(this.ptr + 96)
-            return this.__usri22_workstations
-        }
+    usri22_workstations {
+        get => NumGet(this, 96, "ptr")
+        set => NumPut("ptr", value, this, 96)
     }
 
     /**
@@ -360,14 +335,11 @@ class USER_INFO_22 extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netuserenum">NetUserEnum</a> functions return \\*. Calls to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netuseradd">NetUserAdd</a> and 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netusersetinfo">NetUserSetInfo</a> functions ignore this member.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    usri22_logon_server{
-        get {
-            if(!this.HasProp("__usri22_logon_server"))
-                this.__usri22_logon_server := PWSTR(this.ptr + 144)
-            return this.__usri22_logon_server
-        }
+    usri22_logon_server {
+        get => NumGet(this, 144, "ptr")
+        set => NumPut("ptr", value, this, 144)
     }
 
     /**

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains trust information.
@@ -97,14 +96,11 @@ class JAVA_TRUST extends Win32Struct
 
     /**
      * The zone index.
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pwszZone{
-        get {
-            if(!this.HasProp("__pwszZone"))
-                this.__pwszZone := PWSTR(this.ptr + 56)
-            return this.__pwszZone
-        }
+    pwszZone {
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 
     /**

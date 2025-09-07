@@ -2,11 +2,8 @@
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include ..\CY.ahk
 #Include ..\..\..\Foundation\FILETIME.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
 #Include .\BSTRBLOB.ahk
 #Include ..\BLOB.ahk
-#Include ..\..\..\Foundation\PSTR.ahk
-#Include ..\..\..\Foundation\PWSTR.ahk
 #Include .\CAC.ahk
 #Include .\CAUB.ahk
 #Include .\CAI.ahk
@@ -320,14 +317,11 @@ class PROPVARIANT extends Win32Struct
     }
 
     /**
-     * @type {BSTR}
+     * @type {Pointer<Ptr>}
      */
-    bstrVal{
-        get {
-            if(!this.HasProp("__bstrVal"))
-                this.__bstrVal := BSTR(this.ptr + 8)
-            return this.__bstrVal
-        }
+    bstrVal {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -353,25 +347,19 @@ class PROPVARIANT extends Win32Struct
     }
 
     /**
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszVal{
-        get {
-            if(!this.HasProp("__pszVal"))
-                this.__pszVal := PSTR(this.ptr + 8)
-            return this.__pszVal
-        }
+    pszVal {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    pwszVal{
-        get {
-            if(!this.HasProp("__pwszVal"))
-                this.__pwszVal := PWSTR(this.ptr + 8)
-            return this.__pwszVal
-        }
+    pwszVal {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -665,14 +653,11 @@ class PROPVARIANT extends Win32Struct
     }
 
     /**
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    pcVal{
-        get {
-            if(!this.HasProp("__pcVal"))
-                this.__pcVal := PSTR(this.ptr + 8)
-            return this.__pcVal
-        }
+    pcVal {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -788,7 +773,7 @@ class PROPVARIANT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<BSTR>}
+     * @type {Pointer<Ptr>}
      */
     pbstrVal {
         get => NumGet(this, 8, "ptr")

@@ -3,7 +3,6 @@
 #Include .\CTL_USAGE.ahk
 #Include .\CRYPT_INTEGER_BLOB.ahk
 #Include ..\..\Foundation\FILETIME.ahk
-#Include ..\..\Foundation\PSTR.ahk
 #Include .\CRYPT_ALGORITHM_IDENTIFIER.ahk
 
 /**

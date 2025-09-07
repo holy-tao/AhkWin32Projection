@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * Contains the constituent parts of a URL. This structure is used with the InternetCrackUrl and InternetCreateUrl functions. (ANSI)
@@ -43,14 +42,11 @@ class URL_COMPONENTSA extends Win32Struct
 
     /**
      * Pointer to a string that contains the scheme name.
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpszScheme{
-        get {
-            if(!this.HasProp("__lpszScheme"))
-                this.__lpszScheme := PSTR(this.ptr + 8)
-            return this.__lpszScheme
-        }
+    lpszScheme {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -73,14 +69,11 @@ class URL_COMPONENTSA extends Win32Struct
 
     /**
      * Pointer to a string that contains the host name.
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpszHostName{
-        get {
-            if(!this.HasProp("__lpszHostName"))
-                this.__lpszHostName := PSTR(this.ptr + 24)
-            return this.__lpszHostName
-        }
+    lpszHostName {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
@@ -103,14 +96,11 @@ class URL_COMPONENTSA extends Win32Struct
 
     /**
      * Pointer to a string value that contains the user name.
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpszUserName{
-        get {
-            if(!this.HasProp("__lpszUserName"))
-                this.__lpszUserName := PSTR(this.ptr + 40)
-            return this.__lpszUserName
-        }
+    lpszUserName {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
@@ -124,14 +114,11 @@ class URL_COMPONENTSA extends Win32Struct
 
     /**
      * Pointer to a string that contains the password.
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpszPassword{
-        get {
-            if(!this.HasProp("__lpszPassword"))
-                this.__lpszPassword := PSTR(this.ptr + 56)
-            return this.__lpszPassword
-        }
+    lpszPassword {
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 
     /**
@@ -145,14 +132,11 @@ class URL_COMPONENTSA extends Win32Struct
 
     /**
      * Pointer to a string that contains the URL path.
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpszUrlPath{
-        get {
-            if(!this.HasProp("__lpszUrlPath"))
-                this.__lpszUrlPath := PSTR(this.ptr + 72)
-            return this.__lpszUrlPath
-        }
+    lpszUrlPath {
+        get => NumGet(this, 72, "ptr")
+        set => NumPut("ptr", value, this, 72)
     }
 
     /**
@@ -166,14 +150,11 @@ class URL_COMPONENTSA extends Win32Struct
 
     /**
      * Pointer to a string that contains the extra information (for example, ?something or #something).
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    lpszExtraInfo{
-        get {
-            if(!this.HasProp("__lpszExtraInfo"))
-                this.__lpszExtraInfo := PSTR(this.ptr + 88)
-            return this.__lpszExtraInfo
-        }
+    lpszExtraInfo {
+        get => NumGet(this, 88, "ptr")
+        set => NumPut("ptr", value, this, 88)
     }
 
     /**

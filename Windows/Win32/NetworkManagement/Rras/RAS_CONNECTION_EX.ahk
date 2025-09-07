@@ -5,7 +5,6 @@
 #Include .\PPP_PROJECTION_INFO.ahk
 #Include .\IKEV2_PROJECTION_INFO.ahk
 #Include .\PROJECTION_INFO.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * Contains specific information for the connection that includes:\_the user name, domain, and Globally Unique Identifier (GUID) associated with the connection, its Network Access Protection (NAP) quarantine state, its packet statistics, as well as its Point-to-Point(PPP) and Internet Key Exchange version 2 (IKEv2) related information.
@@ -276,25 +275,19 @@ class RAS_CONNECTION_EX extends Win32Struct
 
     /**
      * A handle to the RAS connection.
-     * @type {HANDLE}
+     * @type {Pointer<Ptr>}
      */
-    hConnection{
-        get {
-            if(!this.HasProp("__hConnection"))
-                this.__hConnection := HANDLE(this.ptr + 1600)
-            return this.__hConnection
-        }
+    hConnection {
+        get => NumGet(this, 1600, "ptr")
+        set => NumPut("ptr", value, this, 1600)
     }
 
     /**
      * A handle to the RAS connection interface.
-     * @type {HANDLE}
+     * @type {Pointer<Ptr>}
      */
-    hInterface{
-        get {
-            if(!this.HasProp("__hInterface"))
-                this.__hInterface := HANDLE(this.ptr + 1608)
-            return this.__hInterface
-        }
+    hInterface {
+        get => NumGet(this, 1608, "ptr")
+        set => NumPut("ptr", value, this, 1608)
     }
 }

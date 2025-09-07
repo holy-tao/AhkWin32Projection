@@ -20,7 +20,7 @@ class DD_DESTROYDDLOCALDATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<DD_DIRECTDRAW_LOCAL>}
+     * @type {Pointer<Ptr>}
      */
     pDDLcl {
         get => NumGet(this, 8, "ptr")

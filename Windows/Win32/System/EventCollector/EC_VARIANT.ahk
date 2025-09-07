@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains event collector data (subscription data) or property values.
@@ -39,14 +38,11 @@ class EC_VARIANT extends Win32Struct
     }
 
     /**
-     * @type {PWSTR}
+     * @type {Pointer<Ptr>}
      */
-    StringVal{
-        get {
-            if(!this.HasProp("__StringVal"))
-                this.__StringVal := PWSTR(this.ptr + 0)
-            return this.__StringVal
-        }
+    StringVal {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
@@ -74,7 +70,7 @@ class EC_VARIANT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Ptr>}
      */
     StringArr {
         get => NumGet(this, 0, "ptr")

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * @namespace Windows.Win32.System.Iis
@@ -13,25 +12,19 @@ class HSE_SEND_HEADER_EX_INFO extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszStatus{
-        get {
-            if(!this.HasProp("__pszStatus"))
-                this.__pszStatus := PSTR(this.ptr + 0)
-            return this.__pszStatus
-        }
+    pszStatus {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
-     * @type {PSTR}
+     * @type {Pointer<Ptr>}
      */
-    pszHeader{
-        get {
-            if(!this.HasProp("__pszHeader"))
-                this.__pszHeader := PSTR(this.ptr + 8)
-            return this.__pszHeader
-        }
+    pszHeader {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

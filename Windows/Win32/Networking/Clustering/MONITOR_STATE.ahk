@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * The MONITOR_STATE structure is part of the resapi.h header used by Windows Clustering.
@@ -34,14 +33,11 @@ class MONITOR_STATE extends Win32Struct
 
     /**
      * 
-     * @type {HANDLE}
+     * @type {Pointer<Ptr>}
      */
-    ActiveResource{
-        get {
-            if(!this.HasProp("__ActiveResource"))
-                this.__ActiveResource := HANDLE(this.ptr + 16)
-            return this.__ActiveResource
-        }
+    ActiveResource {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**

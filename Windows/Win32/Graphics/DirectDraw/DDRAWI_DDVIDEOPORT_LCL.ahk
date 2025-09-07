@@ -4,7 +4,6 @@
 #Include .\DDVIDEOPORTDESC.ahk
 #Include ..\..\Foundation\RECT.ahk
 #Include .\DDVIDEOPORTINFO.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
@@ -135,14 +134,11 @@ class DDRAWI_DDVIDEOPORT_LCL extends Win32Struct
     }
 
     /**
-     * @type {HANDLE}
+     * @type {Pointer<Ptr>}
      */
-    hDDVideoPort{
-        get {
-            if(!this.HasProp("__hDDVideoPort"))
-                this.__hDDVideoPort := HANDLE(this.ptr + 248)
-            return this.__hDDVideoPort
-        }
+    hDDVideoPort {
+        get => NumGet(this, 248, "ptr")
+        set => NumPut("ptr", value, this, 248)
     }
 
     /**

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
 #Include .\NMHDR.ahk
 
 /**
@@ -33,13 +32,10 @@ class NMTOOLTIPSCREATED extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
      * 
      * The window handle to the tooltip control created.
-     * @type {HWND}
+     * @type {Pointer<Ptr>}
      */
-    hwndToolTips{
-        get {
-            if(!this.HasProp("__hwndToolTips"))
-                this.__hwndToolTips := HWND(this.ptr + 24)
-            return this.__hwndToolTips
-        }
+    hwndToolTips {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 }
