@@ -72,7 +72,7 @@ hwnd := dispInfo.hdr.hwndFrom
 Struct proxies are [buffer-like](https://www.autohotkey.com/docs/v2/lib/Buffer.htm#like), so you can use them anywhere you would use a pointer.
 
 #### Creating Structs
-The `Win32Struct.__New` takes a pointer as its only argument. If that pointer is 0, a new [`Buffer`](https://www.autohotkey.com/docs/v2/lib/Buffer.htm) is created to serve as the object's backing memory. If the pointer is not zero, the pointer is taken to be a pointer to the start of the struct proxy's memory block. Thus all you need to create a struct proxy is its pointer, as with the font enumeration example above:
+The `Win32Struct.__New` takes a pointer as its only argument. If that pointer is 0, a new [`Buffer`](https://www.autohotkey.com/docs/v2/lib/Buffer.htm) is created to serve as the object's backing memory. This buffer is always cleared; every member of a new struct starts as 0 / `NULL`. If the pointer is not zero, the pointer is taken to be a pointer to the start of the struct proxy's memory block. Thus all you need to create a struct proxy is its pointer, as with the font enumeration example above:
 ```autohotkey v2
 logfont := LOGFONTW(lpelfe)     ;Create a LOGFONTW struct at the pointer lpelfe
 logfont := LOGFONTW()           ;Create a new LOGFONTW struct backed by a Buffer
@@ -89,11 +89,14 @@ lpLogFont := LOGFONTW()
 lpLogFont.lfFaceName := "Papyrus"
 ```
 
+To create resizeable arrays in script-managed memory, use [`CStyleArray`](./CStyleArray.ahk) objects. 
+
 #### Other Notes
 - Handles, pointers (including function pointers and COM interface pointers), and "pseudo-primitives" structs like `CHAR` and `HWND` (also known as NativeTypeDefs; these are wrapper structs with a single member) have no special handling in generated struct proxies, and are exposed as pure Integers.
   - For COM interfaces, use [`ComObjFromPtr`](https://www.autohotkey.com/docs/v2/lib/ComObjFromPtr.htm) and [`ComObjQuery`](https://www.autohotkey.com/docs/v2/lib/ComObjQuery.htm) to use native AutoHotkey COM functionality.
   - Use [`CallbackCreate`](https://www.autohotkey.com/docs/v2/lib/CallbackCreate.htm) to create function pointers
 - Unions, unlike embedded structs, are flattened. Struct proxies that contain union types will have multiple members at the same offset; in this case, only one can be valid at a time.
+- When struct members have conflicting names, the second member has a number appended to it (e.g. if a struct has two members `x` and `X`, `X` appears in the generated AutoHotkey as `X1`). Type names are not otherwise changed.
 
 ## Enums
 Enums are simply classes with a series of static read-only variables.
@@ -106,8 +109,6 @@ Some other notes:
   - ANSI and Unicode variants, where applicable, are both generated
   - Generated files all have the `#Requires AutoHotkey v2.0.0 64-bit` [directive](https://www.autohotkey.com/docs/v2/lib/_Requires.htm), which should prevent mix-ups.
 - Only structs with fixed layouts are supported. This means flexible arrays are **not** supported (unless you only need one element)
-
-
 
 ## Links
 - [Microsoft's win32metadata project](https://github.com/microsoft/win32metadata/tree/main): the data from which these files are generated
