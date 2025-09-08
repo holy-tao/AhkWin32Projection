@@ -1,10 +1,11 @@
 #Requires AutoHotkey v2.0
 
 /**
- * Represents a fixed-length typed array of elements laid out contiguously
- * in memory. This class is used by Win32Struct objects to allow for more
- * friendly access to struct array elements. It does not extend `Array`, but is
- * intended to mimic it's general behavior.
+ * Win32FixedArray is a helper class used with Win32Struct proxy objects to allow for more
+ * friendly handling of fixed-length arrays which are members of structs.
+ * 
+ * For resizeable arrays which are *not* struct members, use `CStyleArray`, which implements
+ * ArrayList behavior and is resizeable, but can only be created in script-managed memory.
  */
 class Win32FixedArray {
 
@@ -142,6 +143,9 @@ class Win32FixedArray {
      */
     __Item[index] {
         get{
+            if(index < 1 || index > this.length)
+                throw IndexError("Index out of range for array of length " . this.length, , index)
+
             offset := this._GetOffsetForIndex(index)
 
             return this.elementType == Primitive?
@@ -150,6 +154,9 @@ class Win32FixedArray {
         }
         
         set{
+            if(index < 1 || index > this.length)
+                throw IndexError("Index out of range for array of length " . this.length, , index)
+
             if(this.elementType != Primitive && !(value is this.elementType)){
                 throw TypeError(Format("Expected a(n) {1} but got a(n) {2}", this.elementType.Prototype.__Class, Type(value)))
             }
