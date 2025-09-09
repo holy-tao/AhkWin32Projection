@@ -49,11 +49,13 @@ This project is intended to be used as a library. You can "install" it by clonin
 
 ### Common Namespaces
 Namespaces can be unintuitive and they aren't really mapped to headers, so a few common namespaces are listed here:
-- `Windows\Win32\Ui\Controls`: Most Gui and GuiControl related types live in this namespace.
-- `Windows\Win32\Foundation`: Contains types common to all namespaces like [`RECT`](https://learn.microsoft.com/en-us/windows/win32/api/windef/ns-windef-rect), [`FILETIME`](https://learn.microsoft.com/en-us/windows/win32/api/minwinbase/ns-minwinbase-filetime), and [`POINT`](https://learn.microsoft.com/en-us/windows/win32/api/windef/ns-windef-point).
-- `Windows\Win32\Graphics\Gdi` and `GdiPlus` : Contains most graphics-related types not otherwise contained in `UI\Controls` - font structs like [`LOGFONTW`](https://learn.microsoft.com/en-us/windows/win32/api/wingdi/ns-wingdi-logfontw), for example.
+- [`Windows\Win32\UI\Controls`](./Windows/Win32/UI/Controls): Most Gui and GuiControl related types
+- [`Windows\Win32\UI\WindowsAndMessaging`](./Windows/Win32/WindowsAndMessaging): Contains more fundamental window-related structs and enums (e.g. the [`WINDOW_EX_STYLE`](./Windows/Win32/UI/WindowsAndMessaging/WINDOW_EX_STYLE.ahk) enum)
+- [`Windows\Win32\Foundation`](./Windows/Win32/Foundation): Contains types common to all namespaces like [`RECT`](https://learn.microsoft.com/en-us/windows/win32/api/windef/ns-windef-rect), [`FILETIME`](https://learn.microsoft.com/en-us/windows/win32/api/minwinbase/ns-minwinbase-filetime), and [`POINT`](https://learn.microsoft.com/en-us/windows/win32/api/windef/ns-windef-point).
+- [`Windows\Win32\Graphics\Gdi`](./Windows/Win32/Graphics/Gdi) and [`GdiPlus`](./Windows/Win32/Graphics/GdiPlus) : Contains most graphics-related types not otherwise contained in `UI\Controls` - font structs like [`LOGFONTW`](https://learn.microsoft.com/en-us/windows/win32/api/wingdi/ns-wingdi-logfontw), for example.
+- [`Windows\Win32\Networking\WinHttp`](./Windows/Win32/Networking/WinHttp): WinHTTP-related items (see also: [About WinHTTP - Win32 apps | Microsoft Learn](https://learn.microsoft.com/en-us/windows/win32/winhttp/about-winhttp))
 
-GitHub's file search functionality is also great if you're looking for something specific. 
+GitHub's file search functionality is also great if you're looking for something specific.
 
 ### Structs
 All structs are represented with proxy objects extending [`Win32Struct`](./Win32FixedArray.ahk). The base class provides utilities for initializing structs, cloning, copying, and comparing memory blocks. Struct proxy objects have properties whose getters and setters invoke [`NumGet`](https://www.autohotkey.com/docs/v2/lib/NumGet.htm) and [`NumPut`](https://www.autohotkey.com/docs/v2/lib/NumPut.htm):
@@ -96,10 +98,28 @@ To create resizeable arrays in script-managed memory, use [`CStyleArray`](./CSty
   - For COM interfaces, use [`ComObjFromPtr`](https://www.autohotkey.com/docs/v2/lib/ComObjFromPtr.htm) and [`ComObjQuery`](https://www.autohotkey.com/docs/v2/lib/ComObjQuery.htm) to use native AutoHotkey COM functionality.
   - Use [`CallbackCreate`](https://www.autohotkey.com/docs/v2/lib/CallbackCreate.htm) to create function pointers
 - Unions, unlike embedded structs, are flattened. Struct proxies that contain union types will have multiple members at the same offset; in this case, only one can be valid at a time.
-- When struct members have conflicting names, the second member has a number appended to it (e.g. if a struct has two members `x` and `X`, `X` appears in the generated AutoHotkey as `X1`). Type names are not otherwise changed.
+- When struct members have conflicting names, the second member has a number appended to it. Type names are not otherwise changed.
+  - For example, [`YxyCOLOR`](./Windows/Win32/UI/ColorSystem/YxyCOLOR.ahk) has a member `Y` (uppercase) and `y` (lowercase):
+      ```c++
+      struct YxyCOLOR {
+          WORD Y;
+          WORD x;
+          WORD y;
+       };
+      ```
+    Because AutoHotkey is [case-insensitive](https://www.autohotkey.com/docs/v2/Concepts.htm#names), `y` (lowercase) is emitted as `y1` to avoid duplicate declaration errors. This can also happen with structs where more than one of the same union is embedded in a struct.
+ - In many cases, if a struct contains a `cbSize` member whose size must always be the size of the struct, (e.g. [`GUITHREADINFO`](./Windows/Win32/UI/WindowsAndMessaging/GUITHREADINFO.ahk), that member is set automatically in the proxy object's [`__New`](https://www.autohotkey.com/docs/v2/Objects.htm#Custom_NewDelete) method. This is only true for `cbSize` members, note that there are some more obscure cases where a similar size member is not set automatically.
 
 ## Enums
-Enums are simply classes with a series of static read-only variables.
+Enums are simply classes with a series of static read-only variables like so (doc comments removed)
+```autohotkey v2
+class DUPLICATE_HANDLE_OPTIONS{
+
+    static DUPLICATE_CLOSE_SOURCE => 1
+
+    static DUPLICATE_SAME_ACCESS => 2
+}
+```
 
 ## Limitations
 The project currently only covers structs and enums. I plan to also cover functions, but these are likely to be thin wrappers around `DllCall`, which is already quite robust. 
