@@ -49,7 +49,7 @@ class VDS_FILE_SYSTEM_FORMAT_SUPPORT_PROP extends Win32Struct
     rgulAllowedUnitAllocationSizes{
         get {
             if(!this.HasProp("__rgulAllowedUnitAllocationSizesProxyArray"))
-                this.__rgulAllowedUnitAllocationSizesProxyArray := Win32FixedArray(this.ptr + 12, 4, Primitive, "uint")
+                this.__rgulAllowedUnitAllocationSizesProxyArray := Win32FixedArray(this.ptr + 12, 32, Primitive, "uint")
             return this.__rgulAllowedUnitAllocationSizesProxyArray
         }
     }

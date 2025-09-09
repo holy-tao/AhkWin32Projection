@@ -169,7 +169,7 @@ class HCD_ISO_STAT_COUNTERS extends Win32Struct
     Reserved7{
         get {
             if(!this.HasProp("__Reserved7ProxyArray"))
-                this.__Reserved7ProxyArray := Win32FixedArray(this.ptr + 40, 4, Primitive, "uint")
+                this.__Reserved7ProxyArray := Win32FixedArray(this.ptr + 40, 8, Primitive, "uint")
             return this.__Reserved7ProxyArray
         }
     }

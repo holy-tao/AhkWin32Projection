@@ -56,7 +56,7 @@ class EMRPOLYDRAW16 extends Win32Struct
     apts{
         get {
             if(!this.HasProp("__aptsProxyArray"))
-                this.__aptsProxyArray := Win32FixedArray(this.ptr + 32, 8, POINTS, "")
+                this.__aptsProxyArray := Win32FixedArray(this.ptr + 32, 1, POINTS, "")
             return this.__aptsProxyArray
         }
     }

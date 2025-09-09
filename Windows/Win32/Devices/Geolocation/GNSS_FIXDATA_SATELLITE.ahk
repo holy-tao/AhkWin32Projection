@@ -42,7 +42,7 @@ class GNSS_FIXDATA_SATELLITE extends Win32Struct
     SatelliteArray{
         get {
             if(!this.HasProp("__SatelliteArrayProxyArray"))
-                this.__SatelliteArrayProxyArray := Win32FixedArray(this.ptr + 16, 8, GNSS_SATELLITEINFO, "")
+                this.__SatelliteArrayProxyArray := Win32FixedArray(this.ptr + 16, 64, GNSS_SATELLITEINFO, "")
             return this.__SatelliteArrayProxyArray
         }
     }

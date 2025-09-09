@@ -29,7 +29,7 @@ class DOT11_SEND_PROVISION_DISCOVERY_RESPONSE_PARAMETERS extends Win32Struct
     ReceiverDeviceAddress{
         get {
             if(!this.HasProp("__ReceiverDeviceAddressProxyArray"))
-                this.__ReceiverDeviceAddressProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")
+                this.__ReceiverDeviceAddressProxyArray := Win32FixedArray(this.ptr + 4, 6, Primitive, "char")
             return this.__ReceiverDeviceAddressProxyArray
         }
     }

@@ -56,7 +56,7 @@ class EMRPOLYLINE extends Win32Struct
     aptl{
         get {
             if(!this.HasProp("__aptlProxyArray"))
-                this.__aptlProxyArray := Win32FixedArray(this.ptr + 32, 8, POINTL, "")
+                this.__aptlProxyArray := Win32FixedArray(this.ptr + 32, 1, POINTL, "")
             return this.__aptlProxyArray
         }
     }

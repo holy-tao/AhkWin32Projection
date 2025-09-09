@@ -144,7 +144,7 @@ class XSAVE_FORMAT extends Win32Struct
     Reserved4{
         get {
             if(!this.HasProp("__Reserved4ProxyArray"))
-                this.__Reserved4ProxyArray := Win32FixedArray(this.ptr + 160, 1, Primitive, "char")
+                this.__Reserved4ProxyArray := Win32FixedArray(this.ptr + 160, 224, Primitive, "char")
             return this.__Reserved4ProxyArray
         }
     }

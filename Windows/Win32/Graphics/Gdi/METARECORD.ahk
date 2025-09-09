@@ -38,7 +38,7 @@ class METARECORD extends Win32Struct
     rdParm{
         get {
             if(!this.HasProp("__rdParmProxyArray"))
-                this.__rdParmProxyArray := Win32FixedArray(this.ptr + 6, 2, Primitive, "ushort")
+                this.__rdParmProxyArray := Win32FixedArray(this.ptr + 6, 1, Primitive, "ushort")
             return this.__rdParmProxyArray
         }
     }

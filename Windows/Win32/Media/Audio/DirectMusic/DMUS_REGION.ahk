@@ -105,7 +105,7 @@ class DMUS_REGION extends Win32Struct
     WLOOP{
         get {
             if(!this.HasProp("__WLOOPProxyArray"))
-                this.__WLOOPProxyArray := Win32FixedArray(this.ptr + 64, 8, WLOOP, "")
+                this.__WLOOPProxyArray := Win32FixedArray(this.ptr + 64, 1, WLOOP, "")
             return this.__WLOOPProxyArray
         }
     }

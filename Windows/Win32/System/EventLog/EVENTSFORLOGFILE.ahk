@@ -42,7 +42,7 @@ class EVENTSFORLOGFILE extends Win32Struct
     pEventLogRecords{
         get {
             if(!this.HasProp("__pEventLogRecordsProxyArray"))
-                this.__pEventLogRecordsProxyArray := Win32FixedArray(this.ptr + 520, 8, EVENTLOGRECORD, "")
+                this.__pEventLogRecordsProxyArray := Win32FixedArray(this.ptr + 520, 1, EVENTLOGRECORD, "")
             return this.__pEventLogRecordsProxyArray
         }
     }

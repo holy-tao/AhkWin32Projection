@@ -41,7 +41,7 @@ class MIB_IPFORWARDTABLE extends Win32Struct
     table{
         get {
             if(!this.HasProp("__tableProxyArray"))
-                this.__tableProxyArray := Win32FixedArray(this.ptr + 8, 8, MIB_IPFORWARDROW, "")
+                this.__tableProxyArray := Win32FixedArray(this.ptr + 8, 1, MIB_IPFORWARDROW, "")
             return this.__tableProxyArray
         }
     }

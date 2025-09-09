@@ -42,7 +42,7 @@ class FD_LIGATURE extends Win32Struct
     alig{
         get {
             if(!this.HasProp("__aligProxyArray"))
-                this.__aligProxyArray := Win32FixedArray(this.ptr + 16, 8, LIGATURE, "")
+                this.__aligProxyArray := Win32FixedArray(this.ptr + 16, 1, LIGATURE, "")
             return this.__aligProxyArray
         }
     }

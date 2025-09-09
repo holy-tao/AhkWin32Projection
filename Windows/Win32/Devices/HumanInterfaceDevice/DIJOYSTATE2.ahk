@@ -65,7 +65,7 @@ class DIJOYSTATE2 extends Win32Struct
     rglSlider{
         get {
             if(!this.HasProp("__rglSliderProxyArray"))
-                this.__rglSliderProxyArray := Win32FixedArray(this.ptr + 24, 4, Primitive, "int")
+                this.__rglSliderProxyArray := Win32FixedArray(this.ptr + 24, 2, Primitive, "int")
             return this.__rglSliderProxyArray
         }
     }
@@ -87,7 +87,7 @@ class DIJOYSTATE2 extends Win32Struct
     rgbButtons{
         get {
             if(!this.HasProp("__rgbButtonsProxyArray"))
-                this.__rgbButtonsProxyArray := Win32FixedArray(this.ptr + 48, 1, Primitive, "char")
+                this.__rgbButtonsProxyArray := Win32FixedArray(this.ptr + 48, 128, Primitive, "char")
             return this.__rgbButtonsProxyArray
         }
     }
@@ -146,7 +146,7 @@ class DIJOYSTATE2 extends Win32Struct
     rglVSlider{
         get {
             if(!this.HasProp("__rglVSliderProxyArray"))
-                this.__rglVSliderProxyArray := Win32FixedArray(this.ptr + 200, 4, Primitive, "int")
+                this.__rglVSliderProxyArray := Win32FixedArray(this.ptr + 200, 2, Primitive, "int")
             return this.__rglVSliderProxyArray
         }
     }
@@ -205,7 +205,7 @@ class DIJOYSTATE2 extends Win32Struct
     rglASlider{
         get {
             if(!this.HasProp("__rglASliderProxyArray"))
-                this.__rglASliderProxyArray := Win32FixedArray(this.ptr + 232, 4, Primitive, "int")
+                this.__rglASliderProxyArray := Win32FixedArray(this.ptr + 232, 2, Primitive, "int")
             return this.__rglASliderProxyArray
         }
     }
@@ -264,7 +264,7 @@ class DIJOYSTATE2 extends Win32Struct
     rglFSlider{
         get {
             if(!this.HasProp("__rglFSliderProxyArray"))
-                this.__rglFSliderProxyArray := Win32FixedArray(this.ptr + 264, 4, Primitive, "int")
+                this.__rglFSliderProxyArray := Win32FixedArray(this.ptr + 264, 2, Primitive, "int")
             return this.__rglFSliderProxyArray
         }
     }

@@ -66,7 +66,7 @@ class NVME_IDENTIFY_SPECIFIC_NAMESPACE_IO_COMMAND_SET extends Win32Struct
     Reserved0{
         get {
             if(!this.HasProp("__Reserved0ProxyArray"))
-                this.__Reserved0ProxyArray := Win32FixedArray(this.ptr + 20, 1, Primitive, "char")
+                this.__Reserved0ProxyArray := Win32FixedArray(this.ptr + 20, 2796, Primitive, "char")
             return this.__Reserved0ProxyArray
         }
     }
@@ -77,7 +77,7 @@ class NVME_IDENTIFY_SPECIFIC_NAMESPACE_IO_COMMAND_SET extends Win32Struct
     LBAEF{
         get {
             if(!this.HasProp("__LBAEFProxyArray"))
-                this.__LBAEFProxyArray := Win32FixedArray(this.ptr + 2816, 8, NVME_LBA_ZONE_FORMAT, "")
+                this.__LBAEFProxyArray := Win32FixedArray(this.ptr + 2816, 16, NVME_LBA_ZONE_FORMAT, "")
             return this.__LBAEFProxyArray
         }
     }
@@ -88,7 +88,7 @@ class NVME_IDENTIFY_SPECIFIC_NAMESPACE_IO_COMMAND_SET extends Win32Struct
     Reserved1{
         get {
             if(!this.HasProp("__Reserved1ProxyArray"))
-                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 2944, 1, Primitive, "char")
+                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 2944, 768, Primitive, "char")
             return this.__Reserved1ProxyArray
         }
     }
@@ -99,7 +99,7 @@ class NVME_IDENTIFY_SPECIFIC_NAMESPACE_IO_COMMAND_SET extends Win32Struct
     VS{
         get {
             if(!this.HasProp("__VSProxyArray"))
-                this.__VSProxyArray := Win32FixedArray(this.ptr + 3712, 1, Primitive, "char")
+                this.__VSProxyArray := Win32FixedArray(this.ptr + 3712, 256, Primitive, "char")
             return this.__VSProxyArray
         }
     }

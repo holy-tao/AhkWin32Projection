@@ -49,7 +49,7 @@ class CRYPT_ECC_CMS_SHARED_INFO extends Win32Struct
     rgbSuppPubInfo{
         get {
             if(!this.HasProp("__rgbSuppPubInfoProxyArray"))
-                this.__rgbSuppPubInfoProxyArray := Win32FixedArray(this.ptr + 40, 1, Primitive, "char")
+                this.__rgbSuppPubInfoProxyArray := Win32FixedArray(this.ptr + 40, 4, Primitive, "char")
             return this.__rgbSuppPubInfoProxyArray
         }
     }

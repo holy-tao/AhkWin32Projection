@@ -40,7 +40,7 @@ class RSVP_POLICY extends Win32Struct
     Info{
         get {
             if(!this.HasProp("__InfoProxyArray"))
-                this.__InfoProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")
+                this.__InfoProxyArray := Win32FixedArray(this.ptr + 4, 4, Primitive, "char")
             return this.__InfoProxyArray
         }
     }

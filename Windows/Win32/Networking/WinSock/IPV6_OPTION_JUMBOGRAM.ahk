@@ -29,7 +29,7 @@ class IPV6_OPTION_JUMBOGRAM extends Win32Struct
     JumbogramLength{
         get {
             if(!this.HasProp("__JumbogramLengthProxyArray"))
-                this.__JumbogramLengthProxyArray := Win32FixedArray(this.ptr + 2, 1, Primitive, "char")
+                this.__JumbogramLengthProxyArray := Win32FixedArray(this.ptr + 2, 4, Primitive, "char")
             return this.__JumbogramLengthProxyArray
         }
     }

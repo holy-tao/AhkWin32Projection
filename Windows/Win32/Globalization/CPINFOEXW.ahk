@@ -41,7 +41,7 @@ class CPINFOEXW extends Win32Struct
     DefaultChar{
         get {
             if(!this.HasProp("__DefaultCharProxyArray"))
-                this.__DefaultCharProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")
+                this.__DefaultCharProxyArray := Win32FixedArray(this.ptr + 4, 2, Primitive, "char")
             return this.__DefaultCharProxyArray
         }
     }
@@ -56,7 +56,7 @@ class CPINFOEXW extends Win32Struct
     LeadByte{
         get {
             if(!this.HasProp("__LeadByteProxyArray"))
-                this.__LeadByteProxyArray := Win32FixedArray(this.ptr + 6, 1, Primitive, "char")
+                this.__LeadByteProxyArray := Win32FixedArray(this.ptr + 6, 12, Primitive, "char")
             return this.__LeadByteProxyArray
         }
     }

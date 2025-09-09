@@ -33,7 +33,7 @@ class COR_GC_STATS extends Win32Struct
     GenCollectionsTaken{
         get {
             if(!this.HasProp("__GenCollectionsTakenProxyArray"))
-                this.__GenCollectionsTakenProxyArray := Win32FixedArray(this.ptr + 16, 8, Primitive, "ptr")
+                this.__GenCollectionsTakenProxyArray := Win32FixedArray(this.ptr + 16, 3, Primitive, "ptr")
             return this.__GenCollectionsTakenProxyArray
         }
     }

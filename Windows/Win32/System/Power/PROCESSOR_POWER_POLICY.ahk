@@ -40,7 +40,7 @@ class PROCESSOR_POWER_POLICY extends Win32Struct
     Spare{
         get {
             if(!this.HasProp("__SpareProxyArray"))
-                this.__SpareProxyArray := Win32FixedArray(this.ptr + 5, 1, Primitive, "char")
+                this.__SpareProxyArray := Win32FixedArray(this.ptr + 5, 3, Primitive, "char")
             return this.__SpareProxyArray
         }
     }
@@ -70,7 +70,7 @@ class PROCESSOR_POWER_POLICY extends Win32Struct
     Policy{
         get {
             if(!this.HasProp("__PolicyProxyArray"))
-                this.__PolicyProxyArray := Win32FixedArray(this.ptr + 16, 8, PROCESSOR_POWER_POLICY_INFO, "")
+                this.__PolicyProxyArray := Win32FixedArray(this.ptr + 16, 3, PROCESSOR_POWER_POLICY_INFO, "")
             return this.__PolicyProxyArray
         }
     }

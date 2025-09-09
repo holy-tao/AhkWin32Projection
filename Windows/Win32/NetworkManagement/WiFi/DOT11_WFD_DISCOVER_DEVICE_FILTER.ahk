@@ -18,7 +18,7 @@ class DOT11_WFD_DISCOVER_DEVICE_FILTER extends Win32Struct
     DeviceID{
         get {
             if(!this.HasProp("__DeviceIDProxyArray"))
-                this.__DeviceIDProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__DeviceIDProxyArray := Win32FixedArray(this.ptr + 0, 6, Primitive, "char")
             return this.__DeviceIDProxyArray
         }
     }

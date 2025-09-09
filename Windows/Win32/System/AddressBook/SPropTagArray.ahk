@@ -49,7 +49,7 @@ class SPropTagArray extends Win32Struct
     aulPropTag{
         get {
             if(!this.HasProp("__aulPropTagProxyArray"))
-                this.__aulPropTagProxyArray := Win32FixedArray(this.ptr + 4, 4, Primitive, "uint")
+                this.__aulPropTagProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "uint")
             return this.__aulPropTagProxyArray
         }
     }

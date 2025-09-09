@@ -25,7 +25,7 @@ class D3D12_VIDEO_ENCODER_AV1_REFERENCE_PICTURE_WARPED_MOTION_INFO extends Win32
     TransformationMatrix{
         get {
             if(!this.HasProp("__TransformationMatrixProxyArray"))
-                this.__TransformationMatrixProxyArray := Win32FixedArray(this.ptr + 4, 4, Primitive, "int")
+                this.__TransformationMatrixProxyArray := Win32FixedArray(this.ptr + 4, 8, Primitive, "int")
             return this.__TransformationMatrixProxyArray
         }
     }

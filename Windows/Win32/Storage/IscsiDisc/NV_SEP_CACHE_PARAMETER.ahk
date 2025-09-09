@@ -65,7 +65,7 @@ class NV_SEP_CACHE_PARAMETER extends Win32Struct
     ParameterReserve1{
         get {
             if(!this.HasProp("__ParameterReserve1ProxyArray"))
-                this.__ParameterReserve1ProxyArray := Win32FixedArray(this.ptr + 11, 1, Primitive, "char")
+                this.__ParameterReserve1ProxyArray := Win32FixedArray(this.ptr + 11, 3, Primitive, "char")
             return this.__ParameterReserve1ProxyArray
         }
     }

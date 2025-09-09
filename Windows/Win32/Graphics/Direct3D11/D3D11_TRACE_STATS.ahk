@@ -68,7 +68,7 @@ class D3D11_TRACE_STATS extends Win32Struct
     InputMask{
         get {
             if(!this.HasProp("__InputMaskProxyArray"))
-                this.__InputMaskProxyArray := Win32FixedArray(this.ptr + 24, 1, Primitive, "char")
+                this.__InputMaskProxyArray := Win32FixedArray(this.ptr + 24, 32, Primitive, "char")
             return this.__InputMaskProxyArray
         }
     }
@@ -82,7 +82,7 @@ class D3D11_TRACE_STATS extends Win32Struct
     OutputMask{
         get {
             if(!this.HasProp("__OutputMaskProxyArray"))
-                this.__OutputMaskProxyArray := Win32FixedArray(this.ptr + 56, 1, Primitive, "char")
+                this.__OutputMaskProxyArray := Win32FixedArray(this.ptr + 56, 32, Primitive, "char")
             return this.__OutputMaskProxyArray
         }
     }
@@ -112,7 +112,7 @@ class D3D11_TRACE_STATS extends Win32Struct
     IndexableTempSize{
         get {
             if(!this.HasProp("__IndexableTempSizeProxyArray"))
-                this.__IndexableTempSizeProxyArray := Win32FixedArray(this.ptr + 92, 2, Primitive, "ushort")
+                this.__IndexableTempSizeProxyArray := Win32FixedArray(this.ptr + 92, 4096, Primitive, "ushort")
             return this.__IndexableTempSizeProxyArray
         }
     }
@@ -132,7 +132,7 @@ class D3D11_TRACE_STATS extends Win32Struct
     PixelPosition{
         get {
             if(!this.HasProp("__PixelPositionProxyArray"))
-                this.__PixelPositionProxyArray := Win32FixedArray(this.ptr + 8288, 4, Primitive, "uint")
+                this.__PixelPositionProxyArray := Win32FixedArray(this.ptr + 8288, 8, Primitive, "uint")
             return this.__PixelPositionProxyArray
         }
     }
@@ -146,7 +146,7 @@ class D3D11_TRACE_STATS extends Win32Struct
     PixelCoverageMask{
         get {
             if(!this.HasProp("__PixelCoverageMaskProxyArray"))
-                this.__PixelCoverageMaskProxyArray := Win32FixedArray(this.ptr + 8320, 8, Primitive, "uint")
+                this.__PixelCoverageMaskProxyArray := Win32FixedArray(this.ptr + 8320, 4, Primitive, "uint")
             return this.__PixelCoverageMaskProxyArray
         }
     }
@@ -160,7 +160,7 @@ class D3D11_TRACE_STATS extends Win32Struct
     PixelDiscardedMask{
         get {
             if(!this.HasProp("__PixelDiscardedMaskProxyArray"))
-                this.__PixelDiscardedMaskProxyArray := Win32FixedArray(this.ptr + 8352, 8, Primitive, "uint")
+                this.__PixelDiscardedMaskProxyArray := Win32FixedArray(this.ptr + 8352, 4, Primitive, "uint")
             return this.__PixelDiscardedMaskProxyArray
         }
     }
@@ -174,7 +174,7 @@ class D3D11_TRACE_STATS extends Win32Struct
     PixelCoverageMaskAfterShader{
         get {
             if(!this.HasProp("__PixelCoverageMaskAfterShaderProxyArray"))
-                this.__PixelCoverageMaskAfterShaderProxyArray := Win32FixedArray(this.ptr + 8384, 8, Primitive, "uint")
+                this.__PixelCoverageMaskAfterShaderProxyArray := Win32FixedArray(this.ptr + 8384, 4, Primitive, "uint")
             return this.__PixelCoverageMaskAfterShaderProxyArray
         }
     }
@@ -188,7 +188,7 @@ class D3D11_TRACE_STATS extends Win32Struct
     PixelCoverageMaskAfterA2CSampleMask{
         get {
             if(!this.HasProp("__PixelCoverageMaskAfterA2CSampleMaskProxyArray"))
-                this.__PixelCoverageMaskAfterA2CSampleMaskProxyArray := Win32FixedArray(this.ptr + 8416, 8, Primitive, "uint")
+                this.__PixelCoverageMaskAfterA2CSampleMaskProxyArray := Win32FixedArray(this.ptr + 8416, 4, Primitive, "uint")
             return this.__PixelCoverageMaskAfterA2CSampleMaskProxyArray
         }
     }
@@ -202,7 +202,7 @@ class D3D11_TRACE_STATS extends Win32Struct
     PixelCoverageMaskAfterA2CSampleMaskDepth{
         get {
             if(!this.HasProp("__PixelCoverageMaskAfterA2CSampleMaskDepthProxyArray"))
-                this.__PixelCoverageMaskAfterA2CSampleMaskDepthProxyArray := Win32FixedArray(this.ptr + 8448, 8, Primitive, "uint")
+                this.__PixelCoverageMaskAfterA2CSampleMaskDepthProxyArray := Win32FixedArray(this.ptr + 8448, 4, Primitive, "uint")
             return this.__PixelCoverageMaskAfterA2CSampleMaskDepthProxyArray
         }
     }
@@ -216,7 +216,7 @@ class D3D11_TRACE_STATS extends Win32Struct
     PixelCoverageMaskAfterA2CSampleMaskDepthStencil{
         get {
             if(!this.HasProp("__PixelCoverageMaskAfterA2CSampleMaskDepthStencilProxyArray"))
-                this.__PixelCoverageMaskAfterA2CSampleMaskDepthStencilProxyArray := Win32FixedArray(this.ptr + 8480, 8, Primitive, "uint")
+                this.__PixelCoverageMaskAfterA2CSampleMaskDepthStencilProxyArray := Win32FixedArray(this.ptr + 8480, 4, Primitive, "uint")
             return this.__PixelCoverageMaskAfterA2CSampleMaskDepthStencilProxyArray
         }
     }
@@ -268,7 +268,7 @@ class D3D11_TRACE_STATS extends Win32Struct
     HSOutputPatchConstantMask{
         get {
             if(!this.HasProp("__HSOutputPatchConstantMaskProxyArray"))
-                this.__HSOutputPatchConstantMaskProxyArray := Win32FixedArray(this.ptr + 8528, 1, Primitive, "char")
+                this.__HSOutputPatchConstantMaskProxyArray := Win32FixedArray(this.ptr + 8528, 32, Primitive, "char")
             return this.__HSOutputPatchConstantMaskProxyArray
         }
     }
@@ -289,7 +289,7 @@ class D3D11_TRACE_STATS extends Win32Struct
     DSInputPatchConstantMask{
         get {
             if(!this.HasProp("__DSInputPatchConstantMaskProxyArray"))
-                this.__DSInputPatchConstantMaskProxyArray := Win32FixedArray(this.ptr + 8560, 1, Primitive, "char")
+                this.__DSInputPatchConstantMaskProxyArray := Win32FixedArray(this.ptr + 8560, 32, Primitive, "char")
             return this.__DSInputPatchConstantMaskProxyArray
         }
     }

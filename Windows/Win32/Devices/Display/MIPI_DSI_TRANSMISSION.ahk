@@ -82,7 +82,7 @@ class MIPI_DSI_TRANSMISSION extends Win32Struct
     Packets{
         get {
             if(!this.HasProp("__PacketsProxyArray"))
-                this.__PacketsProxyArray := Win32FixedArray(this.ptr + 16, 8, MIPI_DSI_PACKET, "")
+                this.__PacketsProxyArray := Win32FixedArray(this.ptr + 16, 1, MIPI_DSI_PACKET, "")
             return this.__PacketsProxyArray
         }
     }

@@ -31,7 +31,7 @@ class DOT11_WFD_DEVICE_INFO extends Win32Struct
     DeviceAddress{
         get {
             if(!this.HasProp("__DeviceAddressProxyArray"))
-                this.__DeviceAddressProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")
+                this.__DeviceAddressProxyArray := Win32FixedArray(this.ptr + 4, 6, Primitive, "char")
             return this.__DeviceAddressProxyArray
         }
     }

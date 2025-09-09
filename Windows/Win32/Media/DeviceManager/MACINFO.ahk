@@ -25,7 +25,7 @@ class MACINFO extends Win32Struct
     abMacState{
         get {
             if(!this.HasProp("__abMacStateProxyArray"))
-                this.__abMacStateProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")
+                this.__abMacStateProxyArray := Win32FixedArray(this.ptr + 4, 36, Primitive, "char")
             return this.__abMacStateProxyArray
         }
     }

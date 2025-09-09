@@ -41,7 +41,7 @@ class SQL_NUMERIC_STRUCT extends Win32Struct
     val{
         get {
             if(!this.HasProp("__valProxyArray"))
-                this.__valProxyArray := Win32FixedArray(this.ptr + 3, 1, Primitive, "char")
+                this.__valProxyArray := Win32FixedArray(this.ptr + 3, 16, Primitive, "char")
             return this.__valProxyArray
         }
     }

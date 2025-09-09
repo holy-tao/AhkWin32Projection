@@ -29,7 +29,7 @@ class IP4_ARRAY extends Win32Struct
     AddrArray{
         get {
             if(!this.HasProp("__AddrArrayProxyArray"))
-                this.__AddrArrayProxyArray := Win32FixedArray(this.ptr + 4, 4, Primitive, "uint")
+                this.__AddrArrayProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "uint")
             return this.__AddrArrayProxyArray
         }
     }

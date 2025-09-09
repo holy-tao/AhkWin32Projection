@@ -49,7 +49,7 @@ class DEBUG_GET_TEXT_COMPLETIONS_OUT extends Win32Struct
     Reserved2{
         get {
             if(!this.HasProp("__Reserved2ProxyArray"))
-                this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 16, 8, Primitive, "uint")
+                this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 16, 2, Primitive, "uint")
             return this.__Reserved2ProxyArray
         }
     }

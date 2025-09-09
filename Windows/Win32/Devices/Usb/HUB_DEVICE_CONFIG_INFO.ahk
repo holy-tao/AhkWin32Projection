@@ -80,7 +80,7 @@ class HUB_DEVICE_CONFIG_INFO extends Win32Struct
     Reserved{
         get {
             if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 64, 4, Primitive, "uint")
+                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 64, 19, Primitive, "uint")
             return this.__ReservedProxyArray
         }
     }

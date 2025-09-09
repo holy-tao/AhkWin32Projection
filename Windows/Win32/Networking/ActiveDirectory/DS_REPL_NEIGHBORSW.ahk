@@ -40,7 +40,7 @@ class DS_REPL_NEIGHBORSW extends Win32Struct
     rgNeighbor{
         get {
             if(!this.HasProp("__rgNeighborProxyArray"))
-                this.__rgNeighborProxyArray := Win32FixedArray(this.ptr + 8, 8, DS_REPL_NEIGHBORW, "")
+                this.__rgNeighborProxyArray := Win32FixedArray(this.ptr + 8, 1, DS_REPL_NEIGHBORW, "")
             return this.__rgNeighborProxyArray
         }
     }

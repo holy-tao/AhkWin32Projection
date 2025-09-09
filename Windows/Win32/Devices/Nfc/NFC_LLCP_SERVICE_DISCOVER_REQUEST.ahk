@@ -34,7 +34,7 @@ class NFC_LLCP_SERVICE_DISCOVER_REQUEST extends Win32Struct
     ServiceNameEntries{
         get {
             if(!this.HasProp("__ServiceNameEntriesProxyArray"))
-                this.__ServiceNameEntriesProxyArray := Win32FixedArray(this.ptr + 16, 8, NFC_LLCP_SERVICE_NAME_ENTRY, "")
+                this.__ServiceNameEntriesProxyArray := Win32FixedArray(this.ptr + 16, 1, NFC_LLCP_SERVICE_NAME_ENTRY, "")
             return this.__ServiceNameEntriesProxyArray
         }
     }

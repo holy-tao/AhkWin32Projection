@@ -57,7 +57,7 @@ class SYSTEM_BATTERY_STATE extends Win32Struct
     Spare1{
         get {
             if(!this.HasProp("__Spare1ProxyArray"))
-                this.__Spare1ProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")
+                this.__Spare1ProxyArray := Win32FixedArray(this.ptr + 4, 3, Primitive, "char")
             return this.__Spare1ProxyArray
         }
     }

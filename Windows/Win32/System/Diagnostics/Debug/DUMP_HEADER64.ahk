@@ -168,7 +168,7 @@ class DUMP_HEADER64 extends Win32Struct
     PhysicalMemoryBlockBuffer{
         get {
             if(!this.HasProp("__PhysicalMemoryBlockBufferProxyArray"))
-                this.__PhysicalMemoryBlockBufferProxyArray := Win32FixedArray(this.ptr + 168, 1, Primitive, "char")
+                this.__PhysicalMemoryBlockBufferProxyArray := Win32FixedArray(this.ptr + 168, 700, Primitive, "char")
             return this.__PhysicalMemoryBlockBufferProxyArray
         }
     }
@@ -179,7 +179,7 @@ class DUMP_HEADER64 extends Win32Struct
     ContextRecord{
         get {
             if(!this.HasProp("__ContextRecordProxyArray"))
-                this.__ContextRecordProxyArray := Win32FixedArray(this.ptr + 196, 1, Primitive, "char")
+                this.__ContextRecordProxyArray := Win32FixedArray(this.ptr + 196, 3000, Primitive, "char")
             return this.__ContextRecordProxyArray
         }
     }
@@ -297,7 +297,7 @@ class DUMP_HEADER64 extends Win32Struct
     Unused{
         get {
             if(!this.HasProp("__UnusedProxyArray"))
-                this.__UnusedProxyArray := Win32FixedArray(this.ptr + 3662, 1, Primitive, "char")
+                this.__UnusedProxyArray := Win32FixedArray(this.ptr + 3662, 2, Primitive, "char")
             return this.__UnusedProxyArray
         }
     }
@@ -327,7 +327,7 @@ class DUMP_HEADER64 extends Win32Struct
     _reserved0{
         get {
             if(!this.HasProp("___reserved0ProxyArray"))
-                this.___reserved0ProxyArray := Win32FixedArray(this.ptr + 3676, 1, Primitive, "char")
+                this.___reserved0ProxyArray := Win32FixedArray(this.ptr + 3676, 4008, Primitive, "char")
             return this.___reserved0ProxyArray
         }
     }

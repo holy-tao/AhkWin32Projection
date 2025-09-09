@@ -42,7 +42,7 @@ class STORAGE_COUNTERS extends Win32Struct
     Counters{
         get {
             if(!this.HasProp("__CountersProxyArray"))
-                this.__CountersProxyArray := Win32FixedArray(this.ptr + 16, 8, STORAGE_COUNTER, "")
+                this.__CountersProxyArray := Win32FixedArray(this.ptr + 16, 1, STORAGE_COUNTER, "")
             return this.__CountersProxyArray
         }
     }

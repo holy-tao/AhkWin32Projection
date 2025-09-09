@@ -47,7 +47,7 @@ class MIB_UDP6TABLE extends Win32Struct
     table{
         get {
             if(!this.HasProp("__tableProxyArray"))
-                this.__tableProxyArray := Win32FixedArray(this.ptr + 8, 8, MIB_UDP6ROW, "")
+                this.__tableProxyArray := Win32FixedArray(this.ptr + 8, 1, MIB_UDP6ROW, "")
             return this.__tableProxyArray
         }
     }

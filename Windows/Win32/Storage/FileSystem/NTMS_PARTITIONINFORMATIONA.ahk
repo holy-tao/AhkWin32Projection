@@ -77,7 +77,7 @@ class NTMS_PARTITIONINFORMATIONA extends Win32Struct
     OmidLabelId{
         get {
             if(!this.HasProp("__OmidLabelIdProxyArray"))
-                this.__OmidLabelIdProxyArray := Win32FixedArray(this.ptr + 28, 1, Primitive, "char")
+                this.__OmidLabelIdProxyArray := Win32FixedArray(this.ptr + 28, 255, Primitive, "char")
             return this.__OmidLabelIdProxyArray
         }
     }

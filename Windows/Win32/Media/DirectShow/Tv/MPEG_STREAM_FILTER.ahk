@@ -41,7 +41,7 @@ class MPEG_STREAM_FILTER extends Win32Struct
     rgchFilter{
         get {
             if(!this.HasProp("__rgchFilterProxyArray"))
-                this.__rgchFilterProxyArray := Win32FixedArray(this.ptr + 10, 1, Primitive, "char")
+                this.__rgchFilterProxyArray := Win32FixedArray(this.ptr + 10, 16, Primitive, "char")
             return this.__rgchFilterProxyArray
         }
     }
@@ -52,7 +52,7 @@ class MPEG_STREAM_FILTER extends Win32Struct
     rgchMask{
         get {
             if(!this.HasProp("__rgchMaskProxyArray"))
-                this.__rgchMaskProxyArray := Win32FixedArray(this.ptr + 26, 1, Primitive, "char")
+                this.__rgchMaskProxyArray := Win32FixedArray(this.ptr + 26, 16, Primitive, "char")
             return this.__rgchMaskProxyArray
         }
     }

@@ -20,7 +20,7 @@ class TSSD_ConnectionPoint extends Win32Struct
     ServerAddressB{
         get {
             if(!this.HasProp("__ServerAddressBProxyArray"))
-                this.__ServerAddressBProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__ServerAddressBProxyArray := Win32FixedArray(this.ptr + 0, 16, Primitive, "char")
             return this.__ServerAddressBProxyArray
         }
     }

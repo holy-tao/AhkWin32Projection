@@ -26,7 +26,7 @@ class COLORSPACE_TRANSFORM_MATRIX_V2 extends Win32Struct
     LookupTable1DDegamma{
         get {
             if(!this.HasProp("__LookupTable1DDegammaProxyArray"))
-                this.__LookupTable1DDegammaProxyArray := Win32FixedArray(this.ptr + 8, 8, GAMMA_RAMP_RGB, "")
+                this.__LookupTable1DDegammaProxyArray := Win32FixedArray(this.ptr + 8, 4096, GAMMA_RAMP_RGB, "")
             return this.__LookupTable1DDegammaProxyArray
         }
     }
@@ -45,7 +45,7 @@ class COLORSPACE_TRANSFORM_MATRIX_V2 extends Win32Struct
     ColorMatrix3x3{
         get {
             if(!this.HasProp("__ColorMatrix3x3ProxyArray"))
-                this.__ColorMatrix3x3ProxyArray := Win32FixedArray(this.ptr + 32780, 4, Primitive, "float")
+                this.__ColorMatrix3x3ProxyArray := Win32FixedArray(this.ptr + 32780, 9, Primitive, "float")
             return this.__ColorMatrix3x3ProxyArray
         }
     }
@@ -64,7 +64,7 @@ class COLORSPACE_TRANSFORM_MATRIX_V2 extends Win32Struct
     LookupTable1DRegamma{
         get {
             if(!this.HasProp("__LookupTable1DRegammaProxyArray"))
-                this.__LookupTable1DRegammaProxyArray := Win32FixedArray(this.ptr + 32824, 8, GAMMA_RAMP_RGB, "")
+                this.__LookupTable1DRegammaProxyArray := Win32FixedArray(this.ptr + 32824, 4096, GAMMA_RAMP_RGB, "")
             return this.__LookupTable1DRegammaProxyArray
         }
     }

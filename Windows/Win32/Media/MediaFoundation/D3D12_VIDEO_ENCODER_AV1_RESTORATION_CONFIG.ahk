@@ -17,7 +17,7 @@ class D3D12_VIDEO_ENCODER_AV1_RESTORATION_CONFIG extends Win32Struct
     FrameRestorationType{
         get {
             if(!this.HasProp("__FrameRestorationTypeProxyArray"))
-                this.__FrameRestorationTypeProxyArray := Win32FixedArray(this.ptr + 0, 4, Primitive, "int")
+                this.__FrameRestorationTypeProxyArray := Win32FixedArray(this.ptr + 0, 3, Primitive, "int")
             return this.__FrameRestorationTypeProxyArray
         }
     }
@@ -28,7 +28,7 @@ class D3D12_VIDEO_ENCODER_AV1_RESTORATION_CONFIG extends Win32Struct
     LoopRestorationPixelSize{
         get {
             if(!this.HasProp("__LoopRestorationPixelSizeProxyArray"))
-                this.__LoopRestorationPixelSizeProxyArray := Win32FixedArray(this.ptr + 12, 4, Primitive, "int")
+                this.__LoopRestorationPixelSizeProxyArray := Win32FixedArray(this.ptr + 12, 3, Primitive, "int")
             return this.__LoopRestorationPixelSizeProxyArray
         }
     }

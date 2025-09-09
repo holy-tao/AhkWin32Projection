@@ -174,7 +174,7 @@ class SCROLLBARINFO extends Win32Struct
     rgstate{
         get {
             if(!this.HasProp("__rgstateProxyArray"))
-                this.__rgstateProxyArray := Win32FixedArray(this.ptr + 40, 4, Primitive, "uint")
+                this.__rgstateProxyArray := Win32FixedArray(this.ptr + 40, 6, Primitive, "uint")
             return this.__rgstateProxyArray
         }
     }

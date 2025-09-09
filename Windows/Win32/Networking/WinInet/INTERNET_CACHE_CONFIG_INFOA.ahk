@@ -109,7 +109,7 @@ class INTERNET_CACHE_CONFIG_INFOA extends Win32Struct
     CachePaths{
         get {
             if(!this.HasProp("__CachePathsProxyArray"))
-                this.__CachePathsProxyArray := Win32FixedArray(this.ptr + 32, 8, INTERNET_CACHE_CONFIG_PATH_ENTRYA, "")
+                this.__CachePathsProxyArray := Win32FixedArray(this.ptr + 32, 1, INTERNET_CACHE_CONFIG_PATH_ENTRYA, "")
             return this.__CachePathsProxyArray
         }
     }

@@ -33,7 +33,7 @@ class NCRYPT_PCP_HMAC_AUTH_SIGNATURE_INFO extends Win32Struct
     pabNonce{
         get {
             if(!this.HasProp("__pabNonceProxyArray"))
-                this.__pabNonceProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "char")
+                this.__pabNonceProxyArray := Win32FixedArray(this.ptr + 8, 32, Primitive, "char")
             return this.__pabNonceProxyArray
         }
     }
@@ -44,7 +44,7 @@ class NCRYPT_PCP_HMAC_AUTH_SIGNATURE_INFO extends Win32Struct
     pabPolicyRef{
         get {
             if(!this.HasProp("__pabPolicyRefProxyArray"))
-                this.__pabPolicyRefProxyArray := Win32FixedArray(this.ptr + 40, 1, Primitive, "char")
+                this.__pabPolicyRefProxyArray := Win32FixedArray(this.ptr + 40, 32, Primitive, "char")
             return this.__pabPolicyRefProxyArray
         }
     }
@@ -55,7 +55,7 @@ class NCRYPT_PCP_HMAC_AUTH_SIGNATURE_INFO extends Win32Struct
     pabHMAC{
         get {
             if(!this.HasProp("__pabHMACProxyArray"))
-                this.__pabHMACProxyArray := Win32FixedArray(this.ptr + 72, 1, Primitive, "char")
+                this.__pabHMACProxyArray := Win32FixedArray(this.ptr + 72, 32, Primitive, "char")
             return this.__pabHMACProxyArray
         }
     }

@@ -221,7 +221,7 @@ class TRACE_EVENT_INFO extends Win32Struct
     EventPropertyInfoArray{
         get {
             if(!this.HasProp("__EventPropertyInfoArrayProxyArray"))
-                this.__EventPropertyInfoArrayProxyArray := Win32FixedArray(this.ptr + 96, 8, EVENT_PROPERTY_INFO, "")
+                this.__EventPropertyInfoArrayProxyArray := Win32FixedArray(this.ptr + 96, 1, EVENT_PROPERTY_INFO, "")
             return this.__EventPropertyInfoArrayProxyArray
         }
     }

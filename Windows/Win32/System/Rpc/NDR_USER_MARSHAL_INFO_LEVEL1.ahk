@@ -65,7 +65,7 @@ class NDR_USER_MARSHAL_INFO_LEVEL1 extends Win32Struct
     Reserved{
         get {
             if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 40, 8, Primitive, "ptr")
+                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 40, 5, Primitive, "ptr")
             return this.__ReservedProxyArray
         }
     }

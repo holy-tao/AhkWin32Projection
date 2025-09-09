@@ -113,7 +113,7 @@ class MMIOINFO extends Win32Struct
     adwInfo{
         get {
             if(!this.HasProp("__adwInfoProxyArray"))
-                this.__adwInfoProxyArray := Win32FixedArray(this.ptr + 72, 4, Primitive, "uint")
+                this.__adwInfoProxyArray := Win32FixedArray(this.ptr + 72, 3, Primitive, "uint")
             return this.__adwInfoProxyArray
         }
     }

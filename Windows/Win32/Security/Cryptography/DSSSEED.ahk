@@ -29,7 +29,7 @@ class DSSSEED extends Win32Struct
     seed{
         get {
             if(!this.HasProp("__seedProxyArray"))
-                this.__seedProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")
+                this.__seedProxyArray := Win32FixedArray(this.ptr + 4, 20, Primitive, "char")
             return this.__seedProxyArray
         }
     }

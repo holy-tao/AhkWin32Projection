@@ -26,7 +26,7 @@ class DNS_SVCB_PARAM_ALPN extends Win32Struct
     rgIds{
         get {
             if(!this.HasProp("__rgIdsProxyArray"))
-                this.__rgIdsProxyArray := Win32FixedArray(this.ptr + 8, 8, DNS_SVCB_PARAM_ALPN_ID, "")
+                this.__rgIdsProxyArray := Win32FixedArray(this.ptr + 8, 1, DNS_SVCB_PARAM_ALPN_ID, "")
             return this.__rgIdsProxyArray
         }
     }

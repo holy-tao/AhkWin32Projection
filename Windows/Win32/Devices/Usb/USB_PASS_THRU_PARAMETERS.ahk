@@ -40,7 +40,7 @@ class USB_PASS_THRU_PARAMETERS extends Win32Struct
     Parameters{
         get {
             if(!this.HasProp("__ParametersProxyArray"))
-                this.__ParametersProxyArray := Win32FixedArray(this.ptr + 12, 1, Primitive, "char")
+                this.__ParametersProxyArray := Win32FixedArray(this.ptr + 12, 4, Primitive, "char")
             return this.__ParametersProxyArray
         }
     }

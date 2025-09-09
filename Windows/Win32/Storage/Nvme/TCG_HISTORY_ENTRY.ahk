@@ -105,7 +105,7 @@ class TCG_HISTORY_ENTRY extends Win32Struct
     CommandSpecific{
         get {
             if(!this.HasProp("__CommandSpecificProxyArray"))
-                this.__CommandSpecificProxyArray := Win32FixedArray(this.ptr + 38, 1, Primitive, "char")
+                this.__CommandSpecificProxyArray := Win32FixedArray(this.ptr + 38, 10, Primitive, "char")
             return this.__CommandSpecificProxyArray
         }
     }

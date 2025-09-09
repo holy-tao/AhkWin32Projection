@@ -36,7 +36,7 @@ class TOKEN_PRIVILEGES extends Win32Struct
     Privileges{
         get {
             if(!this.HasProp("__PrivilegesProxyArray"))
-                this.__PrivilegesProxyArray := Win32FixedArray(this.ptr + 8, 8, LUID_AND_ATTRIBUTES, "")
+                this.__PrivilegesProxyArray := Win32FixedArray(this.ptr + 8, 1, LUID_AND_ATTRIBUTES, "")
             return this.__PrivilegesProxyArray
         }
     }

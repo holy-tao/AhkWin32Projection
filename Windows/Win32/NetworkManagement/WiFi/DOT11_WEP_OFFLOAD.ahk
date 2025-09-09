@@ -82,7 +82,7 @@ class DOT11_WEP_OFFLOAD extends Win32Struct
     ucMacAddress{
         get {
             if(!this.HasProp("__ucMacAddressProxyArray"))
-                this.__ucMacAddressProxyArray := Win32FixedArray(this.ptr + 40, 1, Primitive, "char")
+                this.__ucMacAddressProxyArray := Win32FixedArray(this.ptr + 40, 6, Primitive, "char")
             return this.__ucMacAddressProxyArray
         }
     }
@@ -109,7 +109,7 @@ class DOT11_WEP_OFFLOAD extends Win32Struct
     dot11IV48Counters{
         get {
             if(!this.HasProp("__dot11IV48CountersProxyArray"))
-                this.__dot11IV48CountersProxyArray := Win32FixedArray(this.ptr + 56, 8, DOT11_IV48_COUNTER, "")
+                this.__dot11IV48CountersProxyArray := Win32FixedArray(this.ptr + 56, 16, DOT11_IV48_COUNTER, "")
             return this.__dot11IV48CountersProxyArray
         }
     }
@@ -120,7 +120,7 @@ class DOT11_WEP_OFFLOAD extends Win32Struct
     usDot11RWBitMaps{
         get {
             if(!this.HasProp("__usDot11RWBitMapsProxyArray"))
-                this.__usDot11RWBitMapsProxyArray := Win32FixedArray(this.ptr + 184, 2, Primitive, "ushort")
+                this.__usDot11RWBitMapsProxyArray := Win32FixedArray(this.ptr + 184, 16, Primitive, "ushort")
             return this.__usDot11RWBitMapsProxyArray
         }
     }

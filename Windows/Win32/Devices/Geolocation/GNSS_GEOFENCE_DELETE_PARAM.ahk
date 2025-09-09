@@ -41,7 +41,7 @@ class GNSS_GEOFENCE_DELETE_PARAM extends Win32Struct
     Unused{
         get {
             if(!this.HasProp("__UnusedProxyArray"))
-                this.__UnusedProxyArray := Win32FixedArray(this.ptr + 12, 1, Primitive, "char")
+                this.__UnusedProxyArray := Win32FixedArray(this.ptr + 12, 512, Primitive, "char")
             return this.__UnusedProxyArray
         }
     }

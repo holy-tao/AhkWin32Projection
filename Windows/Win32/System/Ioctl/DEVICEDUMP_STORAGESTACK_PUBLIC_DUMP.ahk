@@ -38,7 +38,7 @@ class DEVICEDUMP_STORAGESTACK_PUBLIC_DUMP extends Win32Struct
     cDriverName{
         get {
             if(!this.HasProp("__cDriverNameProxyArray"))
-                this.__cDriverNameProxyArray := Win32FixedArray(this.ptr + 16, 1, Primitive, "char")
+                this.__cDriverNameProxyArray := Win32FixedArray(this.ptr + 16, 16, Primitive, "char")
             return this.__cDriverNameProxyArray
         }
     }
@@ -57,7 +57,7 @@ class DEVICEDUMP_STORAGESTACK_PUBLIC_DUMP extends Win32Struct
     RecordArray{
         get {
             if(!this.HasProp("__RecordArrayProxyArray"))
-                this.__RecordArrayProxyArray := Win32FixedArray(this.ptr + 36, 8, DEVICEDUMP_STORAGESTACK_PUBLIC_STATE_RECORD, "")
+                this.__RecordArrayProxyArray := Win32FixedArray(this.ptr + 36, 1, DEVICEDUMP_STORAGESTACK_PUBLIC_STATE_RECORD, "")
             return this.__RecordArrayProxyArray
         }
     }

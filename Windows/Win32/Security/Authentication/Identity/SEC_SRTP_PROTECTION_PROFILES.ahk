@@ -31,7 +31,7 @@ class SEC_SRTP_PROTECTION_PROFILES extends Win32Struct
     ProfilesList{
         get {
             if(!this.HasProp("__ProfilesListProxyArray"))
-                this.__ProfilesListProxyArray := Win32FixedArray(this.ptr + 2, 2, Primitive, "ushort")
+                this.__ProfilesListProxyArray := Win32FixedArray(this.ptr + 2, 1, Primitive, "ushort")
             return this.__ProfilesListProxyArray
         }
     }

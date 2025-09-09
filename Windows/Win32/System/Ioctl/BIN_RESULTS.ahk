@@ -27,7 +27,7 @@ class BIN_RESULTS extends Win32Struct
     BinCounts{
         get {
             if(!this.HasProp("__BinCountsProxyArray"))
-                this.__BinCountsProxyArray := Win32FixedArray(this.ptr + 8, 8, BIN_COUNT, "")
+                this.__BinCountsProxyArray := Win32FixedArray(this.ptr + 8, 1, BIN_COUNT, "")
             return this.__BinCountsProxyArray
         }
     }

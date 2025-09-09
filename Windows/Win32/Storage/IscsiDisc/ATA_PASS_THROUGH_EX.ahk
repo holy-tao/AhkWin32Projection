@@ -97,7 +97,7 @@ class ATA_PASS_THROUGH_EX extends Win32Struct
     PreviousTaskFile{
         get {
             if(!this.HasProp("__PreviousTaskFileProxyArray"))
-                this.__PreviousTaskFileProxyArray := Win32FixedArray(this.ptr + 32, 1, Primitive, "char")
+                this.__PreviousTaskFileProxyArray := Win32FixedArray(this.ptr + 32, 8, Primitive, "char")
             return this.__PreviousTaskFileProxyArray
         }
     }
@@ -108,7 +108,7 @@ class ATA_PASS_THROUGH_EX extends Win32Struct
     CurrentTaskFile{
         get {
             if(!this.HasProp("__CurrentTaskFileProxyArray"))
-                this.__CurrentTaskFileProxyArray := Win32FixedArray(this.ptr + 40, 1, Primitive, "char")
+                this.__CurrentTaskFileProxyArray := Win32FixedArray(this.ptr + 40, 8, Primitive, "char")
             return this.__CurrentTaskFileProxyArray
         }
     }

@@ -89,7 +89,7 @@ class UNIFM_HDR extends Win32Struct
     dwReserved{
         get {
             if(!this.HasProp("__dwReservedProxyArray"))
-                this.__dwReservedProxyArray := Win32FixedArray(this.ptr + 36, 4, Primitive, "uint")
+                this.__dwReservedProxyArray := Win32FixedArray(this.ptr + 36, 2, Primitive, "uint")
             return this.__dwReservedProxyArray
         }
     }

@@ -292,7 +292,7 @@ class SCANINFO extends Win32Struct
     DeviceIOHandles{
         get {
             if(!this.HasProp("__DeviceIOHandlesProxyArray"))
-                this.__DeviceIOHandlesProxyArray := Win32FixedArray(this.ptr + 168, 8, Primitive, "ptr")
+                this.__DeviceIOHandlesProxyArray := Win32FixedArray(this.ptr + 168, 16, Primitive, "ptr")
             return this.__DeviceIOHandlesProxyArray
         }
     }

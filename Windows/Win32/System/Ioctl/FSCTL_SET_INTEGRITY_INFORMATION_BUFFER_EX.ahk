@@ -57,7 +57,7 @@ class FSCTL_SET_INTEGRITY_INFORMATION_BUFFER_EX extends Win32Struct
     Reserved2{
         get {
             if(!this.HasProp("__Reserved2ProxyArray"))
-                this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 9, 1, Primitive, "char")
+                this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 9, 7, Primitive, "char")
             return this.__Reserved2ProxyArray
         }
     }

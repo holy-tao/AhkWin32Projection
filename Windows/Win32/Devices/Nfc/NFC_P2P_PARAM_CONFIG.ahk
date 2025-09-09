@@ -33,7 +33,7 @@ class NFC_P2P_PARAM_CONFIG extends Win32Struct
     pbGeneralBytes{
         get {
             if(!this.HasProp("__pbGeneralBytesProxyArray"))
-                this.__pbGeneralBytesProxyArray := Win32FixedArray(this.ptr + 5, 1, Primitive, "char")
+                this.__pbGeneralBytesProxyArray := Win32FixedArray(this.ptr + 5, 48, Primitive, "char")
             return this.__pbGeneralBytesProxyArray
         }
     }

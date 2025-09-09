@@ -47,7 +47,7 @@ class WAVEFILTER extends Win32Struct
     dwReserved{
         get {
             if(!this.HasProp("__dwReservedProxyArray"))
-                this.__dwReservedProxyArray := Win32FixedArray(this.ptr + 12, 4, Primitive, "uint")
+                this.__dwReservedProxyArray := Win32FixedArray(this.ptr + 12, 5, Primitive, "uint")
             return this.__dwReservedProxyArray
         }
     }

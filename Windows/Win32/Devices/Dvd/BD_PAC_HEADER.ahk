@@ -17,7 +17,7 @@ class BD_PAC_HEADER extends Win32Struct
     PACId{
         get {
             if(!this.HasProp("__PACIdProxyArray"))
-                this.__PACIdProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__PACIdProxyArray := Win32FixedArray(this.ptr + 0, 3, Primitive, "char")
             return this.__PACIdProxyArray
         }
     }
@@ -36,7 +36,7 @@ class BD_PAC_HEADER extends Win32Struct
     PACUpdateCount{
         get {
             if(!this.HasProp("__PACUpdateCountProxyArray"))
-                this.__PACUpdateCountProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")
+                this.__PACUpdateCountProxyArray := Win32FixedArray(this.ptr + 4, 4, Primitive, "char")
             return this.__PACUpdateCountProxyArray
         }
     }
@@ -47,7 +47,7 @@ class BD_PAC_HEADER extends Win32Struct
     UnknownPACRules{
         get {
             if(!this.HasProp("__UnknownPACRulesProxyArray"))
-                this.__UnknownPACRulesProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "char")
+                this.__UnknownPACRulesProxyArray := Win32FixedArray(this.ptr + 8, 4, Primitive, "char")
             return this.__UnknownPACRulesProxyArray
         }
     }
@@ -66,7 +66,7 @@ class BD_PAC_HEADER extends Win32Struct
     Reserved1{
         get {
             if(!this.HasProp("__Reserved1ProxyArray"))
-                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 13, 1, Primitive, "char")
+                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 13, 2, Primitive, "char")
             return this.__Reserved1ProxyArray
         }
     }
@@ -85,7 +85,7 @@ class BD_PAC_HEADER extends Win32Struct
     Segments{
         get {
             if(!this.HasProp("__SegmentsProxyArray"))
-                this.__SegmentsProxyArray := Win32FixedArray(this.ptr + 16, 1, Primitive, "char")
+                this.__SegmentsProxyArray := Win32FixedArray(this.ptr + 16, 256, Primitive, "char")
             return this.__SegmentsProxyArray
         }
     }
@@ -96,7 +96,7 @@ class BD_PAC_HEADER extends Win32Struct
     Reserved2{
         get {
             if(!this.HasProp("__Reserved2ProxyArray"))
-                this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 272, 1, Primitive, "char")
+                this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 272, 112, Primitive, "char")
             return this.__Reserved2ProxyArray
         }
     }

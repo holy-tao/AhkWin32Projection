@@ -97,7 +97,7 @@ class VIDEOHDR extends Win32Struct
     dwReserved{
         get {
             if(!this.HasProp("__dwReservedProxyArray"))
-                this.__dwReservedProxyArray := Win32FixedArray(this.ptr + 40, 8, Primitive, "ptr")
+                this.__dwReservedProxyArray := Win32FixedArray(this.ptr + 40, 4, Primitive, "ptr")
             return this.__dwReservedProxyArray
         }
     }

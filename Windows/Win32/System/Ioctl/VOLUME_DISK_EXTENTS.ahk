@@ -36,7 +36,7 @@ class VOLUME_DISK_EXTENTS extends Win32Struct
     Extents{
         get {
             if(!this.HasProp("__ExtentsProxyArray"))
-                this.__ExtentsProxyArray := Win32FixedArray(this.ptr + 8, 8, DISK_EXTENT, "")
+                this.__ExtentsProxyArray := Win32FixedArray(this.ptr + 8, 1, DISK_EXTENT, "")
             return this.__ExtentsProxyArray
         }
     }

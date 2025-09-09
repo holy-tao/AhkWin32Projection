@@ -38,7 +38,7 @@ class MESSAGE_RESOURCE_DATA extends Win32Struct
     Blocks{
         get {
             if(!this.HasProp("__BlocksProxyArray"))
-                this.__BlocksProxyArray := Win32FixedArray(this.ptr + 8, 8, MESSAGE_RESOURCE_BLOCK, "")
+                this.__BlocksProxyArray := Win32FixedArray(this.ptr + 8, 1, MESSAGE_RESOURCE_BLOCK, "")
             return this.__BlocksProxyArray
         }
     }

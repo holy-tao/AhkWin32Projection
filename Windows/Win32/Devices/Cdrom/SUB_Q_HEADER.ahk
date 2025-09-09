@@ -33,7 +33,7 @@ class SUB_Q_HEADER extends Win32Struct
     DataLength{
         get {
             if(!this.HasProp("__DataLengthProxyArray"))
-                this.__DataLengthProxyArray := Win32FixedArray(this.ptr + 2, 1, Primitive, "char")
+                this.__DataLengthProxyArray := Win32FixedArray(this.ptr + 2, 2, Primitive, "char")
             return this.__DataLengthProxyArray
         }
     }

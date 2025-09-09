@@ -66,7 +66,7 @@ class PHYSICAL_ELEMENT_STATUS extends Win32Struct
     Descriptors{
         get {
             if(!this.HasProp("__DescriptorsProxyArray"))
-                this.__DescriptorsProxyArray := Win32FixedArray(this.ptr + 24, 8, PHYSICAL_ELEMENT_STATUS_DESCRIPTOR, "")
+                this.__DescriptorsProxyArray := Win32FixedArray(this.ptr + 24, 1, PHYSICAL_ELEMENT_STATUS_DESCRIPTOR, "")
             return this.__DescriptorsProxyArray
         }
     }

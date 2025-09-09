@@ -33,7 +33,7 @@ class EVENT_EXTENDED_ITEM_STACK_TRACE32 extends Win32Struct
     Address{
         get {
             if(!this.HasProp("__AddressProxyArray"))
-                this.__AddressProxyArray := Win32FixedArray(this.ptr + 8, 4, Primitive, "uint")
+                this.__AddressProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "uint")
             return this.__AddressProxyArray
         }
     }

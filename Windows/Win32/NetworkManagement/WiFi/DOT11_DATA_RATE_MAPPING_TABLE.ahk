@@ -38,7 +38,7 @@ class DOT11_DATA_RATE_MAPPING_TABLE extends Win32Struct
     DataRateMappingEntries{
         get {
             if(!this.HasProp("__DataRateMappingEntriesProxyArray"))
-                this.__DataRateMappingEntriesProxyArray := Win32FixedArray(this.ptr + 8, 8, DOT11_DATA_RATE_MAPPING_ENTRY, "")
+                this.__DataRateMappingEntriesProxyArray := Win32FixedArray(this.ptr + 8, 126, DOT11_DATA_RATE_MAPPING_ENTRY, "")
             return this.__DataRateMappingEntriesProxyArray
         }
     }

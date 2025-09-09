@@ -50,7 +50,7 @@ class DSM_NOTIFICATION_REQUEST_BLOCK extends Win32Struct
     Reserved{
         get {
             if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 16, 4, Primitive, "uint")
+                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 16, 3, Primitive, "uint")
             return this.__ReservedProxyArray
         }
     }
@@ -69,7 +69,7 @@ class DSM_NOTIFICATION_REQUEST_BLOCK extends Win32Struct
     DataSetRanges{
         get {
             if(!this.HasProp("__DataSetRangesProxyArray"))
-                this.__DataSetRangesProxyArray := Win32FixedArray(this.ptr + 32, 8, MP_DEVICE_DATA_SET_RANGE, "")
+                this.__DataSetRangesProxyArray := Win32FixedArray(this.ptr + 32, 1, MP_DEVICE_DATA_SET_RANGE, "")
             return this.__DataSetRangesProxyArray
         }
     }

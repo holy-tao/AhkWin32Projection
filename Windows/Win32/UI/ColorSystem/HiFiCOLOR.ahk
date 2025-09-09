@@ -22,7 +22,7 @@ class HiFiCOLOR extends Win32Struct
     channel{
         get {
             if(!this.HasProp("__channelProxyArray"))
-                this.__channelProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__channelProxyArray := Win32FixedArray(this.ptr + 0, 8, Primitive, "char")
             return this.__channelProxyArray
         }
     }

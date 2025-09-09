@@ -25,7 +25,7 @@ class SOCKADDR_VNS extends Win32Struct
     net_address{
         get {
             if(!this.HasProp("__net_addressProxyArray"))
-                this.__net_addressProxyArray := Win32FixedArray(this.ptr + 2, 1, Primitive, "char")
+                this.__net_addressProxyArray := Win32FixedArray(this.ptr + 2, 4, Primitive, "char")
             return this.__net_addressProxyArray
         }
     }
@@ -36,7 +36,7 @@ class SOCKADDR_VNS extends Win32Struct
     subnet_addr{
         get {
             if(!this.HasProp("__subnet_addrProxyArray"))
-                this.__subnet_addrProxyArray := Win32FixedArray(this.ptr + 6, 1, Primitive, "char")
+                this.__subnet_addrProxyArray := Win32FixedArray(this.ptr + 6, 2, Primitive, "char")
             return this.__subnet_addrProxyArray
         }
     }
@@ -47,7 +47,7 @@ class SOCKADDR_VNS extends Win32Struct
     port{
         get {
             if(!this.HasProp("__portProxyArray"))
-                this.__portProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "char")
+                this.__portProxyArray := Win32FixedArray(this.ptr + 8, 2, Primitive, "char")
             return this.__portProxyArray
         }
     }
@@ -66,7 +66,7 @@ class SOCKADDR_VNS extends Win32Struct
     filler{
         get {
             if(!this.HasProp("__fillerProxyArray"))
-                this.__fillerProxyArray := Win32FixedArray(this.ptr + 11, 1, Primitive, "char")
+                this.__fillerProxyArray := Win32FixedArray(this.ptr + 11, 5, Primitive, "char")
             return this.__fillerProxyArray
         }
     }

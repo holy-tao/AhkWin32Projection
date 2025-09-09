@@ -65,7 +65,7 @@ class ID_ERROR_OBJECT extends Win32Struct
     ucIdErrData{
         get {
             if(!this.HasProp("__ucIdErrDataProxyArray"))
-                this.__ucIdErrDataProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "char")
+                this.__ucIdErrDataProxyArray := Win32FixedArray(this.ptr + 8, 4, Primitive, "char")
             return this.__ucIdErrDataProxyArray
         }
     }

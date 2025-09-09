@@ -22,7 +22,7 @@ class IN_ADDR_IPV6 extends Win32Struct
     Addr{
         get {
             if(!this.HasProp("__AddrProxyArray"))
-                this.__AddrProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__AddrProxyArray := Win32FixedArray(this.ptr + 0, 16, Primitive, "char")
             return this.__AddrProxyArray
         }
     }

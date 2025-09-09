@@ -92,7 +92,7 @@ class VIDEOINFO extends Win32Struct
     bmiColors{
         get {
             if(!this.HasProp("__bmiColorsProxyArray"))
-                this.__bmiColorsProxyArray := Win32FixedArray(this.ptr + 88, 8, RGBQUAD, "")
+                this.__bmiColorsProxyArray := Win32FixedArray(this.ptr + 88, 256, RGBQUAD, "")
             return this.__bmiColorsProxyArray
         }
     }
@@ -103,7 +103,7 @@ class VIDEOINFO extends Win32Struct
     dwBitMasks{
         get {
             if(!this.HasProp("__dwBitMasksProxyArray"))
-                this.__dwBitMasksProxyArray := Win32FixedArray(this.ptr + 88, 4, Primitive, "uint")
+                this.__dwBitMasksProxyArray := Win32FixedArray(this.ptr + 88, 3, Primitive, "uint")
             return this.__dwBitMasksProxyArray
         }
     }

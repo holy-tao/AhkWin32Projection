@@ -30,7 +30,7 @@ class SYSTEM_POWER_LEVEL extends Win32Struct
     Spare{
         get {
             if(!this.HasProp("__SpareProxyArray"))
-                this.__SpareProxyArray := Win32FixedArray(this.ptr + 1, 1, Primitive, "char")
+                this.__SpareProxyArray := Win32FixedArray(this.ptr + 1, 3, Primitive, "char")
             return this.__SpareProxyArray
         }
     }

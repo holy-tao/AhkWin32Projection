@@ -25,7 +25,7 @@ class BLUETOOTH_ADDRESS extends Win32Struct
     rgBytes{
         get {
             if(!this.HasProp("__rgBytesProxyArray"))
-                this.__rgBytesProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__rgBytesProxyArray := Win32FixedArray(this.ptr + 0, 6, Primitive, "char")
             return this.__rgBytesProxyArray
         }
     }

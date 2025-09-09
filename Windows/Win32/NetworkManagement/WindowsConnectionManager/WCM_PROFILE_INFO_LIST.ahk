@@ -34,7 +34,7 @@ class WCM_PROFILE_INFO_LIST extends Win32Struct
     ProfileInfo{
         get {
             if(!this.HasProp("__ProfileInfoProxyArray"))
-                this.__ProfileInfoProxyArray := Win32FixedArray(this.ptr + 8, 8, WCM_PROFILE_INFO, "")
+                this.__ProfileInfoProxyArray := Win32FixedArray(this.ptr + 8, 1, WCM_PROFILE_INFO, "")
             return this.__ProfileInfoProxyArray
         }
     }

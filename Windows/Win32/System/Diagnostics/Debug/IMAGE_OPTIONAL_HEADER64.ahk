@@ -675,7 +675,7 @@ class IMAGE_OPTIONAL_HEADER64 extends Win32Struct
     DataDirectory{
         get {
             if(!this.HasProp("__DataDirectoryProxyArray"))
-                this.__DataDirectoryProxyArray := Win32FixedArray(this.ptr + 112, 8, IMAGE_DATA_DIRECTORY, "")
+                this.__DataDirectoryProxyArray := Win32FixedArray(this.ptr + 112, 16, IMAGE_DATA_DIRECTORY, "")
             return this.__DataDirectoryProxyArray
         }
     }

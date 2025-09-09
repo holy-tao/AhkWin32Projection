@@ -25,7 +25,7 @@ class HIBERFILE_BUCKET extends Win32Struct
     PhysicalMemoryPercent{
         get {
             if(!this.HasProp("__PhysicalMemoryPercentProxyArray"))
-                this.__PhysicalMemoryPercentProxyArray := Win32FixedArray(this.ptr + 8, 4, Primitive, "uint")
+                this.__PhysicalMemoryPercentProxyArray := Win32FixedArray(this.ptr + 8, 3, Primitive, "uint")
             return this.__PhysicalMemoryPercentProxyArray
         }
     }

@@ -33,7 +33,7 @@ class SYNCHRONIZATION_BARRIER extends Win32Struct
     Reserved3{
         get {
             if(!this.HasProp("__Reserved3ProxyArray"))
-                this.__Reserved3ProxyArray := Win32FixedArray(this.ptr + 8, 8, Primitive, "ptr")
+                this.__Reserved3ProxyArray := Win32FixedArray(this.ptr + 8, 2, Primitive, "ptr")
             return this.__Reserved3ProxyArray
         }
     }

@@ -25,7 +25,7 @@ class VOLUME_FAILOVER_SET extends Win32Struct
     DiskNumbers{
         get {
             if(!this.HasProp("__DiskNumbersProxyArray"))
-                this.__DiskNumbersProxyArray := Win32FixedArray(this.ptr + 4, 4, Primitive, "uint")
+                this.__DiskNumbersProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "uint")
             return this.__DiskNumbersProxyArray
         }
     }

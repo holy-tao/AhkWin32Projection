@@ -29,7 +29,7 @@ class DOT11_RECEIVED_PROVISION_DISCOVERY_RESPONSE_PARAMETERS extends Win32Struct
     TransmitterDeviceAddress{
         get {
             if(!this.HasProp("__TransmitterDeviceAddressProxyArray"))
-                this.__TransmitterDeviceAddressProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")
+                this.__TransmitterDeviceAddressProxyArray := Win32FixedArray(this.ptr + 4, 6, Primitive, "char")
             return this.__TransmitterDeviceAddressProxyArray
         }
     }
@@ -40,7 +40,7 @@ class DOT11_RECEIVED_PROVISION_DISCOVERY_RESPONSE_PARAMETERS extends Win32Struct
     BSSID{
         get {
             if(!this.HasProp("__BSSIDProxyArray"))
-                this.__BSSIDProxyArray := Win32FixedArray(this.ptr + 10, 1, Primitive, "char")
+                this.__BSSIDProxyArray := Win32FixedArray(this.ptr + 10, 6, Primitive, "char")
             return this.__BSSIDProxyArray
         }
     }

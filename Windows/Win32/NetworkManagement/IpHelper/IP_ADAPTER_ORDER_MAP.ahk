@@ -35,7 +35,7 @@ class IP_ADAPTER_ORDER_MAP extends Win32Struct
     AdapterOrder{
         get {
             if(!this.HasProp("__AdapterOrderProxyArray"))
-                this.__AdapterOrderProxyArray := Win32FixedArray(this.ptr + 4, 4, Primitive, "uint")
+                this.__AdapterOrderProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "uint")
             return this.__AdapterOrderProxyArray
         }
     }

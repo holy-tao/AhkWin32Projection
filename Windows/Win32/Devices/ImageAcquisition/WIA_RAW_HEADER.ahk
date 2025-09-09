@@ -167,7 +167,7 @@ class WIA_RAW_HEADER extends Win32Struct
     BitsPerChannel{
         get {
             if(!this.HasProp("__BitsPerChannelProxyArray"))
-                this.__BitsPerChannelProxyArray := Win32FixedArray(this.ptr + 44, 1, Primitive, "char")
+                this.__BitsPerChannelProxyArray := Win32FixedArray(this.ptr + 44, 8, Primitive, "char")
             return this.__BitsPerChannelProxyArray
         }
     }

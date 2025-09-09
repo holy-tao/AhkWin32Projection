@@ -30,7 +30,7 @@ class NVME_RESERVATION_REPORT_STATUS_EXTENDED_DATA_STRUCTURE extends Win32Struct
     Reserved1{
         get {
             if(!this.HasProp("__Reserved1ProxyArray"))
-                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 24, 1, Primitive, "char")
+                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 24, 40, Primitive, "char")
             return this.__Reserved1ProxyArray
         }
     }
@@ -41,7 +41,7 @@ class NVME_RESERVATION_REPORT_STATUS_EXTENDED_DATA_STRUCTURE extends Win32Struct
     RegisteredControllersExtendedData{
         get {
             if(!this.HasProp("__RegisteredControllersExtendedDataProxyArray"))
-                this.__RegisteredControllersExtendedDataProxyArray := Win32FixedArray(this.ptr + 64, 8, NVME_REGISTERED_CONTROLLER_EXTENDED_DATA, "")
+                this.__RegisteredControllersExtendedDataProxyArray := Win32FixedArray(this.ptr + 64, 1, NVME_REGISTERED_CONTROLLER_EXTENDED_DATA, "")
             return this.__RegisteredControllersExtendedDataProxyArray
         }
     }

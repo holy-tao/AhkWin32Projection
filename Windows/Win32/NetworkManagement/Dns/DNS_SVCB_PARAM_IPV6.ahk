@@ -26,7 +26,7 @@ class DNS_SVCB_PARAM_IPV6 extends Win32Struct
     rgIps{
         get {
             if(!this.HasProp("__rgIpsProxyArray"))
-                this.__rgIpsProxyArray := Win32FixedArray(this.ptr + 8, 8, IP6_ADDRESS, "")
+                this.__rgIpsProxyArray := Win32FixedArray(this.ptr + 8, 1, IP6_ADDRESS, "")
             return this.__rgIpsProxyArray
         }
     }

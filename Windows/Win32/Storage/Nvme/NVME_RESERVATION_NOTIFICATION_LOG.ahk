@@ -53,7 +53,7 @@ class NVME_RESERVATION_NOTIFICATION_LOG extends Win32Struct
     Reserved0{
         get {
             if(!this.HasProp("__Reserved0ProxyArray"))
-                this.__Reserved0ProxyArray := Win32FixedArray(this.ptr + 10, 1, Primitive, "char")
+                this.__Reserved0ProxyArray := Win32FixedArray(this.ptr + 10, 2, Primitive, "char")
             return this.__Reserved0ProxyArray
         }
     }
@@ -74,7 +74,7 @@ class NVME_RESERVATION_NOTIFICATION_LOG extends Win32Struct
     Reserved1{
         get {
             if(!this.HasProp("__Reserved1ProxyArray"))
-                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 16, 1, Primitive, "char")
+                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 16, 48, Primitive, "char")
             return this.__Reserved1ProxyArray
         }
     }

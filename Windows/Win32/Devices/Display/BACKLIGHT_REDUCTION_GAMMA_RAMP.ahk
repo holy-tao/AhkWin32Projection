@@ -17,7 +17,7 @@ class BACKLIGHT_REDUCTION_GAMMA_RAMP extends Win32Struct
     R{
         get {
             if(!this.HasProp("__RProxyArray"))
-                this.__RProxyArray := Win32FixedArray(this.ptr + 0, 2, Primitive, "ushort")
+                this.__RProxyArray := Win32FixedArray(this.ptr + 0, 256, Primitive, "ushort")
             return this.__RProxyArray
         }
     }
@@ -28,7 +28,7 @@ class BACKLIGHT_REDUCTION_GAMMA_RAMP extends Win32Struct
     G{
         get {
             if(!this.HasProp("__GProxyArray"))
-                this.__GProxyArray := Win32FixedArray(this.ptr + 512, 2, Primitive, "ushort")
+                this.__GProxyArray := Win32FixedArray(this.ptr + 512, 256, Primitive, "ushort")
             return this.__GProxyArray
         }
     }
@@ -39,7 +39,7 @@ class BACKLIGHT_REDUCTION_GAMMA_RAMP extends Win32Struct
     B{
         get {
             if(!this.HasProp("__BProxyArray"))
-                this.__BProxyArray := Win32FixedArray(this.ptr + 1024, 2, Primitive, "ushort")
+                this.__BProxyArray := Win32FixedArray(this.ptr + 1024, 256, Primitive, "ushort")
             return this.__BProxyArray
         }
     }

@@ -41,7 +41,7 @@ class USERDATA extends Win32Struct
     dwReserved{
         get {
             if(!this.HasProp("__dwReservedProxyArray"))
-                this.__dwReservedProxyArray := Win32FixedArray(this.ptr + 24, 4, Primitive, "uint")
+                this.__dwReservedProxyArray := Win32FixedArray(this.ptr + 24, 8, Primitive, "uint")
             return this.__dwReservedProxyArray
         }
     }

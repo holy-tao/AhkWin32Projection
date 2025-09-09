@@ -25,7 +25,7 @@ class SecPkgCred_SessionTicketKey extends Win32Struct
     KeyId{
         get {
             if(!this.HasProp("__KeyIdProxyArray"))
-                this.__KeyIdProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")
+                this.__KeyIdProxyArray := Win32FixedArray(this.ptr + 4, 16, Primitive, "char")
             return this.__KeyIdProxyArray
         }
     }
@@ -36,7 +36,7 @@ class SecPkgCred_SessionTicketKey extends Win32Struct
     KeyingMaterial{
         get {
             if(!this.HasProp("__KeyingMaterialProxyArray"))
-                this.__KeyingMaterialProxyArray := Win32FixedArray(this.ptr + 20, 1, Primitive, "char")
+                this.__KeyingMaterialProxyArray := Win32FixedArray(this.ptr + 20, 64, Primitive, "char")
             return this.__KeyingMaterialProxyArray
         }
     }

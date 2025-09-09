@@ -188,7 +188,7 @@ class WINBIO_PRESENCE extends Win32Struct
     Data{
         get {
             if(!this.HasProp("__DataProxyArray"))
-                this.__DataProxyArray := Win32FixedArray(this.ptr + 444, 1, Primitive, "char")
+                this.__DataProxyArray := Win32FixedArray(this.ptr + 444, 32, Primitive, "char")
             return this.__DataProxyArray
         }
     }

@@ -17,7 +17,7 @@ class WCE_IRDA_DEVICE_INFO extends Win32Struct
     irdaDeviceID{
         get {
             if(!this.HasProp("__irdaDeviceIDProxyArray"))
-                this.__irdaDeviceIDProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__irdaDeviceIDProxyArray := Win32FixedArray(this.ptr + 0, 4, Primitive, "char")
             return this.__irdaDeviceIDProxyArray
         }
     }
@@ -36,7 +36,7 @@ class WCE_IRDA_DEVICE_INFO extends Win32Struct
     Reserved{
         get {
             if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 48, 1, Primitive, "char")
+                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 48, 2, Primitive, "char")
             return this.__ReservedProxyArray
         }
     }

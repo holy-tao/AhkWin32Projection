@@ -82,7 +82,7 @@ class USB_DEVICE_CAPABILITY_SUPERSPEEDPLUS_USB_DESCRIPTOR extends Win32Struct
     bmSublinkSpeedAttr{
         get {
             if(!this.HasProp("__bmSublinkSpeedAttrProxyArray"))
-                this.__bmSublinkSpeedAttrProxyArray := Win32FixedArray(this.ptr + 12, 8, USB_DEVICE_CAPABILITY_SUPERSPEEDPLUS_SPEED, "")
+                this.__bmSublinkSpeedAttrProxyArray := Win32FixedArray(this.ptr + 12, 1, USB_DEVICE_CAPABILITY_SUPERSPEEDPLUS_SPEED, "")
             return this.__bmSublinkSpeedAttrProxyArray
         }
     }

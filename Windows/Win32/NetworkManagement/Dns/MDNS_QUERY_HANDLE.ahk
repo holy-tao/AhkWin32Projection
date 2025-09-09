@@ -58,7 +58,7 @@ class MDNS_QUERY_HANDLE extends Win32Struct
     stateNameData{
         get {
             if(!this.HasProp("__stateNameDataProxyArray"))
-                this.__stateNameDataProxyArray := Win32FixedArray(this.ptr + 536, 4, Primitive, "uint")
+                this.__stateNameDataProxyArray := Win32FixedArray(this.ptr + 536, 2, Primitive, "uint")
             return this.__stateNameDataProxyArray
         }
     }

@@ -30,7 +30,7 @@ class NDIS_802_11_AUTHENTICATION_EVENT extends Win32Struct
     Request{
         get {
             if(!this.HasProp("__RequestProxyArray"))
-                this.__RequestProxyArray := Win32FixedArray(this.ptr + 8, 8, NDIS_802_11_AUTHENTICATION_REQUEST, "")
+                this.__RequestProxyArray := Win32FixedArray(this.ptr + 8, 1, NDIS_802_11_AUTHENTICATION_REQUEST, "")
             return this.__RequestProxyArray
         }
     }

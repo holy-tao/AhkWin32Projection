@@ -25,7 +25,7 @@ class DOT11_SUPPORTED_POWER_LEVELS extends Win32Struct
     uTxPowerLevelValues{
         get {
             if(!this.HasProp("__uTxPowerLevelValuesProxyArray"))
-                this.__uTxPowerLevelValuesProxyArray := Win32FixedArray(this.ptr + 4, 4, Primitive, "uint")
+                this.__uTxPowerLevelValuesProxyArray := Win32FixedArray(this.ptr + 4, 8, Primitive, "uint")
             return this.__uTxPowerLevelValuesProxyArray
         }
     }

@@ -26,7 +26,7 @@ class IMAGE_COR_ILMETHOD_SECT_EH_FAT extends Win32Struct
     Clauses{
         get {
             if(!this.HasProp("__ClausesProxyArray"))
-                this.__ClausesProxyArray := Win32FixedArray(this.ptr + 8, 8, IMAGE_COR_ILMETHOD_SECT_EH_CLAUSE_FAT, "")
+                this.__ClausesProxyArray := Win32FixedArray(this.ptr + 8, 1, IMAGE_COR_ILMETHOD_SECT_EH_CLAUSE_FAT, "")
             return this.__ClausesProxyArray
         }
     }

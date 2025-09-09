@@ -18,7 +18,7 @@ class CDROM_TOC_SESSION_DATA extends Win32Struct
     Length{
         get {
             if(!this.HasProp("__LengthProxyArray"))
-                this.__LengthProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__LengthProxyArray := Win32FixedArray(this.ptr + 0, 2, Primitive, "char")
             return this.__LengthProxyArray
         }
     }
@@ -45,7 +45,7 @@ class CDROM_TOC_SESSION_DATA extends Win32Struct
     TrackData{
         get {
             if(!this.HasProp("__TrackDataProxyArray"))
-                this.__TrackDataProxyArray := Win32FixedArray(this.ptr + 8, 8, TRACK_DATA, "")
+                this.__TrackDataProxyArray := Win32FixedArray(this.ptr + 8, 1, TRACK_DATA, "")
             return this.__TrackDataProxyArray
         }
     }

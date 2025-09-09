@@ -41,7 +41,7 @@ class MFVideoSurfaceInfo extends Win32Struct
     Palette{
         get {
             if(!this.HasProp("__PaletteProxyArray"))
-                this.__PaletteProxyArray := Win32FixedArray(this.ptr + 8, 8, MFPaletteEntry, "")
+                this.__PaletteProxyArray := Win32FixedArray(this.ptr + 8, 1, MFPaletteEntry, "")
             return this.__PaletteProxyArray
         }
     }

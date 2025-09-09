@@ -105,7 +105,7 @@ class STORAGE_PROTOCOL_SPECIFIC_DATA_EXT extends Win32Struct
     Reserved{
         get {
             if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 44, 4, Primitive, "uint")
+                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 44, 5, Primitive, "uint")
             return this.__ReservedProxyArray
         }
     }

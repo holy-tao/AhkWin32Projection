@@ -111,7 +111,7 @@ class IDPE_ATTR extends Win32Struct
     PeAttribValue{
         get {
             if(!this.HasProp("__PeAttribValueProxyArray"))
-                this.__PeAttribValueProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")
+                this.__PeAttribValueProxyArray := Win32FixedArray(this.ptr + 4, 4, Primitive, "char")
             return this.__PeAttribValueProxyArray
         }
     }

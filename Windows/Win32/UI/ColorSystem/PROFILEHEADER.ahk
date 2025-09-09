@@ -84,7 +84,7 @@ class PROFILEHEADER extends Win32Struct
     phDateTime{
         get {
             if(!this.HasProp("__phDateTimeProxyArray"))
-                this.__phDateTimeProxyArray := Win32FixedArray(this.ptr + 24, 4, Primitive, "uint")
+                this.__phDateTimeProxyArray := Win32FixedArray(this.ptr + 24, 3, Primitive, "uint")
             return this.__phDateTimeProxyArray
         }
     }
@@ -204,7 +204,7 @@ class PROFILEHEADER extends Win32Struct
     phAttributes{
         get {
             if(!this.HasProp("__phAttributesProxyArray"))
-                this.__phAttributesProxyArray := Win32FixedArray(this.ptr + 56, 4, Primitive, "uint")
+                this.__phAttributesProxyArray := Win32FixedArray(this.ptr + 56, 2, Primitive, "uint")
             return this.__phAttributesProxyArray
         }
     }
@@ -246,7 +246,7 @@ class PROFILEHEADER extends Win32Struct
     phReserved{
         get {
             if(!this.HasProp("__phReservedProxyArray"))
-                this.__phReservedProxyArray := Win32FixedArray(this.ptr + 88, 1, Primitive, "char")
+                this.__phReservedProxyArray := Win32FixedArray(this.ptr + 88, 44, Primitive, "char")
             return this.__phReservedProxyArray
         }
     }

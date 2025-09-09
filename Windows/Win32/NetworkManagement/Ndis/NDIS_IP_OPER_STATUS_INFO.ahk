@@ -46,7 +46,7 @@ class NDIS_IP_OPER_STATUS_INFO extends Win32Struct
     IpOperationalStatus{
         get {
             if(!this.HasProp("__IpOperationalStatusProxyArray"))
-                this.__IpOperationalStatusProxyArray := Win32FixedArray(this.ptr + 16, 8, NDIS_IP_OPER_STATUS, "")
+                this.__IpOperationalStatusProxyArray := Win32FixedArray(this.ptr + 16, 32, NDIS_IP_OPER_STATUS, "")
             return this.__IpOperationalStatusProxyArray
         }
     }

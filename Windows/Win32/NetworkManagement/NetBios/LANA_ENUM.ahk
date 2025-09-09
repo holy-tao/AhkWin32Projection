@@ -31,7 +31,7 @@ class LANA_ENUM extends Win32Struct
     lana{
         get {
             if(!this.HasProp("__lanaProxyArray"))
-                this.__lanaProxyArray := Win32FixedArray(this.ptr + 1, 1, Primitive, "char")
+                this.__lanaProxyArray := Win32FixedArray(this.ptr + 1, 255, Primitive, "char")
             return this.__lanaProxyArray
         }
     }

@@ -33,7 +33,7 @@ class SECURE_ELEMENT_AID_ROUTING_INFO extends Win32Struct
     pbAid{
         get {
             if(!this.HasProp("__pbAidProxyArray"))
-                this.__pbAidProxyArray := Win32FixedArray(this.ptr + 12, 1, Primitive, "char")
+                this.__pbAidProxyArray := Win32FixedArray(this.ptr + 12, 16, Primitive, "char")
             return this.__pbAidProxyArray
         }
     }

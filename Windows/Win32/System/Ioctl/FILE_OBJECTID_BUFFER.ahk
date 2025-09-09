@@ -22,7 +22,7 @@ class FILE_OBJECTID_BUFFER extends Win32Struct
     ObjectId{
         get {
             if(!this.HasProp("__ObjectIdProxyArray"))
-                this.__ObjectIdProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__ObjectIdProxyArray := Win32FixedArray(this.ptr + 0, 16, Primitive, "char")
             return this.__ObjectIdProxyArray
         }
     }
@@ -33,7 +33,7 @@ class FILE_OBJECTID_BUFFER extends Win32Struct
     BirthVolumeId{
         get {
             if(!this.HasProp("__BirthVolumeIdProxyArray"))
-                this.__BirthVolumeIdProxyArray := Win32FixedArray(this.ptr + 16, 1, Primitive, "char")
+                this.__BirthVolumeIdProxyArray := Win32FixedArray(this.ptr + 16, 16, Primitive, "char")
             return this.__BirthVolumeIdProxyArray
         }
     }
@@ -44,7 +44,7 @@ class FILE_OBJECTID_BUFFER extends Win32Struct
     BirthObjectId{
         get {
             if(!this.HasProp("__BirthObjectIdProxyArray"))
-                this.__BirthObjectIdProxyArray := Win32FixedArray(this.ptr + 32, 1, Primitive, "char")
+                this.__BirthObjectIdProxyArray := Win32FixedArray(this.ptr + 32, 16, Primitive, "char")
             return this.__BirthObjectIdProxyArray
         }
     }
@@ -55,7 +55,7 @@ class FILE_OBJECTID_BUFFER extends Win32Struct
     DomainId{
         get {
             if(!this.HasProp("__DomainIdProxyArray"))
-                this.__DomainIdProxyArray := Win32FixedArray(this.ptr + 48, 1, Primitive, "char")
+                this.__DomainIdProxyArray := Win32FixedArray(this.ptr + 48, 16, Primitive, "char")
             return this.__DomainIdProxyArray
         }
     }
@@ -66,7 +66,7 @@ class FILE_OBJECTID_BUFFER extends Win32Struct
     ExtendedInfo{
         get {
             if(!this.HasProp("__ExtendedInfoProxyArray"))
-                this.__ExtendedInfoProxyArray := Win32FixedArray(this.ptr + 16, 1, Primitive, "char")
+                this.__ExtendedInfoProxyArray := Win32FixedArray(this.ptr + 16, 48, Primitive, "char")
             return this.__ExtendedInfoProxyArray
         }
     }

@@ -49,7 +49,7 @@ class NVME_ERROR_INJECTION_ENTRY extends Win32Struct
     ErrorInjectionTypeSpecific{
         get {
             if(!this.HasProp("__ErrorInjectionTypeSpecificProxyArray"))
-                this.__ErrorInjectionTypeSpecificProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")
+                this.__ErrorInjectionTypeSpecificProxyArray := Win32FixedArray(this.ptr + 4, 28, Primitive, "char")
             return this.__ErrorInjectionTypeSpecificProxyArray
         }
     }

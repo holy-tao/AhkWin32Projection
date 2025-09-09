@@ -113,7 +113,7 @@ class FIRMWARE_ACTIVATION_HISTORY_ENTRY extends Win32Struct
     Reserved2{
         get {
             if(!this.HasProp("__Reserved2ProxyArray"))
-                this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 50, 1, Primitive, "char")
+                this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 50, 14, Primitive, "char")
             return this.__Reserved2ProxyArray
         }
     }

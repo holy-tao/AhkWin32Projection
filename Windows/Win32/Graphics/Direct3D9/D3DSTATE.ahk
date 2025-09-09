@@ -33,7 +33,7 @@ class D3DSTATE extends Win32Struct
     dwArg{
         get {
             if(!this.HasProp("__dwArgProxyArray"))
-                this.__dwArgProxyArray := Win32FixedArray(this.ptr + 4, 4, Primitive, "uint")
+                this.__dwArgProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "uint")
             return this.__dwArgProxyArray
         }
     }
@@ -44,7 +44,7 @@ class D3DSTATE extends Win32Struct
     dvArg{
         get {
             if(!this.HasProp("__dvArgProxyArray"))
-                this.__dvArgProxyArray := Win32FixedArray(this.ptr + 4, 4, Primitive, "float")
+                this.__dvArgProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "float")
             return this.__dvArgProxyArray
         }
     }

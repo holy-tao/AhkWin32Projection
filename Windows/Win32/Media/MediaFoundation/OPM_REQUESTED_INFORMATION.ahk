@@ -44,7 +44,7 @@ class OPM_REQUESTED_INFORMATION extends Win32Struct
     abRequestedInformation{
         get {
             if(!this.HasProp("__abRequestedInformationProxyArray"))
-                this.__abRequestedInformationProxyArray := Win32FixedArray(this.ptr + 20, 1, Primitive, "char")
+                this.__abRequestedInformationProxyArray := Win32FixedArray(this.ptr + 20, 4076, Primitive, "char")
             return this.__abRequestedInformationProxyArray
         }
     }

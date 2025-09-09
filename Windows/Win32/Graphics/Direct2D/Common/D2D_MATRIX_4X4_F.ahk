@@ -153,7 +153,7 @@ class D2D_MATRIX_4X4_F extends Win32Struct
     m{
         get {
             if(!this.HasProp("__mProxyArray"))
-                this.__mProxyArray := Win32FixedArray(this.ptr + 0, 4, Primitive, "float")
+                this.__mProxyArray := Win32FixedArray(this.ptr + 0, 16, Primitive, "float")
             return this.__mProxyArray
         }
     }

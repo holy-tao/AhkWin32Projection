@@ -17,7 +17,7 @@ class DOT11_ASSOCIATION_INFO_EX extends Win32Struct
     PeerMacAddress{
         get {
             if(!this.HasProp("__PeerMacAddressProxyArray"))
-                this.__PeerMacAddressProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__PeerMacAddressProxyArray := Win32FixedArray(this.ptr + 0, 6, Primitive, "char")
             return this.__PeerMacAddressProxyArray
         }
     }
@@ -28,7 +28,7 @@ class DOT11_ASSOCIATION_INFO_EX extends Win32Struct
     BSSID{
         get {
             if(!this.HasProp("__BSSIDProxyArray"))
-                this.__BSSIDProxyArray := Win32FixedArray(this.ptr + 6, 1, Primitive, "char")
+                this.__BSSIDProxyArray := Win32FixedArray(this.ptr + 6, 6, Primitive, "char")
             return this.__BSSIDProxyArray
         }
     }
@@ -55,7 +55,7 @@ class DOT11_ASSOCIATION_INFO_EX extends Win32Struct
     ucPeerSupportedRates{
         get {
             if(!this.HasProp("__ucPeerSupportedRatesProxyArray"))
-                this.__ucPeerSupportedRatesProxyArray := Win32FixedArray(this.ptr + 16, 1, Primitive, "char")
+                this.__ucPeerSupportedRatesProxyArray := Win32FixedArray(this.ptr + 16, 255, Primitive, "char")
             return this.__ucPeerSupportedRatesProxyArray
         }
     }

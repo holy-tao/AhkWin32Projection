@@ -36,7 +36,7 @@ class MOVEREGION_INFO extends Win32Struct
     MoveRegions{
         get {
             if(!this.HasProp("__MoveRegionsProxyArray"))
-                this.__MoveRegionsProxyArray := Win32FixedArray(this.ptr + 8, 8, MOVE_RECT, "")
+                this.__MoveRegionsProxyArray := Win32FixedArray(this.ptr + 8, 1, MOVE_RECT, "")
             return this.__MoveRegionsProxyArray
         }
     }

@@ -17,7 +17,7 @@ class NVME_WCS_DEVICE_SMART_ATTRIBUTES_LOG extends Win32Struct
     VersionSpecificData{
         get {
             if(!this.HasProp("__VersionSpecificDataProxyArray"))
-                this.__VersionSpecificDataProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__VersionSpecificDataProxyArray := Win32FixedArray(this.ptr + 0, 494, Primitive, "char")
             return this.__VersionSpecificDataProxyArray
         }
     }

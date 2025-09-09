@@ -81,7 +81,7 @@ class MFCONTENTPROTECTIONDEVICE_OUTPUT_DATA extends Win32Struct
     OutputData{
         get {
             if(!this.HasProp("__OutputDataProxyArray"))
-                this.__OutputDataProxyArray := Win32FixedArray(this.ptr + 32, 1, Primitive, "char")
+                this.__OutputDataProxyArray := Win32FixedArray(this.ptr + 32, 4, Primitive, "char")
             return this.__OutputDataProxyArray
         }
     }

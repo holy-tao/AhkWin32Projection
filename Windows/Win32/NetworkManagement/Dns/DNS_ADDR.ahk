@@ -28,7 +28,7 @@ class DNS_ADDR extends Win32Struct
     DnsAddrUserDword{
         get {
             if(!this.HasProp("__DnsAddrUserDwordProxyArray"))
-                this.__DnsAddrUserDwordProxyArray := Win32FixedArray(this.ptr + 64, 4, Primitive, "uint")
+                this.__DnsAddrUserDwordProxyArray := Win32FixedArray(this.ptr + 64, 8, Primitive, "uint")
             return this.__DnsAddrUserDwordProxyArray
         }
     }

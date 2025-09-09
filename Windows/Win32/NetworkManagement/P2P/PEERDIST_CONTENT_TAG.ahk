@@ -20,7 +20,7 @@ class PEERDIST_CONTENT_TAG extends Win32Struct
     Data{
         get {
             if(!this.HasProp("__DataProxyArray"))
-                this.__DataProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__DataProxyArray := Win32FixedArray(this.ptr + 0, 16, Primitive, "char")
             return this.__DataProxyArray
         }
     }

@@ -41,7 +41,7 @@ class STORAGE_LB_PROVISIONING_MAP_RESOURCES extends Win32Struct
     Reserved1{
         get {
             if(!this.HasProp("__Reserved1ProxyArray"))
-                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 9, 1, Primitive, "char")
+                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 9, 3, Primitive, "char")
             return this.__Reserved1ProxyArray
         }
     }
@@ -60,7 +60,7 @@ class STORAGE_LB_PROVISIONING_MAP_RESOURCES extends Win32Struct
     Reserved3{
         get {
             if(!this.HasProp("__Reserved3ProxyArray"))
-                this.__Reserved3ProxyArray := Win32FixedArray(this.ptr + 13, 1, Primitive, "char")
+                this.__Reserved3ProxyArray := Win32FixedArray(this.ptr + 13, 3, Primitive, "char")
             return this.__Reserved3ProxyArray
         }
     }

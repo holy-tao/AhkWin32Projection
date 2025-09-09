@@ -172,7 +172,7 @@ class CONTROL_SERVICE extends Win32Struct
     ParamBuffer{
         get {
             if(!this.HasProp("__ParamBufferProxyArray"))
-                this.__ParamBufferProxyArray := Win32FixedArray(this.ptr + 32, 8, PARAM_BUFFER, "")
+                this.__ParamBufferProxyArray := Win32FixedArray(this.ptr + 32, 1, PARAM_BUFFER, "")
             return this.__ParamBufferProxyArray
         }
     }

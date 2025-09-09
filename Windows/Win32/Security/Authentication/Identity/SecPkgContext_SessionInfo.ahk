@@ -56,7 +56,7 @@ class SecPkgContext_SessionInfo extends Win32Struct
     rgbSessionId{
         get {
             if(!this.HasProp("__rgbSessionIdProxyArray"))
-                this.__rgbSessionIdProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "char")
+                this.__rgbSessionIdProxyArray := Win32FixedArray(this.ptr + 8, 32, Primitive, "char")
             return this.__rgbSessionIdProxyArray
         }
     }

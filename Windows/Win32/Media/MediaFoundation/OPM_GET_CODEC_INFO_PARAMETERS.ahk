@@ -34,7 +34,7 @@ class OPM_GET_CODEC_INFO_PARAMETERS extends Win32Struct
     Verifier{
         get {
             if(!this.HasProp("__VerifierProxyArray"))
-                this.__VerifierProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")
+                this.__VerifierProxyArray := Win32FixedArray(this.ptr + 4, 4052, Primitive, "char")
             return this.__VerifierProxyArray
         }
     }

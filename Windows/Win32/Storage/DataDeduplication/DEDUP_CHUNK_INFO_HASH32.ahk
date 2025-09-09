@@ -41,7 +41,7 @@ class DEDUP_CHUNK_INFO_HASH32 extends Win32Struct
     HashVal{
         get {
             if(!this.HasProp("__HashValProxyArray"))
-                this.__HashValProxyArray := Win32FixedArray(this.ptr + 24, 1, Primitive, "char")
+                this.__HashValProxyArray := Win32FixedArray(this.ptr + 24, 32, Primitive, "char")
             return this.__HashValProxyArray
         }
     }

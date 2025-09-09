@@ -22,7 +22,7 @@ class FWP_BYTE_ARRAY16 extends Win32Struct
     byteArray16{
         get {
             if(!this.HasProp("__byteArray16ProxyArray"))
-                this.__byteArray16ProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__byteArray16ProxyArray := Win32FixedArray(this.ptr + 0, 16, Primitive, "char")
             return this.__byteArray16ProxyArray
         }
     }

@@ -233,7 +233,7 @@ class D3D12_GRAPHICS_PIPELINE_STATE_DESC extends Win32Struct
     RTVFormats{
         get {
             if(!this.HasProp("__RTVFormatsProxyArray"))
-                this.__RTVFormatsProxyArray := Win32FixedArray(this.ptr + 332, 4, Primitive, "int")
+                this.__RTVFormatsProxyArray := Win32FixedArray(this.ptr + 332, 8, Primitive, "int")
             return this.__RTVFormatsProxyArray
         }
     }

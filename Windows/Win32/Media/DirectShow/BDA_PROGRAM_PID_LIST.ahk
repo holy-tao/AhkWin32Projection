@@ -33,7 +33,7 @@ class BDA_PROGRAM_PID_LIST extends Win32Struct
     ulPID{
         get {
             if(!this.HasProp("__ulPIDProxyArray"))
-                this.__ulPIDProxyArray := Win32FixedArray(this.ptr + 8, 4, Primitive, "uint")
+                this.__ulPIDProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "uint")
             return this.__ulPIDProxyArray
         }
     }

@@ -26,7 +26,7 @@ class EncoderParameters extends Win32Struct
     Parameter{
         get {
             if(!this.HasProp("__ParameterProxyArray"))
-                this.__ParameterProxyArray := Win32FixedArray(this.ptr + 8, 8, EncoderParameter, "")
+                this.__ParameterProxyArray := Win32FixedArray(this.ptr + 8, 1, EncoderParameter, "")
             return this.__ParameterProxyArray
         }
     }

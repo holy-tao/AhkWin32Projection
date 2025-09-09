@@ -17,7 +17,7 @@ class WNF_STATE_NAME extends Win32Struct
     Data{
         get {
             if(!this.HasProp("__DataProxyArray"))
-                this.__DataProxyArray := Win32FixedArray(this.ptr + 0, 4, Primitive, "uint")
+                this.__DataProxyArray := Win32FixedArray(this.ptr + 0, 2, Primitive, "uint")
             return this.__DataProxyArray
         }
     }

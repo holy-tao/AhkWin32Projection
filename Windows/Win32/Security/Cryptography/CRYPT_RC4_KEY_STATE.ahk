@@ -17,7 +17,7 @@ class CRYPT_RC4_KEY_STATE extends Win32Struct
     Key{
         get {
             if(!this.HasProp("__KeyProxyArray"))
-                this.__KeyProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__KeyProxyArray := Win32FixedArray(this.ptr + 0, 16, Primitive, "char")
             return this.__KeyProxyArray
         }
     }
@@ -28,7 +28,7 @@ class CRYPT_RC4_KEY_STATE extends Win32Struct
     SBox{
         get {
             if(!this.HasProp("__SBoxProxyArray"))
-                this.__SBoxProxyArray := Win32FixedArray(this.ptr + 16, 1, Primitive, "char")
+                this.__SBoxProxyArray := Win32FixedArray(this.ptr + 16, 256, Primitive, "char")
             return this.__SBoxProxyArray
         }
     }

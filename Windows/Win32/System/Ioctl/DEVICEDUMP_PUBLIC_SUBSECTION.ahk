@@ -26,7 +26,7 @@ class DEVICEDUMP_PUBLIC_SUBSECTION extends Win32Struct
     GPLogTable{
         get {
             if(!this.HasProp("__GPLogTableProxyArray"))
-                this.__GPLogTableProxyArray := Win32FixedArray(this.ptr + 4, 8, GP_LOG_PAGE_DESCRIPTOR, "")
+                this.__GPLogTableProxyArray := Win32FixedArray(this.ptr + 4, 16, GP_LOG_PAGE_DESCRIPTOR, "")
             return this.__GPLogTableProxyArray
         }
     }

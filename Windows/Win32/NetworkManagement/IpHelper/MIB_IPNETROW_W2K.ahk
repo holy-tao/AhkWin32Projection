@@ -46,7 +46,7 @@ class MIB_IPNETROW_W2K extends Win32Struct
     bPhysAddr{
         get {
             if(!this.HasProp("__bPhysAddrProxyArray"))
-                this.__bPhysAddrProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "char")
+                this.__bPhysAddrProxyArray := Win32FixedArray(this.ptr + 8, 8, Primitive, "char")
             return this.__bPhysAddrProxyArray
         }
     }

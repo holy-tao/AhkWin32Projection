@@ -34,7 +34,7 @@ class NRESARRAY extends Win32Struct
     nr{
         get {
             if(!this.HasProp("__nrProxyArray"))
-                this.__nrProxyArray := Win32FixedArray(this.ptr + 8, 8, NETRESOURCEA, "")
+                this.__nrProxyArray := Win32FixedArray(this.ptr + 8, 1, NETRESOURCEA, "")
             return this.__nrProxyArray
         }
     }

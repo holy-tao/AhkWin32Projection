@@ -40,7 +40,7 @@ class KEYBOARD_INDICATOR_TRANSLATION extends Win32Struct
     IndicatorList{
         get {
             if(!this.HasProp("__IndicatorListProxyArray"))
-                this.__IndicatorListProxyArray := Win32FixedArray(this.ptr + 8, 8, INDICATOR_LIST, "")
+                this.__IndicatorListProxyArray := Win32FixedArray(this.ptr + 8, 1, INDICATOR_LIST, "")
             return this.__IndicatorListProxyArray
         }
     }

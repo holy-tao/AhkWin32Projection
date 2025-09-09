@@ -42,7 +42,7 @@ class SCM_LD_INTERLEAVE_SET_INFO extends Win32Struct
     InterleaveSet{
         get {
             if(!this.HasProp("__InterleaveSetProxyArray"))
-                this.__InterleaveSetProxyArray := Win32FixedArray(this.ptr + 16, 8, SCM_INTERLEAVED_PD_INFO, "")
+                this.__InterleaveSetProxyArray := Win32FixedArray(this.ptr + 16, 1, SCM_INTERLEAVED_PD_INFO, "")
             return this.__InterleaveSetProxyArray
         }
     }

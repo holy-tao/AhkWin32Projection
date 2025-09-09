@@ -119,7 +119,7 @@ class DEVICE_COPY_OFFLOAD_DESCRIPTOR extends Win32Struct
     Reserved{
         get {
             if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 46, 1, Primitive, "char")
+                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 46, 2, Primitive, "char")
             return this.__ReservedProxyArray
         }
     }

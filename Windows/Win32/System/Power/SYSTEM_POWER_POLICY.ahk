@@ -130,7 +130,7 @@ class SYSTEM_POWER_POLICY extends Win32Struct
     Spare2{
         get {
             if(!this.HasProp("__Spare2ProxyArray"))
-                this.__Spare2ProxyArray := Win32FixedArray(this.ptr + 82, 1, Primitive, "char")
+                this.__Spare2ProxyArray := Win32FixedArray(this.ptr + 82, 2, Primitive, "char")
             return this.__Spare2ProxyArray
         }
     }
@@ -210,7 +210,7 @@ class SYSTEM_POWER_POLICY extends Win32Struct
     DischargePolicy{
         get {
             if(!this.HasProp("__DischargePolicyProxyArray"))
-                this.__DischargePolicyProxyArray := Win32FixedArray(this.ptr + 112, 8, SYSTEM_POWER_LEVEL, "")
+                this.__DischargePolicyProxyArray := Win32FixedArray(this.ptr + 112, 4, SYSTEM_POWER_LEVEL, "")
             return this.__DischargePolicyProxyArray
         }
     }
@@ -240,7 +240,7 @@ class SYSTEM_POWER_POLICY extends Win32Struct
     VideoReserved{
         get {
             if(!this.HasProp("__VideoReservedProxyArray"))
-                this.__VideoReservedProxyArray := Win32FixedArray(this.ptr + 152, 4, Primitive, "uint")
+                this.__VideoReservedProxyArray := Win32FixedArray(this.ptr + 152, 3, Primitive, "uint")
             return this.__VideoReservedProxyArray
         }
     }

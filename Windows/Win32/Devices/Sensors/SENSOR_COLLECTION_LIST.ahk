@@ -63,7 +63,7 @@ class SENSOR_COLLECTION_LIST extends Win32Struct
     List{
         get {
             if(!this.HasProp("__ListProxyArray"))
-                this.__ListProxyArray := Win32FixedArray(this.ptr + 8, 8, SENSOR_VALUE_PAIR, "")
+                this.__ListProxyArray := Win32FixedArray(this.ptr + 8, 1, SENSOR_VALUE_PAIR, "")
             return this.__ListProxyArray
         }
     }

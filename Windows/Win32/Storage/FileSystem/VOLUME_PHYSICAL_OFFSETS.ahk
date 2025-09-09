@@ -26,7 +26,7 @@ class VOLUME_PHYSICAL_OFFSETS extends Win32Struct
     PhysicalOffset{
         get {
             if(!this.HasProp("__PhysicalOffsetProxyArray"))
-                this.__PhysicalOffsetProxyArray := Win32FixedArray(this.ptr + 8, 8, VOLUME_PHYSICAL_OFFSET, "")
+                this.__PhysicalOffsetProxyArray := Win32FixedArray(this.ptr + 8, 1, VOLUME_PHYSICAL_OFFSET, "")
             return this.__PhysicalOffsetProxyArray
         }
     }

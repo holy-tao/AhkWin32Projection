@@ -18,7 +18,7 @@ class USER_SESSION_KEY extends Win32Struct
     data{
         get {
             if(!this.HasProp("__dataProxyArray"))
-                this.__dataProxyArray := Win32FixedArray(this.ptr + 0, 8, CYPHER_BLOCK, "")
+                this.__dataProxyArray := Win32FixedArray(this.ptr + 0, 2, CYPHER_BLOCK, "")
             return this.__dataProxyArray
         }
     }

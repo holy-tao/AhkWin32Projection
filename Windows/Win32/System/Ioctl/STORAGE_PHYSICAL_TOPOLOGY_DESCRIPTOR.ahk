@@ -57,7 +57,7 @@ class STORAGE_PHYSICAL_TOPOLOGY_DESCRIPTOR extends Win32Struct
     Node{
         get {
             if(!this.HasProp("__NodeProxyArray"))
-                this.__NodeProxyArray := Win32FixedArray(this.ptr + 16, 8, STORAGE_PHYSICAL_NODE_DATA, "")
+                this.__NodeProxyArray := Win32FixedArray(this.ptr + 16, 1, STORAGE_PHYSICAL_NODE_DATA, "")
             return this.__NodeProxyArray
         }
     }

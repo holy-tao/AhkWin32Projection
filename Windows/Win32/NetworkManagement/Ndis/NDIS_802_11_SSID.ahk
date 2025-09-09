@@ -25,7 +25,7 @@ class NDIS_802_11_SSID extends Win32Struct
     Ssid{
         get {
             if(!this.HasProp("__SsidProxyArray"))
-                this.__SsidProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")
+                this.__SsidProxyArray := Win32FixedArray(this.ptr + 4, 32, Primitive, "char")
             return this.__SsidProxyArray
         }
     }

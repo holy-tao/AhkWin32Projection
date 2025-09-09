@@ -24,7 +24,7 @@ class CRYPT_AES_128_KEY_STATE extends Win32Struct
     Key{
         get {
             if(!this.HasProp("__KeyProxyArray"))
-                this.__KeyProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__KeyProxyArray := Win32FixedArray(this.ptr + 0, 16, Primitive, "char")
             return this.__KeyProxyArray
         }
     }
@@ -36,7 +36,7 @@ class CRYPT_AES_128_KEY_STATE extends Win32Struct
     IV{
         get {
             if(!this.HasProp("__IVProxyArray"))
-                this.__IVProxyArray := Win32FixedArray(this.ptr + 16, 1, Primitive, "char")
+                this.__IVProxyArray := Win32FixedArray(this.ptr + 16, 16, Primitive, "char")
             return this.__IVProxyArray
         }
     }
@@ -48,7 +48,7 @@ class CRYPT_AES_128_KEY_STATE extends Win32Struct
     EncryptionState{
         get {
             if(!this.HasProp("__EncryptionStateProxyArray"))
-                this.__EncryptionStateProxyArray := Win32FixedArray(this.ptr + 32, 1, Primitive, "char")
+                this.__EncryptionStateProxyArray := Win32FixedArray(this.ptr + 32, 176, Primitive, "char")
             return this.__EncryptionStateProxyArray
         }
     }
@@ -60,7 +60,7 @@ class CRYPT_AES_128_KEY_STATE extends Win32Struct
     DecryptionState{
         get {
             if(!this.HasProp("__DecryptionStateProxyArray"))
-                this.__DecryptionStateProxyArray := Win32FixedArray(this.ptr + 208, 1, Primitive, "char")
+                this.__DecryptionStateProxyArray := Win32FixedArray(this.ptr + 208, 176, Primitive, "char")
             return this.__DecryptionStateProxyArray
         }
     }
@@ -72,7 +72,7 @@ class CRYPT_AES_128_KEY_STATE extends Win32Struct
     Feedback{
         get {
             if(!this.HasProp("__FeedbackProxyArray"))
-                this.__FeedbackProxyArray := Win32FixedArray(this.ptr + 384, 1, Primitive, "char")
+                this.__FeedbackProxyArray := Win32FixedArray(this.ptr + 384, 16, Primitive, "char")
             return this.__FeedbackProxyArray
         }
     }

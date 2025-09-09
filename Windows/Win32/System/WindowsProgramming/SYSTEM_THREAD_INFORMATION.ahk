@@ -18,7 +18,7 @@ class SYSTEM_THREAD_INFORMATION extends Win32Struct
     Reserved1{
         get {
             if(!this.HasProp("__Reserved1ProxyArray"))
-                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 0, 8, Primitive, "int64")
+                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 0, 3, Primitive, "int64")
             return this.__Reserved1ProxyArray
         }
     }

@@ -34,7 +34,7 @@ class DIAGNOSTIC_REPORT_SIGNATURE extends Win32Struct
     parameters{
         get {
             if(!this.HasProp("__parametersProxyArray"))
-                this.__parametersProxyArray := Win32FixedArray(this.ptr + 136, 8, DIAGNOSTIC_REPORT_PARAMETER, "")
+                this.__parametersProxyArray := Win32FixedArray(this.ptr + 136, 10, DIAGNOSTIC_REPORT_PARAMETER, "")
             return this.__parametersProxyArray
         }
     }

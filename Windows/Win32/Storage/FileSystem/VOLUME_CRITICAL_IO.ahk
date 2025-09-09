@@ -34,7 +34,7 @@ class VOLUME_CRITICAL_IO extends Win32Struct
     Extents{
         get {
             if(!this.HasProp("__ExtentsProxyArray"))
-                this.__ExtentsProxyArray := Win32FixedArray(this.ptr + 8, 8, FILE_EXTENT, "")
+                this.__ExtentsProxyArray := Win32FixedArray(this.ptr + 8, 1, FILE_EXTENT, "")
             return this.__ExtentsProxyArray
         }
     }

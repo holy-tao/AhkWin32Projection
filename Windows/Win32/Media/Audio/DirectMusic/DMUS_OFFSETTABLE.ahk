@@ -17,7 +17,7 @@ class DMUS_OFFSETTABLE extends Win32Struct
     ulOffsetTable{
         get {
             if(!this.HasProp("__ulOffsetTableProxyArray"))
-                this.__ulOffsetTableProxyArray := Win32FixedArray(this.ptr + 0, 4, Primitive, "uint")
+                this.__ulOffsetTableProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "uint")
             return this.__ulOffsetTableProxyArray
         }
     }

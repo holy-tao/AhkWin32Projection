@@ -17,7 +17,7 @@ class VOLUME_CONTROL extends Win32Struct
     PortVolume{
         get {
             if(!this.HasProp("__PortVolumeProxyArray"))
-                this.__PortVolumeProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__PortVolumeProxyArray := Win32FixedArray(this.ptr + 0, 4, Primitive, "char")
             return this.__PortVolumeProxyArray
         }
     }

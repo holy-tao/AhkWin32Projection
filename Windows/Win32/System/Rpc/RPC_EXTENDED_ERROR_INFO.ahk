@@ -131,7 +131,7 @@ class RPC_EXTENDED_ERROR_INFO extends Win32Struct
     Parameters{
         get {
             if(!this.HasProp("__ParametersProxyArray"))
-                this.__ParametersProxyArray := Win32FixedArray(this.ptr + 48, 8, RPC_EE_INFO_PARAM, "")
+                this.__ParametersProxyArray := Win32FixedArray(this.ptr + 48, 4, RPC_EE_INFO_PARAM, "")
             return this.__ParametersProxyArray
         }
     }

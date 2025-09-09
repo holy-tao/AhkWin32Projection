@@ -33,7 +33,7 @@ class DVD_STRUCTURE_LIST_ENTRY extends Win32Struct
     FormatLength{
         get {
             if(!this.HasProp("__FormatLengthProxyArray"))
-                this.__FormatLengthProxyArray := Win32FixedArray(this.ptr + 2, 1, Primitive, "char")
+                this.__FormatLengthProxyArray := Win32FixedArray(this.ptr + 2, 2, Primitive, "char")
             return this.__FormatLengthProxyArray
         }
     }

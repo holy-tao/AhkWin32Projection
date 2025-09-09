@@ -97,7 +97,7 @@ class SCRUB_DATA_OUTPUT extends Win32Struct
     Reserved{
         get {
             if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 60, 4, Primitive, "uint")
+                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 60, 9, Primitive, "uint")
             return this.__ReservedProxyArray
         }
     }
@@ -204,7 +204,7 @@ class SCRUB_DATA_OUTPUT extends Win32Struct
     ResumeContext{
         get {
             if(!this.HasProp("__ResumeContextProxyArray"))
-                this.__ResumeContextProxyArray := Win32FixedArray(this.ptr + 192, 1, Primitive, "char")
+                this.__ResumeContextProxyArray := Win32FixedArray(this.ptr + 192, 1040, Primitive, "char")
             return this.__ResumeContextProxyArray
         }
     }

@@ -40,7 +40,7 @@ class DS_REPL_KCC_DSA_FAILURESW extends Win32Struct
     rgDsaFailure{
         get {
             if(!this.HasProp("__rgDsaFailureProxyArray"))
-                this.__rgDsaFailureProxyArray := Win32FixedArray(this.ptr + 8, 8, DS_REPL_KCC_DSA_FAILUREW, "")
+                this.__rgDsaFailureProxyArray := Win32FixedArray(this.ptr + 8, 1, DS_REPL_KCC_DSA_FAILUREW, "")
             return this.__rgDsaFailureProxyArray
         }
     }

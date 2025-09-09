@@ -48,7 +48,7 @@ class EMRPLGBLT extends Win32Struct
     aptlDest{
         get {
             if(!this.HasProp("__aptlDestProxyArray"))
-                this.__aptlDestProxyArray := Win32FixedArray(this.ptr + 24, 8, POINTL, "")
+                this.__aptlDestProxyArray := Win32FixedArray(this.ptr + 24, 3, POINTL, "")
             return this.__aptlDestProxyArray
         }
     }

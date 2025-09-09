@@ -58,7 +58,7 @@ class STORAGE_DEVICE_TIERING_DESCRIPTOR extends Win32Struct
     Tiers{
         get {
             if(!this.HasProp("__TiersProxyArray"))
-                this.__TiersProxyArray := Win32FixedArray(this.ptr + 24, 8, STORAGE_TIER, "")
+                this.__TiersProxyArray := Win32FixedArray(this.ptr + 24, 1, STORAGE_TIER, "")
             return this.__TiersProxyArray
         }
     }

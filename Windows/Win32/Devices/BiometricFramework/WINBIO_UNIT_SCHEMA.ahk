@@ -89,7 +89,7 @@ class WINBIO_UNIT_SCHEMA extends Win32Struct
     DeviceInstanceId{
         get {
             if(!this.HasProp("__DeviceInstanceIdProxyArray"))
-                this.__DeviceInstanceIdProxyArray := Win32FixedArray(this.ptr + 20, 2, Primitive, "ushort")
+                this.__DeviceInstanceIdProxyArray := Win32FixedArray(this.ptr + 20, 256, Primitive, "ushort")
             return this.__DeviceInstanceIdProxyArray
         }
     }
@@ -101,7 +101,7 @@ class WINBIO_UNIT_SCHEMA extends Win32Struct
     Description{
         get {
             if(!this.HasProp("__DescriptionProxyArray"))
-                this.__DescriptionProxyArray := Win32FixedArray(this.ptr + 532, 2, Primitive, "ushort")
+                this.__DescriptionProxyArray := Win32FixedArray(this.ptr + 532, 256, Primitive, "ushort")
             return this.__DescriptionProxyArray
         }
     }
@@ -113,7 +113,7 @@ class WINBIO_UNIT_SCHEMA extends Win32Struct
     Manufacturer{
         get {
             if(!this.HasProp("__ManufacturerProxyArray"))
-                this.__ManufacturerProxyArray := Win32FixedArray(this.ptr + 1044, 2, Primitive, "ushort")
+                this.__ManufacturerProxyArray := Win32FixedArray(this.ptr + 1044, 256, Primitive, "ushort")
             return this.__ManufacturerProxyArray
         }
     }
@@ -125,7 +125,7 @@ class WINBIO_UNIT_SCHEMA extends Win32Struct
     Model{
         get {
             if(!this.HasProp("__ModelProxyArray"))
-                this.__ModelProxyArray := Win32FixedArray(this.ptr + 1556, 2, Primitive, "ushort")
+                this.__ModelProxyArray := Win32FixedArray(this.ptr + 1556, 256, Primitive, "ushort")
             return this.__ModelProxyArray
         }
     }
@@ -137,7 +137,7 @@ class WINBIO_UNIT_SCHEMA extends Win32Struct
     SerialNumber{
         get {
             if(!this.HasProp("__SerialNumberProxyArray"))
-                this.__SerialNumberProxyArray := Win32FixedArray(this.ptr + 2068, 2, Primitive, "ushort")
+                this.__SerialNumberProxyArray := Win32FixedArray(this.ptr + 2068, 256, Primitive, "ushort")
             return this.__SerialNumberProxyArray
         }
     }

@@ -126,7 +126,7 @@ class PARAFORMAT extends Win32Struct
     rgxTabs{
         get {
             if(!this.HasProp("__rgxTabsProxyArray"))
-                this.__rgxTabsProxyArray := Win32FixedArray(this.ptr + 28, 4, Primitive, "uint")
+                this.__rgxTabsProxyArray := Win32FixedArray(this.ptr + 28, 32, Primitive, "uint")
             return this.__rgxTabsProxyArray
         }
     }

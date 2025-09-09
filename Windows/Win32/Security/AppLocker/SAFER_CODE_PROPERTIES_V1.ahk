@@ -157,7 +157,7 @@ class SAFER_CODE_PROPERTIES_V1 extends Win32Struct
     ImageHash{
         get {
             if(!this.HasProp("__ImageHashProxyArray"))
-                this.__ImageHashProxyArray := Win32FixedArray(this.ptr + 28, 1, Primitive, "char")
+                this.__ImageHashProxyArray := Win32FixedArray(this.ptr + 28, 64, Primitive, "char")
             return this.__ImageHashProxyArray
         }
     }

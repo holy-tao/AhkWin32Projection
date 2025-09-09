@@ -198,7 +198,7 @@ class MIB_IPMCAST_MFE extends Win32Struct
     rgmioOutInfo{
         get {
             if(!this.HasProp("__rgmioOutInfoProxyArray"))
-                this.__rgmioOutInfoProxyArray := Win32FixedArray(this.ptr + 64, 8, MIB_IPMCAST_OIF_XP, "")
+                this.__rgmioOutInfoProxyArray := Win32FixedArray(this.ptr + 64, 1, MIB_IPMCAST_OIF_XP, "")
             return this.__rgmioOutInfoProxyArray
         }
     }

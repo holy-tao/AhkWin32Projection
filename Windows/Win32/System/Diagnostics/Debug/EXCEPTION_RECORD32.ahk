@@ -57,7 +57,7 @@ class EXCEPTION_RECORD32 extends Win32Struct
     ExceptionInformation{
         get {
             if(!this.HasProp("__ExceptionInformationProxyArray"))
-                this.__ExceptionInformationProxyArray := Win32FixedArray(this.ptr + 20, 4, Primitive, "uint")
+                this.__ExceptionInformationProxyArray := Win32FixedArray(this.ptr + 20, 15, Primitive, "uint")
             return this.__ExceptionInformationProxyArray
         }
     }

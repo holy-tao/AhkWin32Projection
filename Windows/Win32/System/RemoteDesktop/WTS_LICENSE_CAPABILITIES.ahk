@@ -67,7 +67,7 @@ class WTS_LICENSE_CAPABILITIES extends Win32Struct
     rgbClientName{
         get {
             if(!this.HasProp("__rgbClientNameProxyArray"))
-                this.__rgbClientNameProxyArray := Win32FixedArray(this.ptr + 20, 1, Primitive, "char")
+                this.__rgbClientNameProxyArray := Win32FixedArray(this.ptr + 20, 42, Primitive, "char")
             return this.__rgbClientNameProxyArray
         }
     }

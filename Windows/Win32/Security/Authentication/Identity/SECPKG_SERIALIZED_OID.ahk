@@ -38,7 +38,7 @@ class SECPKG_SERIALIZED_OID extends Win32Struct
     OidValue{
         get {
             if(!this.HasProp("__OidValueProxyArray"))
-                this.__OidValueProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "char")
+                this.__OidValueProxyArray := Win32FixedArray(this.ptr + 8, 32, Primitive, "char")
             return this.__OidValueProxyArray
         }
     }

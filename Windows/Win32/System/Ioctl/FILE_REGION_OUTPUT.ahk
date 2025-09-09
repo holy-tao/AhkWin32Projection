@@ -50,7 +50,7 @@ class FILE_REGION_OUTPUT extends Win32Struct
     Region{
         get {
             if(!this.HasProp("__RegionProxyArray"))
-                this.__RegionProxyArray := Win32FixedArray(this.ptr + 16, 8, FILE_REGION_INFO, "")
+                this.__RegionProxyArray := Win32FixedArray(this.ptr + 16, 1, FILE_REGION_INFO, "")
             return this.__RegionProxyArray
         }
     }

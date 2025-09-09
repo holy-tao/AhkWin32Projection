@@ -26,7 +26,7 @@ class DvbParentalRatingDescriptor extends Win32Struct
     pParams{
         get {
             if(!this.HasProp("__pParamsProxyArray"))
-                this.__pParamsProxyArray := Win32FixedArray(this.ptr + 8, 8, DvbParentalRatingParam, "")
+                this.__pParamsProxyArray := Win32FixedArray(this.ptr + 8, 1, DvbParentalRatingParam, "")
             return this.__pParamsProxyArray
         }
     }

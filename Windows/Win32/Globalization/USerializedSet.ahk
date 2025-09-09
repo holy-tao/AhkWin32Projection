@@ -41,7 +41,7 @@ class USerializedSet extends Win32Struct
     staticArray{
         get {
             if(!this.HasProp("__staticArrayProxyArray"))
-                this.__staticArrayProxyArray := Win32FixedArray(this.ptr + 16, 2, Primitive, "ushort")
+                this.__staticArrayProxyArray := Win32FixedArray(this.ptr + 16, 8, Primitive, "ushort")
             return this.__staticArrayProxyArray
         }
     }

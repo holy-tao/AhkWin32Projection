@@ -25,7 +25,7 @@ class USB_DEVICE_CHARACTERISTICS extends Win32Struct
     Reserved{
         get {
             if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 4, 4, Primitive, "uint")
+                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 4, 2, Primitive, "uint")
             return this.__ReservedProxyArray
         }
     }

@@ -30,7 +30,7 @@ class MEM_LARGE_RESOURCE extends Win32Struct
     MEM_LARGE_Data{
         get {
             if(!this.HasProp("__MEM_LARGE_DataProxyArray"))
-                this.__MEM_LARGE_DataProxyArray := Win32FixedArray(this.ptr + 32, 8, MEM_LARGE_RANGE, "")
+                this.__MEM_LARGE_DataProxyArray := Win32FixedArray(this.ptr + 32, 1, MEM_LARGE_RANGE, "")
             return this.__MEM_LARGE_DataProxyArray
         }
     }

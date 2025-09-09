@@ -33,7 +33,7 @@ class WINHTTP_REQUEST_TIMES extends Win32Struct
     rgullTimes{
         get {
             if(!this.HasProp("__rgullTimesProxyArray"))
-                this.__rgullTimesProxyArray := Win32FixedArray(this.ptr + 4, 8, Primitive, "uint")
+                this.__rgullTimesProxyArray := Win32FixedArray(this.ptr + 4, 64, Primitive, "uint")
             return this.__rgullTimesProxyArray
         }
     }

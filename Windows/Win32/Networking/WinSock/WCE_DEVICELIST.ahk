@@ -26,7 +26,7 @@ class WCE_DEVICELIST extends Win32Struct
     Device{
         get {
             if(!this.HasProp("__DeviceProxyArray"))
-                this.__DeviceProxyArray := Win32FixedArray(this.ptr + 8, 8, WCE_IRDA_DEVICE_INFO, "")
+                this.__DeviceProxyArray := Win32FixedArray(this.ptr + 8, 1, WCE_IRDA_DEVICE_INFO, "")
             return this.__DeviceProxyArray
         }
     }

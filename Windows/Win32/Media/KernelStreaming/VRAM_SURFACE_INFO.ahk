@@ -73,7 +73,7 @@ class VRAM_SURFACE_INFO extends Win32Struct
     ullReserved{
         get {
             if(!this.HasProp("__ullReservedProxyArray"))
-                this.__ullReservedProxyArray := Win32FixedArray(this.ptr + 40, 8, Primitive, "uint")
+                this.__ullReservedProxyArray := Win32FixedArray(this.ptr + 40, 16, Primitive, "uint")
             return this.__ullReservedProxyArray
         }
     }

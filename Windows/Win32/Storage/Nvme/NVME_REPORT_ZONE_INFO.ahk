@@ -26,7 +26,7 @@ class NVME_REPORT_ZONE_INFO extends Win32Struct
     Reserved{
         get {
             if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 8, 8, Primitive, "uint")
+                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 8, 7, Primitive, "uint")
             return this.__ReservedProxyArray
         }
     }
@@ -37,7 +37,7 @@ class NVME_REPORT_ZONE_INFO extends Win32Struct
     ZoneDescriptor{
         get {
             if(!this.HasProp("__ZoneDescriptorProxyArray"))
-                this.__ZoneDescriptorProxyArray := Win32FixedArray(this.ptr + 64, 8, NVME_ZONE_DESCRIPTOR, "")
+                this.__ZoneDescriptorProxyArray := Win32FixedArray(this.ptr + 64, 1, NVME_ZONE_DESCRIPTOR, "")
             return this.__ZoneDescriptorProxyArray
         }
     }

@@ -65,7 +65,7 @@ class NVME_PERSISTENT_EVENT_LOG_EVENT_HEADER extends Win32Struct
     Reserved1{
         get {
             if(!this.HasProp("__Reserved1ProxyArray"))
-                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 14, 1, Primitive, "char")
+                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 14, 6, Primitive, "char")
             return this.__Reserved1ProxyArray
         }
     }

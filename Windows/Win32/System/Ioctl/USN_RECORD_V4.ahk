@@ -425,7 +425,7 @@ class USN_RECORD_V4 extends Win32Struct
     Extents{
         get {
             if(!this.HasProp("__ExtentsProxyArray"))
-                this.__ExtentsProxyArray := Win32FixedArray(this.ptr + 64, 8, USN_RECORD_EXTENT, "")
+                this.__ExtentsProxyArray := Win32FixedArray(this.ptr + 64, 1, USN_RECORD_EXTENT, "")
             return this.__ExtentsProxyArray
         }
     }

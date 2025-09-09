@@ -41,7 +41,7 @@ class DOT11_SEND_INVITATION_REQUEST_PARAMETERS extends Win32Struct
     PeerDeviceAddress{
         get {
             if(!this.HasProp("__PeerDeviceAddressProxyArray"))
-                this.__PeerDeviceAddressProxyArray := Win32FixedArray(this.ptr + 5, 1, Primitive, "char")
+                this.__PeerDeviceAddressProxyArray := Win32FixedArray(this.ptr + 5, 6, Primitive, "char")
             return this.__PeerDeviceAddressProxyArray
         }
     }
@@ -79,7 +79,7 @@ class DOT11_SEND_INVITATION_REQUEST_PARAMETERS extends Win32Struct
     GroupBSSID{
         get {
             if(!this.HasProp("__GroupBSSIDProxyArray"))
-                this.__GroupBSSIDProxyArray := Win32FixedArray(this.ptr + 19, 1, Primitive, "char")
+                this.__GroupBSSIDProxyArray := Win32FixedArray(this.ptr + 19, 6, Primitive, "char")
             return this.__GroupBSSIDProxyArray
         }
     }

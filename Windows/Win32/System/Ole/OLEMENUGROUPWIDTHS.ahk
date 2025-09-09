@@ -22,7 +22,7 @@ class OLEMENUGROUPWIDTHS extends Win32Struct
     width{
         get {
             if(!this.HasProp("__widthProxyArray"))
-                this.__widthProxyArray := Win32FixedArray(this.ptr + 0, 4, Primitive, "int")
+                this.__widthProxyArray := Win32FixedArray(this.ptr + 0, 6, Primitive, "int")
             return this.__widthProxyArray
         }
     }

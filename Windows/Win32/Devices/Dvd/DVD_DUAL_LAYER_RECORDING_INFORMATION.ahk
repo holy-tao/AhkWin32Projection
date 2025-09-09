@@ -25,7 +25,7 @@ class DVD_DUAL_LAYER_RECORDING_INFORMATION extends Win32Struct
     Reserved1{
         get {
             if(!this.HasProp("__Reserved1ProxyArray"))
-                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 1, 1, Primitive, "char")
+                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 1, 3, Primitive, "char")
             return this.__Reserved1ProxyArray
         }
     }
@@ -36,7 +36,7 @@ class DVD_DUAL_LAYER_RECORDING_INFORMATION extends Win32Struct
     Layer0Sectors{
         get {
             if(!this.HasProp("__Layer0SectorsProxyArray"))
-                this.__Layer0SectorsProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")
+                this.__Layer0SectorsProxyArray := Win32FixedArray(this.ptr + 4, 4, Primitive, "char")
             return this.__Layer0SectorsProxyArray
         }
     }

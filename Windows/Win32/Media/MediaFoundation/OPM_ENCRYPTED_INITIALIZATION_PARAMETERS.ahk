@@ -22,7 +22,7 @@ class OPM_ENCRYPTED_INITIALIZATION_PARAMETERS extends Win32Struct
     abEncryptedInitializationParameters{
         get {
             if(!this.HasProp("__abEncryptedInitializationParametersProxyArray"))
-                this.__abEncryptedInitializationParametersProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__abEncryptedInitializationParametersProxyArray := Win32FixedArray(this.ptr + 0, 256, Primitive, "char")
             return this.__abEncryptedInitializationParametersProxyArray
         }
     }

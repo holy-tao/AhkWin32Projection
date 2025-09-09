@@ -25,7 +25,7 @@ class DELETE_PORT_DATA_1 extends Win32Struct
     Reserved{
         get {
             if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 128, 1, Primitive, "char")
+                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 128, 98, Primitive, "char")
             return this.__ReservedProxyArray
         }
     }

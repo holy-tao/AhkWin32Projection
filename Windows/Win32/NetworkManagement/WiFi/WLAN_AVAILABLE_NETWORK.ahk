@@ -220,7 +220,7 @@ class WLAN_AVAILABLE_NETWORK extends Win32Struct
     dot11PhyTypes{
         get {
             if(!this.HasProp("__dot11PhyTypesProxyArray"))
-                this.__dot11PhyTypesProxyArray := Win32FixedArray(this.ptr + 568, 4, Primitive, "int")
+                this.__dot11PhyTypesProxyArray := Win32FixedArray(this.ptr + 568, 8, Primitive, "int")
             return this.__dot11PhyTypesProxyArray
         }
     }

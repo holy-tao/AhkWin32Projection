@@ -42,7 +42,7 @@ class SD_ENUM_SDS_OUTPUT extends Win32Struct
     SDEntry{
         get {
             if(!this.HasProp("__SDEntryProxyArray"))
-                this.__SDEntryProxyArray := Win32FixedArray(this.ptr + 24, 8, SD_ENUM_SDS_ENTRY, "")
+                this.__SDEntryProxyArray := Win32FixedArray(this.ptr + 24, 1, SD_ENUM_SDS_ENTRY, "")
             return this.__SDEntryProxyArray
         }
     }

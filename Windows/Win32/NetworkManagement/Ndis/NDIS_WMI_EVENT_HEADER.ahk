@@ -81,7 +81,7 @@ class NDIS_WMI_EVENT_HEADER extends Win32Struct
     Padding{
         get {
             if(!this.HasProp("__PaddingProxyArray"))
-                this.__PaddingProxyArray := Win32FixedArray(this.ptr + 44, 1, Primitive, "char")
+                this.__PaddingProxyArray := Win32FixedArray(this.ptr + 44, 4, Primitive, "char")
             return this.__PaddingProxyArray
         }
     }

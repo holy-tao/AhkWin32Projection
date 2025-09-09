@@ -26,7 +26,7 @@ class SCSI_ADAPTER_BUS_INFO extends Win32Struct
     BusData{
         get {
             if(!this.HasProp("__BusDataProxyArray"))
-                this.__BusDataProxyArray := Win32FixedArray(this.ptr + 8, 8, SCSI_BUS_DATA, "")
+                this.__BusDataProxyArray := Win32FixedArray(this.ptr + 8, 1, SCSI_BUS_DATA, "")
             return this.__BusDataProxyArray
         }
     }

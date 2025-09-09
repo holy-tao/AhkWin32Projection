@@ -25,7 +25,7 @@ class DVD_ATR extends Win32Struct
     pbATRI{
         get {
             if(!this.HasProp("__pbATRIProxyArray"))
-                this.__pbATRIProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")
+                this.__pbATRIProxyArray := Win32FixedArray(this.ptr + 4, 768, Primitive, "char")
             return this.__pbATRIProxyArray
         }
     }

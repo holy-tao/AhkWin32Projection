@@ -41,7 +41,7 @@ class DCISURFACEINFO extends Win32Struct
     dwMask{
         get {
             if(!this.HasProp("__dwMaskProxyArray"))
-                this.__dwMaskProxyArray := Win32FixedArray(this.ptr + 12, 4, Primitive, "uint")
+                this.__dwMaskProxyArray := Win32FixedArray(this.ptr + 12, 3, Primitive, "uint")
             return this.__dwMaskProxyArray
         }
     }

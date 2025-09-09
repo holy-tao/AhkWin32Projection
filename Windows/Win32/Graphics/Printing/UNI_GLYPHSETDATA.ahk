@@ -97,7 +97,7 @@ class UNI_GLYPHSETDATA extends Win32Struct
     dwReserved{
         get {
             if(!this.HasProp("__dwReservedProxyArray"))
-                this.__dwReservedProxyArray := Win32FixedArray(this.ptr + 40, 4, Primitive, "uint")
+                this.__dwReservedProxyArray := Win32FixedArray(this.ptr + 40, 2, Primitive, "uint")
             return this.__dwReservedProxyArray
         }
     }

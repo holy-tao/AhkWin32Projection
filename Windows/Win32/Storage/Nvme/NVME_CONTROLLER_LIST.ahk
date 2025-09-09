@@ -35,7 +35,7 @@ class NVME_CONTROLLER_LIST extends Win32Struct
     ControllerID{
         get {
             if(!this.HasProp("__ControllerIDProxyArray"))
-                this.__ControllerIDProxyArray := Win32FixedArray(this.ptr + 2, 2, Primitive, "ushort")
+                this.__ControllerIDProxyArray := Win32FixedArray(this.ptr + 2, 2047, Primitive, "ushort")
             return this.__ControllerIDProxyArray
         }
     }

@@ -65,7 +65,7 @@ class SCHANNEL_CERT_HASH extends Win32Struct
     ShaHash{
         get {
             if(!this.HasProp("__ShaHashProxyArray"))
-                this.__ShaHashProxyArray := Win32FixedArray(this.ptr + 16, 1, Primitive, "char")
+                this.__ShaHashProxyArray := Win32FixedArray(this.ptr + 16, 20, Primitive, "char")
             return this.__ShaHashProxyArray
         }
     }

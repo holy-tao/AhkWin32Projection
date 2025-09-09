@@ -17,7 +17,7 @@ class FSCTL_QUERY_FAT_BPB_BUFFER extends Win32Struct
     First0x24BytesOfBootSector{
         get {
             if(!this.HasProp("__First0x24BytesOfBootSectorProxyArray"))
-                this.__First0x24BytesOfBootSectorProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__First0x24BytesOfBootSectorProxyArray := Win32FixedArray(this.ptr + 0, 36, Primitive, "char")
             return this.__First0x24BytesOfBootSectorProxyArray
         }
     }

@@ -22,7 +22,7 @@ class DRM_VAL16 extends Win32Struct
     val{
         get {
             if(!this.HasProp("__valProxyArray"))
-                this.__valProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__valProxyArray := Win32FixedArray(this.ptr + 0, 16, Primitive, "char")
             return this.__valProxyArray
         }
     }

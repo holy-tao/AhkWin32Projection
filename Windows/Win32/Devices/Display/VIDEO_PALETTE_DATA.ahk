@@ -33,7 +33,7 @@ class VIDEO_PALETTE_DATA extends Win32Struct
     Colors{
         get {
             if(!this.HasProp("__ColorsProxyArray"))
-                this.__ColorsProxyArray := Win32FixedArray(this.ptr + 4, 2, Primitive, "ushort")
+                this.__ColorsProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "ushort")
             return this.__ColorsProxyArray
         }
     }

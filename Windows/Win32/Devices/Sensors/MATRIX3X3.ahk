@@ -123,7 +123,7 @@ class MATRIX3X3 extends Win32Struct
     M{
         get {
             if(!this.HasProp("__MProxyArray"))
-                this.__MProxyArray := Win32FixedArray(this.ptr + 0, 4, Primitive, "float")
+                this.__MProxyArray := Win32FixedArray(this.ptr + 0, 9, Primitive, "float")
             return this.__MProxyArray
         }
     }

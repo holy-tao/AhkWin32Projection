@@ -44,7 +44,7 @@ class TTPOLYCURVE extends Win32Struct
     apfx{
         get {
             if(!this.HasProp("__apfxProxyArray"))
-                this.__apfxProxyArray := Win32FixedArray(this.ptr + 8, 8, POINTFX, "")
+                this.__apfxProxyArray := Win32FixedArray(this.ptr + 8, 1, POINTFX, "")
             return this.__apfxProxyArray
         }
     }

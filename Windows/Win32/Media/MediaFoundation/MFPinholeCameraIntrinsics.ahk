@@ -33,7 +33,7 @@ class MFPinholeCameraIntrinsics extends Win32Struct
     IntrinsicModels{
         get {
             if(!this.HasProp("__IntrinsicModelsProxyArray"))
-                this.__IntrinsicModelsProxyArray := Win32FixedArray(this.ptr + 8, 8, MFPinholeCameraIntrinsic_IntrinsicModel, "")
+                this.__IntrinsicModelsProxyArray := Win32FixedArray(this.ptr + 8, 1, MFPinholeCameraIntrinsic_IntrinsicModel, "")
             return this.__IntrinsicModelsProxyArray
         }
     }

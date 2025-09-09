@@ -90,7 +90,7 @@ class AVITIMEDINDEX extends Win32Struct
     aIndex{
         get {
             if(!this.HasProp("__aIndexProxyArray"))
-                this.__aIndexProxyArray := Win32FixedArray(this.ptr + 32, 8, AVITIMEDINDEX_ENTRY, "")
+                this.__aIndexProxyArray := Win32FixedArray(this.ptr + 32, 1362, AVITIMEDINDEX_ENTRY, "")
             return this.__aIndexProxyArray
         }
     }
@@ -101,7 +101,7 @@ class AVITIMEDINDEX extends Win32Struct
     adwTrailingFill{
         get {
             if(!this.HasProp("__adwTrailingFillProxyArray"))
-                this.__adwTrailingFillProxyArray := Win32FixedArray(this.ptr + 10928, 4, Primitive, "uint")
+                this.__adwTrailingFillProxyArray := Win32FixedArray(this.ptr + 10928, 2734, Primitive, "uint")
             return this.__adwTrailingFillProxyArray
         }
     }

@@ -26,7 +26,7 @@ class DFS_SITELIST_INFO extends Win32Struct
     Site{
         get {
             if(!this.HasProp("__SiteProxyArray"))
-                this.__SiteProxyArray := Win32FixedArray(this.ptr + 8, 8, DFS_SITENAME_INFO, "")
+                this.__SiteProxyArray := Win32FixedArray(this.ptr + 8, 1, DFS_SITENAME_INFO, "")
             return this.__SiteProxyArray
         }
     }

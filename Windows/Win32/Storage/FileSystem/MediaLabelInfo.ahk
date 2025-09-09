@@ -39,7 +39,7 @@ class MediaLabelInfo extends Win32Struct
     LabelID{
         get {
             if(!this.HasProp("__LabelIDProxyArray"))
-                this.__LabelIDProxyArray := Win32FixedArray(this.ptr + 132, 1, Primitive, "char")
+                this.__LabelIDProxyArray := Win32FixedArray(this.ptr + 132, 256, Primitive, "char")
             return this.__LabelIDProxyArray
         }
     }

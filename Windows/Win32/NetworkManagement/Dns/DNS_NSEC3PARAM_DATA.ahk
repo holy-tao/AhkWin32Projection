@@ -49,7 +49,7 @@ class DNS_NSEC3PARAM_DATA extends Win32Struct
     bPad{
         get {
             if(!this.HasProp("__bPadProxyArray"))
-                this.__bPadProxyArray := Win32FixedArray(this.ptr + 5, 1, Primitive, "char")
+                this.__bPadProxyArray := Win32FixedArray(this.ptr + 5, 3, Primitive, "char")
             return this.__bPadProxyArray
         }
     }

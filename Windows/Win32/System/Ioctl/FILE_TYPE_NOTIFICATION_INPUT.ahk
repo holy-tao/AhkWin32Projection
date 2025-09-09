@@ -33,7 +33,7 @@ class FILE_TYPE_NOTIFICATION_INPUT extends Win32Struct
     FileTypeID{
         get {
             if(!this.HasProp("__FileTypeIDProxyArray"))
-                this.__FileTypeIDProxyArray := Win32FixedArray(this.ptr + 8, 8, Primitive, "ptr")
+                this.__FileTypeIDProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "ptr")
             return this.__FileTypeIDProxyArray
         }
     }

@@ -80,7 +80,7 @@ class FWPM_NET_EVENT_IKEEXT_EM_FAILURE0 extends Win32Struct
     endCertHash{
         get {
             if(!this.HasProp("__endCertHashProxyArray"))
-                this.__endCertHashProxyArray := Win32FixedArray(this.ptr + 24, 1, Primitive, "char")
+                this.__endCertHashProxyArray := Win32FixedArray(this.ptr + 24, 20, Primitive, "char")
             return this.__endCertHashProxyArray
         }
     }

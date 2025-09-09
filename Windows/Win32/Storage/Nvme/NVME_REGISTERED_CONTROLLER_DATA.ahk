@@ -33,7 +33,7 @@ class NVME_REGISTERED_CONTROLLER_DATA extends Win32Struct
     Reserved{
         get {
             if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 3, 1, Primitive, "char")
+                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 3, 5, Primitive, "char")
             return this.__ReservedProxyArray
         }
     }
@@ -44,7 +44,7 @@ class NVME_REGISTERED_CONTROLLER_DATA extends Win32Struct
     HOSTID{
         get {
             if(!this.HasProp("__HOSTIDProxyArray"))
-                this.__HOSTIDProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "char")
+                this.__HOSTIDProxyArray := Win32FixedArray(this.ptr + 8, 8, Primitive, "char")
             return this.__HOSTIDProxyArray
         }
     }

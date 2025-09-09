@@ -20,7 +20,7 @@ class SimilarityFileId extends Win32Struct
     m_FileId{
         get {
             if(!this.HasProp("__m_FileIdProxyArray"))
-                this.__m_FileIdProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__m_FileIdProxyArray := Win32FixedArray(this.ptr + 0, 32, Primitive, "char")
             return this.__m_FileIdProxyArray
         }
     }

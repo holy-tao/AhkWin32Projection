@@ -57,7 +57,7 @@ class STORAGE_ALLOCATE_BC_STREAM_INPUT extends Win32Struct
     Reserved1{
         get {
             if(!this.HasProp("__Reserved1ProxyArray"))
-                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 14, 1, Primitive, "char")
+                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 14, 2, Primitive, "char")
             return this.__Reserved1ProxyArray
         }
     }

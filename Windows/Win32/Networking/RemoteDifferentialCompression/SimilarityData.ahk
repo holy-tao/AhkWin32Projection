@@ -20,7 +20,7 @@ class SimilarityData extends Win32Struct
     m_Data{
         get {
             if(!this.HasProp("__m_DataProxyArray"))
-                this.__m_DataProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__m_DataProxyArray := Win32FixedArray(this.ptr + 0, 16, Primitive, "char")
             return this.__m_DataProxyArray
         }
     }

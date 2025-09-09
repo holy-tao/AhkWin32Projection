@@ -39,7 +39,7 @@ class RPC_IF_ID_VECTOR extends Win32Struct
     IfId{
         get {
             if(!this.HasProp("__IfIdProxyArray"))
-                this.__IfIdProxyArray := Win32FixedArray(this.ptr + 8, 8, Primitive, "ptr")
+                this.__IfIdProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "ptr")
             return this.__IfIdProxyArray
         }
     }

@@ -66,7 +66,7 @@ class WIA_MICR extends Win32Struct
     Micr{
         get {
             if(!this.HasProp("__MicrProxyArray"))
-                this.__MicrProxyArray := Win32FixedArray(this.ptr + 24, 8, WIA_MICR_INFO, "")
+                this.__MicrProxyArray := Win32FixedArray(this.ptr + 24, 1, WIA_MICR_INFO, "")
             return this.__MicrProxyArray
         }
     }

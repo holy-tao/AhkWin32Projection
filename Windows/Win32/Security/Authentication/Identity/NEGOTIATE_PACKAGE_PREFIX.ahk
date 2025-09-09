@@ -49,7 +49,7 @@ class NEGOTIATE_PACKAGE_PREFIX extends Win32Struct
     Prefix{
         get {
             if(!this.HasProp("__PrefixProxyArray"))
-                this.__PrefixProxyArray := Win32FixedArray(this.ptr + 32, 1, Primitive, "char")
+                this.__PrefixProxyArray := Win32FixedArray(this.ptr + 32, 32, Primitive, "char")
             return this.__PrefixProxyArray
         }
     }

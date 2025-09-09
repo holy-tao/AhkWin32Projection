@@ -33,7 +33,7 @@ class NDIS_802_11_REMOVE_KEY extends Win32Struct
     BSSID{
         get {
             if(!this.HasProp("__BSSIDProxyArray"))
-                this.__BSSIDProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "char")
+                this.__BSSIDProxyArray := Win32FixedArray(this.ptr + 8, 6, Primitive, "char")
             return this.__BSSIDProxyArray
         }
     }

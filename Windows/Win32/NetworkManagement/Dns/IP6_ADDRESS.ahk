@@ -31,7 +31,7 @@ class IP6_ADDRESS extends Win32Struct
     IP6Word{
         get {
             if(!this.HasProp("__IP6WordProxyArray"))
-                this.__IP6WordProxyArray := Win32FixedArray(this.ptr + 0, 2, Primitive, "ushort")
+                this.__IP6WordProxyArray := Win32FixedArray(this.ptr + 0, 8, Primitive, "ushort")
             return this.__IP6WordProxyArray
         }
     }
@@ -42,7 +42,7 @@ class IP6_ADDRESS extends Win32Struct
     IP6Byte{
         get {
             if(!this.HasProp("__IP6ByteProxyArray"))
-                this.__IP6ByteProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__IP6ByteProxyArray := Win32FixedArray(this.ptr + 0, 16, Primitive, "char")
             return this.__IP6ByteProxyArray
         }
     }

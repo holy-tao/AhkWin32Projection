@@ -30,7 +30,7 @@ class WLAN_AUTH_CIPHER_PAIR_LIST extends Win32Struct
     pAuthCipherPairList{
         get {
             if(!this.HasProp("__pAuthCipherPairListProxyArray"))
-                this.__pAuthCipherPairListProxyArray := Win32FixedArray(this.ptr + 8, 8, DOT11_AUTH_CIPHER_PAIR, "")
+                this.__pAuthCipherPairListProxyArray := Win32FixedArray(this.ptr + 8, 1, DOT11_AUTH_CIPHER_PAIR, "")
             return this.__pAuthCipherPairListProxyArray
         }
     }

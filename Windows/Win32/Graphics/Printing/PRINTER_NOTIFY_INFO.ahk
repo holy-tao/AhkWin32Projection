@@ -50,7 +50,7 @@ class PRINTER_NOTIFY_INFO extends Win32Struct
     aData{
         get {
             if(!this.HasProp("__aDataProxyArray"))
-                this.__aDataProxyArray := Win32FixedArray(this.ptr + 16, 8, PRINTER_NOTIFY_INFO_DATA, "")
+                this.__aDataProxyArray := Win32FixedArray(this.ptr + 16, 1, PRINTER_NOTIFY_INFO_DATA, "")
             return this.__aDataProxyArray
         }
     }

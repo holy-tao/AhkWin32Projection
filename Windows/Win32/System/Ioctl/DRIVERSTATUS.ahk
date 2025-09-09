@@ -33,7 +33,7 @@ class DRIVERSTATUS extends Win32Struct
     bReserved{
         get {
             if(!this.HasProp("__bReservedProxyArray"))
-                this.__bReservedProxyArray := Win32FixedArray(this.ptr + 2, 1, Primitive, "char")
+                this.__bReservedProxyArray := Win32FixedArray(this.ptr + 2, 2, Primitive, "char")
             return this.__bReservedProxyArray
         }
     }
@@ -44,7 +44,7 @@ class DRIVERSTATUS extends Win32Struct
     dwReserved{
         get {
             if(!this.HasProp("__dwReservedProxyArray"))
-                this.__dwReservedProxyArray := Win32FixedArray(this.ptr + 4, 4, Primitive, "uint")
+                this.__dwReservedProxyArray := Win32FixedArray(this.ptr + 4, 2, Primitive, "uint")
             return this.__dwReservedProxyArray
         }
     }

@@ -42,7 +42,7 @@ class RTR_INFO_BLOCK_HEADER extends Win32Struct
     TocEntry{
         get {
             if(!this.HasProp("__TocEntryProxyArray"))
-                this.__TocEntryProxyArray := Win32FixedArray(this.ptr + 16, 8, RTR_TOC_ENTRY, "")
+                this.__TocEntryProxyArray := Win32FixedArray(this.ptr + 16, 1, RTR_TOC_ENTRY, "")
             return this.__TocEntryProxyArray
         }
     }

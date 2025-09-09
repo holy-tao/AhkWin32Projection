@@ -17,7 +17,7 @@ class VOLUME_ALLOCATION_HINT_OUTPUT extends Win32Struct
     Bitmap{
         get {
             if(!this.HasProp("__BitmapProxyArray"))
-                this.__BitmapProxyArray := Win32FixedArray(this.ptr + 0, 4, Primitive, "uint")
+                this.__BitmapProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "uint")
             return this.__BitmapProxyArray
         }
     }

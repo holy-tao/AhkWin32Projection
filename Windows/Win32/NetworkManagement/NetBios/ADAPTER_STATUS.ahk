@@ -20,7 +20,7 @@ class ADAPTER_STATUS extends Win32Struct
     adapter_address{
         get {
             if(!this.HasProp("__adapter_addressProxyArray"))
-                this.__adapter_addressProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__adapter_addressProxyArray := Win32FixedArray(this.ptr + 0, 6, Primitive, "char")
             return this.__adapter_addressProxyArray
         }
     }

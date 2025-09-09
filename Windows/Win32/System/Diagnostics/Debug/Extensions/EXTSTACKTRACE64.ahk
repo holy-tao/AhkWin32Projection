@@ -41,7 +41,7 @@ class EXTSTACKTRACE64 extends Win32Struct
     Args{
         get {
             if(!this.HasProp("__ArgsProxyArray"))
-                this.__ArgsProxyArray := Win32FixedArray(this.ptr + 24, 8, Primitive, "uint")
+                this.__ArgsProxyArray := Win32FixedArray(this.ptr + 24, 4, Primitive, "uint")
             return this.__ArgsProxyArray
         }
     }

@@ -65,7 +65,7 @@ class OPTPARAM extends Win32Struct
     dwReserved{
         get {
             if(!this.HasProp("__dwReservedProxyArray"))
-                this.__dwReservedProxyArray := Win32FixedArray(this.ptr + 32, 8, Primitive, "ptr")
+                this.__dwReservedProxyArray := Win32FixedArray(this.ptr + 32, 2, Primitive, "ptr")
             return this.__dwReservedProxyArray
         }
     }

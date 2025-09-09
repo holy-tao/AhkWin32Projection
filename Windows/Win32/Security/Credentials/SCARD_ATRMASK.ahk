@@ -29,7 +29,7 @@ class SCARD_ATRMASK extends Win32Struct
     rgbAtr{
         get {
             if(!this.HasProp("__rgbAtrProxyArray"))
-                this.__rgbAtrProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")
+                this.__rgbAtrProxyArray := Win32FixedArray(this.ptr + 4, 36, Primitive, "char")
             return this.__rgbAtrProxyArray
         }
     }
@@ -41,7 +41,7 @@ class SCARD_ATRMASK extends Win32Struct
     rgbMask{
         get {
             if(!this.HasProp("__rgbMaskProxyArray"))
-                this.__rgbMaskProxyArray := Win32FixedArray(this.ptr + 40, 1, Primitive, "char")
+                this.__rgbMaskProxyArray := Win32FixedArray(this.ptr + 40, 36, Primitive, "char")
             return this.__rgbMaskProxyArray
         }
     }

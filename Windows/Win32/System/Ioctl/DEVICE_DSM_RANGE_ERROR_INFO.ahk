@@ -50,7 +50,7 @@ class DEVICE_DSM_RANGE_ERROR_INFO extends Win32Struct
     Ranges{
         get {
             if(!this.HasProp("__RangesProxyArray"))
-                this.__RangesProxyArray := Win32FixedArray(this.ptr + 16, 8, DEVICE_STORAGE_RANGE_ATTRIBUTES, "")
+                this.__RangesProxyArray := Win32FixedArray(this.ptr + 16, 1, DEVICE_STORAGE_RANGE_ATTRIBUTES, "")
             return this.__RangesProxyArray
         }
     }

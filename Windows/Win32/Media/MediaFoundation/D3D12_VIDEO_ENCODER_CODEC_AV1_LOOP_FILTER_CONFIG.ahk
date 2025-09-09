@@ -17,7 +17,7 @@ class D3D12_VIDEO_ENCODER_CODEC_AV1_LOOP_FILTER_CONFIG extends Win32Struct
     LoopFilterLevel{
         get {
             if(!this.HasProp("__LoopFilterLevelProxyArray"))
-                this.__LoopFilterLevelProxyArray := Win32FixedArray(this.ptr + 0, 8, Primitive, "uint")
+                this.__LoopFilterLevelProxyArray := Win32FixedArray(this.ptr + 0, 2, Primitive, "uint")
             return this.__LoopFilterLevelProxyArray
         }
     }
@@ -87,7 +87,7 @@ class D3D12_VIDEO_ENCODER_CODEC_AV1_LOOP_FILTER_CONFIG extends Win32Struct
     ModeDeltas{
         get {
             if(!this.HasProp("__ModeDeltasProxyArray"))
-                this.__ModeDeltasProxyArray := Win32FixedArray(this.ptr + 128, 8, Primitive, "int64")
+                this.__ModeDeltasProxyArray := Win32FixedArray(this.ptr + 128, 2, Primitive, "int64")
             return this.__ModeDeltasProxyArray
         }
     }

@@ -24,7 +24,7 @@ class D3D12_VIDEO_PROCESS_OUTPUT_STREAM_ARGUMENTS extends Win32Struct
     OutputStream{
         get {
             if(!this.HasProp("__OutputStreamProxyArray"))
-                this.__OutputStreamProxyArray := Win32FixedArray(this.ptr + 0, 8, D3D12_VIDEO_PROCESS_OUTPUT_STREAM, "")
+                this.__OutputStreamProxyArray := Win32FixedArray(this.ptr + 0, 2, D3D12_VIDEO_PROCESS_OUTPUT_STREAM, "")
             return this.__OutputStreamProxyArray
         }
     }

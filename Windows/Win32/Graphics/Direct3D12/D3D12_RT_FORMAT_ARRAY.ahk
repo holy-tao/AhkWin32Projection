@@ -22,7 +22,7 @@ class D3D12_RT_FORMAT_ARRAY extends Win32Struct
     RTFormats{
         get {
             if(!this.HasProp("__RTFormatsProxyArray"))
-                this.__RTFormatsProxyArray := Win32FixedArray(this.ptr + 0, 4, Primitive, "int")
+                this.__RTFormatsProxyArray := Win32FixedArray(this.ptr + 0, 8, Primitive, "int")
             return this.__RTFormatsProxyArray
         }
     }

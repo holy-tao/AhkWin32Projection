@@ -49,7 +49,7 @@ class OIEXT extends Win32Struct
     dwReserved{
         get {
             if(!this.HasProp("__dwReservedProxyArray"))
-                this.__dwReservedProxyArray := Win32FixedArray(this.ptr + 24, 8, Primitive, "ptr")
+                this.__dwReservedProxyArray := Win32FixedArray(this.ptr + 24, 4, Primitive, "ptr")
             return this.__dwReservedProxyArray
         }
     }

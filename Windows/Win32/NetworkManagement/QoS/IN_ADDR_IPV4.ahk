@@ -31,7 +31,7 @@ class IN_ADDR_IPV4 extends Win32Struct
     AddrBytes{
         get {
             if(!this.HasProp("__AddrBytesProxyArray"))
-                this.__AddrBytesProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__AddrBytesProxyArray := Win32FixedArray(this.ptr + 0, 4, Primitive, "char")
             return this.__AddrBytesProxyArray
         }
     }

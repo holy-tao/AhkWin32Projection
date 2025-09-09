@@ -17,7 +17,7 @@ class DIPOVCALIBRATION extends Win32Struct
     lMin{
         get {
             if(!this.HasProp("__lMinProxyArray"))
-                this.__lMinProxyArray := Win32FixedArray(this.ptr + 0, 4, Primitive, "int")
+                this.__lMinProxyArray := Win32FixedArray(this.ptr + 0, 5, Primitive, "int")
             return this.__lMinProxyArray
         }
     }
@@ -28,7 +28,7 @@ class DIPOVCALIBRATION extends Win32Struct
     lMax{
         get {
             if(!this.HasProp("__lMaxProxyArray"))
-                this.__lMaxProxyArray := Win32FixedArray(this.ptr + 20, 4, Primitive, "int")
+                this.__lMaxProxyArray := Win32FixedArray(this.ptr + 20, 5, Primitive, "int")
             return this.__lMaxProxyArray
         }
     }

@@ -34,7 +34,7 @@ class IO_RESOURCE extends Win32Struct
     IO_Data{
         get {
             if(!this.HasProp("__IO_DataProxyArray"))
-                this.__IO_DataProxyArray := Win32FixedArray(this.ptr + 32, 8, IO_RANGE, "")
+                this.__IO_DataProxyArray := Win32FixedArray(this.ptr + 32, 1, IO_RANGE, "")
             return this.__IO_DataProxyArray
         }
     }

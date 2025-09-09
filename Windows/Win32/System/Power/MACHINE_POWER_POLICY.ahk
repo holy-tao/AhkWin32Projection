@@ -128,7 +128,7 @@ class MACHINE_POWER_POLICY extends Win32Struct
     pad1{
         get {
             if(!this.HasProp("__pad1ProxyArray"))
-                this.__pad1ProxyArray := Win32FixedArray(this.ptr + 38, 1, Primitive, "char")
+                this.__pad1ProxyArray := Win32FixedArray(this.ptr + 38, 2, Primitive, "char")
             return this.__pad1ProxyArray
         }
     }

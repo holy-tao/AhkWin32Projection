@@ -50,7 +50,7 @@ class PPM_IDLE_ACCOUNTING extends Win32Struct
     State{
         get {
             if(!this.HasProp("__StateProxyArray"))
-                this.__StateProxyArray := Win32FixedArray(this.ptr + 24, 8, PPM_IDLE_STATE_ACCOUNTING, "")
+                this.__StateProxyArray := Win32FixedArray(this.ptr + 24, 1, PPM_IDLE_STATE_ACCOUNTING, "")
             return this.__StateProxyArray
         }
     }

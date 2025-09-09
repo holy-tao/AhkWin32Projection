@@ -87,7 +87,7 @@ class USB_NODE_CONNECTION_INFORMATION_EX extends Win32Struct
     PipeList{
         get {
             if(!this.HasProp("__PipeListProxyArray"))
-                this.__PipeListProxyArray := Win32FixedArray(this.ptr + 35, 8, USB_PIPE_INFO, "")
+                this.__PipeListProxyArray := Win32FixedArray(this.ptr + 35, 1, USB_PIPE_INFO, "")
             return this.__PipeListProxyArray
         }
     }

@@ -50,7 +50,7 @@ class NDIS_802_11_CAPABILITY extends Win32Struct
     AuthenticationEncryptionSupported{
         get {
             if(!this.HasProp("__AuthenticationEncryptionSupportedProxyArray"))
-                this.__AuthenticationEncryptionSupportedProxyArray := Win32FixedArray(this.ptr + 16, 8, NDIS_802_11_AUTHENTICATION_ENCRYPTION, "")
+                this.__AuthenticationEncryptionSupportedProxyArray := Win32FixedArray(this.ptr + 16, 1, NDIS_802_11_AUTHENTICATION_ENCRYPTION, "")
             return this.__AuthenticationEncryptionSupportedProxyArray
         }
     }

@@ -70,7 +70,7 @@ class WINBIO_SENSOR_ATTRIBUTES extends Win32Struct
     ManufacturerName{
         get {
             if(!this.HasProp("__ManufacturerNameProxyArray"))
-                this.__ManufacturerNameProxyArray := Win32FixedArray(this.ptr + 28, 2, Primitive, "ushort")
+                this.__ManufacturerNameProxyArray := Win32FixedArray(this.ptr + 28, 256, Primitive, "ushort")
             return this.__ManufacturerNameProxyArray
         }
     }
@@ -81,7 +81,7 @@ class WINBIO_SENSOR_ATTRIBUTES extends Win32Struct
     ModelName{
         get {
             if(!this.HasProp("__ModelNameProxyArray"))
-                this.__ModelNameProxyArray := Win32FixedArray(this.ptr + 540, 2, Primitive, "ushort")
+                this.__ModelNameProxyArray := Win32FixedArray(this.ptr + 540, 256, Primitive, "ushort")
             return this.__ModelNameProxyArray
         }
     }
@@ -92,7 +92,7 @@ class WINBIO_SENSOR_ATTRIBUTES extends Win32Struct
     SerialNumber{
         get {
             if(!this.HasProp("__SerialNumberProxyArray"))
-                this.__SerialNumberProxyArray := Win32FixedArray(this.ptr + 1052, 2, Primitive, "ushort")
+                this.__SerialNumberProxyArray := Win32FixedArray(this.ptr + 1052, 256, Primitive, "ushort")
             return this.__SerialNumberProxyArray
         }
     }
@@ -122,7 +122,7 @@ class WINBIO_SENSOR_ATTRIBUTES extends Win32Struct
     SupportedFormat{
         get {
             if(!this.HasProp("__SupportedFormatProxyArray"))
-                this.__SupportedFormatProxyArray := Win32FixedArray(this.ptr + 1584, 8, WINBIO_REGISTERED_FORMAT, "")
+                this.__SupportedFormatProxyArray := Win32FixedArray(this.ptr + 1584, 1, WINBIO_REGISTERED_FORMAT, "")
             return this.__SupportedFormatProxyArray
         }
     }

@@ -40,7 +40,7 @@ class DXGI_GAMMA_CONTROL extends Win32Struct
     GammaCurve{
         get {
             if(!this.HasProp("__GammaCurveProxyArray"))
-                this.__GammaCurveProxyArray := Win32FixedArray(this.ptr + 32, 8, DXGI_RGB, "")
+                this.__GammaCurveProxyArray := Win32FixedArray(this.ptr + 32, 1025, DXGI_RGB, "")
             return this.__GammaCurveProxyArray
         }
     }

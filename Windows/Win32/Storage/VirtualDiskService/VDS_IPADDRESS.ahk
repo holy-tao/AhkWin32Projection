@@ -43,7 +43,7 @@ class VDS_IPADDRESS extends Win32Struct
     ipv6Address{
         get {
             if(!this.HasProp("__ipv6AddressProxyArray"))
-                this.__ipv6AddressProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "char")
+                this.__ipv6AddressProxyArray := Win32FixedArray(this.ptr + 8, 16, Primitive, "char")
             return this.__ipv6AddressProxyArray
         }
     }

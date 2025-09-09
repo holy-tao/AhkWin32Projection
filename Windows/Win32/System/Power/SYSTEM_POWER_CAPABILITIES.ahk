@@ -241,7 +241,7 @@ class SYSTEM_POWER_CAPABILITIES extends Win32Struct
     spare3{
         get {
             if(!this.HasProp("__spare3ProxyArray"))
-                this.__spare3ProxyArray := Win32FixedArray(this.ptr + 24, 1, Primitive, "char")
+                this.__spare3ProxyArray := Win32FixedArray(this.ptr + 24, 6, Primitive, "char")
             return this.__spare3ProxyArray
         }
     }
@@ -273,7 +273,7 @@ class SYSTEM_POWER_CAPABILITIES extends Win32Struct
     BatteryScale{
         get {
             if(!this.HasProp("__BatteryScaleProxyArray"))
-                this.__BatteryScaleProxyArray := Win32FixedArray(this.ptr + 32, 8, BATTERY_REPORTING_SCALE, "")
+                this.__BatteryScaleProxyArray := Win32FixedArray(this.ptr + 32, 3, BATTERY_REPORTING_SCALE, "")
             return this.__BatteryScaleProxyArray
         }
     }

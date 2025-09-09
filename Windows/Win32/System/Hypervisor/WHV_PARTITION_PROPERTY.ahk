@@ -90,7 +90,7 @@ class WHV_PARTITION_PROPERTY extends Win32Struct
     CpuidExitList{
         get {
             if(!this.HasProp("__CpuidExitListProxyArray"))
-                this.__CpuidExitListProxyArray := Win32FixedArray(this.ptr + 0, 4, Primitive, "uint")
+                this.__CpuidExitListProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "uint")
             return this.__CpuidExitListProxyArray
         }
     }
@@ -101,7 +101,7 @@ class WHV_PARTITION_PROPERTY extends Win32Struct
     CpuidResultList{
         get {
             if(!this.HasProp("__CpuidResultListProxyArray"))
-                this.__CpuidResultListProxyArray := Win32FixedArray(this.ptr + 0, 8, WHV_X64_CPUID_RESULT, "")
+                this.__CpuidResultListProxyArray := Win32FixedArray(this.ptr + 0, 1, WHV_X64_CPUID_RESULT, "")
             return this.__CpuidResultListProxyArray
         }
     }
@@ -112,7 +112,7 @@ class WHV_PARTITION_PROPERTY extends Win32Struct
     CpuidResultList2{
         get {
             if(!this.HasProp("__CpuidResultList2ProxyArray"))
-                this.__CpuidResultList2ProxyArray := Win32FixedArray(this.ptr + 0, 8, WHV_X64_CPUID_RESULT2, "")
+                this.__CpuidResultList2ProxyArray := Win32FixedArray(this.ptr + 0, 1, WHV_X64_CPUID_RESULT2, "")
             return this.__CpuidResultList2ProxyArray
         }
     }
@@ -123,7 +123,7 @@ class WHV_PARTITION_PROPERTY extends Win32Struct
     MsrActionList{
         get {
             if(!this.HasProp("__MsrActionListProxyArray"))
-                this.__MsrActionListProxyArray := Win32FixedArray(this.ptr + 0, 8, WHV_MSR_ACTION_ENTRY, "")
+                this.__MsrActionListProxyArray := Win32FixedArray(this.ptr + 0, 1, WHV_MSR_ACTION_ENTRY, "")
             return this.__MsrActionListProxyArray
         }
     }

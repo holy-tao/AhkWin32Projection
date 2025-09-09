@@ -71,7 +71,7 @@ class IFIEXTRA extends Win32Struct
     aulReserved{
         get {
             if(!this.HasProp("__aulReservedProxyArray"))
-                this.__aulReservedProxyArray := Win32FixedArray(this.ptr + 20, 4, Primitive, "uint")
+                this.__aulReservedProxyArray := Win32FixedArray(this.ptr + 20, 1, Primitive, "uint")
             return this.__aulReservedProxyArray
         }
     }

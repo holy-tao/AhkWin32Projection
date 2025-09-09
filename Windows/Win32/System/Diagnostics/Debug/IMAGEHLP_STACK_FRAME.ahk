@@ -102,7 +102,7 @@ class IMAGEHLP_STACK_FRAME extends Win32Struct
     Params{
         get {
             if(!this.HasProp("__ParamsProxyArray"))
-                this.__ParamsProxyArray := Win32FixedArray(this.ptr + 48, 8, Primitive, "uint")
+                this.__ParamsProxyArray := Win32FixedArray(this.ptr + 48, 4, Primitive, "uint")
             return this.__ParamsProxyArray
         }
     }
@@ -114,7 +114,7 @@ class IMAGEHLP_STACK_FRAME extends Win32Struct
     Reserved{
         get {
             if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 80, 8, Primitive, "uint")
+                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 80, 5, Primitive, "uint")
             return this.__ReservedProxyArray
         }
     }

@@ -25,7 +25,7 @@ class DOT11_RESET_REQUEST extends Win32Struct
     dot11MacAddress{
         get {
             if(!this.HasProp("__dot11MacAddressProxyArray"))
-                this.__dot11MacAddressProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")
+                this.__dot11MacAddressProxyArray := Win32FixedArray(this.ptr + 4, 6, Primitive, "char")
             return this.__dot11MacAddressProxyArray
         }
     }

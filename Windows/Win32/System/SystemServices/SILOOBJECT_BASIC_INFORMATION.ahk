@@ -49,7 +49,7 @@ class SILOOBJECT_BASIC_INFORMATION extends Win32Struct
     Reserved{
         get {
             if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 13, 1, Primitive, "char")
+                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 13, 3, Primitive, "char")
             return this.__ReservedProxyArray
         }
     }

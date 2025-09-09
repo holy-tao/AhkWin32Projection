@@ -89,7 +89,7 @@ class THERMAL_INFORMATION extends Win32Struct
     ActiveTripPoint{
         get {
             if(!this.HasProp("__ActiveTripPointProxyArray"))
-                this.__ActiveTripPointProxyArray := Win32FixedArray(this.ptr + 44, 4, Primitive, "uint")
+                this.__ActiveTripPointProxyArray := Win32FixedArray(this.ptr + 44, 10, Primitive, "uint")
             return this.__ActiveTripPointProxyArray
         }
     }

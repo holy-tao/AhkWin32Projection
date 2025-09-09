@@ -45,7 +45,7 @@ class LINEFORWARDLIST extends Win32Struct
     ForwardList{
         get {
             if(!this.HasProp("__ForwardListProxyArray"))
-                this.__ForwardListProxyArray := Win32FixedArray(this.ptr + 8, 8, LINEFORWARD, "")
+                this.__ForwardListProxyArray := Win32FixedArray(this.ptr + 8, 1, LINEFORWARD, "")
             return this.__ForwardListProxyArray
         }
     }

@@ -45,7 +45,7 @@ class SENDCMDINPARAMS extends Win32Struct
     bReserved{
         get {
             if(!this.HasProp("__bReservedProxyArray"))
-                this.__bReservedProxyArray := Win32FixedArray(this.ptr + 13, 1, Primitive, "char")
+                this.__bReservedProxyArray := Win32FixedArray(this.ptr + 13, 3, Primitive, "char")
             return this.__bReservedProxyArray
         }
     }

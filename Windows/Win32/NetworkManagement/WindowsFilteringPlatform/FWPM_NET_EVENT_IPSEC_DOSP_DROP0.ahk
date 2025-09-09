@@ -40,7 +40,7 @@ class FWPM_NET_EVENT_IPSEC_DOSP_DROP0 extends Win32Struct
     publicHostV6Addr{
         get {
             if(!this.HasProp("__publicHostV6AddrProxyArray"))
-                this.__publicHostV6AddrProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")
+                this.__publicHostV6AddrProxyArray := Win32FixedArray(this.ptr + 4, 16, Primitive, "char")
             return this.__publicHostV6AddrProxyArray
         }
     }
@@ -59,7 +59,7 @@ class FWPM_NET_EVENT_IPSEC_DOSP_DROP0 extends Win32Struct
     internalHostV6Addr{
         get {
             if(!this.HasProp("__internalHostV6AddrProxyArray"))
-                this.__internalHostV6AddrProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "char")
+                this.__internalHostV6AddrProxyArray := Win32FixedArray(this.ptr + 8, 16, Primitive, "char")
             return this.__internalHostV6AddrProxyArray
         }
     }

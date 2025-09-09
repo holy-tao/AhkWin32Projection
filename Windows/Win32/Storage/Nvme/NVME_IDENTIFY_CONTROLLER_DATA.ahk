@@ -41,7 +41,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     SN{
         get {
             if(!this.HasProp("__SNProxyArray"))
-                this.__SNProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")
+                this.__SNProxyArray := Win32FixedArray(this.ptr + 4, 20, Primitive, "char")
             return this.__SNProxyArray
         }
     }
@@ -53,7 +53,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     MN{
         get {
             if(!this.HasProp("__MNProxyArray"))
-                this.__MNProxyArray := Win32FixedArray(this.ptr + 24, 1, Primitive, "char")
+                this.__MNProxyArray := Win32FixedArray(this.ptr + 24, 40, Primitive, "char")
             return this.__MNProxyArray
         }
     }
@@ -67,7 +67,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     FR{
         get {
             if(!this.HasProp("__FRProxyArray"))
-                this.__FRProxyArray := Win32FixedArray(this.ptr + 64, 1, Primitive, "char")
+                this.__FRProxyArray := Win32FixedArray(this.ptr + 64, 8, Primitive, "char")
             return this.__FRProxyArray
         }
     }
@@ -90,7 +90,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     IEEE{
         get {
             if(!this.HasProp("__IEEEProxyArray"))
-                this.__IEEEProxyArray := Win32FixedArray(this.ptr + 73, 1, Primitive, "char")
+                this.__IEEEProxyArray := Win32FixedArray(this.ptr + 73, 3, Primitive, "char")
             return this.__IEEEProxyArray
         }
     }
@@ -196,7 +196,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     Reserved0{
         get {
             if(!this.HasProp("__Reserved0ProxyArray"))
-                this.__Reserved0ProxyArray := Win32FixedArray(this.ptr + 102, 1, Primitive, "char")
+                this.__Reserved0ProxyArray := Win32FixedArray(this.ptr + 102, 9, Primitive, "char")
             return this.__Reserved0ProxyArray
         }
     }
@@ -215,7 +215,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     FGUID{
         get {
             if(!this.HasProp("__FGUIDProxyArray"))
-                this.__FGUIDProxyArray := Win32FixedArray(this.ptr + 112, 1, Primitive, "char")
+                this.__FGUIDProxyArray := Win32FixedArray(this.ptr + 112, 16, Primitive, "char")
             return this.__FGUIDProxyArray
         }
     }
@@ -250,7 +250,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     Reserved0_1{
         get {
             if(!this.HasProp("__Reserved0_1ProxyArray"))
-                this.__Reserved0_1ProxyArray := Win32FixedArray(this.ptr + 134, 1, Primitive, "char")
+                this.__Reserved0_1ProxyArray := Win32FixedArray(this.ptr + 134, 106, Primitive, "char")
             return this.__Reserved0_1ProxyArray
         }
     }
@@ -262,7 +262,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     ReservedForManagement{
         get {
             if(!this.HasProp("__ReservedForManagementProxyArray"))
-                this.__ReservedForManagementProxyArray := Win32FixedArray(this.ptr + 240, 1, Primitive, "char")
+                this.__ReservedForManagementProxyArray := Win32FixedArray(this.ptr + 240, 16, Primitive, "char")
             return this.__ReservedForManagementProxyArray
         }
     }
@@ -422,7 +422,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     TNVMCAP{
         get {
             if(!this.HasProp("__TNVMCAPProxyArray"))
-                this.__TNVMCAPProxyArray := Win32FixedArray(this.ptr + 280, 1, Primitive, "char")
+                this.__TNVMCAPProxyArray := Win32FixedArray(this.ptr + 280, 16, Primitive, "char")
             return this.__TNVMCAPProxyArray
         }
     }
@@ -436,7 +436,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     UNVMCAP{
         get {
             if(!this.HasProp("__UNVMCAPProxyArray"))
-                this.__UNVMCAPProxyArray := Win32FixedArray(this.ptr + 296, 1, Primitive, "char")
+                this.__UNVMCAPProxyArray := Win32FixedArray(this.ptr + 296, 16, Primitive, "char")
             return this.__UNVMCAPProxyArray
         }
     }
@@ -602,7 +602,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     Reserved1{
         get {
             if(!this.HasProp("__Reserved1ProxyArray"))
-                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 356, 1, Primitive, "char")
+                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 356, 156, Primitive, "char")
             return this.__Reserved1ProxyArray
         }
     }
@@ -749,7 +749,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     Reserved4{
         get {
             if(!this.HasProp("__Reserved4ProxyArray"))
-                this.__Reserved4ProxyArray := Win32FixedArray(this.ptr + 534, 1, Primitive, "char")
+                this.__Reserved4ProxyArray := Win32FixedArray(this.ptr + 534, 2, Primitive, "char")
             return this.__Reserved4ProxyArray
         }
     }
@@ -778,7 +778,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     Reserved6{
         get {
             if(!this.HasProp("__Reserved6ProxyArray"))
-                this.__Reserved6ProxyArray := Win32FixedArray(this.ptr + 544, 1, Primitive, "char")
+                this.__Reserved6ProxyArray := Win32FixedArray(this.ptr + 544, 224, Primitive, "char")
             return this.__Reserved6ProxyArray
         }
     }
@@ -789,7 +789,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     SUBNQN{
         get {
             if(!this.HasProp("__SUBNQNProxyArray"))
-                this.__SUBNQNProxyArray := Win32FixedArray(this.ptr + 768, 1, Primitive, "char")
+                this.__SUBNQNProxyArray := Win32FixedArray(this.ptr + 768, 256, Primitive, "char")
             return this.__SUBNQNProxyArray
         }
     }
@@ -800,7 +800,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     Reserved7{
         get {
             if(!this.HasProp("__Reserved7ProxyArray"))
-                this.__Reserved7ProxyArray := Win32FixedArray(this.ptr + 1024, 1, Primitive, "char")
+                this.__Reserved7ProxyArray := Win32FixedArray(this.ptr + 1024, 768, Primitive, "char")
             return this.__Reserved7ProxyArray
         }
     }
@@ -811,7 +811,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     Reserved8{
         get {
             if(!this.HasProp("__Reserved8ProxyArray"))
-                this.__Reserved8ProxyArray := Win32FixedArray(this.ptr + 1792, 1, Primitive, "char")
+                this.__Reserved8ProxyArray := Win32FixedArray(this.ptr + 1792, 256, Primitive, "char")
             return this.__Reserved8ProxyArray
         }
     }
@@ -825,7 +825,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     PDS{
         get {
             if(!this.HasProp("__PDSProxyArray"))
-                this.__PDSProxyArray := Win32FixedArray(this.ptr + 2048, 8, NVME_POWER_STATE_DESC, "")
+                this.__PDSProxyArray := Win32FixedArray(this.ptr + 2048, 32, NVME_POWER_STATE_DESC, "")
             return this.__PDSProxyArray
         }
     }
@@ -837,7 +837,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     VS{
         get {
             if(!this.HasProp("__VSProxyArray"))
-                this.__VSProxyArray := Win32FixedArray(this.ptr + 2304, 1, Primitive, "char")
+                this.__VSProxyArray := Win32FixedArray(this.ptr + 2304, 1024, Primitive, "char")
             return this.__VSProxyArray
         }
     }

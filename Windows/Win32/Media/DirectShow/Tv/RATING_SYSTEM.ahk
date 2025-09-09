@@ -33,7 +33,7 @@ class RATING_SYSTEM extends Win32Struct
     country_code{
         get {
             if(!this.HasProp("__country_codeProxyArray"))
-                this.__country_codeProxyArray := Win32FixedArray(this.ptr + 9, 1, Primitive, "char")
+                this.__country_codeProxyArray := Win32FixedArray(this.ptr + 9, 3, Primitive, "char")
             return this.__country_codeProxyArray
         }
     }

@@ -39,7 +39,7 @@ class PROVIDER_FIELD_INFOARRAY extends Win32Struct
     FieldInfoArray{
         get {
             if(!this.HasProp("__FieldInfoArrayProxyArray"))
-                this.__FieldInfoArrayProxyArray := Win32FixedArray(this.ptr + 8, 8, PROVIDER_FIELD_INFO, "")
+                this.__FieldInfoArrayProxyArray := Win32FixedArray(this.ptr + 8, 1, PROVIDER_FIELD_INFO, "")
             return this.__FieldInfoArrayProxyArray
         }
     }

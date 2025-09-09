@@ -61,7 +61,7 @@ class DOT11EXT_VIRTUAL_STATION_AP_PROPERTY extends Win32Struct
     ucKeyData{
         get {
             if(!this.HasProp("__ucKeyDataProxyArray"))
-                this.__ucKeyDataProxyArray := Win32FixedArray(this.ptr + 52, 1, Primitive, "char")
+                this.__ucKeyDataProxyArray := Win32FixedArray(this.ptr + 52, 64, Primitive, "char")
             return this.__ucKeyDataProxyArray
         }
     }

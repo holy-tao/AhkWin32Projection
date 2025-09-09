@@ -25,7 +25,7 @@ class HIDP_EXTENDED_ATTRIBUTES extends Win32Struct
     Reserved{
         get {
             if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 1, 1, Primitive, "char")
+                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 1, 3, Primitive, "char")
             return this.__ReservedProxyArray
         }
     }
@@ -44,7 +44,7 @@ class HIDP_EXTENDED_ATTRIBUTES extends Win32Struct
     Data{
         get {
             if(!this.HasProp("__DataProxyArray"))
-                this.__DataProxyArray := Win32FixedArray(this.ptr + 12, 4, Primitive, "uint")
+                this.__DataProxyArray := Win32FixedArray(this.ptr + 12, 1, Primitive, "uint")
             return this.__DataProxyArray
         }
     }

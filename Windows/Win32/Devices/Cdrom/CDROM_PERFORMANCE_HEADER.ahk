@@ -17,7 +17,7 @@ class CDROM_PERFORMANCE_HEADER extends Win32Struct
     DataLength{
         get {
             if(!this.HasProp("__DataLengthProxyArray"))
-                this.__DataLengthProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__DataLengthProxyArray := Win32FixedArray(this.ptr + 0, 4, Primitive, "char")
             return this.__DataLengthProxyArray
         }
     }
@@ -36,7 +36,7 @@ class CDROM_PERFORMANCE_HEADER extends Win32Struct
     Reserved2{
         get {
             if(!this.HasProp("__Reserved2ProxyArray"))
-                this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 5, 1, Primitive, "char")
+                this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 5, 3, Primitive, "char")
             return this.__Reserved2ProxyArray
         }
     }

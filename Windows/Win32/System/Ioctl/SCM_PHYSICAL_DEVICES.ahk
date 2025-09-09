@@ -42,7 +42,7 @@ class SCM_PHYSICAL_DEVICES extends Win32Struct
     Devices{
         get {
             if(!this.HasProp("__DevicesProxyArray"))
-                this.__DevicesProxyArray := Win32FixedArray(this.ptr + 16, 8, SCM_PHYSICAL_DEVICE_INSTANCE, "")
+                this.__DevicesProxyArray := Win32FixedArray(this.ptr + 16, 1, SCM_PHYSICAL_DEVICE_INSTANCE, "")
             return this.__DevicesProxyArray
         }
     }

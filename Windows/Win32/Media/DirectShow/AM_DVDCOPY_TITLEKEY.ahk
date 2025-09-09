@@ -32,7 +32,7 @@ class AM_DVDCOPY_TITLEKEY extends Win32Struct
     Reserved1{
         get {
             if(!this.HasProp("__Reserved1ProxyArray"))
-                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 4, 4, Primitive, "uint")
+                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 4, 2, Primitive, "uint")
             return this.__Reserved1ProxyArray
         }
     }
@@ -44,7 +44,7 @@ class AM_DVDCOPY_TITLEKEY extends Win32Struct
     TitleKey{
         get {
             if(!this.HasProp("__TitleKeyProxyArray"))
-                this.__TitleKeyProxyArray := Win32FixedArray(this.ptr + 12, 1, Primitive, "char")
+                this.__TitleKeyProxyArray := Win32FixedArray(this.ptr + 12, 6, Primitive, "char")
             return this.__TitleKeyProxyArray
         }
     }
@@ -55,7 +55,7 @@ class AM_DVDCOPY_TITLEKEY extends Win32Struct
     Reserved2{
         get {
             if(!this.HasProp("__Reserved2ProxyArray"))
-                this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 18, 1, Primitive, "char")
+                this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 18, 2, Primitive, "char")
             return this.__Reserved2ProxyArray
         }
     }

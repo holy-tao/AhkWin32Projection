@@ -20,7 +20,7 @@ class STORAGE_OFFLOAD_TOKEN extends Win32Struct
     TokenType{
         get {
             if(!this.HasProp("__TokenTypeProxyArray"))
-                this.__TokenTypeProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__TokenTypeProxyArray := Win32FixedArray(this.ptr + 0, 4, Primitive, "char")
             return this.__TokenTypeProxyArray
         }
     }
@@ -32,7 +32,7 @@ class STORAGE_OFFLOAD_TOKEN extends Win32Struct
     Reserved{
         get {
             if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")
+                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 4, 2, Primitive, "char")
             return this.__ReservedProxyArray
         }
     }
@@ -44,7 +44,7 @@ class STORAGE_OFFLOAD_TOKEN extends Win32Struct
     TokenIdLength{
         get {
             if(!this.HasProp("__TokenIdLengthProxyArray"))
-                this.__TokenIdLengthProxyArray := Win32FixedArray(this.ptr + 6, 1, Primitive, "char")
+                this.__TokenIdLengthProxyArray := Win32FixedArray(this.ptr + 6, 2, Primitive, "char")
             return this.__TokenIdLengthProxyArray
         }
     }
@@ -55,7 +55,7 @@ class STORAGE_OFFLOAD_TOKEN extends Win32Struct
     Reserved2{
         get {
             if(!this.HasProp("__Reserved2ProxyArray"))
-                this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "char")
+                this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 8, 504, Primitive, "char")
             return this.__Reserved2ProxyArray
         }
     }
@@ -66,7 +66,7 @@ class STORAGE_OFFLOAD_TOKEN extends Win32Struct
     Token{
         get {
             if(!this.HasProp("__TokenProxyArray"))
-                this.__TokenProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "char")
+                this.__TokenProxyArray := Win32FixedArray(this.ptr + 8, 504, Primitive, "char")
             return this.__TokenProxyArray
         }
     }

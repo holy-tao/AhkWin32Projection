@@ -50,7 +50,7 @@ class DOT11_RECV_SENSITIVITY_LIST extends Win32Struct
     dot11RecvSensitivity{
         get {
             if(!this.HasProp("__dot11RecvSensitivityProxyArray"))
-                this.__dot11RecvSensitivityProxyArray := Win32FixedArray(this.ptr + 16, 8, DOT11_RECV_SENSITIVITY, "")
+                this.__dot11RecvSensitivityProxyArray := Win32FixedArray(this.ptr + 16, 1, DOT11_RECV_SENSITIVITY, "")
             return this.__dot11RecvSensitivityProxyArray
         }
     }

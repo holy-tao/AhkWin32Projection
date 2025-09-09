@@ -26,7 +26,7 @@ class TRANSACTION_ENLISTMENTS_INFORMATION extends Win32Struct
     EnlistmentPair{
         get {
             if(!this.HasProp("__EnlistmentPairProxyArray"))
-                this.__EnlistmentPairProxyArray := Win32FixedArray(this.ptr + 8, 8, TRANSACTION_ENLISTMENT_PAIR, "")
+                this.__EnlistmentPairProxyArray := Win32FixedArray(this.ptr + 8, 1, TRANSACTION_ENLISTMENT_PAIR, "")
             return this.__EnlistmentPairProxyArray
         }
     }

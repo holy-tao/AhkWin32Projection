@@ -78,7 +78,7 @@ class USB_HUB_DEVICE_INFO extends Win32Struct
     PortInfo{
         get {
             if(!this.HasProp("__PortInfoProxyArray"))
-                this.__PortInfoProxyArray := Win32FixedArray(this.ptr + 87, 8, USB_HUB_PORT_INFORMATION, "")
+                this.__PortInfoProxyArray := Win32FixedArray(this.ptr + 87, 1, USB_HUB_PORT_INFORMATION, "")
             return this.__PortInfoProxyArray
         }
     }

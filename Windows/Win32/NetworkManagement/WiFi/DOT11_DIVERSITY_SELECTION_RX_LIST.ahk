@@ -34,7 +34,7 @@ class DOT11_DIVERSITY_SELECTION_RX_LIST extends Win32Struct
     dot11DiversitySelectionRx{
         get {
             if(!this.HasProp("__dot11DiversitySelectionRxProxyArray"))
-                this.__dot11DiversitySelectionRxProxyArray := Win32FixedArray(this.ptr + 8, 8, DOT11_DIVERSITY_SELECTION_RX, "")
+                this.__dot11DiversitySelectionRxProxyArray := Win32FixedArray(this.ptr + 8, 1, DOT11_DIVERSITY_SELECTION_RX, "")
             return this.__dot11DiversitySelectionRxProxyArray
         }
     }

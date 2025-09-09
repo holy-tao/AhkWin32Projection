@@ -81,7 +81,7 @@ class DEVICE_INTERNAL_STATUS_DATA extends Win32Struct
     Reserved{
         get {
             if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 33, 1, Primitive, "char")
+                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 33, 3, Primitive, "char")
             return this.__ReservedProxyArray
         }
     }
@@ -92,7 +92,7 @@ class DEVICE_INTERNAL_STATUS_DATA extends Win32Struct
     ReasonIdentifier{
         get {
             if(!this.HasProp("__ReasonIdentifierProxyArray"))
-                this.__ReasonIdentifierProxyArray := Win32FixedArray(this.ptr + 36, 1, Primitive, "char")
+                this.__ReasonIdentifierProxyArray := Win32FixedArray(this.ptr + 36, 128, Primitive, "char")
             return this.__ReasonIdentifierProxyArray
         }
     }

@@ -1343,7 +1343,7 @@ class DDCORECAPS extends Win32Struct
     dwRops{
         get {
             if(!this.HasProp("__dwRopsProxyArray"))
-                this.__dwRopsProxyArray := Win32FixedArray(this.ptr + 100, 4, Primitive, "uint")
+                this.__dwRopsProxyArray := Win32FixedArray(this.ptr + 100, 8, Primitive, "uint")
             return this.__dwRopsProxyArray
         }
     }
@@ -1472,7 +1472,7 @@ class DDCORECAPS extends Win32Struct
     dwSVBRops{
         get {
             if(!this.HasProp("__dwSVBRopsProxyArray"))
-                this.__dwSVBRopsProxyArray := Win32FixedArray(this.ptr + 184, 4, Primitive, "uint")
+                this.__dwSVBRopsProxyArray := Win32FixedArray(this.ptr + 184, 8, Primitive, "uint")
             return this.__dwSVBRopsProxyArray
         }
     }
@@ -1511,7 +1511,7 @@ class DDCORECAPS extends Win32Struct
     dwVSBRops{
         get {
             if(!this.HasProp("__dwVSBRopsProxyArray"))
-                this.__dwVSBRopsProxyArray := Win32FixedArray(this.ptr + 228, 4, Primitive, "uint")
+                this.__dwVSBRopsProxyArray := Win32FixedArray(this.ptr + 228, 8, Primitive, "uint")
             return this.__dwVSBRopsProxyArray
         }
     }
@@ -1550,7 +1550,7 @@ class DDCORECAPS extends Win32Struct
     dwSSBRops{
         get {
             if(!this.HasProp("__dwSSBRopsProxyArray"))
-                this.__dwSSBRopsProxyArray := Win32FixedArray(this.ptr + 272, 4, Primitive, "uint")
+                this.__dwSSBRopsProxyArray := Win32FixedArray(this.ptr + 272, 8, Primitive, "uint")
             return this.__dwSSBRopsProxyArray
         }
     }

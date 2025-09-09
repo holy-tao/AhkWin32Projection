@@ -30,7 +30,7 @@ class CRYPT_X942_OTHER_INFO extends Win32Struct
     rgbCounter{
         get {
             if(!this.HasProp("__rgbCounterProxyArray"))
-                this.__rgbCounterProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "char")
+                this.__rgbCounterProxyArray := Win32FixedArray(this.ptr + 8, 4, Primitive, "char")
             return this.__rgbCounterProxyArray
         }
     }
@@ -42,7 +42,7 @@ class CRYPT_X942_OTHER_INFO extends Win32Struct
     rgbKeyLength{
         get {
             if(!this.HasProp("__rgbKeyLengthProxyArray"))
-                this.__rgbKeyLengthProxyArray := Win32FixedArray(this.ptr + 12, 1, Primitive, "char")
+                this.__rgbKeyLengthProxyArray := Win32FixedArray(this.ptr + 12, 4, Primitive, "char")
             return this.__rgbKeyLengthProxyArray
         }
     }

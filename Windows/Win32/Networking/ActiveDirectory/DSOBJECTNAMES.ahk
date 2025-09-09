@@ -39,7 +39,7 @@ class DSOBJECTNAMES extends Win32Struct
     aObjects{
         get {
             if(!this.HasProp("__aObjectsProxyArray"))
-                this.__aObjectsProxyArray := Win32FixedArray(this.ptr + 16, 8, DSOBJECT, "")
+                this.__aObjectsProxyArray := Win32FixedArray(this.ptr + 16, 1, DSOBJECT, "")
             return this.__aObjectsProxyArray
         }
     }

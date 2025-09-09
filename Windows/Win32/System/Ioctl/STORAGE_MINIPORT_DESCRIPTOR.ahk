@@ -142,7 +142,7 @@ class STORAGE_MINIPORT_DESCRIPTOR extends Win32Struct
     Reserved0{
         get {
             if(!this.HasProp("__Reserved0ProxyArray"))
-                this.__Reserved0ProxyArray := Win32FixedArray(this.ptr + 18, 1, Primitive, "char")
+                this.__Reserved0ProxyArray := Win32FixedArray(this.ptr + 18, 2, Primitive, "char")
             return this.__Reserved0ProxyArray
         }
     }

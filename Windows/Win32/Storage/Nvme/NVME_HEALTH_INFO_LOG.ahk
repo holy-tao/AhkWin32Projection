@@ -42,7 +42,7 @@ class NVME_HEALTH_INFO_LOG extends Win32Struct
     Temperature{
         get {
             if(!this.HasProp("__TemperatureProxyArray"))
-                this.__TemperatureProxyArray := Win32FixedArray(this.ptr + 1, 1, Primitive, "char")
+                this.__TemperatureProxyArray := Win32FixedArray(this.ptr + 1, 2, Primitive, "char")
             return this.__TemperatureProxyArray
         }
     }
@@ -85,7 +85,7 @@ class NVME_HEALTH_INFO_LOG extends Win32Struct
     Reserved0{
         get {
             if(!this.HasProp("__Reserved0ProxyArray"))
-                this.__Reserved0ProxyArray := Win32FixedArray(this.ptr + 6, 1, Primitive, "char")
+                this.__Reserved0ProxyArray := Win32FixedArray(this.ptr + 6, 26, Primitive, "char")
             return this.__Reserved0ProxyArray
         }
     }
@@ -101,7 +101,7 @@ class NVME_HEALTH_INFO_LOG extends Win32Struct
     DataUnitRead{
         get {
             if(!this.HasProp("__DataUnitReadProxyArray"))
-                this.__DataUnitReadProxyArray := Win32FixedArray(this.ptr + 32, 1, Primitive, "char")
+                this.__DataUnitReadProxyArray := Win32FixedArray(this.ptr + 32, 16, Primitive, "char")
             return this.__DataUnitReadProxyArray
         }
     }
@@ -117,7 +117,7 @@ class NVME_HEALTH_INFO_LOG extends Win32Struct
     DataUnitWritten{
         get {
             if(!this.HasProp("__DataUnitWrittenProxyArray"))
-                this.__DataUnitWrittenProxyArray := Win32FixedArray(this.ptr + 48, 1, Primitive, "char")
+                this.__DataUnitWrittenProxyArray := Win32FixedArray(this.ptr + 48, 16, Primitive, "char")
             return this.__DataUnitWrittenProxyArray
         }
     }
@@ -131,7 +131,7 @@ class NVME_HEALTH_INFO_LOG extends Win32Struct
     HostReadCommands{
         get {
             if(!this.HasProp("__HostReadCommandsProxyArray"))
-                this.__HostReadCommandsProxyArray := Win32FixedArray(this.ptr + 64, 1, Primitive, "char")
+                this.__HostReadCommandsProxyArray := Win32FixedArray(this.ptr + 64, 16, Primitive, "char")
             return this.__HostReadCommandsProxyArray
         }
     }
@@ -145,7 +145,7 @@ class NVME_HEALTH_INFO_LOG extends Win32Struct
     HostWrittenCommands{
         get {
             if(!this.HasProp("__HostWrittenCommandsProxyArray"))
-                this.__HostWrittenCommandsProxyArray := Win32FixedArray(this.ptr + 80, 1, Primitive, "char")
+                this.__HostWrittenCommandsProxyArray := Win32FixedArray(this.ptr + 80, 16, Primitive, "char")
             return this.__HostWrittenCommandsProxyArray
         }
     }
@@ -159,7 +159,7 @@ class NVME_HEALTH_INFO_LOG extends Win32Struct
     ControllerBusyTime{
         get {
             if(!this.HasProp("__ControllerBusyTimeProxyArray"))
-                this.__ControllerBusyTimeProxyArray := Win32FixedArray(this.ptr + 96, 1, Primitive, "char")
+                this.__ControllerBusyTimeProxyArray := Win32FixedArray(this.ptr + 96, 16, Primitive, "char")
             return this.__ControllerBusyTimeProxyArray
         }
     }
@@ -171,7 +171,7 @@ class NVME_HEALTH_INFO_LOG extends Win32Struct
     PowerCycle{
         get {
             if(!this.HasProp("__PowerCycleProxyArray"))
-                this.__PowerCycleProxyArray := Win32FixedArray(this.ptr + 112, 1, Primitive, "char")
+                this.__PowerCycleProxyArray := Win32FixedArray(this.ptr + 112, 16, Primitive, "char")
             return this.__PowerCycleProxyArray
         }
     }
@@ -183,7 +183,7 @@ class NVME_HEALTH_INFO_LOG extends Win32Struct
     PowerOnHours{
         get {
             if(!this.HasProp("__PowerOnHoursProxyArray"))
-                this.__PowerOnHoursProxyArray := Win32FixedArray(this.ptr + 128, 1, Primitive, "char")
+                this.__PowerOnHoursProxyArray := Win32FixedArray(this.ptr + 128, 16, Primitive, "char")
             return this.__PowerOnHoursProxyArray
         }
     }
@@ -195,7 +195,7 @@ class NVME_HEALTH_INFO_LOG extends Win32Struct
     UnsafeShutdowns{
         get {
             if(!this.HasProp("__UnsafeShutdownsProxyArray"))
-                this.__UnsafeShutdownsProxyArray := Win32FixedArray(this.ptr + 144, 1, Primitive, "char")
+                this.__UnsafeShutdownsProxyArray := Win32FixedArray(this.ptr + 144, 16, Primitive, "char")
             return this.__UnsafeShutdownsProxyArray
         }
     }
@@ -209,7 +209,7 @@ class NVME_HEALTH_INFO_LOG extends Win32Struct
     MediaErrors{
         get {
             if(!this.HasProp("__MediaErrorsProxyArray"))
-                this.__MediaErrorsProxyArray := Win32FixedArray(this.ptr + 160, 1, Primitive, "char")
+                this.__MediaErrorsProxyArray := Win32FixedArray(this.ptr + 160, 16, Primitive, "char")
             return this.__MediaErrorsProxyArray
         }
     }
@@ -221,7 +221,7 @@ class NVME_HEALTH_INFO_LOG extends Win32Struct
     ErrorInfoLogEntryCount{
         get {
             if(!this.HasProp("__ErrorInfoLogEntryCountProxyArray"))
-                this.__ErrorInfoLogEntryCountProxyArray := Win32FixedArray(this.ptr + 176, 1, Primitive, "char")
+                this.__ErrorInfoLogEntryCountProxyArray := Win32FixedArray(this.ptr + 176, 16, Primitive, "char")
             return this.__ErrorInfoLogEntryCountProxyArray
         }
     }
@@ -327,7 +327,7 @@ class NVME_HEALTH_INFO_LOG extends Win32Struct
     Reserved1{
         get {
             if(!this.HasProp("__Reserved1ProxyArray"))
-                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 216, 1, Primitive, "char")
+                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 216, 296, Primitive, "char")
             return this.__Reserved1ProxyArray
         }
     }

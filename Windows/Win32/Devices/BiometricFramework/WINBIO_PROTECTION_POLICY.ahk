@@ -61,7 +61,7 @@ class WINBIO_PROTECTION_POLICY extends Win32Struct
     Policy{
         get {
             if(!this.HasProp("__PolicyProxyArray"))
-                this.__PolicyProxyArray := Win32FixedArray(this.ptr + 40, 1, Primitive, "char")
+                this.__PolicyProxyArray := Win32FixedArray(this.ptr + 40, 128, Primitive, "char")
             return this.__PolicyProxyArray
         }
     }

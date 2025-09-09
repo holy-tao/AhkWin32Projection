@@ -53,7 +53,7 @@ class WLAN_BSS_ENTRY extends Win32Struct
     dot11Bssid{
         get {
             if(!this.HasProp("__dot11BssidProxyArray"))
-                this.__dot11BssidProxyArray := Win32FixedArray(this.ptr + 40, 1, Primitive, "char")
+                this.__dot11BssidProxyArray := Win32FixedArray(this.ptr + 40, 6, Primitive, "char")
             return this.__dot11BssidProxyArray
         }
     }

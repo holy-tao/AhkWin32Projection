@@ -17,7 +17,7 @@ class VBICODECFILTERING_NABTS_SUBSTREAMS extends Win32Struct
     SubstreamMask{
         get {
             if(!this.HasProp("__SubstreamMaskProxyArray"))
-                this.__SubstreamMaskProxyArray := Win32FixedArray(this.ptr + 0, 4, Primitive, "uint")
+                this.__SubstreamMaskProxyArray := Win32FixedArray(this.ptr + 0, 128, Primitive, "uint")
             return this.__SubstreamMaskProxyArray
         }
     }

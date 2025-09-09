@@ -54,7 +54,7 @@ class NDIS_PORT_ARRAY extends Win32Struct
     Ports{
         get {
             if(!this.HasProp("__PortsProxyArray"))
-                this.__PortsProxyArray := Win32FixedArray(this.ptr + 16, 8, NDIS_PORT_CHARACTERISTICS, "")
+                this.__PortsProxyArray := Win32FixedArray(this.ptr + 16, 1, NDIS_PORT_CHARACTERISTICS, "")
             return this.__PortsProxyArray
         }
     }

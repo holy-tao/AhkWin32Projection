@@ -49,7 +49,7 @@ class CDROM_TOC_FULL_TOC_DATA_BLOCK extends Win32Struct
     MsfExtra{
         get {
             if(!this.HasProp("__MsfExtraProxyArray"))
-                this.__MsfExtraProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")
+                this.__MsfExtraProxyArray := Win32FixedArray(this.ptr + 4, 3, Primitive, "char")
             return this.__MsfExtraProxyArray
         }
     }
@@ -68,7 +68,7 @@ class CDROM_TOC_FULL_TOC_DATA_BLOCK extends Win32Struct
     Msf{
         get {
             if(!this.HasProp("__MsfProxyArray"))
-                this.__MsfProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "char")
+                this.__MsfProxyArray := Win32FixedArray(this.ptr + 8, 3, Primitive, "char")
             return this.__MsfProxyArray
         }
     }

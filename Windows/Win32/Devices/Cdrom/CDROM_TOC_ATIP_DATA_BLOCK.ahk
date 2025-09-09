@@ -49,7 +49,7 @@ class CDROM_TOC_ATIP_DATA_BLOCK extends Win32Struct
     LeadInMsf{
         get {
             if(!this.HasProp("__LeadInMsfProxyArray"))
-                this.__LeadInMsfProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")
+                this.__LeadInMsfProxyArray := Win32FixedArray(this.ptr + 4, 3, Primitive, "char")
             return this.__LeadInMsfProxyArray
         }
     }
@@ -68,7 +68,7 @@ class CDROM_TOC_ATIP_DATA_BLOCK extends Win32Struct
     LeadOutMsf{
         get {
             if(!this.HasProp("__LeadOutMsfProxyArray"))
-                this.__LeadOutMsfProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "char")
+                this.__LeadOutMsfProxyArray := Win32FixedArray(this.ptr + 8, 3, Primitive, "char")
             return this.__LeadOutMsfProxyArray
         }
     }
@@ -87,7 +87,7 @@ class CDROM_TOC_ATIP_DATA_BLOCK extends Win32Struct
     A1Values{
         get {
             if(!this.HasProp("__A1ValuesProxyArray"))
-                this.__A1ValuesProxyArray := Win32FixedArray(this.ptr + 12, 1, Primitive, "char")
+                this.__A1ValuesProxyArray := Win32FixedArray(this.ptr + 12, 3, Primitive, "char")
             return this.__A1ValuesProxyArray
         }
     }
@@ -106,7 +106,7 @@ class CDROM_TOC_ATIP_DATA_BLOCK extends Win32Struct
     A2Values{
         get {
             if(!this.HasProp("__A2ValuesProxyArray"))
-                this.__A2ValuesProxyArray := Win32FixedArray(this.ptr + 16, 1, Primitive, "char")
+                this.__A2ValuesProxyArray := Win32FixedArray(this.ptr + 16, 3, Primitive, "char")
             return this.__A2ValuesProxyArray
         }
     }
@@ -125,7 +125,7 @@ class CDROM_TOC_ATIP_DATA_BLOCK extends Win32Struct
     A3Values{
         get {
             if(!this.HasProp("__A3ValuesProxyArray"))
-                this.__A3ValuesProxyArray := Win32FixedArray(this.ptr + 20, 1, Primitive, "char")
+                this.__A3ValuesProxyArray := Win32FixedArray(this.ptr + 20, 3, Primitive, "char")
             return this.__A3ValuesProxyArray
         }
     }

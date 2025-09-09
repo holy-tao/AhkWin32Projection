@@ -17,7 +17,7 @@ class NVME_ACTIVE_NAMESPACE_ID_LIST extends Win32Struct
     NSID{
         get {
             if(!this.HasProp("__NSIDProxyArray"))
-                this.__NSIDProxyArray := Win32FixedArray(this.ptr + 0, 4, Primitive, "uint")
+                this.__NSIDProxyArray := Win32FixedArray(this.ptr + 0, 1024, Primitive, "uint")
             return this.__NSIDProxyArray
         }
     }

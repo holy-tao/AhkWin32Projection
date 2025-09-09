@@ -87,7 +87,7 @@ class ENUMERATION_BUFFER extends Win32Struct
     GenericFilter{
         get {
             if(!this.HasProp("__GenericFilterProxyArray"))
-                this.__GenericFilterProxyArray := Win32FixedArray(this.ptr + 544, 8, TC_GEN_FILTER, "")
+                this.__GenericFilterProxyArray := Win32FixedArray(this.ptr + 544, 1, TC_GEN_FILTER, "")
             return this.__GenericFilterProxyArray
         }
     }

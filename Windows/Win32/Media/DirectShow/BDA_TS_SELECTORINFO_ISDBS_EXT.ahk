@@ -17,7 +17,7 @@ class BDA_TS_SELECTORINFO_ISDBS_EXT extends Win32Struct
     bTMCC{
         get {
             if(!this.HasProp("__bTMCCProxyArray"))
-                this.__bTMCCProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__bTMCCProxyArray := Win32FixedArray(this.ptr + 0, 48, Primitive, "char")
             return this.__bTMCCProxyArray
         }
     }

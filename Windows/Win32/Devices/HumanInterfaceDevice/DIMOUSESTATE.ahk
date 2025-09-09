@@ -41,7 +41,7 @@ class DIMOUSESTATE extends Win32Struct
     rgbButtons{
         get {
             if(!this.HasProp("__rgbButtonsProxyArray"))
-                this.__rgbButtonsProxyArray := Win32FixedArray(this.ptr + 12, 1, Primitive, "char")
+                this.__rgbButtonsProxyArray := Win32FixedArray(this.ptr + 12, 4, Primitive, "char")
             return this.__rgbButtonsProxyArray
         }
     }

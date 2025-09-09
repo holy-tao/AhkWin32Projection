@@ -41,7 +41,7 @@ class CDDDXGK_REDIRBITMAPPRESENTINFO extends Win32Struct
     hContext{
         get {
             if(!this.HasProp("__hContextProxyArray"))
-                this.__hContextProxyArray := Win32FixedArray(this.ptr + 24, 8, Primitive, "ptr")
+                this.__hContextProxyArray := Win32FixedArray(this.ptr + 24, 65, Primitive, "ptr")
             return this.__hContextProxyArray
         }
     }

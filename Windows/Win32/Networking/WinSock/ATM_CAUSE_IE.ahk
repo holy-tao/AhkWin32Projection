@@ -41,7 +41,7 @@ class ATM_CAUSE_IE extends Win32Struct
     Diagnostics{
         get {
             if(!this.HasProp("__DiagnosticsProxyArray"))
-                this.__DiagnosticsProxyArray := Win32FixedArray(this.ptr + 3, 1, Primitive, "char")
+                this.__DiagnosticsProxyArray := Win32FixedArray(this.ptr + 3, 4, Primitive, "char")
             return this.__DiagnosticsProxyArray
         }
     }

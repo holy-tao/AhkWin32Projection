@@ -106,7 +106,7 @@ class FILEMUIINFO extends Win32Struct
     pChecksum{
         get {
             if(!this.HasProp("__pChecksumProxyArray"))
-                this.__pChecksumProxyArray := Win32FixedArray(this.ptr + 12, 1, Primitive, "char")
+                this.__pChecksumProxyArray := Win32FixedArray(this.ptr + 12, 16, Primitive, "char")
             return this.__pChecksumProxyArray
         }
     }
@@ -118,7 +118,7 @@ class FILEMUIINFO extends Win32Struct
     pServiceChecksum{
         get {
             if(!this.HasProp("__pServiceChecksumProxyArray"))
-                this.__pServiceChecksumProxyArray := Win32FixedArray(this.ptr + 28, 1, Primitive, "char")
+                this.__pServiceChecksumProxyArray := Win32FixedArray(this.ptr + 28, 16, Primitive, "char")
             return this.__pServiceChecksumProxyArray
         }
     }
@@ -193,7 +193,7 @@ class FILEMUIINFO extends Win32Struct
     abBuffer{
         get {
             if(!this.HasProp("__abBufferProxyArray"))
-                this.__abBufferProxyArray := Win32FixedArray(this.ptr + 72, 1, Primitive, "char")
+                this.__abBufferProxyArray := Win32FixedArray(this.ptr + 72, 8, Primitive, "char")
             return this.__abBufferProxyArray
         }
     }

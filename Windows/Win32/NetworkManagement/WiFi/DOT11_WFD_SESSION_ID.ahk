@@ -25,7 +25,7 @@ class DOT11_WFD_SESSION_ID extends Win32Struct
     SessionAddress{
         get {
             if(!this.HasProp("__SessionAddressProxyArray"))
-                this.__SessionAddressProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")
+                this.__SessionAddressProxyArray := Win32FixedArray(this.ptr + 4, 6, Primitive, "char")
             return this.__SessionAddressProxyArray
         }
     }

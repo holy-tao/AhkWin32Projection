@@ -29,7 +29,7 @@ class ICMP_MESSAGE extends Win32Struct
     Data32{
         get {
             if(!this.HasProp("__Data32ProxyArray"))
-                this.__Data32ProxyArray := Win32FixedArray(this.ptr + 4, 4, Primitive, "uint")
+                this.__Data32ProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "uint")
             return this.__Data32ProxyArray
         }
     }
@@ -51,7 +51,7 @@ class ICMP_MESSAGE extends Win32Struct
     Data8{
         get {
             if(!this.HasProp("__Data8ProxyArray"))
-                this.__Data8ProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")
+                this.__Data8ProxyArray := Win32FixedArray(this.ptr + 4, 4, Primitive, "char")
             return this.__Data8ProxyArray
         }
     }

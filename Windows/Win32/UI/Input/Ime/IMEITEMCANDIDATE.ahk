@@ -26,7 +26,7 @@ class IMEITEMCANDIDATE extends Win32Struct
     imeItem{
         get {
             if(!this.HasProp("__imeItemProxyArray"))
-                this.__imeItemProxyArray := Win32FixedArray(this.ptr + 8, 8, IMEITEM, "")
+                this.__imeItemProxyArray := Win32FixedArray(this.ptr + 8, 1, IMEITEM, "")
             return this.__imeItemProxyArray
         }
     }

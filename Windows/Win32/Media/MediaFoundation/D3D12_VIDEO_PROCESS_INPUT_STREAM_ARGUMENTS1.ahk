@@ -28,7 +28,7 @@ class D3D12_VIDEO_PROCESS_INPUT_STREAM_ARGUMENTS1 extends Win32Struct
     InputStream{
         get {
             if(!this.HasProp("__InputStreamProxyArray"))
-                this.__InputStreamProxyArray := Win32FixedArray(this.ptr + 0, 8, D3D12_VIDEO_PROCESS_INPUT_STREAM, "")
+                this.__InputStreamProxyArray := Win32FixedArray(this.ptr + 0, 2, D3D12_VIDEO_PROCESS_INPUT_STREAM, "")
             return this.__InputStreamProxyArray
         }
     }
@@ -73,7 +73,7 @@ class D3D12_VIDEO_PROCESS_INPUT_STREAM_ARGUMENTS1 extends Win32Struct
     FilterLevels{
         get {
             if(!this.HasProp("__FilterLevelsProxyArray"))
-                this.__FilterLevelsProxyArray := Win32FixedArray(this.ptr + 72, 4, Primitive, "int")
+                this.__FilterLevelsProxyArray := Win32FixedArray(this.ptr + 72, 32, Primitive, "int")
             return this.__FilterLevelsProxyArray
         }
     }

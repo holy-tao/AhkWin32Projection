@@ -57,7 +57,7 @@ class EMI_METADATA_V2 extends Win32Struct
     Channels{
         get {
             if(!this.HasProp("__ChannelsProxyArray"))
-                this.__ChannelsProxyArray := Win32FixedArray(this.ptr + 72, 8, EMI_CHANNEL_V2, "")
+                this.__ChannelsProxyArray := Win32FixedArray(this.ptr + 72, 1, EMI_CHANNEL_V2, "")
             return this.__ChannelsProxyArray
         }
     }

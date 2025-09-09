@@ -34,7 +34,7 @@ class PORT_DATA_LIST_1 extends Win32Struct
     pPortData{
         get {
             if(!this.HasProp("__pPortDataProxyArray"))
-                this.__pPortDataProxyArray := Win32FixedArray(this.ptr + 8, 8, PORT_DATA_2, "")
+                this.__pPortDataProxyArray := Win32FixedArray(this.ptr + 8, 1, PORT_DATA_2, "")
             return this.__pPortDataProxyArray
         }
     }

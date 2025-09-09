@@ -110,7 +110,7 @@ class DXGI_OUTPUT_DESC1 extends Win32Struct
     RedPrimary{
         get {
             if(!this.HasProp("__RedPrimaryProxyArray"))
-                this.__RedPrimaryProxyArray := Win32FixedArray(this.ptr + 104, 4, Primitive, "float")
+                this.__RedPrimaryProxyArray := Win32FixedArray(this.ptr + 104, 2, Primitive, "float")
             return this.__RedPrimaryProxyArray
         }
     }
@@ -124,7 +124,7 @@ class DXGI_OUTPUT_DESC1 extends Win32Struct
     GreenPrimary{
         get {
             if(!this.HasProp("__GreenPrimaryProxyArray"))
-                this.__GreenPrimaryProxyArray := Win32FixedArray(this.ptr + 112, 4, Primitive, "float")
+                this.__GreenPrimaryProxyArray := Win32FixedArray(this.ptr + 112, 2, Primitive, "float")
             return this.__GreenPrimaryProxyArray
         }
     }
@@ -138,7 +138,7 @@ class DXGI_OUTPUT_DESC1 extends Win32Struct
     BluePrimary{
         get {
             if(!this.HasProp("__BluePrimaryProxyArray"))
-                this.__BluePrimaryProxyArray := Win32FixedArray(this.ptr + 120, 4, Primitive, "float")
+                this.__BluePrimaryProxyArray := Win32FixedArray(this.ptr + 120, 2, Primitive, "float")
             return this.__BluePrimaryProxyArray
         }
     }
@@ -152,7 +152,7 @@ class DXGI_OUTPUT_DESC1 extends Win32Struct
     WhitePoint{
         get {
             if(!this.HasProp("__WhitePointProxyArray"))
-                this.__WhitePointProxyArray := Win32FixedArray(this.ptr + 128, 4, Primitive, "float")
+                this.__WhitePointProxyArray := Win32FixedArray(this.ptr + 128, 2, Primitive, "float")
             return this.__WhitePointProxyArray
         }
     }

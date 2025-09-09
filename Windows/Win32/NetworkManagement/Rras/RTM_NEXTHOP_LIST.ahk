@@ -29,7 +29,7 @@ class RTM_NEXTHOP_LIST extends Win32Struct
     NextHops{
         get {
             if(!this.HasProp("__NextHopsProxyArray"))
-                this.__NextHopsProxyArray := Win32FixedArray(this.ptr + 8, 8, Primitive, "ptr")
+                this.__NextHopsProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "ptr")
             return this.__NextHopsProxyArray
         }
     }

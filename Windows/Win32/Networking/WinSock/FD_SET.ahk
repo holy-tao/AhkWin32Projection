@@ -27,7 +27,7 @@ class FD_SET extends Win32Struct
     fd_array{
         get {
             if(!this.HasProp("__fd_arrayProxyArray"))
-                this.__fd_arrayProxyArray := Win32FixedArray(this.ptr + 8, 8, Primitive, "ptr")
+                this.__fd_arrayProxyArray := Win32FixedArray(this.ptr + 8, 64, Primitive, "ptr")
             return this.__fd_arrayProxyArray
         }
     }

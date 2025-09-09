@@ -25,7 +25,7 @@ class DMUS_WAVEDATA extends Win32Struct
     byData{
         get {
             if(!this.HasProp("__byDataProxyArray"))
-                this.__byDataProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")
+                this.__byDataProxyArray := Win32FixedArray(this.ptr + 4, 4, Primitive, "char")
             return this.__byDataProxyArray
         }
     }

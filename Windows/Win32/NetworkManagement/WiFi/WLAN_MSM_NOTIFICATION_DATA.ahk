@@ -68,7 +68,7 @@ class WLAN_MSM_NOTIFICATION_DATA extends Win32Struct
     dot11MacAddr{
         get {
             if(!this.HasProp("__dot11MacAddrProxyArray"))
-                this.__dot11MacAddrProxyArray := Win32FixedArray(this.ptr + 560, 1, Primitive, "char")
+                this.__dot11MacAddrProxyArray := Win32FixedArray(this.ptr + 560, 6, Primitive, "char")
             return this.__dot11MacAddrProxyArray
         }
     }

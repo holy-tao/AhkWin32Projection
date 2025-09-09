@@ -42,7 +42,7 @@ class IPSEC_TUNNEL_ENDPOINT0 extends Win32Struct
     v6Address{
         get {
             if(!this.HasProp("__v6AddressProxyArray"))
-                this.__v6AddressProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")
+                this.__v6AddressProxyArray := Win32FixedArray(this.ptr + 4, 16, Primitive, "char")
             return this.__v6AddressProxyArray
         }
     }

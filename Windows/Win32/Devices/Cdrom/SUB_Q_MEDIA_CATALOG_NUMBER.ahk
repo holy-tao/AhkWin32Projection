@@ -37,7 +37,7 @@ class SUB_Q_MEDIA_CATALOG_NUMBER extends Win32Struct
     Reserved{
         get {
             if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 5, 1, Primitive, "char")
+                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 5, 3, Primitive, "char")
             return this.__ReservedProxyArray
         }
     }
@@ -56,7 +56,7 @@ class SUB_Q_MEDIA_CATALOG_NUMBER extends Win32Struct
     MediaCatalog{
         get {
             if(!this.HasProp("__MediaCatalogProxyArray"))
-                this.__MediaCatalogProxyArray := Win32FixedArray(this.ptr + 9, 1, Primitive, "char")
+                this.__MediaCatalogProxyArray := Win32FixedArray(this.ptr + 9, 15, Primitive, "char")
             return this.__MediaCatalogProxyArray
         }
     }

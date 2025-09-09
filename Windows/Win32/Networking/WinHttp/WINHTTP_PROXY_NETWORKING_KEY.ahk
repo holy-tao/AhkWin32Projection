@@ -17,7 +17,7 @@ class WINHTTP_PROXY_NETWORKING_KEY extends Win32Struct
     pbBuffer{
         get {
             if(!this.HasProp("__pbBufferProxyArray"))
-                this.__pbBufferProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__pbBufferProxyArray := Win32FixedArray(this.ptr + 0, 128, Primitive, "char")
             return this.__pbBufferProxyArray
         }
     }

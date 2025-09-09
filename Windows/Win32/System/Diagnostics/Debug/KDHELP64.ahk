@@ -172,7 +172,7 @@ class KDHELP64 extends Win32Struct
     Reserved0{
         get {
             if(!this.HasProp("__Reserved0ProxyArray"))
-                this.__Reserved0ProxyArray := Win32FixedArray(this.ptr + 96, 8, Primitive, "uint")
+                this.__Reserved0ProxyArray := Win32FixedArray(this.ptr + 96, 2, Primitive, "uint")
             return this.__Reserved0ProxyArray
         }
     }

@@ -472,7 +472,7 @@ class PRINTIFI32 extends Win32Struct
     achVendId{
         get {
             if(!this.HasProp("__achVendIdProxyArray"))
-                this.__achVendIdProxyArray := Win32FixedArray(this.ptr + 160, 1, Primitive, "char")
+                this.__achVendIdProxyArray := Win32FixedArray(this.ptr + 160, 4, Primitive, "char")
             return this.__achVendIdProxyArray
         }
     }

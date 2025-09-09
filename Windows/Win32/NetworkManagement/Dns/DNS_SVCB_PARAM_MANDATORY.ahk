@@ -25,7 +25,7 @@ class DNS_SVCB_PARAM_MANDATORY extends Win32Struct
     rgwMandatoryKeys{
         get {
             if(!this.HasProp("__rgwMandatoryKeysProxyArray"))
-                this.__rgwMandatoryKeysProxyArray := Win32FixedArray(this.ptr + 2, 2, Primitive, "ushort")
+                this.__rgwMandatoryKeysProxyArray := Win32FixedArray(this.ptr + 2, 1, Primitive, "ushort")
             return this.__rgwMandatoryKeysProxyArray
         }
     }

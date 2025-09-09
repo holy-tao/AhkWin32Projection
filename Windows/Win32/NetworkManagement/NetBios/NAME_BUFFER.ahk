@@ -20,7 +20,7 @@ class NAME_BUFFER extends Win32Struct
     name{
         get {
             if(!this.HasProp("__nameProxyArray"))
-                this.__nameProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__nameProxyArray := Win32FixedArray(this.ptr + 0, 16, Primitive, "char")
             return this.__nameProxyArray
         }
     }

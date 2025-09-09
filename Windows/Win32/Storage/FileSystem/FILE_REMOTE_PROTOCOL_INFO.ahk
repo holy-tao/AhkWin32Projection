@@ -182,7 +182,7 @@ class FILE_REMOTE_PROTOCOL_INFO extends Win32Struct
     Reserved1{
         get {
             if(!this.HasProp("__Reserved1ProxyArray"))
-                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 24, 4, Primitive, "uint")
+                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 24, 8, Primitive, "uint")
             return this.__Reserved1ProxyArray
         }
     }
@@ -217,7 +217,7 @@ class FILE_REMOTE_PROTOCOL_INFO extends Win32Struct
     Reserved12{
         get {
             if(!this.HasProp("__Reserved12ProxyArray"))
-                this.__Reserved12ProxyArray := Win32FixedArray(this.ptr + 56, 4, Primitive, "uint")
+                this.__Reserved12ProxyArray := Win32FixedArray(this.ptr + 56, 16, Primitive, "uint")
             return this.__Reserved12ProxyArray
         }
     }

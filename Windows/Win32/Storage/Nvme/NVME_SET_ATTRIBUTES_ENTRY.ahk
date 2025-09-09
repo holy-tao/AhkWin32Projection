@@ -67,7 +67,7 @@ class NVME_SET_ATTRIBUTES_ENTRY extends Win32Struct
     TotalCapacity{
         get {
             if(!this.HasProp("__TotalCapacityProxyArray"))
-                this.__TotalCapacityProxyArray := Win32FixedArray(this.ptr + 16, 1, Primitive, "char")
+                this.__TotalCapacityProxyArray := Win32FixedArray(this.ptr + 16, 16, Primitive, "char")
             return this.__TotalCapacityProxyArray
         }
     }
@@ -79,7 +79,7 @@ class NVME_SET_ATTRIBUTES_ENTRY extends Win32Struct
     UnallocatedCapacity{
         get {
             if(!this.HasProp("__UnallocatedCapacityProxyArray"))
-                this.__UnallocatedCapacityProxyArray := Win32FixedArray(this.ptr + 32, 1, Primitive, "char")
+                this.__UnallocatedCapacityProxyArray := Win32FixedArray(this.ptr + 32, 16, Primitive, "char")
             return this.__UnallocatedCapacityProxyArray
         }
     }
@@ -91,7 +91,7 @@ class NVME_SET_ATTRIBUTES_ENTRY extends Win32Struct
     Reserved2{
         get {
             if(!this.HasProp("__Reserved2ProxyArray"))
-                this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 48, 1, Primitive, "char")
+                this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 48, 80, Primitive, "char")
             return this.__Reserved2ProxyArray
         }
     }

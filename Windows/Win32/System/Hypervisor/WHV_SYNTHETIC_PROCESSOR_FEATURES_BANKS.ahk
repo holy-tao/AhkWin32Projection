@@ -45,7 +45,7 @@ class WHV_SYNTHETIC_PROCESSOR_FEATURES_BANKS extends Win32Struct
     AsUINT64{
         get {
             if(!this.HasProp("__AsUINT64ProxyArray"))
-                this.__AsUINT64ProxyArray := Win32FixedArray(this.ptr + 8, 8, Primitive, "uint")
+                this.__AsUINT64ProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "uint")
             return this.__AsUINT64ProxyArray
         }
     }

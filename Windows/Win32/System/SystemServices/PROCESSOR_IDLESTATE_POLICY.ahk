@@ -50,7 +50,7 @@ class PROCESSOR_IDLESTATE_POLICY extends Win32Struct
     Policy{
         get {
             if(!this.HasProp("__PolicyProxyArray"))
-                this.__PolicyProxyArray := Win32FixedArray(this.ptr + 8, 8, PROCESSOR_IDLESTATE_INFO, "")
+                this.__PolicyProxyArray := Win32FixedArray(this.ptr + 8, 3, PROCESSOR_IDLESTATE_INFO, "")
             return this.__PolicyProxyArray
         }
     }

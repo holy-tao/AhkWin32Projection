@@ -49,7 +49,7 @@ class DNS_TLSA_DATA extends Win32Struct
     bPad{
         get {
             if(!this.HasProp("__bPadProxyArray"))
-                this.__bPadProxyArray := Win32FixedArray(this.ptr + 6, 1, Primitive, "char")
+                this.__bPadProxyArray := Win32FixedArray(this.ptr + 6, 3, Primitive, "char")
             return this.__bPadProxyArray
         }
     }

@@ -34,7 +34,7 @@ class ISCSI_TARGET_PORTAL_GROUPA extends Win32Struct
     Portals{
         get {
             if(!this.HasProp("__PortalsProxyArray"))
-                this.__PortalsProxyArray := Win32FixedArray(this.ptr + 8, 8, ISCSI_TARGET_PORTALA, "")
+                this.__PortalsProxyArray := Win32FixedArray(this.ptr + 8, 1, ISCSI_TARGET_PORTALA, "")
             return this.__PortalsProxyArray
         }
     }

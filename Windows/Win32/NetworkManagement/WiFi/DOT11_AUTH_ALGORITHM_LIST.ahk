@@ -45,7 +45,7 @@ class DOT11_AUTH_ALGORITHM_LIST extends Win32Struct
     AlgorithmIds{
         get {
             if(!this.HasProp("__AlgorithmIdsProxyArray"))
-                this.__AlgorithmIdsProxyArray := Win32FixedArray(this.ptr + 12, 4, Primitive, "int")
+                this.__AlgorithmIdsProxyArray := Win32FixedArray(this.ptr + 12, 1, Primitive, "int")
             return this.__AlgorithmIdsProxyArray
         }
     }

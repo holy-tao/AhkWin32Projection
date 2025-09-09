@@ -25,7 +25,7 @@ class XACTOPT extends Win32Struct
     szDescription{
         get {
             if(!this.HasProp("__szDescriptionProxyArray"))
-                this.__szDescriptionProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")
+                this.__szDescriptionProxyArray := Win32FixedArray(this.ptr + 4, 40, Primitive, "char")
             return this.__szDescriptionProxyArray
         }
     }

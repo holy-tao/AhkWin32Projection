@@ -35,7 +35,7 @@ class INTLIST extends Win32Struct
     iValues{
         get {
             if(!this.HasProp("__iValuesProxyArray"))
-                this.__iValuesProxyArray := Win32FixedArray(this.ptr + 4, 4, Primitive, "int")
+                this.__iValuesProxyArray := Win32FixedArray(this.ptr + 4, 402, Primitive, "int")
             return this.__iValuesProxyArray
         }
     }

@@ -41,7 +41,7 @@ class KERB_CLOUD_KERBEROS_DEBUG_RESPONSE extends Win32Struct
     Data{
         get {
             if(!this.HasProp("__DataProxyArray"))
-                this.__DataProxyArray := Win32FixedArray(this.ptr + 12, 4, Primitive, "uint")
+                this.__DataProxyArray := Win32FixedArray(this.ptr + 12, 1, Primitive, "uint")
             return this.__DataProxyArray
         }
     }

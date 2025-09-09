@@ -33,7 +33,7 @@ class VBS_ENCLAVE_REPORT_MODULE extends Win32Struct
     UniqueId{
         get {
             if(!this.HasProp("__UniqueIdProxyArray"))
-                this.__UniqueIdProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "char")
+                this.__UniqueIdProxyArray := Win32FixedArray(this.ptr + 8, 32, Primitive, "char")
             return this.__UniqueIdProxyArray
         }
     }
@@ -45,7 +45,7 @@ class VBS_ENCLAVE_REPORT_MODULE extends Win32Struct
     AuthorId{
         get {
             if(!this.HasProp("__AuthorIdProxyArray"))
-                this.__AuthorIdProxyArray := Win32FixedArray(this.ptr + 40, 1, Primitive, "char")
+                this.__AuthorIdProxyArray := Win32FixedArray(this.ptr + 40, 32, Primitive, "char")
             return this.__AuthorIdProxyArray
         }
     }
@@ -57,7 +57,7 @@ class VBS_ENCLAVE_REPORT_MODULE extends Win32Struct
     FamilyId{
         get {
             if(!this.HasProp("__FamilyIdProxyArray"))
-                this.__FamilyIdProxyArray := Win32FixedArray(this.ptr + 72, 1, Primitive, "char")
+                this.__FamilyIdProxyArray := Win32FixedArray(this.ptr + 72, 16, Primitive, "char")
             return this.__FamilyIdProxyArray
         }
     }
@@ -69,7 +69,7 @@ class VBS_ENCLAVE_REPORT_MODULE extends Win32Struct
     ImageId{
         get {
             if(!this.HasProp("__ImageIdProxyArray"))
-                this.__ImageIdProxyArray := Win32FixedArray(this.ptr + 88, 1, Primitive, "char")
+                this.__ImageIdProxyArray := Win32FixedArray(this.ptr + 88, 16, Primitive, "char")
             return this.__ImageIdProxyArray
         }
     }

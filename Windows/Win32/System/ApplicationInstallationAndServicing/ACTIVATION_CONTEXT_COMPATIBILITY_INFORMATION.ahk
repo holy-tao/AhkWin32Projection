@@ -100,7 +100,7 @@ class ACTIVATION_CONTEXT_COMPATIBILITY_INFORMATION extends Win32Struct
     Elements{
         get {
             if(!this.HasProp("__ElementsProxyArray"))
-                this.__ElementsProxyArray := Win32FixedArray(this.ptr + 8, 8, COMPATIBILITY_CONTEXT_ELEMENT, "")
+                this.__ElementsProxyArray := Win32FixedArray(this.ptr + 8, 1, COMPATIBILITY_CONTEXT_ELEMENT, "")
             return this.__ElementsProxyArray
         }
     }

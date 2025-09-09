@@ -17,7 +17,7 @@ class ColorLUTParams extends Win32Struct
     lutB{
         get {
             if(!this.HasProp("__lutBProxyArray"))
-                this.__lutBProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__lutBProxyArray := Win32FixedArray(this.ptr + 0, 256, Primitive, "char")
             return this.__lutBProxyArray
         }
     }
@@ -28,7 +28,7 @@ class ColorLUTParams extends Win32Struct
     lutG{
         get {
             if(!this.HasProp("__lutGProxyArray"))
-                this.__lutGProxyArray := Win32FixedArray(this.ptr + 256, 1, Primitive, "char")
+                this.__lutGProxyArray := Win32FixedArray(this.ptr + 256, 256, Primitive, "char")
             return this.__lutGProxyArray
         }
     }
@@ -39,7 +39,7 @@ class ColorLUTParams extends Win32Struct
     lutR{
         get {
             if(!this.HasProp("__lutRProxyArray"))
-                this.__lutRProxyArray := Win32FixedArray(this.ptr + 512, 1, Primitive, "char")
+                this.__lutRProxyArray := Win32FixedArray(this.ptr + 512, 256, Primitive, "char")
             return this.__lutRProxyArray
         }
     }
@@ -50,7 +50,7 @@ class ColorLUTParams extends Win32Struct
     lutA{
         get {
             if(!this.HasProp("__lutAProxyArray"))
-                this.__lutAProxyArray := Win32FixedArray(this.ptr + 768, 1, Primitive, "char")
+                this.__lutAProxyArray := Win32FixedArray(this.ptr + 768, 256, Primitive, "char")
             return this.__lutAProxyArray
         }
     }

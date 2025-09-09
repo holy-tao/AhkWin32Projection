@@ -44,7 +44,7 @@ class WLAN_AVAILABLE_NETWORK_LIST extends Win32Struct
     Network{
         get {
             if(!this.HasProp("__NetworkProxyArray"))
-                this.__NetworkProxyArray := Win32FixedArray(this.ptr + 8, 8, WLAN_AVAILABLE_NETWORK, "")
+                this.__NetworkProxyArray := Win32FixedArray(this.ptr + 8, 1, WLAN_AVAILABLE_NETWORK, "")
             return this.__NetworkProxyArray
         }
     }

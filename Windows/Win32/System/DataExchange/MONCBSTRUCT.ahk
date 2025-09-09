@@ -181,7 +181,7 @@ class MONCBSTRUCT extends Win32Struct
     Data{
         get {
             if(!this.HasProp("__DataProxyArray"))
-                this.__DataProxyArray := Win32FixedArray(this.ptr + 124, 4, Primitive, "uint")
+                this.__DataProxyArray := Win32FixedArray(this.ptr + 124, 8, Primitive, "uint")
             return this.__DataProxyArray
         }
     }

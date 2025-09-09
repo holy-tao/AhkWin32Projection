@@ -60,7 +60,7 @@ class MFCONTENTPROTECTIONDEVICE_INPUT_DATA extends Win32Struct
     InputData{
         get {
             if(!this.HasProp("__InputDataProxyArray"))
-                this.__InputDataProxyArray := Win32FixedArray(this.ptr + 16, 1, Primitive, "char")
+                this.__InputDataProxyArray := Win32FixedArray(this.ptr + 16, 4, Primitive, "char")
             return this.__InputDataProxyArray
         }
     }

@@ -69,7 +69,7 @@ class SPRECOGNIZERSTATUS extends Win32Struct
     aLangID{
         get {
             if(!this.HasProp("__aLangIDProxyArray"))
-                this.__aLangIDProxyArray := Win32FixedArray(this.ptr + 68, 2, Primitive, "ushort")
+                this.__aLangIDProxyArray := Win32FixedArray(this.ptr + 68, 20, Primitive, "ushort")
             return this.__aLangIDProxyArray
         }
     }

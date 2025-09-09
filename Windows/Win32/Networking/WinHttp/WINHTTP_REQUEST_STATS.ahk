@@ -58,7 +58,7 @@ class WINHTTP_REQUEST_STATS extends Win32Struct
     rgullStats{
         get {
             if(!this.HasProp("__rgullStatsProxyArray"))
-                this.__rgullStatsProxyArray := Win32FixedArray(this.ptr + 16, 8, Primitive, "uint")
+                this.__rgullStatsProxyArray := Win32FixedArray(this.ptr + 16, 32, Primitive, "uint")
             return this.__rgullStatsProxyArray
         }
     }

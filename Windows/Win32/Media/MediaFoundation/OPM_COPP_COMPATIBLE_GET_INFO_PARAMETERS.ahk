@@ -64,7 +64,7 @@ class OPM_COPP_COMPATIBLE_GET_INFO_PARAMETERS extends Win32Struct
     abParameters{
         get {
             if(!this.HasProp("__abParametersProxyArray"))
-                this.__abParametersProxyArray := Win32FixedArray(this.ptr + 32, 1, Primitive, "char")
+                this.__abParametersProxyArray := Win32FixedArray(this.ptr + 32, 4056, Primitive, "char")
             return this.__abParametersProxyArray
         }
     }

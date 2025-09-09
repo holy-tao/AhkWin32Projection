@@ -38,7 +38,7 @@ class DOT11_VWIFI_ATTRIBUTES extends Win32Struct
     Combinations{
         get {
             if(!this.HasProp("__CombinationsProxyArray"))
-                this.__CombinationsProxyArray := Win32FixedArray(this.ptr + 8, 8, DOT11_VWIFI_COMBINATION, "")
+                this.__CombinationsProxyArray := Win32FixedArray(this.ptr + 8, 1, DOT11_VWIFI_COMBINATION, "")
             return this.__CombinationsProxyArray
         }
     }

@@ -29,7 +29,7 @@ class DOT11_PROVISION_DISCOVERY_REQUEST_SEND_COMPLETE_PARAMETERS extends Win32St
     PeerDeviceAddress{
         get {
             if(!this.HasProp("__PeerDeviceAddressProxyArray"))
-                this.__PeerDeviceAddressProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")
+                this.__PeerDeviceAddressProxyArray := Win32FixedArray(this.ptr + 4, 6, Primitive, "char")
             return this.__PeerDeviceAddressProxyArray
         }
     }
@@ -40,7 +40,7 @@ class DOT11_PROVISION_DISCOVERY_REQUEST_SEND_COMPLETE_PARAMETERS extends Win32St
     ReceiverAddress{
         get {
             if(!this.HasProp("__ReceiverAddressProxyArray"))
-                this.__ReceiverAddressProxyArray := Win32FixedArray(this.ptr + 10, 1, Primitive, "char")
+                this.__ReceiverAddressProxyArray := Win32FixedArray(this.ptr + 10, 6, Primitive, "char")
             return this.__ReceiverAddressProxyArray
         }
     }

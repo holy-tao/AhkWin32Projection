@@ -25,7 +25,7 @@ class DOT11_WFD_SESSION_INFO extends Win32Struct
     ucSessionInfo{
         get {
             if(!this.HasProp("__ucSessionInfoProxyArray"))
-                this.__ucSessionInfoProxyArray := Win32FixedArray(this.ptr + 2, 1, Primitive, "char")
+                this.__ucSessionInfoProxyArray := Win32FixedArray(this.ptr + 2, 144, Primitive, "char")
             return this.__ucSessionInfoProxyArray
         }
     }

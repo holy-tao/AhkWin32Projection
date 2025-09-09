@@ -32,7 +32,7 @@ class MIB_MFE_STATS_TABLE_EX_XP extends Win32Struct
     table{
         get {
             if(!this.HasProp("__tableProxyArray"))
-                this.__tableProxyArray := Win32FixedArray(this.ptr + 8, 8, Primitive, "ptr")
+                this.__tableProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "ptr")
             return this.__tableProxyArray
         }
     }

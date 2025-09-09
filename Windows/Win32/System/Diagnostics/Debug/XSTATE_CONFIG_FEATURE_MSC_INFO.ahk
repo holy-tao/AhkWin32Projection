@@ -42,7 +42,7 @@ class XSTATE_CONFIG_FEATURE_MSC_INFO extends Win32Struct
     Features{
         get {
             if(!this.HasProp("__FeaturesProxyArray"))
-                this.__FeaturesProxyArray := Win32FixedArray(this.ptr + 16, 8, XSTATE_FEATURE, "")
+                this.__FeaturesProxyArray := Win32FixedArray(this.ptr + 16, 64, XSTATE_FEATURE, "")
             return this.__FeaturesProxyArray
         }
     }

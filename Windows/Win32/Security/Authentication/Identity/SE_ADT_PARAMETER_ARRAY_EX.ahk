@@ -82,7 +82,7 @@ class SE_ADT_PARAMETER_ARRAY_EX extends Win32Struct
     Parameters{
         get {
             if(!this.HasProp("__ParametersProxyArray"))
-                this.__ParametersProxyArray := Win32FixedArray(this.ptr + 32, 8, SE_ADT_PARAMETER_ARRAY_ENTRY, "")
+                this.__ParametersProxyArray := Win32FixedArray(this.ptr + 32, 32, SE_ADT_PARAMETER_ARRAY_ENTRY, "")
             return this.__ParametersProxyArray
         }
     }

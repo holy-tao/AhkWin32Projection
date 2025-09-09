@@ -56,7 +56,7 @@ class DHCP_ADDR_PATTERN extends Win32Struct
     Pattern{
         get {
             if(!this.HasProp("__PatternProxyArray"))
-                this.__PatternProxyArray := Win32FixedArray(this.ptr + 13, 1, Primitive, "char")
+                this.__PatternProxyArray := Win32FixedArray(this.ptr + 13, 255, Primitive, "char")
             return this.__PatternProxyArray
         }
     }

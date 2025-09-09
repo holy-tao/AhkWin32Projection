@@ -385,7 +385,7 @@ class IMAGE_VXD_HEADER extends Win32Struct
     e32_res3{
         get {
             if(!this.HasProp("__e32_res3ProxyArray"))
-                this.__e32_res3ProxyArray := Win32FixedArray(this.ptr + 172, 1, Primitive, "char")
+                this.__e32_res3ProxyArray := Win32FixedArray(this.ptr + 172, 12, Primitive, "char")
             return this.__e32_res3ProxyArray
         }
     }

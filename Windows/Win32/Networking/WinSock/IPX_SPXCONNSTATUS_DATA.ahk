@@ -110,7 +110,7 @@ class IPX_SPXCONNSTATUS_DATA extends Win32Struct
     ImmediateAddress{
         get {
             if(!this.HasProp("__ImmediateAddressProxyArray"))
-                this.__ImmediateAddressProxyArray := Win32FixedArray(this.ptr + 18, 1, Primitive, "char")
+                this.__ImmediateAddressProxyArray := Win32FixedArray(this.ptr + 18, 6, Primitive, "char")
             return this.__ImmediateAddressProxyArray
         }
     }
@@ -122,7 +122,7 @@ class IPX_SPXCONNSTATUS_DATA extends Win32Struct
     RemoteNetwork{
         get {
             if(!this.HasProp("__RemoteNetworkProxyArray"))
-                this.__RemoteNetworkProxyArray := Win32FixedArray(this.ptr + 24, 1, Primitive, "char")
+                this.__RemoteNetworkProxyArray := Win32FixedArray(this.ptr + 24, 4, Primitive, "char")
             return this.__RemoteNetworkProxyArray
         }
     }
@@ -134,7 +134,7 @@ class IPX_SPXCONNSTATUS_DATA extends Win32Struct
     RemoteNode{
         get {
             if(!this.HasProp("__RemoteNodeProxyArray"))
-                this.__RemoteNodeProxyArray := Win32FixedArray(this.ptr + 28, 1, Primitive, "char")
+                this.__RemoteNodeProxyArray := Win32FixedArray(this.ptr + 28, 6, Primitive, "char")
             return this.__RemoteNodeProxyArray
         }
     }

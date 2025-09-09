@@ -42,7 +42,7 @@ class SID_AND_ATTRIBUTES_HASH extends Win32Struct
     Hash{
         get {
             if(!this.HasProp("__HashProxyArray"))
-                this.__HashProxyArray := Win32FixedArray(this.ptr + 16, 8, Primitive, "ptr")
+                this.__HashProxyArray := Win32FixedArray(this.ptr + 16, 32, Primitive, "ptr")
             return this.__HashProxyArray
         }
     }

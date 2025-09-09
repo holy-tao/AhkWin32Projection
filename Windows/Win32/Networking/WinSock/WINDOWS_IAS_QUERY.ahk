@@ -17,7 +17,7 @@ class WINDOWS_IAS_QUERY extends Win32Struct
     irdaDeviceID{
         get {
             if(!this.HasProp("__irdaDeviceIDProxyArray"))
-                this.__irdaDeviceIDProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__irdaDeviceIDProxyArray := Win32FixedArray(this.ptr + 0, 4, Primitive, "char")
             return this.__irdaDeviceIDProxyArray
         }
     }
@@ -68,7 +68,7 @@ class WINDOWS_IAS_QUERY extends Win32Struct
     OctetSeq{
         get {
             if(!this.HasProp("__OctetSeqProxyArray"))
-                this.__OctetSeqProxyArray := Win32FixedArray(this.ptr + 652, 1, Primitive, "char")
+                this.__OctetSeqProxyArray := Win32FixedArray(this.ptr + 652, 1024, Primitive, "char")
             return this.__OctetSeqProxyArray
         }
     }
@@ -87,7 +87,7 @@ class WINDOWS_IAS_QUERY extends Win32Struct
     UsrStr{
         get {
             if(!this.HasProp("__UsrStrProxyArray"))
-                this.__UsrStrProxyArray := Win32FixedArray(this.ptr + 656, 1, Primitive, "char")
+                this.__UsrStrProxyArray := Win32FixedArray(this.ptr + 656, 256, Primitive, "char")
             return this.__UsrStrProxyArray
         }
     }

@@ -20,7 +20,7 @@ class NLM_SOCKADDR extends Win32Struct
     data{
         get {
             if(!this.HasProp("__dataProxyArray"))
-                this.__dataProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__dataProxyArray := Win32FixedArray(this.ptr + 0, 128, Primitive, "char")
             return this.__dataProxyArray
         }
     }

@@ -242,7 +242,7 @@ class CHANGER_SEND_VOLUME_TAG_INFORMATION extends Win32Struct
     VolumeIDTemplate{
         get {
             if(!this.HasProp("__VolumeIDTemplateProxyArray"))
-                this.__VolumeIDTemplateProxyArray := Win32FixedArray(this.ptr + 12, 1, Primitive, "char")
+                this.__VolumeIDTemplateProxyArray := Win32FixedArray(this.ptr + 12, 40, Primitive, "char")
             return this.__VolumeIDTemplateProxyArray
         }
     }

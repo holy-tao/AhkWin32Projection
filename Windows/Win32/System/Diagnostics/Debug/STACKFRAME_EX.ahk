@@ -118,7 +118,7 @@ class STACKFRAME_EX extends Win32Struct
     Params{
         get {
             if(!this.HasProp("__ParamsProxyArray"))
-                this.__ParamsProxyArray := Win32FixedArray(this.ptr + 88, 8, Primitive, "uint")
+                this.__ParamsProxyArray := Win32FixedArray(this.ptr + 88, 4, Primitive, "uint")
             return this.__ParamsProxyArray
         }
     }
@@ -149,7 +149,7 @@ class STACKFRAME_EX extends Win32Struct
     Reserved{
         get {
             if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 128, 8, Primitive, "uint")
+                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 128, 3, Primitive, "uint")
             return this.__ReservedProxyArray
         }
     }

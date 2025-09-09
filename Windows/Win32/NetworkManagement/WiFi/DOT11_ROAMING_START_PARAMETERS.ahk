@@ -30,7 +30,7 @@ class DOT11_ROAMING_START_PARAMETERS extends Win32Struct
     AdhocBSSID{
         get {
             if(!this.HasProp("__AdhocBSSIDProxyArray"))
-                this.__AdhocBSSIDProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")
+                this.__AdhocBSSIDProxyArray := Win32FixedArray(this.ptr + 4, 6, Primitive, "char")
             return this.__AdhocBSSIDProxyArray
         }
     }

@@ -253,7 +253,7 @@ class IP_ADAPTER_ADDRESSES_XP extends Win32Struct
     PhysicalAddress{
         get {
             if(!this.HasProp("__PhysicalAddressProxyArray"))
-                this.__PhysicalAddressProxyArray := Win32FixedArray(this.ptr + 80, 1, Primitive, "char")
+                this.__PhysicalAddressProxyArray := Win32FixedArray(this.ptr + 80, 8, Primitive, "char")
             return this.__PhysicalAddressProxyArray
         }
     }
@@ -709,7 +709,7 @@ class IP_ADAPTER_ADDRESSES_XP extends Win32Struct
     ZoneIndices{
         get {
             if(!this.HasProp("__ZoneIndicesProxyArray"))
-                this.__ZoneIndicesProxyArray := Win32FixedArray(this.ptr + 112, 4, Primitive, "uint")
+                this.__ZoneIndicesProxyArray := Win32FixedArray(this.ptr + 112, 16, Primitive, "uint")
             return this.__ZoneIndicesProxyArray
         }
     }

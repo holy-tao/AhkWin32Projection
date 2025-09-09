@@ -41,7 +41,7 @@ class LOGPALETTE extends Win32Struct
     palPalEntry{
         get {
             if(!this.HasProp("__palPalEntryProxyArray"))
-                this.__palPalEntryProxyArray := Win32FixedArray(this.ptr + 8, 8, PALETTEENTRY, "")
+                this.__palPalEntryProxyArray := Win32FixedArray(this.ptr + 8, 1, PALETTEENTRY, "")
             return this.__palPalEntryProxyArray
         }
     }

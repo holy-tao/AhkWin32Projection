@@ -25,7 +25,7 @@ class VIDEO_HARDWARE_STATE_HEADER extends Win32Struct
     PortValue{
         get {
             if(!this.HasProp("__PortValueProxyArray"))
-                this.__PortValueProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")
+                this.__PortValueProxyArray := Win32FixedArray(this.ptr + 4, 48, Primitive, "char")
             return this.__PortValueProxyArray
         }
     }

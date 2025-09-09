@@ -74,7 +74,7 @@ class PPM_IDLE_STATE_ACCOUNTING_EX extends Win32Struct
     IdleTimeBuckets{
         get {
             if(!this.HasProp("__IdleTimeBucketsProxyArray"))
-                this.__IdleTimeBucketsProxyArray := Win32FixedArray(this.ptr + 32, 8, PPM_IDLE_STATE_BUCKET_EX, "")
+                this.__IdleTimeBucketsProxyArray := Win32FixedArray(this.ptr + 32, 16, PPM_IDLE_STATE_BUCKET_EX, "")
             return this.__IdleTimeBucketsProxyArray
         }
     }

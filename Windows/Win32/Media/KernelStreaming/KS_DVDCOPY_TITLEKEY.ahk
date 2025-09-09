@@ -25,7 +25,7 @@ class KS_DVDCOPY_TITLEKEY extends Win32Struct
     ReservedNT{
         get {
             if(!this.HasProp("__ReservedNTProxyArray"))
-                this.__ReservedNTProxyArray := Win32FixedArray(this.ptr + 4, 4, Primitive, "uint")
+                this.__ReservedNTProxyArray := Win32FixedArray(this.ptr + 4, 2, Primitive, "uint")
             return this.__ReservedNTProxyArray
         }
     }
@@ -36,7 +36,7 @@ class KS_DVDCOPY_TITLEKEY extends Win32Struct
     TitleKey{
         get {
             if(!this.HasProp("__TitleKeyProxyArray"))
-                this.__TitleKeyProxyArray := Win32FixedArray(this.ptr + 12, 1, Primitive, "char")
+                this.__TitleKeyProxyArray := Win32FixedArray(this.ptr + 12, 6, Primitive, "char")
             return this.__TitleKeyProxyArray
         }
     }
@@ -47,7 +47,7 @@ class KS_DVDCOPY_TITLEKEY extends Win32Struct
     Reserved{
         get {
             if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 18, 1, Primitive, "char")
+                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 18, 2, Primitive, "char")
             return this.__ReservedProxyArray
         }
     }

@@ -41,7 +41,7 @@ class FILE_PREFETCH_EX extends Win32Struct
     Prefetch{
         get {
             if(!this.HasProp("__PrefetchProxyArray"))
-                this.__PrefetchProxyArray := Win32FixedArray(this.ptr + 16, 8, Primitive, "uint")
+                this.__PrefetchProxyArray := Win32FixedArray(this.ptr + 16, 1, Primitive, "uint")
             return this.__PrefetchProxyArray
         }
     }

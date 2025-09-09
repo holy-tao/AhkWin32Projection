@@ -33,7 +33,7 @@ class DXVA_COPPStatusOutput extends Win32Struct
     COPPStatus{
         get {
             if(!this.HasProp("__COPPStatusProxyArray"))
-                this.__COPPStatusProxyArray := Win32FixedArray(this.ptr + 12, 1, Primitive, "char")
+                this.__COPPStatusProxyArray := Win32FixedArray(this.ptr + 12, 4076, Primitive, "char")
             return this.__COPPStatusProxyArray
         }
     }

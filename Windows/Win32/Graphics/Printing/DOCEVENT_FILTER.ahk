@@ -49,7 +49,7 @@ class DOCEVENT_FILTER extends Win32Struct
     aDocEventCall{
         get {
             if(!this.HasProp("__aDocEventCallProxyArray"))
-                this.__aDocEventCallProxyArray := Win32FixedArray(this.ptr + 16, 4, Primitive, "uint")
+                this.__aDocEventCallProxyArray := Win32FixedArray(this.ptr + 16, 1, Primitive, "uint")
             return this.__aDocEventCallProxyArray
         }
     }

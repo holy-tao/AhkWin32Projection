@@ -17,7 +17,7 @@ class CPU_INFORMATION extends Win32Struct
     VendorId{
         get {
             if(!this.HasProp("__VendorIdProxyArray"))
-                this.__VendorIdProxyArray := Win32FixedArray(this.ptr + 0, 4, Primitive, "uint")
+                this.__VendorIdProxyArray := Win32FixedArray(this.ptr + 0, 3, Primitive, "uint")
             return this.__VendorIdProxyArray
         }
     }
@@ -52,7 +52,7 @@ class CPU_INFORMATION extends Win32Struct
     ProcessorFeatures{
         get {
             if(!this.HasProp("__ProcessorFeaturesProxyArray"))
-                this.__ProcessorFeaturesProxyArray := Win32FixedArray(this.ptr + 0, 8, Primitive, "uint")
+                this.__ProcessorFeaturesProxyArray := Win32FixedArray(this.ptr + 0, 2, Primitive, "uint")
             return this.__ProcessorFeaturesProxyArray
         }
     }

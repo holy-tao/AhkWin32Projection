@@ -117,7 +117,7 @@ class PPP_PROJECTION_INFO extends Win32Struct
     bInterfaceIdentifier{
         get {
             if(!this.HasProp("__bInterfaceIdentifierProxyArray"))
-                this.__bInterfaceIdentifierProxyArray := Win32FixedArray(this.ptr + 92, 1, Primitive, "char")
+                this.__bInterfaceIdentifierProxyArray := Win32FixedArray(this.ptr + 92, 8, Primitive, "char")
             return this.__bInterfaceIdentifierProxyArray
         }
     }
@@ -129,7 +129,7 @@ class PPP_PROJECTION_INFO extends Win32Struct
     bRemoteInterfaceIdentifier{
         get {
             if(!this.HasProp("__bRemoteInterfaceIdentifierProxyArray"))
-                this.__bRemoteInterfaceIdentifierProxyArray := Win32FixedArray(this.ptr + 100, 1, Primitive, "char")
+                this.__bRemoteInterfaceIdentifierProxyArray := Win32FixedArray(this.ptr + 100, 8, Primitive, "char")
             return this.__bRemoteInterfaceIdentifierProxyArray
         }
     }
@@ -141,7 +141,7 @@ class PPP_PROJECTION_INFO extends Win32Struct
     bPrefix{
         get {
             if(!this.HasProp("__bPrefixProxyArray"))
-                this.__bPrefixProxyArray := Win32FixedArray(this.ptr + 108, 1, Primitive, "char")
+                this.__bPrefixProxyArray := Win32FixedArray(this.ptr + 108, 8, Primitive, "char")
             return this.__bPrefixProxyArray
         }
     }

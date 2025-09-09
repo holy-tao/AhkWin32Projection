@@ -56,7 +56,7 @@ class FSCTL_QUERY_REGION_INFO_INPUT extends Win32Struct
     TierIds{
         get {
             if(!this.HasProp("__TierIdsProxyArray"))
-                this.__TierIdsProxyArray := Win32FixedArray(this.ptr + 16, 8, Primitive, "ptr")
+                this.__TierIdsProxyArray := Win32FixedArray(this.ptr + 16, 1, Primitive, "ptr")
             return this.__TierIdsProxyArray
         }
     }

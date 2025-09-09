@@ -47,7 +47,7 @@ class SID extends Win32Struct
     SubAuthority{
         get {
             if(!this.HasProp("__SubAuthorityProxyArray"))
-                this.__SubAuthorityProxyArray := Win32FixedArray(this.ptr + 12, 4, Primitive, "uint")
+                this.__SubAuthorityProxyArray := Win32FixedArray(this.ptr + 12, 1, Primitive, "uint")
             return this.__SubAuthorityProxyArray
         }
     }

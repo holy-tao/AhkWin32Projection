@@ -129,7 +129,7 @@ class DNS_ADDR_ARRAY extends Win32Struct
     AddrArray{
         get {
             if(!this.HasProp("__AddrArrayProxyArray"))
-                this.__AddrArrayProxyArray := Win32FixedArray(this.ptr + 32, 8, DNS_ADDR, "")
+                this.__AddrArrayProxyArray := Win32FixedArray(this.ptr + 32, 1, DNS_ADDR, "")
             return this.__AddrArrayProxyArray
         }
     }

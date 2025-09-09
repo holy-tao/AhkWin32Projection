@@ -46,7 +46,7 @@ class IMEPROA extends Win32Struct
     szDescription{
         get {
             if(!this.HasProp("__szDescriptionProxyArray"))
-                this.__szDescriptionProxyArray := Win32FixedArray(this.ptr + 24, 1, Primitive, "char")
+                this.__szDescriptionProxyArray := Win32FixedArray(this.ptr + 24, 50, Primitive, "char")
             return this.__szDescriptionProxyArray
         }
     }
@@ -57,7 +57,7 @@ class IMEPROA extends Win32Struct
     szName{
         get {
             if(!this.HasProp("__szNameProxyArray"))
-                this.__szNameProxyArray := Win32FixedArray(this.ptr + 74, 1, Primitive, "char")
+                this.__szNameProxyArray := Win32FixedArray(this.ptr + 74, 80, Primitive, "char")
             return this.__szNameProxyArray
         }
     }
@@ -68,7 +68,7 @@ class IMEPROA extends Win32Struct
     szOptions{
         get {
             if(!this.HasProp("__szOptionsProxyArray"))
-                this.__szOptionsProxyArray := Win32FixedArray(this.ptr + 154, 1, Primitive, "char")
+                this.__szOptionsProxyArray := Win32FixedArray(this.ptr + 154, 30, Primitive, "char")
             return this.__szOptionsProxyArray
         }
     }

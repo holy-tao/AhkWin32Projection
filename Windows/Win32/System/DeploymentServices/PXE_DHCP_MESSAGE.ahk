@@ -120,7 +120,7 @@ class PXE_DHCP_MESSAGE extends Win32Struct
     HardwareAddress{
         get {
             if(!this.HasProp("__HardwareAddressProxyArray"))
-                this.__HardwareAddressProxyArray := Win32FixedArray(this.ptr + 28, 1, Primitive, "char")
+                this.__HardwareAddressProxyArray := Win32FixedArray(this.ptr + 28, 16, Primitive, "char")
             return this.__HardwareAddressProxyArray
         }
     }
@@ -132,7 +132,7 @@ class PXE_DHCP_MESSAGE extends Win32Struct
     HostName{
         get {
             if(!this.HasProp("__HostNameProxyArray"))
-                this.__HostNameProxyArray := Win32FixedArray(this.ptr + 44, 1, Primitive, "char")
+                this.__HostNameProxyArray := Win32FixedArray(this.ptr + 44, 64, Primitive, "char")
             return this.__HostNameProxyArray
         }
     }
@@ -144,7 +144,7 @@ class PXE_DHCP_MESSAGE extends Win32Struct
     BootFileName{
         get {
             if(!this.HasProp("__BootFileNameProxyArray"))
-                this.__BootFileNameProxyArray := Win32FixedArray(this.ptr + 108, 1, Primitive, "char")
+                this.__BootFileNameProxyArray := Win32FixedArray(this.ptr + 108, 128, Primitive, "char")
             return this.__BootFileNameProxyArray
         }
     }
@@ -155,7 +155,7 @@ class PXE_DHCP_MESSAGE extends Win32Struct
     bMagicCookie{
         get {
             if(!this.HasProp("__bMagicCookieProxyArray"))
-                this.__bMagicCookieProxyArray := Win32FixedArray(this.ptr + 236, 1, Primitive, "char")
+                this.__bMagicCookieProxyArray := Win32FixedArray(this.ptr + 236, 4, Primitive, "char")
             return this.__bMagicCookieProxyArray
         }
     }

@@ -73,7 +73,7 @@ class GNSS_GEOFENCE_ALERT_DATA extends Win32Struct
     Unused{
         get {
             if(!this.HasProp("__UnusedProxyArray"))
-                this.__UnusedProxyArray := Win32FixedArray(this.ptr + 128, 1, Primitive, "char")
+                this.__UnusedProxyArray := Win32FixedArray(this.ptr + 128, 512, Primitive, "char")
             return this.__UnusedProxyArray
         }
     }

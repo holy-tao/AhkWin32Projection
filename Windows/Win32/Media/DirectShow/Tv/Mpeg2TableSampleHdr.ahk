@@ -25,7 +25,7 @@ class Mpeg2TableSampleHdr extends Win32Struct
     Reserved{
         get {
             if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 1, 1, Primitive, "char")
+                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 1, 3, Primitive, "char")
             return this.__ReservedProxyArray
         }
     }
@@ -36,7 +36,7 @@ class Mpeg2TableSampleHdr extends Win32Struct
     SectionOffsets{
         get {
             if(!this.HasProp("__SectionOffsetsProxyArray"))
-                this.__SectionOffsetsProxyArray := Win32FixedArray(this.ptr + 4, 4, Primitive, "int")
+                this.__SectionOffsetsProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "int")
             return this.__SectionOffsetsProxyArray
         }
     }

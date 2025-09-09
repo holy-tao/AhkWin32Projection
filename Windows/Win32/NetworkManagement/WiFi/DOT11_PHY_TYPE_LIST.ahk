@@ -45,7 +45,7 @@ class DOT11_PHY_TYPE_LIST extends Win32Struct
     dot11PhyType{
         get {
             if(!this.HasProp("__dot11PhyTypeProxyArray"))
-                this.__dot11PhyTypeProxyArray := Win32FixedArray(this.ptr + 12, 4, Primitive, "int")
+                this.__dot11PhyTypeProxyArray := Win32FixedArray(this.ptr + 12, 1, Primitive, "int")
             return this.__dot11PhyTypeProxyArray
         }
     }

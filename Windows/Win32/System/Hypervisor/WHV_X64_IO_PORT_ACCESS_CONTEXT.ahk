@@ -27,7 +27,7 @@ class WHV_X64_IO_PORT_ACCESS_CONTEXT extends Win32Struct
     Reserved{
         get {
             if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 1, 1, Primitive, "char")
+                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 1, 3, Primitive, "char")
             return this.__ReservedProxyArray
         }
     }
@@ -38,7 +38,7 @@ class WHV_X64_IO_PORT_ACCESS_CONTEXT extends Win32Struct
     InstructionBytes{
         get {
             if(!this.HasProp("__InstructionBytesProxyArray"))
-                this.__InstructionBytesProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")
+                this.__InstructionBytesProxyArray := Win32FixedArray(this.ptr + 4, 16, Primitive, "char")
             return this.__InstructionBytesProxyArray
         }
     }
@@ -68,7 +68,7 @@ class WHV_X64_IO_PORT_ACCESS_CONTEXT extends Win32Struct
     Reserved2{
         get {
             if(!this.HasProp("__Reserved2ProxyArray"))
-                this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 34, 2, Primitive, "ushort")
+                this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 34, 3, Primitive, "ushort")
             return this.__Reserved2ProxyArray
         }
     }

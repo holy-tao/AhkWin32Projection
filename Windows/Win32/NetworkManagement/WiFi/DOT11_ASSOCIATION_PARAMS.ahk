@@ -29,7 +29,7 @@ class DOT11_ASSOCIATION_PARAMS extends Win32Struct
     BSSID{
         get {
             if(!this.HasProp("__BSSIDProxyArray"))
-                this.__BSSIDProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")
+                this.__BSSIDProxyArray := Win32FixedArray(this.ptr + 4, 6, Primitive, "char")
             return this.__BSSIDProxyArray
         }
     }

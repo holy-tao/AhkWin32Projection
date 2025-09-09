@@ -315,7 +315,7 @@ class NCB extends Win32Struct
     ncb_callname{
         get {
             if(!this.HasProp("__ncb_callnameProxyArray"))
-                this.__ncb_callnameProxyArray := Win32FixedArray(this.ptr + 18, 1, Primitive, "char")
+                this.__ncb_callnameProxyArray := Win32FixedArray(this.ptr + 18, 16, Primitive, "char")
             return this.__ncb_callnameProxyArray
         }
     }
@@ -327,7 +327,7 @@ class NCB extends Win32Struct
     ncb_name{
         get {
             if(!this.HasProp("__ncb_nameProxyArray"))
-                this.__ncb_nameProxyArray := Win32FixedArray(this.ptr + 34, 1, Primitive, "char")
+                this.__ncb_nameProxyArray := Win32FixedArray(this.ptr + 34, 16, Primitive, "char")
             return this.__ncb_nameProxyArray
         }
     }
@@ -390,7 +390,7 @@ class NCB extends Win32Struct
     ncb_reserve{
         get {
             if(!this.HasProp("__ncb_reserveProxyArray"))
-                this.__ncb_reserveProxyArray := Win32FixedArray(this.ptr + 66, 1, Primitive, "char")
+                this.__ncb_reserveProxyArray := Win32FixedArray(this.ptr + 66, 10, Primitive, "char")
             return this.__ncb_reserveProxyArray
         }
     }

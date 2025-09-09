@@ -47,7 +47,7 @@ class DOT11_PEER_INFO_LIST extends Win32Struct
     PeerInfo{
         get {
             if(!this.HasProp("__PeerInfoProxyArray"))
-                this.__PeerInfoProxyArray := Win32FixedArray(this.ptr + 16, 8, DOT11_PEER_INFO, "")
+                this.__PeerInfoProxyArray := Win32FixedArray(this.ptr + 16, 1, DOT11_PEER_INFO, "")
             return this.__PeerInfoProxyArray
         }
     }

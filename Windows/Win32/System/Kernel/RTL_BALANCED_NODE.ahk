@@ -17,7 +17,7 @@ class RTL_BALANCED_NODE extends Win32Struct
     Children{
         get {
             if(!this.HasProp("__ChildrenProxyArray"))
-                this.__ChildrenProxyArray := Win32FixedArray(this.ptr + 0, 8, Primitive, "ptr")
+                this.__ChildrenProxyArray := Win32FixedArray(this.ptr + 0, 2, Primitive, "ptr")
             return this.__ChildrenProxyArray
         }
     }

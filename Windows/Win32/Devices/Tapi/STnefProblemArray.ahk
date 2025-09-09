@@ -34,7 +34,7 @@ class STnefProblemArray extends Win32Struct
     aProblem{
         get {
             if(!this.HasProp("__aProblemProxyArray"))
-                this.__aProblemProxyArray := Win32FixedArray(this.ptr + 8, 8, STnefProblem, "")
+                this.__aProblemProxyArray := Win32FixedArray(this.ptr + 8, 1, STnefProblem, "")
             return this.__aProblemProxyArray
         }
     }

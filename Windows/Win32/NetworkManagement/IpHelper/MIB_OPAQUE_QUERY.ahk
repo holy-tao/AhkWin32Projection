@@ -29,7 +29,7 @@ class MIB_OPAQUE_QUERY extends Win32Struct
     rgdwVarIndex{
         get {
             if(!this.HasProp("__rgdwVarIndexProxyArray"))
-                this.__rgdwVarIndexProxyArray := Win32FixedArray(this.ptr + 4, 4, Primitive, "uint")
+                this.__rgdwVarIndexProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "uint")
             return this.__rgdwVarIndexProxyArray
         }
     }

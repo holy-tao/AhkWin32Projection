@@ -40,7 +40,7 @@ class CIDA extends Win32Struct
     aoffset{
         get {
             if(!this.HasProp("__aoffsetProxyArray"))
-                this.__aoffsetProxyArray := Win32FixedArray(this.ptr + 4, 4, Primitive, "uint")
+                this.__aoffsetProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "uint")
             return this.__aoffsetProxyArray
         }
     }

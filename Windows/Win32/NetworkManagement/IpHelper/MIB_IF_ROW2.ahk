@@ -98,7 +98,7 @@ class MIB_IF_ROW2 extends Win32Struct
     PhysicalAddress{
         get {
             if(!this.HasProp("__PhysicalAddressProxyArray"))
-                this.__PhysicalAddressProxyArray := Win32FixedArray(this.ptr + 1064, 1, Primitive, "char")
+                this.__PhysicalAddressProxyArray := Win32FixedArray(this.ptr + 1064, 32, Primitive, "char")
             return this.__PhysicalAddressProxyArray
         }
     }
@@ -112,7 +112,7 @@ class MIB_IF_ROW2 extends Win32Struct
     PermanentPhysicalAddress{
         get {
             if(!this.HasProp("__PermanentPhysicalAddressProxyArray"))
-                this.__PermanentPhysicalAddressProxyArray := Win32FixedArray(this.ptr + 1096, 1, Primitive, "char")
+                this.__PermanentPhysicalAddressProxyArray := Win32FixedArray(this.ptr + 1096, 32, Primitive, "char")
             return this.__PermanentPhysicalAddressProxyArray
         }
     }

@@ -33,7 +33,7 @@ class DOT11_MAC_INFO extends Win32Struct
     MacAddr{
         get {
             if(!this.HasProp("__MacAddrProxyArray"))
-                this.__MacAddrProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "char")
+                this.__MacAddrProxyArray := Win32FixedArray(this.ptr + 8, 6, Primitive, "char")
             return this.__MacAddrProxyArray
         }
     }

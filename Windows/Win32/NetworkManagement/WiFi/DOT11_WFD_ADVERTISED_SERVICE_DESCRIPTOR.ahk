@@ -41,7 +41,7 @@ class DOT11_WFD_ADVERTISED_SERVICE_DESCRIPTOR extends Win32Struct
     ServiceName{
         get {
             if(!this.HasProp("__ServiceNameProxyArray"))
-                this.__ServiceNameProxyArray := Win32FixedArray(this.ptr + 7, 1, Primitive, "char")
+                this.__ServiceNameProxyArray := Win32FixedArray(this.ptr + 7, 255, Primitive, "char")
             return this.__ServiceNameProxyArray
         }
     }

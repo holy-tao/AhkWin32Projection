@@ -34,7 +34,7 @@ class MEM_RESOURCE extends Win32Struct
     MEM_Data{
         get {
             if(!this.HasProp("__MEM_DataProxyArray"))
-                this.__MEM_DataProxyArray := Win32FixedArray(this.ptr + 32, 8, MEM_RANGE, "")
+                this.__MEM_DataProxyArray := Win32FixedArray(this.ptr + 32, 1, MEM_RANGE, "")
             return this.__MEM_DataProxyArray
         }
     }

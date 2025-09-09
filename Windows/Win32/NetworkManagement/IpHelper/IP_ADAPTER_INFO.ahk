@@ -87,7 +87,7 @@ class IP_ADAPTER_INFO extends Win32Struct
     Address{
         get {
             if(!this.HasProp("__AddressProxyArray"))
-                this.__AddressProxyArray := Win32FixedArray(this.ptr + 800, 1, Primitive, "char")
+                this.__AddressProxyArray := Win32FixedArray(this.ptr + 800, 8, Primitive, "char")
             return this.__AddressProxyArray
         }
     }

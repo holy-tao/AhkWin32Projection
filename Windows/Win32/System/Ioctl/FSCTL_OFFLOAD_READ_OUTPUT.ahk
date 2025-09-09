@@ -41,7 +41,7 @@ class FSCTL_OFFLOAD_READ_OUTPUT extends Win32Struct
     Token{
         get {
             if(!this.HasProp("__TokenProxyArray"))
-                this.__TokenProxyArray := Win32FixedArray(this.ptr + 16, 1, Primitive, "char")
+                this.__TokenProxyArray := Win32FixedArray(this.ptr + 16, 512, Primitive, "char")
             return this.__TokenProxyArray
         }
     }

@@ -30,7 +30,7 @@ class ENUMRECTS extends Win32Struct
     arcl{
         get {
             if(!this.HasProp("__arclProxyArray"))
-                this.__arclProxyArray := Win32FixedArray(this.ptr + 8, 8, RECTL, "")
+                this.__arclProxyArray := Win32FixedArray(this.ptr + 8, 1, RECTL, "")
             return this.__arclProxyArray
         }
     }

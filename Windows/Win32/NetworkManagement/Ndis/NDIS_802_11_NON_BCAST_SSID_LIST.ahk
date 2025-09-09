@@ -26,7 +26,7 @@ class NDIS_802_11_NON_BCAST_SSID_LIST extends Win32Struct
     Non_Bcast_Ssid{
         get {
             if(!this.HasProp("__Non_Bcast_SsidProxyArray"))
-                this.__Non_Bcast_SsidProxyArray := Win32FixedArray(this.ptr + 8, 8, NDIS_802_11_SSID, "")
+                this.__Non_Bcast_SsidProxyArray := Win32FixedArray(this.ptr + 8, 1, NDIS_802_11_SSID, "")
             return this.__Non_Bcast_SsidProxyArray
         }
     }

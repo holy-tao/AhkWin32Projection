@@ -50,7 +50,7 @@ class STORAGE_CRYPTO_DESCRIPTOR extends Win32Struct
     CryptoCapabilities{
         get {
             if(!this.HasProp("__CryptoCapabilitiesProxyArray"))
-                this.__CryptoCapabilitiesProxyArray := Win32FixedArray(this.ptr + 16, 8, STORAGE_CRYPTO_CAPABILITY, "")
+                this.__CryptoCapabilitiesProxyArray := Win32FixedArray(this.ptr + 16, 1, STORAGE_CRYPTO_CAPABILITY, "")
             return this.__CryptoCapabilitiesProxyArray
         }
     }

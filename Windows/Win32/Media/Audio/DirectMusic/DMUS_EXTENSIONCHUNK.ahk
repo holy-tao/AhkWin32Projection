@@ -41,7 +41,7 @@ class DMUS_EXTENSIONCHUNK extends Win32Struct
     byExtCk{
         get {
             if(!this.HasProp("__byExtCkProxyArray"))
-                this.__byExtCkProxyArray := Win32FixedArray(this.ptr + 12, 1, Primitive, "char")
+                this.__byExtCkProxyArray := Win32FixedArray(this.ptr + 12, 4, Primitive, "char")
             return this.__byExtCkProxyArray
         }
     }

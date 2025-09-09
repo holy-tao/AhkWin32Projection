@@ -47,7 +47,7 @@ class WLAN_HOSTED_NETWORK_STATUS extends Win32Struct
     wlanHostedNetworkBSSID{
         get {
             if(!this.HasProp("__wlanHostedNetworkBSSIDProxyArray"))
-                this.__wlanHostedNetworkBSSIDProxyArray := Win32FixedArray(this.ptr + 16, 1, Primitive, "char")
+                this.__wlanHostedNetworkBSSIDProxyArray := Win32FixedArray(this.ptr + 16, 6, Primitive, "char")
             return this.__wlanHostedNetworkBSSIDProxyArray
         }
     }
@@ -94,7 +94,7 @@ class WLAN_HOSTED_NETWORK_STATUS extends Win32Struct
     PeerList{
         get {
             if(!this.HasProp("__PeerListProxyArray"))
-                this.__PeerListProxyArray := Win32FixedArray(this.ptr + 40, 8, WLAN_HOSTED_NETWORK_PEER_STATE, "")
+                this.__PeerListProxyArray := Win32FixedArray(this.ptr + 40, 1, WLAN_HOSTED_NETWORK_PEER_STATE, "")
             return this.__PeerListProxyArray
         }
     }

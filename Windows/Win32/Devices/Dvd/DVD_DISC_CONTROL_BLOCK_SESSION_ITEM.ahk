@@ -17,7 +17,7 @@ class DVD_DISC_CONTROL_BLOCK_SESSION_ITEM extends Win32Struct
     AsByte{
         get {
             if(!this.HasProp("__AsByteProxyArray"))
-                this.__AsByteProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__AsByteProxyArray := Win32FixedArray(this.ptr + 0, 16, Primitive, "char")
             return this.__AsByteProxyArray
         }
     }

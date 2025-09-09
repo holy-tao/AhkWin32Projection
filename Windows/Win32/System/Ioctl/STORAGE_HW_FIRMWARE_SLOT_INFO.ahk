@@ -55,7 +55,7 @@ class STORAGE_HW_FIRMWARE_SLOT_INFO extends Win32Struct
     Reserved1{
         get {
             if(!this.HasProp("__Reserved1ProxyArray"))
-                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 10, 1, Primitive, "char")
+                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 10, 6, Primitive, "char")
             return this.__Reserved1ProxyArray
         }
     }
@@ -67,7 +67,7 @@ class STORAGE_HW_FIRMWARE_SLOT_INFO extends Win32Struct
     Revision{
         get {
             if(!this.HasProp("__RevisionProxyArray"))
-                this.__RevisionProxyArray := Win32FixedArray(this.ptr + 16, 1, Primitive, "char")
+                this.__RevisionProxyArray := Win32FixedArray(this.ptr + 16, 16, Primitive, "char")
             return this.__RevisionProxyArray
         }
     }

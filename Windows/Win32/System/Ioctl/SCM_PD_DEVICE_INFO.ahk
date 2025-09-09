@@ -105,7 +105,7 @@ class SCM_PD_DEVICE_INFO extends Win32Struct
     FormatInterfaceCodes{
         get {
             if(!this.HasProp("__FormatInterfaceCodesProxyArray"))
-                this.__FormatInterfaceCodesProxyArray := Win32FixedArray(this.ptr + 60, 2, Primitive, "ushort")
+                this.__FormatInterfaceCodesProxyArray := Win32FixedArray(this.ptr + 60, 8, Primitive, "ushort")
             return this.__FormatInterfaceCodesProxyArray
         }
     }

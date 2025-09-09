@@ -94,7 +94,7 @@ class IP_MSFILTER extends Win32Struct
     imsf_slist{
         get {
             if(!this.HasProp("__imsf_slistProxyArray"))
-                this.__imsf_slistProxyArray := Win32FixedArray(this.ptr + 16, 8, IN_ADDR, "")
+                this.__imsf_slistProxyArray := Win32FixedArray(this.ptr + 16, 1, IN_ADDR, "")
             return this.__imsf_slistProxyArray
         }
     }

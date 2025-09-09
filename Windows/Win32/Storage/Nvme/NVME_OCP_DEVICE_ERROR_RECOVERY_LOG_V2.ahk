@@ -73,7 +73,7 @@ class NVME_OCP_DEVICE_ERROR_RECOVERY_LOG_V2 extends Win32Struct
     Reserved0{
         get {
             if(!this.HasProp("__Reserved0ProxyArray"))
-                this.__Reserved0ProxyArray := Win32FixedArray(this.ptr + 17, 1, Primitive, "char")
+                this.__Reserved0ProxyArray := Win32FixedArray(this.ptr + 17, 3, Primitive, "char")
             return this.__Reserved0ProxyArray
         }
     }
@@ -124,7 +124,7 @@ class NVME_OCP_DEVICE_ERROR_RECOVERY_LOG_V2 extends Win32Struct
     Reserved1{
         get {
             if(!this.HasProp("__Reserved1ProxyArray"))
-                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 31, 1, Primitive, "char")
+                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 31, 463, Primitive, "char")
             return this.__Reserved1ProxyArray
         }
     }

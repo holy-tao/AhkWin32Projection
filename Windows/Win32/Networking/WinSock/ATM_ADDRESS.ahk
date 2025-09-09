@@ -44,7 +44,7 @@ class ATM_ADDRESS extends Win32Struct
     Addr{
         get {
             if(!this.HasProp("__AddrProxyArray"))
-                this.__AddrProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "char")
+                this.__AddrProxyArray := Win32FixedArray(this.ptr + 8, 20, Primitive, "char")
             return this.__AddrProxyArray
         }
     }

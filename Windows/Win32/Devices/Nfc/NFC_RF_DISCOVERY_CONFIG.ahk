@@ -81,7 +81,7 @@ class NFC_RF_DISCOVERY_CONFIG extends Win32Struct
     ucSystemCode{
         get {
             if(!this.HasProp("__ucSystemCodeProxyArray"))
-                this.__ucSystemCodeProxyArray := Win32FixedArray(this.ptr + 14, 1, Primitive, "char")
+                this.__ucSystemCodeProxyArray := Win32FixedArray(this.ptr + 14, 2, Primitive, "char")
             return this.__ucSystemCodeProxyArray
         }
     }

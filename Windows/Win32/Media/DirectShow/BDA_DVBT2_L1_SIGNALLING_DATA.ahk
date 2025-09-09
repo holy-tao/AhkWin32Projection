@@ -49,7 +49,7 @@ class BDA_DVBT2_L1_SIGNALLING_DATA extends Win32Struct
     L1Pre_POSTSIZE_INFO_PILOT{
         get {
             if(!this.HasProp("__L1Pre_POSTSIZE_INFO_PILOTProxyArray"))
-                this.__L1Pre_POSTSIZE_INFO_PILOTProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")
+                this.__L1Pre_POSTSIZE_INFO_PILOTProxyArray := Win32FixedArray(this.ptr + 4, 5, Primitive, "char")
             return this.__L1Pre_POSTSIZE_INFO_PILOTProxyArray
         }
     }
@@ -68,7 +68,7 @@ class BDA_DVBT2_L1_SIGNALLING_DATA extends Win32Struct
     L1Pre_CELL_ID{
         get {
             if(!this.HasProp("__L1Pre_CELL_IDProxyArray"))
-                this.__L1Pre_CELL_IDProxyArray := Win32FixedArray(this.ptr + 10, 1, Primitive, "char")
+                this.__L1Pre_CELL_IDProxyArray := Win32FixedArray(this.ptr + 10, 2, Primitive, "char")
             return this.__L1Pre_CELL_IDProxyArray
         }
     }
@@ -79,7 +79,7 @@ class BDA_DVBT2_L1_SIGNALLING_DATA extends Win32Struct
     L1Pre_NETWORK_ID{
         get {
             if(!this.HasProp("__L1Pre_NETWORK_IDProxyArray"))
-                this.__L1Pre_NETWORK_IDProxyArray := Win32FixedArray(this.ptr + 12, 1, Primitive, "char")
+                this.__L1Pre_NETWORK_IDProxyArray := Win32FixedArray(this.ptr + 12, 2, Primitive, "char")
             return this.__L1Pre_NETWORK_IDProxyArray
         }
     }
@@ -90,7 +90,7 @@ class BDA_DVBT2_L1_SIGNALLING_DATA extends Win32Struct
     L1Pre_T2SYSTEM_ID{
         get {
             if(!this.HasProp("__L1Pre_T2SYSTEM_IDProxyArray"))
-                this.__L1Pre_T2SYSTEM_IDProxyArray := Win32FixedArray(this.ptr + 14, 1, Primitive, "char")
+                this.__L1Pre_T2SYSTEM_IDProxyArray := Win32FixedArray(this.ptr + 14, 2, Primitive, "char")
             return this.__L1Pre_T2SYSTEM_IDProxyArray
         }
     }
@@ -109,7 +109,7 @@ class BDA_DVBT2_L1_SIGNALLING_DATA extends Win32Struct
     L1Pre_NUM_DATA_REGENFLAG_L1POSTEXT{
         get {
             if(!this.HasProp("__L1Pre_NUM_DATA_REGENFLAG_L1POSTEXTProxyArray"))
-                this.__L1Pre_NUM_DATA_REGENFLAG_L1POSTEXTProxyArray := Win32FixedArray(this.ptr + 17, 1, Primitive, "char")
+                this.__L1Pre_NUM_DATA_REGENFLAG_L1POSTEXTProxyArray := Win32FixedArray(this.ptr + 17, 2, Primitive, "char")
             return this.__L1Pre_NUM_DATA_REGENFLAG_L1POSTEXTProxyArray
         }
     }
@@ -120,7 +120,7 @@ class BDA_DVBT2_L1_SIGNALLING_DATA extends Win32Struct
     L1Pre_NUMRF_CURRENTRF_RESERVED{
         get {
             if(!this.HasProp("__L1Pre_NUMRF_CURRENTRF_RESERVEDProxyArray"))
-                this.__L1Pre_NUMRF_CURRENTRF_RESERVEDProxyArray := Win32FixedArray(this.ptr + 19, 1, Primitive, "char")
+                this.__L1Pre_NUMRF_CURRENTRF_RESERVEDProxyArray := Win32FixedArray(this.ptr + 19, 2, Primitive, "char")
             return this.__L1Pre_NUMRF_CURRENTRF_RESERVEDProxyArray
         }
     }
@@ -131,7 +131,7 @@ class BDA_DVBT2_L1_SIGNALLING_DATA extends Win32Struct
     L1Pre_CRC32{
         get {
             if(!this.HasProp("__L1Pre_CRC32ProxyArray"))
-                this.__L1Pre_CRC32ProxyArray := Win32FixedArray(this.ptr + 21, 1, Primitive, "char")
+                this.__L1Pre_CRC32ProxyArray := Win32FixedArray(this.ptr + 21, 4, Primitive, "char")
             return this.__L1Pre_CRC32ProxyArray
         }
     }

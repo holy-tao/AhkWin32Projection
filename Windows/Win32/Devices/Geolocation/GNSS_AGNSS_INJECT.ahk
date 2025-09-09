@@ -63,7 +63,7 @@ class GNSS_AGNSS_INJECT extends Win32Struct
     Unused{
         get {
             if(!this.HasProp("__UnusedProxyArray"))
-                this.__UnusedProxyArray := Win32FixedArray(this.ptr + 20, 1, Primitive, "char")
+                this.__UnusedProxyArray := Win32FixedArray(this.ptr + 20, 512, Primitive, "char")
             return this.__UnusedProxyArray
         }
     }

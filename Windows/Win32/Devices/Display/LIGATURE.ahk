@@ -41,7 +41,7 @@ class LIGATURE extends Win32Struct
     ahglyph{
         get {
             if(!this.HasProp("__ahglyphProxyArray"))
-                this.__ahglyphProxyArray := Win32FixedArray(this.ptr + 20, 4, Primitive, "uint")
+                this.__ahglyphProxyArray := Win32FixedArray(this.ptr + 20, 1, Primitive, "uint")
             return this.__ahglyphProxyArray
         }
     }

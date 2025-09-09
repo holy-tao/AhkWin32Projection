@@ -34,7 +34,7 @@ class DOT11_SUPPORTED_ANTENNA_LIST extends Win32Struct
     dot11SupportedAntenna{
         get {
             if(!this.HasProp("__dot11SupportedAntennaProxyArray"))
-                this.__dot11SupportedAntennaProxyArray := Win32FixedArray(this.ptr + 8, 8, DOT11_SUPPORTED_ANTENNA, "")
+                this.__dot11SupportedAntennaProxyArray := Win32FixedArray(this.ptr + 8, 1, DOT11_SUPPORTED_ANTENNA, "")
             return this.__dot11SupportedAntennaProxyArray
         }
     }

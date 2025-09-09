@@ -30,7 +30,7 @@ class PSAPI_WORKING_SET_INFORMATION extends Win32Struct
     WorkingSetInfo{
         get {
             if(!this.HasProp("__WorkingSetInfoProxyArray"))
-                this.__WorkingSetInfoProxyArray := Win32FixedArray(this.ptr + 8, 8, PSAPI_WORKING_SET_BLOCK, "")
+                this.__WorkingSetInfoProxyArray := Win32FixedArray(this.ptr + 8, 1, PSAPI_WORKING_SET_BLOCK, "")
             return this.__WorkingSetInfoProxyArray
         }
     }

@@ -30,7 +30,7 @@ class DOT11_ASSOCIATION_START_PARAMETERS extends Win32Struct
     MacAddr{
         get {
             if(!this.HasProp("__MacAddrProxyArray"))
-                this.__MacAddrProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")
+                this.__MacAddrProxyArray := Win32FixedArray(this.ptr + 4, 6, Primitive, "char")
             return this.__MacAddrProxyArray
         }
     }

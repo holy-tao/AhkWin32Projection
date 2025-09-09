@@ -111,7 +111,7 @@ class ENUMTYPEA extends Win32Struct
     dwResolution{
         get {
             if(!this.HasProp("__dwResolutionProxyArray"))
-                this.__dwResolutionProxyArray := Win32FixedArray(this.ptr + 32, 4, Primitive, "uint")
+                this.__dwResolutionProxyArray := Win32FixedArray(this.ptr + 32, 2, Primitive, "uint")
             return this.__dwResolutionProxyArray
         }
     }
@@ -204,7 +204,7 @@ class ENUMTYPEA extends Win32Struct
     dwAttributes{
         get {
             if(!this.HasProp("__dwAttributesProxyArray"))
-                this.__dwAttributesProxyArray := Win32FixedArray(this.ptr + 76, 4, Primitive, "uint")
+                this.__dwAttributesProxyArray := Win32FixedArray(this.ptr + 76, 2, Primitive, "uint")
             return this.__dwAttributesProxyArray
         }
     }

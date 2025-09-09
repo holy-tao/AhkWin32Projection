@@ -41,7 +41,7 @@ class JET_ERRINFOBASIC_W extends Win32Struct
     rgCategoricalHierarchy{
         get {
             if(!this.HasProp("__rgCategoricalHierarchyProxyArray"))
-                this.__rgCategoricalHierarchyProxyArray := Win32FixedArray(this.ptr + 12, 1, Primitive, "char")
+                this.__rgCategoricalHierarchyProxyArray := Win32FixedArray(this.ptr + 12, 8, Primitive, "char")
             return this.__rgCategoricalHierarchyProxyArray
         }
     }

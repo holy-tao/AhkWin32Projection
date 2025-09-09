@@ -17,7 +17,7 @@ class WINSTATIONINFORMATIONW extends Win32Struct
     Reserved2{
         get {
             if(!this.HasProp("__Reserved2ProxyArray"))
-                this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 0, 70, Primitive, "char")
             return this.__Reserved2ProxyArray
         }
     }
@@ -36,7 +36,7 @@ class WINSTATIONINFORMATIONW extends Win32Struct
     Reserved3{
         get {
             if(!this.HasProp("__Reserved3ProxyArray"))
-                this.__Reserved3ProxyArray := Win32FixedArray(this.ptr + 76, 1, Primitive, "char")
+                this.__Reserved3ProxyArray := Win32FixedArray(this.ptr + 76, 1140, Primitive, "char")
             return this.__Reserved3ProxyArray
         }
     }

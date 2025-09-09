@@ -82,7 +82,7 @@ class ND_OPTION_PREFIX_INFO extends Win32Struct
     nd_opt_pi_reserved3{
         get {
             if(!this.HasProp("__nd_opt_pi_reserved3ProxyArray"))
-                this.__nd_opt_pi_reserved3ProxyArray := Win32FixedArray(this.ptr + 12, 1, Primitive, "char")
+                this.__nd_opt_pi_reserved3ProxyArray := Win32FixedArray(this.ptr + 12, 3, Primitive, "char")
             return this.__nd_opt_pi_reserved3ProxyArray
         }
     }

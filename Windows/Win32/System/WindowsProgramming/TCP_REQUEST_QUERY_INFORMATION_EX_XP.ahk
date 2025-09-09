@@ -34,7 +34,7 @@ class TCP_REQUEST_QUERY_INFORMATION_EX_XP extends Win32Struct
     Context{
         get {
             if(!this.HasProp("__ContextProxyArray"))
-                this.__ContextProxyArray := Win32FixedArray(this.ptr + 24, 8, Primitive, "ptr")
+                this.__ContextProxyArray := Win32FixedArray(this.ptr + 24, 4, Primitive, "ptr")
             return this.__ContextProxyArray
         }
     }

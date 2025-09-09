@@ -58,7 +58,7 @@ class SCM_PD_FIRMWARE_INFO extends Win32Struct
     Slots{
         get {
             if(!this.HasProp("__SlotsProxyArray"))
-                this.__SlotsProxyArray := Win32FixedArray(this.ptr + 16, 8, SCM_PD_FIRMWARE_SLOT_INFO, "")
+                this.__SlotsProxyArray := Win32FixedArray(this.ptr + 16, 1, SCM_PD_FIRMWARE_SLOT_INFO, "")
             return this.__SlotsProxyArray
         }
     }

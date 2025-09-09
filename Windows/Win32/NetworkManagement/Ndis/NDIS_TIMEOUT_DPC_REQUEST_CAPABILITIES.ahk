@@ -45,7 +45,7 @@ class NDIS_TIMEOUT_DPC_REQUEST_CAPABILITIES extends Win32Struct
     TimeoutArray{
         get {
             if(!this.HasProp("__TimeoutArrayProxyArray"))
-                this.__TimeoutArrayProxyArray := Win32FixedArray(this.ptr + 12, 4, Primitive, "uint")
+                this.__TimeoutArrayProxyArray := Win32FixedArray(this.ptr + 12, 1, Primitive, "uint")
             return this.__TimeoutArrayProxyArray
         }
     }

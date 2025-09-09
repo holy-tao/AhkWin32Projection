@@ -74,7 +74,7 @@ class STORAGE_FIRMWARE_INFO extends Win32Struct
     Slot{
         get {
             if(!this.HasProp("__SlotProxyArray"))
-                this.__SlotProxyArray := Win32FixedArray(this.ptr + 16, 8, STORAGE_FIRMWARE_SLOT_INFO, "")
+                this.__SlotProxyArray := Win32FixedArray(this.ptr + 16, 1, STORAGE_FIRMWARE_SLOT_INFO, "")
             return this.__SlotProxyArray
         }
     }

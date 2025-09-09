@@ -43,7 +43,7 @@ class ARRAYDESC extends Win32Struct
     rgbounds{
         get {
             if(!this.HasProp("__rgboundsProxyArray"))
-                this.__rgboundsProxyArray := Win32FixedArray(this.ptr + 24, 8, SAFEARRAYBOUND, "")
+                this.__rgboundsProxyArray := Win32FixedArray(this.ptr + 24, 1, SAFEARRAYBOUND, "")
             return this.__rgboundsProxyArray
         }
     }

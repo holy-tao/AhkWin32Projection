@@ -48,7 +48,7 @@ class CPU_INFO_v2 extends Win32Struct
     ProcInfo{
         get {
             if(!this.HasProp("__ProcInfoProxyArray"))
-                this.__ProcInfoProxyArray := Win32FixedArray(this.ptr + 16, 8, DEBUG_PROCESSOR_IDENTIFICATION_ALL, "")
+                this.__ProcInfoProxyArray := Win32FixedArray(this.ptr + 16, 1280, DEBUG_PROCESSOR_IDENTIFICATION_ALL, "")
             return this.__ProcInfoProxyArray
         }
     }

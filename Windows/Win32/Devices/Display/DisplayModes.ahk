@@ -32,7 +32,7 @@ class DisplayModes extends Win32Struct
     displayMode{
         get {
             if(!this.HasProp("__displayModeProxyArray"))
-                this.__displayModeProxyArray := Win32FixedArray(this.ptr + 8, 8, DisplayMode, "")
+                this.__displayModeProxyArray := Win32FixedArray(this.ptr + 8, 1, DisplayMode, "")
             return this.__displayModeProxyArray
         }
     }

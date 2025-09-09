@@ -25,7 +25,7 @@ class BTH_PING_RSP extends Win32Struct
     data{
         get {
             if(!this.HasProp("__dataProxyArray"))
-                this.__dataProxyArray := Win32FixedArray(this.ptr + 1, 1, Primitive, "char")
+                this.__dataProxyArray := Win32FixedArray(this.ptr + 1, 44, Primitive, "char")
             return this.__dataProxyArray
         }
     }

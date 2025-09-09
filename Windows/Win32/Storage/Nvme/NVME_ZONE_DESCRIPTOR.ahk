@@ -41,7 +41,7 @@ class NVME_ZONE_DESCRIPTOR extends Win32Struct
     Reserved3{
         get {
             if(!this.HasProp("__Reserved3ProxyArray"))
-                this.__Reserved3ProxyArray := Win32FixedArray(this.ptr + 3, 1, Primitive, "char")
+                this.__Reserved3ProxyArray := Win32FixedArray(this.ptr + 3, 5, Primitive, "char")
             return this.__Reserved3ProxyArray
         }
     }
@@ -76,7 +76,7 @@ class NVME_ZONE_DESCRIPTOR extends Win32Struct
     Reserved4{
         get {
             if(!this.HasProp("__Reserved4ProxyArray"))
-                this.__Reserved4ProxyArray := Win32FixedArray(this.ptr + 32, 1, Primitive, "char")
+                this.__Reserved4ProxyArray := Win32FixedArray(this.ptr + 32, 32, Primitive, "char")
             return this.__Reserved4ProxyArray
         }
     }

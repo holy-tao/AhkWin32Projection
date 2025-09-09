@@ -42,7 +42,7 @@ class MSV1_0_SUPPLEMENTAL_CREDENTIAL_V3 extends Win32Struct
     NtPassword{
         get {
             if(!this.HasProp("__NtPasswordProxyArray"))
-                this.__NtPasswordProxyArray := Win32FixedArray(this.ptr + 12, 1, Primitive, "char")
+                this.__NtPasswordProxyArray := Win32FixedArray(this.ptr + 12, 16, Primitive, "char")
             return this.__NtPasswordProxyArray
         }
     }
@@ -64,7 +64,7 @@ class MSV1_0_SUPPLEMENTAL_CREDENTIAL_V3 extends Win32Struct
     ShaPassword{
         get {
             if(!this.HasProp("__ShaPasswordProxyArray"))
-                this.__ShaPasswordProxyArray := Win32FixedArray(this.ptr + 52, 1, Primitive, "char")
+                this.__ShaPasswordProxyArray := Win32FixedArray(this.ptr + 52, 20, Primitive, "char")
             return this.__ShaPasswordProxyArray
         }
     }

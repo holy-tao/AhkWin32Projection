@@ -70,7 +70,7 @@ class D3D10_SHADER_DEBUG_OUTPUTREG_INFO extends Win32Struct
     OutputVars{
         get {
             if(!this.HasProp("__OutputVarsProxyArray"))
-                this.__OutputVarsProxyArray := Win32FixedArray(this.ptr + 32, 8, D3D10_SHADER_DEBUG_OUTPUTVAR, "")
+                this.__OutputVarsProxyArray := Win32FixedArray(this.ptr + 32, 4, D3D10_SHADER_DEBUG_OUTPUTVAR, "")
             return this.__OutputVarsProxyArray
         }
     }

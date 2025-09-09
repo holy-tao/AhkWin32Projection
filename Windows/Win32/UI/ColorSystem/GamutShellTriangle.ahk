@@ -20,7 +20,7 @@ class GamutShellTriangle extends Win32Struct
     aVertexIndex{
         get {
             if(!this.HasProp("__aVertexIndexProxyArray"))
-                this.__aVertexIndexProxyArray := Win32FixedArray(this.ptr + 0, 4, Primitive, "uint")
+                this.__aVertexIndexProxyArray := Win32FixedArray(this.ptr + 0, 3, Primitive, "uint")
             return this.__aVertexIndexProxyArray
         }
     }

@@ -17,7 +17,7 @@ class CDROM_EXCEPTION_PERFORMANCE_DESCRIPTOR extends Win32Struct
     Lba{
         get {
             if(!this.HasProp("__LbaProxyArray"))
-                this.__LbaProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__LbaProxyArray := Win32FixedArray(this.ptr + 0, 4, Primitive, "char")
             return this.__LbaProxyArray
         }
     }
@@ -28,7 +28,7 @@ class CDROM_EXCEPTION_PERFORMANCE_DESCRIPTOR extends Win32Struct
     Time{
         get {
             if(!this.HasProp("__TimeProxyArray"))
-                this.__TimeProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")
+                this.__TimeProxyArray := Win32FixedArray(this.ptr + 4, 2, Primitive, "char")
             return this.__TimeProxyArray
         }
     }

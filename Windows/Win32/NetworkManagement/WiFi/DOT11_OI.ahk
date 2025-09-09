@@ -25,7 +25,7 @@ class DOT11_OI extends Win32Struct
     OI{
         get {
             if(!this.HasProp("__OIProxyArray"))
-                this.__OIProxyArray := Win32FixedArray(this.ptr + 2, 1, Primitive, "char")
+                this.__OIProxyArray := Win32FixedArray(this.ptr + 2, 5, Primitive, "char")
             return this.__OIProxyArray
         }
     }

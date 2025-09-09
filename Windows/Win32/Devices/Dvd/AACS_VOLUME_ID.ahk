@@ -17,7 +17,7 @@ class AACS_VOLUME_ID extends Win32Struct
     VolumeID{
         get {
             if(!this.HasProp("__VolumeIDProxyArray"))
-                this.__VolumeIDProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__VolumeIDProxyArray := Win32FixedArray(this.ptr + 0, 16, Primitive, "char")
             return this.__VolumeIDProxyArray
         }
     }
@@ -28,7 +28,7 @@ class AACS_VOLUME_ID extends Win32Struct
     MAC{
         get {
             if(!this.HasProp("__MACProxyArray"))
-                this.__MACProxyArray := Win32FixedArray(this.ptr + 16, 1, Primitive, "char")
+                this.__MACProxyArray := Win32FixedArray(this.ptr + 16, 16, Primitive, "char")
             return this.__MACProxyArray
         }
     }

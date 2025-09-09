@@ -33,7 +33,7 @@ class VBS_BASIC_ENCLAVE_EXCEPTION_AMD64 extends Win32Struct
     ExceptionInformation{
         get {
             if(!this.HasProp("__ExceptionInformationProxyArray"))
-                this.__ExceptionInformationProxyArray := Win32FixedArray(this.ptr + 8, 8, Primitive, "ptr")
+                this.__ExceptionInformationProxyArray := Win32FixedArray(this.ptr + 8, 3, Primitive, "ptr")
             return this.__ExceptionInformationProxyArray
         }
     }

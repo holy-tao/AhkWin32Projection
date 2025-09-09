@@ -81,7 +81,7 @@ class USB_DEVICE_PERFORMANCE_INFO extends Win32Struct
     AllocedInterrupt{
         get {
             if(!this.HasProp("__AllocedInterruptProxyArray"))
-                this.__AllocedInterruptProxyArray := Win32FixedArray(this.ptr + 32, 4, Primitive, "uint")
+                this.__AllocedInterruptProxyArray := Win32FixedArray(this.ptr + 32, 6, Primitive, "uint")
             return this.__AllocedInterruptProxyArray
         }
     }

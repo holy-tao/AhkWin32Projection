@@ -17,7 +17,7 @@ class DXVA_COPPSignature extends Win32Struct
     Signature{
         get {
             if(!this.HasProp("__SignatureProxyArray"))
-                this.__SignatureProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__SignatureProxyArray := Win32FixedArray(this.ptr + 0, 256, Primitive, "char")
             return this.__SignatureProxyArray
         }
     }

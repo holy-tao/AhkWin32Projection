@@ -44,7 +44,7 @@ class BIDI_REQUEST_CONTAINER extends Win32Struct
     aData{
         get {
             if(!this.HasProp("__aDataProxyArray"))
-                this.__aDataProxyArray := Win32FixedArray(this.ptr + 16, 8, BIDI_REQUEST_DATA, "")
+                this.__aDataProxyArray := Win32FixedArray(this.ptr + 16, 1, BIDI_REQUEST_DATA, "")
             return this.__aDataProxyArray
         }
     }

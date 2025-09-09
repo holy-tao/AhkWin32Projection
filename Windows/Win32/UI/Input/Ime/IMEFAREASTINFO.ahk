@@ -33,7 +33,7 @@ class IMEFAREASTINFO extends Win32Struct
     dwData{
         get {
             if(!this.HasProp("__dwDataProxyArray"))
-                this.__dwDataProxyArray := Win32FixedArray(this.ptr + 8, 4, Primitive, "uint")
+                this.__dwDataProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "uint")
             return this.__dwDataProxyArray
         }
     }

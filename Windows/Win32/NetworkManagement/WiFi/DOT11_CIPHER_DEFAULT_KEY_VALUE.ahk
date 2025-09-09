@@ -45,7 +45,7 @@ class DOT11_CIPHER_DEFAULT_KEY_VALUE extends Win32Struct
     MacAddr{
         get {
             if(!this.HasProp("__MacAddrProxyArray"))
-                this.__MacAddrProxyArray := Win32FixedArray(this.ptr + 12, 1, Primitive, "char")
+                this.__MacAddrProxyArray := Win32FixedArray(this.ptr + 12, 6, Primitive, "char")
             return this.__MacAddrProxyArray
         }
     }

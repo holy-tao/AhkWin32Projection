@@ -121,7 +121,7 @@ class HIDP_BUTTON_CAPS extends Win32Struct
     Reserved{
         get {
             if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 20, 4, Primitive, "uint")
+                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 20, 9, Primitive, "uint")
             return this.__ReservedProxyArray
         }
     }

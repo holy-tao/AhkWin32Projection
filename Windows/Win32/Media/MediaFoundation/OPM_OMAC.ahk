@@ -20,7 +20,7 @@ class OPM_OMAC extends Win32Struct
     abOMAC{
         get {
             if(!this.HasProp("__abOMACProxyArray"))
-                this.__abOMACProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__abOMACProxyArray := Win32FixedArray(this.ptr + 0, 16, Primitive, "char")
             return this.__abOMACProxyArray
         }
     }

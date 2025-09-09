@@ -33,7 +33,7 @@ class MMC_VISIBLE_COLUMNS extends Win32Struct
     rgVisibleCols{
         get {
             if(!this.HasProp("__rgVisibleColsProxyArray"))
-                this.__rgVisibleColsProxyArray := Win32FixedArray(this.ptr + 4, 4, Primitive, "int")
+                this.__rgVisibleColsProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "int")
             return this.__rgVisibleColsProxyArray
         }
     }

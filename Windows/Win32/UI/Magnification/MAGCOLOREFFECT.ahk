@@ -25,7 +25,7 @@ class MAGCOLOREFFECT extends Win32Struct
     transform{
         get {
             if(!this.HasProp("__transformProxyArray"))
-                this.__transformProxyArray := Win32FixedArray(this.ptr + 0, 4, Primitive, "float")
+                this.__transformProxyArray := Win32FixedArray(this.ptr + 0, 25, Primitive, "float")
             return this.__transformProxyArray
         }
     }

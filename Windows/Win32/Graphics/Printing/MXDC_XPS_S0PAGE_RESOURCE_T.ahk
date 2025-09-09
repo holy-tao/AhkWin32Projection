@@ -44,7 +44,7 @@ class MXDC_XPS_S0PAGE_RESOURCE_T extends Win32Struct
     szUri{
         get {
             if(!this.HasProp("__szUriProxyArray"))
-                this.__szUriProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "char")
+                this.__szUriProxyArray := Win32FixedArray(this.ptr + 8, 260, Primitive, "char")
             return this.__szUriProxyArray
         }
     }

@@ -51,7 +51,7 @@ class MIB_IPMCAST_SCOPE extends Win32Struct
     snNameBuffer{
         get {
             if(!this.HasProp("__snNameBufferProxyArray"))
-                this.__snNameBufferProxyArray := Win32FixedArray(this.ptr + 8, 2, Primitive, "ushort")
+                this.__snNameBufferProxyArray := Win32FixedArray(this.ptr + 8, 256, Primitive, "ushort")
             return this.__snNameBufferProxyArray
         }
     }

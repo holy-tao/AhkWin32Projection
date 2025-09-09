@@ -41,7 +41,7 @@ class FailureCategoryMapping extends Win32Struct
     mappingCompliance{
         get {
             if(!this.HasProp("__mappingComplianceProxyArray"))
-                this.__mappingComplianceProxyArray := Win32FixedArray(this.ptr + 0, 4, Primitive, "int")
+                this.__mappingComplianceProxyArray := Win32FixedArray(this.ptr + 0, 5, Primitive, "int")
             return this.__mappingComplianceProxyArray
         }
     }

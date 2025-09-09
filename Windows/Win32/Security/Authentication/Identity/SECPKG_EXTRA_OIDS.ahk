@@ -30,7 +30,7 @@ class SECPKG_EXTRA_OIDS extends Win32Struct
     Oids{
         get {
             if(!this.HasProp("__OidsProxyArray"))
-                this.__OidsProxyArray := Win32FixedArray(this.ptr + 8, 8, SECPKG_SERIALIZED_OID, "")
+                this.__OidsProxyArray := Win32FixedArray(this.ptr + 8, 1, SECPKG_SERIALIZED_OID, "")
             return this.__OidsProxyArray
         }
     }

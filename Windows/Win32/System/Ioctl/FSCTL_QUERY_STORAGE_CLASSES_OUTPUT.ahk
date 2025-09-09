@@ -66,7 +66,7 @@ class FSCTL_QUERY_STORAGE_CLASSES_OUTPUT extends Win32Struct
     Tiers{
         get {
             if(!this.HasProp("__TiersProxyArray"))
-                this.__TiersProxyArray := Win32FixedArray(this.ptr + 24, 8, FILE_STORAGE_TIER, "")
+                this.__TiersProxyArray := Win32FixedArray(this.ptr + 24, 1, FILE_STORAGE_TIER, "")
             return this.__TiersProxyArray
         }
     }

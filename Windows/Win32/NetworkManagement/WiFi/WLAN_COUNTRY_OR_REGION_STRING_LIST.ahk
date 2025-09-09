@@ -29,7 +29,7 @@ class WLAN_COUNTRY_OR_REGION_STRING_LIST extends Win32Struct
     pCountryOrRegionStringList{
         get {
             if(!this.HasProp("__pCountryOrRegionStringListProxyArray"))
-                this.__pCountryOrRegionStringListProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")
+                this.__pCountryOrRegionStringListProxyArray := Win32FixedArray(this.ptr + 4, 3, Primitive, "char")
             return this.__pCountryOrRegionStringListProxyArray
         }
     }

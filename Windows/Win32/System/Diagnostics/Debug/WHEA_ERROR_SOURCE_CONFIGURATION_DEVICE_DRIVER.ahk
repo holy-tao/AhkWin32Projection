@@ -41,7 +41,7 @@ class WHEA_ERROR_SOURCE_CONFIGURATION_DEVICE_DRIVER extends Win32Struct
     Reserved{
         get {
             if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 14, 1, Primitive, "char")
+                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 14, 6, Primitive, "char")
             return this.__ReservedProxyArray
         }
     }

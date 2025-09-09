@@ -32,7 +32,7 @@ class SID_INFO_LIST extends Win32Struct
     aSidInfo{
         get {
             if(!this.HasProp("__aSidInfoProxyArray"))
-                this.__aSidInfoProxyArray := Win32FixedArray(this.ptr + 8, 8, SID_INFO, "")
+                this.__aSidInfoProxyArray := Win32FixedArray(this.ptr + 8, 1, SID_INFO, "")
             return this.__aSidInfoProxyArray
         }
     }

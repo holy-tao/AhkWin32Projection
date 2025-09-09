@@ -392,7 +392,7 @@ class VIDEOPARAMETERS extends Win32Struct
     bOEMCopyProtection{
         get {
             if(!this.HasProp("__bOEMCopyProtectionProxyArray"))
-                this.__bOEMCopyProtectionProxyArray := Win32FixedArray(this.ptr + 92, 1, Primitive, "char")
+                this.__bOEMCopyProtectionProxyArray := Win32FixedArray(this.ptr + 92, 256, Primitive, "char")
             return this.__bOEMCopyProtectionProxyArray
         }
     }

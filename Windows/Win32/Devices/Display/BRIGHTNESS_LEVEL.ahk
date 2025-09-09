@@ -25,7 +25,7 @@ class BRIGHTNESS_LEVEL extends Win32Struct
     Level{
         get {
             if(!this.HasProp("__LevelProxyArray"))
-                this.__LevelProxyArray := Win32FixedArray(this.ptr + 1, 1, Primitive, "char")
+                this.__LevelProxyArray := Win32FixedArray(this.ptr + 1, 103, Primitive, "char")
             return this.__LevelProxyArray
         }
     }

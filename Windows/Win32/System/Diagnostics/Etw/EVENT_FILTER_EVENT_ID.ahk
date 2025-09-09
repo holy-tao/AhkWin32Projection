@@ -60,7 +60,7 @@ class EVENT_FILTER_EVENT_ID extends Win32Struct
     Events{
         get {
             if(!this.HasProp("__EventsProxyArray"))
-                this.__EventsProxyArray := Win32FixedArray(this.ptr + 4, 2, Primitive, "ushort")
+                this.__EventsProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "ushort")
             return this.__EventsProxyArray
         }
     }

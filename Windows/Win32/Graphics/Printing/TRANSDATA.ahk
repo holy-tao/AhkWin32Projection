@@ -49,7 +49,7 @@ class TRANSDATA extends Win32Struct
     ubPairs{
         get {
             if(!this.HasProp("__ubPairsProxyArray"))
-                this.__ubPairsProxyArray := Win32FixedArray(this.ptr + 2, 1, Primitive, "char")
+                this.__ubPairsProxyArray := Win32FixedArray(this.ptr + 2, 2, Primitive, "char")
             return this.__ubPairsProxyArray
         }
     }

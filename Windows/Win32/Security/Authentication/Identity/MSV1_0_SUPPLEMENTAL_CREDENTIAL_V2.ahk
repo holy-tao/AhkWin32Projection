@@ -34,7 +34,7 @@ class MSV1_0_SUPPLEMENTAL_CREDENTIAL_V2 extends Win32Struct
     NtPassword{
         get {
             if(!this.HasProp("__NtPasswordProxyArray"))
-                this.__NtPasswordProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "char")
+                this.__NtPasswordProxyArray := Win32FixedArray(this.ptr + 8, 16, Primitive, "char")
             return this.__NtPasswordProxyArray
         }
     }

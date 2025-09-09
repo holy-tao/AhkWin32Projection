@@ -57,7 +57,7 @@ class PHYSICAL_ELEMENT_STATUS_REQUEST extends Win32Struct
     Reserved{
         get {
             if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 14, 1, Primitive, "char")
+                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 14, 2, Primitive, "char")
             return this.__ReservedProxyArray
         }
     }

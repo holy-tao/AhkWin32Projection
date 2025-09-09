@@ -33,7 +33,7 @@ class BTH_PING_REQ extends Win32Struct
     data{
         get {
             if(!this.HasProp("__dataProxyArray"))
-                this.__dataProxyArray := Win32FixedArray(this.ptr + 9, 1, Primitive, "char")
+                this.__dataProxyArray := Win32FixedArray(this.ptr + 9, 44, Primitive, "char")
             return this.__dataProxyArray
         }
     }

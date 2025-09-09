@@ -108,7 +108,7 @@ class NVME_OCP_DEVICE_LATENCY_MONITOR_LOG extends Win32Struct
     Reserved1{
         get {
             if(!this.HasProp("__Reserved1ProxyArray"))
-                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 13, 1, Primitive, "char")
+                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 13, 19, Primitive, "char")
             return this.__Reserved1ProxyArray
         }
     }
@@ -193,7 +193,7 @@ class NVME_OCP_DEVICE_LATENCY_MONITOR_LOG extends Win32Struct
     Reserved2{
         get {
             if(!this.HasProp("__Reserved2ProxyArray"))
-                this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 218, 1, Primitive, "char")
+                this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 218, 22, Primitive, "char")
             return this.__Reserved2ProxyArray
         }
     }
@@ -278,7 +278,7 @@ class NVME_OCP_DEVICE_LATENCY_MONITOR_LOG extends Win32Struct
     Reserved3{
         get {
             if(!this.HasProp("__Reserved3ProxyArray"))
-                this.__Reserved3ProxyArray := Win32FixedArray(this.ptr + 426, 1, Primitive, "char")
+                this.__Reserved3ProxyArray := Win32FixedArray(this.ptr + 426, 22, Primitive, "char")
             return this.__Reserved3ProxyArray
         }
     }
@@ -345,7 +345,7 @@ class NVME_OCP_DEVICE_LATENCY_MONITOR_LOG extends Win32Struct
     Reserved4{
         get {
             if(!this.HasProp("__Reserved4ProxyArray"))
-                this.__Reserved4ProxyArray := Win32FixedArray(this.ptr + 465, 1, Primitive, "char")
+                this.__Reserved4ProxyArray := Win32FixedArray(this.ptr + 465, 29, Primitive, "char")
             return this.__Reserved4ProxyArray
         }
     }

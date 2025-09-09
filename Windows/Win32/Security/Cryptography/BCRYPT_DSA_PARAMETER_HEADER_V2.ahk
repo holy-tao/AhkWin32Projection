@@ -103,7 +103,7 @@ class BCRYPT_DSA_PARAMETER_HEADER_V2 extends Win32Struct
     Count{
         get {
             if(!this.HasProp("__CountProxyArray"))
-                this.__CountProxyArray := Win32FixedArray(this.ptr + 28, 1, Primitive, "char")
+                this.__CountProxyArray := Win32FixedArray(this.ptr + 28, 4, Primitive, "char")
             return this.__CountProxyArray
         }
     }

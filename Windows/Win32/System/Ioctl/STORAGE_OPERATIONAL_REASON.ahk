@@ -81,7 +81,7 @@ class STORAGE_OPERATIONAL_REASON extends Win32Struct
     ModuleHealth{
         get {
             if(!this.HasProp("__ModuleHealthProxyArray"))
-                this.__ModuleHealthProxyArray := Win32FixedArray(this.ptr + 13, 1, Primitive, "char")
+                this.__ModuleHealthProxyArray := Win32FixedArray(this.ptr + 13, 2, Primitive, "char")
             return this.__ModuleHealthProxyArray
         }
     }

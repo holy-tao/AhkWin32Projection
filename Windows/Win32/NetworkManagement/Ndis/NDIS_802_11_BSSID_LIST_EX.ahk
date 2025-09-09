@@ -29,7 +29,7 @@ class NDIS_802_11_BSSID_LIST_EX extends Win32Struct
     Bssid{
         get {
             if(!this.HasProp("__BssidProxyArray"))
-                this.__BssidProxyArray := Win32FixedArray(this.ptr + 8, 8, NDIS_WLAN_BSSID_EX, "")
+                this.__BssidProxyArray := Win32FixedArray(this.ptr + 8, 1, NDIS_WLAN_BSSID_EX, "")
             return this.__BssidProxyArray
         }
     }

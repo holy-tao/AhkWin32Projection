@@ -68,7 +68,7 @@ class GLYPHSET extends Win32Struct
     ranges{
         get {
             if(!this.HasProp("__rangesProxyArray"))
-                this.__rangesProxyArray := Win32FixedArray(this.ptr + 16, 8, WCRANGE, "")
+                this.__rangesProxyArray := Win32FixedArray(this.ptr + 16, 1, WCRANGE, "")
             return this.__rangesProxyArray
         }
     }

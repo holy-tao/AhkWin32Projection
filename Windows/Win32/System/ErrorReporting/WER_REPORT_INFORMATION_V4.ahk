@@ -97,7 +97,7 @@ class WER_REPORT_INFORMATION_V4 extends Win32Struct
     rgbApplicationIdentity{
         get {
             if(!this.HasProp("__rgbApplicationIdentityProxyArray"))
-                this.__rgbApplicationIdentityProxyArray := Win32FixedArray(this.ptr + 2464, 1, Primitive, "char")
+                this.__rgbApplicationIdentityProxyArray := Win32FixedArray(this.ptr + 2464, 16, Primitive, "char")
             return this.__rgbApplicationIdentityProxyArray
         }
     }

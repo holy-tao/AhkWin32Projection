@@ -17,7 +17,7 @@ class UNIDRV_PRIVATE_DEVMODE extends Win32Struct
     wReserved{
         get {
             if(!this.HasProp("__wReservedProxyArray"))
-                this.__wReservedProxyArray := Win32FixedArray(this.ptr + 0, 2, Primitive, "ushort")
+                this.__wReservedProxyArray := Win32FixedArray(this.ptr + 0, 4, Primitive, "ushort")
             return this.__wReservedProxyArray
         }
     }

@@ -45,7 +45,7 @@ class DOT11_COUNTRY_OR_REGION_STRING_LIST extends Win32Struct
     CountryOrRegionStrings{
         get {
             if(!this.HasProp("__CountryOrRegionStringsProxyArray"))
-                this.__CountryOrRegionStringsProxyArray := Win32FixedArray(this.ptr + 12, 1, Primitive, "char")
+                this.__CountryOrRegionStringsProxyArray := Win32FixedArray(this.ptr + 12, 3, Primitive, "char")
             return this.__CountryOrRegionStringsProxyArray
         }
     }

@@ -43,7 +43,7 @@ class MTP_COMMAND_DATA_OUT extends Win32Struct
     Params{
         get {
             if(!this.HasProp("__ParamsProxyArray"))
-                this.__ParamsProxyArray := Win32FixedArray(this.ptr + 6, 4, Primitive, "uint")
+                this.__ParamsProxyArray := Win32FixedArray(this.ptr + 6, 5, Primitive, "uint")
             return this.__ParamsProxyArray
         }
     }

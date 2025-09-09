@@ -40,7 +40,7 @@ class D3D11_KEY_EXCHANGE_HW_PROTECTION_INPUT_DATA extends Win32Struct
     pbInput{
         get {
             if(!this.HasProp("__pbInputProxyArray"))
-                this.__pbInputProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "char")
+                this.__pbInputProxyArray := Win32FixedArray(this.ptr + 8, 4, Primitive, "char")
             return this.__pbInputProxyArray
         }
     }

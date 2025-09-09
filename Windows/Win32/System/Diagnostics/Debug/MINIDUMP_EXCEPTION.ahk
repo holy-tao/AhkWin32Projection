@@ -313,7 +313,7 @@ class MINIDUMP_EXCEPTION extends Win32Struct
     ExceptionInformation{
         get {
             if(!this.HasProp("__ExceptionInformationProxyArray"))
-                this.__ExceptionInformationProxyArray := Win32FixedArray(this.ptr + 32, 8, Primitive, "uint")
+                this.__ExceptionInformationProxyArray := Win32FixedArray(this.ptr + 32, 15, Primitive, "uint")
             return this.__ExceptionInformationProxyArray
         }
     }

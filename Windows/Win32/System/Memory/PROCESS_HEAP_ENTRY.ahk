@@ -205,7 +205,7 @@ class PROCESS_HEAP_ENTRY extends Win32Struct
     dwReserved{
         get {
             if(!this.HasProp("__dwReservedProxyArray"))
-                this.__dwReservedProxyArray := Win32FixedArray(this.ptr + 24, 4, Primitive, "uint")
+                this.__dwReservedProxyArray := Win32FixedArray(this.ptr + 24, 3, Primitive, "uint")
             return this.__dwReservedProxyArray
         }
     }

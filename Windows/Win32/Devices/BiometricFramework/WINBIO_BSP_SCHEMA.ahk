@@ -39,7 +39,7 @@ class WINBIO_BSP_SCHEMA extends Win32Struct
     Description{
         get {
             if(!this.HasProp("__DescriptionProxyArray"))
-                this.__DescriptionProxyArray := Win32FixedArray(this.ptr + 16, 2, Primitive, "ushort")
+                this.__DescriptionProxyArray := Win32FixedArray(this.ptr + 16, 256, Primitive, "ushort")
             return this.__DescriptionProxyArray
         }
     }
@@ -51,7 +51,7 @@ class WINBIO_BSP_SCHEMA extends Win32Struct
     Vendor{
         get {
             if(!this.HasProp("__VendorProxyArray"))
-                this.__VendorProxyArray := Win32FixedArray(this.ptr + 528, 2, Primitive, "ushort")
+                this.__VendorProxyArray := Win32FixedArray(this.ptr + 528, 256, Primitive, "ushort")
             return this.__VendorProxyArray
         }
     }

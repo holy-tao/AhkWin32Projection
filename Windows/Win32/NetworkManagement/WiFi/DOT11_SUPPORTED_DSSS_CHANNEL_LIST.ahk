@@ -33,7 +33,7 @@ class DOT11_SUPPORTED_DSSS_CHANNEL_LIST extends Win32Struct
     dot11SupportedDSSSChannel{
         get {
             if(!this.HasProp("__dot11SupportedDSSSChannelProxyArray"))
-                this.__dot11SupportedDSSSChannelProxyArray := Win32FixedArray(this.ptr + 8, 4, Primitive, "uint")
+                this.__dot11SupportedDSSSChannelProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "uint")
             return this.__dot11SupportedDSSSChannelProxyArray
         }
     }

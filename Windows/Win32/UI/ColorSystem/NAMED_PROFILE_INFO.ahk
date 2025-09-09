@@ -49,7 +49,7 @@ class NAMED_PROFILE_INFO extends Win32Struct
     szPrefix{
         get {
             if(!this.HasProp("__szPrefixProxyArray"))
-                this.__szPrefixProxyArray := Win32FixedArray(this.ptr + 12, 1, Primitive, "char")
+                this.__szPrefixProxyArray := Win32FixedArray(this.ptr + 12, 32, Primitive, "char")
             return this.__szPrefixProxyArray
         }
     }
@@ -61,7 +61,7 @@ class NAMED_PROFILE_INFO extends Win32Struct
     szSuffix{
         get {
             if(!this.HasProp("__szSuffixProxyArray"))
-                this.__szSuffixProxyArray := Win32FixedArray(this.ptr + 44, 1, Primitive, "char")
+                this.__szSuffixProxyArray := Win32FixedArray(this.ptr + 44, 32, Primitive, "char")
             return this.__szSuffixProxyArray
         }
     }

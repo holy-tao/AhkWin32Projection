@@ -39,7 +39,7 @@ class PROVIDER_EVENT_INFO extends Win32Struct
     EventDescriptorsArray{
         get {
             if(!this.HasProp("__EventDescriptorsArrayProxyArray"))
-                this.__EventDescriptorsArrayProxyArray := Win32FixedArray(this.ptr + 8, 8, EVENT_DESCRIPTOR, "")
+                this.__EventDescriptorsArrayProxyArray := Win32FixedArray(this.ptr + 8, 1, EVENT_DESCRIPTOR, "")
             return this.__EventDescriptorsArrayProxyArray
         }
     }

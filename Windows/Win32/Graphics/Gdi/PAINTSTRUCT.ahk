@@ -69,7 +69,7 @@ class PAINTSTRUCT extends Win32Struct
     rgbReserved{
         get {
             if(!this.HasProp("__rgbReservedProxyArray"))
-                this.__rgbReservedProxyArray := Win32FixedArray(this.ptr + 40, 1, Primitive, "char")
+                this.__rgbReservedProxyArray := Win32FixedArray(this.ptr + 40, 32, Primitive, "char")
             return this.__rgbReservedProxyArray
         }
     }

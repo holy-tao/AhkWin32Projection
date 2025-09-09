@@ -33,7 +33,7 @@ class HD_DVD_R_MEDIUM_STATUS extends Win32Struct
     NumberOfRemainingRMDsInCurrentRMZ{
         get {
             if(!this.HasProp("__NumberOfRemainingRMDsInCurrentRMZProxyArray"))
-                this.__NumberOfRemainingRMDsInCurrentRMZProxyArray := Win32FixedArray(this.ptr + 2, 1, Primitive, "char")
+                this.__NumberOfRemainingRMDsInCurrentRMZProxyArray := Win32FixedArray(this.ptr + 2, 2, Primitive, "char")
             return this.__NumberOfRemainingRMDsInCurrentRMZProxyArray
         }
     }

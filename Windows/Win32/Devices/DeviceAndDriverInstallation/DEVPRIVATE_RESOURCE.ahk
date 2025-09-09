@@ -30,7 +30,7 @@ class DEVPRIVATE_RESOURCE extends Win32Struct
     PRV_Data{
         get {
             if(!this.HasProp("__PRV_DataProxyArray"))
-                this.__PRV_DataProxyArray := Win32FixedArray(this.ptr + 24, 8, DEVPRIVATE_RANGE, "")
+                this.__PRV_DataProxyArray := Win32FixedArray(this.ptr + 24, 1, DEVPRIVATE_RANGE, "")
             return this.__PRV_DataProxyArray
         }
     }

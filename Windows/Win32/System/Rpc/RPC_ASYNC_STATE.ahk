@@ -217,7 +217,7 @@ class RPC_ASYNC_STATE extends Win32Struct
     Reserved{
         get {
             if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 128, 8, Primitive, "ptr")
+                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 128, 4, Primitive, "ptr")
             return this.__ReservedProxyArray
         }
     }

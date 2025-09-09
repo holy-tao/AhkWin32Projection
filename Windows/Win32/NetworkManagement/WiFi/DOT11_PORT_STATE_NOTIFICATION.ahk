@@ -29,7 +29,7 @@ class DOT11_PORT_STATE_NOTIFICATION extends Win32Struct
     PeerMac{
         get {
             if(!this.HasProp("__PeerMacProxyArray"))
-                this.__PeerMacProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")
+                this.__PeerMacProxyArray := Win32FixedArray(this.ptr + 4, 6, Primitive, "char")
             return this.__PeerMacProxyArray
         }
     }

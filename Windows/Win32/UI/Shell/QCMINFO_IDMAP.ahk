@@ -26,7 +26,7 @@ class QCMINFO_IDMAP extends Win32Struct
     pIdList{
         get {
             if(!this.HasProp("__pIdListProxyArray"))
-                this.__pIdListProxyArray := Win32FixedArray(this.ptr + 8, 8, QCMINFO_IDMAP_PLACEMENT, "")
+                this.__pIdListProxyArray := Win32FixedArray(this.ptr + 8, 1, QCMINFO_IDMAP_PLACEMENT, "")
             return this.__pIdListProxyArray
         }
     }

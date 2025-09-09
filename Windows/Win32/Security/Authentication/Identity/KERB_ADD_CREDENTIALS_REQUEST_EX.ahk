@@ -46,7 +46,7 @@ class KERB_ADD_CREDENTIALS_REQUEST_EX extends Win32Struct
     PrincipalNames{
         get {
             if(!this.HasProp("__PrincipalNamesProxyArray"))
-                this.__PrincipalNamesProxyArray := Win32FixedArray(this.ptr + 80, 8, LSA_UNICODE_STRING, "")
+                this.__PrincipalNamesProxyArray := Win32FixedArray(this.ptr + 80, 1, LSA_UNICODE_STRING, "")
             return this.__PrincipalNamesProxyArray
         }
     }

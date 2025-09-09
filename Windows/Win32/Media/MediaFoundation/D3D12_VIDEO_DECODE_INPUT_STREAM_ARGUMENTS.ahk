@@ -34,7 +34,7 @@ class D3D12_VIDEO_DECODE_INPUT_STREAM_ARGUMENTS extends Win32Struct
     FrameArguments{
         get {
             if(!this.HasProp("__FrameArgumentsProxyArray"))
-                this.__FrameArgumentsProxyArray := Win32FixedArray(this.ptr + 8, 8, D3D12_VIDEO_DECODE_FRAME_ARGUMENT, "")
+                this.__FrameArgumentsProxyArray := Win32FixedArray(this.ptr + 8, 10, D3D12_VIDEO_DECODE_FRAME_ARGUMENT, "")
             return this.__FrameArgumentsProxyArray
         }
     }

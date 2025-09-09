@@ -31,7 +31,7 @@ class SERVICE_ADDRESSES extends Win32Struct
     Addresses{
         get {
             if(!this.HasProp("__AddressesProxyArray"))
-                this.__AddressesProxyArray := Win32FixedArray(this.ptr + 8, 8, SERVICE_ADDRESS, "")
+                this.__AddressesProxyArray := Win32FixedArray(this.ptr + 8, 1, SERVICE_ADDRESS, "")
             return this.__AddressesProxyArray
         }
     }

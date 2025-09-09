@@ -17,7 +17,7 @@ class DVD_BD_SPARE_AREA_INFORMATION extends Win32Struct
     Reserved1{
         get {
             if(!this.HasProp("__Reserved1ProxyArray"))
-                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 0, 4, Primitive, "char")
             return this.__Reserved1ProxyArray
         }
     }
@@ -28,7 +28,7 @@ class DVD_BD_SPARE_AREA_INFORMATION extends Win32Struct
     NumberOfFreeSpareBlocks{
         get {
             if(!this.HasProp("__NumberOfFreeSpareBlocksProxyArray"))
-                this.__NumberOfFreeSpareBlocksProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")
+                this.__NumberOfFreeSpareBlocksProxyArray := Win32FixedArray(this.ptr + 4, 4, Primitive, "char")
             return this.__NumberOfFreeSpareBlocksProxyArray
         }
     }
@@ -39,7 +39,7 @@ class DVD_BD_SPARE_AREA_INFORMATION extends Win32Struct
     NumberOfAllocatedSpareBlocks{
         get {
             if(!this.HasProp("__NumberOfAllocatedSpareBlocksProxyArray"))
-                this.__NumberOfAllocatedSpareBlocksProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "char")
+                this.__NumberOfAllocatedSpareBlocksProxyArray := Win32FixedArray(this.ptr + 8, 4, Primitive, "char")
             return this.__NumberOfAllocatedSpareBlocksProxyArray
         }
     }

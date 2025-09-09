@@ -31,7 +31,7 @@ class DRT_ADDRESS_LIST extends Win32Struct
     AddressList{
         get {
             if(!this.HasProp("__AddressListProxyArray"))
-                this.__AddressListProxyArray := Win32FixedArray(this.ptr + 8, 8, DRT_ADDRESS, "")
+                this.__AddressListProxyArray := Win32FixedArray(this.ptr + 8, 1, DRT_ADDRESS, "")
             return this.__AddressListProxyArray
         }
     }

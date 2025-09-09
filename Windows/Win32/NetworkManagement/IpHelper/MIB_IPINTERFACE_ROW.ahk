@@ -461,7 +461,7 @@ class MIB_IPINTERFACE_ROW extends Win32Struct
     ZoneIndices{
         get {
             if(!this.HasProp("__ZoneIndicesProxyArray"))
-                this.__ZoneIndicesProxyArray := Win32FixedArray(this.ptr + 88, 4, Primitive, "uint")
+                this.__ZoneIndicesProxyArray := Win32FixedArray(this.ptr + 88, 16, Primitive, "uint")
             return this.__ZoneIndicesProxyArray
         }
     }

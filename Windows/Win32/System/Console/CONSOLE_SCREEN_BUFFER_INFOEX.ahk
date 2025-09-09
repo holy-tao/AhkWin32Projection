@@ -106,7 +106,7 @@ class CONSOLE_SCREEN_BUFFER_INFOEX extends Win32Struct
     ColorTable{
         get {
             if(!this.HasProp("__ColorTableProxyArray"))
-                this.__ColorTableProxyArray := Win32FixedArray(this.ptr + 36, 4, Primitive, "uint")
+                this.__ColorTableProxyArray := Win32FixedArray(this.ptr + 36, 16, Primitive, "uint")
             return this.__ColorTableProxyArray
         }
     }

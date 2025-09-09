@@ -129,7 +129,7 @@ class AUTHZ_SOURCE_SCHEMA_REGISTRATION extends Win32Struct
     ObjectTypeNames{
         get {
             if(!this.HasProp("__ObjectTypeNamesProxyArray"))
-                this.__ObjectTypeNamesProxyArray := Win32FixedArray(this.ptr + 64, 8, AUTHZ_REGISTRATION_OBJECT_TYPE_NAME_OFFSET, "")
+                this.__ObjectTypeNamesProxyArray := Win32FixedArray(this.ptr + 64, 1, AUTHZ_REGISTRATION_OBJECT_TYPE_NAME_OFFSET, "")
             return this.__ObjectTypeNamesProxyArray
         }
     }

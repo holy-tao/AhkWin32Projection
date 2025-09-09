@@ -89,7 +89,7 @@ class DEBUG_POOL_DATA extends Win32Struct
     Reserved2{
         get {
             if(!this.HasProp("__Reserved2ProxyArray"))
-                this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 56, 8, Primitive, "uint")
+                this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 56, 4, Primitive, "uint")
             return this.__Reserved2ProxyArray
         }
     }

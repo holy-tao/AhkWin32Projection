@@ -17,7 +17,7 @@ class BSSID_INFO extends Win32Struct
     BSSID{
         get {
             if(!this.HasProp("__BSSIDProxyArray"))
-                this.__BSSIDProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__BSSIDProxyArray := Win32FixedArray(this.ptr + 0, 6, Primitive, "char")
             return this.__BSSIDProxyArray
         }
     }
@@ -28,7 +28,7 @@ class BSSID_INFO extends Win32Struct
     PMKID{
         get {
             if(!this.HasProp("__PMKIDProxyArray"))
-                this.__PMKIDProxyArray := Win32FixedArray(this.ptr + 6, 1, Primitive, "char")
+                this.__PMKIDProxyArray := Win32FixedArray(this.ptr + 6, 16, Primitive, "char")
             return this.__PMKIDProxyArray
         }
     }

@@ -54,7 +54,7 @@ class D3D12_VIDEO_DECODE_OUTPUT_STREAM_ARGUMENTS1 extends Win32Struct
     Histograms{
         get {
             if(!this.HasProp("__HistogramsProxyArray"))
-                this.__HistogramsProxyArray := Win32FixedArray(this.ptr + 56, 8, D3D12_VIDEO_DECODE_OUTPUT_HISTOGRAM, "")
+                this.__HistogramsProxyArray := Win32FixedArray(this.ptr + 56, 4, D3D12_VIDEO_DECODE_OUTPUT_HISTOGRAM, "")
             return this.__HistogramsProxyArray
         }
     }

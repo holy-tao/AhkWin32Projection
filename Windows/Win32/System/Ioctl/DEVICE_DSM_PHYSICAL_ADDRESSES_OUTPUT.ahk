@@ -50,7 +50,7 @@ class DEVICE_DSM_PHYSICAL_ADDRESSES_OUTPUT extends Win32Struct
     Ranges{
         get {
             if(!this.HasProp("__RangesProxyArray"))
-                this.__RangesProxyArray := Win32FixedArray(this.ptr + 16, 8, DEVICE_STORAGE_ADDRESS_RANGE, "")
+                this.__RangesProxyArray := Win32FixedArray(this.ptr + 16, 1, DEVICE_STORAGE_ADDRESS_RANGE, "")
             return this.__RangesProxyArray
         }
     }

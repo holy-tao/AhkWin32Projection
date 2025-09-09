@@ -55,7 +55,7 @@ class DDEML_MSG_HOOK_DATA extends Win32Struct
     Data{
         get {
             if(!this.HasProp("__DataProxyArray"))
-                this.__DataProxyArray := Win32FixedArray(this.ptr + 20, 4, Primitive, "uint")
+                this.__DataProxyArray := Win32FixedArray(this.ptr + 20, 8, Primitive, "uint")
             return this.__DataProxyArray
         }
     }

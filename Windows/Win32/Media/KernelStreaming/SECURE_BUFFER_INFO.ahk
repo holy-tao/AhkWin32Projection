@@ -41,7 +41,7 @@ class SECURE_BUFFER_INFO extends Win32Struct
     ullReserved{
         get {
             if(!this.HasProp("__ullReservedProxyArray"))
-                this.__ullReservedProxyArray := Win32FixedArray(this.ptr + 16, 8, Primitive, "uint")
+                this.__ullReservedProxyArray := Win32FixedArray(this.ptr + 16, 16, Primitive, "uint")
             return this.__ullReservedProxyArray
         }
     }

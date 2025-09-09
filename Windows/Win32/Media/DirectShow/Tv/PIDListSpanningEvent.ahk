@@ -25,7 +25,7 @@ class PIDListSpanningEvent extends Win32Struct
     pulPIDs{
         get {
             if(!this.HasProp("__pulPIDsProxyArray"))
-                this.__pulPIDsProxyArray := Win32FixedArray(this.ptr + 4, 4, Primitive, "uint")
+                this.__pulPIDsProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "uint")
             return this.__pulPIDsProxyArray
         }
     }

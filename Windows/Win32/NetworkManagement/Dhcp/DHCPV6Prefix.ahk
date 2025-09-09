@@ -20,7 +20,7 @@ class DHCPV6Prefix extends Win32Struct
     prefix{
         get {
             if(!this.HasProp("__prefixProxyArray"))
-                this.__prefixProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__prefixProxyArray := Win32FixedArray(this.ptr + 0, 16, Primitive, "char")
             return this.__prefixProxyArray
         }
     }

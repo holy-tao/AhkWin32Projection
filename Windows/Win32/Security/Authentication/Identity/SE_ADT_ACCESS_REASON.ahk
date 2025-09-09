@@ -25,7 +25,7 @@ class SE_ADT_ACCESS_REASON extends Win32Struct
     AccessReasons{
         get {
             if(!this.HasProp("__AccessReasonsProxyArray"))
-                this.__AccessReasonsProxyArray := Win32FixedArray(this.ptr + 4, 4, Primitive, "uint")
+                this.__AccessReasonsProxyArray := Win32FixedArray(this.ptr + 4, 32, Primitive, "uint")
             return this.__AccessReasonsProxyArray
         }
     }

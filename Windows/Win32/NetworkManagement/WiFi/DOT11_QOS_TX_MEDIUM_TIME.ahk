@@ -17,7 +17,7 @@ class DOT11_QOS_TX_MEDIUM_TIME extends Win32Struct
     dot11PeerAddress{
         get {
             if(!this.HasProp("__dot11PeerAddressProxyArray"))
-                this.__dot11PeerAddressProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__dot11PeerAddressProxyArray := Win32FixedArray(this.ptr + 0, 6, Primitive, "char")
             return this.__dot11PeerAddressProxyArray
         }
     }

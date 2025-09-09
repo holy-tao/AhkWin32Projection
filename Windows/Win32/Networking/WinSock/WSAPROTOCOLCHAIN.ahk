@@ -40,7 +40,7 @@ class WSAPROTOCOLCHAIN extends Win32Struct
     ChainEntries{
         get {
             if(!this.HasProp("__ChainEntriesProxyArray"))
-                this.__ChainEntriesProxyArray := Win32FixedArray(this.ptr + 4, 4, Primitive, "uint")
+                this.__ChainEntriesProxyArray := Win32FixedArray(this.ptr + 4, 7, Primitive, "uint")
             return this.__ChainEntriesProxyArray
         }
     }

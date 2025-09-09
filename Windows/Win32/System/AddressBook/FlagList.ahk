@@ -25,7 +25,7 @@ class FlagList extends Win32Struct
     ulFlag{
         get {
             if(!this.HasProp("__ulFlagProxyArray"))
-                this.__ulFlagProxyArray := Win32FixedArray(this.ptr + 4, 4, Primitive, "uint")
+                this.__ulFlagProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "uint")
             return this.__ulFlagProxyArray
         }
     }

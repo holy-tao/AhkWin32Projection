@@ -34,7 +34,7 @@ class DOT11_REG_DOMAINS_SUPPORT_VALUE extends Win32Struct
     dot11RegDomainValue{
         get {
             if(!this.HasProp("__dot11RegDomainValueProxyArray"))
-                this.__dot11RegDomainValueProxyArray := Win32FixedArray(this.ptr + 8, 8, DOT11_REG_DOMAIN_VALUE, "")
+                this.__dot11RegDomainValueProxyArray := Win32FixedArray(this.ptr + 8, 1, DOT11_REG_DOMAIN_VALUE, "")
             return this.__dot11RegDomainValueProxyArray
         }
     }

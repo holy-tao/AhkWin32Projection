@@ -25,7 +25,7 @@ class DOT11_WFD_ADVERTISEMENT_ID extends Win32Struct
     ServiceAddress{
         get {
             if(!this.HasProp("__ServiceAddressProxyArray"))
-                this.__ServiceAddressProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")
+                this.__ServiceAddressProxyArray := Win32FixedArray(this.ptr + 4, 6, Primitive, "char")
             return this.__ServiceAddressProxyArray
         }
     }

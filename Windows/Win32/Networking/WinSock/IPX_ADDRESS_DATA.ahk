@@ -32,7 +32,7 @@ class IPX_ADDRESS_DATA extends Win32Struct
     netnum{
         get {
             if(!this.HasProp("__netnumProxyArray"))
-                this.__netnumProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")
+                this.__netnumProxyArray := Win32FixedArray(this.ptr + 4, 4, Primitive, "char")
             return this.__netnumProxyArray
         }
     }
@@ -44,7 +44,7 @@ class IPX_ADDRESS_DATA extends Win32Struct
     nodenum{
         get {
             if(!this.HasProp("__nodenumProxyArray"))
-                this.__nodenumProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "char")
+                this.__nodenumProxyArray := Win32FixedArray(this.ptr + 8, 6, Primitive, "char")
             return this.__nodenumProxyArray
         }
     }

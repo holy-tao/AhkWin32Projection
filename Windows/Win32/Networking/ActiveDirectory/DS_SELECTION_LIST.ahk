@@ -40,7 +40,7 @@ class DS_SELECTION_LIST extends Win32Struct
     aDsSelection{
         get {
             if(!this.HasProp("__aDsSelectionProxyArray"))
-                this.__aDsSelectionProxyArray := Win32FixedArray(this.ptr + 8, 8, DS_SELECTION, "")
+                this.__aDsSelectionProxyArray := Win32FixedArray(this.ptr + 8, 1, DS_SELECTION, "")
             return this.__aDsSelectionProxyArray
         }
     }

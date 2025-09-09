@@ -130,7 +130,7 @@ class D3D12_VIDEO_ENCODER_AV1_PICTURE_CONTROL_CODEC_DATA extends Win32Struct
     ReferenceIndices{
         get {
             if(!this.HasProp("__ReferenceIndicesProxyArray"))
-                this.__ReferenceIndicesProxyArray := Win32FixedArray(this.ptr + 128, 4, Primitive, "uint")
+                this.__ReferenceIndicesProxyArray := Win32FixedArray(this.ptr + 128, 7, Primitive, "uint")
             return this.__ReferenceIndicesProxyArray
         }
     }

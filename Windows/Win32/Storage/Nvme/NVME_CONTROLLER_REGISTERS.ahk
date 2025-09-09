@@ -229,7 +229,7 @@ class NVME_CONTROLLER_REGISTERS extends Win32Struct
     Reserved2{
         get {
             if(!this.HasProp("__Reserved2ProxyArray"))
-                this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 120, 4, Primitive, "uint")
+                this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 120, 944, Primitive, "uint")
             return this.__Reserved2ProxyArray
         }
     }
@@ -243,7 +243,7 @@ class NVME_CONTROLLER_REGISTERS extends Win32Struct
     Reserved3{
         get {
             if(!this.HasProp("__Reserved3ProxyArray"))
-                this.__Reserved3ProxyArray := Win32FixedArray(this.ptr + 3896, 4, Primitive, "uint")
+                this.__Reserved3ProxyArray := Win32FixedArray(this.ptr + 3896, 64, Primitive, "uint")
             return this.__Reserved3ProxyArray
         }
     }
@@ -255,7 +255,7 @@ class NVME_CONTROLLER_REGISTERS extends Win32Struct
     Doorbells{
         get {
             if(!this.HasProp("__DoorbellsProxyArray"))
-                this.__DoorbellsProxyArray := Win32FixedArray(this.ptr + 4152, 4, Primitive, "uint")
+                this.__DoorbellsProxyArray := Win32FixedArray(this.ptr + 4152, 1, Primitive, "uint")
             return this.__DoorbellsProxyArray
         }
     }

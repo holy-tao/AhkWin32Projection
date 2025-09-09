@@ -31,7 +31,7 @@ class BLUETOOTH_GATT_VALUE_CHANGED_EVENT_REGISTRATION extends Win32Struct
     Characteristics{
         get {
             if(!this.HasProp("__CharacteristicsProxyArray"))
-                this.__CharacteristicsProxyArray := Win32FixedArray(this.ptr + 8, 8, BTH_LE_GATT_CHARACTERISTIC, "")
+                this.__CharacteristicsProxyArray := Win32FixedArray(this.ptr + 8, 1, BTH_LE_GATT_CHARACTERISTIC, "")
             return this.__CharacteristicsProxyArray
         }
     }

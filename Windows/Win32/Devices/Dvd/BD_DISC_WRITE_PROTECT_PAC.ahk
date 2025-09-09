@@ -37,7 +37,7 @@ class BD_DISC_WRITE_PROTECT_PAC extends Win32Struct
     Reserved1{
         get {
             if(!this.HasProp("__Reserved1ProxyArray"))
-                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 385, 1, Primitive, "char")
+                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 385, 3, Primitive, "char")
             return this.__Reserved1ProxyArray
         }
     }
@@ -56,7 +56,7 @@ class BD_DISC_WRITE_PROTECT_PAC extends Win32Struct
     Reserved2{
         get {
             if(!this.HasProp("__Reserved2ProxyArray"))
-                this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 389, 1, Primitive, "char")
+                this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 389, 7, Primitive, "char")
             return this.__Reserved2ProxyArray
         }
     }
@@ -67,7 +67,7 @@ class BD_DISC_WRITE_PROTECT_PAC extends Win32Struct
     WriteProtectPassword{
         get {
             if(!this.HasProp("__WriteProtectPasswordProxyArray"))
-                this.__WriteProtectPasswordProxyArray := Win32FixedArray(this.ptr + 396, 1, Primitive, "char")
+                this.__WriteProtectPasswordProxyArray := Win32FixedArray(this.ptr + 396, 32, Primitive, "char")
             return this.__WriteProtectPasswordProxyArray
         }
     }

@@ -175,7 +175,7 @@ class WTS_PROTOCOL_COUNTERS extends Win32Struct
     Reserved{
         get {
             if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 64, 4, Primitive, "uint")
+                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 64, 100, Primitive, "uint")
             return this.__ReservedProxyArray
         }
     }

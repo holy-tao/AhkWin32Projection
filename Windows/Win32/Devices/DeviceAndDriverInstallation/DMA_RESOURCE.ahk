@@ -34,7 +34,7 @@ class DMA_RESOURCE extends Win32Struct
     DMA_Data{
         get {
             if(!this.HasProp("__DMA_DataProxyArray"))
-                this.__DMA_DataProxyArray := Win32FixedArray(this.ptr + 16, 8, DMA_RANGE, "")
+                this.__DMA_DataProxyArray := Win32FixedArray(this.ptr + 16, 1, DMA_RANGE, "")
             return this.__DMA_DataProxyArray
         }
     }

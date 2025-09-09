@@ -65,7 +65,7 @@ class EXTCHKBOX extends Win32Struct
     wReserved{
         get {
             if(!this.HasProp("__wReservedProxyArray"))
-                this.__wReservedProxyArray := Win32FixedArray(this.ptr + 40, 2, Primitive, "ushort")
+                this.__wReservedProxyArray := Win32FixedArray(this.ptr + 40, 4, Primitive, "ushort")
             return this.__wReservedProxyArray
         }
     }
@@ -76,7 +76,7 @@ class EXTCHKBOX extends Win32Struct
     dwReserved{
         get {
             if(!this.HasProp("__dwReservedProxyArray"))
-                this.__dwReservedProxyArray := Win32FixedArray(this.ptr + 48, 8, Primitive, "ptr")
+                this.__dwReservedProxyArray := Win32FixedArray(this.ptr + 48, 2, Primitive, "ptr")
             return this.__dwReservedProxyArray
         }
     }

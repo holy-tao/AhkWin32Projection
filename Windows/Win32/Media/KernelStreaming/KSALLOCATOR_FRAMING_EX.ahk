@@ -56,7 +56,7 @@ class KSALLOCATOR_FRAMING_EX extends Win32Struct
     FramingItem{
         get {
             if(!this.HasProp("__FramingItemProxyArray"))
-                this.__FramingItemProxyArray := Win32FixedArray(this.ptr + 24, 8, KS_FRAMING_ITEM, "")
+                this.__FramingItemProxyArray := Win32FixedArray(this.ptr + 24, 1, KS_FRAMING_ITEM, "")
             return this.__FramingItemProxyArray
         }
     }

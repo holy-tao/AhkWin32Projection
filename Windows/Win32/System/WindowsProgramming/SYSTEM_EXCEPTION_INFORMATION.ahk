@@ -17,7 +17,7 @@ class SYSTEM_EXCEPTION_INFORMATION extends Win32Struct
     Reserved1{
         get {
             if(!this.HasProp("__Reserved1ProxyArray"))
-                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 0, 16, Primitive, "char")
             return this.__Reserved1ProxyArray
         }
     }

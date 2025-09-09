@@ -33,7 +33,7 @@ class BDA_DISEQC_RESPONSE extends Win32Struct
     argbPacketData{
         get {
             if(!this.HasProp("__argbPacketDataProxyArray"))
-                this.__argbPacketDataProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "char")
+                this.__argbPacketDataProxyArray := Win32FixedArray(this.ptr + 8, 8, Primitive, "char")
             return this.__argbPacketDataProxyArray
         }
     }

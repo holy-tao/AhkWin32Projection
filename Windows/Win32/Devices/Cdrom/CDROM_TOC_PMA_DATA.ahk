@@ -18,7 +18,7 @@ class CDROM_TOC_PMA_DATA extends Win32Struct
     Length{
         get {
             if(!this.HasProp("__LengthProxyArray"))
-                this.__LengthProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__LengthProxyArray := Win32FixedArray(this.ptr + 0, 2, Primitive, "char")
             return this.__LengthProxyArray
         }
     }
@@ -45,7 +45,7 @@ class CDROM_TOC_PMA_DATA extends Win32Struct
     Descriptors{
         get {
             if(!this.HasProp("__DescriptorsProxyArray"))
-                this.__DescriptorsProxyArray := Win32FixedArray(this.ptr + 8, 8, CDROM_TOC_FULL_TOC_DATA_BLOCK, "")
+                this.__DescriptorsProxyArray := Win32FixedArray(this.ptr + 8, 1, CDROM_TOC_FULL_TOC_DATA_BLOCK, "")
             return this.__DescriptorsProxyArray
         }
     }

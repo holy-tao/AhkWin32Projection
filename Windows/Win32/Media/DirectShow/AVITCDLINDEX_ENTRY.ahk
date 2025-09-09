@@ -53,7 +53,7 @@ class AVITCDLINDEX_ENTRY extends Win32Struct
     szReelId{
         get {
             if(!this.HasProp("__szReelIdProxyArray"))
-                this.__szReelIdProxyArray := Win32FixedArray(this.ptr + 28, 1, Primitive, "char")
+                this.__szReelIdProxyArray := Win32FixedArray(this.ptr + 28, 12, Primitive, "char")
             return this.__szReelIdProxyArray
         }
     }

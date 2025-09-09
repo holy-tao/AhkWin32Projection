@@ -34,7 +34,7 @@ class ETW_PMC_COUNTER_OWNERSHIP_STATUS extends Win32Struct
     CounterOwners{
         get {
             if(!this.HasProp("__CounterOwnersProxyArray"))
-                this.__CounterOwnersProxyArray := Win32FixedArray(this.ptr + 8, 8, ETW_PMC_COUNTER_OWNER, "")
+                this.__CounterOwnersProxyArray := Win32FixedArray(this.ptr + 8, 1, ETW_PMC_COUNTER_OWNER, "")
             return this.__CounterOwnersProxyArray
         }
     }

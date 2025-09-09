@@ -33,7 +33,7 @@ class NVME_FEATURE_HOST_METADATA_DATA extends Win32Struct
     MetadataElementDescriptors{
         get {
             if(!this.HasProp("__MetadataElementDescriptorsProxyArray"))
-                this.__MetadataElementDescriptorsProxyArray := Win32FixedArray(this.ptr + 2, 1, Primitive, "char")
+                this.__MetadataElementDescriptorsProxyArray := Win32FixedArray(this.ptr + 2, 4094, Primitive, "char")
             return this.__MetadataElementDescriptorsProxyArray
         }
     }

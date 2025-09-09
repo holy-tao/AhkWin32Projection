@@ -17,7 +17,7 @@ class DVD_LIST_OF_RECOGNIZED_FORMAT_LAYERS extends Win32Struct
     TypeCodeOfFormatLayer{
         get {
             if(!this.HasProp("__TypeCodeOfFormatLayerProxyArray"))
-                this.__TypeCodeOfFormatLayerProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__TypeCodeOfFormatLayerProxyArray := Win32FixedArray(this.ptr + 0, 2, Primitive, "char")
             return this.__TypeCodeOfFormatLayerProxyArray
         }
     }

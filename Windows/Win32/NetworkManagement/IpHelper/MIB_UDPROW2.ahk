@@ -65,7 +65,7 @@ class MIB_UDPROW2 extends Win32Struct
     OwningModuleInfo{
         get {
             if(!this.HasProp("__OwningModuleInfoProxyArray"))
-                this.__OwningModuleInfoProxyArray := Win32FixedArray(this.ptr + 32, 8, Primitive, "uint")
+                this.__OwningModuleInfoProxyArray := Win32FixedArray(this.ptr + 32, 16, Primitive, "uint")
             return this.__OwningModuleInfoProxyArray
         }
     }

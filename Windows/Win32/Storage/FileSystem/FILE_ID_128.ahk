@@ -20,7 +20,7 @@ class FILE_ID_128 extends Win32Struct
     Identifier{
         get {
             if(!this.HasProp("__IdentifierProxyArray"))
-                this.__IdentifierProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__IdentifierProxyArray := Win32FixedArray(this.ptr + 0, 16, Primitive, "char")
             return this.__IdentifierProxyArray
         }
     }

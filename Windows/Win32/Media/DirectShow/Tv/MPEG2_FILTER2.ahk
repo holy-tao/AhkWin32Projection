@@ -46,7 +46,7 @@ class MPEG2_FILTER2 extends Win32Struct
     Filter{
         get {
             if(!this.HasProp("__FilterProxyArray"))
-                this.__FilterProxyArray := Win32FixedArray(this.ptr + 7, 1, Primitive, "char")
+                this.__FilterProxyArray := Win32FixedArray(this.ptr + 7, 16, Primitive, "char")
             return this.__FilterProxyArray
         }
     }
@@ -57,7 +57,7 @@ class MPEG2_FILTER2 extends Win32Struct
     Mask{
         get {
             if(!this.HasProp("__MaskProxyArray"))
-                this.__MaskProxyArray := Win32FixedArray(this.ptr + 23, 1, Primitive, "char")
+                this.__MaskProxyArray := Win32FixedArray(this.ptr + 23, 16, Primitive, "char")
             return this.__MaskProxyArray
         }
     }
@@ -170,7 +170,7 @@ class MPEG2_FILTER2 extends Win32Struct
     bVersion1Bytes{
         get {
             if(!this.HasProp("__bVersion1BytesProxyArray"))
-                this.__bVersion1BytesProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__bVersion1BytesProxyArray := Win32FixedArray(this.ptr + 0, 124, Primitive, "char")
             return this.__bVersion1BytesProxyArray
         }
     }

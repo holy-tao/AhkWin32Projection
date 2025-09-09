@@ -38,7 +38,7 @@ class MIB_UDP6ROW_OWNER_MODULE extends Win32Struct
     ucLocalAddr{
         get {
             if(!this.HasProp("__ucLocalAddrProxyArray"))
-                this.__ucLocalAddrProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__ucLocalAddrProxyArray := Win32FixedArray(this.ptr + 0, 16, Primitive, "char")
             return this.__ucLocalAddrProxyArray
         }
     }
@@ -112,7 +112,7 @@ class MIB_UDP6ROW_OWNER_MODULE extends Win32Struct
     OwningModuleInfo{
         get {
             if(!this.HasProp("__OwningModuleInfoProxyArray"))
-                this.__OwningModuleInfoProxyArray := Win32FixedArray(this.ptr + 48, 8, Primitive, "uint")
+                this.__OwningModuleInfoProxyArray := Win32FixedArray(this.ptr + 48, 16, Primitive, "uint")
             return this.__OwningModuleInfoProxyArray
         }
     }

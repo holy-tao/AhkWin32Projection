@@ -37,7 +37,7 @@ class PEB extends Win32Struct
     Reserved1{
         get {
             if(!this.HasProp("__Reserved1ProxyArray"))
-                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 0, 2, Primitive, "char")
             return this.__Reserved1ProxyArray
         }
     }
@@ -70,7 +70,7 @@ class PEB extends Win32Struct
     Reserved3{
         get {
             if(!this.HasProp("__Reserved3ProxyArray"))
-                this.__Reserved3ProxyArray := Win32FixedArray(this.ptr + 8, 8, Primitive, "ptr")
+                this.__Reserved3ProxyArray := Win32FixedArray(this.ptr + 8, 2, Primitive, "ptr")
             return this.__Reserved3ProxyArray
         }
     }
@@ -100,7 +100,7 @@ class PEB extends Win32Struct
     Reserved4{
         get {
             if(!this.HasProp("__Reserved4ProxyArray"))
-                this.__Reserved4ProxyArray := Win32FixedArray(this.ptr + 40, 8, Primitive, "ptr")
+                this.__Reserved4ProxyArray := Win32FixedArray(this.ptr + 40, 3, Primitive, "ptr")
             return this.__Reserved4ProxyArray
         }
     }
@@ -166,7 +166,7 @@ class PEB extends Win32Struct
     Reserved9{
         get {
             if(!this.HasProp("__Reserved9ProxyArray"))
-                this.__Reserved9ProxyArray := Win32FixedArray(this.ptr + 104, 8, Primitive, "ptr")
+                this.__Reserved9ProxyArray := Win32FixedArray(this.ptr + 104, 45, Primitive, "ptr")
             return this.__Reserved9ProxyArray
         }
     }
@@ -178,7 +178,7 @@ class PEB extends Win32Struct
     Reserved10{
         get {
             if(!this.HasProp("__Reserved10ProxyArray"))
-                this.__Reserved10ProxyArray := Win32FixedArray(this.ptr + 464, 1, Primitive, "char")
+                this.__Reserved10ProxyArray := Win32FixedArray(this.ptr + 464, 96, Primitive, "char")
             return this.__Reserved10ProxyArray
         }
     }
@@ -199,7 +199,7 @@ class PEB extends Win32Struct
     Reserved11{
         get {
             if(!this.HasProp("__Reserved11ProxyArray"))
-                this.__Reserved11ProxyArray := Win32FixedArray(this.ptr + 568, 1, Primitive, "char")
+                this.__Reserved11ProxyArray := Win32FixedArray(this.ptr + 568, 128, Primitive, "char")
             return this.__Reserved11ProxyArray
         }
     }
@@ -211,7 +211,7 @@ class PEB extends Win32Struct
     Reserved12{
         get {
             if(!this.HasProp("__Reserved12ProxyArray"))
-                this.__Reserved12ProxyArray := Win32FixedArray(this.ptr + 696, 8, Primitive, "ptr")
+                this.__Reserved12ProxyArray := Win32FixedArray(this.ptr + 696, 1, Primitive, "ptr")
             return this.__Reserved12ProxyArray
         }
     }

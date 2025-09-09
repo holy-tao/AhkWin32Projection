@@ -34,7 +34,7 @@ class PERF_BIN extends Win32Struct
     BinsRanges{
         get {
             if(!this.HasProp("__BinsRangesProxyArray"))
-                this.__BinsRangesProxyArray := Win32FixedArray(this.ptr + 8, 8, BIN_RANGE, "")
+                this.__BinsRangesProxyArray := Win32FixedArray(this.ptr + 8, 1, BIN_RANGE, "")
             return this.__BinsRangesProxyArray
         }
     }

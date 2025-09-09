@@ -34,7 +34,7 @@ class WICRawToneCurve extends Win32Struct
     aPoints{
         get {
             if(!this.HasProp("__aPointsProxyArray"))
-                this.__aPointsProxyArray := Win32FixedArray(this.ptr + 8, 8, WICRawToneCurvePoint, "")
+                this.__aPointsProxyArray := Win32FixedArray(this.ptr + 8, 1, WICRawToneCurvePoint, "")
             return this.__aPointsProxyArray
         }
     }

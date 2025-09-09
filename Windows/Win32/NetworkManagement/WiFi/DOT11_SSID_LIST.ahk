@@ -46,7 +46,7 @@ class DOT11_SSID_LIST extends Win32Struct
     SSIDs{
         get {
             if(!this.HasProp("__SSIDsProxyArray"))
-                this.__SSIDsProxyArray := Win32FixedArray(this.ptr + 16, 8, DOT11_SSID, "")
+                this.__SSIDsProxyArray := Win32FixedArray(this.ptr + 16, 1, DOT11_SSID, "")
             return this.__SSIDsProxyArray
         }
     }

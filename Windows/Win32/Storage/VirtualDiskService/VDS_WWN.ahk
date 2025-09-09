@@ -22,7 +22,7 @@ class VDS_WWN extends Win32Struct
     rguchWwn{
         get {
             if(!this.HasProp("__rguchWwnProxyArray"))
-                this.__rguchWwnProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__rguchWwnProxyArray := Win32FixedArray(this.ptr + 0, 8, Primitive, "char")
             return this.__rguchWwnProxyArray
         }
     }

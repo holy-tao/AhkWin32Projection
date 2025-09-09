@@ -39,7 +39,7 @@ class GROUP_RELATIONSHIP extends Win32Struct
     Reserved{
         get {
             if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")
+                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 4, 20, Primitive, "char")
             return this.__ReservedProxyArray
         }
     }
@@ -51,7 +51,7 @@ class GROUP_RELATIONSHIP extends Win32Struct
     GroupInfo{
         get {
             if(!this.HasProp("__GroupInfoProxyArray"))
-                this.__GroupInfoProxyArray := Win32FixedArray(this.ptr + 24, 8, PROCESSOR_GROUP_INFO, "")
+                this.__GroupInfoProxyArray := Win32FixedArray(this.ptr + 24, 1, PROCESSOR_GROUP_INFO, "")
             return this.__GroupInfoProxyArray
         }
     }

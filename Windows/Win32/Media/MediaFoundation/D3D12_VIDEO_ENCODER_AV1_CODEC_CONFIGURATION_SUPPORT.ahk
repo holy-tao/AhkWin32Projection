@@ -41,7 +41,7 @@ class D3D12_VIDEO_ENCODER_AV1_CODEC_CONFIGURATION_SUPPORT extends Win32Struct
     SupportedRestorationParams{
         get {
             if(!this.HasProp("__SupportedRestorationParamsProxyArray"))
-                this.__SupportedRestorationParamsProxyArray := Win32FixedArray(this.ptr + 12, 4, Primitive, "int")
+                this.__SupportedRestorationParamsProxyArray := Win32FixedArray(this.ptr + 12, 9, Primitive, "int")
             return this.__SupportedRestorationParamsProxyArray
         }
     }

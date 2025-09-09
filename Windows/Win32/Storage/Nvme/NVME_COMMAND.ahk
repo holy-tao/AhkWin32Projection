@@ -114,7 +114,7 @@ class NVME_COMMAND extends Win32Struct
     Reserved0{
         get {
             if(!this.HasProp("__Reserved0ProxyArray"))
-                this.__Reserved0ProxyArray := Win32FixedArray(this.ptr + 12, 4, Primitive, "uint")
+                this.__Reserved0ProxyArray := Win32FixedArray(this.ptr + 12, 2, Primitive, "uint")
             return this.__Reserved0ProxyArray
         }
     }

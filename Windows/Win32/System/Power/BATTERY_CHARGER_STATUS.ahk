@@ -25,7 +25,7 @@ class BATTERY_CHARGER_STATUS extends Win32Struct
     VaData{
         get {
             if(!this.HasProp("__VaDataProxyArray"))
-                this.__VaDataProxyArray := Win32FixedArray(this.ptr + 4, 4, Primitive, "uint")
+                this.__VaDataProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "uint")
             return this.__VaDataProxyArray
         }
     }

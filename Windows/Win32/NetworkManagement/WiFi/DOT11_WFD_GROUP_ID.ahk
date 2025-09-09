@@ -18,7 +18,7 @@ class DOT11_WFD_GROUP_ID extends Win32Struct
     DeviceAddress{
         get {
             if(!this.HasProp("__DeviceAddressProxyArray"))
-                this.__DeviceAddressProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__DeviceAddressProxyArray := Win32FixedArray(this.ptr + 0, 6, Primitive, "char")
             return this.__DeviceAddressProxyArray
         }
     }

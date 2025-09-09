@@ -17,7 +17,7 @@ class CDROM_NOMINAL_PERFORMANCE_DESCRIPTOR extends Win32Struct
     StartLba{
         get {
             if(!this.HasProp("__StartLbaProxyArray"))
-                this.__StartLbaProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__StartLbaProxyArray := Win32FixedArray(this.ptr + 0, 4, Primitive, "char")
             return this.__StartLbaProxyArray
         }
     }
@@ -28,7 +28,7 @@ class CDROM_NOMINAL_PERFORMANCE_DESCRIPTOR extends Win32Struct
     StartPerformance{
         get {
             if(!this.HasProp("__StartPerformanceProxyArray"))
-                this.__StartPerformanceProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")
+                this.__StartPerformanceProxyArray := Win32FixedArray(this.ptr + 4, 4, Primitive, "char")
             return this.__StartPerformanceProxyArray
         }
     }
@@ -39,7 +39,7 @@ class CDROM_NOMINAL_PERFORMANCE_DESCRIPTOR extends Win32Struct
     EndLba{
         get {
             if(!this.HasProp("__EndLbaProxyArray"))
-                this.__EndLbaProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "char")
+                this.__EndLbaProxyArray := Win32FixedArray(this.ptr + 8, 4, Primitive, "char")
             return this.__EndLbaProxyArray
         }
     }
@@ -50,7 +50,7 @@ class CDROM_NOMINAL_PERFORMANCE_DESCRIPTOR extends Win32Struct
     EndPerformance{
         get {
             if(!this.HasProp("__EndPerformanceProxyArray"))
-                this.__EndPerformanceProxyArray := Win32FixedArray(this.ptr + 12, 1, Primitive, "char")
+                this.__EndPerformanceProxyArray := Win32FixedArray(this.ptr + 12, 4, Primitive, "char")
             return this.__EndPerformanceProxyArray
         }
     }

@@ -32,7 +32,7 @@ class SPropProblemArray extends Win32Struct
     aProblem{
         get {
             if(!this.HasProp("__aProblemProxyArray"))
-                this.__aProblemProxyArray := Win32FixedArray(this.ptr + 8, 8, SPropProblem, "")
+                this.__aProblemProxyArray := Win32FixedArray(this.ptr + 8, 1, SPropProblem, "")
             return this.__aProblemProxyArray
         }
     }

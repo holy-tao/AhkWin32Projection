@@ -38,7 +38,7 @@ class ENHMETARECORD extends Win32Struct
     dParm{
         get {
             if(!this.HasProp("__dParmProxyArray"))
-                this.__dParmProxyArray := Win32FixedArray(this.ptr + 8, 4, Primitive, "uint")
+                this.__dParmProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "uint")
             return this.__dParmProxyArray
         }
     }

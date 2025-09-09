@@ -217,7 +217,7 @@ class DDCAPS_DX1 extends Win32Struct
     dwRops{
         get {
             if(!this.HasProp("__dwRopsProxyArray"))
-                this.__dwRopsProxyArray := Win32FixedArray(this.ptr + 100, 4, Primitive, "uint")
+                this.__dwRopsProxyArray := Win32FixedArray(this.ptr + 100, 8, Primitive, "uint")
             return this.__dwRopsProxyArray
         }
     }

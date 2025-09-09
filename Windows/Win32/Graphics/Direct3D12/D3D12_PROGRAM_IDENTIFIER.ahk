@@ -17,7 +17,7 @@ class D3D12_PROGRAM_IDENTIFIER extends Win32Struct
     OpaqueData{
         get {
             if(!this.HasProp("__OpaqueDataProxyArray"))
-                this.__OpaqueDataProxyArray := Win32FixedArray(this.ptr + 0, 8, Primitive, "uint")
+                this.__OpaqueDataProxyArray := Win32FixedArray(this.ptr + 0, 4, Primitive, "uint")
             return this.__OpaqueDataProxyArray
         }
     }

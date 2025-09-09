@@ -33,7 +33,7 @@ class ARM64_NT_NEON128 extends Win32Struct
     D{
         get {
             if(!this.HasProp("__DProxyArray"))
-                this.__DProxyArray := Win32FixedArray(this.ptr + 0, 8, Primitive, "double")
+                this.__DProxyArray := Win32FixedArray(this.ptr + 0, 2, Primitive, "double")
             return this.__DProxyArray
         }
     }
@@ -55,7 +55,7 @@ class ARM64_NT_NEON128 extends Win32Struct
     H{
         get {
             if(!this.HasProp("__HProxyArray"))
-                this.__HProxyArray := Win32FixedArray(this.ptr + 0, 2, Primitive, "ushort")
+                this.__HProxyArray := Win32FixedArray(this.ptr + 0, 8, Primitive, "ushort")
             return this.__HProxyArray
         }
     }
@@ -66,7 +66,7 @@ class ARM64_NT_NEON128 extends Win32Struct
     B{
         get {
             if(!this.HasProp("__BProxyArray"))
-                this.__BProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__BProxyArray := Win32FixedArray(this.ptr + 0, 16, Primitive, "char")
             return this.__BProxyArray
         }
     }

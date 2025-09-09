@@ -34,7 +34,7 @@ class QUERY_BAD_RANGES_INPUT extends Win32Struct
     Ranges{
         get {
             if(!this.HasProp("__RangesProxyArray"))
-                this.__RangesProxyArray := Win32FixedArray(this.ptr + 8, 8, QUERY_BAD_RANGES_INPUT_RANGE, "")
+                this.__RangesProxyArray := Win32FixedArray(this.ptr + 8, 1, QUERY_BAD_RANGES_INPUT_RANGE, "")
             return this.__RangesProxyArray
         }
     }

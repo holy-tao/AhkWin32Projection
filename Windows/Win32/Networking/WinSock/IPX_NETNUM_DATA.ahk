@@ -22,7 +22,7 @@ class IPX_NETNUM_DATA extends Win32Struct
     netnum{
         get {
             if(!this.HasProp("__netnumProxyArray"))
-                this.__netnumProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__netnumProxyArray := Win32FixedArray(this.ptr + 0, 4, Primitive, "char")
             return this.__netnumProxyArray
         }
     }
@@ -61,7 +61,7 @@ class IPX_NETNUM_DATA extends Win32Struct
     router{
         get {
             if(!this.HasProp("__routerProxyArray"))
-                this.__routerProxyArray := Win32FixedArray(this.ptr + 12, 1, Primitive, "char")
+                this.__routerProxyArray := Win32FixedArray(this.ptr + 12, 6, Primitive, "char")
             return this.__routerProxyArray
         }
     }

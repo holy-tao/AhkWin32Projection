@@ -76,7 +76,7 @@ class DVINFO extends Win32Struct
     dwDVReserved{
         get {
             if(!this.HasProp("__dwDVReservedProxyArray"))
-                this.__dwDVReservedProxyArray := Win32FixedArray(this.ptr + 24, 4, Primitive, "uint")
+                this.__dwDVReservedProxyArray := Win32FixedArray(this.ptr + 24, 2, Primitive, "uint")
             return this.__dwDVReservedProxyArray
         }
     }

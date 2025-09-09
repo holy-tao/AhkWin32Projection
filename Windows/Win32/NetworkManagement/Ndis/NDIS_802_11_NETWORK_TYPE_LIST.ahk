@@ -25,7 +25,7 @@ class NDIS_802_11_NETWORK_TYPE_LIST extends Win32Struct
     NetworkType{
         get {
             if(!this.HasProp("__NetworkTypeProxyArray"))
-                this.__NetworkTypeProxyArray := Win32FixedArray(this.ptr + 4, 4, Primitive, "int")
+                this.__NetworkTypeProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "int")
             return this.__NetworkTypeProxyArray
         }
     }

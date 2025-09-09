@@ -25,7 +25,7 @@ class DOT11_WPS_DEVICE_NAME extends Win32Struct
     ucDeviceName{
         get {
             if(!this.HasProp("__ucDeviceNameProxyArray"))
-                this.__ucDeviceNameProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")
+                this.__ucDeviceNameProxyArray := Win32FixedArray(this.ptr + 4, 32, Primitive, "char")
             return this.__ucDeviceNameProxyArray
         }
     }

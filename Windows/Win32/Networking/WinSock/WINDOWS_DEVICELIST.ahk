@@ -26,7 +26,7 @@ class WINDOWS_DEVICELIST extends Win32Struct
     Device{
         get {
             if(!this.HasProp("__DeviceProxyArray"))
-                this.__DeviceProxyArray := Win32FixedArray(this.ptr + 8, 8, WINDOWS_IRDA_DEVICE_INFO, "")
+                this.__DeviceProxyArray := Win32FixedArray(this.ptr + 8, 1, WINDOWS_IRDA_DEVICE_INFO, "")
             return this.__DeviceProxyArray
         }
     }

@@ -34,7 +34,7 @@ class FONTSIGNATURE extends Win32Struct
     fsCsb{
         get {
             if(!this.HasProp("__fsCsbProxyArray"))
-                this.__fsCsbProxyArray := Win32FixedArray(this.ptr + 16, 4, Primitive, "uint")
+                this.__fsCsbProxyArray := Win32FixedArray(this.ptr + 16, 2, Primitive, "uint")
             return this.__fsCsbProxyArray
         }
     }

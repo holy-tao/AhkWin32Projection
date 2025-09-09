@@ -69,7 +69,7 @@ class SUB_Q_TRACK_ISRC extends Win32Struct
     TrackIsrc{
         get {
             if(!this.HasProp("__TrackIsrcProxyArray"))
-                this.__TrackIsrcProxyArray := Win32FixedArray(this.ptr + 9, 1, Primitive, "char")
+                this.__TrackIsrcProxyArray := Win32FixedArray(this.ptr + 9, 15, Primitive, "char")
             return this.__TrackIsrcProxyArray
         }
     }

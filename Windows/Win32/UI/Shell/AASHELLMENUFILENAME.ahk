@@ -37,7 +37,7 @@ class AASHELLMENUFILENAME extends Win32Struct
     rgbReserved{
         get {
             if(!this.HasProp("__rgbReservedProxyArray"))
-                this.__rgbReservedProxyArray := Win32FixedArray(this.ptr + 2, 1, Primitive, "char")
+                this.__rgbReservedProxyArray := Win32FixedArray(this.ptr + 2, 12, Primitive, "char")
             return this.__rgbReservedProxyArray
         }
     }

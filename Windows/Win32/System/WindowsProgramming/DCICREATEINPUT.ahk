@@ -37,7 +37,7 @@ class DCICREATEINPUT extends Win32Struct
     dwMask{
         get {
             if(!this.HasProp("__dwMaskProxyArray"))
-                this.__dwMaskProxyArray := Win32FixedArray(this.ptr + 24, 4, Primitive, "uint")
+                this.__dwMaskProxyArray := Win32FixedArray(this.ptr + 24, 3, Primitive, "uint")
             return this.__dwMaskProxyArray
         }
     }

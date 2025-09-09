@@ -90,7 +90,7 @@ class KSAUDIO_MIC_ARRAY_GEOMETRY extends Win32Struct
     KsMicCoord{
         get {
             if(!this.HasProp("__KsMicCoordProxyArray"))
-                this.__KsMicCoordProxyArray := Win32FixedArray(this.ptr + 24, 8, KSAUDIO_MICROPHONE_COORDINATES, "")
+                this.__KsMicCoordProxyArray := Win32FixedArray(this.ptr + 24, 1, KSAUDIO_MICROPHONE_COORDINATES, "")
             return this.__KsMicCoordProxyArray
         }
     }

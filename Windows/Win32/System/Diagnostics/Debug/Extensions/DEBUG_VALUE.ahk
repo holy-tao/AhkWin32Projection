@@ -73,7 +73,7 @@ class DEBUG_VALUE extends Win32Struct
     F80Bytes{
         get {
             if(!this.HasProp("__F80BytesProxyArray"))
-                this.__F80BytesProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__F80BytesProxyArray := Win32FixedArray(this.ptr + 0, 10, Primitive, "char")
             return this.__F80BytesProxyArray
         }
     }
@@ -84,7 +84,7 @@ class DEBUG_VALUE extends Win32Struct
     F82Bytes{
         get {
             if(!this.HasProp("__F82BytesProxyArray"))
-                this.__F82BytesProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__F82BytesProxyArray := Win32FixedArray(this.ptr + 0, 11, Primitive, "char")
             return this.__F82BytesProxyArray
         }
     }
@@ -95,7 +95,7 @@ class DEBUG_VALUE extends Win32Struct
     F128Bytes{
         get {
             if(!this.HasProp("__F128BytesProxyArray"))
-                this.__F128BytesProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__F128BytesProxyArray := Win32FixedArray(this.ptr + 0, 16, Primitive, "char")
             return this.__F128BytesProxyArray
         }
     }
@@ -106,7 +106,7 @@ class DEBUG_VALUE extends Win32Struct
     VI8{
         get {
             if(!this.HasProp("__VI8ProxyArray"))
-                this.__VI8ProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__VI8ProxyArray := Win32FixedArray(this.ptr + 0, 16, Primitive, "char")
             return this.__VI8ProxyArray
         }
     }
@@ -117,7 +117,7 @@ class DEBUG_VALUE extends Win32Struct
     VI16{
         get {
             if(!this.HasProp("__VI16ProxyArray"))
-                this.__VI16ProxyArray := Win32FixedArray(this.ptr + 0, 2, Primitive, "ushort")
+                this.__VI16ProxyArray := Win32FixedArray(this.ptr + 0, 8, Primitive, "ushort")
             return this.__VI16ProxyArray
         }
     }
@@ -139,7 +139,7 @@ class DEBUG_VALUE extends Win32Struct
     VI64{
         get {
             if(!this.HasProp("__VI64ProxyArray"))
-                this.__VI64ProxyArray := Win32FixedArray(this.ptr + 0, 8, Primitive, "uint")
+                this.__VI64ProxyArray := Win32FixedArray(this.ptr + 0, 2, Primitive, "uint")
             return this.__VI64ProxyArray
         }
     }
@@ -161,7 +161,7 @@ class DEBUG_VALUE extends Win32Struct
     VF64{
         get {
             if(!this.HasProp("__VF64ProxyArray"))
-                this.__VF64ProxyArray := Win32FixedArray(this.ptr + 0, 8, Primitive, "double")
+                this.__VF64ProxyArray := Win32FixedArray(this.ptr + 0, 2, Primitive, "double")
             return this.__VF64ProxyArray
         }
     }
@@ -196,7 +196,7 @@ class DEBUG_VALUE extends Win32Struct
     RawBytes{
         get {
             if(!this.HasProp("__RawBytesProxyArray"))
-                this.__RawBytesProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__RawBytesProxyArray := Win32FixedArray(this.ptr + 0, 24, Primitive, "char")
             return this.__RawBytesProxyArray
         }
     }

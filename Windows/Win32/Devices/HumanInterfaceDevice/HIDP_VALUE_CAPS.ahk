@@ -137,7 +137,7 @@ class HIDP_VALUE_CAPS extends Win32Struct
     Reserved2{
         get {
             if(!this.HasProp("__Reserved2ProxyArray"))
-                this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 22, 2, Primitive, "ushort")
+                this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 22, 5, Primitive, "ushort")
             return this.__Reserved2ProxyArray
         }
     }

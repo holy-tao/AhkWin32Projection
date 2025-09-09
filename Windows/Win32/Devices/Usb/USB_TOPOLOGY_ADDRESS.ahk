@@ -57,7 +57,7 @@ class USB_TOPOLOGY_ADDRESS extends Win32Struct
     HubPortNumber{
         get {
             if(!this.HasProp("__HubPortNumberProxyArray"))
-                this.__HubPortNumberProxyArray := Win32FixedArray(this.ptr + 18, 2, Primitive, "ushort")
+                this.__HubPortNumberProxyArray := Win32FixedArray(this.ptr + 18, 5, Primitive, "ushort")
             return this.__HubPortNumberProxyArray
         }
     }

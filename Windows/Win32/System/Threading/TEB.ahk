@@ -44,7 +44,7 @@ class TEB extends Win32Struct
     Reserved1{
         get {
             if(!this.HasProp("__Reserved1ProxyArray"))
-                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 0, 8, Primitive, "ptr")
+                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 0, 12, Primitive, "ptr")
             return this.__Reserved1ProxyArray
         }
     }
@@ -63,7 +63,7 @@ class TEB extends Win32Struct
     Reserved2{
         get {
             if(!this.HasProp("__Reserved2ProxyArray"))
-                this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 104, 8, Primitive, "ptr")
+                this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 104, 399, Primitive, "ptr")
             return this.__Reserved2ProxyArray
         }
     }
@@ -74,7 +74,7 @@ class TEB extends Win32Struct
     Reserved3{
         get {
             if(!this.HasProp("__Reserved3ProxyArray"))
-                this.__Reserved3ProxyArray := Win32FixedArray(this.ptr + 3296, 1, Primitive, "char")
+                this.__Reserved3ProxyArray := Win32FixedArray(this.ptr + 3296, 1952, Primitive, "char")
             return this.__Reserved3ProxyArray
         }
     }
@@ -85,7 +85,7 @@ class TEB extends Win32Struct
     TlsSlots{
         get {
             if(!this.HasProp("__TlsSlotsProxyArray"))
-                this.__TlsSlotsProxyArray := Win32FixedArray(this.ptr + 5248, 8, Primitive, "ptr")
+                this.__TlsSlotsProxyArray := Win32FixedArray(this.ptr + 5248, 64, Primitive, "ptr")
             return this.__TlsSlotsProxyArray
         }
     }
@@ -96,7 +96,7 @@ class TEB extends Win32Struct
     Reserved4{
         get {
             if(!this.HasProp("__Reserved4ProxyArray"))
-                this.__Reserved4ProxyArray := Win32FixedArray(this.ptr + 5760, 1, Primitive, "char")
+                this.__Reserved4ProxyArray := Win32FixedArray(this.ptr + 5760, 8, Primitive, "char")
             return this.__Reserved4ProxyArray
         }
     }
@@ -107,7 +107,7 @@ class TEB extends Win32Struct
     Reserved5{
         get {
             if(!this.HasProp("__Reserved5ProxyArray"))
-                this.__Reserved5ProxyArray := Win32FixedArray(this.ptr + 5768, 8, Primitive, "ptr")
+                this.__Reserved5ProxyArray := Win32FixedArray(this.ptr + 5768, 26, Primitive, "ptr")
             return this.__Reserved5ProxyArray
         }
     }
@@ -126,7 +126,7 @@ class TEB extends Win32Struct
     Reserved6{
         get {
             if(!this.HasProp("__Reserved6ProxyArray"))
-                this.__Reserved6ProxyArray := Win32FixedArray(this.ptr + 5984, 8, Primitive, "ptr")
+                this.__Reserved6ProxyArray := Win32FixedArray(this.ptr + 5984, 4, Primitive, "ptr")
             return this.__Reserved6ProxyArray
         }
     }

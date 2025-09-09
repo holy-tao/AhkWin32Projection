@@ -49,7 +49,7 @@ class WIA_PATCH_CODES extends Win32Struct
     PatchCodes{
         get {
             if(!this.HasProp("__PatchCodesProxyArray"))
-                this.__PatchCodesProxyArray := Win32FixedArray(this.ptr + 16, 4, Primitive, "uint")
+                this.__PatchCodesProxyArray := Win32FixedArray(this.ptr + 16, 1, Primitive, "uint")
             return this.__PatchCodesProxyArray
         }
     }

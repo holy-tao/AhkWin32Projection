@@ -52,7 +52,7 @@ class MIBICMPSTATS_EX_XPSP1 extends Win32Struct
     rgdwTypeCount{
         get {
             if(!this.HasProp("__rgdwTypeCountProxyArray"))
-                this.__rgdwTypeCountProxyArray := Win32FixedArray(this.ptr + 8, 4, Primitive, "uint")
+                this.__rgdwTypeCountProxyArray := Win32FixedArray(this.ptr + 8, 256, Primitive, "uint")
             return this.__rgdwTypeCountProxyArray
         }
     }

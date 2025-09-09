@@ -83,7 +83,7 @@ class STORAGE_PHYSICAL_NODE_DATA extends Win32Struct
     Reserved{
         get {
             if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 28, 4, Primitive, "uint")
+                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 28, 3, Primitive, "uint")
             return this.__ReservedProxyArray
         }
     }

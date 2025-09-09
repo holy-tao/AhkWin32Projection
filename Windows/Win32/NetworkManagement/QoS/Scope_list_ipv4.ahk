@@ -21,7 +21,7 @@ class Scope_list_ipv4 extends Win32Struct
     scopl_ipaddr{
         get {
             if(!this.HasProp("__scopl_ipaddrProxyArray"))
-                this.__scopl_ipaddrProxyArray := Win32FixedArray(this.ptr + 0, 8, IN_ADDR, "")
+                this.__scopl_ipaddrProxyArray := Win32FixedArray(this.ptr + 0, 1, IN_ADDR, "")
             return this.__scopl_ipaddrProxyArray
         }
     }

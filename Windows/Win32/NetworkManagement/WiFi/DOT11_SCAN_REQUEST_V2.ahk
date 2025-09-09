@@ -25,7 +25,7 @@ class DOT11_SCAN_REQUEST_V2 extends Win32Struct
     dot11BSSID{
         get {
             if(!this.HasProp("__dot11BSSIDProxyArray"))
-                this.__dot11BSSIDProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")
+                this.__dot11BSSIDProxyArray := Win32FixedArray(this.ptr + 4, 6, Primitive, "char")
             return this.__dot11BSSIDProxyArray
         }
     }

@@ -60,7 +60,7 @@ class MFFOLDDOWN_MATRIX extends Win32Struct
     Coeff{
         get {
             if(!this.HasProp("__CoeffProxyArray"))
-                this.__CoeffProxyArray := Win32FixedArray(this.ptr + 16, 4, Primitive, "int")
+                this.__CoeffProxyArray := Win32FixedArray(this.ptr + 16, 64, Primitive, "int")
             return this.__CoeffProxyArray
         }
     }

@@ -25,7 +25,7 @@ class DEVICEDUMP_SECTION_HEADER extends Win32Struct
     sOrganizationID{
         get {
             if(!this.HasProp("__sOrganizationIDProxyArray"))
-                this.__sOrganizationIDProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "char")
+                this.__sOrganizationIDProxyArray := Win32FixedArray(this.ptr + 8, 16, Primitive, "char")
             return this.__sOrganizationIDProxyArray
         }
     }
@@ -44,7 +44,7 @@ class DEVICEDUMP_SECTION_HEADER extends Win32Struct
     sModelNumber{
         get {
             if(!this.HasProp("__sModelNumberProxyArray"))
-                this.__sModelNumberProxyArray := Win32FixedArray(this.ptr + 28, 1, Primitive, "char")
+                this.__sModelNumberProxyArray := Win32FixedArray(this.ptr + 28, 32, Primitive, "char")
             return this.__sModelNumberProxyArray
         }
     }
@@ -55,7 +55,7 @@ class DEVICEDUMP_SECTION_HEADER extends Win32Struct
     szDeviceManufacturingID{
         get {
             if(!this.HasProp("__szDeviceManufacturingIDProxyArray"))
-                this.__szDeviceManufacturingIDProxyArray := Win32FixedArray(this.ptr + 60, 1, Primitive, "char")
+                this.__szDeviceManufacturingIDProxyArray := Win32FixedArray(this.ptr + 60, 32, Primitive, "char")
             return this.__szDeviceManufacturingIDProxyArray
         }
     }
@@ -90,7 +90,7 @@ class DEVICEDUMP_SECTION_HEADER extends Win32Struct
     szIssueDescriptionString{
         get {
             if(!this.HasProp("__szIssueDescriptionStringProxyArray"))
-                this.__szIssueDescriptionStringProxyArray := Win32FixedArray(this.ptr + 104, 1, Primitive, "char")
+                this.__szIssueDescriptionStringProxyArray := Win32FixedArray(this.ptr + 104, 132, Primitive, "char")
             return this.__szIssueDescriptionStringProxyArray
         }
     }

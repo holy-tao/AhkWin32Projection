@@ -20,7 +20,7 @@ class DXGI_JPEG_AC_HUFFMAN_TABLE extends Win32Struct
     CodeCounts{
         get {
             if(!this.HasProp("__CodeCountsProxyArray"))
-                this.__CodeCountsProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__CodeCountsProxyArray := Win32FixedArray(this.ptr + 0, 16, Primitive, "char")
             return this.__CodeCountsProxyArray
         }
     }
@@ -32,7 +32,7 @@ class DXGI_JPEG_AC_HUFFMAN_TABLE extends Win32Struct
     CodeValues{
         get {
             if(!this.HasProp("__CodeValuesProxyArray"))
-                this.__CodeValuesProxyArray := Win32FixedArray(this.ptr + 16, 1, Primitive, "char")
+                this.__CodeValuesProxyArray := Win32FixedArray(this.ptr + 16, 162, Primitive, "char")
             return this.__CodeValuesProxyArray
         }
     }

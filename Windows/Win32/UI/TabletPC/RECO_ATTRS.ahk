@@ -53,7 +53,7 @@ class RECO_ATTRS extends Win32Struct
     awLanguageId{
         get {
             if(!this.HasProp("__awLanguageIdProxyArray"))
-                this.__awLanguageIdProxyArray := Win32FixedArray(this.ptr + 196, 2, Primitive, "ushort")
+                this.__awLanguageIdProxyArray := Win32FixedArray(this.ptr + 196, 64, Primitive, "ushort")
             return this.__awLanguageIdProxyArray
         }
     }

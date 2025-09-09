@@ -30,7 +30,7 @@ class SE_SID extends Win32Struct
     Buffer{
         get {
             if(!this.HasProp("__BufferProxyArray"))
-                this.__BufferProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__BufferProxyArray := Win32FixedArray(this.ptr + 0, 68, Primitive, "char")
             return this.__BufferProxyArray
         }
     }

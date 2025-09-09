@@ -26,7 +26,7 @@ class SECURE_ELEMENT_ENDPOINT_LIST extends Win32Struct
     EndpointList{
         get {
             if(!this.HasProp("__EndpointListProxyArray"))
-                this.__EndpointListProxyArray := Win32FixedArray(this.ptr + 8, 8, SECURE_ELEMENT_ENDPOINT_INFO, "")
+                this.__EndpointListProxyArray := Win32FixedArray(this.ptr + 8, 1, SECURE_ELEMENT_ENDPOINT_INFO, "")
             return this.__EndpointListProxyArray
         }
     }

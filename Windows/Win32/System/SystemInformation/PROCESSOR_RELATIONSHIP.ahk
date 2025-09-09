@@ -51,7 +51,7 @@ class PROCESSOR_RELATIONSHIP extends Win32Struct
     Reserved{
         get {
             if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 2, 1, Primitive, "char")
+                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 2, 20, Primitive, "char")
             return this.__ReservedProxyArray
         }
     }
@@ -72,7 +72,7 @@ class PROCESSOR_RELATIONSHIP extends Win32Struct
     GroupMask{
         get {
             if(!this.HasProp("__GroupMaskProxyArray"))
-                this.__GroupMaskProxyArray := Win32FixedArray(this.ptr + 24, 8, GROUP_AFFINITY, "")
+                this.__GroupMaskProxyArray := Win32FixedArray(this.ptr + 24, 1, GROUP_AFFINITY, "")
             return this.__GroupMaskProxyArray
         }
     }

@@ -34,7 +34,7 @@ class KERNDATA extends Win32Struct
     KernPair{
         get {
             if(!this.HasProp("__KernPairProxyArray"))
-                this.__KernPairProxyArray := Win32FixedArray(this.ptr + 8, 8, FD_KERNINGPAIR, "")
+                this.__KernPairProxyArray := Win32FixedArray(this.ptr + 8, 1, FD_KERNINGPAIR, "")
             return this.__KernPairProxyArray
         }
     }

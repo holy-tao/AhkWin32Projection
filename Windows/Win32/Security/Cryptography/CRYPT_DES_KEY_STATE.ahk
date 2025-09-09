@@ -17,7 +17,7 @@ class CRYPT_DES_KEY_STATE extends Win32Struct
     Key{
         get {
             if(!this.HasProp("__KeyProxyArray"))
-                this.__KeyProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__KeyProxyArray := Win32FixedArray(this.ptr + 0, 8, Primitive, "char")
             return this.__KeyProxyArray
         }
     }
@@ -28,7 +28,7 @@ class CRYPT_DES_KEY_STATE extends Win32Struct
     IV{
         get {
             if(!this.HasProp("__IVProxyArray"))
-                this.__IVProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "char")
+                this.__IVProxyArray := Win32FixedArray(this.ptr + 8, 8, Primitive, "char")
             return this.__IVProxyArray
         }
     }
@@ -39,7 +39,7 @@ class CRYPT_DES_KEY_STATE extends Win32Struct
     Feedback{
         get {
             if(!this.HasProp("__FeedbackProxyArray"))
-                this.__FeedbackProxyArray := Win32FixedArray(this.ptr + 16, 1, Primitive, "char")
+                this.__FeedbackProxyArray := Win32FixedArray(this.ptr + 16, 8, Primitive, "char")
             return this.__FeedbackProxyArray
         }
     }

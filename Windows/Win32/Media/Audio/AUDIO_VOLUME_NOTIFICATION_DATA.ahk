@@ -89,7 +89,7 @@ class AUDIO_VOLUME_NOTIFICATION_DATA extends Win32Struct
     afChannelVolumes{
         get {
             if(!this.HasProp("__afChannelVolumesProxyArray"))
-                this.__afChannelVolumesProxyArray := Win32FixedArray(this.ptr + 20, 4, Primitive, "float")
+                this.__afChannelVolumesProxyArray := Win32FixedArray(this.ptr + 20, 1, Primitive, "float")
             return this.__afChannelVolumesProxyArray
         }
     }

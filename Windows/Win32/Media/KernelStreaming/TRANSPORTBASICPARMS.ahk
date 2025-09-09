@@ -169,7 +169,7 @@ class TRANSPORTBASICPARMS extends Win32Struct
     VolumeName{
         get {
             if(!this.HasProp("__VolumeNameProxyArray"))
-                this.__VolumeNameProxyArray := Win32FixedArray(this.ptr + 76, 1, Primitive, "char")
+                this.__VolumeNameProxyArray := Win32FixedArray(this.ptr + 76, 40, Primitive, "char")
             return this.__VolumeNameProxyArray
         }
     }
@@ -180,7 +180,7 @@ class TRANSPORTBASICPARMS extends Win32Struct
     Ballistic{
         get {
             if(!this.HasProp("__BallisticProxyArray"))
-                this.__BallisticProxyArray := Win32FixedArray(this.ptr + 116, 4, Primitive, "int")
+                this.__BallisticProxyArray := Win32FixedArray(this.ptr + 116, 20, Primitive, "int")
             return this.__BallisticProxyArray
         }
     }

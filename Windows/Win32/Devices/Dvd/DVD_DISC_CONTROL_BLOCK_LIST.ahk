@@ -62,7 +62,7 @@ class DVD_DISC_CONTROL_BLOCK_LIST extends Win32Struct
     Dcbs{
         get {
             if(!this.HasProp("__DcbsProxyArray"))
-                this.__DcbsProxyArray := Win32FixedArray(this.ptr + 48, 8, DVD_DISC_CONTROL_BLOCK_LIST_DCB, "")
+                this.__DcbsProxyArray := Win32FixedArray(this.ptr + 48, 1, DVD_DISC_CONTROL_BLOCK_LIST_DCB, "")
             return this.__DcbsProxyArray
         }
     }

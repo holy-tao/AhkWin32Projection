@@ -24,7 +24,7 @@ class NVME_CHANGED_NAMESPACE_LIST_LOG extends Win32Struct
     NSID{
         get {
             if(!this.HasProp("__NSIDProxyArray"))
-                this.__NSIDProxyArray := Win32FixedArray(this.ptr + 0, 4, Primitive, "uint")
+                this.__NSIDProxyArray := Win32FixedArray(this.ptr + 0, 1024, Primitive, "uint")
             return this.__NSIDProxyArray
         }
     }

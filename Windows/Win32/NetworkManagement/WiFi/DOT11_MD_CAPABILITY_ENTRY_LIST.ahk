@@ -34,7 +34,7 @@ class DOT11_MD_CAPABILITY_ENTRY_LIST extends Win32Struct
     dot11MDCapabilityEntry{
         get {
             if(!this.HasProp("__dot11MDCapabilityEntryProxyArray"))
-                this.__dot11MDCapabilityEntryProxyArray := Win32FixedArray(this.ptr + 8, 8, DOT11_MULTI_DOMAIN_CAPABILITY_ENTRY, "")
+                this.__dot11MDCapabilityEntryProxyArray := Win32FixedArray(this.ptr + 8, 1, DOT11_MULTI_DOMAIN_CAPABILITY_ENTRY, "")
             return this.__dot11MDCapabilityEntryProxyArray
         }
     }

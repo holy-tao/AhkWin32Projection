@@ -115,7 +115,7 @@ class RASPPP_PROJECTION_INFO extends Win32Struct
     bInterfaceIdentifier{
         get {
             if(!this.HasProp("__bInterfaceIdentifierProxyArray"))
-                this.__bInterfaceIdentifierProxyArray := Win32FixedArray(this.ptr + 24, 1, Primitive, "char")
+                this.__bInterfaceIdentifierProxyArray := Win32FixedArray(this.ptr + 24, 8, Primitive, "char")
             return this.__bInterfaceIdentifierProxyArray
         }
     }
@@ -127,7 +127,7 @@ class RASPPP_PROJECTION_INFO extends Win32Struct
     bServerInterfaceIdentifier{
         get {
             if(!this.HasProp("__bServerInterfaceIdentifierProxyArray"))
-                this.__bServerInterfaceIdentifierProxyArray := Win32FixedArray(this.ptr + 32, 1, Primitive, "char")
+                this.__bServerInterfaceIdentifierProxyArray := Win32FixedArray(this.ptr + 32, 8, Primitive, "char")
             return this.__bServerInterfaceIdentifierProxyArray
         }
     }

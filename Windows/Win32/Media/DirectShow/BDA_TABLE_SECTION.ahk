@@ -41,7 +41,7 @@ class BDA_TABLE_SECTION extends Win32Struct
     argbSectionData{
         get {
             if(!this.HasProp("__argbSectionDataProxyArray"))
-                this.__argbSectionDataProxyArray := Win32FixedArray(this.ptr + 12, 4, Primitive, "uint")
+                this.__argbSectionDataProxyArray := Win32FixedArray(this.ptr + 12, 1, Primitive, "uint")
             return this.__argbSectionDataProxyArray
         }
     }

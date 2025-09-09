@@ -28,7 +28,7 @@ class RADIUS_VSA_FORMAT extends Win32Struct
     VendorId{
         get {
             if(!this.HasProp("__VendorIdProxyArray"))
-                this.__VendorIdProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__VendorIdProxyArray := Win32FixedArray(this.ptr + 0, 4, Primitive, "char")
             return this.__VendorIdProxyArray
         }
     }

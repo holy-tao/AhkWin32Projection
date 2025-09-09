@@ -27,7 +27,7 @@ class JET_INDEXID extends Win32Struct
     rgbIndexId{
         get {
             if(!this.HasProp("__rgbIndexIdProxyArray"))
-                this.__rgbIndexIdProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")
+                this.__rgbIndexIdProxyArray := Win32FixedArray(this.ptr + 4, 12, Primitive, "char")
             return this.__rgbIndexIdProxyArray
         }
     }

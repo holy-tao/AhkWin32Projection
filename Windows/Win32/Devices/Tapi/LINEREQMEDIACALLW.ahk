@@ -42,7 +42,7 @@ class LINEREQMEDIACALLW extends Win32Struct
     ucDeviceID{
         get {
             if(!this.HasProp("__ucDeviceIDProxyArray"))
-                this.__ucDeviceIDProxyArray := Win32FixedArray(this.ptr + 96, 1, Primitive, "char")
+                this.__ucDeviceIDProxyArray := Win32FixedArray(this.ptr + 96, 40, Primitive, "char")
             return this.__ucDeviceIDProxyArray
         }
     }

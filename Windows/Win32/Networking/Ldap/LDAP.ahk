@@ -37,7 +37,7 @@ class LDAP extends Win32Struct
     Reserved1{
         get {
             if(!this.HasProp("__Reserved1ProxyArray"))
-                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "char")
+                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 8, 41, Primitive, "char")
             return this.__Reserved1ProxyArray
         }
     }
@@ -56,7 +56,7 @@ class LDAP extends Win32Struct
     Reserved2{
         get {
             if(!this.HasProp("__Reserved2ProxyArray"))
-                this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 64, 1, Primitive, "char")
+                this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 64, 24, Primitive, "char")
             return this.__Reserved2ProxyArray
         }
     }
@@ -147,7 +147,7 @@ class LDAP extends Win32Struct
     Reserved3{
         get {
             if(!this.HasProp("__Reserved3ProxyArray"))
-                this.__Reserved3ProxyArray := Win32FixedArray(this.ptr + 140, 1, Primitive, "char")
+                this.__Reserved3ProxyArray := Win32FixedArray(this.ptr + 140, 25, Primitive, "char")
             return this.__Reserved3ProxyArray
         }
     }

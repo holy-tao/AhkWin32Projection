@@ -49,7 +49,7 @@ class CDROM_TOC_CD_TEXT_DATA_BLOCK extends Win32Struct
     Text{
         get {
             if(!this.HasProp("__TextProxyArray"))
-                this.__TextProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "char")
+                this.__TextProxyArray := Win32FixedArray(this.ptr + 8, 12, Primitive, "char")
             return this.__TextProxyArray
         }
     }
@@ -68,7 +68,7 @@ class CDROM_TOC_CD_TEXT_DATA_BLOCK extends Win32Struct
     CRC{
         get {
             if(!this.HasProp("__CRCProxyArray"))
-                this.__CRCProxyArray := Win32FixedArray(this.ptr + 20, 1, Primitive, "char")
+                this.__CRCProxyArray := Win32FixedArray(this.ptr + 20, 2, Primitive, "char")
             return this.__CRCProxyArray
         }
     }

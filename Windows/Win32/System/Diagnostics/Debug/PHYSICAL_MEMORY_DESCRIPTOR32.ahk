@@ -34,7 +34,7 @@ class PHYSICAL_MEMORY_DESCRIPTOR32 extends Win32Struct
     Run{
         get {
             if(!this.HasProp("__RunProxyArray"))
-                this.__RunProxyArray := Win32FixedArray(this.ptr + 8, 8, PHYSICAL_MEMORY_RUN32, "")
+                this.__RunProxyArray := Win32FixedArray(this.ptr + 8, 1, PHYSICAL_MEMORY_RUN32, "")
             return this.__RunProxyArray
         }
     }

@@ -66,7 +66,7 @@ class MIDIOPENDESC extends Win32Struct
     rgIds{
         get {
             if(!this.HasProp("__rgIdsProxyArray"))
-                this.__rgIdsProxyArray := Win32FixedArray(this.ptr + 36, 8, MIDIOPENSTRMID, "")
+                this.__rgIdsProxyArray := Win32FixedArray(this.ptr + 36, 1, MIDIOPENSTRMID, "")
             return this.__rgIdsProxyArray
         }
     }

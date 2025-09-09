@@ -71,7 +71,7 @@ class ATM_BLLI extends Win32Struct
     SnapID{
         get {
             if(!this.HasProp("__SnapIDProxyArray"))
-                this.__SnapIDProxyArray := Win32FixedArray(this.ptr + 20, 1, Primitive, "char")
+                this.__SnapIDProxyArray := Win32FixedArray(this.ptr + 20, 5, Primitive, "char")
             return this.__SnapIDProxyArray
         }
     }

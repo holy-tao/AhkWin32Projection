@@ -75,7 +75,7 @@ class REPAIR_COPIES_INPUT extends Win32Struct
     RepairCopies{
         get {
             if(!this.HasProp("__RepairCopiesProxyArray"))
-                this.__RepairCopiesProxyArray := Win32FixedArray(this.ptr + 28, 4, Primitive, "uint")
+                this.__RepairCopiesProxyArray := Win32FixedArray(this.ptr + 28, 1, Primitive, "uint")
             return this.__RepairCopiesProxyArray
         }
     }

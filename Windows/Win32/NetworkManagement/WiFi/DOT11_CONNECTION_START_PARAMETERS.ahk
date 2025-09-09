@@ -38,7 +38,7 @@ class DOT11_CONNECTION_START_PARAMETERS extends Win32Struct
     AdhocBSSID{
         get {
             if(!this.HasProp("__AdhocBSSIDProxyArray"))
-                this.__AdhocBSSIDProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "char")
+                this.__AdhocBSSIDProxyArray := Win32FixedArray(this.ptr + 8, 6, Primitive, "char")
             return this.__AdhocBSSIDProxyArray
         }
     }

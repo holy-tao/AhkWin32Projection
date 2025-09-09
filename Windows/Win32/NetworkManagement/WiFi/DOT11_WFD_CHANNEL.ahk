@@ -17,7 +17,7 @@ class DOT11_WFD_CHANNEL extends Win32Struct
     CountryRegionString{
         get {
             if(!this.HasProp("__CountryRegionStringProxyArray"))
-                this.__CountryRegionStringProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__CountryRegionStringProxyArray := Win32FixedArray(this.ptr + 0, 3, Primitive, "char")
             return this.__CountryRegionStringProxyArray
         }
     }

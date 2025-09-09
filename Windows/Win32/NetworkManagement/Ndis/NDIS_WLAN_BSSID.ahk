@@ -28,7 +28,7 @@ class NDIS_WLAN_BSSID extends Win32Struct
     MacAddress{
         get {
             if(!this.HasProp("__MacAddressProxyArray"))
-                this.__MacAddressProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")
+                this.__MacAddressProxyArray := Win32FixedArray(this.ptr + 4, 6, Primitive, "char")
             return this.__MacAddressProxyArray
         }
     }
@@ -39,7 +39,7 @@ class NDIS_WLAN_BSSID extends Win32Struct
     Reserved{
         get {
             if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 10, 1, Primitive, "char")
+                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 10, 2, Primitive, "char")
             return this.__ReservedProxyArray
         }
     }
@@ -104,7 +104,7 @@ class NDIS_WLAN_BSSID extends Win32Struct
     SupportedRates{
         get {
             if(!this.HasProp("__SupportedRatesProxyArray"))
-                this.__SupportedRatesProxyArray := Win32FixedArray(this.ptr + 100, 1, Primitive, "char")
+                this.__SupportedRatesProxyArray := Win32FixedArray(this.ptr + 100, 8, Primitive, "char")
             return this.__SupportedRatesProxyArray
         }
     }

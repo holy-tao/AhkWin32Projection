@@ -33,7 +33,7 @@ class CANDIDATEINFO extends Win32Struct
     dwOffset{
         get {
             if(!this.HasProp("__dwOffsetProxyArray"))
-                this.__dwOffsetProxyArray := Win32FixedArray(this.ptr + 8, 4, Primitive, "uint")
+                this.__dwOffsetProxyArray := Win32FixedArray(this.ptr + 8, 32, Primitive, "uint")
             return this.__dwOffsetProxyArray
         }
     }

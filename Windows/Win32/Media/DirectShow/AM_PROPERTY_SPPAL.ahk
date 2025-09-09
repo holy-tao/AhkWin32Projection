@@ -23,7 +23,7 @@ class AM_PROPERTY_SPPAL extends Win32Struct
     sppal{
         get {
             if(!this.HasProp("__sppalProxyArray"))
-                this.__sppalProxyArray := Win32FixedArray(this.ptr + 0, 8, AM_DVD_YUV, "")
+                this.__sppalProxyArray := Win32FixedArray(this.ptr + 0, 16, AM_DVD_YUV, "")
             return this.__sppalProxyArray
         }
     }

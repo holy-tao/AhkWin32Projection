@@ -40,7 +40,7 @@ class MIB_TCP6ROW_OWNER_PID extends Win32Struct
     ucLocalAddr{
         get {
             if(!this.HasProp("__ucLocalAddrProxyArray"))
-                this.__ucLocalAddrProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__ucLocalAddrProxyArray := Win32FixedArray(this.ptr + 0, 16, Primitive, "char")
             return this.__ucLocalAddrProxyArray
         }
     }
@@ -76,7 +76,7 @@ class MIB_TCP6ROW_OWNER_PID extends Win32Struct
     ucRemoteAddr{
         get {
             if(!this.HasProp("__ucRemoteAddrProxyArray"))
-                this.__ucRemoteAddrProxyArray := Win32FixedArray(this.ptr + 24, 1, Primitive, "char")
+                this.__ucRemoteAddrProxyArray := Win32FixedArray(this.ptr + 24, 16, Primitive, "char")
             return this.__ucRemoteAddrProxyArray
         }
     }

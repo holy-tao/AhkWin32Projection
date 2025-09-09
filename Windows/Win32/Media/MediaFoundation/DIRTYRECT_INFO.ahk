@@ -34,7 +34,7 @@ class DIRTYRECT_INFO extends Win32Struct
     DirtyRects{
         get {
             if(!this.HasProp("__DirtyRectsProxyArray"))
-                this.__DirtyRectsProxyArray := Win32FixedArray(this.ptr + 8, 8, RECT, "")
+                this.__DirtyRectsProxyArray := Win32FixedArray(this.ptr + 8, 1, RECT, "")
             return this.__DirtyRectsProxyArray
         }
     }

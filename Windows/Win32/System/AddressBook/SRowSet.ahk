@@ -44,7 +44,7 @@ class SRowSet extends Win32Struct
     aRow{
         get {
             if(!this.HasProp("__aRowProxyArray"))
-                this.__aRowProxyArray := Win32FixedArray(this.ptr + 8, 8, SRow, "")
+                this.__aRowProxyArray := Win32FixedArray(this.ptr + 8, 1, SRow, "")
             return this.__aRowProxyArray
         }
     }

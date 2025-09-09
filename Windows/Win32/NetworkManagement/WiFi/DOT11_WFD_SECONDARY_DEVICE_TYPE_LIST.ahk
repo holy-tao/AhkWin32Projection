@@ -46,7 +46,7 @@ class DOT11_WFD_SECONDARY_DEVICE_TYPE_LIST extends Win32Struct
     SecondaryDeviceTypes{
         get {
             if(!this.HasProp("__SecondaryDeviceTypesProxyArray"))
-                this.__SecondaryDeviceTypesProxyArray := Win32FixedArray(this.ptr + 16, 8, DOT11_WFD_DEVICE_TYPE, "")
+                this.__SecondaryDeviceTypesProxyArray := Win32FixedArray(this.ptr + 16, 1, DOT11_WFD_DEVICE_TYPE, "")
             return this.__SecondaryDeviceTypesProxyArray
         }
     }

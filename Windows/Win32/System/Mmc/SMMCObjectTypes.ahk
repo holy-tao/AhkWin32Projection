@@ -42,7 +42,7 @@ class SMMCObjectTypes extends Win32Struct
     guid{
         get {
             if(!this.HasProp("__guidProxyArray"))
-                this.__guidProxyArray := Win32FixedArray(this.ptr + 8, 8, Primitive, "ptr")
+                this.__guidProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "ptr")
             return this.__guidProxyArray
         }
     }

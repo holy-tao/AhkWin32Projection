@@ -30,7 +30,7 @@ class NUMA_NODE_RELATIONSHIP extends Win32Struct
     Reserved{
         get {
             if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")
+                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 4, 18, Primitive, "char")
             return this.__ReservedProxyArray
         }
     }
@@ -61,7 +61,7 @@ class NUMA_NODE_RELATIONSHIP extends Win32Struct
     GroupMasks{
         get {
             if(!this.HasProp("__GroupMasksProxyArray"))
-                this.__GroupMasksProxyArray := Win32FixedArray(this.ptr + 24, 8, GROUP_AFFINITY, "")
+                this.__GroupMasksProxyArray := Win32FixedArray(this.ptr + 24, 1, GROUP_AFFINITY, "")
             return this.__GroupMasksProxyArray
         }
     }

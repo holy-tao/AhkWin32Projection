@@ -54,7 +54,7 @@ class PEB_LDR_DATA extends Win32Struct
     Reserved1{
         get {
             if(!this.HasProp("__Reserved1ProxyArray"))
-                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 0, 8, Primitive, "char")
             return this.__Reserved1ProxyArray
         }
     }
@@ -66,7 +66,7 @@ class PEB_LDR_DATA extends Win32Struct
     Reserved2{
         get {
             if(!this.HasProp("__Reserved2ProxyArray"))
-                this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 8, 8, Primitive, "ptr")
+                this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 8, 3, Primitive, "ptr")
             return this.__Reserved2ProxyArray
         }
     }

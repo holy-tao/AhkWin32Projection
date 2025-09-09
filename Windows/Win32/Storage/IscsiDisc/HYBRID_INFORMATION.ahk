@@ -170,7 +170,7 @@ class HYBRID_INFORMATION extends Win32Struct
     Priority{
         get {
             if(!this.HasProp("__PriorityProxyArray"))
-                this.__PriorityProxyArray := Win32FixedArray(this.ptr + 80, 8, NVCACHE_PRIORITY_LEVEL_DESCRIPTOR, "")
+                this.__PriorityProxyArray := Win32FixedArray(this.ptr + 80, 1, NVCACHE_PRIORITY_LEVEL_DESCRIPTOR, "")
             return this.__PriorityProxyArray
         }
     }

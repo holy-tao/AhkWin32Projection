@@ -29,7 +29,7 @@ class WTSSBX_IP_ADDRESS extends Win32Struct
     Address{
         get {
             if(!this.HasProp("__AddressProxyArray"))
-                this.__AddressProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")
+                this.__AddressProxyArray := Win32FixedArray(this.ptr + 4, 16, Primitive, "char")
             return this.__AddressProxyArray
         }
     }

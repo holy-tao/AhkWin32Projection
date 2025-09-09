@@ -32,7 +32,7 @@ class MFCameraExtrinsics extends Win32Struct
     CalibratedTransforms{
         get {
             if(!this.HasProp("__CalibratedTransformsProxyArray"))
-                this.__CalibratedTransformsProxyArray := Win32FixedArray(this.ptr + 8, 8, MFCameraExtrinsic_CalibratedTransform, "")
+                this.__CalibratedTransformsProxyArray := Win32FixedArray(this.ptr + 8, 1, MFCameraExtrinsic_CalibratedTransform, "")
             return this.__CalibratedTransformsProxyArray
         }
     }

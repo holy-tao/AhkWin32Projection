@@ -17,7 +17,7 @@ class KS_DVDCOPY_DISCKEY extends Win32Struct
     DiscKey{
         get {
             if(!this.HasProp("__DiscKeyProxyArray"))
-                this.__DiscKeyProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__DiscKeyProxyArray := Win32FixedArray(this.ptr + 0, 2048, Primitive, "char")
             return this.__DiscKeyProxyArray
         }
     }

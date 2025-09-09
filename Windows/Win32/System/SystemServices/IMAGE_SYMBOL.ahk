@@ -17,7 +17,7 @@ class IMAGE_SYMBOL extends Win32Struct
     ShortName{
         get {
             if(!this.HasProp("__ShortNameProxyArray"))
-                this.__ShortNameProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__ShortNameProxyArray := Win32FixedArray(this.ptr + 0, 8, Primitive, "char")
             return this.__ShortNameProxyArray
         }
     }
@@ -44,7 +44,7 @@ class IMAGE_SYMBOL extends Win32Struct
     LongName{
         get {
             if(!this.HasProp("__LongNameProxyArray"))
-                this.__LongNameProxyArray := Win32FixedArray(this.ptr + 0, 4, Primitive, "uint")
+                this.__LongNameProxyArray := Win32FixedArray(this.ptr + 0, 2, Primitive, "uint")
             return this.__LongNameProxyArray
         }
     }

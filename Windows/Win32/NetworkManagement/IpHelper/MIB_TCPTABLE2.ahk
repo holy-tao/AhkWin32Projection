@@ -37,7 +37,7 @@ class MIB_TCPTABLE2 extends Win32Struct
     table{
         get {
             if(!this.HasProp("__tableProxyArray"))
-                this.__tableProxyArray := Win32FixedArray(this.ptr + 8, 8, MIB_TCPROW2, "")
+                this.__tableProxyArray := Win32FixedArray(this.ptr + 8, 1, MIB_TCPROW2, "")
             return this.__tableProxyArray
         }
     }

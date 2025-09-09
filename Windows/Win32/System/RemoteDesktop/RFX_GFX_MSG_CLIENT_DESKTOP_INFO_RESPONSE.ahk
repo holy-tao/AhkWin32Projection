@@ -46,7 +46,7 @@ class RFX_GFX_MSG_CLIENT_DESKTOP_INFO_RESPONSE extends Win32Struct
     MonitorData{
         get {
             if(!this.HasProp("__MonitorDataProxyArray"))
-                this.__MonitorDataProxyArray := Win32FixedArray(this.ptr + 12, 8, RFX_GFX_MONITOR_INFO, "")
+                this.__MonitorDataProxyArray := Win32FixedArray(this.ptr + 12, 16, RFX_GFX_MONITOR_INFO, "")
             return this.__MonitorDataProxyArray
         }
     }

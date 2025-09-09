@@ -89,7 +89,7 @@ class _URB_CONTROL_GET_STATUS_REQUEST extends Win32Struct
     Reserved1{
         get {
             if(!this.HasProp("__Reserved1ProxyArray"))
-                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 128, 1, Primitive, "char")
+                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 128, 4, Primitive, "char")
             return this.__Reserved1ProxyArray
         }
     }

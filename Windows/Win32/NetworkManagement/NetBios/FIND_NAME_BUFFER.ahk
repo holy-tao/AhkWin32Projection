@@ -47,7 +47,7 @@ class FIND_NAME_BUFFER extends Win32Struct
     destination_addr{
         get {
             if(!this.HasProp("__destination_addrProxyArray"))
-                this.__destination_addrProxyArray := Win32FixedArray(this.ptr + 3, 1, Primitive, "char")
+                this.__destination_addrProxyArray := Win32FixedArray(this.ptr + 3, 6, Primitive, "char")
             return this.__destination_addrProxyArray
         }
     }
@@ -59,7 +59,7 @@ class FIND_NAME_BUFFER extends Win32Struct
     source_addr{
         get {
             if(!this.HasProp("__source_addrProxyArray"))
-                this.__source_addrProxyArray := Win32FixedArray(this.ptr + 9, 1, Primitive, "char")
+                this.__source_addrProxyArray := Win32FixedArray(this.ptr + 9, 6, Primitive, "char")
             return this.__source_addrProxyArray
         }
     }
@@ -71,7 +71,7 @@ class FIND_NAME_BUFFER extends Win32Struct
     routing_info{
         get {
             if(!this.HasProp("__routing_infoProxyArray"))
-                this.__routing_infoProxyArray := Win32FixedArray(this.ptr + 15, 1, Primitive, "char")
+                this.__routing_infoProxyArray := Win32FixedArray(this.ptr + 15, 18, Primitive, "char")
             return this.__routing_infoProxyArray
         }
     }

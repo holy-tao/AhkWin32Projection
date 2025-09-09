@@ -20,7 +20,7 @@ class TOKEN_AUDIT_POLICY extends Win32Struct
     PerUserPolicy{
         get {
             if(!this.HasProp("__PerUserPolicyProxyArray"))
-                this.__PerUserPolicyProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__PerUserPolicyProxyArray := Win32FixedArray(this.ptr + 0, 30, Primitive, "char")
             return this.__PerUserPolicyProxyArray
         }
     }

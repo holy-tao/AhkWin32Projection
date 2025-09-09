@@ -17,7 +17,7 @@ class CC_BYTE_PAIR extends Win32Struct
     Decoded{
         get {
             if(!this.HasProp("__DecodedProxyArray"))
-                this.__DecodedProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__DecodedProxyArray := Win32FixedArray(this.ptr + 0, 2, Primitive, "char")
             return this.__DecodedProxyArray
         }
     }

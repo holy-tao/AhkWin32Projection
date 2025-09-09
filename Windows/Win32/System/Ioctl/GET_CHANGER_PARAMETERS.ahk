@@ -310,7 +310,7 @@ class GET_CHANGER_PARAMETERS extends Win32Struct
     Reserved1{
         get {
             if(!this.HasProp("__Reserved1ProxyArray"))
-                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 50, 1, Primitive, "char")
+                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 50, 2, Primitive, "char")
             return this.__Reserved1ProxyArray
         }
     }
@@ -322,7 +322,7 @@ class GET_CHANGER_PARAMETERS extends Win32Struct
     Reserved2{
         get {
             if(!this.HasProp("__Reserved2ProxyArray"))
-                this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 52, 4, Primitive, "uint")
+                this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 52, 2, Primitive, "uint")
             return this.__Reserved2ProxyArray
         }
     }

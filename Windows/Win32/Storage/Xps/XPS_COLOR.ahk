@@ -94,7 +94,7 @@ class XPS_COLOR extends Win32Struct
     channels{
         get {
             if(!this.HasProp("__channelsProxyArray"))
-                this.__channelsProxyArray := Win32FixedArray(this.ptr + 12, 4, Primitive, "float")
+                this.__channelsProxyArray := Win32FixedArray(this.ptr + 12, 9, Primitive, "float")
             return this.__channelsProxyArray
         }
     }

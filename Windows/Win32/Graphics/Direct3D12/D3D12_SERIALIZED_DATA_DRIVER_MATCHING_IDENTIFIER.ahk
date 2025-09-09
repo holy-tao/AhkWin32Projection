@@ -29,7 +29,7 @@ class D3D12_SERIALIZED_DATA_DRIVER_MATCHING_IDENTIFIER extends Win32Struct
     DriverOpaqueVersioningData{
         get {
             if(!this.HasProp("__DriverOpaqueVersioningDataProxyArray"))
-                this.__DriverOpaqueVersioningDataProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "char")
+                this.__DriverOpaqueVersioningDataProxyArray := Win32FixedArray(this.ptr + 8, 16, Primitive, "char")
             return this.__DriverOpaqueVersioningDataProxyArray
         }
     }

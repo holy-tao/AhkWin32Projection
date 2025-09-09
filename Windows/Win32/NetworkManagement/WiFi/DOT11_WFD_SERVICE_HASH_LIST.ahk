@@ -25,7 +25,7 @@ class DOT11_WFD_SERVICE_HASH_LIST extends Win32Struct
     ServiceHash{
         get {
             if(!this.HasProp("__ServiceHashProxyArray"))
-                this.__ServiceHashProxyArray := Win32FixedArray(this.ptr + 2, 1, Primitive, "char")
+                this.__ServiceHashProxyArray := Win32FixedArray(this.ptr + 2, 6, Primitive, "char")
             return this.__ServiceHashProxyArray
         }
     }

@@ -32,7 +32,7 @@ class DEVMODEA extends Win32Struct
     dmDeviceName{
         get {
             if(!this.HasProp("__dmDeviceNameProxyArray"))
-                this.__dmDeviceNameProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__dmDeviceNameProxyArray := Win32FixedArray(this.ptr + 0, 32, Primitive, "char")
             return this.__dmDeviceNameProxyArray
         }
     }
@@ -378,7 +378,7 @@ class DEVMODEA extends Win32Struct
     dmFormName{
         get {
             if(!this.HasProp("__dmFormNameProxyArray"))
-                this.__dmFormNameProxyArray := Win32FixedArray(this.ptr + 74, 1, Primitive, "char")
+                this.__dmFormNameProxyArray := Win32FixedArray(this.ptr + 74, 32, Primitive, "char")
             return this.__dmFormNameProxyArray
         }
     }

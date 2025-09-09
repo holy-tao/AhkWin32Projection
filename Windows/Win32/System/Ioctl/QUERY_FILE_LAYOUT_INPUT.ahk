@@ -59,7 +59,7 @@ class QUERY_FILE_LAYOUT_INPUT extends Win32Struct
     ClusterRanges{
         get {
             if(!this.HasProp("__ClusterRangesProxyArray"))
-                this.__ClusterRangesProxyArray := Win32FixedArray(this.ptr + 16, 8, CLUSTER_RANGE, "")
+                this.__ClusterRangesProxyArray := Win32FixedArray(this.ptr + 16, 1, CLUSTER_RANGE, "")
             return this.__ClusterRangesProxyArray
         }
     }
@@ -70,7 +70,7 @@ class QUERY_FILE_LAYOUT_INPUT extends Win32Struct
     FileReferenceRanges{
         get {
             if(!this.HasProp("__FileReferenceRangesProxyArray"))
-                this.__FileReferenceRangesProxyArray := Win32FixedArray(this.ptr + 16, 8, FILE_REFERENCE_RANGE, "")
+                this.__FileReferenceRangesProxyArray := Win32FixedArray(this.ptr + 16, 1, FILE_REFERENCE_RANGE, "")
             return this.__FileReferenceRangesProxyArray
         }
     }
@@ -81,7 +81,7 @@ class QUERY_FILE_LAYOUT_INPUT extends Win32Struct
     StorageReserveIds{
         get {
             if(!this.HasProp("__StorageReserveIdsProxyArray"))
-                this.__StorageReserveIdsProxyArray := Win32FixedArray(this.ptr + 16, 4, Primitive, "int")
+                this.__StorageReserveIdsProxyArray := Win32FixedArray(this.ptr + 16, 1, Primitive, "int")
             return this.__StorageReserveIdsProxyArray
         }
     }

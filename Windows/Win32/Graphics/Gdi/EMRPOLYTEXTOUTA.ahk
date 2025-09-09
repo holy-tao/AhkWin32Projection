@@ -84,7 +84,7 @@ class EMRPOLYTEXTOUTA extends Win32Struct
     aemrtext{
         get {
             if(!this.HasProp("__aemrtextProxyArray"))
-                this.__aemrtextProxyArray := Win32FixedArray(this.ptr + 40, 8, EMRTEXT, "")
+                this.__aemrtextProxyArray := Win32FixedArray(this.ptr + 40, 1, EMRTEXT, "")
             return this.__aemrtextProxyArray
         }
     }

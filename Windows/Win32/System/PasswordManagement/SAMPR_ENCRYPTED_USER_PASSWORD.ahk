@@ -20,7 +20,7 @@ class SAMPR_ENCRYPTED_USER_PASSWORD extends Win32Struct
     Buffer{
         get {
             if(!this.HasProp("__BufferProxyArray"))
-                this.__BufferProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__BufferProxyArray := Win32FixedArray(this.ptr + 0, 516, Primitive, "char")
             return this.__BufferProxyArray
         }
     }

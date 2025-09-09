@@ -17,7 +17,7 @@ class DOT11_SECURITY_PACKET_HEADER extends Win32Struct
     PeerMac{
         get {
             if(!this.HasProp("__PeerMacProxyArray"))
-                this.__PeerMacProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__PeerMacProxyArray := Win32FixedArray(this.ptr + 0, 6, Primitive, "char")
             return this.__PeerMacProxyArray
         }
     }

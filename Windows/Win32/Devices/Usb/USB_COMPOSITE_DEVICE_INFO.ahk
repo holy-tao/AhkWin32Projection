@@ -58,7 +58,7 @@ class USB_COMPOSITE_DEVICE_INFO extends Win32Struct
     FunctionInfo{
         get {
             if(!this.HasProp("__FunctionInfoProxyArray"))
-                this.__FunctionInfoProxyArray := Win32FixedArray(this.ptr + 40, 8, USB_COMPOSITE_FUNCTION_INFO, "")
+                this.__FunctionInfoProxyArray := Win32FixedArray(this.ptr + 40, 1, USB_COMPOSITE_FUNCTION_INFO, "")
             return this.__FunctionInfoProxyArray
         }
     }

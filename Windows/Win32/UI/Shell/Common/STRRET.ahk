@@ -44,7 +44,7 @@ class STRRET extends Win32Struct
     cStr{
         get {
             if(!this.HasProp("__cStrProxyArray"))
-                this.__cStrProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")
+                this.__cStrProxyArray := Win32FixedArray(this.ptr + 4, 260, Primitive, "char")
             return this.__cStrProxyArray
         }
     }

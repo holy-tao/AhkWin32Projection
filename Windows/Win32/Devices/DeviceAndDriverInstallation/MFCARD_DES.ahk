@@ -82,7 +82,7 @@ class MFCARD_DES extends Win32Struct
     PMF_Reserved{
         get {
             if(!this.HasProp("__PMF_ReservedProxyArray"))
-                this.__PMF_ReservedProxyArray := Win32FixedArray(this.ptr + 14, 1, Primitive, "char")
+                this.__PMF_ReservedProxyArray := Win32FixedArray(this.ptr + 14, 2, Primitive, "char")
             return this.__PMF_ReservedProxyArray
         }
     }

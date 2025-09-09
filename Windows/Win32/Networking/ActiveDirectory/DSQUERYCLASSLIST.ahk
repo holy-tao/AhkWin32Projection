@@ -40,7 +40,7 @@ class DSQUERYCLASSLIST extends Win32Struct
     offsetClass{
         get {
             if(!this.HasProp("__offsetClassProxyArray"))
-                this.__offsetClassProxyArray := Win32FixedArray(this.ptr + 8, 4, Primitive, "uint")
+                this.__offsetClassProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "uint")
             return this.__offsetClassProxyArray
         }
     }

@@ -80,7 +80,7 @@ class WTS_PROTOCOL_STATUS extends Win32Struct
     Counters{
         get {
             if(!this.HasProp("__CountersProxyArray"))
-                this.__CountersProxyArray := Win32FixedArray(this.ptr + 1072, 8, Primitive, "int64")
+                this.__CountersProxyArray := Win32FixedArray(this.ptr + 1072, 100, Primitive, "int64")
             return this.__CountersProxyArray
         }
     }

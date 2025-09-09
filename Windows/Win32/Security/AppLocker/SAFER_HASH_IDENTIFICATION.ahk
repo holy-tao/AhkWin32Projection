@@ -61,7 +61,7 @@ class SAFER_HASH_IDENTIFICATION extends Win32Struct
     ImageHash{
         get {
             if(!this.HasProp("__ImageHashProxyArray"))
-                this.__ImageHashProxyArray := Win32FixedArray(this.ptr + 1052, 1, Primitive, "char")
+                this.__ImageHashProxyArray := Win32FixedArray(this.ptr + 1052, 64, Primitive, "char")
             return this.__ImageHashProxyArray
         }
     }

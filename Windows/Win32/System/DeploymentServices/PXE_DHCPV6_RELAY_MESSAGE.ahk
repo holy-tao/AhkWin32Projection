@@ -39,7 +39,7 @@ class PXE_DHCPV6_RELAY_MESSAGE extends Win32Struct
     LinkAddress{
         get {
             if(!this.HasProp("__LinkAddressProxyArray"))
-                this.__LinkAddressProxyArray := Win32FixedArray(this.ptr + 2, 1, Primitive, "char")
+                this.__LinkAddressProxyArray := Win32FixedArray(this.ptr + 2, 16, Primitive, "char")
             return this.__LinkAddressProxyArray
         }
     }
@@ -51,7 +51,7 @@ class PXE_DHCPV6_RELAY_MESSAGE extends Win32Struct
     PeerAddress{
         get {
             if(!this.HasProp("__PeerAddressProxyArray"))
-                this.__PeerAddressProxyArray := Win32FixedArray(this.ptr + 18, 1, Primitive, "char")
+                this.__PeerAddressProxyArray := Win32FixedArray(this.ptr + 18, 16, Primitive, "char")
             return this.__PeerAddressProxyArray
         }
     }
@@ -63,7 +63,7 @@ class PXE_DHCPV6_RELAY_MESSAGE extends Win32Struct
     Options{
         get {
             if(!this.HasProp("__OptionsProxyArray"))
-                this.__OptionsProxyArray := Win32FixedArray(this.ptr + 34, 8, PXE_DHCPV6_OPTION, "")
+                this.__OptionsProxyArray := Win32FixedArray(this.ptr + 34, 1, PXE_DHCPV6_OPTION, "")
             return this.__OptionsProxyArray
         }
     }

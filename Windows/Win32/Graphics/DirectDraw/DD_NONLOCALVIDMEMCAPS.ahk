@@ -69,7 +69,7 @@ class DD_NONLOCALVIDMEMCAPS extends Win32Struct
     dwNLVBRops{
         get {
             if(!this.HasProp("__dwNLVBRopsProxyArray"))
-                this.__dwNLVBRopsProxyArray := Win32FixedArray(this.ptr + 20, 4, Primitive, "uint")
+                this.__dwNLVBRopsProxyArray := Win32FixedArray(this.ptr + 20, 8, Primitive, "uint")
             return this.__dwNLVBRopsProxyArray
         }
     }

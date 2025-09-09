@@ -42,7 +42,7 @@ class SCM_REGIONS extends Win32Struct
     Regions{
         get {
             if(!this.HasProp("__RegionsProxyArray"))
-                this.__RegionsProxyArray := Win32FixedArray(this.ptr + 16, 8, SCM_REGION, "")
+                this.__RegionsProxyArray := Win32FixedArray(this.ptr + 16, 1, SCM_REGION, "")
             return this.__RegionsProxyArray
         }
     }

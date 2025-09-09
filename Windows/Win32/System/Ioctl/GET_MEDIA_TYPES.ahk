@@ -43,7 +43,7 @@ class GET_MEDIA_TYPES extends Win32Struct
     MediaInfo{
         get {
             if(!this.HasProp("__MediaInfoProxyArray"))
-                this.__MediaInfoProxyArray := Win32FixedArray(this.ptr + 8, 8, DEVICE_MEDIA_INFO, "")
+                this.__MediaInfoProxyArray := Win32FixedArray(this.ptr + 8, 1, DEVICE_MEDIA_INFO, "")
             return this.__MediaInfoProxyArray
         }
     }

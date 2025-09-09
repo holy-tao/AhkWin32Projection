@@ -25,7 +25,7 @@ class DMUS_COPYRIGHT extends Win32Struct
     byCopyright{
         get {
             if(!this.HasProp("__byCopyrightProxyArray"))
-                this.__byCopyrightProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")
+                this.__byCopyrightProxyArray := Win32FixedArray(this.ptr + 4, 4, Primitive, "char")
             return this.__byCopyrightProxyArray
         }
     }

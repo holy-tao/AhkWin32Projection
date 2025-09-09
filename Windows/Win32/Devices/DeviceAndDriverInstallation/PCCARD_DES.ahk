@@ -144,7 +144,7 @@ class PCCARD_DES extends Win32Struct
     PCD_Reserved{
         get {
             if(!this.HasProp("__PCD_ReservedProxyArray"))
-                this.__PCD_ReservedProxyArray := Win32FixedArray(this.ptr + 13, 1, Primitive, "char")
+                this.__PCD_ReservedProxyArray := Win32FixedArray(this.ptr + 13, 3, Primitive, "char")
             return this.__PCD_ReservedProxyArray
         }
     }
@@ -174,7 +174,7 @@ class PCCARD_DES extends Win32Struct
     PCD_MemoryCardBase{
         get {
             if(!this.HasProp("__PCD_MemoryCardBaseProxyArray"))
-                this.__PCD_MemoryCardBaseProxyArray := Win32FixedArray(this.ptr + 24, 4, Primitive, "uint")
+                this.__PCD_MemoryCardBaseProxyArray := Win32FixedArray(this.ptr + 24, 2, Primitive, "uint")
             return this.__PCD_MemoryCardBaseProxyArray
         }
     }
@@ -198,7 +198,7 @@ class PCCARD_DES extends Win32Struct
     PCD_IoFlags{
         get {
             if(!this.HasProp("__PCD_IoFlagsProxyArray"))
-                this.__PCD_IoFlagsProxyArray := Win32FixedArray(this.ptr + 36, 1, Primitive, "char")
+                this.__PCD_IoFlagsProxyArray := Win32FixedArray(this.ptr + 36, 2, Primitive, "char")
             return this.__PCD_IoFlagsProxyArray
         }
     }

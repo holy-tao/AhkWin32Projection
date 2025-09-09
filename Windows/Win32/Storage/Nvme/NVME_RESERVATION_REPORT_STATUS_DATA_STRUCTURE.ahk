@@ -30,7 +30,7 @@ class NVME_RESERVATION_REPORT_STATUS_DATA_STRUCTURE extends Win32Struct
     RegisteredControllersData{
         get {
             if(!this.HasProp("__RegisteredControllersDataProxyArray"))
-                this.__RegisteredControllersDataProxyArray := Win32FixedArray(this.ptr + 24, 8, NVME_REGISTERED_CONTROLLER_DATA, "")
+                this.__RegisteredControllersDataProxyArray := Win32FixedArray(this.ptr + 24, 1, NVME_REGISTERED_CONTROLLER_DATA, "")
             return this.__RegisteredControllersDataProxyArray
         }
     }

@@ -87,7 +87,7 @@ class DNS_WINS_DATA extends Win32Struct
     WinsServers{
         get {
             if(!this.HasProp("__WinsServersProxyArray"))
-                this.__WinsServersProxyArray := Win32FixedArray(this.ptr + 16, 4, Primitive, "uint")
+                this.__WinsServersProxyArray := Win32FixedArray(this.ptr + 16, 1, Primitive, "uint")
             return this.__WinsServersProxyArray
         }
     }

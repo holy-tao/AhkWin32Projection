@@ -17,7 +17,7 @@ class DEVICEDUMP_STORAGESTACK_PUBLIC_STATE_RECORD extends Win32Struct
     Cdb{
         get {
             if(!this.HasProp("__CdbProxyArray"))
-                this.__CdbProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__CdbProxyArray := Win32FixedArray(this.ptr + 0, 16, Primitive, "char")
             return this.__CdbProxyArray
         }
     }
@@ -28,7 +28,7 @@ class DEVICEDUMP_STORAGESTACK_PUBLIC_STATE_RECORD extends Win32Struct
     Command{
         get {
             if(!this.HasProp("__CommandProxyArray"))
-                this.__CommandProxyArray := Win32FixedArray(this.ptr + 16, 1, Primitive, "char")
+                this.__CommandProxyArray := Win32FixedArray(this.ptr + 16, 16, Primitive, "char")
             return this.__CommandProxyArray
         }
     }

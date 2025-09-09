@@ -37,7 +37,7 @@ class DOT11_BSS_ENTRY extends Win32Struct
     dot11BSSID{
         get {
             if(!this.HasProp("__dot11BSSIDProxyArray"))
-                this.__dot11BSSIDProxyArray := Win32FixedArray(this.ptr + 32, 1, Primitive, "char")
+                this.__dot11BSSIDProxyArray := Win32FixedArray(this.ptr + 32, 6, Primitive, "char")
             return this.__dot11BSSIDProxyArray
         }
     }

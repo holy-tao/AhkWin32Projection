@@ -49,7 +49,7 @@ class STORAGE_HW_ENDURANCE_INFO extends Win32Struct
     BytesReadCount{
         get {
             if(!this.HasProp("__BytesReadCountProxyArray"))
-                this.__BytesReadCountProxyArray := Win32FixedArray(this.ptr + 16, 1, Primitive, "char")
+                this.__BytesReadCountProxyArray := Win32FixedArray(this.ptr + 16, 16, Primitive, "char")
             return this.__BytesReadCountProxyArray
         }
     }
@@ -60,7 +60,7 @@ class STORAGE_HW_ENDURANCE_INFO extends Win32Struct
     ByteWriteCount{
         get {
             if(!this.HasProp("__ByteWriteCountProxyArray"))
-                this.__ByteWriteCountProxyArray := Win32FixedArray(this.ptr + 32, 1, Primitive, "char")
+                this.__ByteWriteCountProxyArray := Win32FixedArray(this.ptr + 32, 16, Primitive, "char")
             return this.__ByteWriteCountProxyArray
         }
     }

@@ -46,7 +46,7 @@ class ADRLIST extends Win32Struct
     aEntries{
         get {
             if(!this.HasProp("__aEntriesProxyArray"))
-                this.__aEntriesProxyArray := Win32FixedArray(this.ptr + 8, 8, ADRENTRY, "")
+                this.__aEntriesProxyArray := Win32FixedArray(this.ptr + 8, 1, ADRENTRY, "")
             return this.__aEntriesProxyArray
         }
     }

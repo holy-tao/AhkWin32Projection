@@ -46,7 +46,7 @@ class DOT11_OFFLOAD_NETWORK extends Win32Struct
     Dot11ChannelHints{
         get {
             if(!this.HasProp("__Dot11ChannelHintsProxyArray"))
-                this.__Dot11ChannelHintsProxyArray := Win32FixedArray(this.ptr + 48, 8, DOT11_CHANNEL_HINT, "")
+                this.__Dot11ChannelHintsProxyArray := Win32FixedArray(this.ptr + 48, 4, DOT11_CHANNEL_HINT, "")
             return this.__Dot11ChannelHintsProxyArray
         }
     }

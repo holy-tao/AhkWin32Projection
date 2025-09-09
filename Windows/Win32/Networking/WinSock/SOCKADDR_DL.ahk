@@ -25,7 +25,7 @@ class SOCKADDR_DL extends Win32Struct
     sdl_data{
         get {
             if(!this.HasProp("__sdl_dataProxyArray"))
-                this.__sdl_dataProxyArray := Win32FixedArray(this.ptr + 2, 1, Primitive, "char")
+                this.__sdl_dataProxyArray := Win32FixedArray(this.ptr + 2, 8, Primitive, "char")
             return this.__sdl_dataProxyArray
         }
     }
@@ -36,7 +36,7 @@ class SOCKADDR_DL extends Win32Struct
     sdl_zero{
         get {
             if(!this.HasProp("__sdl_zeroProxyArray"))
-                this.__sdl_zeroProxyArray := Win32FixedArray(this.ptr + 10, 1, Primitive, "char")
+                this.__sdl_zeroProxyArray := Win32FixedArray(this.ptr + 10, 4, Primitive, "char")
             return this.__sdl_zeroProxyArray
         }
     }

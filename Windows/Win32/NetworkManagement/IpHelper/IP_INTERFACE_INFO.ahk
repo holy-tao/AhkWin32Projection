@@ -41,7 +41,7 @@ class IP_INTERFACE_INFO extends Win32Struct
     Adapter{
         get {
             if(!this.HasProp("__AdapterProxyArray"))
-                this.__AdapterProxyArray := Win32FixedArray(this.ptr + 8, 8, IP_ADAPTER_INDEX_MAP, "")
+                this.__AdapterProxyArray := Win32FixedArray(this.ptr + 8, 1, IP_ADAPTER_INDEX_MAP, "")
             return this.__AdapterProxyArray
         }
     }

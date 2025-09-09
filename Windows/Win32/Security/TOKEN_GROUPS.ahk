@@ -155,7 +155,7 @@ class TOKEN_GROUPS extends Win32Struct
     Groups{
         get {
             if(!this.HasProp("__GroupsProxyArray"))
-                this.__GroupsProxyArray := Win32FixedArray(this.ptr + 8, 8, SID_AND_ATTRIBUTES, "")
+                this.__GroupsProxyArray := Win32FixedArray(this.ptr + 8, 1, SID_AND_ATTRIBUTES, "")
             return this.__GroupsProxyArray
         }
     }

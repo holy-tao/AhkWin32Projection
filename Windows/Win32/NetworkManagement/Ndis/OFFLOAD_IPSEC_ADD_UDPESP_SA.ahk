@@ -108,7 +108,7 @@ class OFFLOAD_IPSEC_ADD_UDPESP_SA extends Win32Struct
     SecAssoc{
         get {
             if(!this.HasProp("__SecAssocProxyArray"))
-                this.__SecAssocProxyArray := Win32FixedArray(this.ptr + 40, 8, OFFLOAD_SECURITY_ASSOCIATION, "")
+                this.__SecAssocProxyArray := Win32FixedArray(this.ptr + 40, 3, OFFLOAD_SECURITY_ASSOCIATION, "")
             return this.__SecAssocProxyArray
         }
     }

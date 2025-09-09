@@ -33,7 +33,7 @@ class MIB_IPMCAST_IF_TABLE extends Win32Struct
     table{
         get {
             if(!this.HasProp("__tableProxyArray"))
-                this.__tableProxyArray := Win32FixedArray(this.ptr + 8, 8, MIB_IPMCAST_IF_ENTRY, "")
+                this.__tableProxyArray := Win32FixedArray(this.ptr + 8, 1, MIB_IPMCAST_IF_ENTRY, "")
             return this.__tableProxyArray
         }
     }

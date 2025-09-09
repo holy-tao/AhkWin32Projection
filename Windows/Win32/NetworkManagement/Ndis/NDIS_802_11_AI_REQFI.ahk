@@ -33,7 +33,7 @@ class NDIS_802_11_AI_REQFI extends Win32Struct
     CurrentAPAddress{
         get {
             if(!this.HasProp("__CurrentAPAddressProxyArray"))
-                this.__CurrentAPAddressProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")
+                this.__CurrentAPAddressProxyArray := Win32FixedArray(this.ptr + 4, 6, Primitive, "char")
             return this.__CurrentAPAddressProxyArray
         }
     }

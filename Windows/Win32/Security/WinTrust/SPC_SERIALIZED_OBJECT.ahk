@@ -18,7 +18,7 @@ class SPC_SERIALIZED_OBJECT extends Win32Struct
     ClassId{
         get {
             if(!this.HasProp("__ClassIdProxyArray"))
-                this.__ClassIdProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__ClassIdProxyArray := Win32FixedArray(this.ptr + 0, 16, Primitive, "char")
             return this.__ClassIdProxyArray
         }
     }

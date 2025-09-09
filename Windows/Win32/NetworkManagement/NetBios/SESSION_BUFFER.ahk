@@ -38,7 +38,7 @@ class SESSION_BUFFER extends Win32Struct
     local_name{
         get {
             if(!this.HasProp("__local_nameProxyArray"))
-                this.__local_nameProxyArray := Win32FixedArray(this.ptr + 2, 1, Primitive, "char")
+                this.__local_nameProxyArray := Win32FixedArray(this.ptr + 2, 16, Primitive, "char")
             return this.__local_nameProxyArray
         }
     }
@@ -50,7 +50,7 @@ class SESSION_BUFFER extends Win32Struct
     remote_name{
         get {
             if(!this.HasProp("__remote_nameProxyArray"))
-                this.__remote_nameProxyArray := Win32FixedArray(this.ptr + 18, 1, Primitive, "char")
+                this.__remote_nameProxyArray := Win32FixedArray(this.ptr + 18, 16, Primitive, "char")
             return this.__remote_nameProxyArray
         }
     }

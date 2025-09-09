@@ -52,7 +52,7 @@ class AXISINFOA extends Win32Struct
     axAxisName{
         get {
             if(!this.HasProp("__axAxisNameProxyArray"))
-                this.__axAxisNameProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "char")
+                this.__axAxisNameProxyArray := Win32FixedArray(this.ptr + 8, 16, Primitive, "char")
             return this.__axAxisNameProxyArray
         }
     }

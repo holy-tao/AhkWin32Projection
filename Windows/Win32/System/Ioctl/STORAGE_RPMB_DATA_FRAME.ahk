@@ -22,7 +22,7 @@ class STORAGE_RPMB_DATA_FRAME extends Win32Struct
     Stuff{
         get {
             if(!this.HasProp("__StuffProxyArray"))
-                this.__StuffProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__StuffProxyArray := Win32FixedArray(this.ptr + 0, 196, Primitive, "char")
             return this.__StuffProxyArray
         }
     }
@@ -34,7 +34,7 @@ class STORAGE_RPMB_DATA_FRAME extends Win32Struct
     KeyOrMAC{
         get {
             if(!this.HasProp("__KeyOrMACProxyArray"))
-                this.__KeyOrMACProxyArray := Win32FixedArray(this.ptr + 196, 1, Primitive, "char")
+                this.__KeyOrMACProxyArray := Win32FixedArray(this.ptr + 196, 32, Primitive, "char")
             return this.__KeyOrMACProxyArray
         }
     }
@@ -46,7 +46,7 @@ class STORAGE_RPMB_DATA_FRAME extends Win32Struct
     Data{
         get {
             if(!this.HasProp("__DataProxyArray"))
-                this.__DataProxyArray := Win32FixedArray(this.ptr + 228, 1, Primitive, "char")
+                this.__DataProxyArray := Win32FixedArray(this.ptr + 228, 256, Primitive, "char")
             return this.__DataProxyArray
         }
     }
@@ -58,7 +58,7 @@ class STORAGE_RPMB_DATA_FRAME extends Win32Struct
     Nonce{
         get {
             if(!this.HasProp("__NonceProxyArray"))
-                this.__NonceProxyArray := Win32FixedArray(this.ptr + 484, 1, Primitive, "char")
+                this.__NonceProxyArray := Win32FixedArray(this.ptr + 484, 16, Primitive, "char")
             return this.__NonceProxyArray
         }
     }
@@ -70,7 +70,7 @@ class STORAGE_RPMB_DATA_FRAME extends Win32Struct
     WriteCounter{
         get {
             if(!this.HasProp("__WriteCounterProxyArray"))
-                this.__WriteCounterProxyArray := Win32FixedArray(this.ptr + 500, 1, Primitive, "char")
+                this.__WriteCounterProxyArray := Win32FixedArray(this.ptr + 500, 4, Primitive, "char")
             return this.__WriteCounterProxyArray
         }
     }
@@ -82,7 +82,7 @@ class STORAGE_RPMB_DATA_FRAME extends Win32Struct
     Address{
         get {
             if(!this.HasProp("__AddressProxyArray"))
-                this.__AddressProxyArray := Win32FixedArray(this.ptr + 504, 1, Primitive, "char")
+                this.__AddressProxyArray := Win32FixedArray(this.ptr + 504, 2, Primitive, "char")
             return this.__AddressProxyArray
         }
     }
@@ -94,7 +94,7 @@ class STORAGE_RPMB_DATA_FRAME extends Win32Struct
     BlockCount{
         get {
             if(!this.HasProp("__BlockCountProxyArray"))
-                this.__BlockCountProxyArray := Win32FixedArray(this.ptr + 506, 1, Primitive, "char")
+                this.__BlockCountProxyArray := Win32FixedArray(this.ptr + 506, 2, Primitive, "char")
             return this.__BlockCountProxyArray
         }
     }
@@ -106,7 +106,7 @@ class STORAGE_RPMB_DATA_FRAME extends Win32Struct
     OperationResult{
         get {
             if(!this.HasProp("__OperationResultProxyArray"))
-                this.__OperationResultProxyArray := Win32FixedArray(this.ptr + 508, 1, Primitive, "char")
+                this.__OperationResultProxyArray := Win32FixedArray(this.ptr + 508, 2, Primitive, "char")
             return this.__OperationResultProxyArray
         }
     }
@@ -118,7 +118,7 @@ class STORAGE_RPMB_DATA_FRAME extends Win32Struct
     RequestOrResponseType{
         get {
             if(!this.HasProp("__RequestOrResponseTypeProxyArray"))
-                this.__RequestOrResponseTypeProxyArray := Win32FixedArray(this.ptr + 510, 1, Primitive, "char")
+                this.__RequestOrResponseTypeProxyArray := Win32FixedArray(this.ptr + 510, 2, Primitive, "char")
             return this.__RequestOrResponseTypeProxyArray
         }
     }

@@ -65,7 +65,7 @@ class USB_HUB_DESCRIPTOR extends Win32Struct
     bRemoveAndPowerMask{
         get {
             if(!this.HasProp("__bRemoveAndPowerMaskProxyArray"))
-                this.__bRemoveAndPowerMaskProxyArray := Win32FixedArray(this.ptr + 7, 1, Primitive, "char")
+                this.__bRemoveAndPowerMaskProxyArray := Win32FixedArray(this.ptr + 7, 64, Primitive, "char")
             return this.__bRemoveAndPowerMaskProxyArray
         }
     }

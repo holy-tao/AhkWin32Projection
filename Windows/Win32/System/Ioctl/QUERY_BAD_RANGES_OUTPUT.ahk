@@ -42,7 +42,7 @@ class QUERY_BAD_RANGES_OUTPUT extends Win32Struct
     BadRanges{
         get {
             if(!this.HasProp("__BadRangesProxyArray"))
-                this.__BadRangesProxyArray := Win32FixedArray(this.ptr + 16, 8, QUERY_BAD_RANGES_OUTPUT_RANGE, "")
+                this.__BadRangesProxyArray := Win32FixedArray(this.ptr + 16, 1, QUERY_BAD_RANGES_OUTPUT_RANGE, "")
             return this.__BadRangesProxyArray
         }
     }

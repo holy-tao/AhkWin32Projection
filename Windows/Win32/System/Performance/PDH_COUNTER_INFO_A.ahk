@@ -188,7 +188,7 @@ class PDH_COUNTER_INFO_A extends Win32Struct
     DataBuffer{
         get {
             if(!this.HasProp("__DataBufferProxyArray"))
-                this.__DataBufferProxyArray := Win32FixedArray(this.ptr + 88, 4, Primitive, "uint")
+                this.__DataBufferProxyArray := Win32FixedArray(this.ptr + 88, 1, Primitive, "uint")
             return this.__DataBufferProxyArray
         }
     }

@@ -65,7 +65,7 @@ class EXTLOGPEN32 extends Win32Struct
     elpStyleEntry{
         get {
             if(!this.HasProp("__elpStyleEntryProxyArray"))
-                this.__elpStyleEntryProxyArray := Win32FixedArray(this.ptr + 24, 4, Primitive, "uint")
+                this.__elpStyleEntryProxyArray := Win32FixedArray(this.ptr + 24, 1, Primitive, "uint")
             return this.__elpStyleEntryProxyArray
         }
     }

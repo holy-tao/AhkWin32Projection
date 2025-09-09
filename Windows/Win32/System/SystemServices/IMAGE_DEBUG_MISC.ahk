@@ -41,7 +41,7 @@ class IMAGE_DEBUG_MISC extends Win32Struct
     Reserved{
         get {
             if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 9, 1, Primitive, "char")
+                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 9, 3, Primitive, "char")
             return this.__ReservedProxyArray
         }
     }

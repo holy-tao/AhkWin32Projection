@@ -149,7 +149,7 @@ class NVME_POWER_STATE_DESC extends Win32Struct
     Reserved9{
         get {
             if(!this.HasProp("__Reserved9ProxyArray"))
-                this.__Reserved9ProxyArray := Win32FixedArray(this.ptr + 23, 1, Primitive, "char")
+                this.__Reserved9ProxyArray := Win32FixedArray(this.ptr + 23, 9, Primitive, "char")
             return this.__Reserved9ProxyArray
         }
     }

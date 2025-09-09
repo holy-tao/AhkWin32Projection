@@ -61,7 +61,7 @@ class EMRSETPALETTEENTRIES extends Win32Struct
     aPalEntries{
         get {
             if(!this.HasProp("__aPalEntriesProxyArray"))
-                this.__aPalEntriesProxyArray := Win32FixedArray(this.ptr + 24, 8, PALETTEENTRY, "")
+                this.__aPalEntriesProxyArray := Win32FixedArray(this.ptr + 24, 1, PALETTEENTRY, "")
             return this.__aPalEntriesProxyArray
         }
     }

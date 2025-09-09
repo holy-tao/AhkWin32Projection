@@ -106,7 +106,7 @@ class D3D12_VIDEO_ENCODER_AV1_POST_ENCODE_VALUES extends Win32Struct
     ReferenceIndices{
         get {
             if(!this.HasProp("__ReferenceIndicesProxyArray"))
-                this.__ReferenceIndicesProxyArray := Win32FixedArray(this.ptr + 648, 8, Primitive, "uint")
+                this.__ReferenceIndicesProxyArray := Win32FixedArray(this.ptr + 648, 7, Primitive, "uint")
             return this.__ReferenceIndicesProxyArray
         }
     }

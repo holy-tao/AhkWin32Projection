@@ -25,7 +25,7 @@ class SOFTKBDDATA extends Win32Struct
     wCode{
         get {
             if(!this.HasProp("__wCodeProxyArray"))
-                this.__wCodeProxyArray := Win32FixedArray(this.ptr + 4, 2, Primitive, "ushort")
+                this.__wCodeProxyArray := Win32FixedArray(this.ptr + 4, 256, Primitive, "ushort")
             return this.__wCodeProxyArray
         }
     }

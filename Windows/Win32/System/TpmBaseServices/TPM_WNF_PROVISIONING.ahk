@@ -25,7 +25,7 @@ class TPM_WNF_PROVISIONING extends Win32Struct
     message{
         get {
             if(!this.HasProp("__messageProxyArray"))
-                this.__messageProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")
+                this.__messageProxyArray := Win32FixedArray(this.ptr + 4, 28, Primitive, "char")
             return this.__messageProxyArray
         }
     }

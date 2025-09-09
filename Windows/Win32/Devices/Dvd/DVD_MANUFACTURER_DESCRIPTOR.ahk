@@ -17,7 +17,7 @@ class DVD_MANUFACTURER_DESCRIPTOR extends Win32Struct
     ManufacturingInformation{
         get {
             if(!this.HasProp("__ManufacturingInformationProxyArray"))
-                this.__ManufacturingInformationProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__ManufacturingInformationProxyArray := Win32FixedArray(this.ptr + 0, 2048, Primitive, "char")
             return this.__ManufacturingInformationProxyArray
         }
     }

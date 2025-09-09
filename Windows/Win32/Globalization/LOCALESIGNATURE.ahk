@@ -32,7 +32,7 @@ class LOCALESIGNATURE extends Win32Struct
     lsCsbDefault{
         get {
             if(!this.HasProp("__lsCsbDefaultProxyArray"))
-                this.__lsCsbDefaultProxyArray := Win32FixedArray(this.ptr + 16, 4, Primitive, "uint")
+                this.__lsCsbDefaultProxyArray := Win32FixedArray(this.ptr + 16, 2, Primitive, "uint")
             return this.__lsCsbDefaultProxyArray
         }
     }
@@ -44,7 +44,7 @@ class LOCALESIGNATURE extends Win32Struct
     lsCsbSupported{
         get {
             if(!this.HasProp("__lsCsbSupportedProxyArray"))
-                this.__lsCsbSupportedProxyArray := Win32FixedArray(this.ptr + 24, 4, Primitive, "uint")
+                this.__lsCsbSupportedProxyArray := Win32FixedArray(this.ptr + 24, 2, Primitive, "uint")
             return this.__lsCsbSupportedProxyArray
         }
     }

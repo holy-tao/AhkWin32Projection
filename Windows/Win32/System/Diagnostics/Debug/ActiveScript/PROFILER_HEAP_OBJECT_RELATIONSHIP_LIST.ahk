@@ -26,7 +26,7 @@ class PROFILER_HEAP_OBJECT_RELATIONSHIP_LIST extends Win32Struct
     elements{
         get {
             if(!this.HasProp("__elementsProxyArray"))
-                this.__elementsProxyArray := Win32FixedArray(this.ptr + 8, 8, PROFILER_HEAP_OBJECT_RELATIONSHIP, "")
+                this.__elementsProxyArray := Win32FixedArray(this.ptr + 8, 1, PROFILER_HEAP_OBJECT_RELATIONSHIP, "")
             return this.__elementsProxyArray
         }
     }

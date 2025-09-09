@@ -57,7 +57,7 @@ class BDA_ISDBCAS_EMG_REQ extends Win32Struct
     bCardId{
         get {
             if(!this.HasProp("__bCardIdProxyArray"))
-                this.__bCardIdProxyArray := Win32FixedArray(this.ptr + 5, 1, Primitive, "char")
+                this.__bCardIdProxyArray := Win32FixedArray(this.ptr + 5, 6, Primitive, "char")
             return this.__bCardIdProxyArray
         }
     }

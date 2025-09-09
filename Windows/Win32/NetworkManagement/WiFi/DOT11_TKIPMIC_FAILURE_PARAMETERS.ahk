@@ -45,7 +45,7 @@ class DOT11_TKIPMIC_FAILURE_PARAMETERS extends Win32Struct
     PeerMac{
         get {
             if(!this.HasProp("__PeerMacProxyArray"))
-                this.__PeerMacProxyArray := Win32FixedArray(this.ptr + 12, 1, Primitive, "char")
+                this.__PeerMacProxyArray := Win32FixedArray(this.ptr + 12, 6, Primitive, "char")
             return this.__PeerMacProxyArray
         }
     }

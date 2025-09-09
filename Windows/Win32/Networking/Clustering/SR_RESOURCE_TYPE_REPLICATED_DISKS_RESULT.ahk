@@ -30,7 +30,7 @@ class SR_RESOURCE_TYPE_REPLICATED_DISKS_RESULT extends Win32Struct
     ReplicatedDisks{
         get {
             if(!this.HasProp("__ReplicatedDisksProxyArray"))
-                this.__ReplicatedDisksProxyArray := Win32FixedArray(this.ptr + 8, 8, SR_RESOURCE_TYPE_REPLICATED_DISK, "")
+                this.__ReplicatedDisksProxyArray := Win32FixedArray(this.ptr + 8, 1, SR_RESOURCE_TYPE_REPLICATED_DISK, "")
             return this.__ReplicatedDisksProxyArray
         }
     }

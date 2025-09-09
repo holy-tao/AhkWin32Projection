@@ -127,7 +127,7 @@ class DOT11_PHY_ATTRIBUTES extends Win32Struct
     TxPowerLevels{
         get {
             if(!this.HasProp("__TxPowerLevelsProxyArray"))
-                this.__TxPowerLevelsProxyArray := Win32FixedArray(this.ptr + 32, 4, Primitive, "uint")
+                this.__TxPowerLevelsProxyArray := Win32FixedArray(this.ptr + 32, 8, Primitive, "uint")
             return this.__TxPowerLevelsProxyArray
         }
     }
@@ -146,7 +146,7 @@ class DOT11_PHY_ATTRIBUTES extends Win32Struct
     DataRateMappingEntries{
         get {
             if(!this.HasProp("__DataRateMappingEntriesProxyArray"))
-                this.__DataRateMappingEntriesProxyArray := Win32FixedArray(this.ptr + 72, 8, DOT11_DATA_RATE_MAPPING_ENTRY, "")
+                this.__DataRateMappingEntriesProxyArray := Win32FixedArray(this.ptr + 72, 126, DOT11_DATA_RATE_MAPPING_ENTRY, "")
             return this.__DataRateMappingEntriesProxyArray
         }
     }

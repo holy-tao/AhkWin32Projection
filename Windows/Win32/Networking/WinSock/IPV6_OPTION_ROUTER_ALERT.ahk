@@ -29,7 +29,7 @@ class IPV6_OPTION_ROUTER_ALERT extends Win32Struct
     Value{
         get {
             if(!this.HasProp("__ValueProxyArray"))
-                this.__ValueProxyArray := Win32FixedArray(this.ptr + 2, 1, Primitive, "char")
+                this.__ValueProxyArray := Win32FixedArray(this.ptr + 2, 2, Primitive, "char")
             return this.__ValueProxyArray
         }
     }

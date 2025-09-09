@@ -17,7 +17,7 @@ class NVME_IDENTIFY_IO_COMMAND_SET extends Win32Struct
     IOCommandSetVector{
         get {
             if(!this.HasProp("__IOCommandSetVectorProxyArray"))
-                this.__IOCommandSetVectorProxyArray := Win32FixedArray(this.ptr + 0, 8, Primitive, "uint")
+                this.__IOCommandSetVectorProxyArray := Win32FixedArray(this.ptr + 0, 512, Primitive, "uint")
             return this.__IOCommandSetVectorProxyArray
         }
     }

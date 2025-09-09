@@ -75,7 +75,7 @@ class DSQUERYPARAMS extends Win32Struct
     aColumns{
         get {
             if(!this.HasProp("__aColumnsProxyArray"))
-                this.__aColumnsProxyArray := Win32FixedArray(this.ptr + 32, 8, DSCOLUMN, "")
+                this.__aColumnsProxyArray := Win32FixedArray(this.ptr + 32, 1, DSCOLUMN, "")
             return this.__aColumnsProxyArray
         }
     }

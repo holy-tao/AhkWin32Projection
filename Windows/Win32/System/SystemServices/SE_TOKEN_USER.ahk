@@ -54,7 +54,7 @@ class SE_TOKEN_USER extends Win32Struct
     Buffer{
         get {
             if(!this.HasProp("__BufferProxyArray"))
-                this.__BufferProxyArray := Win32FixedArray(this.ptr + 16, 1, Primitive, "char")
+                this.__BufferProxyArray := Win32FixedArray(this.ptr + 16, 68, Primitive, "char")
             return this.__BufferProxyArray
         }
     }

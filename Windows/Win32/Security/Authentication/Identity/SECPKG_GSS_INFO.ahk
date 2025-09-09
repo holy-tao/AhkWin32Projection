@@ -29,7 +29,7 @@ class SECPKG_GSS_INFO extends Win32Struct
     EncodedId{
         get {
             if(!this.HasProp("__EncodedIdProxyArray"))
-                this.__EncodedIdProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")
+                this.__EncodedIdProxyArray := Win32FixedArray(this.ptr + 4, 4, Primitive, "char")
             return this.__EncodedIdProxyArray
         }
     }

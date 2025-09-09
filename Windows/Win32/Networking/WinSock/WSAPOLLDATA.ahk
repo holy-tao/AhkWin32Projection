@@ -42,7 +42,7 @@ class WSAPOLLDATA extends Win32Struct
     fdArray{
         get {
             if(!this.HasProp("__fdArrayProxyArray"))
-                this.__fdArrayProxyArray := Win32FixedArray(this.ptr + 16, 8, WSAPOLLFD, "")
+                this.__fdArrayProxyArray := Win32FixedArray(this.ptr + 16, 1, WSAPOLLFD, "")
             return this.__fdArrayProxyArray
         }
     }

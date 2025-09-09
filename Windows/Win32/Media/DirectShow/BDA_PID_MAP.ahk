@@ -33,7 +33,7 @@ class BDA_PID_MAP extends Win32Struct
     aulPIDs{
         get {
             if(!this.HasProp("__aulPIDsProxyArray"))
-                this.__aulPIDsProxyArray := Win32FixedArray(this.ptr + 8, 4, Primitive, "uint")
+                this.__aulPIDsProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "uint")
             return this.__aulPIDsProxyArray
         }
     }

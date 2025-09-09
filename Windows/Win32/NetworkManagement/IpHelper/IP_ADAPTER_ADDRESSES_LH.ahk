@@ -255,7 +255,7 @@ class IP_ADAPTER_ADDRESSES_LH extends Win32Struct
     PhysicalAddress{
         get {
             if(!this.HasProp("__PhysicalAddressProxyArray"))
-                this.__PhysicalAddressProxyArray := Win32FixedArray(this.ptr + 80, 1, Primitive, "char")
+                this.__PhysicalAddressProxyArray := Win32FixedArray(this.ptr + 80, 8, Primitive, "char")
             return this.__PhysicalAddressProxyArray
         }
     }
@@ -570,7 +570,7 @@ class IP_ADAPTER_ADDRESSES_LH extends Win32Struct
     ZoneIndices{
         get {
             if(!this.HasProp("__ZoneIndicesProxyArray"))
-                this.__ZoneIndicesProxyArray := Win32FixedArray(this.ptr + 112, 4, Primitive, "uint")
+                this.__ZoneIndicesProxyArray := Win32FixedArray(this.ptr + 112, 16, Primitive, "uint")
             return this.__ZoneIndicesProxyArray
         }
     }
@@ -980,7 +980,7 @@ class IP_ADAPTER_ADDRESSES_LH extends Win32Struct
     Dhcpv6ClientDuid{
         get {
             if(!this.HasProp("__Dhcpv6ClientDuidProxyArray"))
-                this.__Dhcpv6ClientDuidProxyArray := Win32FixedArray(this.ptr + 296, 1, Primitive, "char")
+                this.__Dhcpv6ClientDuidProxyArray := Win32FixedArray(this.ptr + 296, 130, Primitive, "char")
             return this.__Dhcpv6ClientDuidProxyArray
         }
     }

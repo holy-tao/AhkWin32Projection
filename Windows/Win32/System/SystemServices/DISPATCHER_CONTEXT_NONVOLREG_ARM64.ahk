@@ -17,7 +17,7 @@ class DISPATCHER_CONTEXT_NONVOLREG_ARM64 extends Win32Struct
     Buffer{
         get {
             if(!this.HasProp("__BufferProxyArray"))
-                this.__BufferProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__BufferProxyArray := Win32FixedArray(this.ptr + 0, 152, Primitive, "char")
             return this.__BufferProxyArray
         }
     }
@@ -28,7 +28,7 @@ class DISPATCHER_CONTEXT_NONVOLREG_ARM64 extends Win32Struct
     GpNvRegs{
         get {
             if(!this.HasProp("__GpNvRegsProxyArray"))
-                this.__GpNvRegsProxyArray := Win32FixedArray(this.ptr + 0, 8, Primitive, "uint")
+                this.__GpNvRegsProxyArray := Win32FixedArray(this.ptr + 0, 11, Primitive, "uint")
             return this.__GpNvRegsProxyArray
         }
     }

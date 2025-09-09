@@ -101,7 +101,7 @@ class DVD_AudioAttributes extends Win32Struct
     dwReserved{
         get {
             if(!this.HasProp("__dwReservedProxyArray"))
-                this.__dwReservedProxyArray := Win32FixedArray(this.ptr + 32, 4, Primitive, "uint")
+                this.__dwReservedProxyArray := Win32FixedArray(this.ptr + 32, 2, Primitive, "uint")
             return this.__dwReservedProxyArray
         }
     }

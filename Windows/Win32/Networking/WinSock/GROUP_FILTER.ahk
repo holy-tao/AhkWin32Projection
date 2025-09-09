@@ -103,7 +103,7 @@ class GROUP_FILTER extends Win32Struct
     gf_slist{
         get {
             if(!this.HasProp("__gf_slistProxyArray"))
-                this.__gf_slistProxyArray := Win32FixedArray(this.ptr + 264, 8, SOCKADDR_STORAGE, "")
+                this.__gf_slistProxyArray := Win32FixedArray(this.ptr + 264, 1, SOCKADDR_STORAGE, "")
             return this.__gf_slistProxyArray
         }
     }

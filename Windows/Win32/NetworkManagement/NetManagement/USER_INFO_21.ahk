@@ -20,7 +20,7 @@ class USER_INFO_21 extends Win32Struct
     usri21_password{
         get {
             if(!this.HasProp("__usri21_passwordProxyArray"))
-                this.__usri21_passwordProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__usri21_passwordProxyArray := Win32FixedArray(this.ptr + 0, 16, Primitive, "char")
             return this.__usri21_passwordProxyArray
         }
     }

@@ -26,7 +26,7 @@ class NVME_OCP_DEVICE_TCG_HISTORY_LOG extends Win32Struct
     Reserved0{
         get {
             if(!this.HasProp("__Reserved0ProxyArray"))
-                this.__Reserved0ProxyArray := Win32FixedArray(this.ptr + 1, 1, Primitive, "char")
+                this.__Reserved0ProxyArray := Win32FixedArray(this.ptr + 1, 3, Primitive, "char")
             return this.__Reserved0ProxyArray
         }
     }
@@ -45,7 +45,7 @@ class NVME_OCP_DEVICE_TCG_HISTORY_LOG extends Win32Struct
     HistoryEntries{
         get {
             if(!this.HasProp("__HistoryEntriesProxyArray"))
-                this.__HistoryEntriesProxyArray := Win32FixedArray(this.ptr + 8, 8, TCG_HISTORY_ENTRY, "")
+                this.__HistoryEntriesProxyArray := Win32FixedArray(this.ptr + 8, 84, TCG_HISTORY_ENTRY, "")
             return this.__HistoryEntriesProxyArray
         }
     }
@@ -56,7 +56,7 @@ class NVME_OCP_DEVICE_TCG_HISTORY_LOG extends Win32Struct
     Reserved1{
         get {
             if(!this.HasProp("__Reserved1ProxyArray"))
-                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 680, 1, Primitive, "char")
+                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 680, 38, Primitive, "char")
             return this.__Reserved1ProxyArray
         }
     }

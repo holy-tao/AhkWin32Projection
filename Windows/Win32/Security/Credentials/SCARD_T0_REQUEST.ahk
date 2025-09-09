@@ -57,7 +57,7 @@ class SCARD_T0_REQUEST extends Win32Struct
     rgbHeader{
         get {
             if(!this.HasProp("__rgbHeaderProxyArray"))
-                this.__rgbHeaderProxyArray := Win32FixedArray(this.ptr + 10, 1, Primitive, "char")
+                this.__rgbHeaderProxyArray := Win32FixedArray(this.ptr + 10, 5, Primitive, "char")
             return this.__rgbHeaderProxyArray
         }
     }

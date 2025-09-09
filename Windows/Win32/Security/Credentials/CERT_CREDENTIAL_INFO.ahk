@@ -33,7 +33,7 @@ class CERT_CREDENTIAL_INFO extends Win32Struct
     rgbHashOfCert{
         get {
             if(!this.HasProp("__rgbHashOfCertProxyArray"))
-                this.__rgbHashOfCertProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")
+                this.__rgbHashOfCertProxyArray := Win32FixedArray(this.ptr + 4, 20, Primitive, "char")
             return this.__rgbHashOfCertProxyArray
         }
     }

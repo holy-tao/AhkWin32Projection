@@ -20,7 +20,7 @@ class HrtfOrientation extends Win32Struct
     element{
         get {
             if(!this.HasProp("__elementProxyArray"))
-                this.__elementProxyArray := Win32FixedArray(this.ptr + 0, 4, Primitive, "float")
+                this.__elementProxyArray := Win32FixedArray(this.ptr + 0, 9, Primitive, "float")
             return this.__elementProxyArray
         }
     }

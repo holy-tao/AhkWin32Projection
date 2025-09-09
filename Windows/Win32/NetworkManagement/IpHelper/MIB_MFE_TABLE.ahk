@@ -34,7 +34,7 @@ class MIB_MFE_TABLE extends Win32Struct
     table{
         get {
             if(!this.HasProp("__tableProxyArray"))
-                this.__tableProxyArray := Win32FixedArray(this.ptr + 8, 8, MIB_IPMCAST_MFE, "")
+                this.__tableProxyArray := Win32FixedArray(this.ptr + 8, 1, MIB_IPMCAST_MFE, "")
             return this.__tableProxyArray
         }
     }

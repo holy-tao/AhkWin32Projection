@@ -75,7 +75,7 @@ class AVITCDLINDEX extends Win32Struct
     dwReserved{
         get {
             if(!this.HasProp("__dwReservedProxyArray"))
-                this.__dwReservedProxyArray := Win32FixedArray(this.ptr + 20, 4, Primitive, "uint")
+                this.__dwReservedProxyArray := Win32FixedArray(this.ptr + 20, 3, Primitive, "uint")
             return this.__dwReservedProxyArray
         }
     }
@@ -86,7 +86,7 @@ class AVITCDLINDEX extends Win32Struct
     aIndex{
         get {
             if(!this.HasProp("__aIndexProxyArray"))
-                this.__aIndexProxyArray := Win32FixedArray(this.ptr + 32, 8, AVITCDLINDEX_ENTRY, "")
+                this.__aIndexProxyArray := Win32FixedArray(this.ptr + 32, 584, AVITCDLINDEX_ENTRY, "")
             return this.__aIndexProxyArray
         }
     }
@@ -97,7 +97,7 @@ class AVITCDLINDEX extends Win32Struct
     adwTrailingFill{
         get {
             if(!this.HasProp("__adwTrailingFillProxyArray"))
-                this.__adwTrailingFillProxyArray := Win32FixedArray(this.ptr + 4704, 4, Primitive, "uint")
+                this.__adwTrailingFillProxyArray := Win32FixedArray(this.ptr + 4704, 3512, Primitive, "uint")
             return this.__adwTrailingFillProxyArray
         }
     }

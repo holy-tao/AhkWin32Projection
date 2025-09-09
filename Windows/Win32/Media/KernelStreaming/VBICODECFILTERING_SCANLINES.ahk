@@ -17,7 +17,7 @@ class VBICODECFILTERING_SCANLINES extends Win32Struct
     DwordBitArray{
         get {
             if(!this.HasProp("__DwordBitArrayProxyArray"))
-                this.__DwordBitArrayProxyArray := Win32FixedArray(this.ptr + 0, 4, Primitive, "uint")
+                this.__DwordBitArrayProxyArray := Win32FixedArray(this.ptr + 0, 32, Primitive, "uint")
             return this.__DwordBitArrayProxyArray
         }
     }

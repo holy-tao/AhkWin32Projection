@@ -33,7 +33,7 @@ class MINIDUMP_THREAD_EX_LIST extends Win32Struct
     Threads{
         get {
             if(!this.HasProp("__ThreadsProxyArray"))
-                this.__ThreadsProxyArray := Win32FixedArray(this.ptr + 4, 8, MINIDUMP_THREAD_EX, "")
+                this.__ThreadsProxyArray := Win32FixedArray(this.ptr + 4, 1, MINIDUMP_THREAD_EX, "")
             return this.__ThreadsProxyArray
         }
     }

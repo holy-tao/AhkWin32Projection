@@ -64,7 +64,7 @@ class EVENT_MAP_INFO extends Win32Struct
     MapEntryArray{
         get {
             if(!this.HasProp("__MapEntryArrayProxyArray"))
-                this.__MapEntryArrayProxyArray := Win32FixedArray(this.ptr + 16, 8, EVENT_MAP_ENTRY, "")
+                this.__MapEntryArrayProxyArray := Win32FixedArray(this.ptr + 16, 1, EVENT_MAP_ENTRY, "")
             return this.__MapEntryArrayProxyArray
         }
     }

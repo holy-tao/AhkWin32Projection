@@ -147,7 +147,7 @@ class KERB_EXTERNAL_NAME extends Win32Struct
     Names{
         get {
             if(!this.HasProp("__NamesProxyArray"))
-                this.__NamesProxyArray := Win32FixedArray(this.ptr + 8, 8, LSA_UNICODE_STRING, "")
+                this.__NamesProxyArray := Win32FixedArray(this.ptr + 8, 1, LSA_UNICODE_STRING, "")
             return this.__NamesProxyArray
         }
     }

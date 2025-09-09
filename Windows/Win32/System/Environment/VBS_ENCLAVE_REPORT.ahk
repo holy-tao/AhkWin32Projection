@@ -56,7 +56,7 @@ class VBS_ENCLAVE_REPORT extends Win32Struct
     EnclaveData{
         get {
             if(!this.HasProp("__EnclaveDataProxyArray"))
-                this.__EnclaveDataProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "char")
+                this.__EnclaveDataProxyArray := Win32FixedArray(this.ptr + 8, 64, Primitive, "char")
             return this.__EnclaveDataProxyArray
         }
     }

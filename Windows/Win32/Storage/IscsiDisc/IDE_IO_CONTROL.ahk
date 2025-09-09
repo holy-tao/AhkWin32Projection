@@ -25,7 +25,7 @@ class IDE_IO_CONTROL extends Win32Struct
     Signature{
         get {
             if(!this.HasProp("__SignatureProxyArray"))
-                this.__SignatureProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")
+                this.__SignatureProxyArray := Win32FixedArray(this.ptr + 4, 8, Primitive, "char")
             return this.__SignatureProxyArray
         }
     }

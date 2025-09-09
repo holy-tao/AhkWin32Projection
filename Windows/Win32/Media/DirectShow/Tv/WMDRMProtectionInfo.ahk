@@ -17,7 +17,7 @@ class WMDRMProtectionInfo extends Win32Struct
     wszKID{
         get {
             if(!this.HasProp("__wszKIDProxyArray"))
-                this.__wszKIDProxyArray := Win32FixedArray(this.ptr + 0, 2, Primitive, "ushort")
+                this.__wszKIDProxyArray := Win32FixedArray(this.ptr + 0, 25, Primitive, "ushort")
             return this.__wszKIDProxyArray
         }
     }

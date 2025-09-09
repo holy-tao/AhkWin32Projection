@@ -50,7 +50,7 @@ class WIA_BARCODES extends Win32Struct
     Barcodes{
         get {
             if(!this.HasProp("__BarcodesProxyArray"))
-                this.__BarcodesProxyArray := Win32FixedArray(this.ptr + 16, 8, WIA_BARCODE_INFO, "")
+                this.__BarcodesProxyArray := Win32FixedArray(this.ptr + 16, 1, WIA_BARCODE_INFO, "")
             return this.__BarcodesProxyArray
         }
     }

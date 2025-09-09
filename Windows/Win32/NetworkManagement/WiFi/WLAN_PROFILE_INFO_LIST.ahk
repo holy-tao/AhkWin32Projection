@@ -43,7 +43,7 @@ class WLAN_PROFILE_INFO_LIST extends Win32Struct
     ProfileInfo{
         get {
             if(!this.HasProp("__ProfileInfoProxyArray"))
-                this.__ProfileInfoProxyArray := Win32FixedArray(this.ptr + 8, 8, WLAN_PROFILE_INFO, "")
+                this.__ProfileInfoProxyArray := Win32FixedArray(this.ptr + 8, 1, WLAN_PROFILE_INFO, "")
             return this.__ProfileInfoProxyArray
         }
     }

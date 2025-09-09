@@ -233,7 +233,7 @@ class FD_DEVICEMETRICS extends Win32Struct
     alReserved{
         get {
             if(!this.HasProp("__alReservedProxyArray"))
-                this.__alReservedProxyArray := Win32FixedArray(this.ptr + 132, 4, Primitive, "int")
+                this.__alReservedProxyArray := Win32FixedArray(this.ptr + 132, 1, Primitive, "int")
             return this.__alReservedProxyArray
         }
     }

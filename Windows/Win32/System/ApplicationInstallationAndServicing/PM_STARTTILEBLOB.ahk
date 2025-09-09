@@ -50,7 +50,7 @@ class PM_STARTTILEBLOB extends Win32Struct
     HubPosition{
         get {
             if(!this.HasProp("__HubPositionProxyArray"))
-                this.__HubPositionProxyArray := Win32FixedArray(this.ptr + 28, 4, Primitive, "uint")
+                this.__HubPositionProxyArray := Win32FixedArray(this.ptr + 28, 32, Primitive, "uint")
             return this.__HubPositionProxyArray
         }
     }

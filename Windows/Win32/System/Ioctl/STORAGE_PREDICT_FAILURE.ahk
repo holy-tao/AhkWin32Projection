@@ -25,7 +25,7 @@ class STORAGE_PREDICT_FAILURE extends Win32Struct
     VendorSpecific{
         get {
             if(!this.HasProp("__VendorSpecificProxyArray"))
-                this.__VendorSpecificProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")
+                this.__VendorSpecificProxyArray := Win32FixedArray(this.ptr + 4, 512, Primitive, "char")
             return this.__VendorSpecificProxyArray
         }
     }

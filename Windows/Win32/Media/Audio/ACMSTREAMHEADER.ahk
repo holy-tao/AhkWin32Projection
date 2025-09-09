@@ -158,7 +158,7 @@ class ACMSTREAMHEADER extends Win32Struct
     dwReservedDriver{
         get {
             if(!this.HasProp("__dwReservedDriverProxyArray"))
-                this.__dwReservedDriverProxyArray := Win32FixedArray(this.ptr + 64, 4, Primitive, "uint")
+                this.__dwReservedDriverProxyArray := Win32FixedArray(this.ptr + 64, 10, Primitive, "uint")
             return this.__dwReservedDriverProxyArray
         }
     }

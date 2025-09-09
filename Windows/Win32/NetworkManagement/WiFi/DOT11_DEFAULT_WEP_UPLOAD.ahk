@@ -50,7 +50,7 @@ class DOT11_DEFAULT_WEP_UPLOAD extends Win32Struct
     dot11IV48Counters{
         get {
             if(!this.HasProp("__dot11IV48CountersProxyArray"))
-                this.__dot11IV48CountersProxyArray := Win32FixedArray(this.ptr + 24, 8, DOT11_IV48_COUNTER, "")
+                this.__dot11IV48CountersProxyArray := Win32FixedArray(this.ptr + 24, 16, DOT11_IV48_COUNTER, "")
             return this.__dot11IV48CountersProxyArray
         }
     }
@@ -61,7 +61,7 @@ class DOT11_DEFAULT_WEP_UPLOAD extends Win32Struct
     usDot11RWBitMaps{
         get {
             if(!this.HasProp("__usDot11RWBitMapsProxyArray"))
-                this.__usDot11RWBitMapsProxyArray := Win32FixedArray(this.ptr + 152, 2, Primitive, "ushort")
+                this.__usDot11RWBitMapsProxyArray := Win32FixedArray(this.ptr + 152, 16, Primitive, "ushort")
             return this.__usDot11RWBitMapsProxyArray
         }
     }

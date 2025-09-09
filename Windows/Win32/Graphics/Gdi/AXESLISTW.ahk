@@ -51,7 +51,7 @@ class AXESLISTW extends Win32Struct
     axlAxisInfo{
         get {
             if(!this.HasProp("__axlAxisInfoProxyArray"))
-                this.__axlAxisInfoProxyArray := Win32FixedArray(this.ptr + 8, 8, AXISINFOW, "")
+                this.__axlAxisInfoProxyArray := Win32FixedArray(this.ptr + 8, 16, AXISINFOW, "")
             return this.__axlAxisInfoProxyArray
         }
     }

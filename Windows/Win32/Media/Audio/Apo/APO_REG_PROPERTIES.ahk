@@ -128,7 +128,7 @@ class APO_REG_PROPERTIES extends Win32Struct
     iidAPOInterfaceList{
         get {
             if(!this.HasProp("__iidAPOInterfaceListProxyArray"))
-                this.__iidAPOInterfaceListProxyArray := Win32FixedArray(this.ptr + 1072, 8, Primitive, "ptr")
+                this.__iidAPOInterfaceListProxyArray := Win32FixedArray(this.ptr + 1072, 1, Primitive, "ptr")
             return this.__iidAPOInterfaceListProxyArray
         }
     }

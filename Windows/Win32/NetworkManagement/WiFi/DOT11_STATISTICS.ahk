@@ -77,7 +77,7 @@ class DOT11_STATISTICS extends Win32Struct
     PhyCounters{
         get {
             if(!this.HasProp("__PhyCountersProxyArray"))
-                this.__PhyCountersProxyArray := Win32FixedArray(this.ptr + 256, 8, DOT11_PHY_FRAME_STATISTICS, "")
+                this.__PhyCountersProxyArray := Win32FixedArray(this.ptr + 256, 1, DOT11_PHY_FRAME_STATISTICS, "")
             return this.__PhyCountersProxyArray
         }
     }

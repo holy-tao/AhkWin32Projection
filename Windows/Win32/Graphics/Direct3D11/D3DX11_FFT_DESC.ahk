@@ -33,7 +33,7 @@ class D3DX11_FFT_DESC extends Win32Struct
     ElementLengths{
         get {
             if(!this.HasProp("__ElementLengthsProxyArray"))
-                this.__ElementLengthsProxyArray := Win32FixedArray(this.ptr + 4, 4, Primitive, "uint")
+                this.__ElementLengthsProxyArray := Win32FixedArray(this.ptr + 4, 32, Primitive, "uint")
             return this.__ElementLengthsProxyArray
         }
     }

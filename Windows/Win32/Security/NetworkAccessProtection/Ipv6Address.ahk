@@ -20,7 +20,7 @@ class Ipv6Address extends Win32Struct
     addr{
         get {
             if(!this.HasProp("__addrProxyArray"))
-                this.__addrProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__addrProxyArray := Win32FixedArray(this.ptr + 0, 16, Primitive, "char")
             return this.__addrProxyArray
         }
     }

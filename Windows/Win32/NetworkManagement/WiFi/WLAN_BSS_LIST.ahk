@@ -54,7 +54,7 @@ class WLAN_BSS_LIST extends Win32Struct
     wlanBssEntries{
         get {
             if(!this.HasProp("__wlanBssEntriesProxyArray"))
-                this.__wlanBssEntriesProxyArray := Win32FixedArray(this.ptr + 8, 8, WLAN_BSS_ENTRY, "")
+                this.__wlanBssEntriesProxyArray := Win32FixedArray(this.ptr + 8, 1, WLAN_BSS_ENTRY, "")
             return this.__wlanBssEntriesProxyArray
         }
     }

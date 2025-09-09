@@ -28,7 +28,7 @@ class PRJ_PLACEHOLDER_VERSION_INFO extends Win32Struct
     ProviderID{
         get {
             if(!this.HasProp("__ProviderIDProxyArray"))
-                this.__ProviderIDProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__ProviderIDProxyArray := Win32FixedArray(this.ptr + 0, 128, Primitive, "char")
             return this.__ProviderIDProxyArray
         }
     }
@@ -40,7 +40,7 @@ class PRJ_PLACEHOLDER_VERSION_INFO extends Win32Struct
     ContentID{
         get {
             if(!this.HasProp("__ContentIDProxyArray"))
-                this.__ContentIDProxyArray := Win32FixedArray(this.ptr + 128, 1, Primitive, "char")
+                this.__ContentIDProxyArray := Win32FixedArray(this.ptr + 128, 128, Primitive, "char")
             return this.__ContentIDProxyArray
         }
     }

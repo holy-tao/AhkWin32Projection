@@ -21,7 +21,7 @@ class RTL_USER_PROCESS_PARAMETERS extends Win32Struct
     Reserved1{
         get {
             if(!this.HasProp("__Reserved1ProxyArray"))
-                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 0, 16, Primitive, "char")
             return this.__Reserved1ProxyArray
         }
     }
@@ -33,7 +33,7 @@ class RTL_USER_PROCESS_PARAMETERS extends Win32Struct
     Reserved2{
         get {
             if(!this.HasProp("__Reserved2ProxyArray"))
-                this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 16, 8, Primitive, "ptr")
+                this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 16, 10, Primitive, "ptr")
             return this.__Reserved2ProxyArray
         }
     }

@@ -64,7 +64,7 @@ class CLAIM_SECURITY_ATTRIBUTE_RELATIVE_V1 extends Win32Struct
     pInt64{
         get {
             if(!this.HasProp("__pInt64ProxyArray"))
-                this.__pInt64ProxyArray := Win32FixedArray(this.ptr + 16, 4, Primitive, "uint")
+                this.__pInt64ProxyArray := Win32FixedArray(this.ptr + 16, 1, Primitive, "uint")
             return this.__pInt64ProxyArray
         }
     }
@@ -75,7 +75,7 @@ class CLAIM_SECURITY_ATTRIBUTE_RELATIVE_V1 extends Win32Struct
     pUint64{
         get {
             if(!this.HasProp("__pUint64ProxyArray"))
-                this.__pUint64ProxyArray := Win32FixedArray(this.ptr + 16, 4, Primitive, "uint")
+                this.__pUint64ProxyArray := Win32FixedArray(this.ptr + 16, 1, Primitive, "uint")
             return this.__pUint64ProxyArray
         }
     }
@@ -86,7 +86,7 @@ class CLAIM_SECURITY_ATTRIBUTE_RELATIVE_V1 extends Win32Struct
     ppString{
         get {
             if(!this.HasProp("__ppStringProxyArray"))
-                this.__ppStringProxyArray := Win32FixedArray(this.ptr + 16, 4, Primitive, "uint")
+                this.__ppStringProxyArray := Win32FixedArray(this.ptr + 16, 1, Primitive, "uint")
             return this.__ppStringProxyArray
         }
     }
@@ -97,7 +97,7 @@ class CLAIM_SECURITY_ATTRIBUTE_RELATIVE_V1 extends Win32Struct
     pFqbn{
         get {
             if(!this.HasProp("__pFqbnProxyArray"))
-                this.__pFqbnProxyArray := Win32FixedArray(this.ptr + 16, 4, Primitive, "uint")
+                this.__pFqbnProxyArray := Win32FixedArray(this.ptr + 16, 1, Primitive, "uint")
             return this.__pFqbnProxyArray
         }
     }
@@ -108,7 +108,7 @@ class CLAIM_SECURITY_ATTRIBUTE_RELATIVE_V1 extends Win32Struct
     pOctetString{
         get {
             if(!this.HasProp("__pOctetStringProxyArray"))
-                this.__pOctetStringProxyArray := Win32FixedArray(this.ptr + 16, 4, Primitive, "uint")
+                this.__pOctetStringProxyArray := Win32FixedArray(this.ptr + 16, 1, Primitive, "uint")
             return this.__pOctetStringProxyArray
         }
     }

@@ -81,7 +81,7 @@ class DXVA_VideoSample32 extends Win32Struct
     Palette{
         get {
             if(!this.HasProp("__PaletteProxyArray"))
-                this.__PaletteProxyArray := Win32FixedArray(this.ptr + 64, 8, DXVA_AYUVsample2, "")
+                this.__PaletteProxyArray := Win32FixedArray(this.ptr + 64, 16, DXVA_AYUVsample2, "")
             return this.__PaletteProxyArray
         }
     }

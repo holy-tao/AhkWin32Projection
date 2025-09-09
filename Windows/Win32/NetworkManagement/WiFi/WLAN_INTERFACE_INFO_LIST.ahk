@@ -43,7 +43,7 @@ class WLAN_INTERFACE_INFO_LIST extends Win32Struct
     InterfaceInfo{
         get {
             if(!this.HasProp("__InterfaceInfoProxyArray"))
-                this.__InterfaceInfoProxyArray := Win32FixedArray(this.ptr + 8, 8, WLAN_INTERFACE_INFO, "")
+                this.__InterfaceInfoProxyArray := Win32FixedArray(this.ptr + 8, 1, WLAN_INTERFACE_INFO, "")
             return this.__InterfaceInfoProxyArray
         }
     }

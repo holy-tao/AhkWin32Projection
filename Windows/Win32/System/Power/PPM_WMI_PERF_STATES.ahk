@@ -178,7 +178,7 @@ class PPM_WMI_PERF_STATES extends Win32Struct
     State{
         get {
             if(!this.HasProp("__StateProxyArray"))
-                this.__StateProxyArray := Win32FixedArray(this.ptr + 80, 8, PPM_WMI_PERF_STATE, "")
+                this.__StateProxyArray := Win32FixedArray(this.ptr + 80, 1, PPM_WMI_PERF_STATE, "")
             return this.__StateProxyArray
         }
     }

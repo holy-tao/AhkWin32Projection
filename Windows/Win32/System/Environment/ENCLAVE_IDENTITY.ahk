@@ -20,7 +20,7 @@ class ENCLAVE_IDENTITY extends Win32Struct
     OwnerId{
         get {
             if(!this.HasProp("__OwnerIdProxyArray"))
-                this.__OwnerIdProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__OwnerIdProxyArray := Win32FixedArray(this.ptr + 0, 32, Primitive, "char")
             return this.__OwnerIdProxyArray
         }
     }
@@ -32,7 +32,7 @@ class ENCLAVE_IDENTITY extends Win32Struct
     UniqueId{
         get {
             if(!this.HasProp("__UniqueIdProxyArray"))
-                this.__UniqueIdProxyArray := Win32FixedArray(this.ptr + 32, 1, Primitive, "char")
+                this.__UniqueIdProxyArray := Win32FixedArray(this.ptr + 32, 32, Primitive, "char")
             return this.__UniqueIdProxyArray
         }
     }
@@ -44,7 +44,7 @@ class ENCLAVE_IDENTITY extends Win32Struct
     AuthorId{
         get {
             if(!this.HasProp("__AuthorIdProxyArray"))
-                this.__AuthorIdProxyArray := Win32FixedArray(this.ptr + 64, 1, Primitive, "char")
+                this.__AuthorIdProxyArray := Win32FixedArray(this.ptr + 64, 32, Primitive, "char")
             return this.__AuthorIdProxyArray
         }
     }
@@ -56,7 +56,7 @@ class ENCLAVE_IDENTITY extends Win32Struct
     FamilyId{
         get {
             if(!this.HasProp("__FamilyIdProxyArray"))
-                this.__FamilyIdProxyArray := Win32FixedArray(this.ptr + 96, 1, Primitive, "char")
+                this.__FamilyIdProxyArray := Win32FixedArray(this.ptr + 96, 16, Primitive, "char")
             return this.__FamilyIdProxyArray
         }
     }
@@ -68,7 +68,7 @@ class ENCLAVE_IDENTITY extends Win32Struct
     ImageId{
         get {
             if(!this.HasProp("__ImageIdProxyArray"))
-                this.__ImageIdProxyArray := Win32FixedArray(this.ptr + 112, 1, Primitive, "char")
+                this.__ImageIdProxyArray := Win32FixedArray(this.ptr + 112, 16, Primitive, "char")
             return this.__ImageIdProxyArray
         }
     }

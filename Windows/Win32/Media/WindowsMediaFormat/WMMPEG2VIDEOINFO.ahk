@@ -84,7 +84,7 @@ class WMMPEG2VIDEOINFO extends Win32Struct
     dwSequenceHeader{
         get {
             if(!this.HasProp("__dwSequenceHeaderProxyArray"))
-                this.__dwSequenceHeaderProxyArray := Win32FixedArray(this.ptr + 132, 4, Primitive, "uint")
+                this.__dwSequenceHeaderProxyArray := Win32FixedArray(this.ptr + 132, 1, Primitive, "uint")
             return this.__dwSequenceHeaderProxyArray
         }
     }

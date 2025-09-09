@@ -25,7 +25,7 @@ class DNS_SVCB_PARAM_IPV4 extends Win32Struct
     rgIps{
         get {
             if(!this.HasProp("__rgIpsProxyArray"))
-                this.__rgIpsProxyArray := Win32FixedArray(this.ptr + 4, 4, Primitive, "uint")
+                this.__rgIpsProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "uint")
             return this.__rgIpsProxyArray
         }
     }

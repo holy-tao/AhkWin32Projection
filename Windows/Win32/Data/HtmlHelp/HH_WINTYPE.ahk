@@ -290,7 +290,7 @@ class HH_WINTYPE extends Win32Struct
     tabOrder{
         get {
             if(!this.HasProp("__tabOrderProxyArray"))
-                this.__tabOrderProxyArray := Win32FixedArray(this.ptr + 188, 1, Primitive, "char")
+                this.__tabOrderProxyArray := Win32FixedArray(this.ptr + 188, 20, Primitive, "char")
             return this.__tabOrderProxyArray
         }
     }

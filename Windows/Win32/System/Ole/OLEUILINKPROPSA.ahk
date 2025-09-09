@@ -42,7 +42,7 @@ class OLEUILINKPROPSA extends Win32Struct
     dwReserved1{
         get {
             if(!this.HasProp("__dwReserved1ProxyArray"))
-                this.__dwReserved1ProxyArray := Win32FixedArray(this.ptr + 8, 4, Primitive, "uint")
+                this.__dwReserved1ProxyArray := Win32FixedArray(this.ptr + 8, 2, Primitive, "uint")
             return this.__dwReserved1ProxyArray
         }
     }
@@ -72,7 +72,7 @@ class OLEUILINKPROPSA extends Win32Struct
     dwReserved2{
         get {
             if(!this.HasProp("__dwReserved2ProxyArray"))
-                this.__dwReserved2ProxyArray := Win32FixedArray(this.ptr + 32, 4, Primitive, "uint")
+                this.__dwReserved2ProxyArray := Win32FixedArray(this.ptr + 32, 3, Primitive, "uint")
             return this.__dwReserved2ProxyArray
         }
     }

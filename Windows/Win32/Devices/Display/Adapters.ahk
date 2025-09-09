@@ -31,7 +31,7 @@ class Adapters extends Win32Struct
     adapter{
         get {
             if(!this.HasProp("__adapterProxyArray"))
-                this.__adapterProxyArray := Win32FixedArray(this.ptr + 8, 8, Adapter, "")
+                this.__adapterProxyArray := Win32FixedArray(this.ptr + 8, 1, Adapter, "")
             return this.__adapterProxyArray
         }
     }

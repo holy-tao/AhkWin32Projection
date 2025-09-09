@@ -66,7 +66,7 @@ class STORAGE_TEMPERATURE_DATA_DESCRIPTOR extends Win32Struct
     Reserved0{
         get {
             if(!this.HasProp("__Reserved0ProxyArray"))
-                this.__Reserved0ProxyArray := Win32FixedArray(this.ptr + 14, 1, Primitive, "char")
+                this.__Reserved0ProxyArray := Win32FixedArray(this.ptr + 14, 2, Primitive, "char")
             return this.__Reserved0ProxyArray
         }
     }
@@ -78,7 +78,7 @@ class STORAGE_TEMPERATURE_DATA_DESCRIPTOR extends Win32Struct
     Reserved1{
         get {
             if(!this.HasProp("__Reserved1ProxyArray"))
-                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 16, 4, Primitive, "uint")
+                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 16, 2, Primitive, "uint")
             return this.__Reserved1ProxyArray
         }
     }
@@ -90,7 +90,7 @@ class STORAGE_TEMPERATURE_DATA_DESCRIPTOR extends Win32Struct
     TemperatureInfo{
         get {
             if(!this.HasProp("__TemperatureInfoProxyArray"))
-                this.__TemperatureInfoProxyArray := Win32FixedArray(this.ptr + 24, 8, STORAGE_TEMPERATURE_INFO, "")
+                this.__TemperatureInfoProxyArray := Win32FixedArray(this.ptr + 24, 1, STORAGE_TEMPERATURE_INFO, "")
             return this.__TemperatureInfoProxyArray
         }
     }

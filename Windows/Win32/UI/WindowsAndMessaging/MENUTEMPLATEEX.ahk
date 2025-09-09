@@ -32,7 +32,7 @@ class MENUTEMPLATEEX extends Win32Struct
     miTemplate{
         get {
             if(!this.HasProp("__miTemplateProxyArray"))
-                this.__miTemplateProxyArray := Win32FixedArray(this.ptr + 8, 8, MENUITEMTEMPLATE, "")
+                this.__miTemplateProxyArray := Win32FixedArray(this.ptr + 8, 1, MENUITEMTEMPLATE, "")
             return this.__miTemplateProxyArray
         }
     }
@@ -54,7 +54,7 @@ class MENUTEMPLATEEX extends Win32Struct
     mexItem{
         get {
             if(!this.HasProp("__mexItemProxyArray"))
-                this.__mexItemProxyArray := Win32FixedArray(this.ptr + 8, 8, MENUEX_TEMPLATE_ITEM, "")
+                this.__mexItemProxyArray := Win32FixedArray(this.ptr + 8, 1, MENUEX_TEMPLATE_ITEM, "")
             return this.__mexItemProxyArray
         }
     }

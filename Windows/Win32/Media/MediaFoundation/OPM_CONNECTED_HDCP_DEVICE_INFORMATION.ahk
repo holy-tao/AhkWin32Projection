@@ -95,7 +95,7 @@ class OPM_CONNECTED_HDCP_DEVICE_INFORMATION extends Win32Struct
     Reserved{
         get {
             if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 29, 1, Primitive, "char")
+                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 29, 11, Primitive, "char")
             return this.__ReservedProxyArray
         }
     }
@@ -107,7 +107,7 @@ class OPM_CONNECTED_HDCP_DEVICE_INFORMATION extends Win32Struct
     Reserved2{
         get {
             if(!this.HasProp("__Reserved2ProxyArray"))
-                this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 40, 1, Primitive, "char")
+                this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 40, 16, Primitive, "char")
             return this.__Reserved2ProxyArray
         }
     }
@@ -119,7 +119,7 @@ class OPM_CONNECTED_HDCP_DEVICE_INFORMATION extends Win32Struct
     Reserved3{
         get {
             if(!this.HasProp("__Reserved3ProxyArray"))
-                this.__Reserved3ProxyArray := Win32FixedArray(this.ptr + 56, 1, Primitive, "char")
+                this.__Reserved3ProxyArray := Win32FixedArray(this.ptr + 56, 16, Primitive, "char")
             return this.__Reserved3ProxyArray
         }
     }

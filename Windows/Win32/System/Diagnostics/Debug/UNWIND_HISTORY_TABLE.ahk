@@ -74,7 +74,7 @@ class UNWIND_HISTORY_TABLE extends Win32Struct
     Entry{
         get {
             if(!this.HasProp("__EntryProxyArray"))
-                this.__EntryProxyArray := Win32FixedArray(this.ptr + 24, 8, UNWIND_HISTORY_TABLE_ENTRY, "")
+                this.__EntryProxyArray := Win32FixedArray(this.ptr + 24, 12, UNWIND_HISTORY_TABLE_ENTRY, "")
             return this.__EntryProxyArray
         }
     }

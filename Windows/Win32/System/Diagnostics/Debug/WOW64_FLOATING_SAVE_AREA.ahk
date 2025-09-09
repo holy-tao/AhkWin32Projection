@@ -75,7 +75,7 @@ class WOW64_FLOATING_SAVE_AREA extends Win32Struct
     RegisterArea{
         get {
             if(!this.HasProp("__RegisterAreaProxyArray"))
-                this.__RegisterAreaProxyArray := Win32FixedArray(this.ptr + 28, 1, Primitive, "char")
+                this.__RegisterAreaProxyArray := Win32FixedArray(this.ptr + 28, 80, Primitive, "char")
             return this.__RegisterAreaProxyArray
         }
     }

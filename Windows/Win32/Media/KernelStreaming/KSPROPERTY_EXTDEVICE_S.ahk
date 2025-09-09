@@ -65,7 +65,7 @@ class KSPROPERTY_EXTDEVICE_S extends Win32Struct
     NodeUniqueID{
         get {
             if(!this.HasProp("__NodeUniqueIDProxyArray"))
-                this.__NodeUniqueIDProxyArray := Win32FixedArray(this.ptr + 8, 4, Primitive, "uint")
+                this.__NodeUniqueIDProxyArray := Win32FixedArray(this.ptr + 8, 2, Primitive, "uint")
             return this.__NodeUniqueIDProxyArray
         }
     }

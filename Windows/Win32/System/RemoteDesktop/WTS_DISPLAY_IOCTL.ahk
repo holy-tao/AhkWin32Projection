@@ -20,7 +20,7 @@ class WTS_DISPLAY_IOCTL extends Win32Struct
     pDisplayIOCtlData{
         get {
             if(!this.HasProp("__pDisplayIOCtlDataProxyArray"))
-                this.__pDisplayIOCtlDataProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__pDisplayIOCtlDataProxyArray := Win32FixedArray(this.ptr + 0, 256, Primitive, "char")
             return this.__pDisplayIOCtlDataProxyArray
         }
     }

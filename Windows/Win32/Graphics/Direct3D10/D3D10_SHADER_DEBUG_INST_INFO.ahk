@@ -59,7 +59,7 @@ class D3D10_SHADER_DEBUG_INST_INFO extends Win32Struct
     pOutputs{
         get {
             if(!this.HasProp("__pOutputsProxyArray"))
-                this.__pOutputsProxyArray := Win32FixedArray(this.ptr + 16, 8, D3D10_SHADER_DEBUG_OUTPUTREG_INFO, "")
+                this.__pOutputsProxyArray := Win32FixedArray(this.ptr + 16, 2, D3D10_SHADER_DEBUG_OUTPUTREG_INFO, "")
             return this.__pOutputsProxyArray
         }
     }

@@ -55,7 +55,7 @@ class FILE_ATTRIBUTES_ARRAY extends Win32Struct
     rgdwFileAttributes{
         get {
             if(!this.HasProp("__rgdwFileAttributesProxyArray"))
-                this.__rgdwFileAttributesProxyArray := Win32FixedArray(this.ptr + 12, 4, Primitive, "uint")
+                this.__rgdwFileAttributesProxyArray := Win32FixedArray(this.ptr + 12, 1, Primitive, "uint")
             return this.__rgdwFileAttributesProxyArray
         }
     }

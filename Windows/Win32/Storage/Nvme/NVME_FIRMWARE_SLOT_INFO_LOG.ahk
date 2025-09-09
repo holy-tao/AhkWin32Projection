@@ -31,7 +31,7 @@ class NVME_FIRMWARE_SLOT_INFO_LOG extends Win32Struct
     Reserved0{
         get {
             if(!this.HasProp("__Reserved0ProxyArray"))
-                this.__Reserved0ProxyArray := Win32FixedArray(this.ptr + 1, 1, Primitive, "char")
+                this.__Reserved0ProxyArray := Win32FixedArray(this.ptr + 1, 7, Primitive, "char")
             return this.__Reserved0ProxyArray
         }
     }
@@ -47,7 +47,7 @@ class NVME_FIRMWARE_SLOT_INFO_LOG extends Win32Struct
     FRS{
         get {
             if(!this.HasProp("__FRSProxyArray"))
-                this.__FRSProxyArray := Win32FixedArray(this.ptr + 8, 8, Primitive, "uint")
+                this.__FRSProxyArray := Win32FixedArray(this.ptr + 8, 7, Primitive, "uint")
             return this.__FRSProxyArray
         }
     }
@@ -59,7 +59,7 @@ class NVME_FIRMWARE_SLOT_INFO_LOG extends Win32Struct
     Reserved1{
         get {
             if(!this.HasProp("__Reserved1ProxyArray"))
-                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 64, 1, Primitive, "char")
+                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 64, 448, Primitive, "char")
             return this.__Reserved1ProxyArray
         }
     }

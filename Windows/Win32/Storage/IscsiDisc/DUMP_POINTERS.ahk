@@ -81,7 +81,7 @@ class DUMP_POINTERS extends Win32Struct
     Spare1{
         get {
             if(!this.HasProp("__Spare1ProxyArray"))
-                this.__Spare1ProxyArray := Win32FixedArray(this.ptr + 46, 1, Primitive, "char")
+                this.__Spare1ProxyArray := Win32FixedArray(this.ptr + 46, 2, Primitive, "char")
             return this.__Spare1ProxyArray
         }
     }

@@ -45,7 +45,7 @@ class TRUESPEECHWAVEFORMAT extends Win32Struct
     abReserved{
         get {
             if(!this.HasProp("__abReservedProxyArray"))
-                this.__abReservedProxyArray := Win32FixedArray(this.ptr + 22, 1, Primitive, "char")
+                this.__abReservedProxyArray := Win32FixedArray(this.ptr + 22, 28, Primitive, "char")
             return this.__abReservedProxyArray
         }
     }

@@ -34,7 +34,7 @@ class NDIS_802_11_PMKID extends Win32Struct
     BSSIDInfo{
         get {
             if(!this.HasProp("__BSSIDInfoProxyArray"))
-                this.__BSSIDInfoProxyArray := Win32FixedArray(this.ptr + 8, 8, BSSID_INFO, "")
+                this.__BSSIDInfoProxyArray := Win32FixedArray(this.ptr + 8, 1, BSSID_INFO, "")
             return this.__BSSIDInfoProxyArray
         }
     }

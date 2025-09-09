@@ -25,7 +25,7 @@ class CRYPT_SMART_CARD_ROOT_INFO extends Win32Struct
     rgbCardID{
         get {
             if(!this.HasProp("__rgbCardIDProxyArray"))
-                this.__rgbCardIDProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__rgbCardIDProxyArray := Win32FixedArray(this.ptr + 0, 16, Primitive, "char")
             return this.__rgbCardIDProxyArray
         }
     }

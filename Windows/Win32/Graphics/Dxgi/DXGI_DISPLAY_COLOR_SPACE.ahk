@@ -20,7 +20,7 @@ class DXGI_DISPLAY_COLOR_SPACE extends Win32Struct
     PrimaryCoordinates{
         get {
             if(!this.HasProp("__PrimaryCoordinatesProxyArray"))
-                this.__PrimaryCoordinatesProxyArray := Win32FixedArray(this.ptr + 0, 4, Primitive, "float")
+                this.__PrimaryCoordinatesProxyArray := Win32FixedArray(this.ptr + 0, 16, Primitive, "float")
             return this.__PrimaryCoordinatesProxyArray
         }
     }
@@ -32,7 +32,7 @@ class DXGI_DISPLAY_COLOR_SPACE extends Win32Struct
     WhitePoints{
         get {
             if(!this.HasProp("__WhitePointsProxyArray"))
-                this.__WhitePointsProxyArray := Win32FixedArray(this.ptr + 64, 4, Primitive, "float")
+                this.__WhitePointsProxyArray := Win32FixedArray(this.ptr + 64, 32, Primitive, "float")
             return this.__WhitePointsProxyArray
         }
     }

@@ -227,7 +227,7 @@ class STORAGE_PROTOCOL_COMMAND extends Win32Struct
     Reserved1{
         get {
             if(!this.HasProp("__Reserved1ProxyArray"))
-                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 68, 4, Primitive, "uint")
+                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 68, 3, Primitive, "uint")
             return this.__Reserved1ProxyArray
         }
     }

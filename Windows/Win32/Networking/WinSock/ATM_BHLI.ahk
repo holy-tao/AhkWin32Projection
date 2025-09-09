@@ -44,7 +44,7 @@ class ATM_BHLI extends Win32Struct
     HighLayerInfo{
         get {
             if(!this.HasProp("__HighLayerInfoProxyArray"))
-                this.__HighLayerInfoProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "char")
+                this.__HighLayerInfoProxyArray := Win32FixedArray(this.ptr + 8, 8, Primitive, "char")
             return this.__HighLayerInfoProxyArray
         }
     }

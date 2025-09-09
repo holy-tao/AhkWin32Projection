@@ -35,7 +35,7 @@ class D3D10_STATE_BLOCK_MASK extends Win32Struct
     VSSamplers{
         get {
             if(!this.HasProp("__VSSamplersProxyArray"))
-                this.__VSSamplersProxyArray := Win32FixedArray(this.ptr + 1, 1, Primitive, "char")
+                this.__VSSamplersProxyArray := Win32FixedArray(this.ptr + 1, 2, Primitive, "char")
             return this.__VSSamplersProxyArray
         }
     }
@@ -49,7 +49,7 @@ class D3D10_STATE_BLOCK_MASK extends Win32Struct
     VSShaderResources{
         get {
             if(!this.HasProp("__VSShaderResourcesProxyArray"))
-                this.__VSShaderResourcesProxyArray := Win32FixedArray(this.ptr + 3, 1, Primitive, "char")
+                this.__VSShaderResourcesProxyArray := Win32FixedArray(this.ptr + 3, 16, Primitive, "char")
             return this.__VSShaderResourcesProxyArray
         }
     }
@@ -63,7 +63,7 @@ class D3D10_STATE_BLOCK_MASK extends Win32Struct
     VSConstantBuffers{
         get {
             if(!this.HasProp("__VSConstantBuffersProxyArray"))
-                this.__VSConstantBuffersProxyArray := Win32FixedArray(this.ptr + 19, 1, Primitive, "char")
+                this.__VSConstantBuffersProxyArray := Win32FixedArray(this.ptr + 19, 2, Primitive, "char")
             return this.__VSConstantBuffersProxyArray
         }
     }
@@ -88,7 +88,7 @@ class D3D10_STATE_BLOCK_MASK extends Win32Struct
     GSSamplers{
         get {
             if(!this.HasProp("__GSSamplersProxyArray"))
-                this.__GSSamplersProxyArray := Win32FixedArray(this.ptr + 22, 1, Primitive, "char")
+                this.__GSSamplersProxyArray := Win32FixedArray(this.ptr + 22, 2, Primitive, "char")
             return this.__GSSamplersProxyArray
         }
     }
@@ -102,7 +102,7 @@ class D3D10_STATE_BLOCK_MASK extends Win32Struct
     GSShaderResources{
         get {
             if(!this.HasProp("__GSShaderResourcesProxyArray"))
-                this.__GSShaderResourcesProxyArray := Win32FixedArray(this.ptr + 24, 1, Primitive, "char")
+                this.__GSShaderResourcesProxyArray := Win32FixedArray(this.ptr + 24, 16, Primitive, "char")
             return this.__GSShaderResourcesProxyArray
         }
     }
@@ -116,7 +116,7 @@ class D3D10_STATE_BLOCK_MASK extends Win32Struct
     GSConstantBuffers{
         get {
             if(!this.HasProp("__GSConstantBuffersProxyArray"))
-                this.__GSConstantBuffersProxyArray := Win32FixedArray(this.ptr + 40, 1, Primitive, "char")
+                this.__GSConstantBuffersProxyArray := Win32FixedArray(this.ptr + 40, 2, Primitive, "char")
             return this.__GSConstantBuffersProxyArray
         }
     }
@@ -141,7 +141,7 @@ class D3D10_STATE_BLOCK_MASK extends Win32Struct
     PSSamplers{
         get {
             if(!this.HasProp("__PSSamplersProxyArray"))
-                this.__PSSamplersProxyArray := Win32FixedArray(this.ptr + 43, 1, Primitive, "char")
+                this.__PSSamplersProxyArray := Win32FixedArray(this.ptr + 43, 2, Primitive, "char")
             return this.__PSSamplersProxyArray
         }
     }
@@ -155,7 +155,7 @@ class D3D10_STATE_BLOCK_MASK extends Win32Struct
     PSShaderResources{
         get {
             if(!this.HasProp("__PSShaderResourcesProxyArray"))
-                this.__PSShaderResourcesProxyArray := Win32FixedArray(this.ptr + 45, 1, Primitive, "char")
+                this.__PSShaderResourcesProxyArray := Win32FixedArray(this.ptr + 45, 16, Primitive, "char")
             return this.__PSShaderResourcesProxyArray
         }
     }
@@ -169,7 +169,7 @@ class D3D10_STATE_BLOCK_MASK extends Win32Struct
     PSConstantBuffers{
         get {
             if(!this.HasProp("__PSConstantBuffersProxyArray"))
-                this.__PSConstantBuffersProxyArray := Win32FixedArray(this.ptr + 61, 1, Primitive, "char")
+                this.__PSConstantBuffersProxyArray := Win32FixedArray(this.ptr + 61, 2, Primitive, "char")
             return this.__PSConstantBuffersProxyArray
         }
     }
@@ -183,7 +183,7 @@ class D3D10_STATE_BLOCK_MASK extends Win32Struct
     IAVertexBuffers{
         get {
             if(!this.HasProp("__IAVertexBuffersProxyArray"))
-                this.__IAVertexBuffersProxyArray := Win32FixedArray(this.ptr + 63, 1, Primitive, "char")
+                this.__IAVertexBuffersProxyArray := Win32FixedArray(this.ptr + 63, 2, Primitive, "char")
             return this.__IAVertexBuffersProxyArray
         }
     }

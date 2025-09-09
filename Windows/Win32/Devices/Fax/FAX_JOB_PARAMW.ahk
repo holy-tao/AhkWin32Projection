@@ -190,7 +190,7 @@ class FAX_JOB_PARAMW extends Win32Struct
     Reserved{
         get {
             if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 120, 8, Primitive, "ptr")
+                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 120, 3, Primitive, "ptr")
             return this.__ReservedProxyArray
         }
     }

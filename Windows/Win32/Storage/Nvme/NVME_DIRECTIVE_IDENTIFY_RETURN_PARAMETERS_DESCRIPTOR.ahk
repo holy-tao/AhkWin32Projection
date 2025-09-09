@@ -30,7 +30,7 @@ class NVME_DIRECTIVE_IDENTIFY_RETURN_PARAMETERS_DESCRIPTOR extends Win32Struct
     Reserved1{
         get {
             if(!this.HasProp("__Reserved1ProxyArray"))
-                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 1, 1, Primitive, "char")
+                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 1, 31, Primitive, "char")
             return this.__Reserved1ProxyArray
         }
     }

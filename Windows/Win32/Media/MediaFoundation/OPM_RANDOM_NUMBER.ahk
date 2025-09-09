@@ -22,7 +22,7 @@ class OPM_RANDOM_NUMBER extends Win32Struct
     abRandomNumber{
         get {
             if(!this.HasProp("__abRandomNumberProxyArray"))
-                this.__abRandomNumberProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__abRandomNumberProxyArray := Win32FixedArray(this.ptr + 0, 16, Primitive, "char")
             return this.__abRandomNumberProxyArray
         }
     }

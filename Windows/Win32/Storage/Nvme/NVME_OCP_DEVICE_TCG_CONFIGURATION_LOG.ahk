@@ -33,7 +33,7 @@ class NVME_OCP_DEVICE_TCG_CONFIGURATION_LOG extends Win32Struct
     Reserved0{
         get {
             if(!this.HasProp("__Reserved0ProxyArray"))
-                this.__Reserved0ProxyArray := Win32FixedArray(this.ptr + 1, 1, Primitive, "char")
+                this.__Reserved0ProxyArray := Win32FixedArray(this.ptr + 1, 3, Primitive, "char")
             return this.__Reserved0ProxyArray
         }
     }
@@ -172,7 +172,7 @@ class NVME_OCP_DEVICE_TCG_CONFIGURATION_LOG extends Win32Struct
     Reserved2{
         get {
             if(!this.HasProp("__Reserved2ProxyArray"))
-                this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 32, 1, Primitive, "char")
+                this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 32, 462, Primitive, "char")
             return this.__Reserved2ProxyArray
         }
     }

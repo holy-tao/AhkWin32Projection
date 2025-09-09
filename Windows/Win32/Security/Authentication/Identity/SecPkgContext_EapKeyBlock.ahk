@@ -20,7 +20,7 @@ class SecPkgContext_EapKeyBlock extends Win32Struct
     rgbKeys{
         get {
             if(!this.HasProp("__rgbKeysProxyArray"))
-                this.__rgbKeysProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__rgbKeysProxyArray := Win32FixedArray(this.ptr + 0, 128, Primitive, "char")
             return this.__rgbKeysProxyArray
         }
     }
@@ -32,7 +32,7 @@ class SecPkgContext_EapKeyBlock extends Win32Struct
     rgbIVs{
         get {
             if(!this.HasProp("__rgbIVsProxyArray"))
-                this.__rgbIVsProxyArray := Win32FixedArray(this.ptr + 128, 1, Primitive, "char")
+                this.__rgbIVsProxyArray := Win32FixedArray(this.ptr + 128, 64, Primitive, "char")
             return this.__rgbIVsProxyArray
         }
     }

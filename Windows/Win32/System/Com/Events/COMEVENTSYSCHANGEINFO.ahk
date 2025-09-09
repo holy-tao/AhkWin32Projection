@@ -65,7 +65,7 @@ class COMEVENTSYSCHANGEINFO extends Win32Struct
     reserved{
         get {
             if(!this.HasProp("__reservedProxyArray"))
-                this.__reservedProxyArray := Win32FixedArray(this.ptr + 32, 8, Primitive, "ptr")
+                this.__reservedProxyArray := Win32FixedArray(this.ptr + 32, 10, Primitive, "ptr")
             return this.__reservedProxyArray
         }
     }

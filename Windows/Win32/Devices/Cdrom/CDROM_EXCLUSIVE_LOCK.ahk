@@ -29,7 +29,7 @@ class CDROM_EXCLUSIVE_LOCK extends Win32Struct
     CallerName{
         get {
             if(!this.HasProp("__CallerNameProxyArray"))
-                this.__CallerNameProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "char")
+                this.__CallerNameProxyArray := Win32FixedArray(this.ptr + 8, 64, Primitive, "char")
             return this.__CallerNameProxyArray
         }
     }

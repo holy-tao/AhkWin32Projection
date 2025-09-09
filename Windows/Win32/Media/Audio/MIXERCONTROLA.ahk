@@ -242,7 +242,7 @@ class MIXERCONTROLA extends Win32Struct
     dwReserved{
         get {
             if(!this.HasProp("__dwReservedProxyArray"))
-                this.__dwReservedProxyArray := Win32FixedArray(this.ptr + 100, 4, Primitive, "uint")
+                this.__dwReservedProxyArray := Win32FixedArray(this.ptr + 100, 6, Primitive, "uint")
             return this.__dwReservedProxyArray
         }
     }

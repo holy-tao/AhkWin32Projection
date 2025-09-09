@@ -20,7 +20,7 @@ class EapCertificateCredential extends Win32Struct
     certHash{
         get {
             if(!this.HasProp("__certHashProxyArray"))
-                this.__certHashProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__certHashProxyArray := Win32FixedArray(this.ptr + 0, 20, Primitive, "char")
             return this.__certHashProxyArray
         }
     }

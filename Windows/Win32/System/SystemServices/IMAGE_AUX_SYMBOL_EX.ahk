@@ -34,7 +34,7 @@ class IMAGE_AUX_SYMBOL_EX extends Win32Struct
     rgbReserved{
         get {
             if(!this.HasProp("__rgbReservedProxyArray"))
-                this.__rgbReservedProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "char")
+                this.__rgbReservedProxyArray := Win32FixedArray(this.ptr + 8, 12, Primitive, "char")
             return this.__rgbReservedProxyArray
         }
     }
@@ -45,7 +45,7 @@ class IMAGE_AUX_SYMBOL_EX extends Win32Struct
     Name{
         get {
             if(!this.HasProp("__NameProxyArray"))
-                this.__NameProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__NameProxyArray := Win32FixedArray(this.ptr + 0, 20, Primitive, "char")
             return this.__NameProxyArray
         }
     }
@@ -120,7 +120,7 @@ class IMAGE_AUX_SYMBOL_EX extends Win32Struct
     rgbReserved1{
         get {
             if(!this.HasProp("__rgbReserved1ProxyArray"))
-                this.__rgbReserved1ProxyArray := Win32FixedArray(this.ptr + 18, 1, Primitive, "char")
+                this.__rgbReserved1ProxyArray := Win32FixedArray(this.ptr + 18, 2, Primitive, "char")
             return this.__rgbReserved1ProxyArray
         }
     }
@@ -142,7 +142,7 @@ class IMAGE_AUX_SYMBOL_EX extends Win32Struct
     rgbReserved12{
         get {
             if(!this.HasProp("__rgbReserved12ProxyArray"))
-                this.__rgbReserved12ProxyArray := Win32FixedArray(this.ptr + 18, 1, Primitive, "char")
+                this.__rgbReserved12ProxyArray := Win32FixedArray(this.ptr + 18, 2, Primitive, "char")
             return this.__rgbReserved12ProxyArray
         }
     }
@@ -161,7 +161,7 @@ class IMAGE_AUX_SYMBOL_EX extends Win32Struct
     rgbReserved123{
         get {
             if(!this.HasProp("__rgbReserved123ProxyArray"))
-                this.__rgbReserved123ProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")
+                this.__rgbReserved123ProxyArray := Win32FixedArray(this.ptr + 4, 16, Primitive, "char")
             return this.__rgbReserved123ProxyArray
         }
     }

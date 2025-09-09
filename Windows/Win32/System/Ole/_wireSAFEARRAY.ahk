@@ -72,7 +72,7 @@ class _wireSAFEARRAY extends Win32Struct
     rgsabound{
         get {
             if(!this.HasProp("__rgsaboundProxyArray"))
-                this.__rgsaboundProxyArray := Win32FixedArray(this.ptr + 192, 8, SAFEARRAYBOUND, "")
+                this.__rgsaboundProxyArray := Win32FixedArray(this.ptr + 192, 1, SAFEARRAYBOUND, "")
             return this.__rgsaboundProxyArray
         }
     }

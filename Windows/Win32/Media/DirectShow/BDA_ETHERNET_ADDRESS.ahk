@@ -17,7 +17,7 @@ class BDA_ETHERNET_ADDRESS extends Win32Struct
     rgbAddress{
         get {
             if(!this.HasProp("__rgbAddressProxyArray"))
-                this.__rgbAddressProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__rgbAddressProxyArray := Win32FixedArray(this.ptr + 0, 6, Primitive, "char")
             return this.__rgbAddressProxyArray
         }
     }

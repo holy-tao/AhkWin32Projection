@@ -33,7 +33,7 @@ class D3D12_VIDEO_ENCODER_AV1_PICTURE_CONTROL_SUBREGIONS_LAYOUT_DATA_TILES exten
     RowHeights{
         get {
             if(!this.HasProp("__RowHeightsProxyArray"))
-                this.__RowHeightsProxyArray := Win32FixedArray(this.ptr + 16, 8, Primitive, "uint")
+                this.__RowHeightsProxyArray := Win32FixedArray(this.ptr + 16, 64, Primitive, "uint")
             return this.__RowHeightsProxyArray
         }
     }
@@ -44,7 +44,7 @@ class D3D12_VIDEO_ENCODER_AV1_PICTURE_CONTROL_SUBREGIONS_LAYOUT_DATA_TILES exten
     ColWidths{
         get {
             if(!this.HasProp("__ColWidthsProxyArray"))
-                this.__ColWidthsProxyArray := Win32FixedArray(this.ptr + 528, 8, Primitive, "uint")
+                this.__ColWidthsProxyArray := Win32FixedArray(this.ptr + 528, 64, Primitive, "uint")
             return this.__ColWidthsProxyArray
         }
     }

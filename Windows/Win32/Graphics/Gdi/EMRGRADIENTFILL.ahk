@@ -78,7 +78,7 @@ class EMRGRADIENTFILL extends Win32Struct
     Ver{
         get {
             if(!this.HasProp("__VerProxyArray"))
-                this.__VerProxyArray := Win32FixedArray(this.ptr + 40, 8, TRIVERTEX, "")
+                this.__VerProxyArray := Win32FixedArray(this.ptr + 40, 1, TRIVERTEX, "")
             return this.__VerProxyArray
         }
     }

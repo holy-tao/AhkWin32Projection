@@ -40,7 +40,7 @@ class READ_ELEMENT_ADDRESS_INFO extends Win32Struct
     ElementStatus{
         get {
             if(!this.HasProp("__ElementStatusProxyArray"))
-                this.__ElementStatusProxyArray := Win32FixedArray(this.ptr + 8, 8, CHANGER_ELEMENT_STATUS, "")
+                this.__ElementStatusProxyArray := Win32FixedArray(this.ptr + 8, 1, CHANGER_ELEMENT_STATUS, "")
             return this.__ElementStatusProxyArray
         }
     }

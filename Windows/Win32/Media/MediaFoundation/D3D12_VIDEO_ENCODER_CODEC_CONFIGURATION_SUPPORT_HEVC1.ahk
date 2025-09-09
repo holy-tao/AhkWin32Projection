@@ -113,7 +113,7 @@ class D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_SUPPORT_HEVC1 extends Win32Struct
     allowed_cb_qp_offset_list_values{
         get {
             if(!this.HasProp("__allowed_cb_qp_offset_list_valuesProxyArray"))
-                this.__allowed_cb_qp_offset_list_valuesProxyArray := Win32FixedArray(this.ptr + 44, 4, Primitive, "uint")
+                this.__allowed_cb_qp_offset_list_valuesProxyArray := Win32FixedArray(this.ptr + 44, 6, Primitive, "uint")
             return this.__allowed_cb_qp_offset_list_valuesProxyArray
         }
     }
@@ -124,7 +124,7 @@ class D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_SUPPORT_HEVC1 extends Win32Struct
     allowed_cr_qp_offset_list_values{
         get {
             if(!this.HasProp("__allowed_cr_qp_offset_list_valuesProxyArray"))
-                this.__allowed_cr_qp_offset_list_valuesProxyArray := Win32FixedArray(this.ptr + 68, 4, Primitive, "uint")
+                this.__allowed_cr_qp_offset_list_valuesProxyArray := Win32FixedArray(this.ptr + 68, 6, Primitive, "uint")
             return this.__allowed_cr_qp_offset_list_valuesProxyArray
         }
     }

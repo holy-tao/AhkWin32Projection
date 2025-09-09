@@ -58,7 +58,7 @@ class XSTATE_CONFIGURATION extends Win32Struct
     Features{
         get {
             if(!this.HasProp("__FeaturesProxyArray"))
-                this.__FeaturesProxyArray := Win32FixedArray(this.ptr + 24, 8, XSTATE_FEATURE, "")
+                this.__FeaturesProxyArray := Win32FixedArray(this.ptr + 24, 64, XSTATE_FEATURE, "")
             return this.__FeaturesProxyArray
         }
     }
@@ -93,7 +93,7 @@ class XSTATE_CONFIGURATION extends Win32Struct
     AllFeatures{
         get {
             if(!this.HasProp("__AllFeaturesProxyArray"))
-                this.__AllFeaturesProxyArray := Win32FixedArray(this.ptr + 556, 4, Primitive, "uint")
+                this.__AllFeaturesProxyArray := Win32FixedArray(this.ptr + 556, 64, Primitive, "uint")
             return this.__AllFeaturesProxyArray
         }
     }

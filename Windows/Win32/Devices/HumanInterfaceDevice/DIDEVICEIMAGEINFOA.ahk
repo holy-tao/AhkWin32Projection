@@ -71,7 +71,7 @@ class DIDEVICEIMAGEINFOA extends Win32Struct
     rgptCalloutLine{
         get {
             if(!this.HasProp("__rgptCalloutLineProxyArray"))
-                this.__rgptCalloutLineProxyArray := Win32FixedArray(this.ptr + 296, 8, POINT, "")
+                this.__rgptCalloutLineProxyArray := Win32FixedArray(this.ptr + 296, 5, POINT, "")
             return this.__rgptCalloutLineProxyArray
         }
     }

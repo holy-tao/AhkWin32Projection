@@ -165,7 +165,7 @@ class DUMP_HEADER32 extends Win32Struct
     Spare3{
         get {
             if(!this.HasProp("__Spare3ProxyArray"))
-                this.__Spare3ProxyArray := Win32FixedArray(this.ptr + 126, 1, Primitive, "char")
+                this.__Spare3ProxyArray := Win32FixedArray(this.ptr + 126, 2, Primitive, "char")
             return this.__Spare3ProxyArray
         }
     }
@@ -195,7 +195,7 @@ class DUMP_HEADER32 extends Win32Struct
     PhysicalMemoryBlockBuffer{
         get {
             if(!this.HasProp("__PhysicalMemoryBlockBufferProxyArray"))
-                this.__PhysicalMemoryBlockBufferProxyArray := Win32FixedArray(this.ptr + 136, 1, Primitive, "char")
+                this.__PhysicalMemoryBlockBufferProxyArray := Win32FixedArray(this.ptr + 136, 700, Primitive, "char")
             return this.__PhysicalMemoryBlockBufferProxyArray
         }
     }
@@ -206,7 +206,7 @@ class DUMP_HEADER32 extends Win32Struct
     ContextRecord{
         get {
             if(!this.HasProp("__ContextRecordProxyArray"))
-                this.__ContextRecordProxyArray := Win32FixedArray(this.ptr + 156, 1, Primitive, "char")
+                this.__ContextRecordProxyArray := Win32FixedArray(this.ptr + 156, 1200, Primitive, "char")
             return this.__ContextRecordProxyArray
         }
     }
@@ -255,7 +255,7 @@ class DUMP_HEADER32 extends Win32Struct
     _reserved0{
         get {
             if(!this.HasProp("___reserved0ProxyArray"))
-                this.___reserved0ProxyArray := Win32FixedArray(this.ptr + 1708, 1, Primitive, "char")
+                this.___reserved0ProxyArray := Win32FixedArray(this.ptr + 1708, 1760, Primitive, "char")
             return this.___reserved0ProxyArray
         }
     }
@@ -322,7 +322,7 @@ class DUMP_HEADER32 extends Win32Struct
     _reserved2{
         get {
             if(!this.HasProp("___reserved2ProxyArray"))
-                this.___reserved2ProxyArray := Win32FixedArray(this.ptr + 3504, 1, Primitive, "char")
+                this.___reserved2ProxyArray := Win32FixedArray(this.ptr + 3504, 16, Primitive, "char")
             return this.___reserved2ProxyArray
         }
     }
@@ -349,7 +349,7 @@ class DUMP_HEADER32 extends Win32Struct
     _reserved3{
         get {
             if(!this.HasProp("___reserved3ProxyArray"))
-                this.___reserved3ProxyArray := Win32FixedArray(this.ptr + 3536, 1, Primitive, "char")
+                this.___reserved3ProxyArray := Win32FixedArray(this.ptr + 3536, 56, Primitive, "char")
             return this.___reserved3ProxyArray
         }
     }

@@ -17,7 +17,7 @@ class DVD_DUAL_LAYER_JUMP_INTERVAL_SIZE extends Win32Struct
     Reserved1{
         get {
             if(!this.HasProp("__Reserved1ProxyArray"))
-                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 0, 4, Primitive, "char")
             return this.__Reserved1ProxyArray
         }
     }
@@ -28,7 +28,7 @@ class DVD_DUAL_LAYER_JUMP_INTERVAL_SIZE extends Win32Struct
     JumpIntervalSize{
         get {
             if(!this.HasProp("__JumpIntervalSizeProxyArray"))
-                this.__JumpIntervalSizeProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")
+                this.__JumpIntervalSizeProxyArray := Win32FixedArray(this.ptr + 4, 4, Primitive, "char")
             return this.__JumpIntervalSizeProxyArray
         }
     }

@@ -134,7 +134,7 @@ class USER_POWER_POLICY extends Win32Struct
     Reserved{
         get {
             if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 56, 4, Primitive, "uint")
+                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 56, 2, Primitive, "uint")
             return this.__ReservedProxyArray
         }
     }

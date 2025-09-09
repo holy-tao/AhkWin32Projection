@@ -85,7 +85,7 @@ class PRIVILEGE_SET extends Win32Struct
     Privilege{
         get {
             if(!this.HasProp("__PrivilegeProxyArray"))
-                this.__PrivilegeProxyArray := Win32FixedArray(this.ptr + 8, 8, LUID_AND_ATTRIBUTES, "")
+                this.__PrivilegeProxyArray := Win32FixedArray(this.ptr + 8, 1, LUID_AND_ATTRIBUTES, "")
             return this.__PrivilegeProxyArray
         }
     }

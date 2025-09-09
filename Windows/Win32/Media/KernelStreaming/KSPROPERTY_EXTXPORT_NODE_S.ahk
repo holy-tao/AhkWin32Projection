@@ -134,7 +134,7 @@ class KSPROPERTY_EXTXPORT_NODE_S extends Win32Struct
     Payload{
         get {
             if(!this.HasProp("__PayloadProxyArray"))
-                this.__PayloadProxyArray := Win32FixedArray(this.ptr + 20, 1, Primitive, "char")
+                this.__PayloadProxyArray := Win32FixedArray(this.ptr + 20, 512, Primitive, "char")
             return this.__PayloadProxyArray
         }
     }

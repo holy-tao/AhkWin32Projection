@@ -89,7 +89,7 @@ class NVME_SANITIZE_STATUS_LOG extends Win32Struct
     Reserved{
         get {
             if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 32, 1, Primitive, "char")
+                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 32, 480, Primitive, "char")
             return this.__ReservedProxyArray
         }
     }

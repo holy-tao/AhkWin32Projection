@@ -33,7 +33,7 @@ class NETWORK_ADDRESS_IP extends Win32Struct
     sin_zero{
         get {
             if(!this.HasProp("__sin_zeroProxyArray"))
-                this.__sin_zeroProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "char")
+                this.__sin_zeroProxyArray := Win32FixedArray(this.ptr + 8, 8, Primitive, "char")
             return this.__sin_zeroProxyArray
         }
     }

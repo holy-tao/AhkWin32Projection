@@ -53,7 +53,7 @@ class GNSS_GEOFENCES_TRACKINGSTATUS_DATA extends Win32Struct
     Unused{
         get {
             if(!this.HasProp("__UnusedProxyArray"))
-                this.__UnusedProxyArray := Win32FixedArray(this.ptr + 24, 1, Primitive, "char")
+                this.__UnusedProxyArray := Win32FixedArray(this.ptr + 24, 512, Primitive, "char")
             return this.__UnusedProxyArray
         }
     }

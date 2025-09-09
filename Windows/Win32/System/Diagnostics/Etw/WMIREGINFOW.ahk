@@ -58,7 +58,7 @@ class WMIREGINFOW extends Win32Struct
     WmiRegGuid{
         get {
             if(!this.HasProp("__WmiRegGuidProxyArray"))
-                this.__WmiRegGuidProxyArray := Win32FixedArray(this.ptr + 24, 8, WMIREGGUIDW, "")
+                this.__WmiRegGuidProxyArray := Win32FixedArray(this.ptr + 24, 1, WMIREGGUIDW, "")
             return this.__WmiRegGuidProxyArray
         }
     }

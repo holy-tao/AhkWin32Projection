@@ -33,7 +33,7 @@ class KSEVENTDATA extends Win32Struct
     Reserved{
         get {
             if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 16, 8, Primitive, "ptr")
+                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 16, 2, Primitive, "ptr")
             return this.__ReservedProxyArray
         }
     }
@@ -68,7 +68,7 @@ class KSEVENTDATA extends Win32Struct
     Alignment{
         get {
             if(!this.HasProp("__AlignmentProxyArray"))
-                this.__AlignmentProxyArray := Win32FixedArray(this.ptr + 16, 8, Primitive, "ptr")
+                this.__AlignmentProxyArray := Win32FixedArray(this.ptr + 16, 2, Primitive, "ptr")
             return this.__AlignmentProxyArray
         }
     }

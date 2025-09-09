@@ -17,7 +17,7 @@ class DVD_DISC_CONTROL_BLOCK_HEADER extends Win32Struct
     ContentDescriptor{
         get {
             if(!this.HasProp("__ContentDescriptorProxyArray"))
-                this.__ContentDescriptorProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__ContentDescriptorProxyArray := Win32FixedArray(this.ptr + 0, 4, Primitive, "char")
             return this.__ContentDescriptorProxyArray
         }
     }
@@ -28,7 +28,7 @@ class DVD_DISC_CONTROL_BLOCK_HEADER extends Win32Struct
     ReservedDoNotUse_UseAsByteInstead_0{
         get {
             if(!this.HasProp("__ReservedDoNotUse_UseAsByteInstead_0ProxyArray"))
-                this.__ReservedDoNotUse_UseAsByteInstead_0ProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")
+                this.__ReservedDoNotUse_UseAsByteInstead_0ProxyArray := Win32FixedArray(this.ptr + 4, 3, Primitive, "char")
             return this.__ReservedDoNotUse_UseAsByteInstead_0ProxyArray
         }
     }
@@ -47,7 +47,7 @@ class DVD_DISC_CONTROL_BLOCK_HEADER extends Win32Struct
     AsByte{
         get {
             if(!this.HasProp("__AsByteProxyArray"))
-                this.__AsByteProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")
+                this.__AsByteProxyArray := Win32FixedArray(this.ptr + 4, 4, Primitive, "char")
             return this.__AsByteProxyArray
         }
     }
@@ -58,7 +58,7 @@ class DVD_DISC_CONTROL_BLOCK_HEADER extends Win32Struct
     VendorId{
         get {
             if(!this.HasProp("__VendorIdProxyArray"))
-                this.__VendorIdProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "char")
+                this.__VendorIdProxyArray := Win32FixedArray(this.ptr + 8, 32, Primitive, "char")
             return this.__VendorIdProxyArray
         }
     }

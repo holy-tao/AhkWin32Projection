@@ -22,7 +22,7 @@ class DML_SCALAR_UNION extends Win32Struct
     Bytes{
         get {
             if(!this.HasProp("__BytesProxyArray"))
-                this.__BytesProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__BytesProxyArray := Win32FixedArray(this.ptr + 0, 8, Primitive, "char")
             return this.__BytesProxyArray
         }
     }

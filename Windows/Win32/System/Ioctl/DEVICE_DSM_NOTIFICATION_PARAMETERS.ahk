@@ -123,7 +123,7 @@ class DEVICE_DSM_NOTIFICATION_PARAMETERS extends Win32Struct
     FileTypeID{
         get {
             if(!this.HasProp("__FileTypeIDProxyArray"))
-                this.__FileTypeIDProxyArray := Win32FixedArray(this.ptr + 16, 8, Primitive, "ptr")
+                this.__FileTypeIDProxyArray := Win32FixedArray(this.ptr + 16, 1, Primitive, "ptr")
             return this.__FileTypeIDProxyArray
         }
     }

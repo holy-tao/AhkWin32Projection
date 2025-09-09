@@ -43,7 +43,7 @@ class GNSS_BREADCRUMB_LIST extends Win32Struct
     v1{
         get {
             if(!this.HasProp("__v1ProxyArray"))
-                this.__v1ProxyArray := Win32FixedArray(this.ptr + 16, 8, GNSS_BREADCRUMB_V1, "")
+                this.__v1ProxyArray := Win32FixedArray(this.ptr + 16, 50, GNSS_BREADCRUMB_V1, "")
             return this.__v1ProxyArray
         }
     }

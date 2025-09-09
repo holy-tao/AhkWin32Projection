@@ -41,7 +41,7 @@ class DRIVE_LAYOUT_INFORMATION extends Win32Struct
     PartitionEntry{
         get {
             if(!this.HasProp("__PartitionEntryProxyArray"))
-                this.__PartitionEntryProxyArray := Win32FixedArray(this.ptr + 8, 8, PARTITION_INFORMATION, "")
+                this.__PartitionEntryProxyArray := Win32FixedArray(this.ptr + 8, 1, PARTITION_INFORMATION, "")
             return this.__PartitionEntryProxyArray
         }
     }

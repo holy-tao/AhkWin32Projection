@@ -43,7 +43,7 @@ class USBFN_CLASS_INTERFACE_EX extends Win32Struct
     PipeArr{
         get {
             if(!this.HasProp("__PipeArrProxyArray"))
-                this.__PipeArrProxyArray := Win32FixedArray(this.ptr + 8, 8, USBFN_PIPE_INFORMATION, "")
+                this.__PipeArrProxyArray := Win32FixedArray(this.ptr + 8, 16, USBFN_PIPE_INFORMATION, "")
             return this.__PipeArrProxyArray
         }
     }

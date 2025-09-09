@@ -22,7 +22,7 @@ class BLUETOOTH_OOB_DATA_INFO extends Win32Struct
     C{
         get {
             if(!this.HasProp("__CProxyArray"))
-                this.__CProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__CProxyArray := Win32FixedArray(this.ptr + 0, 16, Primitive, "char")
             return this.__CProxyArray
         }
     }
@@ -34,7 +34,7 @@ class BLUETOOTH_OOB_DATA_INFO extends Win32Struct
     R{
         get {
             if(!this.HasProp("__RProxyArray"))
-                this.__RProxyArray := Win32FixedArray(this.ptr + 16, 1, Primitive, "char")
+                this.__RProxyArray := Win32FixedArray(this.ptr + 16, 16, Primitive, "char")
             return this.__RProxyArray
         }
     }

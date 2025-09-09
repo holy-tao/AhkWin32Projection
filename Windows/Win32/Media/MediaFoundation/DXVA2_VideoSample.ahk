@@ -87,7 +87,7 @@ class DXVA2_VideoSample extends Win32Struct
     Pal{
         get {
             if(!this.HasProp("__PalProxyArray"))
-                this.__PalProxyArray := Win32FixedArray(this.ptr + 64, 8, DXVA2_AYUVSample8, "")
+                this.__PalProxyArray := Win32FixedArray(this.ptr + 64, 16, DXVA2_AYUVSample8, "")
             return this.__PalProxyArray
         }
     }

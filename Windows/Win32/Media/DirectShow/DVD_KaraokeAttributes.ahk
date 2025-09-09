@@ -56,7 +56,7 @@ class DVD_KaraokeAttributes extends Win32Struct
     wChannelContents{
         get {
             if(!this.HasProp("__wChannelContentsProxyArray"))
-                this.__wChannelContentsProxyArray := Win32FixedArray(this.ptr + 16, 2, Primitive, "ushort")
+                this.__wChannelContentsProxyArray := Win32FixedArray(this.ptr + 16, 8, Primitive, "ushort")
             return this.__wChannelContentsProxyArray
         }
     }

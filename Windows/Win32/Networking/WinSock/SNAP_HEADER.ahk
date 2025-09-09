@@ -41,7 +41,7 @@ class SNAP_HEADER extends Win32Struct
     Oui{
         get {
             if(!this.HasProp("__OuiProxyArray"))
-                this.__OuiProxyArray := Win32FixedArray(this.ptr + 3, 1, Primitive, "char")
+                this.__OuiProxyArray := Win32FixedArray(this.ptr + 3, 3, Primitive, "char")
             return this.__OuiProxyArray
         }
     }

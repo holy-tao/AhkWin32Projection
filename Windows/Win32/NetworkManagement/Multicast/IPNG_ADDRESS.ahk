@@ -29,7 +29,7 @@ class IPNG_ADDRESS extends Win32Struct
     IpAddrV6{
         get {
             if(!this.HasProp("__IpAddrV6ProxyArray"))
-                this.__IpAddrV6ProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__IpAddrV6ProxyArray := Win32FixedArray(this.ptr + 0, 16, Primitive, "char")
             return this.__IpAddrV6ProxyArray
         }
     }

@@ -25,7 +25,7 @@ class UDCR_TAG extends Win32Struct
     KID{
         get {
             if(!this.HasProp("__KIDProxyArray"))
-                this.__KIDProxyArray := Win32FixedArray(this.ptr + 1, 1, Primitive, "char")
+                this.__KIDProxyArray := Win32FixedArray(this.ptr + 1, 25, Primitive, "char")
             return this.__KIDProxyArray
         }
     }

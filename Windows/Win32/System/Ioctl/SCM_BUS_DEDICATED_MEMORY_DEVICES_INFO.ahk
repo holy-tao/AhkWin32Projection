@@ -42,7 +42,7 @@ class SCM_BUS_DEDICATED_MEMORY_DEVICES_INFO extends Win32Struct
     Devices{
         get {
             if(!this.HasProp("__DevicesProxyArray"))
-                this.__DevicesProxyArray := Win32FixedArray(this.ptr + 16, 8, SCM_BUS_DEDICATED_MEMORY_DEVICE_INFO, "")
+                this.__DevicesProxyArray := Win32FixedArray(this.ptr + 16, 1, SCM_BUS_DEDICATED_MEMORY_DEVICE_INFO, "")
             return this.__DevicesProxyArray
         }
     }

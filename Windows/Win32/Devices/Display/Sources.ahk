@@ -38,7 +38,7 @@ class Sources extends Win32Struct
     aTargets{
         get {
             if(!this.HasProp("__aTargetsProxyArray"))
-                this.__aTargetsProxyArray := Win32FixedArray(this.ptr + 8, 4, Primitive, "uint")
+                this.__aTargetsProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "uint")
             return this.__aTargetsProxyArray
         }
     }

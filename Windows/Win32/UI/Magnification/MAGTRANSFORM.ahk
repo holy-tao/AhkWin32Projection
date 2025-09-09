@@ -32,7 +32,7 @@ class MAGTRANSFORM extends Win32Struct
     v{
         get {
             if(!this.HasProp("__vProxyArray"))
-                this.__vProxyArray := Win32FixedArray(this.ptr + 0, 4, Primitive, "float")
+                this.__vProxyArray := Win32FixedArray(this.ptr + 0, 9, Primitive, "float")
             return this.__vProxyArray
         }
     }

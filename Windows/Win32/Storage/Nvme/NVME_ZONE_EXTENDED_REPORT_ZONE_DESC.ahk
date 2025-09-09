@@ -30,7 +30,7 @@ class NVME_ZONE_EXTENDED_REPORT_ZONE_DESC extends Win32Struct
     ZoneDescriptorExtension{
         get {
             if(!this.HasProp("__ZoneDescriptorExtensionProxyArray"))
-                this.__ZoneDescriptorExtensionProxyArray := Win32FixedArray(this.ptr + 64, 8, NVME_ZONE_DESCRIPTOR_EXTENSION, "")
+                this.__ZoneDescriptorExtensionProxyArray := Win32FixedArray(this.ptr + 64, 1, NVME_ZONE_DESCRIPTOR_EXTENSION, "")
             return this.__ZoneDescriptorExtensionProxyArray
         }
     }

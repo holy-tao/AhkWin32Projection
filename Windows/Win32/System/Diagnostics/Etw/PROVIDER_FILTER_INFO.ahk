@@ -66,7 +66,7 @@ class PROVIDER_FILTER_INFO extends Win32Struct
     EventPropertyInfoArray{
         get {
             if(!this.HasProp("__EventPropertyInfoArrayProxyArray"))
-                this.__EventPropertyInfoArrayProxyArray := Win32FixedArray(this.ptr + 16, 8, EVENT_PROPERTY_INFO, "")
+                this.__EventPropertyInfoArrayProxyArray := Win32FixedArray(this.ptr + 16, 1, EVENT_PROPERTY_INFO, "")
             return this.__EventPropertyInfoArrayProxyArray
         }
     }

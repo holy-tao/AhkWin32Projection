@@ -65,7 +65,7 @@ class WLAN_INTERFACE_CAPABILITY extends Win32Struct
     dot11PhyTypes{
         get {
             if(!this.HasProp("__dot11PhyTypesProxyArray"))
-                this.__dot11PhyTypesProxyArray := Win32FixedArray(this.ptr + 20, 4, Primitive, "int")
+                this.__dot11PhyTypesProxyArray := Win32FixedArray(this.ptr + 20, 64, Primitive, "int")
             return this.__dot11PhyTypesProxyArray
         }
     }

@@ -38,7 +38,7 @@ class DEVICE_DATA_SET_REPAIR_PARAMETERS extends Win32Struct
     RepairCopies{
         get {
             if(!this.HasProp("__RepairCopiesProxyArray"))
-                this.__RepairCopiesProxyArray := Win32FixedArray(this.ptr + 8, 4, Primitive, "uint")
+                this.__RepairCopiesProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "uint")
             return this.__RepairCopiesProxyArray
         }
     }

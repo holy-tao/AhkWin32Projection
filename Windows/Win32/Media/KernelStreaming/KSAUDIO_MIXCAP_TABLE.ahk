@@ -34,7 +34,7 @@ class KSAUDIO_MIXCAP_TABLE extends Win32Struct
     Capabilities{
         get {
             if(!this.HasProp("__CapabilitiesProxyArray"))
-                this.__CapabilitiesProxyArray := Win32FixedArray(this.ptr + 8, 8, KSAUDIO_MIX_CAPS, "")
+                this.__CapabilitiesProxyArray := Win32FixedArray(this.ptr + 8, 1, KSAUDIO_MIX_CAPS, "")
             return this.__CapabilitiesProxyArray
         }
     }

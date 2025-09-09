@@ -65,7 +65,7 @@ class USB_HUB_DEVICE_UXD_SETTINGS extends Win32Struct
     Reserved{
         get {
             if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 32, 4, Primitive, "uint")
+                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 32, 5, Primitive, "uint")
             return this.__ReservedProxyArray
         }
     }

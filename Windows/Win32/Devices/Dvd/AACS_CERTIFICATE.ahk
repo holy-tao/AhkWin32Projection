@@ -17,7 +17,7 @@ class AACS_CERTIFICATE extends Win32Struct
     Nonce{
         get {
             if(!this.HasProp("__NonceProxyArray"))
-                this.__NonceProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__NonceProxyArray := Win32FixedArray(this.ptr + 0, 20, Primitive, "char")
             return this.__NonceProxyArray
         }
     }
@@ -28,7 +28,7 @@ class AACS_CERTIFICATE extends Win32Struct
     Certificate{
         get {
             if(!this.HasProp("__CertificateProxyArray"))
-                this.__CertificateProxyArray := Win32FixedArray(this.ptr + 20, 1, Primitive, "char")
+                this.__CertificateProxyArray := Win32FixedArray(this.ptr + 20, 92, Primitive, "char")
             return this.__CertificateProxyArray
         }
     }

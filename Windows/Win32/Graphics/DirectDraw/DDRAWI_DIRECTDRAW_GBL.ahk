@@ -68,7 +68,7 @@ class DDRAWI_DIRECTDRAW_GBL extends Win32Struct
     dwUnused1{
         get {
             if(!this.HasProp("__dwUnused1ProxyArray"))
-                this.__dwUnused1ProxyArray := Win32FixedArray(this.ptr + 336, 4, Primitive, "uint")
+                this.__dwUnused1ProxyArray := Win32FixedArray(this.ptr + 336, 9, Primitive, "uint")
             return this.__dwUnused1ProxyArray
         }
     }
@@ -154,7 +154,7 @@ class DDRAWI_DIRECTDRAW_GBL extends Win32Struct
     dwUnused2{
         get {
             if(!this.HasProp("__dwUnused2ProxyArray"))
-                this.__dwUnused2ProxyArray := Win32FixedArray(this.ptr + 748, 4, Primitive, "uint")
+                this.__dwUnused2ProxyArray := Win32FixedArray(this.ptr + 748, 50, Primitive, "uint")
             return this.__dwUnused2ProxyArray
         }
     }

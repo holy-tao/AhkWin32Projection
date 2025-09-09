@@ -42,7 +42,7 @@ class AM_MPEGSYSTEMTYPE extends Win32Struct
     Streams{
         get {
             if(!this.HasProp("__StreamsProxyArray"))
-                this.__StreamsProxyArray := Win32FixedArray(this.ptr + 8, 8, AM_MPEGSTREAMTYPE, "")
+                this.__StreamsProxyArray := Win32FixedArray(this.ptr + 8, 1, AM_MPEGSTREAMTYPE, "")
             return this.__StreamsProxyArray
         }
     }

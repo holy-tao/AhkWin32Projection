@@ -66,7 +66,7 @@ class CACHE_RELATIONSHIP extends Win32Struct
     Reserved{
         get {
             if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 12, 1, Primitive, "char")
+                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 12, 18, Primitive, "char")
             return this.__ReservedProxyArray
         }
     }
@@ -96,7 +96,7 @@ class CACHE_RELATIONSHIP extends Win32Struct
     GroupMasks{
         get {
             if(!this.HasProp("__GroupMasksProxyArray"))
-                this.__GroupMasksProxyArray := Win32FixedArray(this.ptr + 32, 8, GROUP_AFFINITY, "")
+                this.__GroupMasksProxyArray := Win32FixedArray(this.ptr + 32, 1, GROUP_AFFINITY, "")
             return this.__GroupMasksProxyArray
         }
     }

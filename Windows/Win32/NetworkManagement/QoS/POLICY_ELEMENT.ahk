@@ -38,7 +38,7 @@ class POLICY_ELEMENT extends Win32Struct
     ucPeData{
         get {
             if(!this.HasProp("__ucPeDataProxyArray"))
-                this.__ucPeDataProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")
+                this.__ucPeDataProxyArray := Win32FixedArray(this.ptr + 4, 4, Primitive, "char")
             return this.__ucPeDataProxyArray
         }
     }

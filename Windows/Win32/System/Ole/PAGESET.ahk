@@ -57,7 +57,7 @@ class PAGESET extends Win32Struct
     rgPages{
         get {
             if(!this.HasProp("__rgPagesProxyArray"))
-                this.__rgPagesProxyArray := Win32FixedArray(this.ptr + 16, 8, PAGERANGE, "")
+                this.__rgPagesProxyArray := Win32FixedArray(this.ptr + 16, 1, PAGERANGE, "")
             return this.__rgPagesProxyArray
         }
     }

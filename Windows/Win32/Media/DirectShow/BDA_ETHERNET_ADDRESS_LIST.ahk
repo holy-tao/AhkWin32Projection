@@ -26,7 +26,7 @@ class BDA_ETHERNET_ADDRESS_LIST extends Win32Struct
     rgAddressl{
         get {
             if(!this.HasProp("__rgAddresslProxyArray"))
-                this.__rgAddresslProxyArray := Win32FixedArray(this.ptr + 8, 8, BDA_ETHERNET_ADDRESS, "")
+                this.__rgAddresslProxyArray := Win32FixedArray(this.ptr + 8, 1, BDA_ETHERNET_ADDRESS, "")
             return this.__rgAddresslProxyArray
         }
     }

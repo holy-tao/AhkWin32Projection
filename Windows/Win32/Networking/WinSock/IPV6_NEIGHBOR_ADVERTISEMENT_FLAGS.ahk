@@ -25,7 +25,7 @@ class IPV6_NEIGHBOR_ADVERTISEMENT_FLAGS extends Win32Struct
     Reserved2{
         get {
             if(!this.HasProp("__Reserved2ProxyArray"))
-                this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 1, 1, Primitive, "char")
+                this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 1, 3, Primitive, "char")
             return this.__Reserved2ProxyArray
         }
     }

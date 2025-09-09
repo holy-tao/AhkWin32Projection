@@ -20,7 +20,7 @@ class BLUETOOTH_PIN_INFO extends Win32Struct
     pin{
         get {
             if(!this.HasProp("__pinProxyArray"))
-                this.__pinProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__pinProxyArray := Win32FixedArray(this.ptr + 0, 16, Primitive, "char")
             return this.__pinProxyArray
         }
     }

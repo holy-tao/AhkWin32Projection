@@ -65,7 +65,7 @@ class MIPI_DSI_PACKET extends Win32Struct
     Payload{
         get {
             if(!this.HasProp("__PayloadProxyArray"))
-                this.__PayloadProxyArray := Win32FixedArray(this.ptr + 5, 1, Primitive, "char")
+                this.__PayloadProxyArray := Win32FixedArray(this.ptr + 5, 8, Primitive, "char")
             return this.__PayloadProxyArray
         }
     }

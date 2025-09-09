@@ -34,7 +34,7 @@ class SERVICE_TYPE_INFO extends Win32Struct
     Values{
         get {
             if(!this.HasProp("__ValuesProxyArray"))
-                this.__ValuesProxyArray := Win32FixedArray(this.ptr + 8, 8, SERVICE_TYPE_VALUE, "")
+                this.__ValuesProxyArray := Win32FixedArray(this.ptr + 8, 1, SERVICE_TYPE_VALUE, "")
             return this.__ValuesProxyArray
         }
     }

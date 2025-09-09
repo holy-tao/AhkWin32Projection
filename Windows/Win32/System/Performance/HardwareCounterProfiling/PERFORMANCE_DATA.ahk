@@ -110,7 +110,7 @@ class PERFORMANCE_DATA extends Win32Struct
     HwCounters{
         get {
             if(!this.HasProp("__HwCountersProxyArray"))
-                this.__HwCountersProxyArray := Win32FixedArray(this.ptr + 32, 8, HARDWARE_COUNTER_DATA, "")
+                this.__HwCountersProxyArray := Win32FixedArray(this.ptr + 32, 16, HARDWARE_COUNTER_DATA, "")
             return this.__HwCountersProxyArray
         }
     }

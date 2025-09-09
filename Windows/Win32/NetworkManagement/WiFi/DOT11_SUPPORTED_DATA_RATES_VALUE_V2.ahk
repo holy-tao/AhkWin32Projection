@@ -17,7 +17,7 @@ class DOT11_SUPPORTED_DATA_RATES_VALUE_V2 extends Win32Struct
     ucSupportedTxDataRatesValue{
         get {
             if(!this.HasProp("__ucSupportedTxDataRatesValueProxyArray"))
-                this.__ucSupportedTxDataRatesValueProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__ucSupportedTxDataRatesValueProxyArray := Win32FixedArray(this.ptr + 0, 255, Primitive, "char")
             return this.__ucSupportedTxDataRatesValueProxyArray
         }
     }
@@ -28,7 +28,7 @@ class DOT11_SUPPORTED_DATA_RATES_VALUE_V2 extends Win32Struct
     ucSupportedRxDataRatesValue{
         get {
             if(!this.HasProp("__ucSupportedRxDataRatesValueProxyArray"))
-                this.__ucSupportedRxDataRatesValueProxyArray := Win32FixedArray(this.ptr + 255, 1, Primitive, "char")
+                this.__ucSupportedRxDataRatesValueProxyArray := Win32FixedArray(this.ptr + 255, 255, Primitive, "char")
             return this.__ucSupportedRxDataRatesValueProxyArray
         }
     }

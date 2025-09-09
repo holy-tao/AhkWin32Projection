@@ -61,7 +61,7 @@ class SUB_Q_CURRENT_POSITION extends Win32Struct
     AbsoluteAddress{
         get {
             if(!this.HasProp("__AbsoluteAddressProxyArray"))
-                this.__AbsoluteAddressProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "char")
+                this.__AbsoluteAddressProxyArray := Win32FixedArray(this.ptr + 8, 4, Primitive, "char")
             return this.__AbsoluteAddressProxyArray
         }
     }
@@ -72,7 +72,7 @@ class SUB_Q_CURRENT_POSITION extends Win32Struct
     TrackRelativeAddress{
         get {
             if(!this.HasProp("__TrackRelativeAddressProxyArray"))
-                this.__TrackRelativeAddressProxyArray := Win32FixedArray(this.ptr + 12, 1, Primitive, "char")
+                this.__TrackRelativeAddressProxyArray := Win32FixedArray(this.ptr + 12, 4, Primitive, "char")
             return this.__TrackRelativeAddressProxyArray
         }
     }

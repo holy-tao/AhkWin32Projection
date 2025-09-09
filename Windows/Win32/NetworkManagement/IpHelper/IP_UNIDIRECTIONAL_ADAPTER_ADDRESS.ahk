@@ -32,7 +32,7 @@ class IP_UNIDIRECTIONAL_ADAPTER_ADDRESS extends Win32Struct
     Address{
         get {
             if(!this.HasProp("__AddressProxyArray"))
-                this.__AddressProxyArray := Win32FixedArray(this.ptr + 4, 4, Primitive, "uint")
+                this.__AddressProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "uint")
             return this.__AddressProxyArray
         }
     }

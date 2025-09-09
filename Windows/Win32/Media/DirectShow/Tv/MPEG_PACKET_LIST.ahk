@@ -29,7 +29,7 @@ class MPEG_PACKET_LIST extends Win32Struct
     PacketList{
         get {
             if(!this.HasProp("__PacketListProxyArray"))
-                this.__PacketListProxyArray := Win32FixedArray(this.ptr + 2, 8, Primitive, "ptr")
+                this.__PacketListProxyArray := Win32FixedArray(this.ptr + 2, 1, Primitive, "ptr")
             return this.__PacketListProxyArray
         }
     }

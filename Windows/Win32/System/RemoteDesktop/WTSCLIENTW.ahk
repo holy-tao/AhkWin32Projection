@@ -93,7 +93,7 @@ class WTSCLIENTW extends Win32Struct
     ClientAddress{
         get {
             if(!this.HasProp("__ClientAddressProxyArray"))
-                this.__ClientAddressProxyArray := Win32FixedArray(this.ptr + 1172, 2, Primitive, "ushort")
+                this.__ClientAddressProxyArray := Win32FixedArray(this.ptr + 1172, 31, Primitive, "ushort")
             return this.__ClientAddressProxyArray
         }
     }

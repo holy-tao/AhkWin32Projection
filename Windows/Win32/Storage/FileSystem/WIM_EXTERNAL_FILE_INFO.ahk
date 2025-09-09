@@ -29,7 +29,7 @@ class WIM_EXTERNAL_FILE_INFO extends Win32Struct
     ResourceHash{
         get {
             if(!this.HasProp("__ResourceHashProxyArray"))
-                this.__ResourceHashProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "char")
+                this.__ResourceHashProxyArray := Win32FixedArray(this.ptr + 8, 20, Primitive, "char")
             return this.__ResourceHashProxyArray
         }
     }

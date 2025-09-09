@@ -26,7 +26,7 @@ class IMAGE_POLICY_METADATA extends Win32Struct
     Reserved0{
         get {
             if(!this.HasProp("__Reserved0ProxyArray"))
-                this.__Reserved0ProxyArray := Win32FixedArray(this.ptr + 1, 1, Primitive, "char")
+                this.__Reserved0ProxyArray := Win32FixedArray(this.ptr + 1, 7, Primitive, "char")
             return this.__Reserved0ProxyArray
         }
     }
@@ -45,7 +45,7 @@ class IMAGE_POLICY_METADATA extends Win32Struct
     Policies{
         get {
             if(!this.HasProp("__PoliciesProxyArray"))
-                this.__PoliciesProxyArray := Win32FixedArray(this.ptr + 16, 8, IMAGE_POLICY_ENTRY, "")
+                this.__PoliciesProxyArray := Win32FixedArray(this.ptr + 16, 1, IMAGE_POLICY_ENTRY, "")
             return this.__PoliciesProxyArray
         }
     }

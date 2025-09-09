@@ -65,7 +65,7 @@ class IKEV2_PROJECTION_INFO2 extends Win32Struct
     bInterfaceIdentifier{
         get {
             if(!this.HasProp("__bInterfaceIdentifierProxyArray"))
-                this.__bInterfaceIdentifierProxyArray := Win32FixedArray(this.ptr + 84, 1, Primitive, "char")
+                this.__bInterfaceIdentifierProxyArray := Win32FixedArray(this.ptr + 84, 8, Primitive, "char")
             return this.__bInterfaceIdentifierProxyArray
         }
     }
@@ -77,7 +77,7 @@ class IKEV2_PROJECTION_INFO2 extends Win32Struct
     bRemoteInterfaceIdentifier{
         get {
             if(!this.HasProp("__bRemoteInterfaceIdentifierProxyArray"))
-                this.__bRemoteInterfaceIdentifierProxyArray := Win32FixedArray(this.ptr + 92, 1, Primitive, "char")
+                this.__bRemoteInterfaceIdentifierProxyArray := Win32FixedArray(this.ptr + 92, 8, Primitive, "char")
             return this.__bRemoteInterfaceIdentifierProxyArray
         }
     }
@@ -89,7 +89,7 @@ class IKEV2_PROJECTION_INFO2 extends Win32Struct
     bPrefix{
         get {
             if(!this.HasProp("__bPrefixProxyArray"))
-                this.__bPrefixProxyArray := Win32FixedArray(this.ptr + 100, 1, Primitive, "char")
+                this.__bPrefixProxyArray := Win32FixedArray(this.ptr + 100, 8, Primitive, "char")
             return this.__bPrefixProxyArray
         }
     }

@@ -49,7 +49,7 @@ class NVME_ENDURANCE_GROUP_LOG extends Win32Struct
     Reserved1{
         get {
             if(!this.HasProp("__Reserved1ProxyArray"))
-                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 6, 1, Primitive, "char")
+                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 6, 26, Primitive, "char")
             return this.__Reserved1ProxyArray
         }
     }
@@ -61,7 +61,7 @@ class NVME_ENDURANCE_GROUP_LOG extends Win32Struct
     EnduranceEstimate{
         get {
             if(!this.HasProp("__EnduranceEstimateProxyArray"))
-                this.__EnduranceEstimateProxyArray := Win32FixedArray(this.ptr + 32, 1, Primitive, "char")
+                this.__EnduranceEstimateProxyArray := Win32FixedArray(this.ptr + 32, 16, Primitive, "char")
             return this.__EnduranceEstimateProxyArray
         }
     }
@@ -73,7 +73,7 @@ class NVME_ENDURANCE_GROUP_LOG extends Win32Struct
     DataUnitsRead{
         get {
             if(!this.HasProp("__DataUnitsReadProxyArray"))
-                this.__DataUnitsReadProxyArray := Win32FixedArray(this.ptr + 48, 1, Primitive, "char")
+                this.__DataUnitsReadProxyArray := Win32FixedArray(this.ptr + 48, 16, Primitive, "char")
             return this.__DataUnitsReadProxyArray
         }
     }
@@ -87,7 +87,7 @@ class NVME_ENDURANCE_GROUP_LOG extends Win32Struct
     DataUnitsWritten{
         get {
             if(!this.HasProp("__DataUnitsWrittenProxyArray"))
-                this.__DataUnitsWrittenProxyArray := Win32FixedArray(this.ptr + 64, 1, Primitive, "char")
+                this.__DataUnitsWrittenProxyArray := Win32FixedArray(this.ptr + 64, 16, Primitive, "char")
             return this.__DataUnitsWrittenProxyArray
         }
     }
@@ -101,7 +101,7 @@ class NVME_ENDURANCE_GROUP_LOG extends Win32Struct
     MediaUnitsWritten{
         get {
             if(!this.HasProp("__MediaUnitsWrittenProxyArray"))
-                this.__MediaUnitsWrittenProxyArray := Win32FixedArray(this.ptr + 80, 1, Primitive, "char")
+                this.__MediaUnitsWrittenProxyArray := Win32FixedArray(this.ptr + 80, 16, Primitive, "char")
             return this.__MediaUnitsWrittenProxyArray
         }
     }
@@ -113,7 +113,7 @@ class NVME_ENDURANCE_GROUP_LOG extends Win32Struct
     Reserved2{
         get {
             if(!this.HasProp("__Reserved2ProxyArray"))
-                this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 96, 1, Primitive, "char")
+                this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 96, 416, Primitive, "char")
             return this.__Reserved2ProxyArray
         }
     }

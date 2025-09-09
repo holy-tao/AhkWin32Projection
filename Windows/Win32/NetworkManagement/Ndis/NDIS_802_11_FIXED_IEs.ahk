@@ -17,7 +17,7 @@ class NDIS_802_11_FIXED_IEs extends Win32Struct
     Timestamp{
         get {
             if(!this.HasProp("__TimestampProxyArray"))
-                this.__TimestampProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__TimestampProxyArray := Win32FixedArray(this.ptr + 0, 8, Primitive, "char")
             return this.__TimestampProxyArray
         }
     }

@@ -114,7 +114,7 @@ class _URB_ISOCH_TRANSFER extends Win32Struct
     IsoPacket{
         get {
             if(!this.HasProp("__IsoPacketProxyArray"))
-                this.__IsoPacketProxyArray := Win32FixedArray(this.ptr + 144, 8, USBD_ISO_PACKET_DESCRIPTOR, "")
+                this.__IsoPacketProxyArray := Win32FixedArray(this.ptr + 144, 1, USBD_ISO_PACKET_DESCRIPTOR, "")
             return this.__IsoPacketProxyArray
         }
     }

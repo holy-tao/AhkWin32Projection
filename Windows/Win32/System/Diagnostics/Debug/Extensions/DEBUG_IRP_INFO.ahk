@@ -93,7 +93,7 @@ class DEBUG_IRP_INFO extends Win32Struct
     Stack{
         get {
             if(!this.HasProp("__StackProxyArray"))
-                this.__StackProxyArray := Win32FixedArray(this.ptr + 96, 8, DEBUG_IRP_STACK_INFO, "")
+                this.__StackProxyArray := Win32FixedArray(this.ptr + 96, 10, DEBUG_IRP_STACK_INFO, "")
             return this.__StackProxyArray
         }
     }

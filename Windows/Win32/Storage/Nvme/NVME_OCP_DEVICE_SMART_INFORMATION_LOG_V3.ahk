@@ -17,7 +17,7 @@ class NVME_OCP_DEVICE_SMART_INFORMATION_LOG_V3 extends Win32Struct
     MediaUnitsWritten{
         get {
             if(!this.HasProp("__MediaUnitsWrittenProxyArray"))
-                this.__MediaUnitsWrittenProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__MediaUnitsWrittenProxyArray := Win32FixedArray(this.ptr + 0, 16, Primitive, "char")
             return this.__MediaUnitsWrittenProxyArray
         }
     }
@@ -28,7 +28,7 @@ class NVME_OCP_DEVICE_SMART_INFORMATION_LOG_V3 extends Win32Struct
     MediaUnitsRead{
         get {
             if(!this.HasProp("__MediaUnitsReadProxyArray"))
-                this.__MediaUnitsReadProxyArray := Win32FixedArray(this.ptr + 16, 1, Primitive, "char")
+                this.__MediaUnitsReadProxyArray := Win32FixedArray(this.ptr + 16, 16, Primitive, "char")
             return this.__MediaUnitsReadProxyArray
         }
     }
@@ -39,7 +39,7 @@ class NVME_OCP_DEVICE_SMART_INFORMATION_LOG_V3 extends Win32Struct
     RawCount{
         get {
             if(!this.HasProp("__RawCountProxyArray"))
-                this.__RawCountProxyArray := Win32FixedArray(this.ptr + 32, 1, Primitive, "char")
+                this.__RawCountProxyArray := Win32FixedArray(this.ptr + 32, 6, Primitive, "char")
             return this.__RawCountProxyArray
         }
     }
@@ -50,7 +50,7 @@ class NVME_OCP_DEVICE_SMART_INFORMATION_LOG_V3 extends Win32Struct
     Normalized{
         get {
             if(!this.HasProp("__NormalizedProxyArray"))
-                this.__NormalizedProxyArray := Win32FixedArray(this.ptr + 38, 1, Primitive, "char")
+                this.__NormalizedProxyArray := Win32FixedArray(this.ptr + 38, 2, Primitive, "char")
             return this.__NormalizedProxyArray
         }
     }
@@ -109,7 +109,7 @@ class NVME_OCP_DEVICE_SMART_INFORMATION_LOG_V3 extends Win32Struct
     RefreshCount{
         get {
             if(!this.HasProp("__RefreshCountProxyArray"))
-                this.__RefreshCountProxyArray := Win32FixedArray(this.ptr + 81, 1, Primitive, "char")
+                this.__RefreshCountProxyArray := Win32FixedArray(this.ptr + 81, 7, Primitive, "char")
             return this.__RefreshCountProxyArray
         }
     }
@@ -152,7 +152,7 @@ class NVME_OCP_DEVICE_SMART_INFORMATION_LOG_V3 extends Win32Struct
     DSSDSpecVersion{
         get {
             if(!this.HasProp("__DSSDSpecVersionProxyArray"))
-                this.__DSSDSpecVersionProxyArray := Win32FixedArray(this.ptr + 98, 1, Primitive, "char")
+                this.__DSSDSpecVersionProxyArray := Win32FixedArray(this.ptr + 98, 6, Primitive, "char")
             return this.__DSSDSpecVersionProxyArray
         }
     }
@@ -195,7 +195,7 @@ class NVME_OCP_DEVICE_SMART_INFORMATION_LOG_V3 extends Win32Struct
     Reserved2{
         get {
             if(!this.HasProp("__Reserved2ProxyArray"))
-                this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 121, 1, Primitive, "char")
+                this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 121, 7, Primitive, "char")
             return this.__Reserved2ProxyArray
         }
     }
@@ -222,7 +222,7 @@ class NVME_OCP_DEVICE_SMART_INFORMATION_LOG_V3 extends Win32Struct
     Reserved3{
         get {
             if(!this.HasProp("__Reserved3ProxyArray"))
-                this.__Reserved3ProxyArray := Win32FixedArray(this.ptr + 131, 1, Primitive, "char")
+                this.__Reserved3ProxyArray := Win32FixedArray(this.ptr + 131, 5, Primitive, "char")
             return this.__Reserved3ProxyArray
         }
     }
@@ -257,7 +257,7 @@ class NVME_OCP_DEVICE_SMART_INFORMATION_LOG_V3 extends Win32Struct
     PLPStartCount{
         get {
             if(!this.HasProp("__PLPStartCountProxyArray"))
-                this.__PLPStartCountProxyArray := Win32FixedArray(this.ptr + 160, 1, Primitive, "char")
+                this.__PLPStartCountProxyArray := Win32FixedArray(this.ptr + 160, 16, Primitive, "char")
             return this.__PLPStartCountProxyArray
         }
     }
@@ -268,7 +268,7 @@ class NVME_OCP_DEVICE_SMART_INFORMATION_LOG_V3 extends Win32Struct
     EnduranceEstimate{
         get {
             if(!this.HasProp("__EnduranceEstimateProxyArray"))
-                this.__EnduranceEstimateProxyArray := Win32FixedArray(this.ptr + 176, 1, Primitive, "char")
+                this.__EnduranceEstimateProxyArray := Win32FixedArray(this.ptr + 176, 16, Primitive, "char")
             return this.__EnduranceEstimateProxyArray
         }
     }
@@ -295,7 +295,7 @@ class NVME_OCP_DEVICE_SMART_INFORMATION_LOG_V3 extends Win32Struct
     Reserved4{
         get {
             if(!this.HasProp("__Reserved4ProxyArray"))
-                this.__Reserved4ProxyArray := Win32FixedArray(this.ptr + 208, 1, Primitive, "char")
+                this.__Reserved4ProxyArray := Win32FixedArray(this.ptr + 208, 286, Primitive, "char")
             return this.__Reserved4ProxyArray
         }
     }

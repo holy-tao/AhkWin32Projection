@@ -66,7 +66,7 @@ class STORAGE_ZONED_DEVICE_DESCRIPTOR extends Win32Struct
     Reserved{
         get {
             if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 21, 1, Primitive, "char")
+                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 21, 3, Primitive, "char")
             return this.__ReservedProxyArray
         }
     }
@@ -101,7 +101,7 @@ class STORAGE_ZONED_DEVICE_DESCRIPTOR extends Win32Struct
     ZoneGroup{
         get {
             if(!this.HasProp("__ZoneGroupProxyArray"))
-                this.__ZoneGroupProxyArray := Win32FixedArray(this.ptr + 32, 8, STORAGE_ZONE_GROUP, "")
+                this.__ZoneGroupProxyArray := Win32FixedArray(this.ptr + 32, 1, STORAGE_ZONE_GROUP, "")
             return this.__ZoneGroupProxyArray
         }
     }

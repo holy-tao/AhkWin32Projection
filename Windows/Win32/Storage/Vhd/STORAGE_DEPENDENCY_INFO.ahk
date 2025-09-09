@@ -40,7 +40,7 @@ class STORAGE_DEPENDENCY_INFO extends Win32Struct
     Version1Entries{
         get {
             if(!this.HasProp("__Version1EntriesProxyArray"))
-                this.__Version1EntriesProxyArray := Win32FixedArray(this.ptr + 8, 8, STORAGE_DEPENDENCY_INFO_TYPE_1, "")
+                this.__Version1EntriesProxyArray := Win32FixedArray(this.ptr + 8, 1, STORAGE_DEPENDENCY_INFO_TYPE_1, "")
             return this.__Version1EntriesProxyArray
         }
     }
@@ -51,7 +51,7 @@ class STORAGE_DEPENDENCY_INFO extends Win32Struct
     Version2Entries{
         get {
             if(!this.HasProp("__Version2EntriesProxyArray"))
-                this.__Version2EntriesProxyArray := Win32FixedArray(this.ptr + 8, 8, STORAGE_DEPENDENCY_INFO_TYPE_2, "")
+                this.__Version2EntriesProxyArray := Win32FixedArray(this.ptr + 8, 1, STORAGE_DEPENDENCY_INFO_TYPE_2, "")
             return this.__Version2EntriesProxyArray
         }
     }

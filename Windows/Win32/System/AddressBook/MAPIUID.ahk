@@ -42,7 +42,7 @@ class MAPIUID extends Win32Struct
     ab{
         get {
             if(!this.HasProp("__abProxyArray"))
-                this.__abProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__abProxyArray := Win32FixedArray(this.ptr + 0, 16, Primitive, "char")
             return this.__abProxyArray
         }
     }

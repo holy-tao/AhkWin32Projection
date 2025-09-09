@@ -41,7 +41,7 @@ class DLSID extends Win32Struct
     abData4{
         get {
             if(!this.HasProp("__abData4ProxyArray"))
-                this.__abData4ProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "char")
+                this.__abData4ProxyArray := Win32FixedArray(this.ptr + 8, 8, Primitive, "char")
             return this.__abData4ProxyArray
         }
     }

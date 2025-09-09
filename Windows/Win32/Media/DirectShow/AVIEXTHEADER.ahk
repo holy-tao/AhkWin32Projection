@@ -41,7 +41,7 @@ class AVIEXTHEADER extends Win32Struct
     dwFuture{
         get {
             if(!this.HasProp("__dwFutureProxyArray"))
-                this.__dwFutureProxyArray := Win32FixedArray(this.ptr + 12, 4, Primitive, "uint")
+                this.__dwFutureProxyArray := Win32FixedArray(this.ptr + 12, 61, Primitive, "uint")
             return this.__dwFutureProxyArray
         }
     }

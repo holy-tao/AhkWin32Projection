@@ -26,7 +26,7 @@ class WER_REPORT_SIGNATURE extends Win32Struct
     Parameters{
         get {
             if(!this.HasProp("__ParametersProxyArray"))
-                this.__ParametersProxyArray := Win32FixedArray(this.ptr + 136, 8, WER_REPORT_PARAMETER, "")
+                this.__ParametersProxyArray := Win32FixedArray(this.ptr + 136, 10, WER_REPORT_PARAMETER, "")
             return this.__ParametersProxyArray
         }
     }

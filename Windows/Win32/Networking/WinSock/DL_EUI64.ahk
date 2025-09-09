@@ -20,7 +20,7 @@ class DL_EUI64 extends Win32Struct
     Byte{
         get {
             if(!this.HasProp("__ByteProxyArray"))
-                this.__ByteProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__ByteProxyArray := Win32FixedArray(this.ptr + 0, 8, Primitive, "char")
             return this.__ByteProxyArray
         }
     }

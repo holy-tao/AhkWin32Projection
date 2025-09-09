@@ -36,7 +36,7 @@ class MIB_UDP6ROW_OWNER_PID extends Win32Struct
     ucLocalAddr{
         get {
             if(!this.HasProp("__ucLocalAddrProxyArray"))
-                this.__ucLocalAddrProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__ucLocalAddrProxyArray := Win32FixedArray(this.ptr + 0, 16, Primitive, "char")
             return this.__ucLocalAddrProxyArray
         }
     }

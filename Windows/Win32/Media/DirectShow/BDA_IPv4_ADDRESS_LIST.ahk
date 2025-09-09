@@ -26,7 +26,7 @@ class BDA_IPv4_ADDRESS_LIST extends Win32Struct
     rgAddressl{
         get {
             if(!this.HasProp("__rgAddresslProxyArray"))
-                this.__rgAddresslProxyArray := Win32FixedArray(this.ptr + 8, 8, BDA_IPv4_ADDRESS, "")
+                this.__rgAddresslProxyArray := Win32FixedArray(this.ptr + 8, 1, BDA_IPv4_ADDRESS, "")
             return this.__rgAddresslProxyArray
         }
     }

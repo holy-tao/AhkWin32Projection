@@ -49,7 +49,7 @@ class DXGI_GAMMA_CONTROL_CAPABILITIES extends Win32Struct
     ControlPointPositions{
         get {
             if(!this.HasProp("__ControlPointPositionsProxyArray"))
-                this.__ControlPointPositionsProxyArray := Win32FixedArray(this.ptr + 16, 4, Primitive, "float")
+                this.__ControlPointPositionsProxyArray := Win32FixedArray(this.ptr + 16, 1025, Primitive, "float")
             return this.__ControlPointPositionsProxyArray
         }
     }

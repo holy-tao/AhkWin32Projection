@@ -97,7 +97,7 @@ class USB_SEND_RAW_COMMAND_PARAMETERS extends Win32Struct
     Data{
         get {
             if(!this.HasProp("__DataProxyArray"))
-                this.__DataProxyArray := Win32FixedArray(this.ptr + 24, 1, Primitive, "char")
+                this.__DataProxyArray := Win32FixedArray(this.ptr + 24, 4, Primitive, "char")
             return this.__DataProxyArray
         }
     }

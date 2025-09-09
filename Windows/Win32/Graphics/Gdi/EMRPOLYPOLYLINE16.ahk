@@ -65,7 +65,7 @@ class EMRPOLYPOLYLINE16 extends Win32Struct
     aPolyCounts{
         get {
             if(!this.HasProp("__aPolyCountsProxyArray"))
-                this.__aPolyCountsProxyArray := Win32FixedArray(this.ptr + 32, 4, Primitive, "uint")
+                this.__aPolyCountsProxyArray := Win32FixedArray(this.ptr + 32, 1, Primitive, "uint")
             return this.__aPolyCountsProxyArray
         }
     }
@@ -77,7 +77,7 @@ class EMRPOLYPOLYLINE16 extends Win32Struct
     apts{
         get {
             if(!this.HasProp("__aptsProxyArray"))
-                this.__aptsProxyArray := Win32FixedArray(this.ptr + 40, 8, POINTS, "")
+                this.__aptsProxyArray := Win32FixedArray(this.ptr + 40, 1, POINTS, "")
             return this.__aptsProxyArray
         }
     }

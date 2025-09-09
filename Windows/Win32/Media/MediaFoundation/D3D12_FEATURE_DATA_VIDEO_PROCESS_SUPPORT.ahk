@@ -169,7 +169,7 @@ class D3D12_FEATURE_DATA_VIDEO_PROCESS_SUPPORT extends Win32Struct
     FilterRangeSupport{
         get {
             if(!this.HasProp("__FilterRangeSupportProxyArray"))
-                this.__FilterRangeSupportProxyArray := Win32FixedArray(this.ptr + 112, 8, D3D12_VIDEO_PROCESS_FILTER_RANGE, "")
+                this.__FilterRangeSupportProxyArray := Win32FixedArray(this.ptr + 112, 32, D3D12_VIDEO_PROCESS_FILTER_RANGE, "")
             return this.__FilterRangeSupportProxyArray
         }
     }

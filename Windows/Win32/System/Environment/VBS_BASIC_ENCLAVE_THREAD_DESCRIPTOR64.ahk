@@ -17,7 +17,7 @@ class VBS_BASIC_ENCLAVE_THREAD_DESCRIPTOR64 extends Win32Struct
     ThreadContext{
         get {
             if(!this.HasProp("__ThreadContextProxyArray"))
-                this.__ThreadContextProxyArray := Win32FixedArray(this.ptr + 0, 8, Primitive, "uint")
+                this.__ThreadContextProxyArray := Win32FixedArray(this.ptr + 0, 4, Primitive, "uint")
             return this.__ThreadContextProxyArray
         }
     }

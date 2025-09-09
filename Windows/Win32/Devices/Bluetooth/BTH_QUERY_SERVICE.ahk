@@ -52,7 +52,7 @@ class BTH_QUERY_SERVICE extends Win32Struct
     uuids{
         get {
             if(!this.HasProp("__uuidsProxyArray"))
-                this.__uuidsProxyArray := Win32FixedArray(this.ptr + 8, 8, SdpQueryUuid, "")
+                this.__uuidsProxyArray := Win32FixedArray(this.ptr + 8, 12, SdpQueryUuid, "")
             return this.__uuidsProxyArray
         }
     }
@@ -74,7 +74,7 @@ class BTH_QUERY_SERVICE extends Win32Struct
     pRange{
         get {
             if(!this.HasProp("__pRangeProxyArray"))
-                this.__pRangeProxyArray := Win32FixedArray(this.ptr + 108, 8, SdpAttributeRange, "")
+                this.__pRangeProxyArray := Win32FixedArray(this.ptr + 108, 1, SdpAttributeRange, "")
             return this.__pRangeProxyArray
         }
     }

@@ -50,7 +50,7 @@ class SCRUB_PARITY_EXTENT_DATA extends Win32Struct
     ParityExtents{
         get {
             if(!this.HasProp("__ParityExtentsProxyArray"))
-                this.__ParityExtentsProxyArray := Win32FixedArray(this.ptr + 8, 8, SCRUB_PARITY_EXTENT, "")
+                this.__ParityExtentsProxyArray := Win32FixedArray(this.ptr + 8, 1, SCRUB_PARITY_EXTENT, "")
             return this.__ParityExtentsProxyArray
         }
     }

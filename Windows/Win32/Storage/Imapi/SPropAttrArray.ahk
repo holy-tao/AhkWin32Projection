@@ -36,7 +36,7 @@ class SPropAttrArray extends Win32Struct
     aPropAttr{
         get {
             if(!this.HasProp("__aPropAttrProxyArray"))
-                this.__aPropAttrProxyArray := Win32FixedArray(this.ptr + 4, 4, Primitive, "uint")
+                this.__aPropAttrProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "uint")
             return this.__aPropAttrProxyArray
         }
     }

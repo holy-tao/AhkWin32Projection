@@ -37,7 +37,7 @@ class SMMCDataObjects extends Win32Struct
     lpDataObject{
         get {
             if(!this.HasProp("__lpDataObjectProxyArray"))
-                this.__lpDataObjectProxyArray := Win32FixedArray(this.ptr + 8, 8, IDataObject, "")
+                this.__lpDataObjectProxyArray := Win32FixedArray(this.ptr + 8, 1, IDataObject, "")
             return this.__lpDataObjectProxyArray
         }
     }

@@ -133,7 +133,7 @@ class AVIMETAINDEX extends Win32Struct
     dwReserved{
         get {
             if(!this.HasProp("__dwReservedProxyArray"))
-                this.__dwReservedProxyArray := Win32FixedArray(this.ptr + 20, 4, Primitive, "uint")
+                this.__dwReservedProxyArray := Win32FixedArray(this.ptr + 20, 3, Primitive, "uint")
             return this.__dwReservedProxyArray
         }
     }
@@ -145,7 +145,7 @@ class AVIMETAINDEX extends Win32Struct
     adwIndex{
         get {
             if(!this.HasProp("__adwIndexProxyArray"))
-                this.__adwIndexProxyArray := Win32FixedArray(this.ptr + 32, 4, Primitive, "uint")
+                this.__adwIndexProxyArray := Win32FixedArray(this.ptr + 32, 1, Primitive, "uint")
             return this.__adwIndexProxyArray
         }
     }

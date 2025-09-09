@@ -19,7 +19,7 @@ class SID_IDENTIFIER_AUTHORITY extends Win32Struct
     Value{
         get {
             if(!this.HasProp("__ValueProxyArray"))
-                this.__ValueProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__ValueProxyArray := Win32FixedArray(this.ptr + 0, 6, Primitive, "char")
             return this.__ValueProxyArray
         }
     }

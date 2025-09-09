@@ -23,7 +23,7 @@ class DWRITE_PANOSE extends Win32Struct
     values{
         get {
             if(!this.HasProp("__valuesProxyArray"))
-                this.__valuesProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__valuesProxyArray := Win32FixedArray(this.ptr + 0, 10, Primitive, "char")
             return this.__valuesProxyArray
         }
     }

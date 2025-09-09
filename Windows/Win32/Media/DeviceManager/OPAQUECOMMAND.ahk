@@ -51,7 +51,7 @@ class OPAQUECOMMAND extends Win32Struct
     abMAC{
         get {
             if(!this.HasProp("__abMACProxyArray"))
-                this.__abMACProxyArray := Win32FixedArray(this.ptr + 24, 1, Primitive, "char")
+                this.__abMACProxyArray := Win32FixedArray(this.ptr + 24, 20, Primitive, "char")
             return this.__abMACProxyArray
         }
     }

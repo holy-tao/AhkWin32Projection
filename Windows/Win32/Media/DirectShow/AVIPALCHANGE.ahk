@@ -48,7 +48,7 @@ class AVIPALCHANGE extends Win32Struct
     peNew{
         get {
             if(!this.HasProp("__peNewProxyArray"))
-                this.__peNewProxyArray := Win32FixedArray(this.ptr + 8, 8, PALETTEENTRY, "")
+                this.__peNewProxyArray := Win32FixedArray(this.ptr + 8, 1, PALETTEENTRY, "")
             return this.__peNewProxyArray
         }
     }

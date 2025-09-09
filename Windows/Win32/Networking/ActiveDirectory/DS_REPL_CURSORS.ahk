@@ -39,7 +39,7 @@ class DS_REPL_CURSORS extends Win32Struct
     rgCursor{
         get {
             if(!this.HasProp("__rgCursorProxyArray"))
-                this.__rgCursorProxyArray := Win32FixedArray(this.ptr + 8, 8, DS_REPL_CURSOR, "")
+                this.__rgCursorProxyArray := Win32FixedArray(this.ptr + 8, 1, DS_REPL_CURSOR, "")
             return this.__rgCursorProxyArray
         }
     }

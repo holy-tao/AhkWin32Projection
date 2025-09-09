@@ -89,7 +89,7 @@ class _URB_CONTROL_TRANSFER_EX extends Win32Struct
     SetupPacket{
         get {
             if(!this.HasProp("__SetupPacketProxyArray"))
-                this.__SetupPacketProxyArray := Win32FixedArray(this.ptr + 128, 1, Primitive, "char")
+                this.__SetupPacketProxyArray := Win32FixedArray(this.ptr + 128, 8, Primitive, "char")
             return this.__SetupPacketProxyArray
         }
     }

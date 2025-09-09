@@ -90,7 +90,7 @@ class USBD_INTERFACE_INFORMATION extends Win32Struct
     Pipes{
         get {
             if(!this.HasProp("__PipesProxyArray"))
-                this.__PipesProxyArray := Win32FixedArray(this.ptr + 24, 8, USBD_PIPE_INFORMATION, "")
+                this.__PipesProxyArray := Win32FixedArray(this.ptr + 24, 1, USBD_PIPE_INFORMATION, "")
             return this.__PipesProxyArray
         }
     }

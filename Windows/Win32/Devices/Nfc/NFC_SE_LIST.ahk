@@ -26,7 +26,7 @@ class NFC_SE_LIST extends Win32Struct
     EndpointList{
         get {
             if(!this.HasProp("__EndpointListProxyArray"))
-                this.__EndpointListProxyArray := Win32FixedArray(this.ptr + 8, 8, NFC_SE_INFO, "")
+                this.__EndpointListProxyArray := Win32FixedArray(this.ptr + 8, 1, NFC_SE_INFO, "")
             return this.__EndpointListProxyArray
         }
     }

@@ -101,7 +101,7 @@ class PXE_ADDRESS extends Win32Struct
     bAddress{
         get {
             if(!this.HasProp("__bAddressProxyArray"))
-                this.__bAddressProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")
+                this.__bAddressProxyArray := Win32FixedArray(this.ptr + 4, 16, Primitive, "char")
             return this.__bAddressProxyArray
         }
     }

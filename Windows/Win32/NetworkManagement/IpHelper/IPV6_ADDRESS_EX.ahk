@@ -59,7 +59,7 @@ class IPV6_ADDRESS_EX extends Win32Struct
     sin6_addr{
         get {
             if(!this.HasProp("__sin6_addrProxyArray"))
-                this.__sin6_addrProxyArray := Win32FixedArray(this.ptr + 6, 2, Primitive, "ushort")
+                this.__sin6_addrProxyArray := Win32FixedArray(this.ptr + 6, 8, Primitive, "ushort")
             return this.__sin6_addrProxyArray
         }
     }

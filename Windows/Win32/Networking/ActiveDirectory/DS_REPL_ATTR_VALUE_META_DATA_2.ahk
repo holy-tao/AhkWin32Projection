@@ -40,7 +40,7 @@ class DS_REPL_ATTR_VALUE_META_DATA_2 extends Win32Struct
     rgMetaData{
         get {
             if(!this.HasProp("__rgMetaDataProxyArray"))
-                this.__rgMetaDataProxyArray := Win32FixedArray(this.ptr + 8, 8, DS_REPL_VALUE_META_DATA_2, "")
+                this.__rgMetaDataProxyArray := Win32FixedArray(this.ptr + 8, 1, DS_REPL_VALUE_META_DATA_2, "")
             return this.__rgMetaDataProxyArray
         }
     }

@@ -17,7 +17,7 @@ class MSV1_0_CREDENTIAL_KEY extends Win32Struct
     Data{
         get {
             if(!this.HasProp("__DataProxyArray"))
-                this.__DataProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__DataProxyArray := Win32FixedArray(this.ptr + 0, 20, Primitive, "char")
             return this.__DataProxyArray
         }
     }

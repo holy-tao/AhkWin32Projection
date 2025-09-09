@@ -54,7 +54,7 @@ class FWPM_CONNECTION0 extends Win32Struct
     localV6Address{
         get {
             if(!this.HasProp("__localV6AddressProxyArray"))
-                this.__localV6AddressProxyArray := Win32FixedArray(this.ptr + 12, 1, Primitive, "char")
+                this.__localV6AddressProxyArray := Win32FixedArray(this.ptr + 12, 16, Primitive, "char")
             return this.__localV6AddressProxyArray
         }
     }
@@ -73,7 +73,7 @@ class FWPM_CONNECTION0 extends Win32Struct
     remoteV6Address{
         get {
             if(!this.HasProp("__remoteV6AddressProxyArray"))
-                this.__remoteV6AddressProxyArray := Win32FixedArray(this.ptr + 16, 1, Primitive, "char")
+                this.__remoteV6AddressProxyArray := Win32FixedArray(this.ptr + 16, 16, Primitive, "char")
             return this.__remoteV6AddressProxyArray
         }
     }

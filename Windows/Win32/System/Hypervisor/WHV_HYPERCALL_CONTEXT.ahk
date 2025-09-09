@@ -82,7 +82,7 @@ class WHV_HYPERCALL_CONTEXT extends Win32Struct
     XmmRegisters{
         get {
             if(!this.HasProp("__XmmRegistersProxyArray"))
-                this.__XmmRegistersProxyArray := Win32FixedArray(this.ptr + 64, 8, WHV_UINT128, "")
+                this.__XmmRegistersProxyArray := Win32FixedArray(this.ptr + 64, 6, WHV_UINT128, "")
             return this.__XmmRegistersProxyArray
         }
     }
@@ -93,7 +93,7 @@ class WHV_HYPERCALL_CONTEXT extends Win32Struct
     Reserved1{
         get {
             if(!this.HasProp("__Reserved1ProxyArray"))
-                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 112, 8, Primitive, "uint")
+                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 112, 2, Primitive, "uint")
             return this.__Reserved1ProxyArray
         }
     }

@@ -41,7 +41,7 @@ class WIM_PROVIDER_EXTERNAL_INFO extends Win32Struct
     ResourceHash{
         get {
             if(!this.HasProp("__ResourceHashProxyArray"))
-                this.__ResourceHashProxyArray := Win32FixedArray(this.ptr + 16, 1, Primitive, "char")
+                this.__ResourceHashProxyArray := Win32FixedArray(this.ptr + 16, 20, Primitive, "char")
             return this.__ResourceHashProxyArray
         }
     }

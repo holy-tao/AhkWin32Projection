@@ -30,7 +30,7 @@ class SR_RESOURCE_TYPE_REPLICATED_PARTITION_ARRAY extends Win32Struct
     PartitionArray{
         get {
             if(!this.HasProp("__PartitionArrayProxyArray"))
-                this.__PartitionArrayProxyArray := Win32FixedArray(this.ptr + 8, 8, SR_RESOURCE_TYPE_REPLICATED_PARTITION_INFO, "")
+                this.__PartitionArrayProxyArray := Win32FixedArray(this.ptr + 8, 1, SR_RESOURCE_TYPE_REPLICATED_PARTITION_INFO, "")
             return this.__PartitionArrayProxyArray
         }
     }

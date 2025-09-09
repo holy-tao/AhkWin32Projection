@@ -38,7 +38,7 @@ class GROUP_AFFINITY extends Win32Struct
     Reserved{
         get {
             if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 10, 2, Primitive, "ushort")
+                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 10, 3, Primitive, "ushort")
             return this.__ReservedProxyArray
         }
     }

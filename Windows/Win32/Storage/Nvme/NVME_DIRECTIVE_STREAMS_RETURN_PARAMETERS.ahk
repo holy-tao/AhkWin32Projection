@@ -49,7 +49,7 @@ class NVME_DIRECTIVE_STREAMS_RETURN_PARAMETERS extends Win32Struct
     Reserved0{
         get {
             if(!this.HasProp("__Reserved0ProxyArray"))
-                this.__Reserved0ProxyArray := Win32FixedArray(this.ptr + 6, 1, Primitive, "char")
+                this.__Reserved0ProxyArray := Win32FixedArray(this.ptr + 6, 10, Primitive, "char")
             return this.__Reserved0ProxyArray
         }
     }
@@ -97,7 +97,7 @@ class NVME_DIRECTIVE_STREAMS_RETURN_PARAMETERS extends Win32Struct
     Reserved1{
         get {
             if(!this.HasProp("__Reserved1ProxyArray"))
-                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 26, 1, Primitive, "char")
+                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 26, 6, Primitive, "char")
             return this.__Reserved1ProxyArray
         }
     }

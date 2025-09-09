@@ -17,7 +17,7 @@ class WHV_X64_TABLE_REGISTER extends Win32Struct
     Pad{
         get {
             if(!this.HasProp("__PadProxyArray"))
-                this.__PadProxyArray := Win32FixedArray(this.ptr + 0, 2, Primitive, "ushort")
+                this.__PadProxyArray := Win32FixedArray(this.ptr + 0, 3, Primitive, "ushort")
             return this.__PadProxyArray
         }
     }

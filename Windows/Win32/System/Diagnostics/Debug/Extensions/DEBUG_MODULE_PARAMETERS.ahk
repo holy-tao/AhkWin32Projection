@@ -105,7 +105,7 @@ class DEBUG_MODULE_PARAMETERS extends Win32Struct
     Reserved{
         get {
             if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 48, 8, Primitive, "uint")
+                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 48, 2, Primitive, "uint")
             return this.__ReservedProxyArray
         }
     }

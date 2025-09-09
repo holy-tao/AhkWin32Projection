@@ -57,7 +57,7 @@ class NVME_OCP_DEVICE_CAPABILITIES_LOG extends Win32Struct
     DssdDescriptors{
         get {
             if(!this.HasProp("__DssdDescriptorsProxyArray"))
-                this.__DssdDescriptorsProxyArray := Win32FixedArray(this.ptr + 17, 1, Primitive, "char")
+                this.__DssdDescriptorsProxyArray := Win32FixedArray(this.ptr + 17, 127, Primitive, "char")
             return this.__DssdDescriptorsProxyArray
         }
     }
@@ -68,7 +68,7 @@ class NVME_OCP_DEVICE_CAPABILITIES_LOG extends Win32Struct
     Reserved1{
         get {
             if(!this.HasProp("__Reserved1ProxyArray"))
-                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 144, 1, Primitive, "char")
+                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 144, 3934, Primitive, "char")
             return this.__Reserved1ProxyArray
         }
     }

@@ -39,7 +39,7 @@ class Adapter extends Win32Struct
     sources{
         get {
             if(!this.HasProp("__sourcesProxyArray"))
-                this.__sourcesProxyArray := Win32FixedArray(this.ptr + 264, 8, Sources, "")
+                this.__sourcesProxyArray := Win32FixedArray(this.ptr + 264, 1, Sources, "")
             return this.__sourcesProxyArray
         }
     }

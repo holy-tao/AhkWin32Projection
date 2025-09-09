@@ -17,7 +17,7 @@ class IMAGE_HOT_PATCH_HASHES extends Win32Struct
     SHA256{
         get {
             if(!this.HasProp("__SHA256ProxyArray"))
-                this.__SHA256ProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__SHA256ProxyArray := Win32FixedArray(this.ptr + 0, 32, Primitive, "char")
             return this.__SHA256ProxyArray
         }
     }
@@ -28,7 +28,7 @@ class IMAGE_HOT_PATCH_HASHES extends Win32Struct
     SHA1{
         get {
             if(!this.HasProp("__SHA1ProxyArray"))
-                this.__SHA1ProxyArray := Win32FixedArray(this.ptr + 32, 1, Primitive, "char")
+                this.__SHA1ProxyArray := Win32FixedArray(this.ptr + 32, 20, Primitive, "char")
             return this.__SHA1ProxyArray
         }
     }

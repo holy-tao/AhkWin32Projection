@@ -25,7 +25,7 @@ class HTTP_REQUEST_TIMING_INFO extends Win32Struct
     RequestTiming{
         get {
             if(!this.HasProp("__RequestTimingProxyArray"))
-                this.__RequestTimingProxyArray := Win32FixedArray(this.ptr + 8, 8, Primitive, "uint")
+                this.__RequestTimingProxyArray := Win32FixedArray(this.ptr + 8, 30, Primitive, "uint")
             return this.__RequestTimingProxyArray
         }
     }

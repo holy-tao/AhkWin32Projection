@@ -44,7 +44,7 @@ class DOT11_NETWORK_LIST extends Win32Struct
     Network{
         get {
             if(!this.HasProp("__NetworkProxyArray"))
-                this.__NetworkProxyArray := Win32FixedArray(this.ptr + 8, 8, DOT11_NETWORK, "")
+                this.__NetworkProxyArray := Win32FixedArray(this.ptr + 8, 1, DOT11_NETWORK, "")
             return this.__NetworkProxyArray
         }
     }

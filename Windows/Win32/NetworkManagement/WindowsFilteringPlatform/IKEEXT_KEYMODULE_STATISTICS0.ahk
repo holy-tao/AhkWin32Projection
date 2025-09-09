@@ -51,7 +51,7 @@ class IKEEXT_KEYMODULE_STATISTICS0 extends Win32Struct
     errorFrequencyTable{
         get {
             if(!this.HasProp("__errorFrequencyTableProxyArray"))
-                this.__errorFrequencyTableProxyArray := Win32FixedArray(this.ptr + 144, 4, Primitive, "uint")
+                this.__errorFrequencyTableProxyArray := Win32FixedArray(this.ptr + 144, 97, Primitive, "uint")
             return this.__errorFrequencyTableProxyArray
         }
     }

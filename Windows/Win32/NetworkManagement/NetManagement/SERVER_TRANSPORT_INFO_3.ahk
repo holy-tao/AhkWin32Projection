@@ -184,7 +184,7 @@ class SERVER_TRANSPORT_INFO_3 extends Win32Struct
     svti3_password{
         get {
             if(!this.HasProp("__svti3_passwordProxyArray"))
-                this.__svti3_passwordProxyArray := Win32FixedArray(this.ptr + 56, 1, Primitive, "char")
+                this.__svti3_passwordProxyArray := Win32FixedArray(this.ptr + 56, 256, Primitive, "char")
             return this.__svti3_passwordProxyArray
         }
     }

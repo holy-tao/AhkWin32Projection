@@ -50,7 +50,7 @@ class DNS_NXT_DATAW extends Win32Struct
     wTypes{
         get {
             if(!this.HasProp("__wTypesProxyArray"))
-                this.__wTypesProxyArray := Win32FixedArray(this.ptr + 10, 2, Primitive, "ushort")
+                this.__wTypesProxyArray := Win32FixedArray(this.ptr + 10, 1, Primitive, "ushort")
             return this.__wTypesProxyArray
         }
     }

@@ -116,7 +116,7 @@ class USB_DEVICE_NODE_INFO extends Win32Struct
     DeviceInformation{
         get {
             if(!this.HasProp("__DeviceInformationProxyArray"))
-                this.__DeviceInformationProxyArray := Win32FixedArray(this.ptr + 124, 1, Primitive, "char")
+                this.__DeviceInformationProxyArray := Win32FixedArray(this.ptr + 124, 4, Primitive, "char")
             return this.__DeviceInformationProxyArray
         }
     }

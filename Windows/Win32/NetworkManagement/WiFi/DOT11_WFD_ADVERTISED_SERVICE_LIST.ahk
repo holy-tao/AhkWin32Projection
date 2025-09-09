@@ -26,7 +26,7 @@ class DOT11_WFD_ADVERTISED_SERVICE_LIST extends Win32Struct
     AdvertisedService{
         get {
             if(!this.HasProp("__AdvertisedServiceProxyArray"))
-                this.__AdvertisedServiceProxyArray := Win32FixedArray(this.ptr + 8, 8, DOT11_WFD_ADVERTISED_SERVICE_DESCRIPTOR, "")
+                this.__AdvertisedServiceProxyArray := Win32FixedArray(this.ptr + 8, 1, DOT11_WFD_ADVERTISED_SERVICE_DESCRIPTOR, "")
             return this.__AdvertisedServiceProxyArray
         }
     }

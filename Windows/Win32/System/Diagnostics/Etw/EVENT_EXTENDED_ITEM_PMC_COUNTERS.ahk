@@ -22,7 +22,7 @@ class EVENT_EXTENDED_ITEM_PMC_COUNTERS extends Win32Struct
     Counter{
         get {
             if(!this.HasProp("__CounterProxyArray"))
-                this.__CounterProxyArray := Win32FixedArray(this.ptr + 0, 8, Primitive, "uint")
+                this.__CounterProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "uint")
             return this.__CounterProxyArray
         }
     }

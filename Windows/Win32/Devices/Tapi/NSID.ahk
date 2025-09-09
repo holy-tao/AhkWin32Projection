@@ -26,7 +26,7 @@ class NSID extends Win32Struct
     uchType{
         get {
             if(!this.HasProp("__uchTypeProxyArray"))
-                this.__uchTypeProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")
+                this.__uchTypeProxyArray := Win32FixedArray(this.ptr + 4, 16, Primitive, "char")
             return this.__uchTypeProxyArray
         }
     }

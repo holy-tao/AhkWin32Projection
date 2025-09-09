@@ -24,7 +24,7 @@ class WTS_THUMBNAILID extends Win32Struct
     rgbKey{
         get {
             if(!this.HasProp("__rgbKeyProxyArray"))
-                this.__rgbKeyProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__rgbKeyProxyArray := Win32FixedArray(this.ptr + 0, 16, Primitive, "char")
             return this.__rgbKeyProxyArray
         }
     }

@@ -76,7 +76,7 @@ class MSV1_0_LM20_LOGON extends Win32Struct
     ChallengeToClient{
         get {
             if(!this.HasProp("__ChallengeToClientProxyArray"))
-                this.__ChallengeToClientProxyArray := Win32FixedArray(this.ptr + 56, 1, Primitive, "char")
+                this.__ChallengeToClientProxyArray := Win32FixedArray(this.ptr + 56, 8, Primitive, "char")
             return this.__ChallengeToClientProxyArray
         }
     }

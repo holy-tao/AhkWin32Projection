@@ -29,7 +29,7 @@ class PUBLIC_OBJECT_TYPE_INFORMATION extends Win32Struct
     Reserved{
         get {
             if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 16, 4, Primitive, "uint")
+                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 16, 22, Primitive, "uint")
             return this.__ReservedProxyArray
         }
     }

@@ -92,7 +92,7 @@ class EXTLOGFONTW extends Win32Struct
     elfVendorId{
         get {
             if(!this.HasProp("__elfVendorIdProxyArray"))
-                this.__elfVendorIdProxyArray := Win32FixedArray(this.ptr + 300, 1, Primitive, "char")
+                this.__elfVendorIdProxyArray := Win32FixedArray(this.ptr + 300, 4, Primitive, "char")
             return this.__elfVendorIdProxyArray
         }
     }

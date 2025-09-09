@@ -33,7 +33,7 @@ class ColorPalette extends Win32Struct
     Entries{
         get {
             if(!this.HasProp("__EntriesProxyArray"))
-                this.__EntriesProxyArray := Win32FixedArray(this.ptr + 8, 4, Primitive, "uint")
+                this.__EntriesProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "uint")
             return this.__EntriesProxyArray
         }
     }

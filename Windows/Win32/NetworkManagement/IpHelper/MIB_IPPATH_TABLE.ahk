@@ -50,7 +50,7 @@ class MIB_IPPATH_TABLE extends Win32Struct
     Table{
         get {
             if(!this.HasProp("__TableProxyArray"))
-                this.__TableProxyArray := Win32FixedArray(this.ptr + 8, 8, MIB_IPPATH_ROW, "")
+                this.__TableProxyArray := Win32FixedArray(this.ptr + 8, 1, MIB_IPPATH_ROW, "")
             return this.__TableProxyArray
         }
     }

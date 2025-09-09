@@ -17,7 +17,7 @@ class PROCESS_COMMIT_USAGE extends Win32Struct
     ImageFileName{
         get {
             if(!this.HasProp("__ImageFileNameProxyArray"))
-                this.__ImageFileNameProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__ImageFileNameProxyArray := Win32FixedArray(this.ptr + 0, 16, Primitive, "char")
             return this.__ImageFileNameProxyArray
         }
     }

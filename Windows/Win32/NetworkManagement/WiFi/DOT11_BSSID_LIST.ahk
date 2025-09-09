@@ -51,7 +51,7 @@ class DOT11_BSSID_LIST extends Win32Struct
     BSSIDs{
         get {
             if(!this.HasProp("__BSSIDsProxyArray"))
-                this.__BSSIDsProxyArray := Win32FixedArray(this.ptr + 12, 1, Primitive, "char")
+                this.__BSSIDsProxyArray := Win32FixedArray(this.ptr + 12, 6, Primitive, "char")
             return this.__BSSIDsProxyArray
         }
     }

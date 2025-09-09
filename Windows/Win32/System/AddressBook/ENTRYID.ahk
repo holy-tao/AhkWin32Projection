@@ -84,7 +84,7 @@ class ENTRYID extends Win32Struct
     abFlags{
         get {
             if(!this.HasProp("__abFlagsProxyArray"))
-                this.__abFlagsProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__abFlagsProxyArray := Win32FixedArray(this.ptr + 0, 4, Primitive, "char")
             return this.__abFlagsProxyArray
         }
     }

@@ -57,7 +57,7 @@ class DEBUG_STACK_FRAME extends Win32Struct
     Params{
         get {
             if(!this.HasProp("__ParamsProxyArray"))
-                this.__ParamsProxyArray := Win32FixedArray(this.ptr + 40, 8, Primitive, "uint")
+                this.__ParamsProxyArray := Win32FixedArray(this.ptr + 40, 4, Primitive, "uint")
             return this.__ParamsProxyArray
         }
     }
@@ -68,7 +68,7 @@ class DEBUG_STACK_FRAME extends Win32Struct
     Reserved{
         get {
             if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 72, 8, Primitive, "uint")
+                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 72, 6, Primitive, "uint")
             return this.__ReservedProxyArray
         }
     }

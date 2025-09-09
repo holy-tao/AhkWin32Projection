@@ -78,7 +78,7 @@ class STORAGE_PHYSICAL_DEVICE_DATA extends Win32Struct
     Vendor{
         get {
             if(!this.HasProp("__VendorProxyArray"))
-                this.__VendorProxyArray := Win32FixedArray(this.ptr + 28, 1, Primitive, "char")
+                this.__VendorProxyArray := Win32FixedArray(this.ptr + 28, 8, Primitive, "char")
             return this.__VendorProxyArray
         }
     }
@@ -90,7 +90,7 @@ class STORAGE_PHYSICAL_DEVICE_DATA extends Win32Struct
     Model{
         get {
             if(!this.HasProp("__ModelProxyArray"))
-                this.__ModelProxyArray := Win32FixedArray(this.ptr + 36, 1, Primitive, "char")
+                this.__ModelProxyArray := Win32FixedArray(this.ptr + 36, 40, Primitive, "char")
             return this.__ModelProxyArray
         }
     }
@@ -102,7 +102,7 @@ class STORAGE_PHYSICAL_DEVICE_DATA extends Win32Struct
     FirmwareRevision{
         get {
             if(!this.HasProp("__FirmwareRevisionProxyArray"))
-                this.__FirmwareRevisionProxyArray := Win32FixedArray(this.ptr + 76, 1, Primitive, "char")
+                this.__FirmwareRevisionProxyArray := Win32FixedArray(this.ptr + 76, 16, Primitive, "char")
             return this.__FirmwareRevisionProxyArray
         }
     }
@@ -123,7 +123,7 @@ class STORAGE_PHYSICAL_DEVICE_DATA extends Win32Struct
     PhysicalLocation{
         get {
             if(!this.HasProp("__PhysicalLocationProxyArray"))
-                this.__PhysicalLocationProxyArray := Win32FixedArray(this.ptr + 104, 1, Primitive, "char")
+                this.__PhysicalLocationProxyArray := Win32FixedArray(this.ptr + 104, 32, Primitive, "char")
             return this.__PhysicalLocationProxyArray
         }
     }
@@ -135,7 +135,7 @@ class STORAGE_PHYSICAL_DEVICE_DATA extends Win32Struct
     Reserved{
         get {
             if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 136, 4, Primitive, "uint")
+                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 136, 2, Primitive, "uint")
             return this.__ReservedProxyArray
         }
     }

@@ -27,7 +27,7 @@ class NCCALCSIZE_PARAMS extends Win32Struct
     rgrc{
         get {
             if(!this.HasProp("__rgrcProxyArray"))
-                this.__rgrcProxyArray := Win32FixedArray(this.ptr + 0, 8, RECT, "")
+                this.__rgrcProxyArray := Win32FixedArray(this.ptr + 0, 3, RECT, "")
             return this.__rgrcProxyArray
         }
     }

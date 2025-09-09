@@ -33,7 +33,7 @@ class TCG_PCClientPCREventStruct extends Win32Struct
     digest{
         get {
             if(!this.HasProp("__digestProxyArray"))
-                this.__digestProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "char")
+                this.__digestProxyArray := Win32FixedArray(this.ptr + 8, 20, Primitive, "char")
             return this.__digestProxyArray
         }
     }

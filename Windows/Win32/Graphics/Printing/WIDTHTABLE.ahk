@@ -34,7 +34,7 @@ class WIDTHTABLE extends Win32Struct
     WidthRun{
         get {
             if(!this.HasProp("__WidthRunProxyArray"))
-                this.__WidthRunProxyArray := Win32FixedArray(this.ptr + 8, 8, WIDTHRUN, "")
+                this.__WidthRunProxyArray := Win32FixedArray(this.ptr + 8, 1, WIDTHRUN, "")
             return this.__WidthRunProxyArray
         }
     }

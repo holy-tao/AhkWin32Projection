@@ -42,7 +42,7 @@ class FILE_LEVEL_TRIM extends Win32Struct
     Ranges{
         get {
             if(!this.HasProp("__RangesProxyArray"))
-                this.__RangesProxyArray := Win32FixedArray(this.ptr + 8, 8, FILE_LEVEL_TRIM_RANGE, "")
+                this.__RangesProxyArray := Win32FixedArray(this.ptr + 8, 1, FILE_LEVEL_TRIM_RANGE, "")
             return this.__RangesProxyArray
         }
     }

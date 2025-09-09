@@ -46,7 +46,7 @@ class DIBSECTION extends Win32Struct
     dsBitfields{
         get {
             if(!this.HasProp("__dsBitfieldsProxyArray"))
-                this.__dsBitfieldsProxyArray := Win32FixedArray(this.ptr + 72, 4, Primitive, "uint")
+                this.__dsBitfieldsProxyArray := Win32FixedArray(this.ptr + 72, 3, Primitive, "uint")
             return this.__dsBitfieldsProxyArray
         }
     }

@@ -44,7 +44,7 @@ class NVME_LBA_RANGET_TYPE_ENTRY extends Win32Struct
     Reserved0{
         get {
             if(!this.HasProp("__Reserved0ProxyArray"))
-                this.__Reserved0ProxyArray := Win32FixedArray(this.ptr + 2, 1, Primitive, "char")
+                this.__Reserved0ProxyArray := Win32FixedArray(this.ptr + 2, 14, Primitive, "char")
             return this.__Reserved0ProxyArray
         }
     }
@@ -74,7 +74,7 @@ class NVME_LBA_RANGET_TYPE_ENTRY extends Win32Struct
     GUID{
         get {
             if(!this.HasProp("__GUIDProxyArray"))
-                this.__GUIDProxyArray := Win32FixedArray(this.ptr + 32, 1, Primitive, "char")
+                this.__GUIDProxyArray := Win32FixedArray(this.ptr + 32, 16, Primitive, "char")
             return this.__GUIDProxyArray
         }
     }
@@ -86,7 +86,7 @@ class NVME_LBA_RANGET_TYPE_ENTRY extends Win32Struct
     Reserved1{
         get {
             if(!this.HasProp("__Reserved1ProxyArray"))
-                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 48, 1, Primitive, "char")
+                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 48, 16, Primitive, "char")
             return this.__Reserved1ProxyArray
         }
     }

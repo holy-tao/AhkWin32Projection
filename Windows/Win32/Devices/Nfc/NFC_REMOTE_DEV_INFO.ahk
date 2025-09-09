@@ -57,7 +57,7 @@ class NFC_REMOTE_DEV_INFO extends Win32Struct
     pbUid{
         get {
             if(!this.HasProp("__pbUidProxyArray"))
-                this.__pbUidProxyArray := Win32FixedArray(this.ptr + 15, 1, Primitive, "char")
+                this.__pbUidProxyArray := Win32FixedArray(this.ptr + 15, 16, Primitive, "char")
             return this.__pbUidProxyArray
         }
     }

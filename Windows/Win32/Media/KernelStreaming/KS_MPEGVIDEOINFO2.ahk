@@ -71,7 +71,7 @@ class KS_MPEGVIDEOINFO2 extends Win32Struct
     bSequenceHeader{
         get {
             if(!this.HasProp("__bSequenceHeaderProxyArray"))
-                this.__bSequenceHeaderProxyArray := Win32FixedArray(this.ptr + 132, 4, Primitive, "uint")
+                this.__bSequenceHeaderProxyArray := Win32FixedArray(this.ptr + 132, 1, Primitive, "uint")
             return this.__bSequenceHeaderProxyArray
         }
     }

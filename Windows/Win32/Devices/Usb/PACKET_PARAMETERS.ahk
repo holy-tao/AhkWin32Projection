@@ -89,7 +89,7 @@ class PACKET_PARAMETERS extends Win32Struct
     Pad{
         get {
             if(!this.HasProp("__PadProxyArray"))
-                this.__PadProxyArray := Win32FixedArray(this.ptr + 21, 1, Primitive, "char")
+                this.__PadProxyArray := Win32FixedArray(this.ptr + 21, 3, Primitive, "char")
             return this.__PadProxyArray
         }
     }
@@ -108,7 +108,7 @@ class PACKET_PARAMETERS extends Win32Struct
     Data{
         get {
             if(!this.HasProp("__DataProxyArray"))
-                this.__DataProxyArray := Win32FixedArray(this.ptr + 28, 1, Primitive, "char")
+                this.__DataProxyArray := Win32FixedArray(this.ptr + 28, 4, Primitive, "char")
             return this.__DataProxyArray
         }
     }

@@ -33,7 +33,7 @@ class DOT11_SSID extends Win32Struct
     ucSSID{
         get {
             if(!this.HasProp("__ucSSIDProxyArray"))
-                this.__ucSSIDProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")
+                this.__ucSSIDProxyArray := Win32FixedArray(this.ptr + 4, 32, Primitive, "char")
             return this.__ucSSIDProxyArray
         }
     }

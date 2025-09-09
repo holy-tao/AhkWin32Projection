@@ -55,7 +55,7 @@ class MINIDUMP_MEMORY64_LIST extends Win32Struct
     MemoryRanges{
         get {
             if(!this.HasProp("__MemoryRangesProxyArray"))
-                this.__MemoryRangesProxyArray := Win32FixedArray(this.ptr + 16, 8, MINIDUMP_MEMORY_DESCRIPTOR64, "")
+                this.__MemoryRangesProxyArray := Win32FixedArray(this.ptr + 16, 1, MINIDUMP_MEMORY_DESCRIPTOR64, "")
             return this.__MemoryRangesProxyArray
         }
     }

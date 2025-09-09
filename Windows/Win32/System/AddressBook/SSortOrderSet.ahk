@@ -58,7 +58,7 @@ class SSortOrderSet extends Win32Struct
     aSort{
         get {
             if(!this.HasProp("__aSortProxyArray"))
-                this.__aSortProxyArray := Win32FixedArray(this.ptr + 16, 8, SSortOrder, "")
+                this.__aSortProxyArray := Win32FixedArray(this.ptr + 16, 1, SSortOrder, "")
             return this.__aSortProxyArray
         }
     }

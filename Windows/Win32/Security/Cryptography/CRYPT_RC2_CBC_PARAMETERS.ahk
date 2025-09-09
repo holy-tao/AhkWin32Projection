@@ -105,7 +105,7 @@ class CRYPT_RC2_CBC_PARAMETERS extends Win32Struct
     rgbIV{
         get {
             if(!this.HasProp("__rgbIVProxyArray"))
-                this.__rgbIVProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "char")
+                this.__rgbIVProxyArray := Win32FixedArray(this.ptr + 8, 8, Primitive, "char")
             return this.__rgbIVProxyArray
         }
     }

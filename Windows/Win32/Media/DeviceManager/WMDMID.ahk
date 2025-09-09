@@ -37,7 +37,7 @@ class WMDMID extends Win32Struct
     pID{
         get {
             if(!this.HasProp("__pIDProxyArray"))
-                this.__pIDProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "char")
+                this.__pIDProxyArray := Win32FixedArray(this.ptr + 8, 128, Primitive, "char")
             return this.__pIDProxyArray
         }
     }

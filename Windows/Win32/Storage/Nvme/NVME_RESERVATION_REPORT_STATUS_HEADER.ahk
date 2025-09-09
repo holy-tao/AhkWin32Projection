@@ -41,7 +41,7 @@ class NVME_RESERVATION_REPORT_STATUS_HEADER extends Win32Struct
     Reserved{
         get {
             if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 7, 1, Primitive, "char")
+                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 7, 2, Primitive, "char")
             return this.__ReservedProxyArray
         }
     }
@@ -60,7 +60,7 @@ class NVME_RESERVATION_REPORT_STATUS_HEADER extends Win32Struct
     Reserved1{
         get {
             if(!this.HasProp("__Reserved1ProxyArray"))
-                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 10, 1, Primitive, "char")
+                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 10, 14, Primitive, "char")
             return this.__Reserved1ProxyArray
         }
     }

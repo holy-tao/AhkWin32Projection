@@ -49,7 +49,7 @@ class SCHANNEL_CLIENT_SIGNATURE extends Win32Struct
     HashValue{
         get {
             if(!this.HasProp("__HashValueProxyArray"))
-                this.__HashValueProxyArray := Win32FixedArray(this.ptr + 12, 1, Primitive, "char")
+                this.__HashValueProxyArray := Win32FixedArray(this.ptr + 12, 36, Primitive, "char")
             return this.__HashValueProxyArray
         }
     }
@@ -61,7 +61,7 @@ class SCHANNEL_CLIENT_SIGNATURE extends Win32Struct
     CertThumbprint{
         get {
             if(!this.HasProp("__CertThumbprintProxyArray"))
-                this.__CertThumbprintProxyArray := Win32FixedArray(this.ptr + 48, 1, Primitive, "char")
+                this.__CertThumbprintProxyArray := Win32FixedArray(this.ptr + 48, 20, Primitive, "char")
             return this.__CertThumbprintProxyArray
         }
     }

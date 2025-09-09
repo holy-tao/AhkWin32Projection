@@ -29,7 +29,7 @@ class WSANETWORKEVENTS extends Win32Struct
     iErrorCode{
         get {
             if(!this.HasProp("__iErrorCodeProxyArray"))
-                this.__iErrorCodeProxyArray := Win32FixedArray(this.ptr + 4, 4, Primitive, "int")
+                this.__iErrorCodeProxyArray := Win32FixedArray(this.ptr + 4, 10, Primitive, "int")
             return this.__iErrorCodeProxyArray
         }
     }

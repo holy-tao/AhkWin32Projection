@@ -21,7 +21,7 @@ class IN6_ADDR extends Win32Struct
     Byte{
         get {
             if(!this.HasProp("__ByteProxyArray"))
-                this.__ByteProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__ByteProxyArray := Win32FixedArray(this.ptr + 0, 16, Primitive, "char")
             return this.__ByteProxyArray
         }
     }
@@ -32,7 +32,7 @@ class IN6_ADDR extends Win32Struct
     Word{
         get {
             if(!this.HasProp("__WordProxyArray"))
-                this.__WordProxyArray := Win32FixedArray(this.ptr + 0, 2, Primitive, "ushort")
+                this.__WordProxyArray := Win32FixedArray(this.ptr + 0, 8, Primitive, "ushort")
             return this.__WordProxyArray
         }
     }

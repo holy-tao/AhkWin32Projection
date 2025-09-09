@@ -125,7 +125,7 @@ class DEVICE_DATA_SET_LB_PROVISIONING_STATE extends Win32Struct
     SlabAllocationBitMap{
         get {
             if(!this.HasProp("__SlabAllocationBitMapProxyArray"))
-                this.__SlabAllocationBitMapProxyArray := Win32FixedArray(this.ptr + 28, 4, Primitive, "uint")
+                this.__SlabAllocationBitMapProxyArray := Win32FixedArray(this.ptr + 28, 1, Primitive, "uint")
             return this.__SlabAllocationBitMapProxyArray
         }
     }

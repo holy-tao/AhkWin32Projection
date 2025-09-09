@@ -30,7 +30,7 @@ class SR_RESOURCE_TYPE_ELIGIBLE_DISKS_RESULT extends Win32Struct
     DiskInfo{
         get {
             if(!this.HasProp("__DiskInfoProxyArray"))
-                this.__DiskInfoProxyArray := Win32FixedArray(this.ptr + 8, 8, SR_RESOURCE_TYPE_DISK_INFO, "")
+                this.__DiskInfoProxyArray := Win32FixedArray(this.ptr + 8, 1, SR_RESOURCE_TYPE_DISK_INFO, "")
             return this.__DiskInfoProxyArray
         }
     }

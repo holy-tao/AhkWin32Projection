@@ -25,7 +25,7 @@ class WORD_BLOB extends Win32Struct
     asData{
         get {
             if(!this.HasProp("__asDataProxyArray"))
-                this.__asDataProxyArray := Win32FixedArray(this.ptr + 4, 2, Primitive, "ushort")
+                this.__asDataProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "ushort")
             return this.__asDataProxyArray
         }
     }

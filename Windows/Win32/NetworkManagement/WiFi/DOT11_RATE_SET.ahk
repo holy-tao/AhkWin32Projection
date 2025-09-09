@@ -25,7 +25,7 @@ class DOT11_RATE_SET extends Win32Struct
     ucRateSet{
         get {
             if(!this.HasProp("__ucRateSetProxyArray"))
-                this.__ucRateSetProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")
+                this.__ucRateSetProxyArray := Win32FixedArray(this.ptr + 4, 126, Primitive, "char")
             return this.__ucRateSetProxyArray
         }
     }

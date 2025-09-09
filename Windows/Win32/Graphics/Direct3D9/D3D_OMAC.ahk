@@ -20,7 +20,7 @@ class D3D_OMAC extends Win32Struct
     Omac{
         get {
             if(!this.HasProp("__OmacProxyArray"))
-                this.__OmacProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__OmacProxyArray := Win32FixedArray(this.ptr + 0, 16, Primitive, "char")
             return this.__OmacProxyArray
         }
     }

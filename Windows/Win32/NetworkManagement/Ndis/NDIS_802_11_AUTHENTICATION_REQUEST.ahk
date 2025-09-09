@@ -25,7 +25,7 @@ class NDIS_802_11_AUTHENTICATION_REQUEST extends Win32Struct
     Bssid{
         get {
             if(!this.HasProp("__BssidProxyArray"))
-                this.__BssidProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")
+                this.__BssidProxyArray := Win32FixedArray(this.ptr + 4, 6, Primitive, "char")
             return this.__BssidProxyArray
         }
     }

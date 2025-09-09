@@ -50,7 +50,7 @@ class DEVICE_DSM_REPORT_ZONES_DATA extends Win32Struct
     ZoneDescriptors{
         get {
             if(!this.HasProp("__ZoneDescriptorsProxyArray"))
-                this.__ZoneDescriptorsProxyArray := Win32FixedArray(this.ptr + 16, 8, STORAGE_ZONE_DESCRIPTOR, "")
+                this.__ZoneDescriptorsProxyArray := Win32FixedArray(this.ptr + 16, 1, STORAGE_ZONE_DESCRIPTOR, "")
             return this.__ZoneDescriptorsProxyArray
         }
     }

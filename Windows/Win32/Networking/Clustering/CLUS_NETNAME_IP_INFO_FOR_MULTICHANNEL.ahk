@@ -39,7 +39,7 @@ class CLUS_NETNAME_IP_INFO_FOR_MULTICHANNEL extends Win32Struct
     IpInfo{
         get {
             if(!this.HasProp("__IpInfoProxyArray"))
-                this.__IpInfoProxyArray := Win32FixedArray(this.ptr + 136, 8, CLUS_NETNAME_IP_INFO_ENTRY, "")
+                this.__IpInfoProxyArray := Win32FixedArray(this.ptr + 136, 1, CLUS_NETNAME_IP_INFO_ENTRY, "")
             return this.__IpInfoProxyArray
         }
     }

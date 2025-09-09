@@ -207,7 +207,7 @@ class MIB_IPMCAST_MFE_STATS extends Win32Struct
     rgmiosOutStats{
         get {
             if(!this.HasProp("__rgmiosOutStatsProxyArray"))
-                this.__rgmiosOutStatsProxyArray := Win32FixedArray(this.ptr + 64, 8, MIB_IPMCAST_OIF_STATS_LH, "")
+                this.__rgmiosOutStatsProxyArray := Win32FixedArray(this.ptr + 64, 1, MIB_IPMCAST_OIF_STATS_LH, "")
             return this.__rgmiosOutStatsProxyArray
         }
     }

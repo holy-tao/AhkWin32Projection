@@ -65,7 +65,7 @@ class BCRYPT_DSA_KEY_BLOB extends Win32Struct
     Count{
         get {
             if(!this.HasProp("__CountProxyArray"))
-                this.__CountProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "char")
+                this.__CountProxyArray := Win32FixedArray(this.ptr + 8, 4, Primitive, "char")
             return this.__CountProxyArray
         }
     }
@@ -77,7 +77,7 @@ class BCRYPT_DSA_KEY_BLOB extends Win32Struct
     Seed{
         get {
             if(!this.HasProp("__SeedProxyArray"))
-                this.__SeedProxyArray := Win32FixedArray(this.ptr + 12, 1, Primitive, "char")
+                this.__SeedProxyArray := Win32FixedArray(this.ptr + 12, 20, Primitive, "char")
             return this.__SeedProxyArray
         }
     }
@@ -89,7 +89,7 @@ class BCRYPT_DSA_KEY_BLOB extends Win32Struct
     q{
         get {
             if(!this.HasProp("__qProxyArray"))
-                this.__qProxyArray := Win32FixedArray(this.ptr + 32, 1, Primitive, "char")
+                this.__qProxyArray := Win32FixedArray(this.ptr + 32, 20, Primitive, "char")
             return this.__qProxyArray
         }
     }

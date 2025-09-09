@@ -20,7 +20,7 @@ class DXGI_JPEG_QUANTIZATION_TABLE extends Win32Struct
     Elements{
         get {
             if(!this.HasProp("__ElementsProxyArray"))
-                this.__ElementsProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__ElementsProxyArray := Win32FixedArray(this.ptr + 0, 64, Primitive, "char")
             return this.__ElementsProxyArray
         }
     }

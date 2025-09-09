@@ -25,7 +25,7 @@ class CDROM_EXCLUSIVE_LOCK_STATE extends Win32Struct
     CallerName{
         get {
             if(!this.HasProp("__CallerNameProxyArray"))
-                this.__CallerNameProxyArray := Win32FixedArray(this.ptr + 1, 1, Primitive, "char")
+                this.__CallerNameProxyArray := Win32FixedArray(this.ptr + 1, 64, Primitive, "char")
             return this.__CallerNameProxyArray
         }
     }

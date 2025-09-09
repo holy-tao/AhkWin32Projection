@@ -17,7 +17,7 @@ class DVAudInfo extends Win32Struct
     bAudStyle{
         get {
             if(!this.HasProp("__bAudStyleProxyArray"))
-                this.__bAudStyleProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__bAudStyleProxyArray := Win32FixedArray(this.ptr + 0, 2, Primitive, "char")
             return this.__bAudStyleProxyArray
         }
     }
@@ -28,7 +28,7 @@ class DVAudInfo extends Win32Struct
     bAudQu{
         get {
             if(!this.HasProp("__bAudQuProxyArray"))
-                this.__bAudQuProxyArray := Win32FixedArray(this.ptr + 2, 1, Primitive, "char")
+                this.__bAudQuProxyArray := Win32FixedArray(this.ptr + 2, 2, Primitive, "char")
             return this.__bAudQuProxyArray
         }
     }

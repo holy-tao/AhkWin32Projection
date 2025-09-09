@@ -57,7 +57,7 @@ class MSV1_0_LM20_LOGON_PROFILE extends Win32Struct
     UserSessionKey{
         get {
             if(!this.HasProp("__UserSessionKeyProxyArray"))
-                this.__UserSessionKeyProxyArray := Win32FixedArray(this.ptr + 28, 1, Primitive, "char")
+                this.__UserSessionKeyProxyArray := Win32FixedArray(this.ptr + 28, 16, Primitive, "char")
             return this.__UserSessionKeyProxyArray
         }
     }
@@ -81,7 +81,7 @@ class MSV1_0_LM20_LOGON_PROFILE extends Win32Struct
     LanmanSessionKey{
         get {
             if(!this.HasProp("__LanmanSessionKeyProxyArray"))
-                this.__LanmanSessionKeyProxyArray := Win32FixedArray(this.ptr + 64, 1, Primitive, "char")
+                this.__LanmanSessionKeyProxyArray := Win32FixedArray(this.ptr + 64, 8, Primitive, "char")
             return this.__LanmanSessionKeyProxyArray
         }
     }

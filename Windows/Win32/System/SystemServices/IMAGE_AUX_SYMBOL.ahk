@@ -66,7 +66,7 @@ class IMAGE_AUX_SYMBOL extends Win32Struct
     Dimension{
         get {
             if(!this.HasProp("__DimensionProxyArray"))
-                this.__DimensionProxyArray := Win32FixedArray(this.ptr + 8, 2, Primitive, "ushort")
+                this.__DimensionProxyArray := Win32FixedArray(this.ptr + 8, 4, Primitive, "ushort")
             return this.__DimensionProxyArray
         }
     }
@@ -85,7 +85,7 @@ class IMAGE_AUX_SYMBOL extends Win32Struct
     Name{
         get {
             if(!this.HasProp("__NameProxyArray"))
-                this.__NameProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__NameProxyArray := Win32FixedArray(this.ptr + 0, 18, Primitive, "char")
             return this.__NameProxyArray
         }
     }
@@ -179,7 +179,7 @@ class IMAGE_AUX_SYMBOL extends Win32Struct
     rgbReserved{
         get {
             if(!this.HasProp("__rgbReservedProxyArray"))
-                this.__rgbReservedProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")
+                this.__rgbReservedProxyArray := Win32FixedArray(this.ptr + 4, 14, Primitive, "char")
             return this.__rgbReservedProxyArray
         }
     }

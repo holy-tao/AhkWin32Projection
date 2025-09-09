@@ -31,7 +31,7 @@ class D3D11_COMPUTE_SHADER_TRACE_DESC extends Win32Struct
     ThreadIDInGroup{
         get {
             if(!this.HasProp("__ThreadIDInGroupProxyArray"))
-                this.__ThreadIDInGroupProxyArray := Win32FixedArray(this.ptr + 8, 4, Primitive, "uint")
+                this.__ThreadIDInGroupProxyArray := Win32FixedArray(this.ptr + 8, 3, Primitive, "uint")
             return this.__ThreadIDInGroupProxyArray
         }
     }
@@ -43,7 +43,7 @@ class D3D11_COMPUTE_SHADER_TRACE_DESC extends Win32Struct
     ThreadGroupID{
         get {
             if(!this.HasProp("__ThreadGroupIDProxyArray"))
-                this.__ThreadGroupIDProxyArray := Win32FixedArray(this.ptr + 20, 4, Primitive, "uint")
+                this.__ThreadGroupIDProxyArray := Win32FixedArray(this.ptr + 20, 3, Primitive, "uint")
             return this.__ThreadGroupIDProxyArray
         }
     }

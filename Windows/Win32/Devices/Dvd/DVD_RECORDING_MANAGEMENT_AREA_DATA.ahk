@@ -17,7 +17,7 @@ class DVD_RECORDING_MANAGEMENT_AREA_DATA extends Win32Struct
     LastRecordedRMASectorNumber{
         get {
             if(!this.HasProp("__LastRecordedRMASectorNumberProxyArray"))
-                this.__LastRecordedRMASectorNumberProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__LastRecordedRMASectorNumberProxyArray := Win32FixedArray(this.ptr + 0, 4, Primitive, "char")
             return this.__LastRecordedRMASectorNumberProxyArray
         }
     }

@@ -67,7 +67,7 @@ class D3D11_KEY_EXCHANGE_HW_PROTECTION_OUTPUT_DATA extends Win32Struct
     pbOutput{
         get {
             if(!this.HasProp("__pbOutputProxyArray"))
-                this.__pbOutputProxyArray := Win32FixedArray(this.ptr + 32, 1, Primitive, "char")
+                this.__pbOutputProxyArray := Win32FixedArray(this.ptr + 32, 4, Primitive, "char")
             return this.__pbOutputProxyArray
         }
     }

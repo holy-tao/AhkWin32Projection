@@ -38,7 +38,7 @@ class JOBOBJECT_BASIC_PROCESS_ID_LIST extends Win32Struct
     ProcessIdList{
         get {
             if(!this.HasProp("__ProcessIdListProxyArray"))
-                this.__ProcessIdListProxyArray := Win32FixedArray(this.ptr + 8, 8, Primitive, "ptr")
+                this.__ProcessIdListProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "ptr")
             return this.__ProcessIdListProxyArray
         }
     }

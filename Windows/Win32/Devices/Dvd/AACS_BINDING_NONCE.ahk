@@ -17,7 +17,7 @@ class AACS_BINDING_NONCE extends Win32Struct
     BindingNonce{
         get {
             if(!this.HasProp("__BindingNonceProxyArray"))
-                this.__BindingNonceProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__BindingNonceProxyArray := Win32FixedArray(this.ptr + 0, 16, Primitive, "char")
             return this.__BindingNonceProxyArray
         }
     }
@@ -28,7 +28,7 @@ class AACS_BINDING_NONCE extends Win32Struct
     MAC{
         get {
             if(!this.HasProp("__MACProxyArray"))
-                this.__MACProxyArray := Win32FixedArray(this.ptr + 16, 1, Primitive, "char")
+                this.__MACProxyArray := Win32FixedArray(this.ptr + 16, 16, Primitive, "char")
             return this.__MACProxyArray
         }
     }

@@ -53,7 +53,7 @@ class GNSS_GEOREGION extends Win32Struct
     Unused{
         get {
             if(!this.HasProp("__UnusedProxyArray"))
-                this.__UnusedProxyArray := Win32FixedArray(this.ptr + 16, 1, Primitive, "char")
+                this.__UnusedProxyArray := Win32FixedArray(this.ptr + 16, 512, Primitive, "char")
             return this.__UnusedProxyArray
         }
     }

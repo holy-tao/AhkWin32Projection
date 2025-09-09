@@ -17,7 +17,7 @@ class DVD_DISC_CONTROL_BLOCK_LIST_DCB extends Win32Struct
     DcbIdentifier{
         get {
             if(!this.HasProp("__DcbIdentifierProxyArray"))
-                this.__DcbIdentifierProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__DcbIdentifierProxyArray := Win32FixedArray(this.ptr + 0, 4, Primitive, "char")
             return this.__DcbIdentifierProxyArray
         }
     }

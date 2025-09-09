@@ -38,7 +38,7 @@ class AVRF_BACKTRACE_INFORMATION extends Win32Struct
     ReturnAddresses{
         get {
             if(!this.HasProp("__ReturnAddressesProxyArray"))
-                this.__ReturnAddressesProxyArray := Win32FixedArray(this.ptr + 8, 8, Primitive, "uint")
+                this.__ReturnAddressesProxyArray := Win32FixedArray(this.ptr + 8, 32, Primitive, "uint")
             return this.__ReturnAddressesProxyArray
         }
     }

@@ -46,7 +46,7 @@ class WLAN_DEVICE_SERVICE_GUID_LIST extends Win32Struct
     DeviceService{
         get {
             if(!this.HasProp("__DeviceServiceProxyArray"))
-                this.__DeviceServiceProxyArray := Win32FixedArray(this.ptr + 8, 8, Primitive, "ptr")
+                this.__DeviceServiceProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "ptr")
             return this.__DeviceServiceProxyArray
         }
     }

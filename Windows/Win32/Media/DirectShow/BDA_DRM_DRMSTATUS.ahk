@@ -41,7 +41,7 @@ class BDA_DRM_DRMSTATUS extends Win32Struct
     argbDrmUuidListString{
         get {
             if(!this.HasProp("__argbDrmUuidListStringProxyArray"))
-                this.__argbDrmUuidListStringProxyArray := Win32FixedArray(this.ptr + 24, 8, Primitive, "ptr")
+                this.__argbDrmUuidListStringProxyArray := Win32FixedArray(this.ptr + 24, 1, Primitive, "ptr")
             return this.__argbDrmUuidListStringProxyArray
         }
     }

@@ -30,7 +30,7 @@ class DVD_DISC_CONTROL_BLOCK_SESSION extends Win32Struct
     SessionNumber{
         get {
             if(!this.HasProp("__SessionNumberProxyArray"))
-                this.__SessionNumberProxyArray := Win32FixedArray(this.ptr + 40, 1, Primitive, "char")
+                this.__SessionNumberProxyArray := Win32FixedArray(this.ptr + 40, 2, Primitive, "char")
             return this.__SessionNumberProxyArray
         }
     }
@@ -41,7 +41,7 @@ class DVD_DISC_CONTROL_BLOCK_SESSION extends Win32Struct
     Reserved0{
         get {
             if(!this.HasProp("__Reserved0ProxyArray"))
-                this.__Reserved0ProxyArray := Win32FixedArray(this.ptr + 42, 1, Primitive, "char")
+                this.__Reserved0ProxyArray := Win32FixedArray(this.ptr + 42, 22, Primitive, "char")
             return this.__Reserved0ProxyArray
         }
     }
@@ -52,7 +52,7 @@ class DVD_DISC_CONTROL_BLOCK_SESSION extends Win32Struct
     DiscID{
         get {
             if(!this.HasProp("__DiscIDProxyArray"))
-                this.__DiscIDProxyArray := Win32FixedArray(this.ptr + 64, 1, Primitive, "char")
+                this.__DiscIDProxyArray := Win32FixedArray(this.ptr + 64, 32, Primitive, "char")
             return this.__DiscIDProxyArray
         }
     }
@@ -63,7 +63,7 @@ class DVD_DISC_CONTROL_BLOCK_SESSION extends Win32Struct
     Reserved1{
         get {
             if(!this.HasProp("__Reserved1ProxyArray"))
-                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 96, 1, Primitive, "char")
+                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 96, 32, Primitive, "char")
             return this.__Reserved1ProxyArray
         }
     }
@@ -74,7 +74,7 @@ class DVD_DISC_CONTROL_BLOCK_SESSION extends Win32Struct
     SessionItem{
         get {
             if(!this.HasProp("__SessionItemProxyArray"))
-                this.__SessionItemProxyArray := Win32FixedArray(this.ptr + 128, 8, DVD_DISC_CONTROL_BLOCK_SESSION_ITEM, "")
+                this.__SessionItemProxyArray := Win32FixedArray(this.ptr + 128, 504, DVD_DISC_CONTROL_BLOCK_SESSION_ITEM, "")
             return this.__SessionItemProxyArray
         }
     }
@@ -85,7 +85,7 @@ class DVD_DISC_CONTROL_BLOCK_SESSION extends Win32Struct
     Reserved2{
         get {
             if(!this.HasProp("__Reserved2ProxyArray"))
-                this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 4160, 1, Primitive, "char")
+                this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 4160, 24576, Primitive, "char")
             return this.__Reserved2ProxyArray
         }
     }

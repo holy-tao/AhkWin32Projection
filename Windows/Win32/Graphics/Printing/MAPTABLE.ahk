@@ -34,7 +34,7 @@ class MAPTABLE extends Win32Struct
     Trans{
         get {
             if(!this.HasProp("__TransProxyArray"))
-                this.__TransProxyArray := Win32FixedArray(this.ptr + 8, 8, TRANSDATA, "")
+                this.__TransProxyArray := Win32FixedArray(this.ptr + 8, 1, TRANSDATA, "")
             return this.__TransProxyArray
         }
     }

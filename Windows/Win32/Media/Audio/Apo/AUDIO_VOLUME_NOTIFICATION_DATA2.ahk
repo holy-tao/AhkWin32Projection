@@ -85,7 +85,7 @@ class AUDIO_VOLUME_NOTIFICATION_DATA2 extends Win32Struct
     channelVolumesInDb{
         get {
             if(!this.HasProp("__channelVolumesInDbProxyArray"))
-                this.__channelVolumesInDbProxyArray := Win32FixedArray(this.ptr + 32, 4, Primitive, "float")
+                this.__channelVolumesInDbProxyArray := Win32FixedArray(this.ptr + 32, 1, Primitive, "float")
             return this.__channelVolumesInDbProxyArray
         }
     }

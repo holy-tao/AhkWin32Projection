@@ -34,7 +34,7 @@ class IRQ_RESOURCE_32 extends Win32Struct
     IRQ_Data{
         get {
             if(!this.HasProp("__IRQ_DataProxyArray"))
-                this.__IRQ_DataProxyArray := Win32FixedArray(this.ptr + 20, 8, IRQ_RANGE, "")
+                this.__IRQ_DataProxyArray := Win32FixedArray(this.ptr + 20, 1, IRQ_RANGE, "")
             return this.__IRQ_DataProxyArray
         }
     }

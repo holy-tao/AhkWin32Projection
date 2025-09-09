@@ -80,7 +80,7 @@ class TC_GEN_FLOW extends Win32Struct
     TcObjects{
         get {
             if(!this.HasProp("__TcObjectsProxyArray"))
-                this.__TcObjectsProxyArray := Win32FixedArray(this.ptr + 72, 8, QOS_OBJECT_HDR, "")
+                this.__TcObjectsProxyArray := Win32FixedArray(this.ptr + 72, 1, QOS_OBJECT_HDR, "")
             return this.__TcObjectsProxyArray
         }
     }

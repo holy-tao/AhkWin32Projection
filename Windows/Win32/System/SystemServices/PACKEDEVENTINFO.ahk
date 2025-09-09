@@ -33,7 +33,7 @@ class PACKEDEVENTINFO extends Win32Struct
     ulOffsets{
         get {
             if(!this.HasProp("__ulOffsetsProxyArray"))
-                this.__ulOffsetsProxyArray := Win32FixedArray(this.ptr + 8, 4, Primitive, "uint")
+                this.__ulOffsetsProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "uint")
             return this.__ulOffsetsProxyArray
         }
     }

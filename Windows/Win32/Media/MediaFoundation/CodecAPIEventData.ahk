@@ -41,7 +41,7 @@ class CodecAPIEventData extends Win32Struct
     reserved{
         get {
             if(!this.HasProp("__reservedProxyArray"))
-                this.__reservedProxyArray := Win32FixedArray(this.ptr + 12, 4, Primitive, "uint")
+                this.__reservedProxyArray := Win32FixedArray(this.ptr + 12, 3, Primitive, "uint")
             return this.__reservedProxyArray
         }
     }

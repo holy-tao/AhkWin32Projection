@@ -36,7 +36,7 @@ class WLAN_RADIO_STATE extends Win32Struct
     PhyRadioState{
         get {
             if(!this.HasProp("__PhyRadioStateProxyArray"))
-                this.__PhyRadioStateProxyArray := Win32FixedArray(this.ptr + 8, 8, WLAN_PHY_RADIO_STATE, "")
+                this.__PhyRadioStateProxyArray := Win32FixedArray(this.ptr + 8, 64, WLAN_PHY_RADIO_STATE, "")
             return this.__PhyRadioStateProxyArray
         }
     }

@@ -17,7 +17,7 @@ class IMAGE_ARCHIVE_MEMBER_HEADER extends Win32Struct
     Name{
         get {
             if(!this.HasProp("__NameProxyArray"))
-                this.__NameProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__NameProxyArray := Win32FixedArray(this.ptr + 0, 16, Primitive, "char")
             return this.__NameProxyArray
         }
     }
@@ -28,7 +28,7 @@ class IMAGE_ARCHIVE_MEMBER_HEADER extends Win32Struct
     Date{
         get {
             if(!this.HasProp("__DateProxyArray"))
-                this.__DateProxyArray := Win32FixedArray(this.ptr + 16, 1, Primitive, "char")
+                this.__DateProxyArray := Win32FixedArray(this.ptr + 16, 12, Primitive, "char")
             return this.__DateProxyArray
         }
     }
@@ -39,7 +39,7 @@ class IMAGE_ARCHIVE_MEMBER_HEADER extends Win32Struct
     UserID{
         get {
             if(!this.HasProp("__UserIDProxyArray"))
-                this.__UserIDProxyArray := Win32FixedArray(this.ptr + 28, 1, Primitive, "char")
+                this.__UserIDProxyArray := Win32FixedArray(this.ptr + 28, 6, Primitive, "char")
             return this.__UserIDProxyArray
         }
     }
@@ -50,7 +50,7 @@ class IMAGE_ARCHIVE_MEMBER_HEADER extends Win32Struct
     GroupID{
         get {
             if(!this.HasProp("__GroupIDProxyArray"))
-                this.__GroupIDProxyArray := Win32FixedArray(this.ptr + 34, 1, Primitive, "char")
+                this.__GroupIDProxyArray := Win32FixedArray(this.ptr + 34, 6, Primitive, "char")
             return this.__GroupIDProxyArray
         }
     }
@@ -61,7 +61,7 @@ class IMAGE_ARCHIVE_MEMBER_HEADER extends Win32Struct
     Mode{
         get {
             if(!this.HasProp("__ModeProxyArray"))
-                this.__ModeProxyArray := Win32FixedArray(this.ptr + 40, 1, Primitive, "char")
+                this.__ModeProxyArray := Win32FixedArray(this.ptr + 40, 8, Primitive, "char")
             return this.__ModeProxyArray
         }
     }
@@ -72,7 +72,7 @@ class IMAGE_ARCHIVE_MEMBER_HEADER extends Win32Struct
     Size{
         get {
             if(!this.HasProp("__SizeProxyArray"))
-                this.__SizeProxyArray := Win32FixedArray(this.ptr + 48, 1, Primitive, "char")
+                this.__SizeProxyArray := Win32FixedArray(this.ptr + 48, 10, Primitive, "char")
             return this.__SizeProxyArray
         }
     }
@@ -83,7 +83,7 @@ class IMAGE_ARCHIVE_MEMBER_HEADER extends Win32Struct
     EndHeader{
         get {
             if(!this.HasProp("__EndHeaderProxyArray"))
-                this.__EndHeaderProxyArray := Win32FixedArray(this.ptr + 58, 1, Primitive, "char")
+                this.__EndHeaderProxyArray := Win32FixedArray(this.ptr + 58, 2, Primitive, "char")
             return this.__EndHeaderProxyArray
         }
     }

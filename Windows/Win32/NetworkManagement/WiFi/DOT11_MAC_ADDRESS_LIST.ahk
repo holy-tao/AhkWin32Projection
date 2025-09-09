@@ -45,7 +45,7 @@ class DOT11_MAC_ADDRESS_LIST extends Win32Struct
     MacAddrs{
         get {
             if(!this.HasProp("__MacAddrsProxyArray"))
-                this.__MacAddrsProxyArray := Win32FixedArray(this.ptr + 12, 1, Primitive, "char")
+                this.__MacAddrsProxyArray := Win32FixedArray(this.ptr + 12, 6, Primitive, "char")
             return this.__MacAddrsProxyArray
         }
     }

@@ -110,7 +110,7 @@ class MIDIEVENT extends Win32Struct
     dwParms{
         get {
             if(!this.HasProp("__dwParmsProxyArray"))
-                this.__dwParmsProxyArray := Win32FixedArray(this.ptr + 12, 4, Primitive, "uint")
+                this.__dwParmsProxyArray := Win32FixedArray(this.ptr + 12, 1, Primitive, "uint")
             return this.__dwParmsProxyArray
         }
     }

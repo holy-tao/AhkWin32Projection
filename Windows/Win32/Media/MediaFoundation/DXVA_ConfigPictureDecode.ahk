@@ -25,7 +25,7 @@ class DXVA_ConfigPictureDecode extends Win32Struct
     dwReservedBits{
         get {
             if(!this.HasProp("__dwReservedBitsProxyArray"))
-                this.__dwReservedBitsProxyArray := Win32FixedArray(this.ptr + 4, 4, Primitive, "uint")
+                this.__dwReservedBitsProxyArray := Win32FixedArray(this.ptr + 4, 3, Primitive, "uint")
             return this.__dwReservedBitsProxyArray
         }
     }

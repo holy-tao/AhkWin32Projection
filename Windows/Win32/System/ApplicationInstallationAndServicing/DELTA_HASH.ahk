@@ -25,7 +25,7 @@ class DELTA_HASH extends Win32Struct
     HashValue{
         get {
             if(!this.HasProp("__HashValueProxyArray"))
-                this.__HashValueProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")
+                this.__HashValueProxyArray := Win32FixedArray(this.ptr + 4, 32, Primitive, "char")
             return this.__HashValueProxyArray
         }
     }

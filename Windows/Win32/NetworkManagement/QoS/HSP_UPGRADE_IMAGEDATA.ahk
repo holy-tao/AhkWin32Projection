@@ -33,7 +33,7 @@ class HSP_UPGRADE_IMAGEDATA extends Win32Struct
     digest{
         get {
             if(!this.HasProp("__digestProxyArray"))
-                this.__digestProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")
+                this.__digestProxyArray := Win32FixedArray(this.ptr + 4, 64, Primitive, "char")
             return this.__digestProxyArray
         }
     }

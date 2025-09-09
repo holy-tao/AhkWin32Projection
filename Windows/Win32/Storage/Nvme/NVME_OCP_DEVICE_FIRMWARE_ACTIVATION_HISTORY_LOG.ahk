@@ -26,7 +26,7 @@ class NVME_OCP_DEVICE_FIRMWARE_ACTIVATION_HISTORY_LOG extends Win32Struct
     Reserved0{
         get {
             if(!this.HasProp("__Reserved0ProxyArray"))
-                this.__Reserved0ProxyArray := Win32FixedArray(this.ptr + 1, 1, Primitive, "char")
+                this.__Reserved0ProxyArray := Win32FixedArray(this.ptr + 1, 3, Primitive, "char")
             return this.__Reserved0ProxyArray
         }
     }
@@ -45,7 +45,7 @@ class NVME_OCP_DEVICE_FIRMWARE_ACTIVATION_HISTORY_LOG extends Win32Struct
     Entries{
         get {
             if(!this.HasProp("__EntriesProxyArray"))
-                this.__EntriesProxyArray := Win32FixedArray(this.ptr + 8, 8, FIRMWARE_ACTIVATION_HISTORY_ENTRY, "")
+                this.__EntriesProxyArray := Win32FixedArray(this.ptr + 8, 20, FIRMWARE_ACTIVATION_HISTORY_ENTRY, "")
             return this.__EntriesProxyArray
         }
     }
@@ -56,7 +56,7 @@ class NVME_OCP_DEVICE_FIRMWARE_ACTIVATION_HISTORY_LOG extends Win32Struct
     Reserved1{
         get {
             if(!this.HasProp("__Reserved1ProxyArray"))
-                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 168, 1, Primitive, "char")
+                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 168, 2790, Primitive, "char")
             return this.__Reserved1ProxyArray
         }
     }

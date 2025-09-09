@@ -17,7 +17,7 @@ class APP_LOCAL_DEVICE_ID extends Win32Struct
     value{
         get {
             if(!this.HasProp("__valueProxyArray"))
-                this.__valueProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__valueProxyArray := Win32FixedArray(this.ptr + 0, 32, Primitive, "char")
             return this.__valueProxyArray
         }
     }

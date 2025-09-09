@@ -17,7 +17,7 @@ class DOT11_KEY_ALGO_BIP extends Win32Struct
     ucIPN{
         get {
             if(!this.HasProp("__ucIPNProxyArray"))
-                this.__ucIPNProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__ucIPNProxyArray := Win32FixedArray(this.ptr + 0, 6, Primitive, "char")
             return this.__ucIPNProxyArray
         }
     }

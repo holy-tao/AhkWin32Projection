@@ -81,7 +81,7 @@ class DXVA_DeinterlaceBlt extends Win32Struct
     Source{
         get {
             if(!this.HasProp("__SourceProxyArray"))
-                this.__SourceProxyArray := Win32FixedArray(this.ptr + 56, 8, DXVA_VideoSample, "")
+                this.__SourceProxyArray := Win32FixedArray(this.ptr + 56, 32, DXVA_VideoSample, "")
             return this.__SourceProxyArray
         }
     }

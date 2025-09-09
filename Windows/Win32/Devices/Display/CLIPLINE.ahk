@@ -68,7 +68,7 @@ class CLIPLINE extends Win32Struct
     arun{
         get {
             if(!this.HasProp("__arunProxyArray"))
-                this.__arunProxyArray := Win32FixedArray(this.ptr + 24, 8, RUN, "")
+                this.__arunProxyArray := Win32FixedArray(this.ptr + 24, 1, RUN, "")
             return this.__arunProxyArray
         }
     }

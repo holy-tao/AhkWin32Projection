@@ -46,7 +46,7 @@ class CC_HW_FIELD extends Win32Struct
     Lines{
         get {
             if(!this.HasProp("__LinesProxyArray"))
-                this.__LinesProxyArray := Win32FixedArray(this.ptr + 144, 8, CC_BYTE_PAIR, "")
+                this.__LinesProxyArray := Win32FixedArray(this.ptr + 144, 12, CC_BYTE_PAIR, "")
             return this.__LinesProxyArray
         }
     }

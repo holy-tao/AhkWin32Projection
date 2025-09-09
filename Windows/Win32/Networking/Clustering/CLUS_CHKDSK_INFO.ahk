@@ -47,7 +47,7 @@ class CLUS_CHKDSK_INFO extends Win32Struct
     FileIdList{
         get {
             if(!this.HasProp("__FileIdListProxyArray"))
-                this.__FileIdListProxyArray := Win32FixedArray(this.ptr + 16, 8, Primitive, "uint")
+                this.__FileIdListProxyArray := Win32FixedArray(this.ptr + 16, 1, Primitive, "uint")
             return this.__FileIdListProxyArray
         }
     }

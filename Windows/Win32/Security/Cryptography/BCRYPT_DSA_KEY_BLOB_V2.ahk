@@ -105,7 +105,7 @@ class BCRYPT_DSA_KEY_BLOB_V2 extends Win32Struct
     Count{
         get {
             if(!this.HasProp("__CountProxyArray"))
-                this.__CountProxyArray := Win32FixedArray(this.ptr + 24, 1, Primitive, "char")
+                this.__CountProxyArray := Win32FixedArray(this.ptr + 24, 4, Primitive, "char")
             return this.__CountProxyArray
         }
     }

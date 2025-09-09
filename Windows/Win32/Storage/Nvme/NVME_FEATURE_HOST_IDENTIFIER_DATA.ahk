@@ -17,7 +17,7 @@ class NVME_FEATURE_HOST_IDENTIFIER_DATA extends Win32Struct
     HOSTID{
         get {
             if(!this.HasProp("__HOSTIDProxyArray"))
-                this.__HOSTIDProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__HOSTIDProxyArray := Win32FixedArray(this.ptr + 0, 16, Primitive, "char")
             return this.__HOSTIDProxyArray
         }
     }

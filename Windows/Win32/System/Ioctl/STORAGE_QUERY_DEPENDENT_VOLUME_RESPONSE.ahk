@@ -36,7 +36,7 @@ class STORAGE_QUERY_DEPENDENT_VOLUME_RESPONSE extends Win32Struct
     Lev1Depends{
         get {
             if(!this.HasProp("__Lev1DependsProxyArray"))
-                this.__Lev1DependsProxyArray := Win32FixedArray(this.ptr + 8, 8, STORAGE_QUERY_DEPENDENT_VOLUME_LEV1_ENTRY, "")
+                this.__Lev1DependsProxyArray := Win32FixedArray(this.ptr + 8, 1, STORAGE_QUERY_DEPENDENT_VOLUME_LEV1_ENTRY, "")
             return this.__Lev1DependsProxyArray
         }
     }
@@ -47,7 +47,7 @@ class STORAGE_QUERY_DEPENDENT_VOLUME_RESPONSE extends Win32Struct
     Lev2Depends{
         get {
             if(!this.HasProp("__Lev2DependsProxyArray"))
-                this.__Lev2DependsProxyArray := Win32FixedArray(this.ptr + 8, 8, STORAGE_QUERY_DEPENDENT_VOLUME_LEV2_ENTRY, "")
+                this.__Lev2DependsProxyArray := Win32FixedArray(this.ptr + 8, 1, STORAGE_QUERY_DEPENDENT_VOLUME_LEV2_ENTRY, "")
             return this.__Lev2DependsProxyArray
         }
     }

@@ -17,7 +17,7 @@ class WHV_VPCI_PROBED_BARS extends Win32Struct
     Value{
         get {
             if(!this.HasProp("__ValueProxyArray"))
-                this.__ValueProxyArray := Win32FixedArray(this.ptr + 0, 4, Primitive, "uint")
+                this.__ValueProxyArray := Win32FixedArray(this.ptr + 0, 6, Primitive, "uint")
             return this.__ValueProxyArray
         }
     }

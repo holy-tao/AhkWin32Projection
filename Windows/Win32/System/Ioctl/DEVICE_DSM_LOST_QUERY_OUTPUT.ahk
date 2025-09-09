@@ -49,7 +49,7 @@ class DEVICE_DSM_LOST_QUERY_OUTPUT extends Win32Struct
     BitMap{
         get {
             if(!this.HasProp("__BitMapProxyArray"))
-                this.__BitMapProxyArray := Win32FixedArray(this.ptr + 20, 4, Primitive, "uint")
+                this.__BitMapProxyArray := Win32FixedArray(this.ptr + 20, 1, Primitive, "uint")
             return this.__BitMapProxyArray
         }
     }

@@ -29,7 +29,7 @@ class DOT11_INCOMING_ASSOC_DECISION extends Win32Struct
     PeerMacAddr{
         get {
             if(!this.HasProp("__PeerMacAddrProxyArray"))
-                this.__PeerMacAddrProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")
+                this.__PeerMacAddrProxyArray := Win32FixedArray(this.ptr + 4, 6, Primitive, "char")
             return this.__PeerMacAddrProxyArray
         }
     }

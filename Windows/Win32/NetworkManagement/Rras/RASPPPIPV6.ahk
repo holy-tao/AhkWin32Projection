@@ -33,7 +33,7 @@ class RASPPPIPV6 extends Win32Struct
     bLocalInterfaceIdentifier{
         get {
             if(!this.HasProp("__bLocalInterfaceIdentifierProxyArray"))
-                this.__bLocalInterfaceIdentifierProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "char")
+                this.__bLocalInterfaceIdentifierProxyArray := Win32FixedArray(this.ptr + 8, 8, Primitive, "char")
             return this.__bLocalInterfaceIdentifierProxyArray
         }
     }
@@ -44,7 +44,7 @@ class RASPPPIPV6 extends Win32Struct
     bPeerInterfaceIdentifier{
         get {
             if(!this.HasProp("__bPeerInterfaceIdentifierProxyArray"))
-                this.__bPeerInterfaceIdentifierProxyArray := Win32FixedArray(this.ptr + 16, 1, Primitive, "char")
+                this.__bPeerInterfaceIdentifierProxyArray := Win32FixedArray(this.ptr + 16, 8, Primitive, "char")
             return this.__bPeerInterfaceIdentifierProxyArray
         }
     }
@@ -55,7 +55,7 @@ class RASPPPIPV6 extends Win32Struct
     bLocalCompressionProtocol{
         get {
             if(!this.HasProp("__bLocalCompressionProtocolProxyArray"))
-                this.__bLocalCompressionProtocolProxyArray := Win32FixedArray(this.ptr + 24, 1, Primitive, "char")
+                this.__bLocalCompressionProtocolProxyArray := Win32FixedArray(this.ptr + 24, 2, Primitive, "char")
             return this.__bLocalCompressionProtocolProxyArray
         }
     }
@@ -66,7 +66,7 @@ class RASPPPIPV6 extends Win32Struct
     bPeerCompressionProtocol{
         get {
             if(!this.HasProp("__bPeerCompressionProtocolProxyArray"))
-                this.__bPeerCompressionProtocolProxyArray := Win32FixedArray(this.ptr + 26, 1, Primitive, "char")
+                this.__bPeerCompressionProtocolProxyArray := Win32FixedArray(this.ptr + 26, 2, Primitive, "char")
             return this.__bPeerCompressionProtocolProxyArray
         }
     }

@@ -35,7 +35,7 @@ class WLAN_RATE_SET extends Win32Struct
     usRateSet{
         get {
             if(!this.HasProp("__usRateSetProxyArray"))
-                this.__usRateSetProxyArray := Win32FixedArray(this.ptr + 4, 2, Primitive, "ushort")
+                this.__usRateSetProxyArray := Win32FixedArray(this.ptr + 4, 126, Primitive, "ushort")
             return this.__usRateSetProxyArray
         }
     }

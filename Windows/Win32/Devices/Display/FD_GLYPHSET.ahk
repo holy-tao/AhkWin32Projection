@@ -94,7 +94,7 @@ class FD_GLYPHSET extends Win32Struct
     awcrun{
         get {
             if(!this.HasProp("__awcrunProxyArray"))
-                this.__awcrunProxyArray := Win32FixedArray(this.ptr + 16, 8, WCRUN, "")
+                this.__awcrunProxyArray := Win32FixedArray(this.ptr + 16, 1, WCRUN, "")
             return this.__awcrunProxyArray
         }
     }

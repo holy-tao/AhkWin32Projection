@@ -23,7 +23,7 @@ class NVME_COMMAND_EFFECTS_LOG extends Win32Struct
     ACS{
         get {
             if(!this.HasProp("__ACSProxyArray"))
-                this.__ACSProxyArray := Win32FixedArray(this.ptr + 0, 8, NVME_COMMAND_EFFECTS_DATA, "")
+                this.__ACSProxyArray := Win32FixedArray(this.ptr + 0, 256, NVME_COMMAND_EFFECTS_DATA, "")
             return this.__ACSProxyArray
         }
     }
@@ -35,7 +35,7 @@ class NVME_COMMAND_EFFECTS_LOG extends Win32Struct
     IOCS{
         get {
             if(!this.HasProp("__IOCSProxyArray"))
-                this.__IOCSProxyArray := Win32FixedArray(this.ptr + 2048, 8, NVME_COMMAND_EFFECTS_DATA, "")
+                this.__IOCSProxyArray := Win32FixedArray(this.ptr + 2048, 256, NVME_COMMAND_EFFECTS_DATA, "")
             return this.__IOCSProxyArray
         }
     }
@@ -47,7 +47,7 @@ class NVME_COMMAND_EFFECTS_LOG extends Win32Struct
     Reserved{
         get {
             if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 4096, 1, Primitive, "char")
+                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 4096, 2048, Primitive, "char")
             return this.__ReservedProxyArray
         }
     }

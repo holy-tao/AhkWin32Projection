@@ -33,7 +33,7 @@ class USB_CONFIGURATION_POWER_DESCRIPTOR extends Win32Struct
     SelfPowerConsumedD0{
         get {
             if(!this.HasProp("__SelfPowerConsumedD0ProxyArray"))
-                this.__SelfPowerConsumedD0ProxyArray := Win32FixedArray(this.ptr + 2, 1, Primitive, "char")
+                this.__SelfPowerConsumedD0ProxyArray := Win32FixedArray(this.ptr + 2, 3, Primitive, "char")
             return this.__SelfPowerConsumedD0ProxyArray
         }
     }

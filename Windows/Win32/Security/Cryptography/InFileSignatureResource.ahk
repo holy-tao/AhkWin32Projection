@@ -33,7 +33,7 @@ class InFileSignatureResource extends Win32Struct
     rgbSignature{
         get {
             if(!this.HasProp("__rgbSignatureProxyArray"))
-                this.__rgbSignatureProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "char")
+                this.__rgbSignatureProxyArray := Win32FixedArray(this.ptr + 8, 88, Primitive, "char")
             return this.__rgbSignatureProxyArray
         }
     }

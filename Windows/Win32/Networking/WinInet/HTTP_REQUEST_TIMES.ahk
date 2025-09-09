@@ -25,7 +25,7 @@ class HTTP_REQUEST_TIMES extends Win32Struct
     rgTimes{
         get {
             if(!this.HasProp("__rgTimesProxyArray"))
-                this.__rgTimesProxyArray := Win32FixedArray(this.ptr + 8, 8, Primitive, "uint")
+                this.__rgTimesProxyArray := Win32FixedArray(this.ptr + 8, 32, Primitive, "uint")
             return this.__rgTimesProxyArray
         }
     }

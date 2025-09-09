@@ -45,7 +45,7 @@ class DOT11_AVAILABLE_FREQUENCY_LIST extends Win32Struct
     uFrequencyValue{
         get {
             if(!this.HasProp("__uFrequencyValueProxyArray"))
-                this.__uFrequencyValueProxyArray := Win32FixedArray(this.ptr + 12, 4, Primitive, "uint")
+                this.__uFrequencyValueProxyArray := Win32FixedArray(this.ptr + 12, 1, Primitive, "uint")
             return this.__uFrequencyValueProxyArray
         }
     }

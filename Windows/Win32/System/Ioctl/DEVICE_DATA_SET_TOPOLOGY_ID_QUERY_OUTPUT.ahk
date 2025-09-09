@@ -25,7 +25,7 @@ class DEVICE_DATA_SET_TOPOLOGY_ID_QUERY_OUTPUT extends Win32Struct
     TopologyId{
         get {
             if(!this.HasProp("__TopologyIdProxyArray"))
-                this.__TopologyIdProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "char")
+                this.__TopologyIdProxyArray := Win32FixedArray(this.ptr + 8, 16, Primitive, "char")
             return this.__TopologyIdProxyArray
         }
     }

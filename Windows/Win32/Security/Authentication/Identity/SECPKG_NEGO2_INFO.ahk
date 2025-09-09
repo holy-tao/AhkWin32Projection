@@ -20,7 +20,7 @@ class SECPKG_NEGO2_INFO extends Win32Struct
     AuthScheme{
         get {
             if(!this.HasProp("__AuthSchemeProxyArray"))
-                this.__AuthSchemeProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__AuthSchemeProxyArray := Win32FixedArray(this.ptr + 0, 16, Primitive, "char")
             return this.__AuthSchemeProxyArray
         }
     }

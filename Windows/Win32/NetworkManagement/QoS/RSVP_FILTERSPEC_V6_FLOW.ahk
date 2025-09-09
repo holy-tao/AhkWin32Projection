@@ -42,7 +42,7 @@ class RSVP_FILTERSPEC_V6_FLOW extends Win32Struct
     FlowLabel{
         get {
             if(!this.HasProp("__FlowLabelProxyArray"))
-                this.__FlowLabelProxyArray := Win32FixedArray(this.ptr + 17, 1, Primitive, "char")
+                this.__FlowLabelProxyArray := Win32FixedArray(this.ptr + 17, 3, Primitive, "char")
             return this.__FlowLabelProxyArray
         }
     }

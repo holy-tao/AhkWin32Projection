@@ -49,7 +49,7 @@ class RPC_BINDING_VECTOR extends Win32Struct
     BindingH{
         get {
             if(!this.HasProp("__BindingHProxyArray"))
-                this.__BindingHProxyArray := Win32FixedArray(this.ptr + 8, 8, Primitive, "ptr")
+                this.__BindingHProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "ptr")
             return this.__BindingHProxyArray
         }
     }

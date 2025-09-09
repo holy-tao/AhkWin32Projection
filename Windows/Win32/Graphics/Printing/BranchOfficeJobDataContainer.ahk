@@ -30,7 +30,7 @@ class BranchOfficeJobDataContainer extends Win32Struct
     JobData{
         get {
             if(!this.HasProp("__JobDataProxyArray"))
-                this.__JobDataProxyArray := Win32FixedArray(this.ptr + 8, 8, BranchOfficeJobData, "")
+                this.__JobDataProxyArray := Win32FixedArray(this.ptr + 8, 1, BranchOfficeJobData, "")
             return this.__JobDataProxyArray
         }
     }

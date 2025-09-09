@@ -20,7 +20,7 @@ class HANDLETABLE extends Win32Struct
     objectHandle{
         get {
             if(!this.HasProp("__objectHandleProxyArray"))
-                this.__objectHandleProxyArray := Win32FixedArray(this.ptr + 0, 8, Primitive, "ptr")
+                this.__objectHandleProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "ptr")
             return this.__objectHandleProxyArray
         }
     }

@@ -17,7 +17,7 @@ class DVD_RAM_SPARE_AREA_INFORMATION extends Win32Struct
     FreePrimarySpareSectors{
         get {
             if(!this.HasProp("__FreePrimarySpareSectorsProxyArray"))
-                this.__FreePrimarySpareSectorsProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__FreePrimarySpareSectorsProxyArray := Win32FixedArray(this.ptr + 0, 4, Primitive, "char")
             return this.__FreePrimarySpareSectorsProxyArray
         }
     }
@@ -28,7 +28,7 @@ class DVD_RAM_SPARE_AREA_INFORMATION extends Win32Struct
     FreeSupplementalSpareSectors{
         get {
             if(!this.HasProp("__FreeSupplementalSpareSectorsProxyArray"))
-                this.__FreeSupplementalSpareSectorsProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")
+                this.__FreeSupplementalSpareSectorsProxyArray := Win32FixedArray(this.ptr + 4, 4, Primitive, "char")
             return this.__FreeSupplementalSpareSectorsProxyArray
         }
     }
@@ -39,7 +39,7 @@ class DVD_RAM_SPARE_AREA_INFORMATION extends Win32Struct
     AllocatedSupplementalSpareSectors{
         get {
             if(!this.HasProp("__AllocatedSupplementalSpareSectorsProxyArray"))
-                this.__AllocatedSupplementalSpareSectorsProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "char")
+                this.__AllocatedSupplementalSpareSectorsProxyArray := Win32FixedArray(this.ptr + 8, 4, Primitive, "char")
             return this.__AllocatedSupplementalSpareSectorsProxyArray
         }
     }

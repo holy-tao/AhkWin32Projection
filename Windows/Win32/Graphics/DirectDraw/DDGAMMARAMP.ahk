@@ -20,7 +20,7 @@ class DDGAMMARAMP extends Win32Struct
     red{
         get {
             if(!this.HasProp("__redProxyArray"))
-                this.__redProxyArray := Win32FixedArray(this.ptr + 0, 2, Primitive, "ushort")
+                this.__redProxyArray := Win32FixedArray(this.ptr + 0, 256, Primitive, "ushort")
             return this.__redProxyArray
         }
     }
@@ -32,7 +32,7 @@ class DDGAMMARAMP extends Win32Struct
     green{
         get {
             if(!this.HasProp("__greenProxyArray"))
-                this.__greenProxyArray := Win32FixedArray(this.ptr + 512, 2, Primitive, "ushort")
+                this.__greenProxyArray := Win32FixedArray(this.ptr + 512, 256, Primitive, "ushort")
             return this.__greenProxyArray
         }
     }
@@ -44,7 +44,7 @@ class DDGAMMARAMP extends Win32Struct
     blue{
         get {
             if(!this.HasProp("__blueProxyArray"))
-                this.__blueProxyArray := Win32FixedArray(this.ptr + 1024, 2, Primitive, "ushort")
+                this.__blueProxyArray := Win32FixedArray(this.ptr + 1024, 256, Primitive, "ushort")
             return this.__blueProxyArray
         }
     }

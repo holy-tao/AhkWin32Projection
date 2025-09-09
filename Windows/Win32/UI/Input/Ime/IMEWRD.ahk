@@ -62,7 +62,7 @@ class IMEWRD extends Win32Struct
     rgulAttrs{
         get {
             if(!this.HasProp("__rgulAttrsProxyArray"))
-                this.__rgulAttrsProxyArray := Win32FixedArray(this.ptr + 20, 4, Primitive, "uint")
+                this.__rgulAttrsProxyArray := Win32FixedArray(this.ptr + 20, 2, Primitive, "uint")
             return this.__rgulAttrsProxyArray
         }
     }

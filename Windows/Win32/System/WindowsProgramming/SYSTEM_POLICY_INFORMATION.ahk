@@ -17,7 +17,7 @@ class SYSTEM_POLICY_INFORMATION extends Win32Struct
     Reserved1{
         get {
             if(!this.HasProp("__Reserved1ProxyArray"))
-                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 0, 8, Primitive, "ptr")
+                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 0, 2, Primitive, "ptr")
             return this.__Reserved1ProxyArray
         }
     }
@@ -28,7 +28,7 @@ class SYSTEM_POLICY_INFORMATION extends Win32Struct
     Reserved2{
         get {
             if(!this.HasProp("__Reserved2ProxyArray"))
-                this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 16, 4, Primitive, "uint")
+                this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 16, 3, Primitive, "uint")
             return this.__Reserved2ProxyArray
         }
     }

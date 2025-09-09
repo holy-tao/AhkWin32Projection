@@ -29,7 +29,7 @@ class NFC_SE_ROUTING_TABLE extends Win32Struct
     TableEntries{
         get {
             if(!this.HasProp("__TableEntriesProxyArray"))
-                this.__TableEntriesProxyArray := Win32FixedArray(this.ptr + 8, 8, NFC_SE_ROUTING_TABLE_ENTRY, "")
+                this.__TableEntriesProxyArray := Win32FixedArray(this.ptr + 8, 1, NFC_SE_ROUTING_TABLE_ENTRY, "")
             return this.__TableEntriesProxyArray
         }
     }

@@ -17,7 +17,7 @@ class DOT11_CIPHER_KEY_MAPPING_KEY_VALUE extends Win32Struct
     PeerMacAddr{
         get {
             if(!this.HasProp("__PeerMacAddrProxyArray"))
-                this.__PeerMacAddrProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__PeerMacAddrProxyArray := Win32FixedArray(this.ptr + 0, 6, Primitive, "char")
             return this.__PeerMacAddrProxyArray
         }
     }

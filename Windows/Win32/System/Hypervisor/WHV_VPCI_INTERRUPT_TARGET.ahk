@@ -41,7 +41,7 @@ class WHV_VPCI_INTERRUPT_TARGET extends Win32Struct
     Processors{
         get {
             if(!this.HasProp("__ProcessorsProxyArray"))
-                this.__ProcessorsProxyArray := Win32FixedArray(this.ptr + 12, 4, Primitive, "uint")
+                this.__ProcessorsProxyArray := Win32FixedArray(this.ptr + 12, 1, Primitive, "uint")
             return this.__ProcessorsProxyArray
         }
     }

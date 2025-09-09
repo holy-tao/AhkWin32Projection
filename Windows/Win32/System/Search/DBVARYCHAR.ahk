@@ -25,7 +25,7 @@ class DBVARYCHAR extends Win32Struct
     str{
         get {
             if(!this.HasProp("__strProxyArray"))
-                this.__strProxyArray := Win32FixedArray(this.ptr + 2, 1, Primitive, "char")
+                this.__strProxyArray := Win32FixedArray(this.ptr + 2, 8001, Primitive, "char")
             return this.__strProxyArray
         }
     }

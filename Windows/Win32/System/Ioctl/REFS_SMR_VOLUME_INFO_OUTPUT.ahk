@@ -97,7 +97,7 @@ class REFS_SMR_VOLUME_INFO_OUTPUT extends Win32Struct
     Unused{
         get {
             if(!this.HasProp("__UnusedProxyArray"))
-                this.__UnusedProxyArray := Win32FixedArray(this.ptr + 64, 8, Primitive, "uint")
+                this.__UnusedProxyArray := Win32FixedArray(this.ptr + 64, 6, Primitive, "uint")
             return this.__UnusedProxyArray
         }
     }

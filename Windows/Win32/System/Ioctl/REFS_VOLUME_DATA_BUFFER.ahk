@@ -145,7 +145,7 @@ class REFS_VOLUME_DATA_BUFFER extends Win32Struct
     Reserved0{
         get {
             if(!this.HasProp("__Reserved0ProxyArray"))
-                this.__Reserved0ProxyArray := Win32FixedArray(this.ptr + 82, 1, Primitive, "char")
+                this.__Reserved0ProxyArray := Win32FixedArray(this.ptr + 82, 6, Primitive, "char")
             return this.__Reserved0ProxyArray
         }
     }

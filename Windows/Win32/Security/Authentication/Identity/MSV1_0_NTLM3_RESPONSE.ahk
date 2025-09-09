@@ -17,7 +17,7 @@ class MSV1_0_NTLM3_RESPONSE extends Win32Struct
     Response{
         get {
             if(!this.HasProp("__ResponseProxyArray"))
-                this.__ResponseProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__ResponseProxyArray := Win32FixedArray(this.ptr + 0, 16, Primitive, "char")
             return this.__ResponseProxyArray
         }
     }
@@ -68,7 +68,7 @@ class MSV1_0_NTLM3_RESPONSE extends Win32Struct
     ChallengeFromClient{
         get {
             if(!this.HasProp("__ChallengeFromClientProxyArray"))
-                this.__ChallengeFromClientProxyArray := Win32FixedArray(this.ptr + 32, 1, Primitive, "char")
+                this.__ChallengeFromClientProxyArray := Win32FixedArray(this.ptr + 32, 8, Primitive, "char")
             return this.__ChallengeFromClientProxyArray
         }
     }

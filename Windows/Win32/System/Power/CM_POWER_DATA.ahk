@@ -65,7 +65,7 @@ class CM_POWER_DATA extends Win32Struct
     PD_PowerStateMapping{
         get {
             if(!this.HasProp("__PD_PowerStateMappingProxyArray"))
-                this.__PD_PowerStateMappingProxyArray := Win32FixedArray(this.ptr + 24, 4, Primitive, "int")
+                this.__PD_PowerStateMappingProxyArray := Win32FixedArray(this.ptr + 24, 7, Primitive, "int")
             return this.__PD_PowerStateMappingProxyArray
         }
     }

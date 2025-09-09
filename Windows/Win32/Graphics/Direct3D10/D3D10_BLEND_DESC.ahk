@@ -80,7 +80,7 @@ class D3D10_BLEND_DESC extends Win32Struct
     BlendEnable{
         get {
             if(!this.HasProp("__BlendEnableProxyArray"))
-                this.__BlendEnableProxyArray := Win32FixedArray(this.ptr + 4, 4, Primitive, "int")
+                this.__BlendEnableProxyArray := Win32FixedArray(this.ptr + 4, 8, Primitive, "int")
             return this.__BlendEnableProxyArray
         }
     }
@@ -160,7 +160,7 @@ class D3D10_BLEND_DESC extends Win32Struct
     RenderTargetWriteMask{
         get {
             if(!this.HasProp("__RenderTargetWriteMaskProxyArray"))
-                this.__RenderTargetWriteMaskProxyArray := Win32FixedArray(this.ptr + 60, 1, Primitive, "char")
+                this.__RenderTargetWriteMaskProxyArray := Win32FixedArray(this.ptr + 60, 8, Primitive, "char")
             return this.__RenderTargetWriteMaskProxyArray
         }
     }

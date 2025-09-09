@@ -43,7 +43,7 @@ class DS_REPL_PENDING_OPSW extends Win32Struct
     rgPendingOp{
         get {
             if(!this.HasProp("__rgPendingOpProxyArray"))
-                this.__rgPendingOpProxyArray := Win32FixedArray(this.ptr + 16, 8, DS_REPL_OPW, "")
+                this.__rgPendingOpProxyArray := Win32FixedArray(this.ptr + 16, 1, DS_REPL_OPW, "")
             return this.__rgPendingOpProxyArray
         }
     }

@@ -42,7 +42,7 @@ class SCM_PD_DEVICE_SPECIFIC_INFO extends Win32Struct
     DeviceSpecificProperties{
         get {
             if(!this.HasProp("__DeviceSpecificPropertiesProxyArray"))
-                this.__DeviceSpecificPropertiesProxyArray := Win32FixedArray(this.ptr + 16, 8, SCM_PD_DEVICE_SPECIFIC_PROPERTY, "")
+                this.__DeviceSpecificPropertiesProxyArray := Win32FixedArray(this.ptr + 16, 1, SCM_PD_DEVICE_SPECIFIC_PROPERTY, "")
             return this.__DeviceSpecificPropertiesProxyArray
         }
     }

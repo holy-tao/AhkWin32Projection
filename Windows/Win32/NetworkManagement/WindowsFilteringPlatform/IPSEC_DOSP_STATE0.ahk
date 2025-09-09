@@ -22,7 +22,7 @@ class IPSEC_DOSP_STATE0 extends Win32Struct
     publicHostV6Addr{
         get {
             if(!this.HasProp("__publicHostV6AddrProxyArray"))
-                this.__publicHostV6AddrProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__publicHostV6AddrProxyArray := Win32FixedArray(this.ptr + 0, 16, Primitive, "char")
             return this.__publicHostV6AddrProxyArray
         }
     }
@@ -34,7 +34,7 @@ class IPSEC_DOSP_STATE0 extends Win32Struct
     internalHostV6Addr{
         get {
             if(!this.HasProp("__internalHostV6AddrProxyArray"))
-                this.__internalHostV6AddrProxyArray := Win32FixedArray(this.ptr + 16, 1, Primitive, "char")
+                this.__internalHostV6AddrProxyArray := Win32FixedArray(this.ptr + 16, 16, Primitive, "char")
             return this.__internalHostV6AddrProxyArray
         }
     }

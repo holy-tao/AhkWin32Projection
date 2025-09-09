@@ -33,7 +33,7 @@ class SE_ADT_PARAMETER_ARRAY_ENTRY extends Win32Struct
     Data{
         get {
             if(!this.HasProp("__DataProxyArray"))
-                this.__DataProxyArray := Win32FixedArray(this.ptr + 8, 8, Primitive, "ptr")
+                this.__DataProxyArray := Win32FixedArray(this.ptr + 8, 2, Primitive, "ptr")
             return this.__DataProxyArray
         }
     }

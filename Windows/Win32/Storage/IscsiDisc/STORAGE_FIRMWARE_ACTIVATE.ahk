@@ -41,7 +41,7 @@ class STORAGE_FIRMWARE_ACTIVATE extends Win32Struct
     Reserved0{
         get {
             if(!this.HasProp("__Reserved0ProxyArray"))
-                this.__Reserved0ProxyArray := Win32FixedArray(this.ptr + 9, 1, Primitive, "char")
+                this.__Reserved0ProxyArray := Win32FixedArray(this.ptr + 9, 3, Primitive, "char")
             return this.__Reserved0ProxyArray
         }
     }

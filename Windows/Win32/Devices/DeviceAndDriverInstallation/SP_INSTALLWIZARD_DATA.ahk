@@ -37,7 +37,7 @@ class SP_INSTALLWIZARD_DATA extends Win32Struct
     DynamicPages{
         get {
             if(!this.HasProp("__DynamicPagesProxyArray"))
-                this.__DynamicPagesProxyArray := Win32FixedArray(this.ptr + 12, 8, Primitive, "ptr")
+                this.__DynamicPagesProxyArray := Win32FixedArray(this.ptr + 12, 20, Primitive, "ptr")
             return this.__DynamicPagesProxyArray
         }
     }

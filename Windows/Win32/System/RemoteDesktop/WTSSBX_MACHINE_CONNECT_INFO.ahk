@@ -48,7 +48,7 @@ class WTSSBX_MACHINE_CONNECT_INFO extends Win32Struct
     IPaddr{
         get {
             if(!this.HasProp("__IPaddrProxyArray"))
-                this.__IPaddrProxyArray := Win32FixedArray(this.ptr + 552, 8, WTSSBX_IP_ADDRESS, "")
+                this.__IPaddrProxyArray := Win32FixedArray(this.ptr + 552, 12, WTSSBX_IP_ADDRESS, "")
             return this.__IPaddrProxyArray
         }
     }

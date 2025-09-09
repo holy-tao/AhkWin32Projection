@@ -113,7 +113,7 @@ class SCSI_PASS_THROUGH32 extends Win32Struct
     Cdb{
         get {
             if(!this.HasProp("__CdbProxyArray"))
-                this.__CdbProxyArray := Win32FixedArray(this.ptr + 28, 1, Primitive, "char")
+                this.__CdbProxyArray := Win32FixedArray(this.ptr + 28, 16, Primitive, "char")
             return this.__CdbProxyArray
         }
     }

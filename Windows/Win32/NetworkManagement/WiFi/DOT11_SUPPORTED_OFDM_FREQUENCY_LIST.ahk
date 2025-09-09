@@ -33,7 +33,7 @@ class DOT11_SUPPORTED_OFDM_FREQUENCY_LIST extends Win32Struct
     dot11SupportedOFDMFrequency{
         get {
             if(!this.HasProp("__dot11SupportedOFDMFrequencyProxyArray"))
-                this.__dot11SupportedOFDMFrequencyProxyArray := Win32FixedArray(this.ptr + 8, 4, Primitive, "uint")
+                this.__dot11SupportedOFDMFrequencyProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "uint")
             return this.__dot11SupportedOFDMFrequencyProxyArray
         }
     }

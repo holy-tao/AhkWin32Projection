@@ -27,7 +27,7 @@ class D3D12_RAYTRACING_INSTANCE_DESC extends Win32Struct
     Transform{
         get {
             if(!this.HasProp("__TransformProxyArray"))
-                this.__TransformProxyArray := Win32FixedArray(this.ptr + 0, 4, Primitive, "float")
+                this.__TransformProxyArray := Win32FixedArray(this.ptr + 0, 12, Primitive, "float")
             return this.__TransformProxyArray
         }
     }

@@ -29,7 +29,7 @@ class RTM_ENTITY_EXPORT_METHODS extends Win32Struct
     Methods{
         get {
             if(!this.HasProp("__MethodsProxyArray"))
-                this.__MethodsProxyArray := Win32FixedArray(this.ptr + 8, 8, Primitive, "ptr")
+                this.__MethodsProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "ptr")
             return this.__MethodsProxyArray
         }
     }

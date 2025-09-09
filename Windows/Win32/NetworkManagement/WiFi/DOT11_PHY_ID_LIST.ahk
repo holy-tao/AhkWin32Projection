@@ -45,7 +45,7 @@ class DOT11_PHY_ID_LIST extends Win32Struct
     dot11PhyId{
         get {
             if(!this.HasProp("__dot11PhyIdProxyArray"))
-                this.__dot11PhyIdProxyArray := Win32FixedArray(this.ptr + 12, 4, Primitive, "uint")
+                this.__dot11PhyIdProxyArray := Win32FixedArray(this.ptr + 12, 1, Primitive, "uint")
             return this.__dot11PhyIdProxyArray
         }
     }

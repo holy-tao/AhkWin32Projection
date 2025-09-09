@@ -148,7 +148,7 @@ class STACKFRAME extends Win32Struct
     Reserved{
         get {
             if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 96, 4, Primitive, "uint")
+                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 96, 3, Primitive, "uint")
             return this.__ReservedProxyArray
         }
     }

@@ -30,7 +30,7 @@ class WTS_VALIDATION_INFORMATIONA extends Win32Struct
     License{
         get {
             if(!this.HasProp("__LicenseProxyArray"))
-                this.__LicenseProxyArray := Win32FixedArray(this.ptr + 260, 1, Primitive, "char")
+                this.__LicenseProxyArray := Win32FixedArray(this.ptr + 260, 16384, Primitive, "char")
             return this.__LicenseProxyArray
         }
     }
@@ -49,7 +49,7 @@ class WTS_VALIDATION_INFORMATIONA extends Win32Struct
     HardwareID{
         get {
             if(!this.HasProp("__HardwareIDProxyArray"))
-                this.__HardwareIDProxyArray := Win32FixedArray(this.ptr + 16648, 1, Primitive, "char")
+                this.__HardwareIDProxyArray := Win32FixedArray(this.ptr + 16648, 20, Primitive, "char")
             return this.__HardwareIDProxyArray
         }
     }

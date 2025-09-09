@@ -43,7 +43,7 @@ class CLASSIC_EVENT_ID extends Win32Struct
     Reserved{
         get {
             if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 9, 1, Primitive, "char")
+                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 9, 7, Primitive, "char")
             return this.__ReservedProxyArray
         }
     }

@@ -57,7 +57,7 @@ class SPWORDPRONUNCIATION extends Win32Struct
     szPronunciation{
         get {
             if(!this.HasProp("__szPronunciationProxyArray"))
-                this.__szPronunciationProxyArray := Win32FixedArray(this.ptr + 20, 2, Primitive, "ushort")
+                this.__szPronunciationProxyArray := Win32FixedArray(this.ptr + 20, 1, Primitive, "ushort")
             return this.__szPronunciationProxyArray
         }
     }

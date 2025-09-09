@@ -35,7 +35,7 @@ class KERB_QUERY_TKT_CACHE_EX_RESPONSE extends Win32Struct
     Tickets{
         get {
             if(!this.HasProp("__TicketsProxyArray"))
-                this.__TicketsProxyArray := Win32FixedArray(this.ptr + 8, 8, KERB_TICKET_CACHE_INFO_EX, "")
+                this.__TicketsProxyArray := Win32FixedArray(this.ptr + 8, 1, KERB_TICKET_CACHE_INFO_EX, "")
             return this.__TicketsProxyArray
         }
     }

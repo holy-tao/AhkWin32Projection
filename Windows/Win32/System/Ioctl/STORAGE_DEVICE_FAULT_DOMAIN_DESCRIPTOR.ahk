@@ -41,7 +41,7 @@ class STORAGE_DEVICE_FAULT_DOMAIN_DESCRIPTOR extends Win32Struct
     FaultDomainIds{
         get {
             if(!this.HasProp("__FaultDomainIdsProxyArray"))
-                this.__FaultDomainIdsProxyArray := Win32FixedArray(this.ptr + 16, 8, Primitive, "ptr")
+                this.__FaultDomainIdsProxyArray := Win32FixedArray(this.ptr + 16, 1, Primitive, "ptr")
             return this.__FaultDomainIdsProxyArray
         }
     }

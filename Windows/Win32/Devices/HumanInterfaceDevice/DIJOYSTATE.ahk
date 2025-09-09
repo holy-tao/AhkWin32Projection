@@ -65,7 +65,7 @@ class DIJOYSTATE extends Win32Struct
     rglSlider{
         get {
             if(!this.HasProp("__rglSliderProxyArray"))
-                this.__rglSliderProxyArray := Win32FixedArray(this.ptr + 24, 4, Primitive, "int")
+                this.__rglSliderProxyArray := Win32FixedArray(this.ptr + 24, 2, Primitive, "int")
             return this.__rglSliderProxyArray
         }
     }
@@ -87,7 +87,7 @@ class DIJOYSTATE extends Win32Struct
     rgbButtons{
         get {
             if(!this.HasProp("__rgbButtonsProxyArray"))
-                this.__rgbButtonsProxyArray := Win32FixedArray(this.ptr + 48, 1, Primitive, "char")
+                this.__rgbButtonsProxyArray := Win32FixedArray(this.ptr + 48, 32, Primitive, "char")
             return this.__rgbButtonsProxyArray
         }
     }

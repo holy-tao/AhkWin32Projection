@@ -25,7 +25,7 @@ class PROFILER_HEAP_OBJECT_SCOPE_LIST extends Win32Struct
     scopes{
         get {
             if(!this.HasProp("__scopesProxyArray"))
-                this.__scopesProxyArray := Win32FixedArray(this.ptr + 8, 8, Primitive, "ptr")
+                this.__scopesProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "ptr")
             return this.__scopesProxyArray
         }
     }

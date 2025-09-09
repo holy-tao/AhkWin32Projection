@@ -20,7 +20,7 @@ class CHANGER_PRODUCT_DATA extends Win32Struct
     VendorId{
         get {
             if(!this.HasProp("__VendorIdProxyArray"))
-                this.__VendorIdProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__VendorIdProxyArray := Win32FixedArray(this.ptr + 0, 8, Primitive, "char")
             return this.__VendorIdProxyArray
         }
     }
@@ -32,7 +32,7 @@ class CHANGER_PRODUCT_DATA extends Win32Struct
     ProductId{
         get {
             if(!this.HasProp("__ProductIdProxyArray"))
-                this.__ProductIdProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "char")
+                this.__ProductIdProxyArray := Win32FixedArray(this.ptr + 8, 16, Primitive, "char")
             return this.__ProductIdProxyArray
         }
     }
@@ -44,7 +44,7 @@ class CHANGER_PRODUCT_DATA extends Win32Struct
     Revision{
         get {
             if(!this.HasProp("__RevisionProxyArray"))
-                this.__RevisionProxyArray := Win32FixedArray(this.ptr + 24, 1, Primitive, "char")
+                this.__RevisionProxyArray := Win32FixedArray(this.ptr + 24, 4, Primitive, "char")
             return this.__RevisionProxyArray
         }
     }
@@ -56,7 +56,7 @@ class CHANGER_PRODUCT_DATA extends Win32Struct
     SerialNumber{
         get {
             if(!this.HasProp("__SerialNumberProxyArray"))
-                this.__SerialNumberProxyArray := Win32FixedArray(this.ptr + 28, 1, Primitive, "char")
+                this.__SerialNumberProxyArray := Win32FixedArray(this.ptr + 28, 32, Primitive, "char")
             return this.__SerialNumberProxyArray
         }
     }

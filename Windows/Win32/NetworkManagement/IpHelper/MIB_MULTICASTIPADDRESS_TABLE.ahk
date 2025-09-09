@@ -50,7 +50,7 @@ class MIB_MULTICASTIPADDRESS_TABLE extends Win32Struct
     Table{
         get {
             if(!this.HasProp("__TableProxyArray"))
-                this.__TableProxyArray := Win32FixedArray(this.ptr + 8, 8, MIB_MULTICASTIPADDRESS_ROW, "")
+                this.__TableProxyArray := Win32FixedArray(this.ptr + 8, 1, MIB_MULTICASTIPADDRESS_ROW, "")
             return this.__TableProxyArray
         }
     }

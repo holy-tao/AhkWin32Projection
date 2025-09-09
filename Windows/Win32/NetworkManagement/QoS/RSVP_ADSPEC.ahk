@@ -59,7 +59,7 @@ class RSVP_ADSPEC extends Win32Struct
     Services{
         get {
             if(!this.HasProp("__ServicesProxyArray"))
-                this.__ServicesProxyArray := Win32FixedArray(this.ptr + 32, 8, CONTROL_SERVICE, "")
+                this.__ServicesProxyArray := Win32FixedArray(this.ptr + 32, 1, CONTROL_SERVICE, "")
             return this.__ServicesProxyArray
         }
     }

@@ -57,7 +57,7 @@ class BATTERY_INFORMATION extends Win32Struct
     Reserved{
         get {
             if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 5, 1, Primitive, "char")
+                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 5, 3, Primitive, "char")
             return this.__ReservedProxyArray
         }
     }
@@ -87,7 +87,7 @@ class BATTERY_INFORMATION extends Win32Struct
     Chemistry{
         get {
             if(!this.HasProp("__ChemistryProxyArray"))
-                this.__ChemistryProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "char")
+                this.__ChemistryProxyArray := Win32FixedArray(this.ptr + 8, 4, Primitive, "char")
             return this.__ChemistryProxyArray
         }
     }

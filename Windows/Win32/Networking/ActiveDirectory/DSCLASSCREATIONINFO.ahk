@@ -56,7 +56,7 @@ class DSCLASSCREATIONINFO extends Win32Struct
     aWizardExtensions{
         get {
             if(!this.HasProp("__aWizardExtensionsProxyArray"))
-                this.__aWizardExtensionsProxyArray := Win32FixedArray(this.ptr + 32, 8, Primitive, "ptr")
+                this.__aWizardExtensionsProxyArray := Win32FixedArray(this.ptr + 32, 1, Primitive, "ptr")
             return this.__aWizardExtensionsProxyArray
         }
     }

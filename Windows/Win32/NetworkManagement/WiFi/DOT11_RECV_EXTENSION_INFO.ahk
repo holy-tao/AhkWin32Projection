@@ -98,7 +98,7 @@ class DOT11_RECV_EXTENSION_INFO extends Win32Struct
     ucPeerMacAddress{
         get {
             if(!this.HasProp("__ucPeerMacAddressProxyArray"))
-                this.__ucPeerMacAddressProxyArray := Win32FixedArray(this.ptr + 42, 1, Primitive, "char")
+                this.__ucPeerMacAddressProxyArray := Win32FixedArray(this.ptr + 42, 6, Primitive, "char")
             return this.__ucPeerMacAddressProxyArray
         }
     }
@@ -203,7 +203,7 @@ class DOT11_RECV_EXTENSION_INFO extends Win32Struct
     pNdisPackets{
         get {
             if(!this.HasProp("__pNdisPacketsProxyArray"))
-                this.__pNdisPacketsProxyArray := Win32FixedArray(this.ptr + 112, 8, Primitive, "ptr")
+                this.__pNdisPacketsProxyArray := Win32FixedArray(this.ptr + 112, 1, Primitive, "ptr")
             return this.__pNdisPacketsProxyArray
         }
     }

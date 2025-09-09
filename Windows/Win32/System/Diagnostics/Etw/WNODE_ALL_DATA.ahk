@@ -62,7 +62,7 @@ class WNODE_ALL_DATA extends Win32Struct
     OffsetInstanceDataAndLength{
         get {
             if(!this.HasProp("__OffsetInstanceDataAndLengthProxyArray"))
-                this.__OffsetInstanceDataAndLengthProxyArray := Win32FixedArray(this.ptr + 52, 8, OFFSETINSTANCEDATAANDLENGTH, "")
+                this.__OffsetInstanceDataAndLengthProxyArray := Win32FixedArray(this.ptr + 52, 1, OFFSETINSTANCEDATAANDLENGTH, "")
             return this.__OffsetInstanceDataAndLengthProxyArray
         }
     }

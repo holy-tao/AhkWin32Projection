@@ -65,7 +65,7 @@ class RPCOLEMESSAGE extends Win32Struct
     reserved2{
         get {
             if(!this.HasProp("__reserved2ProxyArray"))
-                this.__reserved2ProxyArray := Win32FixedArray(this.ptr + 32, 8, Primitive, "ptr")
+                this.__reserved2ProxyArray := Win32FixedArray(this.ptr + 32, 5, Primitive, "ptr")
             return this.__reserved2ProxyArray
         }
     }

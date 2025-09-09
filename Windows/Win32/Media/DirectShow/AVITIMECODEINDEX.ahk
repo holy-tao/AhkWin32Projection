@@ -75,7 +75,7 @@ class AVITIMECODEINDEX extends Win32Struct
     dwReserved{
         get {
             if(!this.HasProp("__dwReservedProxyArray"))
-                this.__dwReservedProxyArray := Win32FixedArray(this.ptr + 20, 4, Primitive, "uint")
+                this.__dwReservedProxyArray := Win32FixedArray(this.ptr + 20, 3, Primitive, "uint")
             return this.__dwReservedProxyArray
         }
     }
@@ -86,7 +86,7 @@ class AVITIMECODEINDEX extends Win32Struct
     aIndex{
         get {
             if(!this.HasProp("__aIndexProxyArray"))
-                this.__aIndexProxyArray := Win32FixedArray(this.ptr + 32, 8, TIMECODEDATA, "")
+                this.__aIndexProxyArray := Win32FixedArray(this.ptr + 32, 1022, TIMECODEDATA, "")
             return this.__aIndexProxyArray
         }
     }

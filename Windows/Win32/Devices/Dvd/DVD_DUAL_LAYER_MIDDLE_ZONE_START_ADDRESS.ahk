@@ -25,7 +25,7 @@ class DVD_DUAL_LAYER_MIDDLE_ZONE_START_ADDRESS extends Win32Struct
     Reserved1{
         get {
             if(!this.HasProp("__Reserved1ProxyArray"))
-                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 1, 1, Primitive, "char")
+                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 1, 3, Primitive, "char")
             return this.__Reserved1ProxyArray
         }
     }
@@ -36,7 +36,7 @@ class DVD_DUAL_LAYER_MIDDLE_ZONE_START_ADDRESS extends Win32Struct
     ShiftedMiddleAreaStartAddress{
         get {
             if(!this.HasProp("__ShiftedMiddleAreaStartAddressProxyArray"))
-                this.__ShiftedMiddleAreaStartAddressProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")
+                this.__ShiftedMiddleAreaStartAddressProxyArray := Win32FixedArray(this.ptr + 4, 4, Primitive, "char")
             return this.__ShiftedMiddleAreaStartAddressProxyArray
         }
     }

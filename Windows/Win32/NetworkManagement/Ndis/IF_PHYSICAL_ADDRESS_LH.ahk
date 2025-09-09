@@ -25,7 +25,7 @@ class IF_PHYSICAL_ADDRESS_LH extends Win32Struct
     Address{
         get {
             if(!this.HasProp("__AddressProxyArray"))
-                this.__AddressProxyArray := Win32FixedArray(this.ptr + 2, 1, Primitive, "char")
+                this.__AddressProxyArray := Win32FixedArray(this.ptr + 2, 32, Primitive, "char")
             return this.__AddressProxyArray
         }
     }

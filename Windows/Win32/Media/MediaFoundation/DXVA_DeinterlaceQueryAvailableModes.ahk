@@ -33,7 +33,7 @@ class DXVA_DeinterlaceQueryAvailableModes extends Win32Struct
     Guids{
         get {
             if(!this.HasProp("__GuidsProxyArray"))
-                this.__GuidsProxyArray := Win32FixedArray(this.ptr + 8, 8, Primitive, "ptr")
+                this.__GuidsProxyArray := Win32FixedArray(this.ptr + 8, 32, Primitive, "ptr")
             return this.__GuidsProxyArray
         }
     }

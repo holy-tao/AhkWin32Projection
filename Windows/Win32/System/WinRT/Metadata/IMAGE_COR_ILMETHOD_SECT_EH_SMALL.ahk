@@ -38,7 +38,7 @@ class IMAGE_COR_ILMETHOD_SECT_EH_SMALL extends Win32Struct
     Clauses{
         get {
             if(!this.HasProp("__ClausesProxyArray"))
-                this.__ClausesProxyArray := Win32FixedArray(this.ptr + 8, 8, IMAGE_COR_ILMETHOD_SECT_EH_CLAUSE_SMALL, "")
+                this.__ClausesProxyArray := Win32FixedArray(this.ptr + 8, 1, IMAGE_COR_ILMETHOD_SECT_EH_CLAUSE_SMALL, "")
             return this.__ClausesProxyArray
         }
     }

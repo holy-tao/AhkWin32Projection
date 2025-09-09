@@ -32,7 +32,7 @@ class DOT11_SEND_GO_NEGOTIATION_RESPONSE_PARAMETERS extends Win32Struct
     PeerDeviceAddress{
         get {
             if(!this.HasProp("__PeerDeviceAddressProxyArray"))
-                this.__PeerDeviceAddressProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")
+                this.__PeerDeviceAddressProxyArray := Win32FixedArray(this.ptr + 4, 6, Primitive, "char")
             return this.__PeerDeviceAddressProxyArray
         }
     }
@@ -94,7 +94,7 @@ class DOT11_SEND_GO_NEGOTIATION_RESPONSE_PARAMETERS extends Win32Struct
     IntendedInterfaceAddress{
         get {
             if(!this.HasProp("__IntendedInterfaceAddressProxyArray"))
-                this.__IntendedInterfaceAddressProxyArray := Win32FixedArray(this.ptr + 32, 1, Primitive, "char")
+                this.__IntendedInterfaceAddressProxyArray := Win32FixedArray(this.ptr + 32, 6, Primitive, "char")
             return this.__IntendedInterfaceAddressProxyArray
         }
     }

@@ -49,7 +49,7 @@ class SOCKADDR_TP extends Win32Struct
     tp_addr{
         get {
             if(!this.HasProp("__tp_addrProxyArray"))
-                this.__tp_addrProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "char")
+                this.__tp_addrProxyArray := Win32FixedArray(this.ptr + 8, 64, Primitive, "char")
             return this.__tp_addrProxyArray
         }
     }

@@ -25,7 +25,7 @@ class DBVARYBIN extends Win32Struct
     array{
         get {
             if(!this.HasProp("__arrayProxyArray"))
-                this.__arrayProxyArray := Win32FixedArray(this.ptr + 2, 1, Primitive, "char")
+                this.__arrayProxyArray := Win32FixedArray(this.ptr + 2, 8001, Primitive, "char")
             return this.__arrayProxyArray
         }
     }

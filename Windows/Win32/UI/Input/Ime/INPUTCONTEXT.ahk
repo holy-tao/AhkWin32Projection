@@ -110,7 +110,7 @@ class INPUTCONTEXT extends Win32Struct
     cfCandForm{
         get {
             if(!this.HasProp("__cfCandFormProxyArray"))
-                this.__cfCandFormProxyArray := Win32FixedArray(this.ptr + 136, 8, CANDIDATEFORM, "")
+                this.__cfCandFormProxyArray := Win32FixedArray(this.ptr + 136, 4, CANDIDATEFORM, "")
             return this.__cfCandFormProxyArray
         }
     }
@@ -177,7 +177,7 @@ class INPUTCONTEXT extends Win32Struct
     dwReserve{
         get {
             if(!this.HasProp("__dwReserveProxyArray"))
-                this.__dwReserveProxyArray := Win32FixedArray(this.ptr + 220, 4, Primitive, "uint")
+                this.__dwReserveProxyArray := Win32FixedArray(this.ptr + 220, 3, Primitive, "uint")
             return this.__dwReserveProxyArray
         }
     }

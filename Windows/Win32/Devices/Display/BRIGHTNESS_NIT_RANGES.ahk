@@ -42,7 +42,7 @@ class BRIGHTNESS_NIT_RANGES extends Win32Struct
     SupportedRanges{
         get {
             if(!this.HasProp("__SupportedRangesProxyArray"))
-                this.__SupportedRangesProxyArray := Win32FixedArray(this.ptr + 16, 8, BRIGHTNESS_NIT_RANGE, "")
+                this.__SupportedRangesProxyArray := Win32FixedArray(this.ptr + 16, 16, BRIGHTNESS_NIT_RANGE, "")
             return this.__SupportedRangesProxyArray
         }
     }

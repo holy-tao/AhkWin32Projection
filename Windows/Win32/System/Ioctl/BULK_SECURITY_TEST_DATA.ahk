@@ -25,7 +25,7 @@ class BULK_SECURITY_TEST_DATA extends Win32Struct
     SecurityIds{
         get {
             if(!this.HasProp("__SecurityIdsProxyArray"))
-                this.__SecurityIdsProxyArray := Win32FixedArray(this.ptr + 4, 4, Primitive, "uint")
+                this.__SecurityIdsProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "uint")
             return this.__SecurityIdsProxyArray
         }
     }

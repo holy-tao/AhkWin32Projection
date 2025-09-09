@@ -32,7 +32,7 @@ class NVM_SET_LIST extends Win32Struct
     Reserved{
         get {
             if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 1, 1, Primitive, "char")
+                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 1, 127, Primitive, "char")
             return this.__ReservedProxyArray
         }
     }
@@ -44,7 +44,7 @@ class NVM_SET_LIST extends Win32Struct
     Entry{
         get {
             if(!this.HasProp("__EntryProxyArray"))
-                this.__EntryProxyArray := Win32FixedArray(this.ptr + 128, 8, NVME_SET_ATTRIBUTES_ENTRY, "")
+                this.__EntryProxyArray := Win32FixedArray(this.ptr + 128, 1, NVME_SET_ATTRIBUTES_ENTRY, "")
             return this.__EntryProxyArray
         }
     }

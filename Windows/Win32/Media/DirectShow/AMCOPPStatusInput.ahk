@@ -97,7 +97,7 @@ class AMCOPPStatusInput extends Win32Struct
     StatusData{
         get {
             if(!this.HasProp("__StatusDataProxyArray"))
-                this.__StatusDataProxyArray := Win32FixedArray(this.ptr + 24, 1, Primitive, "char")
+                this.__StatusDataProxyArray := Win32FixedArray(this.ptr + 24, 4056, Primitive, "char")
             return this.__StatusDataProxyArray
         }
     }

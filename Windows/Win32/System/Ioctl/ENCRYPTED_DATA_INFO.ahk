@@ -97,7 +97,7 @@ class ENCRYPTED_DATA_INFO extends Win32Struct
     DataBlockSize{
         get {
             if(!this.HasProp("__DataBlockSizeProxyArray"))
-                this.__DataBlockSizeProxyArray := Win32FixedArray(this.ptr + 28, 4, Primitive, "uint")
+                this.__DataBlockSizeProxyArray := Win32FixedArray(this.ptr + 28, 1, Primitive, "uint")
             return this.__DataBlockSizeProxyArray
         }
     }

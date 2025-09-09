@@ -66,7 +66,7 @@ class SERVICE_TYPE_INFO_ABSW extends Win32Struct
     Values{
         get {
             if(!this.HasProp("__ValuesProxyArray"))
-                this.__ValuesProxyArray := Win32FixedArray(this.ptr + 16, 8, SERVICE_TYPE_VALUE_ABSW, "")
+                this.__ValuesProxyArray := Win32FixedArray(this.ptr + 16, 1, SERVICE_TYPE_VALUE_ABSW, "")
             return this.__ValuesProxyArray
         }
     }

@@ -46,7 +46,7 @@ class DOT11_ASSOCIATION_INFO_LIST extends Win32Struct
     dot11AssocInfo{
         get {
             if(!this.HasProp("__dot11AssocInfoProxyArray"))
-                this.__dot11AssocInfoProxyArray := Win32FixedArray(this.ptr + 16, 8, DOT11_ASSOCIATION_INFO_EX, "")
+                this.__dot11AssocInfoProxyArray := Win32FixedArray(this.ptr + 16, 1, DOT11_ASSOCIATION_INFO_EX, "")
             return this.__dot11AssocInfoProxyArray
         }
     }

@@ -139,7 +139,7 @@ class PF_INTERFACE_STATS extends Win32Struct
     FilterInfo{
         get {
             if(!this.HasProp("__FilterInfoProxyArray"))
-                this.__FilterInfoProxyArray := Win32FixedArray(this.ptr + 80, 8, PF_FILTER_STATS, "")
+                this.__FilterInfoProxyArray := Win32FixedArray(this.ptr + 80, 1, PF_FILTER_STATS, "")
             return this.__FilterInfoProxyArray
         }
     }

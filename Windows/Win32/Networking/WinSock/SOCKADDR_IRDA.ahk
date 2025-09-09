@@ -38,7 +38,7 @@ class SOCKADDR_IRDA extends Win32Struct
     irdaDeviceID{
         get {
             if(!this.HasProp("__irdaDeviceIDProxyArray"))
-                this.__irdaDeviceIDProxyArray := Win32FixedArray(this.ptr + 2, 1, Primitive, "char")
+                this.__irdaDeviceIDProxyArray := Win32FixedArray(this.ptr + 2, 4, Primitive, "char")
             return this.__irdaDeviceIDProxyArray
         }
     }

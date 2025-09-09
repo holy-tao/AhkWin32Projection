@@ -80,7 +80,7 @@ class WINBIO_IDENTITY extends Win32Struct
     Data{
         get {
             if(!this.HasProp("__DataProxyArray"))
-                this.__DataProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "char")
+                this.__DataProxyArray := Win32FixedArray(this.ptr + 8, 68, Primitive, "char")
             return this.__DataProxyArray
         }
     }
@@ -91,7 +91,7 @@ class WINBIO_IDENTITY extends Win32Struct
     SecureId{
         get {
             if(!this.HasProp("__SecureIdProxyArray"))
-                this.__SecureIdProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")
+                this.__SecureIdProxyArray := Win32FixedArray(this.ptr + 4, 32, Primitive, "char")
             return this.__SecureIdProxyArray
         }
     }

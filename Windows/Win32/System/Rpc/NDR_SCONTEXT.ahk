@@ -17,7 +17,7 @@ class NDR_SCONTEXT extends Win32Struct
     pad{
         get {
             if(!this.HasProp("__padProxyArray"))
-                this.__padProxyArray := Win32FixedArray(this.ptr + 0, 8, Primitive, "ptr")
+                this.__padProxyArray := Win32FixedArray(this.ptr + 0, 2, Primitive, "ptr")
             return this.__padProxyArray
         }
     }

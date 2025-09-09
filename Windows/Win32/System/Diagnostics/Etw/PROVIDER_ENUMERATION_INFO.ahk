@@ -39,7 +39,7 @@ class PROVIDER_ENUMERATION_INFO extends Win32Struct
     TraceProviderInfoArray{
         get {
             if(!this.HasProp("__TraceProviderInfoArrayProxyArray"))
-                this.__TraceProviderInfoArrayProxyArray := Win32FixedArray(this.ptr + 8, 8, TRACE_PROVIDER_INFO, "")
+                this.__TraceProviderInfoArrayProxyArray := Win32FixedArray(this.ptr + 8, 1, TRACE_PROVIDER_INFO, "")
             return this.__TraceProviderInfoArrayProxyArray
         }
     }

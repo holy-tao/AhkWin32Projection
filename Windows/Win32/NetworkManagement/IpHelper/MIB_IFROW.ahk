@@ -250,7 +250,7 @@ class MIB_IFROW extends Win32Struct
     bPhysAddr{
         get {
             if(!this.HasProp("__bPhysAddrProxyArray"))
-                this.__bPhysAddrProxyArray := Win32FixedArray(this.ptr + 532, 1, Primitive, "char")
+                this.__bPhysAddrProxyArray := Win32FixedArray(this.ptr + 532, 8, Primitive, "char")
             return this.__bPhysAddrProxyArray
         }
     }
@@ -440,7 +440,7 @@ class MIB_IFROW extends Win32Struct
     bDescr{
         get {
             if(!this.HasProp("__bDescrProxyArray"))
-                this.__bDescrProxyArray := Win32FixedArray(this.ptr + 604, 1, Primitive, "char")
+                this.__bDescrProxyArray := Win32FixedArray(this.ptr + 604, 256, Primitive, "char")
             return this.__bDescrProxyArray
         }
     }

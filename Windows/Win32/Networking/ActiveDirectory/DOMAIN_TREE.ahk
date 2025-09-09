@@ -41,7 +41,7 @@ class DOMAIN_TREE extends Win32Struct
     aDomains{
         get {
             if(!this.HasProp("__aDomainsProxyArray"))
-                this.__aDomainsProxyArray := Win32FixedArray(this.ptr + 8, 8, DOMAINDESC, "")
+                this.__aDomainsProxyArray := Win32FixedArray(this.ptr + 8, 1, DOMAINDESC, "")
             return this.__aDomainsProxyArray
         }
     }

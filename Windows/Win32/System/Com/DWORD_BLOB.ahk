@@ -25,7 +25,7 @@ class DWORD_BLOB extends Win32Struct
     alData{
         get {
             if(!this.HasProp("__alDataProxyArray"))
-                this.__alDataProxyArray := Win32FixedArray(this.ptr + 4, 4, Primitive, "uint")
+                this.__alDataProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "uint")
             return this.__alDataProxyArray
         }
     }

@@ -25,7 +25,7 @@ class BDA_PID_UNMAP extends Win32Struct
     aulPIDs{
         get {
             if(!this.HasProp("__aulPIDsProxyArray"))
-                this.__aulPIDsProxyArray := Win32FixedArray(this.ptr + 4, 4, Primitive, "uint")
+                this.__aulPIDsProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "uint")
             return this.__aulPIDsProxyArray
         }
     }

@@ -104,7 +104,7 @@ class DVD_TitleAttributes extends Win32Struct
     SubpictureAttributes{
         get {
             if(!this.HasProp("__SubpictureAttributesProxyArray"))
-                this.__SubpictureAttributesProxyArray := Win32FixedArray(this.ptr + 200, 8, DVD_SubpictureAttributes, "")
+                this.__SubpictureAttributesProxyArray := Win32FixedArray(this.ptr + 200, 32, DVD_SubpictureAttributes, "")
             return this.__SubpictureAttributesProxyArray
         }
     }

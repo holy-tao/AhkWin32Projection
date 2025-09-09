@@ -57,7 +57,7 @@ class PXE_DHCPV6_MESSAGE extends Win32Struct
     Options{
         get {
             if(!this.HasProp("__OptionsProxyArray"))
-                this.__OptionsProxyArray := Win32FixedArray(this.ptr + 4, 8, PXE_DHCPV6_OPTION, "")
+                this.__OptionsProxyArray := Win32FixedArray(this.ptr + 4, 1, PXE_DHCPV6_OPTION, "")
             return this.__OptionsProxyArray
         }
     }

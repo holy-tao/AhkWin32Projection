@@ -84,7 +84,7 @@ class MFINPUTTRUSTAUTHORITY_ACCESS_PARAMS extends Win32Struct
     rgOutputActions{
         get {
             if(!this.HasProp("__rgOutputActionsProxyArray"))
-                this.__rgOutputActionsProxyArray := Win32FixedArray(this.ptr + 32, 8, MFINPUTTRUSTAUTHORITY_ACCESS_ACTION, "")
+                this.__rgOutputActionsProxyArray := Win32FixedArray(this.ptr + 32, 1, MFINPUTTRUSTAUTHORITY_ACCESS_ACTION, "")
             return this.__rgOutputActionsProxyArray
         }
     }

@@ -58,7 +58,7 @@ class STORAGE_DEVICE_MANAGEMENT_STATUS extends Win32Struct
     OperationalStatus{
         get {
             if(!this.HasProp("__OperationalStatusProxyArray"))
-                this.__OperationalStatusProxyArray := Win32FixedArray(this.ptr + 20, 4, Primitive, "int")
+                this.__OperationalStatusProxyArray := Win32FixedArray(this.ptr + 20, 16, Primitive, "int")
             return this.__OperationalStatusProxyArray
         }
     }
@@ -69,7 +69,7 @@ class STORAGE_DEVICE_MANAGEMENT_STATUS extends Win32Struct
     AdditionalReasons{
         get {
             if(!this.HasProp("__AdditionalReasonsProxyArray"))
-                this.__AdditionalReasonsProxyArray := Win32FixedArray(this.ptr + 88, 8, STORAGE_OPERATIONAL_REASON, "")
+                this.__AdditionalReasonsProxyArray := Win32FixedArray(this.ptr + 88, 1, STORAGE_OPERATIONAL_REASON, "")
             return this.__AdditionalReasonsProxyArray
         }
     }

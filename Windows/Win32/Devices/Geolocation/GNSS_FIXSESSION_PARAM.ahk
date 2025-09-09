@@ -69,7 +69,7 @@ class GNSS_FIXSESSION_PARAM extends Win32Struct
     Reserved{
         get {
             if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 24, 4, Primitive, "uint")
+                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 24, 9, Primitive, "uint")
             return this.__ReservedProxyArray
         }
     }
@@ -132,7 +132,7 @@ class GNSS_FIXSESSION_PARAM extends Win32Struct
     UnusedParam{
         get {
             if(!this.HasProp("__UnusedParamProxyArray"))
-                this.__UnusedParamProxyArray := Win32FixedArray(this.ptr + 64, 1, Primitive, "char")
+                this.__UnusedParamProxyArray := Win32FixedArray(this.ptr + 64, 268, Primitive, "char")
             return this.__UnusedParamProxyArray
         }
     }
@@ -143,7 +143,7 @@ class GNSS_FIXSESSION_PARAM extends Win32Struct
     Unused{
         get {
             if(!this.HasProp("__UnusedProxyArray"))
-                this.__UnusedProxyArray := Win32FixedArray(this.ptr + 76, 1, Primitive, "char")
+                this.__UnusedProxyArray := Win32FixedArray(this.ptr + 76, 256, Primitive, "char")
             return this.__UnusedProxyArray
         }
     }

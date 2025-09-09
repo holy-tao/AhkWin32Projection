@@ -27,7 +27,7 @@ class IPX_PATTERN extends Win32Struct
     NodeAddress{
         get {
             if(!this.HasProp("__NodeAddressProxyArray"))
-                this.__NodeAddressProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")
+                this.__NodeAddressProxyArray := Win32FixedArray(this.ptr + 4, 6, Primitive, "char")
             return this.__NodeAddressProxyArray
         }
     }

@@ -69,7 +69,7 @@ class WINBIO_STORAGE_SCHEMA extends Win32Struct
     FilePath{
         get {
             if(!this.HasProp("__FilePathProxyArray"))
-                this.__FilePathProxyArray := Win32FixedArray(this.ptr + 28, 2, Primitive, "ushort")
+                this.__FilePathProxyArray := Win32FixedArray(this.ptr + 28, 256, Primitive, "ushort")
             return this.__FilePathProxyArray
         }
     }
@@ -81,7 +81,7 @@ class WINBIO_STORAGE_SCHEMA extends Win32Struct
     ConnectionString{
         get {
             if(!this.HasProp("__ConnectionStringProxyArray"))
-                this.__ConnectionStringProxyArray := Win32FixedArray(this.ptr + 540, 2, Primitive, "ushort")
+                this.__ConnectionStringProxyArray := Win32FixedArray(this.ptr + 540, 256, Primitive, "ushort")
             return this.__ConnectionStringProxyArray
         }
     }

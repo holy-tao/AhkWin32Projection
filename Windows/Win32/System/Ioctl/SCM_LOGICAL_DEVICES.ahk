@@ -42,7 +42,7 @@ class SCM_LOGICAL_DEVICES extends Win32Struct
     Devices{
         get {
             if(!this.HasProp("__DevicesProxyArray"))
-                this.__DevicesProxyArray := Win32FixedArray(this.ptr + 16, 8, SCM_LOGICAL_DEVICE_INSTANCE, "")
+                this.__DevicesProxyArray := Win32FixedArray(this.ptr + 16, 1, SCM_LOGICAL_DEVICE_INSTANCE, "")
             return this.__DevicesProxyArray
         }
     }

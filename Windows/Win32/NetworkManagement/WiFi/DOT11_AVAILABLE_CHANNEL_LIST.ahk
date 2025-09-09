@@ -45,7 +45,7 @@ class DOT11_AVAILABLE_CHANNEL_LIST extends Win32Struct
     uChannelNumber{
         get {
             if(!this.HasProp("__uChannelNumberProxyArray"))
-                this.__uChannelNumberProxyArray := Win32FixedArray(this.ptr + 12, 4, Primitive, "uint")
+                this.__uChannelNumberProxyArray := Win32FixedArray(this.ptr + 12, 1, Primitive, "uint")
             return this.__uChannelNumberProxyArray
         }
     }

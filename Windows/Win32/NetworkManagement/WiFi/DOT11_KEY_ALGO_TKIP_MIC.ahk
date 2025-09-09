@@ -17,7 +17,7 @@ class DOT11_KEY_ALGO_TKIP_MIC extends Win32Struct
     ucIV48Counter{
         get {
             if(!this.HasProp("__ucIV48CounterProxyArray"))
-                this.__ucIV48CounterProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__ucIV48CounterProxyArray := Win32FixedArray(this.ptr + 0, 6, Primitive, "char")
             return this.__ucIV48CounterProxyArray
         }
     }

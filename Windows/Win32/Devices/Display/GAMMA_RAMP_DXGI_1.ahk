@@ -40,7 +40,7 @@ class GAMMA_RAMP_DXGI_1 extends Win32Struct
     GammaCurve{
         get {
             if(!this.HasProp("__GammaCurveProxyArray"))
-                this.__GammaCurveProxyArray := Win32FixedArray(this.ptr + 32, 8, GAMMA_RAMP_RGB, "")
+                this.__GammaCurveProxyArray := Win32FixedArray(this.ptr + 32, 1025, GAMMA_RAMP_RGB, "")
             return this.__GammaCurveProxyArray
         }
     }

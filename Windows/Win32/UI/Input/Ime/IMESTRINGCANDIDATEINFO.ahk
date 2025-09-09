@@ -57,7 +57,7 @@ class IMESTRINGCANDIDATEINFO extends Win32Struct
     lpwstr{
         get {
             if(!this.HasProp("__lpwstrProxyArray"))
-                this.__lpwstrProxyArray := Win32FixedArray(this.ptr + 32, 8, Primitive, "ptr")
+                this.__lpwstrProxyArray := Win32FixedArray(this.ptr + 32, 1, Primitive, "ptr")
             return this.__lpwstrProxyArray
         }
     }

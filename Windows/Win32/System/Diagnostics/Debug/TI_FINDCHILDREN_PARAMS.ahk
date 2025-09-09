@@ -38,7 +38,7 @@ class TI_FINDCHILDREN_PARAMS extends Win32Struct
     ChildId{
         get {
             if(!this.HasProp("__ChildIdProxyArray"))
-                this.__ChildIdProxyArray := Win32FixedArray(this.ptr + 8, 4, Primitive, "uint")
+                this.__ChildIdProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "uint")
             return this.__ChildIdProxyArray
         }
     }

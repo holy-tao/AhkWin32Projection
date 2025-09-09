@@ -22,7 +22,7 @@ class WLAN_HOSTED_NETWORK_PEER_STATE extends Win32Struct
     PeerMacAddress{
         get {
             if(!this.HasProp("__PeerMacAddressProxyArray"))
-                this.__PeerMacAddressProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__PeerMacAddressProxyArray := Win32FixedArray(this.ptr + 0, 6, Primitive, "char")
             return this.__PeerMacAddressProxyArray
         }
     }

@@ -34,7 +34,7 @@ class NDIS_802_11_PMKID_CANDIDATE_LIST extends Win32Struct
     CandidateList{
         get {
             if(!this.HasProp("__CandidateListProxyArray"))
-                this.__CandidateListProxyArray := Win32FixedArray(this.ptr + 8, 8, PMKID_CANDIDATE, "")
+                this.__CandidateListProxyArray := Win32FixedArray(this.ptr + 8, 1, PMKID_CANDIDATE, "")
             return this.__CandidateListProxyArray
         }
     }

@@ -41,7 +41,7 @@ class NVME_DEVICE_SELF_TEST_LOG extends Win32Struct
     Reserved{
         get {
             if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 2, 1, Primitive, "char")
+                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 2, 2, Primitive, "char")
             return this.__ReservedProxyArray
         }
     }
@@ -53,7 +53,7 @@ class NVME_DEVICE_SELF_TEST_LOG extends Win32Struct
     ResultData{
         get {
             if(!this.HasProp("__ResultDataProxyArray"))
-                this.__ResultDataProxyArray := Win32FixedArray(this.ptr + 8, 8, NVME_DEVICE_SELF_TEST_RESULT_DATA, "")
+                this.__ResultDataProxyArray := Win32FixedArray(this.ptr + 8, 20, NVME_DEVICE_SELF_TEST_RESULT_DATA, "")
             return this.__ResultDataProxyArray
         }
     }

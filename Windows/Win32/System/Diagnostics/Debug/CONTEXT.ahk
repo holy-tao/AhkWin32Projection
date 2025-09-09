@@ -215,7 +215,7 @@ class CONTEXT extends Win32Struct
     ExtendedRegisters{
         get {
             if(!this.HasProp("__ExtendedRegistersProxyArray"))
-                this.__ExtendedRegistersProxyArray := Win32FixedArray(this.ptr + 208, 1, Primitive, "char")
+                this.__ExtendedRegistersProxyArray := Win32FixedArray(this.ptr + 208, 512, Primitive, "char")
             return this.__ExtendedRegistersProxyArray
         }
     }

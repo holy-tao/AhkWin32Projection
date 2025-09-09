@@ -84,7 +84,7 @@ class FORMAT_EX_PARAMETERS extends Win32Struct
     SectorNumber{
         get {
             if(!this.HasProp("__SectorNumberProxyArray"))
-                this.__SectorNumberProxyArray := Win32FixedArray(this.ptr + 24, 2, Primitive, "ushort")
+                this.__SectorNumberProxyArray := Win32FixedArray(this.ptr + 24, 1, Primitive, "ushort")
             return this.__SectorNumberProxyArray
         }
     }

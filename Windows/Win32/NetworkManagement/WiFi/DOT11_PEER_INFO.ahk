@@ -18,7 +18,7 @@ class DOT11_PEER_INFO extends Win32Struct
     MacAddress{
         get {
             if(!this.HasProp("__MacAddressProxyArray"))
-                this.__MacAddressProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__MacAddressProxyArray := Win32FixedArray(this.ptr + 0, 6, Primitive, "char")
             return this.__MacAddressProxyArray
         }
     }
@@ -77,7 +77,7 @@ class DOT11_PEER_INFO extends Win32Struct
     ucSupportedRates{
         get {
             if(!this.HasProp("__ucSupportedRatesProxyArray"))
-                this.__ucSupportedRatesProxyArray := Win32FixedArray(this.ptr + 24, 1, Primitive, "char")
+                this.__ucSupportedRatesProxyArray := Win32FixedArray(this.ptr + 24, 255, Primitive, "char")
             return this.__ucSupportedRatesProxyArray
         }
     }

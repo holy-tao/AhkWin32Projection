@@ -39,7 +39,7 @@ class LOOKUP_STREAM_FROM_CLUSTER_INPUT extends Win32Struct
     Cluster{
         get {
             if(!this.HasProp("__ClusterProxyArray"))
-                this.__ClusterProxyArray := Win32FixedArray(this.ptr + 8, 8, Primitive, "int64")
+                this.__ClusterProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "int64")
             return this.__ClusterProxyArray
         }
     }

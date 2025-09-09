@@ -65,7 +65,7 @@ class NDIS_WMI_METHOD_HEADER extends Win32Struct
     Padding{
         get {
             if(!this.HasProp("__PaddingProxyArray"))
-                this.__PaddingProxyArray := Win32FixedArray(this.ptr + 36, 1, Primitive, "char")
+                this.__PaddingProxyArray := Win32FixedArray(this.ptr + 36, 4, Primitive, "char")
             return this.__PaddingProxyArray
         }
     }

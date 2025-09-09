@@ -25,7 +25,7 @@ class WST_BUFFER_LINE extends Win32Struct
     Bytes{
         get {
             if(!this.HasProp("__BytesProxyArray"))
-                this.__BytesProxyArray := Win32FixedArray(this.ptr + 1, 1, Primitive, "char")
+                this.__BytesProxyArray := Win32FixedArray(this.ptr + 1, 42, Primitive, "char")
             return this.__BytesProxyArray
         }
     }

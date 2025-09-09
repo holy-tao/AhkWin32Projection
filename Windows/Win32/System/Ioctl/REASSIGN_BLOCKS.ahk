@@ -54,7 +54,7 @@ class REASSIGN_BLOCKS extends Win32Struct
     BlockNumber{
         get {
             if(!this.HasProp("__BlockNumberProxyArray"))
-                this.__BlockNumberProxyArray := Win32FixedArray(this.ptr + 4, 4, Primitive, "uint")
+                this.__BlockNumberProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "uint")
             return this.__BlockNumberProxyArray
         }
     }

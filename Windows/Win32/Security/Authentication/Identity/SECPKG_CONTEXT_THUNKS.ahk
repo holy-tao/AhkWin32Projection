@@ -30,7 +30,7 @@ class SECPKG_CONTEXT_THUNKS extends Win32Struct
     Levels{
         get {
             if(!this.HasProp("__LevelsProxyArray"))
-                this.__LevelsProxyArray := Win32FixedArray(this.ptr + 4, 4, Primitive, "uint")
+                this.__LevelsProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "uint")
             return this.__LevelsProxyArray
         }
     }

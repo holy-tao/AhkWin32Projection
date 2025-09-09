@@ -26,7 +26,7 @@ class TimedLevel extends Win32Struct
     frequency{
         get {
             if(!this.HasProp("__frequencyProxyArray"))
-                this.__frequencyProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__frequencyProxyArray := Win32FixedArray(this.ptr + 0, 2048, Primitive, "char")
             return this.__frequencyProxyArray
         }
     }
@@ -38,7 +38,7 @@ class TimedLevel extends Win32Struct
     waveform{
         get {
             if(!this.HasProp("__waveformProxyArray"))
-                this.__waveformProxyArray := Win32FixedArray(this.ptr + 2048, 1, Primitive, "char")
+                this.__waveformProxyArray := Win32FixedArray(this.ptr + 2048, 2048, Primitive, "char")
             return this.__waveformProxyArray
         }
     }

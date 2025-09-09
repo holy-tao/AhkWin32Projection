@@ -38,7 +38,7 @@ class SET_DISK_ATTRIBUTES extends Win32Struct
     Reserved1{
         get {
             if(!this.HasProp("__Reserved1ProxyArray"))
-                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 5, 1, Primitive, "char")
+                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 5, 3, Primitive, "char")
             return this.__Reserved1ProxyArray
         }
     }

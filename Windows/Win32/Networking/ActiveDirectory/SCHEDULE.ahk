@@ -48,7 +48,7 @@ class SCHEDULE extends Win32Struct
     Schedules{
         get {
             if(!this.HasProp("__SchedulesProxyArray"))
-                this.__SchedulesProxyArray := Win32FixedArray(this.ptr + 16, 8, SCHEDULE_HEADER, "")
+                this.__SchedulesProxyArray := Win32FixedArray(this.ptr + 16, 1, SCHEDULE_HEADER, "")
             return this.__SchedulesProxyArray
         }
     }

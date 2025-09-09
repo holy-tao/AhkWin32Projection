@@ -23,7 +23,7 @@ class WTS_CACHE_STATS_UN extends Win32Struct
     ProtocolCache{
         get {
             if(!this.HasProp("__ProtocolCacheProxyArray"))
-                this.__ProtocolCacheProxyArray := Win32FixedArray(this.ptr + 0, 8, WTS_PROTOCOL_CACHE, "")
+                this.__ProtocolCacheProxyArray := Win32FixedArray(this.ptr + 0, 4, WTS_PROTOCOL_CACHE, "")
             return this.__ProtocolCacheProxyArray
         }
     }
@@ -44,7 +44,7 @@ class WTS_CACHE_STATS_UN extends Win32Struct
     Reserved{
         get {
             if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 0, 4, Primitive, "uint")
+                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 0, 20, Primitive, "uint")
             return this.__ReservedProxyArray
         }
     }

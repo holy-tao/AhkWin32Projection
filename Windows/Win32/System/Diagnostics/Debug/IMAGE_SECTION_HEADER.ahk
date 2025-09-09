@@ -20,7 +20,7 @@ class IMAGE_SECTION_HEADER extends Win32Struct
     Name{
         get {
             if(!this.HasProp("__NameProxyArray"))
-                this.__NameProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__NameProxyArray := Win32FixedArray(this.ptr + 0, 8, Primitive, "char")
             return this.__NameProxyArray
         }
     }

@@ -78,7 +78,7 @@ class MIB_IPNET_ROW2 extends Win32Struct
     PhysicalAddress{
         get {
             if(!this.HasProp("__PhysicalAddressProxyArray"))
-                this.__PhysicalAddressProxyArray := Win32FixedArray(this.ptr + 88, 1, Primitive, "char")
+                this.__PhysicalAddressProxyArray := Win32FixedArray(this.ptr + 88, 32, Primitive, "char")
             return this.__PhysicalAddressProxyArray
         }
     }

@@ -49,7 +49,7 @@ class CSV_QUERY_FILE_REVISION extends Win32Struct
     FileRevision{
         get {
             if(!this.HasProp("__FileRevisionProxyArray"))
-                this.__FileRevisionProxyArray := Win32FixedArray(this.ptr + 8, 8, Primitive, "int64")
+                this.__FileRevisionProxyArray := Win32FixedArray(this.ptr + 8, 3, Primitive, "int64")
             return this.__FileRevisionProxyArray
         }
     }

@@ -25,7 +25,7 @@ class BDA_TS_SELECTORINFO extends Win32Struct
     bReserved{
         get {
             if(!this.HasProp("__bReservedProxyArray"))
-                this.__bReservedProxyArray := Win32FixedArray(this.ptr + 1, 1, Primitive, "char")
+                this.__bReservedProxyArray := Win32FixedArray(this.ptr + 1, 2, Primitive, "char")
             return this.__bReservedProxyArray
         }
     }
@@ -52,7 +52,7 @@ class BDA_TS_SELECTORINFO extends Win32Struct
     usTSID{
         get {
             if(!this.HasProp("__usTSIDProxyArray"))
-                this.__usTSIDProxyArray := Win32FixedArray(this.ptr + 12, 2, Primitive, "ushort")
+                this.__usTSIDProxyArray := Win32FixedArray(this.ptr + 12, 1, Primitive, "ushort")
             return this.__usTSIDProxyArray
         }
     }

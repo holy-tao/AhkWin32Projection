@@ -65,7 +65,7 @@ class NVME_IDENTIFY_NVM_SPECIFIC_CONTROLLER_IO_COMMAND_SET extends Win32Struct
     Reserved{
         get {
             if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 16, 1, Primitive, "char")
+                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 16, 4080, Primitive, "char")
             return this.__ReservedProxyArray
         }
     }

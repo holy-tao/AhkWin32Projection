@@ -17,7 +17,7 @@ class AACS_SERIAL_NUMBER extends Win32Struct
     PrerecordedSerialNumber{
         get {
             if(!this.HasProp("__PrerecordedSerialNumberProxyArray"))
-                this.__PrerecordedSerialNumberProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__PrerecordedSerialNumberProxyArray := Win32FixedArray(this.ptr + 0, 16, Primitive, "char")
             return this.__PrerecordedSerialNumberProxyArray
         }
     }
@@ -28,7 +28,7 @@ class AACS_SERIAL_NUMBER extends Win32Struct
     MAC{
         get {
             if(!this.HasProp("__MACProxyArray"))
-                this.__MACProxyArray := Win32FixedArray(this.ptr + 16, 1, Primitive, "char")
+                this.__MACProxyArray := Win32FixedArray(this.ptr + 16, 16, Primitive, "char")
             return this.__MACProxyArray
         }
     }

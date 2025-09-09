@@ -127,7 +127,7 @@ class USB_DEVICE_INFO extends Win32Struct
     PipeList{
         get {
             if(!this.HasProp("__PipeListProxyArray"))
-                this.__PipeListProxyArray := Win32FixedArray(this.ptr + 1067, 8, USB_PIPE_INFO, "")
+                this.__PipeListProxyArray := Win32FixedArray(this.ptr + 1067, 1, USB_PIPE_INFO, "")
             return this.__PipeListProxyArray
         }
     }

@@ -213,7 +213,7 @@ class DDRAWI_DDRAWSURFACE_MORE extends Win32Struct
     qwDDrawReserved8{
         get {
             if(!this.HasProp("__qwDDrawReserved8ProxyArray"))
-                this.__qwDDrawReserved8ProxyArray := Win32FixedArray(this.ptr + 180, 4, Primitive, "uint")
+                this.__qwDDrawReserved8ProxyArray := Win32FixedArray(this.ptr + 180, 2, Primitive, "uint")
             return this.__qwDDrawReserved8ProxyArray
         }
     }

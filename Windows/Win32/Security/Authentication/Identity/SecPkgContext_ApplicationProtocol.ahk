@@ -49,7 +49,7 @@ class SecPkgContext_ApplicationProtocol extends Win32Struct
     ProtocolId{
         get {
             if(!this.HasProp("__ProtocolIdProxyArray"))
-                this.__ProtocolIdProxyArray := Win32FixedArray(this.ptr + 9, 1, Primitive, "char")
+                this.__ProtocolIdProxyArray := Win32FixedArray(this.ptr + 9, 255, Primitive, "char")
             return this.__ProtocolIdProxyArray
         }
     }

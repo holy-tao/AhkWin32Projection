@@ -46,7 +46,7 @@ class ADPCMWAVEFORMAT extends Win32Struct
     aCoef{
         get {
             if(!this.HasProp("__aCoefProxyArray"))
-                this.__aCoefProxyArray := Win32FixedArray(this.ptr + 22, 8, ADPCMCOEFSET, "")
+                this.__aCoefProxyArray := Win32FixedArray(this.ptr + 22, 1, ADPCMCOEFSET, "")
             return this.__aCoefProxyArray
         }
     }

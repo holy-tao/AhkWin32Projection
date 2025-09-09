@@ -106,7 +106,7 @@ class AVISTDINDEX extends Win32Struct
     aIndex{
         get {
             if(!this.HasProp("__aIndexProxyArray"))
-                this.__aIndexProxyArray := Win32FixedArray(this.ptr + 32, 8, AVISTDINDEX_ENTRY, "")
+                this.__aIndexProxyArray := Win32FixedArray(this.ptr + 32, 2044, AVISTDINDEX_ENTRY, "")
             return this.__aIndexProxyArray
         }
     }

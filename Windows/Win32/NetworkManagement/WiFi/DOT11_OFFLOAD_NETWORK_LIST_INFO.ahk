@@ -72,7 +72,7 @@ class DOT11_OFFLOAD_NETWORK_LIST_INFO extends Win32Struct
     offloadNetworkList{
         get {
             if(!this.HasProp("__offloadNetworkListProxyArray"))
-                this.__offloadNetworkListProxyArray := Win32FixedArray(this.ptr + 24, 8, DOT11_OFFLOAD_NETWORK, "")
+                this.__offloadNetworkListProxyArray := Win32FixedArray(this.ptr + 24, 1, DOT11_OFFLOAD_NETWORK, "")
             return this.__offloadNetworkListProxyArray
         }
     }

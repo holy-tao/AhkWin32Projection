@@ -73,7 +73,7 @@ class ISCSI_CONNECTION_INFOA extends Win32Struct
     CID{
         get {
             if(!this.HasProp("__CIDProxyArray"))
-                this.__CIDProxyArray := Win32FixedArray(this.ptr + 36, 1, Primitive, "char")
+                this.__CIDProxyArray := Win32FixedArray(this.ptr + 36, 2, Primitive, "char")
             return this.__CIDProxyArray
         }
     }

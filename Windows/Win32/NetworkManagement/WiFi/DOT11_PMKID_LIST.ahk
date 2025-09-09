@@ -46,7 +46,7 @@ class DOT11_PMKID_LIST extends Win32Struct
     PMKIDs{
         get {
             if(!this.HasProp("__PMKIDsProxyArray"))
-                this.__PMKIDsProxyArray := Win32FixedArray(this.ptr + 16, 8, DOT11_PMKID_ENTRY, "")
+                this.__PMKIDsProxyArray := Win32FixedArray(this.ptr + 16, 1, DOT11_PMKID_ENTRY, "")
             return this.__PMKIDsProxyArray
         }
     }

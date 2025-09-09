@@ -64,7 +64,7 @@ class WHEA_XPF_CMC_DESCRIPTOR extends Win32Struct
     Banks{
         get {
             if(!this.HasProp("__BanksProxyArray"))
-                this.__BanksProxyArray := Win32FixedArray(this.ptr + 20, 8, WHEA_XPF_MC_BANK_DESCRIPTOR, "")
+                this.__BanksProxyArray := Win32FixedArray(this.ptr + 20, 32, WHEA_XPF_MC_BANK_DESCRIPTOR, "")
             return this.__BanksProxyArray
         }
     }

@@ -34,7 +34,7 @@ class DOT11_WME_AC_PARAMETERS_LIST extends Win32Struct
     dot11WMEACParameters{
         get {
             if(!this.HasProp("__dot11WMEACParametersProxyArray"))
-                this.__dot11WMEACParametersProxyArray := Win32FixedArray(this.ptr + 8, 8, DOT11_WME_AC_PARAMETERS, "")
+                this.__dot11WMEACParametersProxyArray := Win32FixedArray(this.ptr + 8, 1, DOT11_WME_AC_PARAMETERS, "")
             return this.__dot11WMEACParametersProxyArray
         }
     }

@@ -72,7 +72,7 @@ class TBBUTTON extends Win32Struct
     bReserved{
         get {
             if(!this.HasProp("__bReservedProxyArray"))
-                this.__bReservedProxyArray := Win32FixedArray(this.ptr + 10, 1, Primitive, "char")
+                this.__bReservedProxyArray := Win32FixedArray(this.ptr + 10, 2, Primitive, "char")
             return this.__bReservedProxyArray
         }
     }

@@ -41,7 +41,7 @@ class NDIS_802_11_KEY extends Win32Struct
     BSSID{
         get {
             if(!this.HasProp("__BSSIDProxyArray"))
-                this.__BSSIDProxyArray := Win32FixedArray(this.ptr + 12, 1, Primitive, "char")
+                this.__BSSIDProxyArray := Win32FixedArray(this.ptr + 12, 6, Primitive, "char")
             return this.__BSSIDProxyArray
         }
     }

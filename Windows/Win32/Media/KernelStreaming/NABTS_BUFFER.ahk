@@ -38,7 +38,7 @@ class NABTS_BUFFER extends Win32Struct
     NabtsLines{
         get {
             if(!this.HasProp("__NabtsLinesProxyArray"))
-                this.__NabtsLinesProxyArray := Win32FixedArray(this.ptr + 136, 8, NABTS_BUFFER_LINE, "")
+                this.__NabtsLinesProxyArray := Win32FixedArray(this.ptr + 136, 11, NABTS_BUFFER_LINE, "")
             return this.__NabtsLinesProxyArray
         }
     }

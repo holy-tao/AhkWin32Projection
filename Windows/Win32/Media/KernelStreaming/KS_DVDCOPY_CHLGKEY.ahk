@@ -17,7 +17,7 @@ class KS_DVDCOPY_CHLGKEY extends Win32Struct
     ChlgKey{
         get {
             if(!this.HasProp("__ChlgKeyProxyArray"))
-                this.__ChlgKeyProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__ChlgKeyProxyArray := Win32FixedArray(this.ptr + 0, 10, Primitive, "char")
             return this.__ChlgKeyProxyArray
         }
     }
@@ -28,7 +28,7 @@ class KS_DVDCOPY_CHLGKEY extends Win32Struct
     Reserved{
         get {
             if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 10, 1, Primitive, "char")
+                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 10, 2, Primitive, "char")
             return this.__ReservedProxyArray
         }
     }

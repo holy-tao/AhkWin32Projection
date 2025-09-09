@@ -58,7 +58,7 @@ class AUTO_SCROLL_DATA extends Win32Struct
     pts{
         get {
             if(!this.HasProp("__ptsProxyArray"))
-                this.__ptsProxyArray := Win32FixedArray(this.ptr + 12, 8, POINT, "")
+                this.__ptsProxyArray := Win32FixedArray(this.ptr + 12, 3, POINT, "")
             return this.__ptsProxyArray
         }
     }
@@ -72,7 +72,7 @@ class AUTO_SCROLL_DATA extends Win32Struct
     dwTimes{
         get {
             if(!this.HasProp("__dwTimesProxyArray"))
-                this.__dwTimesProxyArray := Win32FixedArray(this.ptr + 36, 4, Primitive, "uint")
+                this.__dwTimesProxyArray := Win32FixedArray(this.ptr + 36, 3, Primitive, "uint")
             return this.__dwTimesProxyArray
         }
     }

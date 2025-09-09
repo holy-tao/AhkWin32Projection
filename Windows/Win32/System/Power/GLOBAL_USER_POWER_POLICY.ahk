@@ -110,7 +110,7 @@ class GLOBAL_USER_POWER_POLICY extends Win32Struct
     DischargePolicy{
         get {
             if(!this.HasProp("__DischargePolicyProxyArray"))
-                this.__DischargePolicyProxyArray := Win32FixedArray(this.ptr + 104, 8, SYSTEM_POWER_LEVEL, "")
+                this.__DischargePolicyProxyArray := Win32FixedArray(this.ptr + 104, 4, SYSTEM_POWER_LEVEL, "")
             return this.__DischargePolicyProxyArray
         }
     }

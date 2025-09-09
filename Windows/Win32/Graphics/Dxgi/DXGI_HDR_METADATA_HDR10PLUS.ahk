@@ -17,7 +17,7 @@ class DXGI_HDR_METADATA_HDR10PLUS extends Win32Struct
     Data{
         get {
             if(!this.HasProp("__DataProxyArray"))
-                this.__DataProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__DataProxyArray := Win32FixedArray(this.ptr + 0, 72, Primitive, "char")
             return this.__DataProxyArray
         }
     }

@@ -33,7 +33,7 @@ class UParseError extends Win32Struct
     preContext{
         get {
             if(!this.HasProp("__preContextProxyArray"))
-                this.__preContextProxyArray := Win32FixedArray(this.ptr + 8, 2, Primitive, "ushort")
+                this.__preContextProxyArray := Win32FixedArray(this.ptr + 8, 16, Primitive, "ushort")
             return this.__preContextProxyArray
         }
     }
@@ -44,7 +44,7 @@ class UParseError extends Win32Struct
     postContext{
         get {
             if(!this.HasProp("__postContextProxyArray"))
-                this.__postContextProxyArray := Win32FixedArray(this.ptr + 40, 2, Primitive, "ushort")
+                this.__postContextProxyArray := Win32FixedArray(this.ptr + 40, 16, Primitive, "ushort")
             return this.__postContextProxyArray
         }
     }

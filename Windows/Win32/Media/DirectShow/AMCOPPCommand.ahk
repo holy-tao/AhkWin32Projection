@@ -73,7 +73,7 @@ class AMCOPPCommand extends Win32Struct
     CommandData{
         get {
             if(!this.HasProp("__CommandDataProxyArray"))
-                this.__CommandDataProxyArray := Win32FixedArray(this.ptr + 24, 1, Primitive, "char")
+                this.__CommandDataProxyArray := Win32FixedArray(this.ptr + 24, 4056, Primitive, "char")
             return this.__CommandDataProxyArray
         }
     }

@@ -26,7 +26,7 @@ class TRANSMSGLIST extends Win32Struct
     TransMsg{
         get {
             if(!this.HasProp("__TransMsgProxyArray"))
-                this.__TransMsgProxyArray := Win32FixedArray(this.ptr + 8, 8, TRANSMSG, "")
+                this.__TransMsgProxyArray := Win32FixedArray(this.ptr + 8, 1, TRANSMSG, "")
             return this.__TransMsgProxyArray
         }
     }

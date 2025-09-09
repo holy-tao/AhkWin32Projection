@@ -105,7 +105,7 @@ class MMTIME extends Win32Struct
     pad{
         get {
             if(!this.HasProp("__padProxyArray"))
-                this.__padProxyArray := Win32FixedArray(this.ptr + 10, 1, Primitive, "char")
+                this.__padProxyArray := Win32FixedArray(this.ptr + 10, 2, Primitive, "char")
             return this.__padProxyArray
         }
     }

@@ -87,7 +87,7 @@ class PPP_EAP_PACKET extends Win32Struct
     Length{
         get {
             if(!this.HasProp("__LengthProxyArray"))
-                this.__LengthProxyArray := Win32FixedArray(this.ptr + 2, 1, Primitive, "char")
+                this.__LengthProxyArray := Win32FixedArray(this.ptr + 2, 2, Primitive, "char")
             return this.__LengthProxyArray
         }
     }

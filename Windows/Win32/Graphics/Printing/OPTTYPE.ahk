@@ -73,7 +73,7 @@ class OPTTYPE extends Win32Struct
     wReserved{
         get {
             if(!this.HasProp("__wReservedProxyArray"))
-                this.__wReservedProxyArray := Win32FixedArray(this.ptr + 18, 2, Primitive, "ushort")
+                this.__wReservedProxyArray := Win32FixedArray(this.ptr + 18, 3, Primitive, "ushort")
             return this.__wReservedProxyArray
         }
     }
@@ -84,7 +84,7 @@ class OPTTYPE extends Win32Struct
     dwReserved{
         get {
             if(!this.HasProp("__dwReservedProxyArray"))
-                this.__dwReservedProxyArray := Win32FixedArray(this.ptr + 24, 8, Primitive, "ptr")
+                this.__dwReservedProxyArray := Win32FixedArray(this.ptr + 24, 3, Primitive, "ptr")
             return this.__dwReservedProxyArray
         }
     }

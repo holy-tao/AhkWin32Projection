@@ -41,7 +41,7 @@ class FILEGROUPDESCRIPTORA extends Win32Struct
     fgd{
         get {
             if(!this.HasProp("__fgdProxyArray"))
-                this.__fgdProxyArray := Win32FixedArray(this.ptr + 4, 8, FILEDESCRIPTORA, "")
+                this.__fgdProxyArray := Win32FixedArray(this.ptr + 4, 1, FILEDESCRIPTORA, "")
             return this.__fgdProxyArray
         }
     }

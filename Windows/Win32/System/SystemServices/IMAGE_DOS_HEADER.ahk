@@ -129,7 +129,7 @@ class IMAGE_DOS_HEADER extends Win32Struct
     e_res{
         get {
             if(!this.HasProp("__e_resProxyArray"))
-                this.__e_resProxyArray := Win32FixedArray(this.ptr + 28, 2, Primitive, "ushort")
+                this.__e_resProxyArray := Win32FixedArray(this.ptr + 28, 4, Primitive, "ushort")
             return this.__e_resProxyArray
         }
     }
@@ -156,7 +156,7 @@ class IMAGE_DOS_HEADER extends Win32Struct
     e_res2{
         get {
             if(!this.HasProp("__e_res2ProxyArray"))
-                this.__e_res2ProxyArray := Win32FixedArray(this.ptr + 40, 2, Primitive, "ushort")
+                this.__e_res2ProxyArray := Win32FixedArray(this.ptr + 40, 10, Primitive, "ushort")
             return this.__e_res2ProxyArray
         }
     }

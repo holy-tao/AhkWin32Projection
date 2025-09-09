@@ -71,7 +71,7 @@ class SCARD_READERSTATEA extends Win32Struct
     rgbAtr{
         get {
             if(!this.HasProp("__rgbAtrProxyArray"))
-                this.__rgbAtrProxyArray := Win32FixedArray(this.ptr + 28, 1, Primitive, "char")
+                this.__rgbAtrProxyArray := Win32FixedArray(this.ptr + 28, 36, Primitive, "char")
             return this.__rgbAtrProxyArray
         }
     }

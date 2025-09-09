@@ -62,7 +62,7 @@ class HTTP_SERVICE_CONFIG_IP_LISTEN_QUERY extends Win32Struct
     AddrList{
         get {
             if(!this.HasProp("__AddrListProxyArray"))
-                this.__AddrListProxyArray := Win32FixedArray(this.ptr + 8, 8, SOCKADDR_STORAGE, "")
+                this.__AddrListProxyArray := Win32FixedArray(this.ptr + 8, 1, SOCKADDR_STORAGE, "")
             return this.__AddrListProxyArray
         }
     }

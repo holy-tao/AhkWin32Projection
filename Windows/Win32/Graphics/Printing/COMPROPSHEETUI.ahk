@@ -137,7 +137,7 @@ class COMPROPSHEETUI extends Win32Struct
     dwReserved{
         get {
             if(!this.HasProp("__dwReservedProxyArray"))
-                this.__dwReservedProxyArray := Win32FixedArray(this.ptr + 96, 8, Primitive, "ptr")
+                this.__dwReservedProxyArray := Win32FixedArray(this.ptr + 96, 4, Primitive, "ptr")
             return this.__dwReservedProxyArray
         }
     }

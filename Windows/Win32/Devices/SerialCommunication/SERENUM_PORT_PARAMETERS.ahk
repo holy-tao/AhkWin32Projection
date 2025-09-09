@@ -73,7 +73,7 @@ class SERENUM_PORT_PARAMETERS extends Win32Struct
     Reserved{
         get {
             if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 46, 2, Primitive, "ushort")
+                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 46, 3, Primitive, "ushort")
             return this.__ReservedProxyArray
         }
     }

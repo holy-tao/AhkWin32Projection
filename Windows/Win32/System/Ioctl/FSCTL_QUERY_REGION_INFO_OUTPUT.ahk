@@ -84,7 +84,7 @@ class FSCTL_QUERY_REGION_INFO_OUTPUT extends Win32Struct
     Regions{
         get {
             if(!this.HasProp("__RegionsProxyArray"))
-                this.__RegionsProxyArray := Win32FixedArray(this.ptr + 32, 8, FILE_STORAGE_TIER_REGION, "")
+                this.__RegionsProxyArray := Win32FixedArray(this.ptr + 32, 1, FILE_STORAGE_TIER_REGION, "")
             return this.__RegionsProxyArray
         }
     }

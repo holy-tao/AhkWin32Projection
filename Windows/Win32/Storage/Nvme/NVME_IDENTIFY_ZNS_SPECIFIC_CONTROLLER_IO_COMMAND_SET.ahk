@@ -25,7 +25,7 @@ class NVME_IDENTIFY_ZNS_SPECIFIC_CONTROLLER_IO_COMMAND_SET extends Win32Struct
     Reserved{
         get {
             if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 1, 1, Primitive, "char")
+                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 1, 4095, Primitive, "char")
             return this.__ReservedProxyArray
         }
     }

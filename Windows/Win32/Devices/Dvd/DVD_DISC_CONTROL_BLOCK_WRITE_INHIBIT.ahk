@@ -29,7 +29,7 @@ class DVD_DISC_CONTROL_BLOCK_WRITE_INHIBIT extends Win32Struct
     UpdateCount{
         get {
             if(!this.HasProp("__UpdateCountProxyArray"))
-                this.__UpdateCountProxyArray := Win32FixedArray(this.ptr + 40, 1, Primitive, "char")
+                this.__UpdateCountProxyArray := Win32FixedArray(this.ptr + 40, 4, Primitive, "char")
             return this.__UpdateCountProxyArray
         }
     }
@@ -40,7 +40,7 @@ class DVD_DISC_CONTROL_BLOCK_WRITE_INHIBIT extends Win32Struct
     ReservedDoNotUse_UseAsByteInstead_0{
         get {
             if(!this.HasProp("__ReservedDoNotUse_UseAsByteInstead_0ProxyArray"))
-                this.__ReservedDoNotUse_UseAsByteInstead_0ProxyArray := Win32FixedArray(this.ptr + 44, 1, Primitive, "char")
+                this.__ReservedDoNotUse_UseAsByteInstead_0ProxyArray := Win32FixedArray(this.ptr + 44, 3, Primitive, "char")
             return this.__ReservedDoNotUse_UseAsByteInstead_0ProxyArray
         }
     }
@@ -59,7 +59,7 @@ class DVD_DISC_CONTROL_BLOCK_WRITE_INHIBIT extends Win32Struct
     AsByte{
         get {
             if(!this.HasProp("__AsByteProxyArray"))
-                this.__AsByteProxyArray := Win32FixedArray(this.ptr + 44, 1, Primitive, "char")
+                this.__AsByteProxyArray := Win32FixedArray(this.ptr + 44, 4, Primitive, "char")
             return this.__AsByteProxyArray
         }
     }
@@ -70,7 +70,7 @@ class DVD_DISC_CONTROL_BLOCK_WRITE_INHIBIT extends Win32Struct
     Reserved0{
         get {
             if(!this.HasProp("__Reserved0ProxyArray"))
-                this.__Reserved0ProxyArray := Win32FixedArray(this.ptr + 48, 1, Primitive, "char")
+                this.__Reserved0ProxyArray := Win32FixedArray(this.ptr + 48, 16, Primitive, "char")
             return this.__Reserved0ProxyArray
         }
     }
@@ -81,7 +81,7 @@ class DVD_DISC_CONTROL_BLOCK_WRITE_INHIBIT extends Win32Struct
     UpdatePassword{
         get {
             if(!this.HasProp("__UpdatePasswordProxyArray"))
-                this.__UpdatePasswordProxyArray := Win32FixedArray(this.ptr + 64, 1, Primitive, "char")
+                this.__UpdatePasswordProxyArray := Win32FixedArray(this.ptr + 64, 32, Primitive, "char")
             return this.__UpdatePasswordProxyArray
         }
     }
@@ -92,7 +92,7 @@ class DVD_DISC_CONTROL_BLOCK_WRITE_INHIBIT extends Win32Struct
     Reserved1{
         get {
             if(!this.HasProp("__Reserved1ProxyArray"))
-                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 96, 1, Primitive, "char")
+                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 96, 32672, Primitive, "char")
             return this.__Reserved1ProxyArray
         }
     }

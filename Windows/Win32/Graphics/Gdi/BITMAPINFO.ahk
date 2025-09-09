@@ -69,7 +69,7 @@ class BITMAPINFO extends Win32Struct
     bmiColors{
         get {
             if(!this.HasProp("__bmiColorsProxyArray"))
-                this.__bmiColorsProxyArray := Win32FixedArray(this.ptr + 40, 8, RGBQUAD, "")
+                this.__bmiColorsProxyArray := Win32FixedArray(this.ptr + 40, 1, RGBQUAD, "")
             return this.__bmiColorsProxyArray
         }
     }

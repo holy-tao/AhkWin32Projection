@@ -45,7 +45,7 @@ class MIB_INVERTEDIFSTACK_TABLE extends Win32Struct
     Table{
         get {
             if(!this.HasProp("__TableProxyArray"))
-                this.__TableProxyArray := Win32FixedArray(this.ptr + 8, 8, MIB_INVERTEDIFSTACK_ROW, "")
+                this.__TableProxyArray := Win32FixedArray(this.ptr + 8, 1, MIB_INVERTEDIFSTACK_ROW, "")
             return this.__TableProxyArray
         }
     }

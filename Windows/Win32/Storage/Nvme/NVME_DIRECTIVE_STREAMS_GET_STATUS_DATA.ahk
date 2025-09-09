@@ -33,7 +33,7 @@ class NVME_DIRECTIVE_STREAMS_GET_STATUS_DATA extends Win32Struct
     StreamIdentifiers{
         get {
             if(!this.HasProp("__StreamIdentifiersProxyArray"))
-                this.__StreamIdentifiersProxyArray := Win32FixedArray(this.ptr + 2, 2, Primitive, "ushort")
+                this.__StreamIdentifiersProxyArray := Win32FixedArray(this.ptr + 2, 65535, Primitive, "ushort")
             return this.__StreamIdentifiersProxyArray
         }
     }

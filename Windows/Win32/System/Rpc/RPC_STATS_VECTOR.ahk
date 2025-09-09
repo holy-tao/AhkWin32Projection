@@ -82,7 +82,7 @@ class RPC_STATS_VECTOR extends Win32Struct
     Stats{
         get {
             if(!this.HasProp("__StatsProxyArray"))
-                this.__StatsProxyArray := Win32FixedArray(this.ptr + 4, 4, Primitive, "uint")
+                this.__StatsProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "uint")
             return this.__StatsProxyArray
         }
     }

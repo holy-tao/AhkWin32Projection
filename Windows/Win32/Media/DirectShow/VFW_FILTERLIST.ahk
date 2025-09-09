@@ -25,7 +25,7 @@ class VFW_FILTERLIST extends Win32Struct
     aClsId{
         get {
             if(!this.HasProp("__aClsIdProxyArray"))
-                this.__aClsIdProxyArray := Win32FixedArray(this.ptr + 8, 8, Primitive, "ptr")
+                this.__aClsIdProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "ptr")
             return this.__aClsIdProxyArray
         }
     }

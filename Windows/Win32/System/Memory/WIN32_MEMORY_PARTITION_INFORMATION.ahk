@@ -121,7 +121,7 @@ class WIN32_MEMORY_PARTITION_INFORMATION extends Win32Struct
     Reserved{
         get {
             if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 88, 8, Primitive, "uint")
+                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 88, 16, Primitive, "uint")
             return this.__ReservedProxyArray
         }
     }

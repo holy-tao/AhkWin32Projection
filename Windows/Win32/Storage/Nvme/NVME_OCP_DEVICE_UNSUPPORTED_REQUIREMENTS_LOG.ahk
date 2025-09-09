@@ -26,7 +26,7 @@ class NVME_OCP_DEVICE_UNSUPPORTED_REQUIREMENTS_LOG extends Win32Struct
     Reserved0{
         get {
             if(!this.HasProp("__Reserved0ProxyArray"))
-                this.__Reserved0ProxyArray := Win32FixedArray(this.ptr + 2, 1, Primitive, "char")
+                this.__Reserved0ProxyArray := Win32FixedArray(this.ptr + 2, 14, Primitive, "char")
             return this.__Reserved0ProxyArray
         }
     }
@@ -37,7 +37,7 @@ class NVME_OCP_DEVICE_UNSUPPORTED_REQUIREMENTS_LOG extends Win32Struct
     UnsupportedReqList{
         get {
             if(!this.HasProp("__UnsupportedReqListProxyArray"))
-                this.__UnsupportedReqListProxyArray := Win32FixedArray(this.ptr + 16, 8, UNSUPPORTED_REQUIREMENT, "")
+                this.__UnsupportedReqListProxyArray := Win32FixedArray(this.ptr + 16, 253, UNSUPPORTED_REQUIREMENT, "")
             return this.__UnsupportedReqListProxyArray
         }
     }
@@ -48,7 +48,7 @@ class NVME_OCP_DEVICE_UNSUPPORTED_REQUIREMENTS_LOG extends Win32Struct
     Reserved1{
         get {
             if(!this.HasProp("__Reserved1ProxyArray"))
-                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 2040, 1, Primitive, "char")
+                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 2040, 14, Primitive, "char")
             return this.__Reserved1ProxyArray
         }
     }

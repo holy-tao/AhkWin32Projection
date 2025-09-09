@@ -42,7 +42,7 @@ class DESIGNVECTOR extends Win32Struct
     dvValues{
         get {
             if(!this.HasProp("__dvValuesProxyArray"))
-                this.__dvValuesProxyArray := Win32FixedArray(this.ptr + 8, 4, Primitive, "int")
+                this.__dvValuesProxyArray := Win32FixedArray(this.ptr + 8, 16, Primitive, "int")
             return this.__dvValuesProxyArray
         }
     }

@@ -38,7 +38,7 @@ class IKEEXT_TRAFFIC0 extends Win32Struct
     localV6Address{
         get {
             if(!this.HasProp("__localV6AddressProxyArray"))
-                this.__localV6AddressProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")
+                this.__localV6AddressProxyArray := Win32FixedArray(this.ptr + 4, 16, Primitive, "char")
             return this.__localV6AddressProxyArray
         }
     }
@@ -57,7 +57,7 @@ class IKEEXT_TRAFFIC0 extends Win32Struct
     remoteV6Address{
         get {
             if(!this.HasProp("__remoteV6AddressProxyArray"))
-                this.__remoteV6AddressProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "char")
+                this.__remoteV6AddressProxyArray := Win32FixedArray(this.ptr + 8, 16, Primitive, "char")
             return this.__remoteV6AddressProxyArray
         }
     }

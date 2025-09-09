@@ -19,7 +19,7 @@ class LDR_DATA_TABLE_ENTRY extends Win32Struct
     Reserved1{
         get {
             if(!this.HasProp("__Reserved1ProxyArray"))
-                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 0, 8, Primitive, "ptr")
+                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 0, 2, Primitive, "ptr")
             return this.__Reserved1ProxyArray
         }
     }
@@ -41,7 +41,7 @@ class LDR_DATA_TABLE_ENTRY extends Win32Struct
     Reserved2{
         get {
             if(!this.HasProp("__Reserved2ProxyArray"))
-                this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 32, 8, Primitive, "ptr")
+                this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 32, 2, Primitive, "ptr")
             return this.__Reserved2ProxyArray
         }
     }
@@ -60,7 +60,7 @@ class LDR_DATA_TABLE_ENTRY extends Win32Struct
     Reserved3{
         get {
             if(!this.HasProp("__Reserved3ProxyArray"))
-                this.__Reserved3ProxyArray := Win32FixedArray(this.ptr + 56, 8, Primitive, "ptr")
+                this.__Reserved3ProxyArray := Win32FixedArray(this.ptr + 56, 2, Primitive, "ptr")
             return this.__Reserved3ProxyArray
         }
     }
@@ -82,7 +82,7 @@ class LDR_DATA_TABLE_ENTRY extends Win32Struct
     Reserved4{
         get {
             if(!this.HasProp("__Reserved4ProxyArray"))
-                this.__Reserved4ProxyArray := Win32FixedArray(this.ptr + 88, 1, Primitive, "char")
+                this.__Reserved4ProxyArray := Win32FixedArray(this.ptr + 88, 8, Primitive, "char")
             return this.__Reserved4ProxyArray
         }
     }
@@ -93,7 +93,7 @@ class LDR_DATA_TABLE_ENTRY extends Win32Struct
     Reserved5{
         get {
             if(!this.HasProp("__Reserved5ProxyArray"))
-                this.__Reserved5ProxyArray := Win32FixedArray(this.ptr + 96, 8, Primitive, "ptr")
+                this.__Reserved5ProxyArray := Win32FixedArray(this.ptr + 96, 3, Primitive, "ptr")
             return this.__Reserved5ProxyArray
         }
     }

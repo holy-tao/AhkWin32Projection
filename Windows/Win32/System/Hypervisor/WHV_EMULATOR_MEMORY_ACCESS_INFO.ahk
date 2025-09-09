@@ -41,7 +41,7 @@ class WHV_EMULATOR_MEMORY_ACCESS_INFO extends Win32Struct
     Data{
         get {
             if(!this.HasProp("__DataProxyArray"))
-                this.__DataProxyArray := Win32FixedArray(this.ptr + 10, 1, Primitive, "char")
+                this.__DataProxyArray := Win32FixedArray(this.ptr + 10, 8, Primitive, "char")
             return this.__DataProxyArray
         }
     }

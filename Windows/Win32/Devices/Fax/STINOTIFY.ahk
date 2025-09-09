@@ -33,7 +33,7 @@ class STINOTIFY extends Win32Struct
     abNotificationData{
         get {
             if(!this.HasProp("__abNotificationDataProxyArray"))
-                this.__abNotificationDataProxyArray := Win32FixedArray(this.ptr + 16, 1, Primitive, "char")
+                this.__abNotificationDataProxyArray := Win32FixedArray(this.ptr + 16, 64, Primitive, "char")
             return this.__abNotificationDataProxyArray
         }
     }

@@ -38,7 +38,7 @@ class DEVICE_DSM_OFFLOAD_READ_PARAMETERS extends Win32Struct
     Reserved{
         get {
             if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 8, 4, Primitive, "uint")
+                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 8, 2, Primitive, "uint")
             return this.__ReservedProxyArray
         }
     }

@@ -34,7 +34,7 @@ class SYSTEM_PROCESS_INFORMATION extends Win32Struct
     Reserved1{
         get {
             if(!this.HasProp("__Reserved1ProxyArray"))
-                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "char")
+                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 8, 48, Primitive, "char")
             return this.__Reserved1ProxyArray
         }
     }
@@ -200,7 +200,7 @@ class SYSTEM_PROCESS_INFORMATION extends Win32Struct
     Reserved7{
         get {
             if(!this.HasProp("__Reserved7ProxyArray"))
-                this.__Reserved7ProxyArray := Win32FixedArray(this.ptr + 208, 8, Primitive, "int64")
+                this.__Reserved7ProxyArray := Win32FixedArray(this.ptr + 208, 6, Primitive, "int64")
             return this.__Reserved7ProxyArray
         }
     }

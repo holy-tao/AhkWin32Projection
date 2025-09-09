@@ -25,7 +25,7 @@ class DxcShaderHash extends Win32Struct
     HashDigest{
         get {
             if(!this.HasProp("__HashDigestProxyArray"))
-                this.__HashDigestProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")
+                this.__HashDigestProxyArray := Win32FixedArray(this.ptr + 4, 16, Primitive, "char")
             return this.__HashDigestProxyArray
         }
     }

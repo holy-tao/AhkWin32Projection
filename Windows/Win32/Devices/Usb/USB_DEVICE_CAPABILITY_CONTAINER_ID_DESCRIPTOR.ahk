@@ -49,7 +49,7 @@ class USB_DEVICE_CAPABILITY_CONTAINER_ID_DESCRIPTOR extends Win32Struct
     ContainerID{
         get {
             if(!this.HasProp("__ContainerIDProxyArray"))
-                this.__ContainerIDProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")
+                this.__ContainerIDProxyArray := Win32FixedArray(this.ptr + 4, 16, Primitive, "char")
             return this.__ContainerIDProxyArray
         }
     }

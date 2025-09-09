@@ -113,7 +113,7 @@ class IMAGE_SEPARATE_DEBUG_HEADER extends Win32Struct
     Reserved{
         get {
             if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 40, 4, Primitive, "uint")
+                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 40, 2, Primitive, "uint")
             return this.__ReservedProxyArray
         }
     }

@@ -37,7 +37,7 @@ class ENUMLOGFONTEXA extends Win32Struct
     elfFullName{
         get {
             if(!this.HasProp("__elfFullNameProxyArray"))
-                this.__elfFullNameProxyArray := Win32FixedArray(this.ptr + 60, 1, Primitive, "char")
+                this.__elfFullNameProxyArray := Win32FixedArray(this.ptr + 60, 64, Primitive, "char")
             return this.__elfFullNameProxyArray
         }
     }
@@ -49,7 +49,7 @@ class ENUMLOGFONTEXA extends Win32Struct
     elfStyle{
         get {
             if(!this.HasProp("__elfStyleProxyArray"))
-                this.__elfStyleProxyArray := Win32FixedArray(this.ptr + 124, 1, Primitive, "char")
+                this.__elfStyleProxyArray := Win32FixedArray(this.ptr + 124, 32, Primitive, "char")
             return this.__elfStyleProxyArray
         }
     }
@@ -61,7 +61,7 @@ class ENUMLOGFONTEXA extends Win32Struct
     elfScript{
         get {
             if(!this.HasProp("__elfScriptProxyArray"))
-                this.__elfScriptProxyArray := Win32FixedArray(this.ptr + 156, 1, Primitive, "char")
+                this.__elfScriptProxyArray := Win32FixedArray(this.ptr + 156, 32, Primitive, "char")
             return this.__elfScriptProxyArray
         }
     }

@@ -284,7 +284,7 @@ class ARM64_NT_CONTEXT extends Win32Struct
     X{
         get {
             if(!this.HasProp("__XProxyArray"))
-                this.__XProxyArray := Win32FixedArray(this.ptr + 8, 8, Primitive, "uint")
+                this.__XProxyArray := Win32FixedArray(this.ptr + 8, 31, Primitive, "uint")
             return this.__XProxyArray
         }
     }
@@ -311,7 +311,7 @@ class ARM64_NT_CONTEXT extends Win32Struct
     V{
         get {
             if(!this.HasProp("__VProxyArray"))
-                this.__VProxyArray := Win32FixedArray(this.ptr + 272, 8, ARM64_NT_NEON128, "")
+                this.__VProxyArray := Win32FixedArray(this.ptr + 272, 32, ARM64_NT_NEON128, "")
             return this.__VProxyArray
         }
     }
@@ -338,7 +338,7 @@ class ARM64_NT_CONTEXT extends Win32Struct
     Bcr{
         get {
             if(!this.HasProp("__BcrProxyArray"))
-                this.__BcrProxyArray := Win32FixedArray(this.ptr + 536, 4, Primitive, "uint")
+                this.__BcrProxyArray := Win32FixedArray(this.ptr + 536, 8, Primitive, "uint")
             return this.__BcrProxyArray
         }
     }
@@ -360,7 +360,7 @@ class ARM64_NT_CONTEXT extends Win32Struct
     Wcr{
         get {
             if(!this.HasProp("__WcrProxyArray"))
-                this.__WcrProxyArray := Win32FixedArray(this.ptr + 632, 4, Primitive, "uint")
+                this.__WcrProxyArray := Win32FixedArray(this.ptr + 632, 2, Primitive, "uint")
             return this.__WcrProxyArray
         }
     }
@@ -371,7 +371,7 @@ class ARM64_NT_CONTEXT extends Win32Struct
     Wvr{
         get {
             if(!this.HasProp("__WvrProxyArray"))
-                this.__WvrProxyArray := Win32FixedArray(this.ptr + 640, 8, Primitive, "uint")
+                this.__WvrProxyArray := Win32FixedArray(this.ptr + 640, 2, Primitive, "uint")
             return this.__WvrProxyArray
         }
     }

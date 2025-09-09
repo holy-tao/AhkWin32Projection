@@ -99,7 +99,7 @@ class CHANGER_ELEMENT_STATUS extends Win32Struct
     PrimaryVolumeID{
         get {
             if(!this.HasProp("__PrimaryVolumeIDProxyArray"))
-                this.__PrimaryVolumeIDProxyArray := Win32FixedArray(this.ptr + 28, 1, Primitive, "char")
+                this.__PrimaryVolumeIDProxyArray := Win32FixedArray(this.ptr + 28, 36, Primitive, "char")
             return this.__PrimaryVolumeIDProxyArray
         }
     }
@@ -116,7 +116,7 @@ class CHANGER_ELEMENT_STATUS extends Win32Struct
     AlternateVolumeID{
         get {
             if(!this.HasProp("__AlternateVolumeIDProxyArray"))
-                this.__AlternateVolumeIDProxyArray := Win32FixedArray(this.ptr + 64, 1, Primitive, "char")
+                this.__AlternateVolumeIDProxyArray := Win32FixedArray(this.ptr + 64, 36, Primitive, "char")
             return this.__AlternateVolumeIDProxyArray
         }
     }

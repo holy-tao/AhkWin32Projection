@@ -33,7 +33,7 @@ class KTMOBJECT_CURSOR extends Win32Struct
     ObjectIds{
         get {
             if(!this.HasProp("__ObjectIdsProxyArray"))
-                this.__ObjectIdsProxyArray := Win32FixedArray(this.ptr + 16, 8, Primitive, "ptr")
+                this.__ObjectIdsProxyArray := Win32FixedArray(this.ptr + 16, 1, Primitive, "ptr")
             return this.__ObjectIdsProxyArray
         }
     }

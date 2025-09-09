@@ -46,7 +46,7 @@ class DOT11_AUTH_CIPHER_PAIR_LIST extends Win32Struct
     AuthCipherPairs{
         get {
             if(!this.HasProp("__AuthCipherPairsProxyArray"))
-                this.__AuthCipherPairsProxyArray := Win32FixedArray(this.ptr + 16, 8, DOT11_AUTH_CIPHER_PAIR, "")
+                this.__AuthCipherPairsProxyArray := Win32FixedArray(this.ptr + 16, 1, DOT11_AUTH_CIPHER_PAIR, "")
             return this.__AuthCipherPairsProxyArray
         }
     }

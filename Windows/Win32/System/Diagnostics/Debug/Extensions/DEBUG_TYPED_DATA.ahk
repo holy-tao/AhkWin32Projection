@@ -97,7 +97,7 @@ class DEBUG_TYPED_DATA extends Win32Struct
     Internal{
         get {
             if(!this.HasProp("__InternalProxyArray"))
-                this.__InternalProxyArray := Win32FixedArray(this.ptr + 56, 8, Primitive, "uint")
+                this.__InternalProxyArray := Win32FixedArray(this.ptr + 56, 9, Primitive, "uint")
             return this.__InternalProxyArray
         }
     }

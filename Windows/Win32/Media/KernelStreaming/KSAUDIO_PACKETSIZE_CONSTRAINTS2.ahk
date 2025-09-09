@@ -50,7 +50,7 @@ class KSAUDIO_PACKETSIZE_CONSTRAINTS2 extends Win32Struct
     ProcessingModeConstraints{
         get {
             if(!this.HasProp("__ProcessingModeConstraintsProxyArray"))
-                this.__ProcessingModeConstraintsProxyArray := Win32FixedArray(this.ptr + 16, 8, KSAUDIO_PACKETSIZE_PROCESSINGMODE_CONSTRAINT, "")
+                this.__ProcessingModeConstraintsProxyArray := Win32FixedArray(this.ptr + 16, 1, KSAUDIO_PACKETSIZE_PROCESSINGMODE_CONSTRAINT, "")
             return this.__ProcessingModeConstraintsProxyArray
         }
     }

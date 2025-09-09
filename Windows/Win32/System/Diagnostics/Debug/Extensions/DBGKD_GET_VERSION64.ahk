@@ -97,7 +97,7 @@ class DBGKD_GET_VERSION64 extends Win32Struct
     Unused{
         get {
             if(!this.HasProp("__UnusedProxyArray"))
-                this.__UnusedProxyArray := Win32FixedArray(this.ptr + 14, 2, Primitive, "ushort")
+                this.__UnusedProxyArray := Win32FixedArray(this.ptr + 14, 1, Primitive, "ushort")
             return this.__UnusedProxyArray
         }
     }

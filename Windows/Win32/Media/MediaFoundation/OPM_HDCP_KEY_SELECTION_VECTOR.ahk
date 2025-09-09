@@ -20,7 +20,7 @@ class OPM_HDCP_KEY_SELECTION_VECTOR extends Win32Struct
     abKeySelectionVector{
         get {
             if(!this.HasProp("__abKeySelectionVectorProxyArray"))
-                this.__abKeySelectionVectorProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__abKeySelectionVectorProxyArray := Win32FixedArray(this.ptr + 0, 5, Primitive, "char")
             return this.__abKeySelectionVectorProxyArray
         }
     }

@@ -31,7 +31,7 @@ class SECPKG_SUPPLEMENTAL_CRED_ARRAY extends Win32Struct
     Credentials{
         get {
             if(!this.HasProp("__CredentialsProxyArray"))
-                this.__CredentialsProxyArray := Win32FixedArray(this.ptr + 8, 8, SECPKG_SUPPLEMENTAL_CRED, "")
+                this.__CredentialsProxyArray := Win32FixedArray(this.ptr + 8, 1, SECPKG_SUPPLEMENTAL_CRED, "")
             return this.__CredentialsProxyArray
         }
     }

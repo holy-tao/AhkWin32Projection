@@ -79,7 +79,7 @@ class WLAN_AVAILABLE_NETWORK_V2 extends Win32Struct
     dot11PhyTypes{
         get {
             if(!this.HasProp("__dot11PhyTypesProxyArray"))
-                this.__dot11PhyTypesProxyArray := Win32FixedArray(this.ptr + 568, 4, Primitive, "int")
+                this.__dot11PhyTypesProxyArray := Win32FixedArray(this.ptr + 568, 8, Primitive, "int")
             return this.__dot11PhyTypesProxyArray
         }
     }
@@ -149,7 +149,7 @@ class WLAN_AVAILABLE_NETWORK_V2 extends Win32Struct
     dot11HESSID{
         get {
             if(!this.HasProp("__dot11HESSIDProxyArray"))
-                this.__dot11HESSIDProxyArray := Win32FixedArray(this.ptr + 630, 1, Primitive, "char")
+                this.__dot11HESSIDProxyArray := Win32FixedArray(this.ptr + 630, 6, Primitive, "char")
             return this.__dot11HESSIDProxyArray
         }
     }

@@ -21,7 +21,7 @@ class EMI_MEASUREMENT_DATA_V2 extends Win32Struct
     ChannelData{
         get {
             if(!this.HasProp("__ChannelDataProxyArray"))
-                this.__ChannelDataProxyArray := Win32FixedArray(this.ptr + 0, 8, EMI_CHANNEL_MEASUREMENT_DATA, "")
+                this.__ChannelDataProxyArray := Win32FixedArray(this.ptr + 0, 1, EMI_CHANNEL_MEASUREMENT_DATA, "")
             return this.__ChannelDataProxyArray
         }
     }

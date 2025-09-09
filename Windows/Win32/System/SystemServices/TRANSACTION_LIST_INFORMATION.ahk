@@ -26,7 +26,7 @@ class TRANSACTION_LIST_INFORMATION extends Win32Struct
     TransactionInformation{
         get {
             if(!this.HasProp("__TransactionInformationProxyArray"))
-                this.__TransactionInformationProxyArray := Win32FixedArray(this.ptr + 8, 8, TRANSACTION_LIST_ENTRY, "")
+                this.__TransactionInformationProxyArray := Win32FixedArray(this.ptr + 8, 1, TRANSACTION_LIST_ENTRY, "")
             return this.__TransactionInformationProxyArray
         }
     }

@@ -57,7 +57,7 @@ class IPSEC_TRAFFIC_SELECTOR0 extends Win32Struct
     startV6Address{
         get {
             if(!this.HasProp("__startV6AddressProxyArray"))
-                this.__startV6AddressProxyArray := Win32FixedArray(this.ptr + 12, 1, Primitive, "char")
+                this.__startV6AddressProxyArray := Win32FixedArray(this.ptr + 12, 16, Primitive, "char")
             return this.__startV6AddressProxyArray
         }
     }
@@ -76,7 +76,7 @@ class IPSEC_TRAFFIC_SELECTOR0 extends Win32Struct
     endV6Address{
         get {
             if(!this.HasProp("__endV6AddressProxyArray"))
-                this.__endV6AddressProxyArray := Win32FixedArray(this.ptr + 16, 1, Primitive, "char")
+                this.__endV6AddressProxyArray := Win32FixedArray(this.ptr + 16, 16, Primitive, "char")
             return this.__endV6AddressProxyArray
         }
     }

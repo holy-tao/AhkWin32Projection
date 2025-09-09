@@ -82,7 +82,7 @@ class SP_SELECTDEVICE_PARAMS_A extends Win32Struct
     Reserved{
         get {
             if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 610, 1, Primitive, "char")
+                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 610, 2, Primitive, "char")
             return this.__ReservedProxyArray
         }
     }

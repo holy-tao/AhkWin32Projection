@@ -34,7 +34,7 @@ class SENSOR_PROPERTY_LIST extends Win32Struct
     List{
         get {
             if(!this.HasProp("__ListProxyArray"))
-                this.__ListProxyArray := Win32FixedArray(this.ptr + 8, 8, PROPERTYKEY, "")
+                this.__ListProxyArray := Win32FixedArray(this.ptr + 8, 1, PROPERTYKEY, "")
             return this.__ListProxyArray
         }
     }

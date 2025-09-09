@@ -17,7 +17,7 @@ class PSCRIPT5_PRIVATE_DEVMODE extends Win32Struct
     wReserved{
         get {
             if(!this.HasProp("__wReservedProxyArray"))
-                this.__wReservedProxyArray := Win32FixedArray(this.ptr + 0, 2, Primitive, "ushort")
+                this.__wReservedProxyArray := Win32FixedArray(this.ptr + 0, 57, Primitive, "ushort")
             return this.__wReservedProxyArray
         }
     }

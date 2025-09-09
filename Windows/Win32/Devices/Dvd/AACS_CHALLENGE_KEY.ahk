@@ -17,7 +17,7 @@ class AACS_CHALLENGE_KEY extends Win32Struct
     EllipticCurvePoint{
         get {
             if(!this.HasProp("__EllipticCurvePointProxyArray"))
-                this.__EllipticCurvePointProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__EllipticCurvePointProxyArray := Win32FixedArray(this.ptr + 0, 40, Primitive, "char")
             return this.__EllipticCurvePointProxyArray
         }
     }
@@ -28,7 +28,7 @@ class AACS_CHALLENGE_KEY extends Win32Struct
     Signature{
         get {
             if(!this.HasProp("__SignatureProxyArray"))
-                this.__SignatureProxyArray := Win32FixedArray(this.ptr + 40, 1, Primitive, "char")
+                this.__SignatureProxyArray := Win32FixedArray(this.ptr + 40, 40, Primitive, "char")
             return this.__SignatureProxyArray
         }
     }

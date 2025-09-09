@@ -31,7 +31,7 @@ class FILESHARE_CHANGE_LIST extends Win32Struct
     ChangeEntry{
         get {
             if(!this.HasProp("__ChangeEntryProxyArray"))
-                this.__ChangeEntryProxyArray := Win32FixedArray(this.ptr + 8, 8, FILESHARE_CHANGE, "")
+                this.__ChangeEntryProxyArray := Win32FixedArray(this.ptr + 8, 1, FILESHARE_CHANGE, "")
             return this.__ChangeEntryProxyArray
         }
     }

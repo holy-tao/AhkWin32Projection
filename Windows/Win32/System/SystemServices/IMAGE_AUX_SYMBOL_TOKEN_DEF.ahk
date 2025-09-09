@@ -41,7 +41,7 @@ class IMAGE_AUX_SYMBOL_TOKEN_DEF extends Win32Struct
     rgbReserved{
         get {
             if(!this.HasProp("__rgbReservedProxyArray"))
-                this.__rgbReservedProxyArray := Win32FixedArray(this.ptr + 6, 1, Primitive, "char")
+                this.__rgbReservedProxyArray := Win32FixedArray(this.ptr + 6, 12, Primitive, "char")
             return this.__rgbReservedProxyArray
         }
     }

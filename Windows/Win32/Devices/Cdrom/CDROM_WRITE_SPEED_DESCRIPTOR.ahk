@@ -25,7 +25,7 @@ class CDROM_WRITE_SPEED_DESCRIPTOR extends Win32Struct
     Reserved3{
         get {
             if(!this.HasProp("__Reserved3ProxyArray"))
-                this.__Reserved3ProxyArray := Win32FixedArray(this.ptr + 1, 1, Primitive, "char")
+                this.__Reserved3ProxyArray := Win32FixedArray(this.ptr + 1, 3, Primitive, "char")
             return this.__Reserved3ProxyArray
         }
     }
@@ -36,7 +36,7 @@ class CDROM_WRITE_SPEED_DESCRIPTOR extends Win32Struct
     EndLba{
         get {
             if(!this.HasProp("__EndLbaProxyArray"))
-                this.__EndLbaProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")
+                this.__EndLbaProxyArray := Win32FixedArray(this.ptr + 4, 4, Primitive, "char")
             return this.__EndLbaProxyArray
         }
     }
@@ -47,7 +47,7 @@ class CDROM_WRITE_SPEED_DESCRIPTOR extends Win32Struct
     ReadSpeed{
         get {
             if(!this.HasProp("__ReadSpeedProxyArray"))
-                this.__ReadSpeedProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "char")
+                this.__ReadSpeedProxyArray := Win32FixedArray(this.ptr + 8, 4, Primitive, "char")
             return this.__ReadSpeedProxyArray
         }
     }
@@ -58,7 +58,7 @@ class CDROM_WRITE_SPEED_DESCRIPTOR extends Win32Struct
     WriteSpeed{
         get {
             if(!this.HasProp("__WriteSpeedProxyArray"))
-                this.__WriteSpeedProxyArray := Win32FixedArray(this.ptr + 12, 1, Primitive, "char")
+                this.__WriteSpeedProxyArray := Win32FixedArray(this.ptr + 12, 4, Primitive, "char")
             return this.__WriteSpeedProxyArray
         }
     }

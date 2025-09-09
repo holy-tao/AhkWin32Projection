@@ -17,7 +17,7 @@ class CERT_FORTEZZA_DATA_PROP extends Win32Struct
     SerialNumber{
         get {
             if(!this.HasProp("__SerialNumberProxyArray"))
-                this.__SerialNumberProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__SerialNumberProxyArray := Win32FixedArray(this.ptr + 0, 8, Primitive, "char")
             return this.__SerialNumberProxyArray
         }
     }
@@ -36,7 +36,7 @@ class CERT_FORTEZZA_DATA_PROP extends Win32Struct
     CertLabel{
         get {
             if(!this.HasProp("__CertLabelProxyArray"))
-                this.__CertLabelProxyArray := Win32FixedArray(this.ptr + 12, 1, Primitive, "char")
+                this.__CertLabelProxyArray := Win32FixedArray(this.ptr + 12, 36, Primitive, "char")
             return this.__CertLabelProxyArray
         }
     }

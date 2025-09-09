@@ -128,7 +128,7 @@ class SSVARIANT extends Win32Struct
     rgbReserved{
         get {
             if(!this.HasProp("__rgbReservedProxyArray"))
-                this.__rgbReservedProxyArray := Win32FixedArray(this.ptr + 28, 1, Primitive, "char")
+                this.__rgbReservedProxyArray := Win32FixedArray(this.ptr + 28, 5, Primitive, "char")
             return this.__rgbReservedProxyArray
         }
     }
@@ -171,7 +171,7 @@ class SSVARIANT extends Win32Struct
     rgbGuidVal{
         get {
             if(!this.HasProp("__rgbGuidValProxyArray"))
-                this.__rgbGuidValProxyArray := Win32FixedArray(this.ptr + 12, 1, Primitive, "char")
+                this.__rgbGuidValProxyArray := Win32FixedArray(this.ptr + 12, 16, Primitive, "char")
             return this.__rgbGuidValProxyArray
         }
     }
@@ -228,7 +228,7 @@ class SSVARIANT extends Win32Struct
     rgMetadata{
         get {
             if(!this.HasProp("__rgMetadataProxyArray"))
-                this.__rgMetadataProxyArray := Win32FixedArray(this.ptr + 16, 1, Primitive, "char")
+                this.__rgMetadataProxyArray := Win32FixedArray(this.ptr + 16, 16, Primitive, "char")
             return this.__rgMetadataProxyArray
         }
     }

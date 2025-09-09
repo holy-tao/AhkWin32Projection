@@ -26,7 +26,7 @@ class DVD_MenuAttributes extends Win32Struct
     fCompatibleRegion{
         get {
             if(!this.HasProp("__fCompatibleRegionProxyArray"))
-                this.__fCompatibleRegionProxyArray := Win32FixedArray(this.ptr + 0, 4, Primitive, "int")
+                this.__fCompatibleRegionProxyArray := Win32FixedArray(this.ptr + 0, 8, Primitive, "int")
             return this.__fCompatibleRegionProxyArray
         }
     }

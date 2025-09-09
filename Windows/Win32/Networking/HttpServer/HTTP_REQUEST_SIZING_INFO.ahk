@@ -41,7 +41,7 @@ class HTTP_REQUEST_SIZING_INFO extends Win32Struct
     RequestSizing{
         get {
             if(!this.HasProp("__RequestSizingProxyArray"))
-                this.__RequestSizingProxyArray := Win32FixedArray(this.ptr + 16, 8, Primitive, "uint")
+                this.__RequestSizingProxyArray := Win32FixedArray(this.ptr + 16, 5, Primitive, "uint")
             return this.__RequestSizingProxyArray
         }
     }

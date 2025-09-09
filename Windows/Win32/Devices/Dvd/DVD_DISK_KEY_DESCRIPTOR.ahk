@@ -17,7 +17,7 @@ class DVD_DISK_KEY_DESCRIPTOR extends Win32Struct
     DiskKeyData{
         get {
             if(!this.HasProp("__DiskKeyDataProxyArray"))
-                this.__DiskKeyDataProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__DiskKeyDataProxyArray := Win32FixedArray(this.ptr + 0, 2048, Primitive, "char")
             return this.__DiskKeyDataProxyArray
         }
     }

@@ -46,7 +46,7 @@ class DOT11_PRIVACY_EXEMPTION_LIST extends Win32Struct
     PrivacyExemptionEntries{
         get {
             if(!this.HasProp("__PrivacyExemptionEntriesProxyArray"))
-                this.__PrivacyExemptionEntriesProxyArray := Win32FixedArray(this.ptr + 16, 8, DOT11_PRIVACY_EXEMPTION, "")
+                this.__PrivacyExemptionEntriesProxyArray := Win32FixedArray(this.ptr + 16, 1, DOT11_PRIVACY_EXEMPTION, "")
             return this.__PrivacyExemptionEntriesProxyArray
         }
     }

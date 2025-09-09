@@ -17,7 +17,7 @@ class DOT11_LINK_QUALITY_ENTRY extends Win32Struct
     PeerMacAddr{
         get {
             if(!this.HasProp("__PeerMacAddrProxyArray"))
-                this.__PeerMacAddrProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__PeerMacAddrProxyArray := Win32FixedArray(this.ptr + 0, 6, Primitive, "char")
             return this.__PeerMacAddrProxyArray
         }
     }

@@ -32,7 +32,7 @@ class SEC_APPLICATION_PROTOCOLS extends Win32Struct
     ProtocolLists{
         get {
             if(!this.HasProp("__ProtocolListsProxyArray"))
-                this.__ProtocolListsProxyArray := Win32FixedArray(this.ptr + 8, 8, SEC_APPLICATION_PROTOCOL_LIST, "")
+                this.__ProtocolListsProxyArray := Win32FixedArray(this.ptr + 8, 1, SEC_APPLICATION_PROTOCOL_LIST, "")
             return this.__ProtocolListsProxyArray
         }
     }

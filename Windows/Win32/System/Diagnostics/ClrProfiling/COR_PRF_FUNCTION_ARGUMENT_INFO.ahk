@@ -34,7 +34,7 @@ class COR_PRF_FUNCTION_ARGUMENT_INFO extends Win32Struct
     ranges{
         get {
             if(!this.HasProp("__rangesProxyArray"))
-                this.__rangesProxyArray := Win32FixedArray(this.ptr + 8, 8, COR_PRF_FUNCTION_ARGUMENT_RANGE, "")
+                this.__rangesProxyArray := Win32FixedArray(this.ptr + 8, 1, COR_PRF_FUNCTION_ARGUMENT_RANGE, "")
             return this.__rangesProxyArray
         }
     }

@@ -17,7 +17,7 @@ class VIDEO_PERFORMANCE_COUNTER extends Win32Struct
     NbOfAllocationEvicted{
         get {
             if(!this.HasProp("__NbOfAllocationEvictedProxyArray"))
-                this.__NbOfAllocationEvictedProxyArray := Win32FixedArray(this.ptr + 0, 8, Primitive, "uint")
+                this.__NbOfAllocationEvictedProxyArray := Win32FixedArray(this.ptr + 0, 10, Primitive, "uint")
             return this.__NbOfAllocationEvictedProxyArray
         }
     }
@@ -28,7 +28,7 @@ class VIDEO_PERFORMANCE_COUNTER extends Win32Struct
     NbOfAllocationMarked{
         get {
             if(!this.HasProp("__NbOfAllocationMarkedProxyArray"))
-                this.__NbOfAllocationMarkedProxyArray := Win32FixedArray(this.ptr + 80, 8, Primitive, "uint")
+                this.__NbOfAllocationMarkedProxyArray := Win32FixedArray(this.ptr + 80, 10, Primitive, "uint")
             return this.__NbOfAllocationMarkedProxyArray
         }
     }
@@ -39,7 +39,7 @@ class VIDEO_PERFORMANCE_COUNTER extends Win32Struct
     NbOfAllocationRestored{
         get {
             if(!this.HasProp("__NbOfAllocationRestoredProxyArray"))
-                this.__NbOfAllocationRestoredProxyArray := Win32FixedArray(this.ptr + 160, 8, Primitive, "uint")
+                this.__NbOfAllocationRestoredProxyArray := Win32FixedArray(this.ptr + 160, 10, Primitive, "uint")
             return this.__NbOfAllocationRestoredProxyArray
         }
     }
@@ -50,7 +50,7 @@ class VIDEO_PERFORMANCE_COUNTER extends Win32Struct
     KBytesEvicted{
         get {
             if(!this.HasProp("__KBytesEvictedProxyArray"))
-                this.__KBytesEvictedProxyArray := Win32FixedArray(this.ptr + 240, 8, Primitive, "uint")
+                this.__KBytesEvictedProxyArray := Win32FixedArray(this.ptr + 240, 10, Primitive, "uint")
             return this.__KBytesEvictedProxyArray
         }
     }
@@ -61,7 +61,7 @@ class VIDEO_PERFORMANCE_COUNTER extends Win32Struct
     KBytesMarked{
         get {
             if(!this.HasProp("__KBytesMarkedProxyArray"))
-                this.__KBytesMarkedProxyArray := Win32FixedArray(this.ptr + 320, 8, Primitive, "uint")
+                this.__KBytesMarkedProxyArray := Win32FixedArray(this.ptr + 320, 10, Primitive, "uint")
             return this.__KBytesMarkedProxyArray
         }
     }
@@ -72,7 +72,7 @@ class VIDEO_PERFORMANCE_COUNTER extends Win32Struct
     KBytesRestored{
         get {
             if(!this.HasProp("__KBytesRestoredProxyArray"))
-                this.__KBytesRestoredProxyArray := Win32FixedArray(this.ptr + 400, 8, Primitive, "uint")
+                this.__KBytesRestoredProxyArray := Win32FixedArray(this.ptr + 400, 10, Primitive, "uint")
             return this.__KBytesRestoredProxyArray
         }
     }

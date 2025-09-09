@@ -30,7 +30,7 @@ class WST_BUFFER extends Win32Struct
     WstLines{
         get {
             if(!this.HasProp("__WstLinesProxyArray"))
-                this.__WstLinesProxyArray := Win32FixedArray(this.ptr + 128, 8, WST_BUFFER_LINE, "")
+                this.__WstLinesProxyArray := Win32FixedArray(this.ptr + 128, 17, WST_BUFFER_LINE, "")
             return this.__WstLinesProxyArray
         }
     }

@@ -34,7 +34,7 @@ class BUSNUMBER_RESOURCE extends Win32Struct
     BusNumber_Data{
         get {
             if(!this.HasProp("__BusNumber_DataProxyArray"))
-                this.__BusNumber_DataProxyArray := Win32FixedArray(this.ptr + 20, 8, BUSNUMBER_RANGE, "")
+                this.__BusNumber_DataProxyArray := Win32FixedArray(this.ptr + 20, 1, BUSNUMBER_RANGE, "")
             return this.__BusNumber_DataProxyArray
         }
     }

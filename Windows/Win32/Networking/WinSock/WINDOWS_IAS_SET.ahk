@@ -57,7 +57,7 @@ class WINDOWS_IAS_SET extends Win32Struct
     OctetSeq{
         get {
             if(!this.HasProp("__OctetSeqProxyArray"))
-                this.__OctetSeqProxyArray := Win32FixedArray(this.ptr + 650, 1, Primitive, "char")
+                this.__OctetSeqProxyArray := Win32FixedArray(this.ptr + 650, 1024, Primitive, "char")
             return this.__OctetSeqProxyArray
         }
     }
@@ -76,7 +76,7 @@ class WINDOWS_IAS_SET extends Win32Struct
     UsrStr{
         get {
             if(!this.HasProp("__UsrStrProxyArray"))
-                this.__UsrStrProxyArray := Win32FixedArray(this.ptr + 650, 1, Primitive, "char")
+                this.__UsrStrProxyArray := Win32FixedArray(this.ptr + 650, 256, Primitive, "char")
             return this.__UsrStrProxyArray
         }
     }

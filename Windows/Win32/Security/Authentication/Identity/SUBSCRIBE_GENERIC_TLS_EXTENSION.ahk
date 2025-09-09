@@ -34,7 +34,7 @@ class SUBSCRIBE_GENERIC_TLS_EXTENSION extends Win32Struct
     Subscriptions{
         get {
             if(!this.HasProp("__SubscriptionsProxyArray"))
-                this.__SubscriptionsProxyArray := Win32FixedArray(this.ptr + 8, 8, TLS_EXTENSION_SUBSCRIPTION, "")
+                this.__SubscriptionsProxyArray := Win32FixedArray(this.ptr + 8, 1, TLS_EXTENSION_SUBSCRIPTION, "")
             return this.__SubscriptionsProxyArray
         }
     }

@@ -20,7 +20,7 @@ class RdcSignature extends Win32Struct
     m_Signature{
         get {
             if(!this.HasProp("__m_SignatureProxyArray"))
-                this.__m_SignatureProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__m_SignatureProxyArray := Win32FixedArray(this.ptr + 0, 16, Primitive, "char")
             return this.__m_SignatureProxyArray
         }
     }

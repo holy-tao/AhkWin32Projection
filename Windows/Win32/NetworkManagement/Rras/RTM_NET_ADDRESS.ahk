@@ -41,7 +41,7 @@ class RTM_NET_ADDRESS extends Win32Struct
     AddrBits{
         get {
             if(!this.HasProp("__AddrBitsProxyArray"))
-                this.__AddrBitsProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")
+                this.__AddrBitsProxyArray := Win32FixedArray(this.ptr + 4, 16, Primitive, "char")
             return this.__AddrBitsProxyArray
         }
     }

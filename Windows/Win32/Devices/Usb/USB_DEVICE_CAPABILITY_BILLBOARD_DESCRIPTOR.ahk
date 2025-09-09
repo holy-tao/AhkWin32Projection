@@ -81,7 +81,7 @@ class USB_DEVICE_CAPABILITY_BILLBOARD_DESCRIPTOR extends Win32Struct
     bmConfigured{
         get {
             if(!this.HasProp("__bmConfiguredProxyArray"))
-                this.__bmConfiguredProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "char")
+                this.__bmConfiguredProxyArray := Win32FixedArray(this.ptr + 8, 32, Primitive, "char")
             return this.__bmConfiguredProxyArray
         }
     }

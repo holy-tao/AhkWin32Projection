@@ -33,7 +33,7 @@ class UUID_VECTOR extends Win32Struct
     Uuid{
         get {
             if(!this.HasProp("__UuidProxyArray"))
-                this.__UuidProxyArray := Win32FixedArray(this.ptr + 8, 8, Primitive, "ptr")
+                this.__UuidProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "ptr")
             return this.__UuidProxyArray
         }
     }

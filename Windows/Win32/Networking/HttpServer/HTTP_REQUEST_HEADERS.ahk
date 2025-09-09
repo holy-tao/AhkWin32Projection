@@ -60,7 +60,7 @@ class HTTP_REQUEST_HEADERS extends Win32Struct
     KnownHeaders{
         get {
             if(!this.HasProp("__KnownHeadersProxyArray"))
-                this.__KnownHeadersProxyArray := Win32FixedArray(this.ptr + 32, 8, HTTP_KNOWN_HEADER, "")
+                this.__KnownHeadersProxyArray := Win32FixedArray(this.ptr + 32, 41, HTTP_KNOWN_HEADER, "")
             return this.__KnownHeadersProxyArray
         }
     }

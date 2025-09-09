@@ -17,7 +17,7 @@ class AUDIT_IP_ADDRESS extends Win32Struct
     pIpAddress{
         get {
             if(!this.HasProp("__pIpAddressProxyArray"))
-                this.__pIpAddressProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                this.__pIpAddressProxyArray := Win32FixedArray(this.ptr + 0, 128, Primitive, "char")
             return this.__pIpAddressProxyArray
         }
     }

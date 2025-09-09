@@ -86,7 +86,7 @@ class ETW_BUFFER_HEADER extends Win32Struct
     Reserved4{
         get {
             if(!this.HasProp("__Reserved4ProxyArray"))
-                this.__Reserved4ProxyArray := Win32FixedArray(this.ptr + 52, 4, Primitive, "uint")
+                this.__Reserved4ProxyArray := Win32FixedArray(this.ptr + 52, 5, Primitive, "uint")
             return this.__Reserved4ProxyArray
         }
     }

@@ -118,7 +118,7 @@ class IP_PATTERN extends Win32Struct
     Reserved3{
         get {
             if(!this.HasProp("__Reserved3ProxyArray"))
-                this.__Reserved3ProxyArray := Win32FixedArray(this.ptr + 21, 1, Primitive, "char")
+                this.__Reserved3ProxyArray := Win32FixedArray(this.ptr + 21, 3, Primitive, "char")
             return this.__Reserved3ProxyArray
         }
     }

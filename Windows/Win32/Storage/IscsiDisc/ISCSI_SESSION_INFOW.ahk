@@ -64,7 +64,7 @@ class ISCSI_SESSION_INFOW extends Win32Struct
     ISID{
         get {
             if(!this.HasProp("__ISIDProxyArray"))
-                this.__ISIDProxyArray := Win32FixedArray(this.ptr + 40, 1, Primitive, "char")
+                this.__ISIDProxyArray := Win32FixedArray(this.ptr + 40, 6, Primitive, "char")
             return this.__ISIDProxyArray
         }
     }
@@ -76,7 +76,7 @@ class ISCSI_SESSION_INFOW extends Win32Struct
     TSID{
         get {
             if(!this.HasProp("__TSIDProxyArray"))
-                this.__TSIDProxyArray := Win32FixedArray(this.ptr + 46, 1, Primitive, "char")
+                this.__TSIDProxyArray := Win32FixedArray(this.ptr + 46, 2, Primitive, "char")
             return this.__TSIDProxyArray
         }
     }

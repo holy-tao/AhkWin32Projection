@@ -257,7 +257,7 @@ class PRINTER_NOTIFY_INFO_DATA extends Win32Struct
     adwData{
         get {
             if(!this.HasProp("__adwDataProxyArray"))
-                this.__adwDataProxyArray := Win32FixedArray(this.ptr + 16, 4, Primitive, "uint")
+                this.__adwDataProxyArray := Win32FixedArray(this.ptr + 16, 2, Primitive, "uint")
             return this.__adwDataProxyArray
         }
     }
