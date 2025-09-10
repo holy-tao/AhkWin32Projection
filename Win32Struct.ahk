@@ -237,5 +237,35 @@ class Win32Struct extends Object{
 
         throw TypeError("Expected an Integer or buffer-like Object, but got a(n) " . type(ptrOrBufferLike))
     }
+
+    /**
+     * Initializes a new `Win32Struct` object, setting its members based on the
+     * object literal `Obj` that contains name-value pairs. 
+     * 
+     * @example
+     * Rc := RECT.FromObject({ top: 0, bottom: 100, left: 0, right: 100 })
+     * 
+     * @param {Object} Obj object literal containing fields to set
+     * @returns {Win32Struct} a new `Win32Struct`
+     */
+    static FromObject(Obj) {
+        if (ObjGetBase(this) == Object) {
+            throw TypeError("This method cannot be used by 'Win32Struct' directly", -2)
+        }
+        if (!IsObject(Obj) || (ObjGetBase(Obj) != Object.Prototype)) {
+            throw TypeError("Expected an Object literal",, Type(Obj))
+        }
+        Result := this()
+        for PropertyName, Value in ObjOwnProps(Obj) {
+            if (PropertyName == "__Class") {
+                throw ValueError("Invalid field",, PropertyName)
+            }
+            if (!ObjHasOwnProp(this.Prototype, PropertyName)) {
+                throw ValueError("Invalid field",, PropertyName)
+            }
+            Result.%PropertyName% := Obj.%PropertyName%
+        }
+        return Result
+    }
 ;@endregion Static Methods
 }
