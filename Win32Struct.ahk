@@ -240,32 +240,56 @@ class Win32Struct extends Object{
 
     /**
      * Initializes a new `Win32Struct` object, setting its members based on the
-     * object literal `Obj` that contains name-value pairs. 
+     * object literal `Obj` that contains name-value pairs.
+     * 
+     * Supports nested structs: if a members is itself a struct (or struct
+     * pointer), you can pass another object literal for that member, which
+     * will be initialized recursively.
      * 
      * @example
      * Rc := RECT.FromObject({ top: 0, bottom: 100, left: 0, right: 100 })
      * 
+     * Wp := WINDOWPLACEMENT.FromObject({
+     *     showCmd: 1,
+     *     rcNormalPosition: { left: 0, top: 0, right: 800, bottom: 600 }
+     * })
+     * 
      * @param {Object} Obj object literal containing fields to set
-     * @returns {Win32Struct} a new `Win32Struct`
+     * @returns {Win32Struct} a new initialized `Win32Struct`
      */
     static FromObject(Obj) {
         if (ObjGetBase(this) == Object) {
             throw TypeError("This method cannot be used by 'Win32Struct' directly", -2)
         }
-        if (!IsObject(Obj) || (ObjGetBase(Obj) != Object.Prototype)) {
-            throw TypeError("Expected an Object literal",, Type(Obj))
-        }
-        Result := this()
-        for PropertyName, Value in ObjOwnProps(Obj) {
-            if (PropertyName == "__Class") {
-                throw ValueError("Invalid field",, PropertyName)
+        return Init(this(), Obj)
+
+        static Init(Target, Obj) {
+            if (!IsObject(Obj) || (ObjGetBase(Obj) != Object.Prototype)) {
+                throw TypeError("Expected an Object literal",, Type(Obj))
             }
-            if (!ObjHasOwnProp(this.Prototype, PropertyName)) {
-                throw ValueError("Invalid field",, PropertyName)
+
+            for PropertyName in ObjOwnProps(Obj) {
+                if (PropertyName == "__Class") {
+                    throw ValueError("Invalid field",, PropertyName)
+                }
+                if (!ObjHasOwnProp(ObjGetBase(Target), PropertyName)) {
+                    throw ValueError("Invalid field",, PropertyName)
+                }
+                Value := Obj.%PropertyName%
+
+                PropDesc := ObjGetBase(Target).GetOwnPropDesc(PropertyName)
+
+                ; get/set property is assumed to be a regular member
+                if (ObjHasOwnProp(PropDesc, "Set")) {
+                    Target.%PropertyName% := Obj.%PropertyName%
+                } else {
+                    ; otherwise, property is assumed to be another struct;
+                    ; initialize a new one by calling the getter property, recurse
+                    Init((PropDesc.Get)(Target), Value)
+                }
             }
-            Result.%PropertyName% := Obj.%PropertyName%
+            return Target
         }
-        return Result
     }
 ;@endregion Static Methods
 }
