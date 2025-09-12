@@ -237,5 +237,75 @@ class Win32Struct extends Object{
 
         throw TypeError("Expected an Integer or buffer-like Object, but got a(n) " . type(ptrOrBufferLike))
     }
+
+    /**
+     * Creates a new `Win32Struct` and initializes its members from the given object.
+     * 
+     * Supports nested structs: if a members is itself a struct (or a pointer to one),
+     * you can assign either another object literal or an existing `Win32Struct` instance.
+     * 
+     * @example
+     * Rc := RECT.FromObject({ top: 0, bottom: 100, left: 0, right: 100 })
+     * 
+     * Wp := WINDOWPLACEMENT.FromObject({
+     *     showCmd: 1,
+     *     rcNormalPosition: Rc ; another object literal, or an existing struct
+     * })
+     * 
+     * @param {Object} Obj object literal containing fields to set
+     * @returns {Win32Struct} a new initialized `Win32Struct`
+     */
+    static FromObject(Obj) {
+        if (ObjGetBase(this) == Object) {
+            throw TypeError("This method cannot be used by 'Win32Struct' directly", -2)
+        }
+        return Init(this(), Obj)
+
+        static Init(Target, Obj) {
+            if (!IsObject(Obj) || (ObjGetBase(Obj) != Object.Prototype)) {
+                throw TypeError("Expected an Object literal", -2, Type(Obj))
+            }
+
+            for PropertyName in ObjOwnProps(Obj) {
+                if (PropertyName == "__Class") {
+                    throw MemberError("Invalid member: " . PropertyName, -2)
+                }
+                if (!ObjHasOwnProp(ObjGetBase(Target), PropertyName)) {
+                    throw MemberError(Format('struct "{1}" has no member "{2}"', Type(Target), PropertyName), -2)
+                }
+
+                ; alternatively: Obj.GetOwnPropDesc(PropertyName).Value
+                Value := Obj.%PropertyName%
+                PropDesc := ObjGetBase(Target).GetOwnPropDesc(PropertyName)
+
+                ; get/set property: assumed to be a regular member
+                if (ObjHasOwnProp(PropDesc, "Set")) {
+                    (PropDesc.Set)(Target, Value)
+                    continue
+                }
+
+                ; otherwise, assume property to be another struct
+                Inner := (PropDesc.Get)(Target)
+                if (!IsObject(Value)) {
+                    throw TypeError("Expected an object literal or a(n) " . Type(Inner), -2, Value)
+                }
+
+                if (Value is Win32Struct) {
+                    ; ensure structs are the same type
+                    if (ObjGetBase(Inner) != ObjGetBase(Value)) {
+                        Msg := Format("Invalid struct type for member {1}; expected a(n) {2}",
+                                PropertyName, Type(Inner))
+                        throw TypeError(Msg, -2, Type(Value))
+                    }
+                    ; copy to our new struct
+                    Value.CopyTo(Inner)
+                } else {
+                    ; otherwise, recurse
+                    Init(Inner, Value)
+                }
+            }
+            return Target
+        }
+    }
 ;@endregion Static Methods
 }
