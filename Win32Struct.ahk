@@ -241,15 +241,27 @@ class Win32Struct extends Object{
     /**
      * Creates a new `Win32Struct` and initializes its members from the given object.
      * 
-     * Supports nested structs: if a members is itself a struct (or a pointer to one),
-     * you can assign either another object literal or an existing `Win32Struct` instance.
+     * If a member is itself a struct (or a pointer to one), you can assign either
+     * another object literal or an existing `Win32Struct` instance.
+     * 
+     * To define an array member, use an existing `Win32FixedArray` instance or an
+     * `Array`.
      * 
      * @example
      * Rc := RECT.FromObject({ top: 0, bottom: 100, left: 0, right: 100 })
-     * 
      * Wp := WINDOWPLACEMENT.FromObject({
      *     showCmd: 1,
      *     rcNormalPosition: Rc ; another object literal, or an existing struct
+     * })
+     * 
+     * @example
+     * Hdr1 := "Content-Type: application/json"
+     * Hdr2 := "Accept: application/json"
+     * Headers := HTTP_REQUEST_HEADERS.FromObject({
+     *   KnownHeaders: [
+     *     { RawValueLength: StrLen(Hdr1), pRawValue: StrPtr(Hdr1) },
+     *     { RawValueLength: StrLen(Hdr2), pRawValue: StrPtr(Hdr2) }
+     *   ]
      * })
      * 
      * @param {Object} Obj object literal containing fields to set
@@ -268,29 +280,30 @@ class Win32Struct extends Object{
 
             for PropertyName in ObjOwnProps(Obj) {
                 if (PropertyName == "__Class") {
-                    throw MemberError("Invalid member: " . PropertyName, -2)
+                    throw PropertyError('"__Class" is not a valid struct member', -2)
                 }
                 if (!ObjHasOwnProp(ObjGetBase(Target), PropertyName)) {
-                    throw MemberError(Format('struct "{1}" has no member "{2}"', Type(Target), PropertyName), -2)
+                    throw PropertyError(Format('struct "{1}" has no member "{2}"', Type(Target), PropertyName), -2)
                 }
 
                 ; alternatively: Obj.GetOwnPropDesc(PropertyName).Value
                 Value := Obj.%PropertyName%
-                PropDesc := ObjGetBase(Target).GetOwnPropDesc(PropertyName)
 
-                ; get/set property: assumed to be a regular member
-                if (ObjHasOwnProp(PropDesc, "Set")) {
+                PropDesc := ObjGetBase(Target).GetOwnPropDesc(PropertyName)
+                Inner := (PropDesc.Get)(Target)
+
+                ; ==------------- regular struct member -------------== ;
+                if (!IsObject(Inner)) {
                     (PropDesc.Set)(Target, Value)
                     continue
                 }
 
-                ; otherwise, assume property to be another struct
-                Inner := (PropDesc.Get)(Target)
-                if (!IsObject(Value)) {
-                    throw TypeError("Expected an object literal or a(n) " . Type(Inner), -2, Value)
-                }
-
-                if (Value is Win32Struct) {
+                ; ==-------- nested struct or struct pointer --------== ;
+                if (Inner is Win32Struct) {
+                    if (!(Value is Win32Struct)) {
+                        Init(Inner, Value)
+                        continue
+                    }
                     ; ensure structs are the same type
                     if (ObjGetBase(Inner) != ObjGetBase(Value)) {
                         Msg := Format("Invalid struct type for member {1}; expected a(n) {2}",
@@ -299,9 +312,34 @@ class Win32Struct extends Object{
                     }
                     ; copy to our new struct
                     Value.CopyTo(Inner)
-                } else {
-                    ; otherwise, recurse
-                    Init(Inner, Value)
+                    continue
+                }
+
+                ; ==------------------ fixed array ------------------== ;
+                if (Value is Win32FixedArray) {
+                    Loop (Value.Length) {
+                        Inner[A_Index] := Value[A_Index]
+                    }
+                    continue
+                }
+
+                if (!(Value is Array)) {
+                    Msg := Format('Expected a Win32FixedArray or an Array for member "{1}"', PropertyName)
+                    throw TypeError(Msg, -2, Type(Value))
+                }
+
+                if (Inner.ElementType == Primitive) {
+                    Loop (Value.Length) {
+                        Inner[A_Index] := Value[A_Index]
+                    }
+                    continue
+                }
+
+                Loop (Value.Length) {
+                    Element := Value[A_Index]
+                    Inner[A_Index] := (Element is Win32Struct)
+                            ? Element
+                            : Inner.ElementType.FromObject(Element)
                 }
             }
             return Target
