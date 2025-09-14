@@ -17,7 +17,7 @@ class ADS_OBJECT_INFO extends Win32Struct
 
     /**
      * The null-terminated Unicode string that contains the relative distinguished name of the directory service object.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pszRDN {
         get => NumGet(this, 0, "ptr")
@@ -26,7 +26,7 @@ class ADS_OBJECT_INFO extends Win32Struct
 
     /**
      * The null-terminated Unicode string that contains the distinguished name  of the directory service object.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pszObjectDN {
         get => NumGet(this, 8, "ptr")
@@ -35,7 +35,7 @@ class ADS_OBJECT_INFO extends Win32Struct
 
     /**
      * The null-terminated Unicode string that contains the distinguished name of the parent object.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pszParentDN {
         get => NumGet(this, 16, "ptr")
@@ -44,7 +44,7 @@ class ADS_OBJECT_INFO extends Win32Struct
 
     /**
      * The null-terminated Unicode string that contains the distinguished name of the schema class of the object.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pszSchemaDN {
         get => NumGet(this, 24, "ptr")
@@ -53,7 +53,7 @@ class ADS_OBJECT_INFO extends Win32Struct
 
     /**
      * The null-terminated Unicode string that contains the name of the class of which this object is an instance.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pszClassName {
         get => NumGet(this, 32, "ptr")

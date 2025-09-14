@@ -45,7 +45,7 @@ class RM_FILTER_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     strFilename {
         get => NumGet(this, 16, "ptr")
@@ -64,7 +64,7 @@ class RM_FILTER_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     strServiceShortName {
         get => NumGet(this, 16, "ptr")

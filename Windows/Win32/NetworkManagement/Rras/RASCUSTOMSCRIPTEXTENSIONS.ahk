@@ -20,7 +20,7 @@ class RASCUSTOMSCRIPTEXTENSIONS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFNRASSETCOMMSETTINGS>}
      */
     pfnRasSetCommSettings {
         get => NumGet(this, 4, "ptr")

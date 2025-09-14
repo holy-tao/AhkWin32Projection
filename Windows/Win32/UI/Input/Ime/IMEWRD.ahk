@@ -15,7 +15,7 @@ class IMEWRD extends Win32Struct
 
     /**
      * The reading string.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pwchReading {
         get => NumGet(this, 0, "ptr")
@@ -24,7 +24,7 @@ class IMEWRD extends Win32Struct
 
     /**
      * The display string.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pwchDisplay {
         get => NumGet(this, 8, "ptr")

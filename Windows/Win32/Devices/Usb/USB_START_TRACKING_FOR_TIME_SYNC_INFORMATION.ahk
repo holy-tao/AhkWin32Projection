@@ -12,7 +12,7 @@ class USB_START_TRACKING_FOR_TIME_SYNC_INFORMATION extends Win32Struct
     static packingSize => 1
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HANDLE>}
      */
     TimeTrackingHandle {
         get => NumGet(this, 0, "ptr")

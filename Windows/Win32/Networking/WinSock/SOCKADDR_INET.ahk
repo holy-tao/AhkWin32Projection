@@ -22,7 +22,7 @@
  */
 class SOCKADDR_INET extends Win32Struct
 {
-    static sizeof => 64
+    static sizeof => 56
 
     static packingSize => 8
 

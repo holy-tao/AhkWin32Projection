@@ -61,10 +61,13 @@ class ACMFORMATTAGDETAILSA extends Win32Struct
     }
 
     /**
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    szFormatTag {
-        get => StrGet(this.ptr + 24, 47, "UTF-8")
-        set => StrPut(value, this.ptr + 24, 47, "UTF-8")
+    szFormatTag{
+        get {
+            if(!this.HasProp("__szFormatTagProxyArray"))
+                this.__szFormatTagProxyArray := Win32FixedArray(this.ptr + 24, 48, Primitive, "char")
+            return this.__szFormatTagProxyArray
+        }
     }
 }

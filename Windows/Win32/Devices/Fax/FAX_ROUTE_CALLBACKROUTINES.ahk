@@ -34,7 +34,7 @@ class FAX_ROUTE_CALLBACKROUTINES extends Win32Struct
      * Type: <b>PFAXROUTEADDFILE</b>
      * 
      * Pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxroute/nc-faxroute-pfaxrouteaddfile">FaxRouteAddFile</a> callback function that a fax routing method uses to add a file to the fax file list associated with a received fax document.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFAXROUTEADDFILE>}
      */
     FaxRouteAddFile {
         get => NumGet(this, 8, "ptr")
@@ -45,7 +45,7 @@ class FAX_ROUTE_CALLBACKROUTINES extends Win32Struct
      * Type: <b>PFAXROUTEDELETEFILE</b>
      * 
      * Pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxroute/nc-faxroute-pfaxroutedeletefile">FaxRouteDeleteFile</a> callback function that a fax routing method uses to delete a file from the fax file list associated with a received fax document.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFAXROUTEDELETEFILE>}
      */
     FaxRouteDeleteFile {
         get => NumGet(this, 16, "ptr")
@@ -56,7 +56,7 @@ class FAX_ROUTE_CALLBACKROUTINES extends Win32Struct
      * Type: <b>PFAXROUTEGETFILE</b>
      * 
      * Pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxroute/nc-faxroute-pfaxroutegetfile">FaxRouteGetFile</a> callback function that a fax routing method uses to retrieve a specific file name from the fax file list associated with a received fax document.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFAXROUTEGETFILE>}
      */
     FaxRouteGetFile {
         get => NumGet(this, 24, "ptr")
@@ -67,7 +67,7 @@ class FAX_ROUTE_CALLBACKROUTINES extends Win32Struct
      * Type: <b>PFAXROUTEENUMFILES</b>
      * 
      * Pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxroute/nc-faxroute-pfaxrouteenumfiles">FaxRouteEnumFiles</a> callback function that a fax routing method uses to enumerate the files in the fax file list associated with a received fax document.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFAXROUTEENUMFILES>}
      */
     FaxRouteEnumFiles {
         get => NumGet(this, 32, "ptr")
@@ -78,7 +78,7 @@ class FAX_ROUTE_CALLBACKROUTINES extends Win32Struct
      * Type: <b>PFAXROUTEMODIFYROUTINGDATA</b>
      * 
      * Pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxroute/nc-faxroute-pfaxroutemodifyroutingdata">FaxRouteModifyRoutingData</a> callback function that a fax routing method uses to modify the routing data associated with a subsequent fax routing method.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFAXROUTEMODIFYROUTINGDATA>}
      */
     FaxRouteModifyRoutingData {
         get => NumGet(this, 40, "ptr")

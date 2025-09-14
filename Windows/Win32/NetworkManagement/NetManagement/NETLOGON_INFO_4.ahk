@@ -15,7 +15,7 @@ class NETLOGON_INFO_4 extends Win32Struct
 
     /**
      * A marshaled pointer to a string that contains the trusted domain controller name.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     netlog4_trusted_dc_name {
         get => NumGet(this, 0, "ptr")
@@ -24,7 +24,7 @@ class NETLOGON_INFO_4 extends Win32Struct
 
     /**
      * A marshaled pointer to a string that contains the trusted domain name.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     netlog4_trusted_domain_name {
         get => NumGet(this, 8, "ptr")

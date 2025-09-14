@@ -37,11 +37,14 @@ class JOYCAPSA extends Win32Struct
 
     /**
      * Null-terminated string containing the joystick product name.
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    szPname {
-        get => StrGet(this.ptr + 4, 31, "UTF-8")
-        set => StrPut(value, this.ptr + 4, 31, "UTF-8")
+    szPname{
+        get {
+            if(!this.HasProp("__szPnameProxyArray"))
+                this.__szPnameProxyArray := Win32FixedArray(this.ptr + 4, 32, Primitive, "char")
+            return this.__szPnameProxyArray
+        }
     }
 
     /**
@@ -252,19 +255,25 @@ class JOYCAPSA extends Win32Struct
 
     /**
      * Null-terminated string containing the registry key for the joystick.
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    szRegKey {
-        get => StrGet(this.ptr + 112, 31, "UTF-8")
-        set => StrPut(value, this.ptr + 112, 31, "UTF-8")
+    szRegKey{
+        get {
+            if(!this.HasProp("__szRegKeyProxyArray"))
+                this.__szRegKeyProxyArray := Win32FixedArray(this.ptr + 112, 32, Primitive, "char")
+            return this.__szRegKeyProxyArray
+        }
     }
 
     /**
      * Null-terminated string identifying the joystick driver OEM.
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    szOEMVxD {
-        get => StrGet(this.ptr + 144, 259, "UTF-8")
-        set => StrPut(value, this.ptr + 144, 259, "UTF-8")
+    szOEMVxD{
+        get {
+            if(!this.HasProp("__szOEMVxDProxyArray"))
+                this.__szOEMVxDProxyArray := Win32FixedArray(this.ptr + 144, 260, Primitive, "char")
+            return this.__szOEMVxDProxyArray
+        }
     }
 }

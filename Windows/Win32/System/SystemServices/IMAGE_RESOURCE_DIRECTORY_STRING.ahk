@@ -20,10 +20,13 @@ class IMAGE_RESOURCE_DIRECTORY_STRING extends Win32Struct
     }
 
     /**
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    NameString {
-        get => StrGet(this.ptr + 2, 0, "UTF-16")
-        set => StrPut(value, this.ptr + 2, 0, "UTF-16")
+    NameString{
+        get {
+            if(!this.HasProp("__NameStringProxyArray"))
+                this.__NameStringProxyArray := Win32FixedArray(this.ptr + 2, 1, Primitive, "char")
+            return this.__NameStringProxyArray
+        }
     }
 }

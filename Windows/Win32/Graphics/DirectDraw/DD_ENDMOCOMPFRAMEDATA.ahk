@@ -15,7 +15,7 @@ class DD_ENDMOCOMPFRAMEDATA extends Win32Struct
 
     /**
      * Points to a <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/ns-ddrawint-dd_directdraw_local">DD_DIRECTDRAW_LOCAL</a> structure that is relevant to the current DirectDraw process only.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<DD_DIRECTDRAW_LOCAL>}
      */
     lpDD {
         get => NumGet(this, 0, "ptr")

@@ -73,46 +73,61 @@ class WTSCONFIGINFOA extends Win32Struct
 
     /**
      * A null-terminated string that contains the user name used in automatic logon scenarios.
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    LogonUserName {
-        get => StrGet(this.ptr + 24, 20, "UTF-8")
-        set => StrPut(value, this.ptr + 24, 20, "UTF-8")
+    LogonUserName{
+        get {
+            if(!this.HasProp("__LogonUserNameProxyArray"))
+                this.__LogonUserNameProxyArray := Win32FixedArray(this.ptr + 24, 21, Primitive, "char")
+            return this.__LogonUserNameProxyArray
+        }
     }
 
     /**
      * A null-terminated string that contains the domain name used in automatic logon scenarios.
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    LogonDomain {
-        get => StrGet(this.ptr + 45, 17, "UTF-8")
-        set => StrPut(value, this.ptr + 45, 17, "UTF-8")
+    LogonDomain{
+        get {
+            if(!this.HasProp("__LogonDomainProxyArray"))
+                this.__LogonDomainProxyArray := Win32FixedArray(this.ptr + 45, 18, Primitive, "char")
+            return this.__LogonDomainProxyArray
+        }
     }
 
     /**
      * A null-terminated string that contains the path of the working directory of  the initial program.
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    WorkDirectory {
-        get => StrGet(this.ptr + 63, 260, "UTF-8")
-        set => StrPut(value, this.ptr + 63, 260, "UTF-8")
+    WorkDirectory{
+        get {
+            if(!this.HasProp("__WorkDirectoryProxyArray"))
+                this.__WorkDirectoryProxyArray := Win32FixedArray(this.ptr + 63, 261, Primitive, "char")
+            return this.__WorkDirectoryProxyArray
+        }
     }
 
     /**
      * A null-terminated string that contains the name of  the program to start immediately after the user logs on to the server.
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    InitialProgram {
-        get => StrGet(this.ptr + 324, 260, "UTF-8")
-        set => StrPut(value, this.ptr + 324, 260, "UTF-8")
+    InitialProgram{
+        get {
+            if(!this.HasProp("__InitialProgramProxyArray"))
+                this.__InitialProgramProxyArray := Win32FixedArray(this.ptr + 324, 261, Primitive, "char")
+            return this.__InitialProgramProxyArray
+        }
     }
 
     /**
      * This member is reserved.
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    ApplicationName {
-        get => StrGet(this.ptr + 585, 260, "UTF-8")
-        set => StrPut(value, this.ptr + 585, 260, "UTF-8")
+    ApplicationName{
+        get {
+            if(!this.HasProp("__ApplicationNameProxyArray"))
+                this.__ApplicationNameProxyArray := Win32FixedArray(this.ptr + 585, 261, Primitive, "char")
+            return this.__ApplicationNameProxyArray
+        }
     }
 }

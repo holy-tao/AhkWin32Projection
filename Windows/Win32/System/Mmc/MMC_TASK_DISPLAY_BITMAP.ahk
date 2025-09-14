@@ -29,7 +29,7 @@ class MMC_TASK_DISPLAY_BITMAP extends Win32Struct
      * For example, the following string specifies that the snap-in DLL (snapin.dll) has a path of "c:\windows\system32\snapin.dll" and that the resource path is img/mon.gif: "res://c:\\windows\\system32\\snapin.dll/img/mon.bmp".
      * 
      * If <i>szMouseOverBitmap</i> points to a <b>NULL</b> string, <i>szMouseOffBitmap</i> must be a valid string that contains the location of a valid image. If one of these strings is <b>NULL</b>, the other string is used for both. If both mouse image locations are <b>NULL</b>, the task is not displayed.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     szMouseOverBitmap {
         get => NumGet(this, 0, "ptr")
@@ -42,7 +42,7 @@ class MMC_TASK_DISPLAY_BITMAP extends Win32Struct
      * See <b>szMouseOverBitmap</b> for the format of the string.
      * 
      * If <b>szMouseOffBitmap</b> points to a <b>NULL</b> string, <b>szMouseOverBitmap</b> must be a valid string that contains the location of a valid image. If one of these strings is <b>NULL</b>, the other string is used for both. If both mouse image locations are <b>NULL</b>, the task is not displayed.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     szMouseOffBitmap {
         get => NumGet(this, 8, "ptr")

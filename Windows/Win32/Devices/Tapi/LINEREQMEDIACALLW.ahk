@@ -13,7 +13,7 @@ class LINEREQMEDIACALLW extends Win32Struct
     static packingSize => 1
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HWND>}
      */
     hWnd {
         get => NumGet(this, 0, "ptr")

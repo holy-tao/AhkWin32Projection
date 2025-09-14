@@ -20,11 +20,14 @@ class ISCSI_TARGET_PORTAL_INFO_EXA extends Win32Struct
 
     /**
      * A string that represents the name of the Host-Bus Adapter (HBA) initiator.
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    InitiatorName {
-        get => StrGet(this.ptr + 0, 255, "UTF-8")
-        set => StrPut(value, this.ptr + 0, 255, "UTF-8")
+    InitiatorName{
+        get {
+            if(!this.HasProp("__InitiatorNameProxyArray"))
+                this.__InitiatorNameProxyArray := Win32FixedArray(this.ptr + 0, 256, Primitive, "char")
+            return this.__InitiatorNameProxyArray
+        }
     }
 
     /**
@@ -38,20 +41,26 @@ class ISCSI_TARGET_PORTAL_INFO_EXA extends Win32Struct
 
     /**
      * A string that represents the symbolic name associated with the portal.
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    SymbolicName {
-        get => StrGet(this.ptr + 260, 255, "UTF-8")
-        set => StrPut(value, this.ptr + 260, 255, "UTF-8")
+    SymbolicName{
+        get {
+            if(!this.HasProp("__SymbolicNameProxyArray"))
+                this.__SymbolicNameProxyArray := Win32FixedArray(this.ptr + 260, 256, Primitive, "char")
+            return this.__SymbolicNameProxyArray
+        }
     }
 
     /**
      * A string that represents the IP address or DNS name associated with the portal.
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    Address {
-        get => StrGet(this.ptr + 516, 255, "UTF-8")
-        set => StrPut(value, this.ptr + 516, 255, "UTF-8")
+    Address{
+        get {
+            if(!this.HasProp("__AddressProxyArray"))
+                this.__AddressProxyArray := Win32FixedArray(this.ptr + 516, 256, Primitive, "char")
+            return this.__AddressProxyArray
+        }
     }
 
     /**

@@ -7,7 +7,7 @@
  */
 class DEBUG_POOLTAG_DESCRIPTION extends Win32Struct
 {
-    static sizeof => 656
+    static sizeof => 332
 
     static packingSize => 4
 
@@ -28,26 +28,35 @@ class DEBUG_POOLTAG_DESCRIPTION extends Win32Struct
     }
 
     /**
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    Description {
-        get => StrGet(this.ptr + 8, 259, "UTF-16")
-        set => StrPut(value, this.ptr + 8, 259, "UTF-16")
+    Description{
+        get {
+            if(!this.HasProp("__DescriptionProxyArray"))
+                this.__DescriptionProxyArray := Win32FixedArray(this.ptr + 8, 260, Primitive, "char")
+            return this.__DescriptionProxyArray
+        }
     }
 
     /**
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    Binary {
-        get => StrGet(this.ptr + 528, 31, "UTF-16")
-        set => StrPut(value, this.ptr + 528, 31, "UTF-16")
+    Binary{
+        get {
+            if(!this.HasProp("__BinaryProxyArray"))
+                this.__BinaryProxyArray := Win32FixedArray(this.ptr + 268, 32, Primitive, "char")
+            return this.__BinaryProxyArray
+        }
     }
 
     /**
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    Owner {
-        get => StrGet(this.ptr + 592, 31, "UTF-16")
-        set => StrPut(value, this.ptr + 592, 31, "UTF-16")
+    Owner{
+        get {
+            if(!this.HasProp("__OwnerProxyArray"))
+                this.__OwnerProxyArray := Win32FixedArray(this.ptr + 300, 32, Primitive, "char")
+            return this.__OwnerProxyArray
+        }
     }
 }

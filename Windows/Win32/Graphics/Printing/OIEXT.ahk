@@ -28,7 +28,7 @@ class OIEXT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HINSTANCE>}
      */
     hInstCaller {
         get => NumGet(this, 8, "ptr")

@@ -12,7 +12,7 @@ class INTERNET_DOWNLOAD_MODE_HANDLE extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pcwszFileName {
         get => NumGet(this, 0, "ptr")
@@ -20,7 +20,7 @@ class INTERNET_DOWNLOAD_MODE_HANDLE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HANDLE>}
      */
     phFile {
         get => NumGet(this, 8, "ptr")

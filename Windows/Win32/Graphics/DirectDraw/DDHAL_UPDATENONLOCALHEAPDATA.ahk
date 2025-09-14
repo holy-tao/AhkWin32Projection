@@ -60,7 +60,7 @@ class DDHAL_UPDATENONLOCALHEAPDATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPDDHAL_UPDATENONLOCALHEAP>}
      */
     UpdateNonLocalHeap {
         get => NumGet(this, 48, "ptr")

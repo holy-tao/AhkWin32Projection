@@ -131,29 +131,38 @@ class SP_DRVINFO_DETAIL_DATA_A extends Win32Struct
 
     /**
      * A NULL-terminated string that contains the name of the <a href="https://docs.microsoft.com/windows-hardware/drivers/install/inf-ddinstall-section">INF DDInstall section</a> for this driver. This must be the basic <i>DDInstall</i> section name, such as <b>InstallSec</b>, without any OS/architecture-specific extensions.
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    SectionName {
-        get => StrGet(this.ptr + 28, 255, "UTF-8")
-        set => StrPut(value, this.ptr + 28, 255, "UTF-8")
+    SectionName{
+        get {
+            if(!this.HasProp("__SectionNameProxyArray"))
+                this.__SectionNameProxyArray := Win32FixedArray(this.ptr + 28, 256, Primitive, "char")
+            return this.__SectionNameProxyArray
+        }
     }
 
     /**
      * A NULL-terminated string that contains the full-qualified name of the INF file for this driver.
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    InfFileName {
-        get => StrGet(this.ptr + 284, 259, "UTF-8")
-        set => StrPut(value, this.ptr + 284, 259, "UTF-8")
+    InfFileName{
+        get {
+            if(!this.HasProp("__InfFileNameProxyArray"))
+                this.__InfFileNameProxyArray := Win32FixedArray(this.ptr + 284, 260, Primitive, "char")
+            return this.__InfFileNameProxyArray
+        }
     }
 
     /**
      * A NULL-terminated string that describes the driver.
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    DrvDescription {
-        get => StrGet(this.ptr + 544, 255, "UTF-8")
-        set => StrPut(value, this.ptr + 544, 255, "UTF-8")
+    DrvDescription{
+        get {
+            if(!this.HasProp("__DrvDescriptionProxyArray"))
+                this.__DrvDescriptionProxyArray := Win32FixedArray(this.ptr + 544, 256, Primitive, "char")
+            return this.__DrvDescriptionProxyArray
+        }
     }
 
     /**
@@ -164,11 +173,14 @@ class SP_DRVINFO_DETAIL_DATA_A extends Win32Struct
      * If the hardware ID exists (that is, if <b>CompatIDsOffset</b> is greater than one), this single NULL-terminated string is found at the beginning of the buffer. 
      * 
      * If the CompatIDs list is not empty (that is, if <b>CompatIDsLength</b> is not zero), the CompatIDs list starts at offset <b>CompatIDsOffset</b> from the beginning of this buffer, and is terminated with an additional NULL character at the end of the list.
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    HardwareID {
-        get => StrGet(this.ptr + 800, 0, "UTF-8")
-        set => StrPut(value, this.ptr + 800, 0, "UTF-8")
+    HardwareID{
+        get {
+            if(!this.HasProp("__HardwareIDProxyArray"))
+                this.__HardwareIDProxyArray := Win32FixedArray(this.ptr + 800, 1, Primitive, "char")
+            return this.__HardwareIDProxyArray
+        }
     }
 
     /**

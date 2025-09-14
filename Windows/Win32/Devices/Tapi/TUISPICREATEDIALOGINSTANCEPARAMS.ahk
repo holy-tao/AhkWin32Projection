@@ -25,7 +25,7 @@ class TUISPICREATEDIALOGINSTANCEPARAMS extends Win32Struct
 
     /**
      * The service provider's identifier for the association with the instance of the generic dialog box. Because it is possible for multiple instances of the generic dialog box to be open in the same or multiple applications, the service provider must ensure that its handle is unique within the scope of existing instances within the context of the provider.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HDRVDIALOGINSTANCE>}
      */
     hdDlgInst {
         get => NumGet(this, 8, "ptr")
@@ -43,7 +43,7 @@ class TUISPICREATEDIALOGINSTANCEPARAMS extends Win32Struct
 
     /**
      * Pointer to a <b>NULL</b>-terminated string specifying the fully qualified name of the UI DLL to load in the application context.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     lpszUIDLLName {
         get => NumGet(this, 24, "ptr")

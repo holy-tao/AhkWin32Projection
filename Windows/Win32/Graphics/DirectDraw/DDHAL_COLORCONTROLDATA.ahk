@@ -52,7 +52,7 @@ class DDHAL_COLORCONTROLDATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPDDHALCOLORCB_COLORCONTROL>}
      */
     ColorControl {
         get => NumGet(this, 32, "ptr")

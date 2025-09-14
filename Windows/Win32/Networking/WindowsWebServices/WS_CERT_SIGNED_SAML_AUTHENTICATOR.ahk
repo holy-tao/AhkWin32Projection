@@ -70,7 +70,7 @@ class WS_CERT_SIGNED_SAML_AUTHENTICATOR extends Win32Struct
     /**
      * An optional callback to enable the application to additional
      * validation on the SAML assertion if the signature validation passes.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<WS_VALIDATE_SAML_CALLBACK>}
      */
     samlValidator {
         get => NumGet(this, 32, "ptr")

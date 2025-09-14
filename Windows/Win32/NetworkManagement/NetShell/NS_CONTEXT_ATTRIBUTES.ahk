@@ -39,7 +39,7 @@ class NS_CONTEXT_ATTRIBUTES extends Win32Struct
 
     /**
      * A unicode string that identifies the new context. This string is the command available to users. The string must not contain spaces.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pwszContext {
         get => NumGet(this, 8, "ptr")
@@ -163,7 +163,7 @@ class NS_CONTEXT_ATTRIBUTES extends Win32Struct
     /**
      * A function called to commit changes from offline mode. Can be null. For more information about the commit function, see 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netsh/nc-netsh-ns_context_commit_fn">NS_CONTEXT_COMMIT_FN</a>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PNS_CONTEXT_COMMIT_FN>}
      */
     pfnCommitFn {
         get => NumGet(this, 64, "ptr")
@@ -173,7 +173,7 @@ class NS_CONTEXT_ATTRIBUTES extends Win32Struct
     /**
      * A function called to dump the current configuration. Can be null. For more information about the dump function, see 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netsh/nc-netsh-ns_context_dump_fn">NS_CONTEXT_DUMP_FN</a>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PNS_CONTEXT_DUMP_FN>}
      */
     pfnDumpFn {
         get => NumGet(this, 72, "ptr")
@@ -182,7 +182,7 @@ class NS_CONTEXT_ATTRIBUTES extends Win32Struct
 
     /**
      * A function called to connect to a remote computer, or to update the set of available commands. Can be null. For more information about the connect function, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netsh/nc-netsh-ns_context_connect_fn">NS_CONTEXT_CONNECT_FN</a>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PNS_CONTEXT_CONNECT_FN>}
      */
     pfnConnectFn {
         get => NumGet(this, 80, "ptr")
@@ -200,7 +200,7 @@ class NS_CONTEXT_ATTRIBUTES extends Win32Struct
 
     /**
      * 
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PNS_OSVERSIONCHECK>}
      */
     pfnOsVersionCheck {
         get => NumGet(this, 96, "ptr")

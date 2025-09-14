@@ -9,7 +9,7 @@
  */
 class OFSTRUCT extends Win32Struct
 {
-    static sizeof => 264
+    static sizeof => 136
 
     static packingSize => 2
 
@@ -61,10 +61,13 @@ class OFSTRUCT extends Win32Struct
 
     /**
      * The path and file name of the file.
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    szPathName {
-        get => StrGet(this.ptr + 8, 127, "UTF-16")
-        set => StrPut(value, this.ptr + 8, 127, "UTF-16")
+    szPathName{
+        get {
+            if(!this.HasProp("__szPathNameProxyArray"))
+                this.__szPathNameProxyArray := Win32FixedArray(this.ptr + 8, 128, Primitive, "char")
+            return this.__szPathNameProxyArray
+        }
     }
 }

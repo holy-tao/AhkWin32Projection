@@ -60,7 +60,7 @@ class DDHAL_WAITFORVPORTSYNCDATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPDDHALVPORTCB_WAITFORSYNC>}
      */
     WaitForVideoPortSync {
         get => NumGet(this, 32, "ptr")

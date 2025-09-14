@@ -20,7 +20,7 @@ class POLICY_MACHINE_ACCT_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSID>}
      */
     Sid {
         get => NumGet(this, 8, "ptr")

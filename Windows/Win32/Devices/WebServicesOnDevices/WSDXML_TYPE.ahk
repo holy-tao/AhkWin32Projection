@@ -15,7 +15,7 @@ class WSDXML_TYPE extends Win32Struct
 
     /**
      * The optional URI that identifies the type.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     Uri {
         get => NumGet(this, 0, "ptr")

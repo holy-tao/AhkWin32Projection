@@ -29,7 +29,7 @@ class DOT11_WEP_UPLOAD extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HANDLE>}
      */
     hOffload {
         get => NumGet(this, 8, "ptr")

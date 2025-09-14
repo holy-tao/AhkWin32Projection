@@ -48,10 +48,13 @@ class RESTOREPOINTINFOA extends Win32Struct
     /**
      * The description to be displayed so the user can easily identify a restore point. The maximum length of an ANSI string is MAX_DESC. The maximum length of a Unicode string is MAX_DESC_W. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/sr/restore-point-description-text">Restore Point Description Text</a>.
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    szDescription {
-        get => StrGet(this.ptr + 16, 63, "UTF-8")
-        set => StrPut(value, this.ptr + 16, 63, "UTF-8")
+    szDescription{
+        get {
+            if(!this.HasProp("__szDescriptionProxyArray"))
+                this.__szDescriptionProxyArray := Win32FixedArray(this.ptr + 16, 64, Primitive, "char")
+            return this.__szDescriptionProxyArray
+        }
     }
 }

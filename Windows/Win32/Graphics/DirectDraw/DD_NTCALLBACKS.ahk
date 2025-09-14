@@ -42,7 +42,7 @@ class DD_NTCALLBACKS extends Win32Struct
 
     /**
      * Points to the driver-supplied <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/nc-ddrawint-pdd_freedrivermemory">DdFreeDriverMemory</a> callback.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PDD_FREEDRIVERMEMORY>}
      */
     FreeDriverMemory {
         get => NumGet(this, 8, "ptr")
@@ -51,7 +51,7 @@ class DD_NTCALLBACKS extends Win32Struct
 
     /**
      * Points to the driver-supplied <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/nc-ddrawint-pdd_setexclusivemode">DdSetExclusiveMode</a> callback.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PDD_SETEXCLUSIVEMODE>}
      */
     SetExclusiveMode {
         get => NumGet(this, 16, "ptr")
@@ -60,7 +60,7 @@ class DD_NTCALLBACKS extends Win32Struct
 
     /**
      * Points to the driver-supplied <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/nc-ddrawint-pdd_fliptogdisurface">DdFlipToGDISurface</a> callback.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PDD_FLIPTOGDISURFACE>}
      */
     FlipToGDISurface {
         get => NumGet(this, 24, "ptr")

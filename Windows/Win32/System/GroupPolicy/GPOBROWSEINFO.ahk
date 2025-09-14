@@ -33,7 +33,7 @@ class GPOBROWSEINFO extends Win32Struct
 
     /**
      * Specifies the handle to the parent window. If this member is <b>NULL</b>, the dialog box has no owner.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HWND>}
      */
     hwndOwner {
         get => NumGet(this, 8, "ptr")
@@ -42,7 +42,7 @@ class GPOBROWSEINFO extends Win32Struct
 
     /**
      * Specifies the title bar text. If this member is <b>NULL</b>, the title bar text is <b>Browse for a Group Policy Object</b>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     lpTitle {
         get => NumGet(this, 16, "ptr")
@@ -51,7 +51,7 @@ class GPOBROWSEINFO extends Win32Struct
 
     /**
      * Specifies the initial domain or organizational unit.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     lpInitialOU {
         get => NumGet(this, 24, "ptr")
@@ -60,7 +60,7 @@ class GPOBROWSEINFO extends Win32Struct
 
     /**
      * Pointer to a buffer that receives the Active Directory path of the GPO.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     lpDSPath {
         get => NumGet(this, 32, "ptr")
@@ -80,7 +80,7 @@ class GPOBROWSEINFO extends Win32Struct
      * Pointer to a buffer that receives either the computer name or the friendly (display) name of the GPO. If the user opens or creates a GPO in the <b>Computers</b> tab, this member contains the computer name. If the user opens or creates a GPO in the Active Directory, this member contains the friendly name. To determine the GPO type, see the description for the <b>gpoType</b> member.
      * 
      * This member can be <b>NULL</b>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     lpName {
         get => NumGet(this, 48, "ptr")

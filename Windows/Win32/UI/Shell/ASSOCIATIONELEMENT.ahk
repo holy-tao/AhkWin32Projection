@@ -26,7 +26,7 @@ class ASSOCIATIONELEMENT extends Win32Struct
      * Type: <b>HKEY</b>
      * 
      * A registry key that specifies a class that contains association information.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HKEY>}
      */
     hkClass {
         get => NumGet(this, 4, "ptr")
@@ -37,7 +37,7 @@ class ASSOCIATIONELEMENT extends Win32Struct
      * Type: <b>PCWSTR</b>
      * 
      * A pointer to the name of a class that contains association information.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pszClass {
         get => NumGet(this, 12, "ptr")

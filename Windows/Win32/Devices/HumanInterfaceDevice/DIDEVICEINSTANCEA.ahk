@@ -45,19 +45,25 @@ class DIDEVICEINSTANCEA extends Win32Struct
     }
 
     /**
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    tszInstanceName {
-        get => StrGet(this.ptr + 28, 259, "UTF-8")
-        set => StrPut(value, this.ptr + 28, 259, "UTF-8")
+    tszInstanceName{
+        get {
+            if(!this.HasProp("__tszInstanceNameProxyArray"))
+                this.__tszInstanceNameProxyArray := Win32FixedArray(this.ptr + 28, 260, Primitive, "char")
+            return this.__tszInstanceNameProxyArray
+        }
     }
 
     /**
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    tszProductName {
-        get => StrGet(this.ptr + 288, 259, "UTF-8")
-        set => StrPut(value, this.ptr + 288, 259, "UTF-8")
+    tszProductName{
+        get {
+            if(!this.HasProp("__tszProductNameProxyArray"))
+                this.__tszProductNameProxyArray := Win32FixedArray(this.ptr + 288, 260, Primitive, "char")
+            return this.__tszProductNameProxyArray
+        }
     }
 
     /**

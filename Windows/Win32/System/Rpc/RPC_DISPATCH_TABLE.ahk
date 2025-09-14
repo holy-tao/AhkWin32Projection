@@ -22,7 +22,7 @@ class RPC_DISPATCH_TABLE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<RPC_DISPATCH_FUNCTION>}
      */
     DispatchTable {
         get => NumGet(this, 8, "ptr")

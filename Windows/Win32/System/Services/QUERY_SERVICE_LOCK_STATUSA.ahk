@@ -28,7 +28,7 @@ class QUERY_SERVICE_LOCK_STATUSA extends Win32Struct
 
     /**
      * The name of the user who acquired the lock.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     lpLockOwner {
         get => NumGet(this, 8, "ptr")

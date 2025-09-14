@@ -28,7 +28,7 @@ class FIO_CONTEXT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HANDLE>}
      */
     m_hFile {
         get => NumGet(this, 8, "ptr")

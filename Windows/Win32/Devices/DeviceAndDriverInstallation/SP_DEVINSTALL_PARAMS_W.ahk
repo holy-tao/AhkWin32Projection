@@ -46,7 +46,7 @@ class SP_DEVINSTALL_PARAMS_W extends Win32Struct
 
     /**
      * Window handle that will own the user interface dialogs related to this device.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HWND>}
      */
     hwndParent {
         get => NumGet(this, 12, "ptr")
@@ -55,7 +55,7 @@ class SP_DEVINSTALL_PARAMS_W extends Win32Struct
 
     /**
      * Callback used to handle events during file copying. An installer can use a callback, for example, to perform special processing when committing a file queue.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSP_FILE_CALLBACK_W>}
      */
     InstallMsgHandler {
         get => NumGet(this, 20, "ptr")

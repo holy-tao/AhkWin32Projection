@@ -93,7 +93,7 @@ class ACMDRIVERDETAILSA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HICON>}
      */
     hicon {
         get => NumGet(this, 36, "ptr")
@@ -101,42 +101,57 @@ class ACMDRIVERDETAILSA extends Win32Struct
     }
 
     /**
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    szShortName {
-        get => StrGet(this.ptr + 44, 31, "UTF-8")
-        set => StrPut(value, this.ptr + 44, 31, "UTF-8")
+    szShortName{
+        get {
+            if(!this.HasProp("__szShortNameProxyArray"))
+                this.__szShortNameProxyArray := Win32FixedArray(this.ptr + 44, 32, Primitive, "char")
+            return this.__szShortNameProxyArray
+        }
     }
 
     /**
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    szLongName {
-        get => StrGet(this.ptr + 76, 127, "UTF-8")
-        set => StrPut(value, this.ptr + 76, 127, "UTF-8")
+    szLongName{
+        get {
+            if(!this.HasProp("__szLongNameProxyArray"))
+                this.__szLongNameProxyArray := Win32FixedArray(this.ptr + 76, 128, Primitive, "char")
+            return this.__szLongNameProxyArray
+        }
     }
 
     /**
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    szCopyright {
-        get => StrGet(this.ptr + 204, 79, "UTF-8")
-        set => StrPut(value, this.ptr + 204, 79, "UTF-8")
+    szCopyright{
+        get {
+            if(!this.HasProp("__szCopyrightProxyArray"))
+                this.__szCopyrightProxyArray := Win32FixedArray(this.ptr + 204, 80, Primitive, "char")
+            return this.__szCopyrightProxyArray
+        }
     }
 
     /**
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    szLicensing {
-        get => StrGet(this.ptr + 284, 127, "UTF-8")
-        set => StrPut(value, this.ptr + 284, 127, "UTF-8")
+    szLicensing{
+        get {
+            if(!this.HasProp("__szLicensingProxyArray"))
+                this.__szLicensingProxyArray := Win32FixedArray(this.ptr + 284, 128, Primitive, "char")
+            return this.__szLicensingProxyArray
+        }
     }
 
     /**
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    szFeatures {
-        get => StrGet(this.ptr + 412, 511, "UTF-8")
-        set => StrPut(value, this.ptr + 412, 511, "UTF-8")
+    szFeatures{
+        get {
+            if(!this.HasProp("__szFeaturesProxyArray"))
+                this.__szFeaturesProxyArray := Win32FixedArray(this.ptr + 412, 512, Primitive, "char")
+            return this.__szFeaturesProxyArray
+        }
     }
 }

@@ -29,7 +29,7 @@ class APPBARDATA extends Win32Struct
      * Type: <b>HWND</b>
      * 
      * The handle to the appbar window. Not all messages use this member. See the individual message page to see if you need to provide an <b>hWind</b> value.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HWND>}
      */
     hWnd {
         get => NumGet(this, 4, "ptr")

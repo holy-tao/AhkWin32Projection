@@ -21,7 +21,7 @@ class MCI_ANIM_WINDOW_PARMSW extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HWND>}
      */
     hWnd {
         get => NumGet(this, 8, "ptr")
@@ -37,7 +37,7 @@ class MCI_ANIM_WINDOW_PARMSW extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     lpstrText {
         get => NumGet(this, 20, "ptr")

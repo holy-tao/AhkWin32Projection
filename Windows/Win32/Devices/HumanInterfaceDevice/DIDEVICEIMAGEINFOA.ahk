@@ -15,11 +15,14 @@ class DIDEVICEIMAGEINFOA extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    tszImagePath {
-        get => StrGet(this.ptr + 0, 259, "UTF-8")
-        set => StrPut(value, this.ptr + 0, 259, "UTF-8")
+    tszImagePath{
+        get {
+            if(!this.HasProp("__tszImagePathProxyArray"))
+                this.__tszImagePathProxyArray := Win32FixedArray(this.ptr + 0, 260, Primitive, "char")
+            return this.__tszImagePathProxyArray
+        }
     }
 
     /**

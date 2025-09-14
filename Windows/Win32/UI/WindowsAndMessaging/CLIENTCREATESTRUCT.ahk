@@ -21,7 +21,7 @@ class CLIENTCREATESTRUCT extends Win32Struct
      * Type: <b>HANDLE</b>
      * 
      * A handle to the MDI application's window menu. An MDI application can retrieve this handle from the menu of the MDI frame window by using the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getsubmenu">GetSubMenu</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HANDLE>}
      */
     hWindowMenu {
         get => NumGet(this, 0, "ptr")

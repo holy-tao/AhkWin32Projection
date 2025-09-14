@@ -30,7 +30,7 @@ class DRIVER_INFO_6W extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that specifies the name of the driver (for example, QMS 810).
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pName {
         get => NumGet(this, 8, "ptr")
@@ -39,7 +39,7 @@ class DRIVER_INFO_6W extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that specifies the environment for which the driver was written (for example, Windows NT x86, Windows IA64, and Windows x64.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pEnvironment {
         get => NumGet(this, 16, "ptr")
@@ -48,7 +48,7 @@ class DRIVER_INFO_6W extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that specifies a file name or a full path and file name for the file that contains the device driver (for example, C:\\DRIVERS\\Pscript.dll).
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pDriverPath {
         get => NumGet(this, 24, "ptr")
@@ -57,7 +57,7 @@ class DRIVER_INFO_6W extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that specifies a file name or a full path and file name for the file that contains driver data (for example, C:\\DRIVERS\\Qms810.ppd).
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pDataFile {
         get => NumGet(this, 32, "ptr")
@@ -66,7 +66,7 @@ class DRIVER_INFO_6W extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that specifies a file name or a full path and file name for the device driver's configuration dynamic-link library (for example, C:\\DRIVERS\\Pscrptui.dll).
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pConfigFile {
         get => NumGet(this, 40, "ptr")
@@ -75,7 +75,7 @@ class DRIVER_INFO_6W extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that specifies a file name or a full path and file name for the device driver's help file (for example, C:\\DRIVERS\\Pscrptui.hlp).
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pHelpFile {
         get => NumGet(this, 48, "ptr")
@@ -84,7 +84,7 @@ class DRIVER_INFO_6W extends Win32Struct
 
     /**
      * A pointer to a MultiSZ buffer that contains a sequence of null-terminated strings. Each null-terminated string in the buffer contains the name of a file the driver depends on. The sequence of strings is terminated by an empty, zero-length string. If **pDependentFiles** is not **NULL** and does not contain any file names, it will point to a buffer that contains two empty strings.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pDependentFiles {
         get => NumGet(this, 56, "ptr")
@@ -93,7 +93,7 @@ class DRIVER_INFO_6W extends Win32Struct
 
     /**
      * A pointer to a null-terminated string that specifies a language monitor (for example, "PJL monitor"). This member can be **NULL** and should be specified only for printers capable of bidirectional communication.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pMonitorName {
         get => NumGet(this, 64, "ptr")
@@ -102,7 +102,7 @@ class DRIVER_INFO_6W extends Win32Struct
 
     /**
      * A pointer to a null-terminated string that specifies the default data type of the print job (for example, "EMF").
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pDefaultDataType {
         get => NumGet(this, 72, "ptr")
@@ -111,7 +111,7 @@ class DRIVER_INFO_6W extends Win32Struct
 
     /**
      * A pointer to a null-terminated string that specifies previous printer driver names that are compatible with this driver. For example, OldName1\\0OldName2\\0\\0.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pszzPreviousNames {
         get => NumGet(this, 80, "ptr")
@@ -141,7 +141,7 @@ class DRIVER_INFO_6W extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that specifies the manufacturer's name.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pszMfgName {
         get => NumGet(this, 104, "ptr")
@@ -150,7 +150,7 @@ class DRIVER_INFO_6W extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that specifies the URL for the manufacturer.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pszOEMUrl {
         get => NumGet(this, 112, "ptr")
@@ -159,7 +159,7 @@ class DRIVER_INFO_6W extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that specifies the hardware ID for the printer driver.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pszHardwareID {
         get => NumGet(this, 120, "ptr")
@@ -168,7 +168,7 @@ class DRIVER_INFO_6W extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that specifies the provider of the printer driver (for example, "Microsoft Windows 2000")
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pszProvider {
         get => NumGet(this, 128, "ptr")

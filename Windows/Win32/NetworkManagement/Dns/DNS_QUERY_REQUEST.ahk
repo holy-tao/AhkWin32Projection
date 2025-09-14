@@ -27,7 +27,7 @@ class DNS_QUERY_REQUEST extends Win32Struct
      * 
      * <div class="alert"><b>Note</b>  If <b>QueryName</b> is NULL, the query is for the local machine name.</div>
      * <div> </div>
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     QueryName {
         get => NumGet(this, 8, "ptr")
@@ -75,7 +75,7 @@ class DNS_QUERY_REQUEST extends Win32Struct
      * 
      * <div class="alert"><b>Note</b>  If NULL, <a href="https://docs.microsoft.com/windows/desktop/api/windns/nf-windns-dnsqueryex">DnsQueryEx</a> is called synchronously.</div>
      * <div> </div>
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PDNS_QUERY_COMPLETION_ROUTINE>}
      */
     pQueryCompletionCallback {
         get => NumGet(this, 48, "ptr")

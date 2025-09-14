@@ -7,7 +7,7 @@
  */
 class HTTP_FILTER_VERSION extends Win32Struct
 {
-    static sizeof => 528
+    static sizeof => 272
 
     static packingSize => 4
 
@@ -28,18 +28,21 @@ class HTTP_FILTER_VERSION extends Win32Struct
     }
 
     /**
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    lpszFilterDesc {
-        get => StrGet(this.ptr + 8, 256, "UTF-16")
-        set => StrPut(value, this.ptr + 8, 256, "UTF-16")
+    lpszFilterDesc{
+        get {
+            if(!this.HasProp("__lpszFilterDescProxyArray"))
+                this.__lpszFilterDescProxyArray := Win32FixedArray(this.ptr + 8, 257, Primitive, "char")
+            return this.__lpszFilterDescProxyArray
+        }
     }
 
     /**
      * @type {Integer}
      */
     dwFlags {
-        get => NumGet(this, 524, "uint")
-        set => NumPut("uint", value, this, 524)
+        get => NumGet(this, 268, "uint")
+        set => NumPut("uint", value, this, 268)
     }
 }

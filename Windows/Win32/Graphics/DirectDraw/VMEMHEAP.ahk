@@ -144,7 +144,7 @@ class VMEMHEAP extends Win32Struct
 
     /**
      * Reserved for system use and should be ignored by the driver.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HANDLE>}
      */
     hdevAGP {
         get => NumGet(this, 224, "ptr")

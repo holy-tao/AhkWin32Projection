@@ -20,7 +20,7 @@ class DebugPropertyInfo extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<BSTR>}
      */
     m_bstrName {
         get => NumGet(this, 8, "ptr")
@@ -28,7 +28,7 @@ class DebugPropertyInfo extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<BSTR>}
      */
     m_bstrType {
         get => NumGet(this, 16, "ptr")
@@ -36,7 +36,7 @@ class DebugPropertyInfo extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<BSTR>}
      */
     m_bstrValue {
         get => NumGet(this, 24, "ptr")
@@ -44,7 +44,7 @@ class DebugPropertyInfo extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<BSTR>}
      */
     m_bstrFullName {
         get => NumGet(this, 32, "ptr")

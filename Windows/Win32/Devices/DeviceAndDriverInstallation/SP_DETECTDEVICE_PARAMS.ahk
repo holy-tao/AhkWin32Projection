@@ -41,7 +41,7 @@ class SP_DETECTDEVICE_PARAMS extends Win32Struct
      * <i>ProgressNotifyParam</i> is an opaque "handle" that identifies the detection operation. This value is supplied by the <a href="https://docs.microsoft.com/windows-hardware/drivers/install/system-provided-device-installation-components">device installation component</a> that sent the DIF_DETECT request. 
      * 
      * <i>DetectComplete</i> is a value between 0 and 100 that indicates the percent completion. The class installer increments this value at various stages of its detection activities, to notify the user of its progress.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PDETECT_PROGRESS_NOTIFY>}
      */
     DetectProgressNotify {
         get => NumGet(this, 8, "ptr")

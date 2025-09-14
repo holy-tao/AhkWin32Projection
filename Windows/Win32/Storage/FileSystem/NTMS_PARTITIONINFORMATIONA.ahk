@@ -84,20 +84,26 @@ class NTMS_PARTITIONINFORMATIONA extends Win32Struct
 
     /**
      * Label type of the on-media identifier.
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    szOmidLabelType {
-        get => StrGet(this.ptr + 283, 63, "UTF-8")
-        set => StrPut(value, this.ptr + 283, 63, "UTF-8")
+    szOmidLabelType{
+        get {
+            if(!this.HasProp("__szOmidLabelTypeProxyArray"))
+                this.__szOmidLabelTypeProxyArray := Win32FixedArray(this.ptr + 283, 64, Primitive, "char")
+            return this.__szOmidLabelTypeProxyArray
+        }
     }
 
     /**
      * Label information of the on-media identifier.
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    szOmidLabelInfo {
-        get => StrGet(this.ptr + 347, 255, "UTF-8")
-        set => StrPut(value, this.ptr + 347, 255, "UTF-8")
+    szOmidLabelInfo{
+        get {
+            if(!this.HasProp("__szOmidLabelInfoProxyArray"))
+                this.__szOmidLabelInfoProxyArray := Win32FixedArray(this.ptr + 347, 256, Primitive, "char")
+            return this.__szOmidLabelInfoProxyArray
+        }
     }
 
     /**

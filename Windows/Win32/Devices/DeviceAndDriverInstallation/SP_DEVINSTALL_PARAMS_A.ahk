@@ -46,7 +46,7 @@ class SP_DEVINSTALL_PARAMS_A extends Win32Struct
 
     /**
      * Window handle that will own the user interface dialogs related to this device.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HWND>}
      */
     hwndParent {
         get => NumGet(this, 12, "ptr")
@@ -55,7 +55,7 @@ class SP_DEVINSTALL_PARAMS_A extends Win32Struct
 
     /**
      * Callback used to handle events during file copying. An installer can use a callback, for example, to perform special processing when committing a file queue.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSP_FILE_CALLBACK_A>}
      */
     InstallMsgHandler {
         get => NumGet(this, 20, "ptr")
@@ -104,11 +104,14 @@ class SP_DEVINSTALL_PARAMS_A extends Win32Struct
 
     /**
      * This path is used by the <a href="https://docs.microsoft.com/windows/desktop/api/setupapi/nf-setupapi-setupdibuilddriverinfolist">SetupDiBuildDriverInfoList</a> function.
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    DriverPath {
-        get => StrGet(this.ptr + 56, 259, "UTF-8")
-        set => StrPut(value, this.ptr + 56, 259, "UTF-8")
+    DriverPath{
+        get {
+            if(!this.HasProp("__DriverPathProxyArray"))
+                this.__DriverPathProxyArray := Win32FixedArray(this.ptr + 56, 260, Primitive, "char")
+            return this.__DriverPathProxyArray
+        }
     }
 
     /**

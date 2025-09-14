@@ -29,27 +29,36 @@ class RASSUBENTRYA extends Win32Struct
     }
 
     /**
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    szDeviceType {
-        get => StrGet(this.ptr + 8, 16, "UTF-8")
-        set => StrPut(value, this.ptr + 8, 16, "UTF-8")
+    szDeviceType{
+        get {
+            if(!this.HasProp("__szDeviceTypeProxyArray"))
+                this.__szDeviceTypeProxyArray := Win32FixedArray(this.ptr + 8, 17, Primitive, "char")
+            return this.__szDeviceTypeProxyArray
+        }
     }
 
     /**
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    szDeviceName {
-        get => StrGet(this.ptr + 25, 128, "UTF-8")
-        set => StrPut(value, this.ptr + 25, 128, "UTF-8")
+    szDeviceName{
+        get {
+            if(!this.HasProp("__szDeviceNameProxyArray"))
+                this.__szDeviceNameProxyArray := Win32FixedArray(this.ptr + 25, 129, Primitive, "char")
+            return this.__szDeviceNameProxyArray
+        }
     }
 
     /**
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    szLocalPhoneNumber {
-        get => StrGet(this.ptr + 154, 128, "UTF-8")
-        set => StrPut(value, this.ptr + 154, 128, "UTF-8")
+    szLocalPhoneNumber{
+        get {
+            if(!this.HasProp("__szLocalPhoneNumberProxyArray"))
+                this.__szLocalPhoneNumberProxyArray := Win32FixedArray(this.ptr + 154, 129, Primitive, "char")
+            return this.__szLocalPhoneNumberProxyArray
+        }
     }
 
     /**

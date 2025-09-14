@@ -49,7 +49,7 @@ class SHCREATEPROCESSINFOW extends Win32Struct
      * Type: <b>HWND</b>
      * 
      * A parent window handle.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HWND>}
      */
     hwnd {
         get => NumGet(this, 8, "ptr")
@@ -63,7 +63,7 @@ class SHCREATEPROCESSINFOW extends Win32Struct
      * 
      * <div class="alert"><b>Note</b>   If the path is not included with the file name, the current directory is assumed.</div>
      * <div> </div>
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pszFile {
         get => NumGet(this, 16, "ptr")
@@ -74,7 +74,7 @@ class SHCREATEPROCESSINFOW extends Win32Struct
      * Type: <b>LPCWSTR</b>
      * 
      * A pointer to a null-terminated Unicode string containing the application parameters. The parameters must be separated by spaces.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pszParameters {
         get => NumGet(this, 24, "ptr")
@@ -85,7 +85,7 @@ class SHCREATEPROCESSINFOW extends Win32Struct
      * Type: <b>LPCWSTR</b>
      * 
      * A null-terminated Unicode string that contains the current directory.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pszCurrentDirectory {
         get => NumGet(this, 32, "ptr")
@@ -96,7 +96,7 @@ class SHCREATEPROCESSINFOW extends Win32Struct
      * Type: <b>HANDLE</b>
      * 
      * An <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-tokens">Access token</a> that can be used to represent a particular user. It is needed when there are multiple users for those folders that are treated as belonging to a single user. The calling application must have appropriate security privileges for the particular user, including TOKEN_QUERY and TOKEN_IMPERSONATE, and the user's registry hive must be currently mounted. For further discussion of access control issues, see <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-control">Access Control</a>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HANDLE>}
      */
     hUserToken {
         get => NumGet(this, 40, "ptr")

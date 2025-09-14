@@ -59,7 +59,7 @@ class WS_CHANNEL_ENCODER extends Win32Struct
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nc-webservices-ws_create_encoder_callback">WS_CREATE_ENCODER_CALLBACK</a> callback that creates an instance of an encoder.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<WS_CREATE_ENCODER_CALLBACK>}
      */
     createEncoderCallback {
         get => NumGet(this, 8, "ptr")
@@ -68,7 +68,7 @@ class WS_CHANNEL_ENCODER extends Win32Struct
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nc-webservices-ws_encoder_get_content_type_callback">WS_ENCODER_GET_CONTENT_TYPE_CALLBACK</a> callback that is invoked when a message is to be encoded.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<WS_ENCODER_GET_CONTENT_TYPE_CALLBACK>}
      */
     encoderGetContentTypeCallback {
         get => NumGet(this, 16, "ptr")
@@ -77,7 +77,7 @@ class WS_CHANNEL_ENCODER extends Win32Struct
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nc-webservices-ws_encoder_start_callback">WS_ENCODER_START_CALLBACK</a> callback that is invoked to start encoding a message.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<WS_ENCODER_START_CALLBACK>}
      */
     encoderStartCallback {
         get => NumGet(this, 24, "ptr")
@@ -87,7 +87,7 @@ class WS_CHANNEL_ENCODER extends Win32Struct
     /**
      * A 
      *                     <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nc-webservices-ws_encoder_encode_callback">WS_ENCODER_ENCODE_CALLBACK</a> callback that is invoked to encode a message.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<WS_ENCODER_ENCODE_CALLBACK>}
      */
     encoderEncodeCallback {
         get => NumGet(this, 32, "ptr")
@@ -96,7 +96,7 @@ class WS_CHANNEL_ENCODER extends Win32Struct
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nc-webservices-ws_encoder_end_callback">WS_ENCODER_END_CALLBACK</a> callback that is invoked to at the end of encoding a message.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<WS_ENCODER_END_CALLBACK>}
      */
     encoderEndCallback {
         get => NumGet(this, 40, "ptr")
@@ -105,7 +105,7 @@ class WS_CHANNEL_ENCODER extends Win32Struct
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nc-webservices-ws_free_encoder_callback">WS_FREE_ENCODER_CALLBACK</a> callback that frees an instance of an encoder.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<WS_FREE_ENCODER_CALLBACK>}
      */
     freeEncoderCallback {
         get => NumGet(this, 48, "ptr")

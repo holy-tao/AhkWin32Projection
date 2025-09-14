@@ -28,7 +28,7 @@ class TIMEREVENT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPTIMECALLBACK>}
      */
     lpFunction {
         get => NumGet(this, 4, "ptr")

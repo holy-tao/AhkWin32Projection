@@ -42,7 +42,7 @@ class URL_COMPONENTSA extends Win32Struct
 
     /**
      * Pointer to a string that contains the scheme name.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     lpszScheme {
         get => NumGet(this, 8, "ptr")
@@ -69,7 +69,7 @@ class URL_COMPONENTSA extends Win32Struct
 
     /**
      * Pointer to a string that contains the host name.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     lpszHostName {
         get => NumGet(this, 24, "ptr")
@@ -96,7 +96,7 @@ class URL_COMPONENTSA extends Win32Struct
 
     /**
      * Pointer to a string value that contains the user name.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     lpszUserName {
         get => NumGet(this, 40, "ptr")
@@ -114,7 +114,7 @@ class URL_COMPONENTSA extends Win32Struct
 
     /**
      * Pointer to a string that contains the password.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     lpszPassword {
         get => NumGet(this, 56, "ptr")
@@ -132,7 +132,7 @@ class URL_COMPONENTSA extends Win32Struct
 
     /**
      * Pointer to a string that contains the URL path.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     lpszUrlPath {
         get => NumGet(this, 72, "ptr")
@@ -150,7 +150,7 @@ class URL_COMPONENTSA extends Win32Struct
 
     /**
      * Pointer to a string that contains the extra information (for example, ?something or #something).
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     lpszExtraInfo {
         get => NumGet(this, 88, "ptr")

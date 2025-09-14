@@ -21,7 +21,7 @@ class MCI_INFO_PARMSW extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     lpstrReturn {
         get => NumGet(this, 8, "ptr")

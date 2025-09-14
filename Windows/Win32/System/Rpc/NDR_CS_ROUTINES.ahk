@@ -20,7 +20,7 @@ class NDR_CS_ROUTINES extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<CS_TAG_GETTING_ROUTINE>}
      */
     pTagGettingRoutines {
         get => NumGet(this, 8, "ptr")

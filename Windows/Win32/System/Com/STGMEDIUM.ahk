@@ -20,7 +20,7 @@ class STGMEDIUM extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HBITMAP>}
      */
     hBitmap {
         get => NumGet(this, 8, "ptr")
@@ -36,7 +36,7 @@ class STGMEDIUM extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HENHMETAFILE>}
      */
     hEnhMetaFile {
         get => NumGet(this, 8, "ptr")
@@ -44,7 +44,7 @@ class STGMEDIUM extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HGLOBAL>}
      */
     hGlobal {
         get => NumGet(this, 8, "ptr")
@@ -52,7 +52,7 @@ class STGMEDIUM extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     lpszFileName {
         get => NumGet(this, 8, "ptr")

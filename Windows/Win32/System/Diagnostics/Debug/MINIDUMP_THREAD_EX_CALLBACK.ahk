@@ -26,7 +26,7 @@ class MINIDUMP_THREAD_EX_CALLBACK extends Win32Struct
 
     /**
      * A handle to the thread
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HANDLE>}
      */
     ThreadHandle {
         get => NumGet(this, 4, "ptr")

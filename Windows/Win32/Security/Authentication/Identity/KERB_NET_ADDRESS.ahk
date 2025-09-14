@@ -28,7 +28,7 @@ class KERB_NET_ADDRESS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     Address {
         get => NumGet(this, 8, "ptr")

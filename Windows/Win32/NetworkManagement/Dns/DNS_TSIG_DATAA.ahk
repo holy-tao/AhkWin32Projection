@@ -27,7 +27,7 @@ class DNS_TSIG_DATAA extends Win32Struct
 
     /**
      * A pointer to a string that represents the name of the key used to generate <b>pSignature</b> as defined in section 2.3 of <a href="https://www.ietf.org/rfc/rfc2845.txt">RFC 2845</a>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     pNameAlgorithm {
         get => NumGet(this, 0, "ptr")

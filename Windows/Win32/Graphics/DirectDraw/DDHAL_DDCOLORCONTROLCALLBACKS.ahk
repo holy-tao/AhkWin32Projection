@@ -28,7 +28,7 @@ class DDHAL_DDCOLORCONTROLCALLBACKS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPDDHALCOLORCB_COLORCONTROL>}
      */
     ColorControl {
         get => NumGet(this, 8, "ptr")

@@ -22,7 +22,7 @@ class MCI_OVLY_SAVE_PARMSW extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     lpfilename {
         get => NumGet(this, 8, "ptr")

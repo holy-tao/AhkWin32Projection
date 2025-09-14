@@ -35,7 +35,7 @@ class MCI_DGV_CAPTURE_PARMSA extends Win32Struct
 
     /**
      * Pointer to a null-terminated string specifying the destination path and filename for the file that receives the captured data.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     lpstrFileName {
         get => NumGet(this, 8, "ptr")

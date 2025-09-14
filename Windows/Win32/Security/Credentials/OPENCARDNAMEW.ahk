@@ -28,7 +28,7 @@ class OPENCARDNAMEW extends Win32Struct
 
     /**
      * The window that owns the dialog box. This member can be any valid window handle, or it can be <b>NULL</b> for desktop default.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HWND>}
      */
     hwndOwner {
         get => NumGet(this, 8, "ptr")
@@ -48,7 +48,7 @@ class OPENCARDNAMEW extends Win32Struct
 
     /**
      * A pointer to a buffer that contains null-terminated group name strings. The last string in the buffer must be terminated by two null characters. Each string is the name of a group of cards that is to be included in the search. If <b>lpstrGroupNames</b> is <b>NULL</b>, the default group (<a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">Scard$DefaultReaders</a>) is searched.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     lpstrGroupNames {
         get => NumGet(this, 24, "ptr")
@@ -66,7 +66,7 @@ class OPENCARDNAMEW extends Win32Struct
 
     /**
      * A pointer to a buffer that contains null-terminated card name strings. The last string in the buffer must be terminated by two null characters. Each string is the name of a card that is to be located.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     lpstrCardNames {
         get => NumGet(this, 40, "ptr")
@@ -102,7 +102,7 @@ class OPENCARDNAMEW extends Win32Struct
 
     /**
      * If the card is located, the <b>lpstrRdr</b> buffer contains the name of the reader that contains the located card. The buffer should be at least 256 characters long.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     lpstrRdr {
         get => NumGet(this, 72, "ptr")
@@ -121,7 +121,7 @@ class OPENCARDNAMEW extends Win32Struct
 
     /**
      * If the card is located, the <b>lpstrCard</b> buffer contains the name of the located card. The buffer should be at least 256 characters long.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     lpstrCard {
         get => NumGet(this, 88, "ptr")
@@ -139,7 +139,7 @@ class OPENCARDNAMEW extends Win32Struct
 
     /**
      * A pointer to a string to be placed in the title bar of the dialog box. If this member is <b>NULL</b>, the system uses the default title "Select Card:".
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     lpstrTitle {
         get => NumGet(this, 104, "ptr")
@@ -252,7 +252,7 @@ class OPENCARDNAMEW extends Win32Struct
      * );
      * 
      * ```
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPOCNCONNPROCW>}
      */
     lpfnConnect {
         get => NumGet(this, 144, "ptr")
@@ -280,7 +280,7 @@ class OPENCARDNAMEW extends Win32Struct
      * );
      * 
      * ```
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPOCNCHKPROC>}
      */
     lpfnCheck {
         get => NumGet(this, 152, "ptr")
@@ -308,7 +308,7 @@ class OPENCARDNAMEW extends Win32Struct
      * 
      * <div class="alert"><b>Note</b>  When using <b>lpfnConnect</b>, <b>lpfnCheck</b>, and <b>lpfnDisconnect</b>, all three callback procedures should be present. Using these callbacks allows further verification that the calling application has found the appropriate card. This is the best way to ensure the appropriate card is selected.</div>
      * <div> </div>
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPOCNDSCPROC>}
      */
     lpfnDisconnect {
         get => NumGet(this, 160, "ptr")

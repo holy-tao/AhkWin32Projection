@@ -65,10 +65,13 @@ class DEV_BROADCAST_DEVICEINTERFACE_A extends Win32Struct
      *        <b>RegisterDeviceNotificationW</b> 
      *        or 
      *        <b>RegisterDeviceNotificationA</b>.
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    dbcc_name {
-        get => StrGet(this.ptr + 24, 0, "UTF-8")
-        set => StrPut(value, this.ptr + 24, 0, "UTF-8")
+    dbcc_name{
+        get {
+            if(!this.HasProp("__dbcc_nameProxyArray"))
+                this.__dbcc_nameProxyArray := Win32FixedArray(this.ptr + 24, 1, Primitive, "char")
+            return this.__dbcc_nameProxyArray
+        }
     }
 }

@@ -34,7 +34,7 @@ class MCI_DGV_LIST_PARMSW extends Win32Struct
 
     /**
      * Buffer for return string.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     lpstrReturn {
         get => NumGet(this, 8, "ptr")
@@ -70,7 +70,7 @@ class MCI_DGV_LIST_PARMSW extends Win32Struct
 
     /**
      * String containing algorithm name.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     lpstrAlgorithm {
         get => NumGet(this, 28, "ptr")

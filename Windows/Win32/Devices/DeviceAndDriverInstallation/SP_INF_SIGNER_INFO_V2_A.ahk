@@ -28,29 +28,38 @@ class SP_INF_SIGNER_INFO_V2_A extends Win32Struct
 
     /**
      * Path to the catalog file, stored in an array of maximum size MAX_PATH characters.
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    CatalogFile {
-        get => StrGet(this.ptr + 4, 259, "UTF-8")
-        set => StrPut(value, this.ptr + 4, 259, "UTF-8")
+    CatalogFile{
+        get {
+            if(!this.HasProp("__CatalogFileProxyArray"))
+                this.__CatalogFileProxyArray := Win32FixedArray(this.ptr + 4, 260, Primitive, "char")
+            return this.__CatalogFileProxyArray
+        }
     }
 
     /**
      * Path to the digital signer of the file, stored in an array of maximum size MAX_PATH characters.
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    DigitalSigner {
-        get => StrGet(this.ptr + 264, 259, "UTF-8")
-        set => StrPut(value, this.ptr + 264, 259, "UTF-8")
+    DigitalSigner{
+        get {
+            if(!this.HasProp("__DigitalSignerProxyArray"))
+                this.__DigitalSignerProxyArray := Win32FixedArray(this.ptr + 264, 260, Primitive, "char")
+            return this.__DigitalSignerProxyArray
+        }
     }
 
     /**
      * Version of the digital signer, stored in an array of size MAX_PATH characters.
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    DigitalSignerVersion {
-        get => StrGet(this.ptr + 524, 259, "UTF-8")
-        set => StrPut(value, this.ptr + 524, 259, "UTF-8")
+    DigitalSignerVersion{
+        get {
+            if(!this.HasProp("__DigitalSignerVersionProxyArray"))
+                this.__DigitalSignerVersionProxyArray := Win32FixedArray(this.ptr + 524, 260, Primitive, "char")
+            return this.__DigitalSignerVersionProxyArray
+        }
     }
 
     /**

@@ -27,7 +27,7 @@ class DNS_SOA_DATAW extends Win32Struct
 
     /**
      * A pointer to a string that represents the name of the authoritative DNS server for the zone to which the record belongs.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pNamePrimaryServer {
         get => NumGet(this, 0, "ptr")
@@ -36,7 +36,7 @@ class DNS_SOA_DATAW extends Win32Struct
 
     /**
      * A pointer to a string that represents the name of the responsible party for the zone to which the record belongs.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pNameAdministrator {
         get => NumGet(this, 8, "ptr")

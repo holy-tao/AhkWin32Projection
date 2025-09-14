@@ -28,7 +28,7 @@ class CF_CALLBACK_REGISTRATION extends Win32Struct
 
     /**
      * A pointer to the callback function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<CF_CALLBACK>}
      */
     Callback {
         get => NumGet(this, 8, "ptr")

@@ -29,11 +29,14 @@ class CCSTYLEA extends Win32Struct
     }
 
     /**
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    szText {
-        get => StrGet(this.ptr + 8, 255, "UTF-8")
-        set => StrPut(value, this.ptr + 8, 255, "UTF-8")
+    szText{
+        get {
+            if(!this.HasProp("__szTextProxyArray"))
+                this.__szTextProxyArray := Win32FixedArray(this.ptr + 8, 256, Primitive, "char")
+            return this.__szTextProxyArray
+        }
     }
 
     /**

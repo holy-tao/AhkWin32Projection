@@ -33,7 +33,7 @@ class DWM_BLURBEHIND extends Win32Struct
 
     /**
      * The region within the client area where the blur behind will be applied. A <b>NULL</b> value will apply the blur behind the entire client area.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HRGN>}
      */
     hRgnBlur {
         get => NumGet(this, 8, "ptr")

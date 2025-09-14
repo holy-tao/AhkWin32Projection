@@ -9,7 +9,7 @@
  */
 class CCAB extends Win32Struct
 {
-    static sizeof => 1572
+    static sizeof => 804
 
     static packingSize => 4
 
@@ -96,28 +96,37 @@ class CCAB extends Win32Struct
 
     /**
      * The name of the disk on which the cabinet is placed.
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    szDisk {
-        get => StrGet(this.ptr + 34, 255, "UTF-16")
-        set => StrPut(value, this.ptr + 34, 255, "UTF-16")
+    szDisk{
+        get {
+            if(!this.HasProp("__szDiskProxyArray"))
+                this.__szDiskProxyArray := Win32FixedArray(this.ptr + 34, 256, Primitive, "char")
+            return this.__szDiskProxyArray
+        }
     }
 
     /**
      * The name of the cabinet.
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    szCab {
-        get => StrGet(this.ptr + 546, 255, "UTF-16")
-        set => StrPut(value, this.ptr + 546, 255, "UTF-16")
+    szCab{
+        get {
+            if(!this.HasProp("__szCabProxyArray"))
+                this.__szCabProxyArray := Win32FixedArray(this.ptr + 290, 256, Primitive, "char")
+            return this.__szCabProxyArray
+        }
     }
 
     /**
      * The full path that indicates where to create the cabinet.
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    szCabPath {
-        get => StrGet(this.ptr + 1058, 255, "UTF-16")
-        set => StrPut(value, this.ptr + 1058, 255, "UTF-16")
+    szCabPath{
+        get {
+            if(!this.HasProp("__szCabPathProxyArray"))
+                this.__szCabPathProxyArray := Win32FixedArray(this.ptr + 546, 256, Primitive, "char")
+            return this.__szCabPathProxyArray
+        }
     }
 }

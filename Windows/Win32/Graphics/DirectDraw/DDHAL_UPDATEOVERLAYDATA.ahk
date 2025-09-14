@@ -88,7 +88,7 @@ class DDHAL_UPDATEOVERLAYDATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPDDHALSURFCB_UPDATEOVERLAY>}
      */
     UpdateOverlay {
         get => NumGet(this, 128, "ptr")

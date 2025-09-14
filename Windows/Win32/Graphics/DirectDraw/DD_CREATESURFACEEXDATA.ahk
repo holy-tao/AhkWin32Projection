@@ -24,7 +24,7 @@ class DD_CREATESURFACEEXDATA extends Win32Struct
 
     /**
      * Specifies a handle to the DirectDraw object created by the application. This is the scope within which the <b>lpDDSLcl</b> handles exist. A <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/ns-ddrawint-dd_directdraw_local">DD_DIRECTDRAW_LOCAL</a> structure describes the driver.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<DD_DIRECTDRAW_LOCAL>}
      */
     lpDDLcl {
         get => NumGet(this, 8, "ptr")

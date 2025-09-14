@@ -26,7 +26,7 @@ class WEBAUTHN_RP_ENTITY_INFORMATION extends Win32Struct
 
     /**
      * Identifier for the Relying Party. This field is required.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pwszId {
         get => NumGet(this, 8, "ptr")
@@ -35,7 +35,7 @@ class WEBAUTHN_RP_ENTITY_INFORMATION extends Win32Struct
 
     /**
      * Contains the friendly name of the Relying Party, such as "Acme Corporation", "Widgets Inc", or "Contoso". This field is required.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pwszName {
         get => NumGet(this, 16, "ptr")
@@ -44,7 +44,7 @@ class WEBAUTHN_RP_ENTITY_INFORMATION extends Win32Struct
 
     /**
      * Optional URL pointing to the Relying Party's logo.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pwszIcon {
         get => NumGet(this, 24, "ptr")

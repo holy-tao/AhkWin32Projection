@@ -44,7 +44,7 @@ class CLUSTER_BATCH_COMMAND extends Win32Struct
 
     /**
      * The name of the value or key relative to the command issued by <b>Command</b>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     wzName {
         get => NumGet(this, 8, "ptr")

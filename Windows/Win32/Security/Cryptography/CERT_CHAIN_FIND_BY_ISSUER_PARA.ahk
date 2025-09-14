@@ -32,7 +32,7 @@ class CERT_CHAIN_FIND_BY_ISSUER_PARA extends Win32Struct
 
     /**
      * A pointer to a null-terminated ANSI string that contains the usage identifier to be matched. If this member is <b>NULL</b>, a certificate with any usage can be a match.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     pszUsageIdentifier {
         get => NumGet(this, 8, "ptr")
@@ -77,7 +77,7 @@ class CERT_CHAIN_FIND_BY_ISSUER_PARA extends Win32Struct
 
     /**
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nc-wincrypt-pfn_cert_chain_find_by_issuer_callback">CertChainFindByIssuerCallback</a> callback function that allows the application to filter the certificates that chains are created for. If this member is <b>NULL</b>, a chain is built for every certificate found. If this member is not <b>NULL</b>, a chain will be built for the certificate found based on the return value of the callback function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_CERT_CHAIN_FIND_BY_ISSUER_CALLBACK>}
      */
     pfnFindCallback {
         get => NumGet(this, 40, "ptr")

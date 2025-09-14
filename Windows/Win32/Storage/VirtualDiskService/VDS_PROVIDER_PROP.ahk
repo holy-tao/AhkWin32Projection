@@ -27,7 +27,7 @@ class VDS_PROVIDER_PROP extends Win32Struct
 
     /**
      * A string representing the name of the provider.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pwszName {
         get => NumGet(this, 8, "ptr")
@@ -45,7 +45,7 @@ class VDS_PROVIDER_PROP extends Win32Struct
 
     /**
      * A string representing the version of the provider.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pwszVersion {
         get => NumGet(this, 24, "ptr")

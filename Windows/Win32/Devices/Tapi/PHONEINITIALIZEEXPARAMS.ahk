@@ -54,7 +54,7 @@ class PHONEINITIALIZEEXPARAMS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HANDLE>}
      */
     hEvent {
         get => NumGet(this, 16, "ptr")
@@ -62,7 +62,7 @@ class PHONEINITIALIZEEXPARAMS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HANDLE>}
      */
     hCompletionPort {
         get => NumGet(this, 16, "ptr")

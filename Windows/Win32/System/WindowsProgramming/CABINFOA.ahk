@@ -13,7 +13,7 @@ class CABINFOA extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     pszCab {
         get => NumGet(this, 0, "ptr")
@@ -21,7 +21,7 @@ class CABINFOA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     pszInf {
         get => NumGet(this, 8, "ptr")
@@ -29,7 +29,7 @@ class CABINFOA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     pszSection {
         get => NumGet(this, 16, "ptr")
@@ -37,11 +37,14 @@ class CABINFOA extends Win32Struct
     }
 
     /**
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    szSrcPath {
-        get => StrGet(this.ptr + 24, 259, "UTF-8")
-        set => StrPut(value, this.ptr + 24, 259, "UTF-8")
+    szSrcPath{
+        get {
+            if(!this.HasProp("__szSrcPathProxyArray"))
+                this.__szSrcPathProxyArray := Win32FixedArray(this.ptr + 24, 260, Primitive, "char")
+            return this.__szSrcPathProxyArray
+        }
     }
 
     /**

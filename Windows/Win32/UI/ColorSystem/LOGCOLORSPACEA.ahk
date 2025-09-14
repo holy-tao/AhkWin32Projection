@@ -129,10 +129,13 @@ class LOGCOLORSPACEA extends Win32Struct
 
     /**
      * A null-terminated string that names a color profile file. This member is typically set to zero, but may be used to set the color space to be exactly as specified by the color profile. This is useful for devices that input color values for a specific printer, or when using an installable image color matcher. If a color profile is specified, all other members of this structure should be set to reasonable values, even if the values are not completely accurate.
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    lcsFilename {
-        get => StrGet(this.ptr + 84, 259, "UTF-8")
-        set => StrPut(value, this.ptr + 84, 259, "UTF-8")
+    lcsFilename{
+        get {
+            if(!this.HasProp("__lcsFilenameProxyArray"))
+                this.__lcsFilenameProxyArray := Win32FixedArray(this.ptr + 84, 260, Primitive, "char")
+            return this.__lcsFilenameProxyArray
+        }
     }
 }

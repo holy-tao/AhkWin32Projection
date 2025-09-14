@@ -34,7 +34,7 @@ class MCI_DGV_RESERVE_PARMSW extends Win32Struct
 
     /**
      * Pointer to a null-terminated string containing the location of a temporary file. The buffer contains only the drive and directory path of the file used to hold recorded data; the filename is specified by the device driver.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     lpstrPath {
         get => NumGet(this, 8, "ptr")

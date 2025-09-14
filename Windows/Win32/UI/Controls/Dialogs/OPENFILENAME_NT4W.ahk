@@ -25,7 +25,7 @@ class OPENFILENAME_NT4W extends Win32Struct
 
     /**
      * 
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HWND>}
      */
     hwndOwner {
         get => NumGet(this, 4, "ptr")
@@ -34,7 +34,7 @@ class OPENFILENAME_NT4W extends Win32Struct
 
     /**
      * 
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HINSTANCE>}
      */
     hInstance {
         get => NumGet(this, 12, "ptr")
@@ -43,7 +43,7 @@ class OPENFILENAME_NT4W extends Win32Struct
 
     /**
      * 
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     lpstrFilter {
         get => NumGet(this, 20, "ptr")
@@ -52,7 +52,7 @@ class OPENFILENAME_NT4W extends Win32Struct
 
     /**
      * 
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     lpstrCustomFilter {
         get => NumGet(this, 28, "ptr")
@@ -79,7 +79,7 @@ class OPENFILENAME_NT4W extends Win32Struct
 
     /**
      * 
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     lpstrFile {
         get => NumGet(this, 44, "ptr")
@@ -97,7 +97,7 @@ class OPENFILENAME_NT4W extends Win32Struct
 
     /**
      * 
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     lpstrFileTitle {
         get => NumGet(this, 56, "ptr")
@@ -115,7 +115,7 @@ class OPENFILENAME_NT4W extends Win32Struct
 
     /**
      * 
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     lpstrInitialDir {
         get => NumGet(this, 68, "ptr")
@@ -124,7 +124,7 @@ class OPENFILENAME_NT4W extends Win32Struct
 
     /**
      * 
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     lpstrTitle {
         get => NumGet(this, 76, "ptr")
@@ -160,7 +160,7 @@ class OPENFILENAME_NT4W extends Win32Struct
 
     /**
      * 
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     lpstrDefExt {
         get => NumGet(this, 92, "ptr")
@@ -178,7 +178,7 @@ class OPENFILENAME_NT4W extends Win32Struct
 
     /**
      * 
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPOFNHOOKPROC>}
      */
     lpfnHook {
         get => NumGet(this, 108, "ptr")
@@ -187,7 +187,7 @@ class OPENFILENAME_NT4W extends Win32Struct
 
     /**
      * 
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     lpTemplateName {
         get => NumGet(this, 116, "ptr")

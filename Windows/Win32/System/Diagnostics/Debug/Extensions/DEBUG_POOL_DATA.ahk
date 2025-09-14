@@ -7,7 +7,7 @@
  */
 class DEBUG_POOL_DATA extends Win32Struct
 {
-    static sizeof => 216
+    static sizeof => 152
 
     static packingSize => 8
 
@@ -95,10 +95,13 @@ class DEBUG_POOL_DATA extends Win32Struct
     }
 
     /**
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    PoolTagDescription {
-        get => StrGet(this.ptr + 88, 63, "UTF-16")
-        set => StrPut(value, this.ptr + 88, 63, "UTF-16")
+    PoolTagDescription{
+        get {
+            if(!this.HasProp("__PoolTagDescriptionProxyArray"))
+                this.__PoolTagDescriptionProxyArray := Win32FixedArray(this.ptr + 88, 64, Primitive, "char")
+            return this.__PoolTagDescriptionProxyArray
+        }
     }
 }

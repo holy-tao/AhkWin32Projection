@@ -20,7 +20,7 @@ class HTHREAD_NETWORK_CONTEXT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HANDLE>}
      */
     ThreadContext {
         get => NumGet(this, 8, "ptr")

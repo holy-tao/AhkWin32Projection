@@ -37,26 +37,35 @@ class RASNOUSERA extends Win32Struct
     }
 
     /**
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    szUserName {
-        get => StrGet(this.ptr + 12, 256, "UTF-8")
-        set => StrPut(value, this.ptr + 12, 256, "UTF-8")
+    szUserName{
+        get {
+            if(!this.HasProp("__szUserNameProxyArray"))
+                this.__szUserNameProxyArray := Win32FixedArray(this.ptr + 12, 257, Primitive, "char")
+            return this.__szUserNameProxyArray
+        }
     }
 
     /**
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    szPassword {
-        get => StrGet(this.ptr + 269, 256, "UTF-8")
-        set => StrPut(value, this.ptr + 269, 256, "UTF-8")
+    szPassword{
+        get {
+            if(!this.HasProp("__szPasswordProxyArray"))
+                this.__szPasswordProxyArray := Win32FixedArray(this.ptr + 269, 257, Primitive, "char")
+            return this.__szPasswordProxyArray
+        }
     }
 
     /**
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    szDomain {
-        get => StrGet(this.ptr + 526, 15, "UTF-8")
-        set => StrPut(value, this.ptr + 526, 15, "UTF-8")
+    szDomain{
+        get {
+            if(!this.HasProp("__szDomainProxyArray"))
+                this.__szDomainProxyArray := Win32FixedArray(this.ptr + 526, 16, Primitive, "char")
+            return this.__szDomainProxyArray
+        }
     }
 }

@@ -12,7 +12,7 @@ class DBGHELP_DATA_REPORT_STRUCT extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pBinPathNonExist {
         get => NumGet(this, 0, "ptr")
@@ -20,7 +20,7 @@ class DBGHELP_DATA_REPORT_STRUCT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pSymbolPathNonExist {
         get => NumGet(this, 8, "ptr")

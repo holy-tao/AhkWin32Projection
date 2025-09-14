@@ -19,7 +19,7 @@ class EVT_RPC_LOGIN extends Win32Struct
 
     /**
      * The name of the remote computer to connect to.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     Server {
         get => NumGet(this, 0, "ptr")
@@ -28,7 +28,7 @@ class EVT_RPC_LOGIN extends Win32Struct
 
     /**
      * The user name to use to connect to the remote computer.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     User {
         get => NumGet(this, 8, "ptr")
@@ -37,7 +37,7 @@ class EVT_RPC_LOGIN extends Win32Struct
 
     /**
      * The domain to which the user account belongs. Optional.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     Domain {
         get => NumGet(this, 16, "ptr")
@@ -46,7 +46,7 @@ class EVT_RPC_LOGIN extends Win32Struct
 
     /**
      * The password for the user account.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     Password {
         get => NumGet(this, 24, "ptr")

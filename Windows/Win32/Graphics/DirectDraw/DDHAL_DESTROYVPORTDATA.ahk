@@ -36,7 +36,7 @@ class DDHAL_DESTROYVPORTDATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPDDHALVPORTCB_DESTROYVPORT>}
      */
     DestroyVideoPort {
         get => NumGet(this, 24, "ptr")

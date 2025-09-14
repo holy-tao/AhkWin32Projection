@@ -43,10 +43,13 @@ class MULTIKEYHELPA extends Win32Struct
      * Type: <b>TCHAR[1]</b>
      * 
      * A null-terminated text string that specifies the keyword to locate in the keyword table.
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    szKeyphrase {
-        get => StrGet(this.ptr + 5, 0, "UTF-8")
-        set => StrPut(value, this.ptr + 5, 0, "UTF-8")
+    szKeyphrase{
+        get {
+            if(!this.HasProp("__szKeyphraseProxyArray"))
+                this.__szKeyphraseProxyArray := Win32FixedArray(this.ptr + 5, 1, Primitive, "char")
+            return this.__szKeyphraseProxyArray
+        }
     }
 }

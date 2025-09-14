@@ -37,7 +37,7 @@ class NMDATETIMESTRINGW extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCTSTR</a></b>
      * 
      * The address of the zero-terminated string that the user entered.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pszUserString {
         get => NumGet(this, 24, "ptr")

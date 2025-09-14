@@ -19,7 +19,7 @@ class D3D10_SHADER_INPUT_BIND_DESC extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>
      * 
      * Name of the shader resource.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     Name {
         get => NumGet(this, 0, "ptr")

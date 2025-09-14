@@ -36,7 +36,7 @@ class CLSIDDATA2 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     m_pwszAppName {
         get => NumGet(this, 24, "ptr")
@@ -44,7 +44,7 @@ class CLSIDDATA2 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     m_pwszCtxName {
         get => NumGet(this, 32, "ptr")

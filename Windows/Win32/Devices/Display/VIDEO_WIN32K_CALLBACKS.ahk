@@ -20,7 +20,7 @@ class VIDEO_WIN32K_CALLBACKS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PVIDEO_WIN32K_CALLOUT>}
      */
     Callout {
         get => NumGet(this, 8, "ptr")
@@ -36,7 +36,7 @@ class VIDEO_WIN32K_CALLBACKS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HANDLE>}
      */
     pPhysDeviceObject {
         get => NumGet(this, 24, "ptr")

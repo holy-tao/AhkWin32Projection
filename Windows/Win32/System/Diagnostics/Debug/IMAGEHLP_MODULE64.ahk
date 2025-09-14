@@ -15,7 +15,7 @@
  */
 class IMAGEHLP_MODULE64 extends Win32Struct
 {
-    static sizeof => 3256
+    static sizeof => 1672
 
     static packingSize => 8
 
@@ -84,38 +84,50 @@ class IMAGEHLP_MODULE64 extends Win32Struct
 
     /**
      * The module name.
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    ModuleName {
-        get => StrGet(this.ptr + 36, 31, "UTF-16")
-        set => StrPut(value, this.ptr + 36, 31, "UTF-16")
+    ModuleName{
+        get {
+            if(!this.HasProp("__ModuleNameProxyArray"))
+                this.__ModuleNameProxyArray := Win32FixedArray(this.ptr + 36, 32, Primitive, "char")
+            return this.__ModuleNameProxyArray
+        }
     }
 
     /**
      * The image name. The name may or may not contain a full path.
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    ImageName {
-        get => StrGet(this.ptr + 100, 255, "UTF-16")
-        set => StrPut(value, this.ptr + 100, 255, "UTF-16")
+    ImageName{
+        get {
+            if(!this.HasProp("__ImageNameProxyArray"))
+                this.__ImageNameProxyArray := Win32FixedArray(this.ptr + 68, 256, Primitive, "char")
+            return this.__ImageNameProxyArray
+        }
     }
 
     /**
      * The full path and file name of the file from which symbols were loaded.
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    LoadedImageName {
-        get => StrGet(this.ptr + 612, 255, "UTF-16")
-        set => StrPut(value, this.ptr + 612, 255, "UTF-16")
+    LoadedImageName{
+        get {
+            if(!this.HasProp("__LoadedImageNameProxyArray"))
+                this.__LoadedImageNameProxyArray := Win32FixedArray(this.ptr + 324, 256, Primitive, "char")
+            return this.__LoadedImageNameProxyArray
+        }
     }
 
     /**
      * The full path and file name of the .pdb file.
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    LoadedPdbName {
-        get => StrGet(this.ptr + 1124, 255, "UTF-16")
-        set => StrPut(value, this.ptr + 1124, 255, "UTF-16")
+    LoadedPdbName{
+        get {
+            if(!this.HasProp("__LoadedPdbNameProxyArray"))
+                this.__LoadedPdbNameProxyArray := Win32FixedArray(this.ptr + 580, 256, Primitive, "char")
+            return this.__LoadedPdbNameProxyArray
+        }
     }
 
     /**
@@ -123,17 +135,20 @@ class IMAGEHLP_MODULE64 extends Win32Struct
      * @type {Integer}
      */
     CVSig {
-        get => NumGet(this, 1636, "uint")
-        set => NumPut("uint", value, this, 1636)
+        get => NumGet(this, 836, "uint")
+        set => NumPut("uint", value, this, 836)
     }
 
     /**
      * The contents of the CV record.
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    CVData {
-        get => StrGet(this.ptr + 1640, 779, "UTF-16")
-        set => StrPut(value, this.ptr + 1640, 779, "UTF-16")
+    CVData{
+        get {
+            if(!this.HasProp("__CVDataProxyArray"))
+                this.__CVDataProxyArray := Win32FixedArray(this.ptr + 840, 780, Primitive, "char")
+            return this.__CVDataProxyArray
+        }
     }
 
     /**
@@ -141,8 +156,8 @@ class IMAGEHLP_MODULE64 extends Win32Struct
      * @type {Integer}
      */
     PdbSig {
-        get => NumGet(this, 3200, "uint")
-        set => NumPut("uint", value, this, 3200)
+        get => NumGet(this, 1620, "uint")
+        set => NumPut("uint", value, this, 1620)
     }
 
     /**
@@ -150,8 +165,8 @@ class IMAGEHLP_MODULE64 extends Win32Struct
      * @type {Pointer<Guid>}
      */
     PdbSig70 {
-        get => NumGet(this, 3208, "ptr")
-        set => NumPut("ptr", value, this, 3208)
+        get => NumGet(this, 1624, "ptr")
+        set => NumPut("ptr", value, this, 1624)
     }
 
     /**
@@ -159,8 +174,8 @@ class IMAGEHLP_MODULE64 extends Win32Struct
      * @type {Integer}
      */
     PdbAge {
-        get => NumGet(this, 3216, "uint")
-        set => NumPut("uint", value, this, 3216)
+        get => NumGet(this, 1632, "uint")
+        set => NumPut("uint", value, this, 1632)
     }
 
     /**
@@ -168,8 +183,8 @@ class IMAGEHLP_MODULE64 extends Win32Struct
      * @type {Integer}
      */
     PdbUnmatched {
-        get => NumGet(this, 3220, "int")
-        set => NumPut("int", value, this, 3220)
+        get => NumGet(this, 1636, "int")
+        set => NumPut("int", value, this, 1636)
     }
 
     /**
@@ -177,8 +192,8 @@ class IMAGEHLP_MODULE64 extends Win32Struct
      * @type {Integer}
      */
     DbgUnmatched {
-        get => NumGet(this, 3224, "int")
-        set => NumPut("int", value, this, 3224)
+        get => NumGet(this, 1640, "int")
+        set => NumPut("int", value, this, 1640)
     }
 
     /**
@@ -186,8 +201,8 @@ class IMAGEHLP_MODULE64 extends Win32Struct
      * @type {Integer}
      */
     LineNumbers {
-        get => NumGet(this, 3228, "int")
-        set => NumPut("int", value, this, 3228)
+        get => NumGet(this, 1644, "int")
+        set => NumPut("int", value, this, 1644)
     }
 
     /**
@@ -195,8 +210,8 @@ class IMAGEHLP_MODULE64 extends Win32Struct
      * @type {Integer}
      */
     GlobalSymbols {
-        get => NumGet(this, 3232, "int")
-        set => NumPut("int", value, this, 3232)
+        get => NumGet(this, 1648, "int")
+        set => NumPut("int", value, this, 1648)
     }
 
     /**
@@ -204,8 +219,8 @@ class IMAGEHLP_MODULE64 extends Win32Struct
      * @type {Integer}
      */
     TypeInfo {
-        get => NumGet(this, 3236, "int")
-        set => NumPut("int", value, this, 3236)
+        get => NumGet(this, 1652, "int")
+        set => NumPut("int", value, this, 1652)
     }
 
     /**
@@ -215,8 +230,8 @@ class IMAGEHLP_MODULE64 extends Win32Struct
      * @type {Integer}
      */
     SourceIndexed {
-        get => NumGet(this, 3240, "int")
-        set => NumPut("int", value, this, 3240)
+        get => NumGet(this, 1656, "int")
+        set => NumPut("int", value, this, 1656)
     }
 
     /**
@@ -226,8 +241,8 @@ class IMAGEHLP_MODULE64 extends Win32Struct
      * @type {Integer}
      */
     Publics {
-        get => NumGet(this, 3244, "int")
-        set => NumPut("int", value, this, 3244)
+        get => NumGet(this, 1660, "int")
+        set => NumPut("int", value, this, 1660)
     }
 
     /**
@@ -235,8 +250,8 @@ class IMAGEHLP_MODULE64 extends Win32Struct
      * @type {Integer}
      */
     MachineType {
-        get => NumGet(this, 3248, "uint")
-        set => NumPut("uint", value, this, 3248)
+        get => NumGet(this, 1664, "uint")
+        set => NumPut("uint", value, this, 1664)
     }
 
     /**
@@ -244,7 +259,7 @@ class IMAGEHLP_MODULE64 extends Win32Struct
      * @type {Integer}
      */
     Reserved {
-        get => NumGet(this, 3252, "uint")
-        set => NumPut("uint", value, this, 3252)
+        get => NumGet(this, 1668, "uint")
+        set => NumPut("uint", value, this, 1668)
     }
 }

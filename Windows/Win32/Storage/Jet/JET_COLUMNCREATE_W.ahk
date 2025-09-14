@@ -21,7 +21,7 @@ class JET_COLUMNCREATE_W extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     szColumnName {
         get => NumGet(this, 8, "ptr")

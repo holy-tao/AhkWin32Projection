@@ -33,7 +33,7 @@ class PRJ_CALLBACK_DATA extends Win32Struct
 
     /**
      * Opaque handle to the virtualization instance that is sending the callback.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PRJ_NAMESPACE_VIRTUALIZATION_CONTEXT>}
      */
     NamespaceVirtualizationContext {
         get => NumGet(this, 8, "ptr")
@@ -75,7 +75,7 @@ class PRJ_CALLBACK_DATA extends Win32Struct
 
     /**
      * The path to the target file. This is a null-terminated string of Unicode characters. This path is always specified relative to the virtualization root.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     FilePathName {
         get => NumGet(this, 40, "ptr")
@@ -104,7 +104,7 @@ class PRJ_CALLBACK_DATA extends Win32Struct
 
     /**
      * A null-terminated Unicode string specifying the image file name corresponding to TriggeringProcessId. If TriggeringProcessId is 0 this will be NULL.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     TriggeringProcessImageFileName {
         get => NumGet(this, 64, "ptr")

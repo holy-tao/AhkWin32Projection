@@ -41,11 +41,14 @@ class NTMS_I1_OPREQUESTINFORMATIONA extends Win32Struct
     }
 
     /**
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    szMessage {
-        get => StrGet(this.ptr + 28, 126, "UTF-8")
-        set => StrPut(value, this.ptr + 28, 126, "UTF-8")
+    szMessage{
+        get {
+            if(!this.HasProp("__szMessageProxyArray"))
+                this.__szMessageProxyArray := Win32FixedArray(this.ptr + 28, 127, Primitive, "char")
+            return this.__szMessageProxyArray
+        }
     }
 
     /**
@@ -81,26 +84,35 @@ class NTMS_I1_OPREQUESTINFORMATIONA extends Win32Struct
     }
 
     /**
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    szApplication {
-        get => StrGet(this.ptr + 184, 63, "UTF-8")
-        set => StrPut(value, this.ptr + 184, 63, "UTF-8")
+    szApplication{
+        get {
+            if(!this.HasProp("__szApplicationProxyArray"))
+                this.__szApplicationProxyArray := Win32FixedArray(this.ptr + 184, 64, Primitive, "char")
+            return this.__szApplicationProxyArray
+        }
     }
 
     /**
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    szUser {
-        get => StrGet(this.ptr + 248, 63, "UTF-8")
-        set => StrPut(value, this.ptr + 248, 63, "UTF-8")
+    szUser{
+        get {
+            if(!this.HasProp("__szUserProxyArray"))
+                this.__szUserProxyArray := Win32FixedArray(this.ptr + 248, 64, Primitive, "char")
+            return this.__szUserProxyArray
+        }
     }
 
     /**
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    szComputer {
-        get => StrGet(this.ptr + 312, 63, "UTF-8")
-        set => StrPut(value, this.ptr + 312, 63, "UTF-8")
+    szComputer{
+        get {
+            if(!this.HasProp("__szComputerProxyArray"))
+                this.__szComputerProxyArray := Win32FixedArray(this.ptr + 312, 64, Primitive, "char")
+            return this.__szComputerProxyArray
+        }
     }
 }

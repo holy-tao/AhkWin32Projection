@@ -61,7 +61,7 @@ class CTL_CONTEXT extends Win32Struct
 
     /**
      * A handle to the certificate store.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HCERTSTORE>}
      */
     hCertStore {
         get => NumGet(this, 32, "ptr")

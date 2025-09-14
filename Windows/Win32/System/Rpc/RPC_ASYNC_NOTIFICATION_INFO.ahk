@@ -16,7 +16,7 @@ class RPC_ASYNC_NOTIFICATION_INFO extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_RPCNOTIFICATION_ROUTINE>}
      */
     NotificationRoutine {
         get => NumGet(this, 0, "ptr")
@@ -24,7 +24,7 @@ class RPC_ASYNC_NOTIFICATION_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HANDLE>}
      */
     hThread {
         get => NumGet(this, 8, "ptr")
@@ -32,7 +32,7 @@ class RPC_ASYNC_NOTIFICATION_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HANDLE>}
      */
     hIOPort {
         get => NumGet(this, 0, "ptr")
@@ -64,7 +64,7 @@ class RPC_ASYNC_NOTIFICATION_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HWND>}
      */
     hWnd {
         get => NumGet(this, 0, "ptr")
@@ -81,7 +81,7 @@ class RPC_ASYNC_NOTIFICATION_INFO extends Win32Struct
 
     /**
      * Handle used for notification by an event.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HANDLE>}
      */
     hEvent {
         get => NumGet(this, 0, "ptr")

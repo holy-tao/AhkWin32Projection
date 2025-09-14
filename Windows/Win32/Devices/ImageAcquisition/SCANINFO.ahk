@@ -287,7 +287,7 @@ class SCANINFO extends Win32Struct
     }
 
     /**
-     * @type {Array<Ptr>}
+     * @type {Array<HANDLE>}
      */
     DeviceIOHandles{
         get {

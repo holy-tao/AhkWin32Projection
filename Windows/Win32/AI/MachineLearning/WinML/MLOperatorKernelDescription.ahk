@@ -12,7 +12,7 @@ class MLOperatorKernelDescription extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     domain {
         get => NumGet(this, 0, "ptr")
@@ -20,7 +20,7 @@ class MLOperatorKernelDescription extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     name {
         get => NumGet(this, 8, "ptr")

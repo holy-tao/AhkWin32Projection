@@ -64,7 +64,7 @@ class VDS_VDISK_PROPERTIES extends Win32Struct
 
     /**
      * A <b>NULL</b>-terminated wide-character string containing the name and directory path of the backing file for the virtual disk.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pPath {
         get => NumGet(this, 48, "ptr")
@@ -73,7 +73,7 @@ class VDS_VDISK_PROPERTIES extends Win32Struct
 
     /**
      * A <b>NULL</b>-terminated wide-character string containing the name and device path of the disk device object for the volume where the virtual disk resides.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pDeviceName {
         get => NumGet(this, 56, "ptr")
@@ -100,7 +100,7 @@ class VDS_VDISK_PROPERTIES extends Win32Struct
 
     /**
      * A <b>NULL</b>-terminated wide-character string that contains an optional path to a parent virtual disk object.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pParentPath {
         get => NumGet(this, 72, "ptr")

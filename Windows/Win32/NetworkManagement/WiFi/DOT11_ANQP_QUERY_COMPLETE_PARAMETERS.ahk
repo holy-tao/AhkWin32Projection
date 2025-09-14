@@ -32,7 +32,7 @@ class DOT11_ANQP_QUERY_COMPLETE_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HANDLE>}
      */
     hContext {
         get => NumGet(this, 8, "ptr")

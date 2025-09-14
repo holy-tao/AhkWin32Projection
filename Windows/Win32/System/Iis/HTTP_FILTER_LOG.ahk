@@ -12,7 +12,7 @@ class HTTP_FILTER_LOG extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     pszClientHostName {
         get => NumGet(this, 0, "ptr")
@@ -20,7 +20,7 @@ class HTTP_FILTER_LOG extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     pszClientUserName {
         get => NumGet(this, 8, "ptr")
@@ -28,7 +28,7 @@ class HTTP_FILTER_LOG extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     pszServerName {
         get => NumGet(this, 16, "ptr")
@@ -36,7 +36,7 @@ class HTTP_FILTER_LOG extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     pszOperation {
         get => NumGet(this, 24, "ptr")
@@ -44,7 +44,7 @@ class HTTP_FILTER_LOG extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     pszTarget {
         get => NumGet(this, 32, "ptr")
@@ -52,7 +52,7 @@ class HTTP_FILTER_LOG extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     pszParameters {
         get => NumGet(this, 40, "ptr")

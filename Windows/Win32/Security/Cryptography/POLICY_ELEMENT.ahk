@@ -14,7 +14,7 @@ class POLICY_ELEMENT extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     targetEndpointAddress {
         get => NumGet(this, 0, "ptr")
@@ -22,7 +22,7 @@ class POLICY_ELEMENT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     issuerEndpointAddress {
         get => NumGet(this, 8, "ptr")
@@ -30,7 +30,7 @@ class POLICY_ELEMENT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     issuedTokenParameters {
         get => NumGet(this, 16, "ptr")
@@ -38,7 +38,7 @@ class POLICY_ELEMENT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     privacyNoticeLink {
         get => NumGet(this, 24, "ptr")

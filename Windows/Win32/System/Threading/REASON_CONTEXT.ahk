@@ -35,7 +35,7 @@ class REASON_CONTEXT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HMODULE>}
      */
     LocalizedReasonModule {
         get => NumGet(this, 8, "ptr")
@@ -59,7 +59,7 @@ class REASON_CONTEXT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     ReasonStrings {
         get => NumGet(this, 24, "ptr")
@@ -67,7 +67,7 @@ class REASON_CONTEXT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     SimpleReasonString {
         get => NumGet(this, 8, "ptr")

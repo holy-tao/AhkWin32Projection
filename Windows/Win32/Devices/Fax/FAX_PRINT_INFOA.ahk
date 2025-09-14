@@ -38,7 +38,7 @@ class FAX_PRINT_INFOA extends Win32Struct
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that is the user-friendly name that appears in the print spooler.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     DocName {
         get => NumGet(this, 8, "ptr")
@@ -49,7 +49,7 @@ class FAX_PRINT_INFOA extends Win32Struct
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that specifies the name of the recipient of the fax transmission.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     RecipientName {
         get => NumGet(this, 16, "ptr")
@@ -60,7 +60,7 @@ class FAX_PRINT_INFOA extends Win32Struct
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that specifies the fax number of the recipient of the fax transmission. This member is required.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     RecipientNumber {
         get => NumGet(this, 24, "ptr")
@@ -71,7 +71,7 @@ class FAX_PRINT_INFOA extends Win32Struct
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that specifies the name of the sender who initiated the fax transmission.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     SenderName {
         get => NumGet(this, 32, "ptr")
@@ -82,7 +82,7 @@ class FAX_PRINT_INFOA extends Win32Struct
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that specifies the company name of the sender who initiated the fax transmission.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     SenderCompany {
         get => NumGet(this, 40, "ptr")
@@ -93,7 +93,7 @@ class FAX_PRINT_INFOA extends Win32Struct
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that specifies the department name of the sender who initiated the fax transmission.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     SenderDept {
         get => NumGet(this, 48, "ptr")
@@ -104,7 +104,7 @@ class FAX_PRINT_INFOA extends Win32Struct
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that indicates an application- or server-specific billing code that applies to the fax transmission. The fax server uses the string to generate an entry in the fax event log. Billing codes are optional.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     SenderBillingCode {
         get => NumGet(this, 56, "ptr")
@@ -115,7 +115,7 @@ class FAX_PRINT_INFOA extends Win32Struct
      * Type: <b>LPCTSTR</b>
      * 
      * Reserved. Must be set to <b>NULL</b>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     Reserved {
         get => NumGet(this, 64, "ptr")
@@ -126,7 +126,7 @@ class FAX_PRINT_INFOA extends Win32Struct
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that specifies the email address to which the fax server should send the delivery report (DR) or nondelivery report (NDR).
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     DrEmailAddress {
         get => NumGet(this, 72, "ptr")
@@ -137,7 +137,7 @@ class FAX_PRINT_INFOA extends Win32Struct
      * Type: <b>LPCTSTR</b>
      * 
      * This member is reserved for future use by Microsoft. It must be set to <b>NULL</b>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     OutputFileName {
         get => NumGet(this, 80, "ptr")

@@ -16,7 +16,7 @@ class SHARE_INFO_1 extends Win32Struct
     /**
      * Pointer to a Unicode string specifying the share name of a resource. Calls to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmshare/nf-lmshare-netsharesetinfo">NetShareSetInfo</a> function ignore this member.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     shi1_netname {
         get => NumGet(this, 0, "ptr")
@@ -35,7 +35,7 @@ class SHARE_INFO_1 extends Win32Struct
 
     /**
      * Pointer to a Unicode string specifying an optional comment about the shared resource.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     shi1_remark {
         get => NumGet(this, 16, "ptr")

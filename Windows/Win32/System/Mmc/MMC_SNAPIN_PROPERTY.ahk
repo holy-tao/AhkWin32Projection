@@ -18,7 +18,7 @@ class MMC_SNAPIN_PROPERTY extends Win32Struct
 
     /**
      * Name of the property.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pszPropName {
         get => NumGet(this, 0, "ptr")

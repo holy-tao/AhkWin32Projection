@@ -15,7 +15,7 @@ class MANAGEDAPPLICATION extends Win32Struct
 
     /**
      * The user-friendly name of the application.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pszPackageName {
         get => NumGet(this, 0, "ptr")
@@ -24,7 +24,7 @@ class MANAGEDAPPLICATION extends Win32Struct
 
     /**
      * The name of the application's publisher.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pszPublisher {
         get => NumGet(this, 8, "ptr")
@@ -69,7 +69,7 @@ class MANAGEDAPPLICATION extends Win32Struct
 
     /**
      * The user-friendly name for the GPO from which this application is deployed.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pszPolicyName {
         get => NumGet(this, 40, "ptr")
@@ -96,7 +96,7 @@ class MANAGEDAPPLICATION extends Win32Struct
 
     /**
      * This member is unused.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pszOwner {
         get => NumGet(this, 64, "ptr")
@@ -105,7 +105,7 @@ class MANAGEDAPPLICATION extends Win32Struct
 
     /**
      * This member is unused.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pszCompany {
         get => NumGet(this, 72, "ptr")
@@ -114,7 +114,7 @@ class MANAGEDAPPLICATION extends Win32Struct
 
     /**
      * This member is unused.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pszComments {
         get => NumGet(this, 80, "ptr")
@@ -123,7 +123,7 @@ class MANAGEDAPPLICATION extends Win32Struct
 
     /**
      * This member is unused.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pszContact {
         get => NumGet(this, 88, "ptr")
@@ -132,7 +132,7 @@ class MANAGEDAPPLICATION extends Win32Struct
 
     /**
      * This member is unused.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pszSupportUrl {
         get => NumGet(this, 96, "ptr")

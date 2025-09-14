@@ -30,7 +30,7 @@ class BSMINFO extends Win32Struct
      * 
      * A desktop handle to the window specified by 
      * 					<b>hwnd</b>. This value is returned only if <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-broadcastsystemmessageexa">BroadcastSystemMessageEx</a> specifies <b>BSF_RETURNHDESK</b> and <b>BSF_QUERY</b>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HDESK>}
      */
     hdesk {
         get => NumGet(this, 8, "ptr")
@@ -41,7 +41,7 @@ class BSMINFO extends Win32Struct
      * Type: <b>HWND</b>
      * 
      * A handle to the window that denied the request. This value is returned if <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-broadcastsystemmessageexa">BroadcastSystemMessageEx</a> specifies <b>BSF_QUERY</b>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HWND>}
      */
     hwnd {
         get => NumGet(this, 16, "ptr")

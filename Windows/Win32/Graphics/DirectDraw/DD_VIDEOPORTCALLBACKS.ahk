@@ -55,7 +55,7 @@ class DD_VIDEOPORTCALLBACKS extends Win32Struct
 
     /**
      * Points to the driver-supplied <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/nc-ddrawint-pdd_vportcb_cancreatevideoport">DdVideoPortCanCreate</a> callback.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PDD_VPORTCB_CANCREATEVIDEOPORT>}
      */
     CanCreateVideoPort {
         get => NumGet(this, 8, "ptr")
@@ -64,7 +64,7 @@ class DD_VIDEOPORTCALLBACKS extends Win32Struct
 
     /**
      * Points to the driver-supplied <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/nc-ddrawint-pdd_vportcb_createvideoport">DdVideoPortCreate</a> callback.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PDD_VPORTCB_CREATEVIDEOPORT>}
      */
     CreateVideoPort {
         get => NumGet(this, 16, "ptr")
@@ -73,7 +73,7 @@ class DD_VIDEOPORTCALLBACKS extends Win32Struct
 
     /**
      * Points to the driver-supplied <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/nc-ddrawint-pdd_vportcb_flip">DdVideoPortFlip</a> callback.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PDD_VPORTCB_FLIP>}
      */
     FlipVideoPort {
         get => NumGet(this, 24, "ptr")
@@ -82,7 +82,7 @@ class DD_VIDEOPORTCALLBACKS extends Win32Struct
 
     /**
      * Points to the driver-supplied <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/nc-ddrawint-pdd_vportcb_getbandwidth">DdVideoPortGetBandwidth</a> callback.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PDD_VPORTCB_GETBANDWIDTH>}
      */
     GetVideoPortBandwidth {
         get => NumGet(this, 32, "ptr")
@@ -91,7 +91,7 @@ class DD_VIDEOPORTCALLBACKS extends Win32Struct
 
     /**
      * Points to the driver-supplied <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/nc-ddrawint-pdd_vportcb_getinputformats">DdVideoPortGetInputFormats</a> callback.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PDD_VPORTCB_GETINPUTFORMATS>}
      */
     GetVideoPortInputFormats {
         get => NumGet(this, 40, "ptr")
@@ -100,7 +100,7 @@ class DD_VIDEOPORTCALLBACKS extends Win32Struct
 
     /**
      * Points to the driver-supplied <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/nc-ddrawint-pdd_vportcb_getoutputformats">DdVideoPortGetOutputFormats</a> callback.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PDD_VPORTCB_GETOUTPUTFORMATS>}
      */
     GetVideoPortOutputFormats {
         get => NumGet(this, 48, "ptr")
@@ -118,7 +118,7 @@ class DD_VIDEOPORTCALLBACKS extends Win32Struct
 
     /**
      * Points to the driver-supplied <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/nc-ddrawint-pdd_vportcb_getfield">DdVideoPortGetField</a> callback.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PDD_VPORTCB_GETFIELD>}
      */
     GetVideoPortField {
         get => NumGet(this, 64, "ptr")
@@ -127,7 +127,7 @@ class DD_VIDEOPORTCALLBACKS extends Win32Struct
 
     /**
      * Points to the driver-supplied <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/nc-ddrawint-pdd_vportcb_getline">DdVideoPortGetLine</a> callback.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PDD_VPORTCB_GETLINE>}
      */
     GetVideoPortLine {
         get => NumGet(this, 72, "ptr")
@@ -136,7 +136,7 @@ class DD_VIDEOPORTCALLBACKS extends Win32Struct
 
     /**
      * Points to the driver-supplied <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/nc-ddrawint-pdd_vportcb_getvportconnect">DdVideoPortGetConnectInfo</a> callback.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PDD_VPORTCB_GETVPORTCONNECT>}
      */
     GetVideoPortConnectInfo {
         get => NumGet(this, 80, "ptr")
@@ -145,7 +145,7 @@ class DD_VIDEOPORTCALLBACKS extends Win32Struct
 
     /**
      * Points to the driver-supplied <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/nc-ddrawint-pdd_vportcb_destroyvport">DdVideoPortDestroy</a> callback.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PDD_VPORTCB_DESTROYVPORT>}
      */
     DestroyVideoPort {
         get => NumGet(this, 88, "ptr")
@@ -154,7 +154,7 @@ class DD_VIDEOPORTCALLBACKS extends Win32Struct
 
     /**
      * Points to the driver-supplied <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/nc-ddrawint-pdd_vportcb_getflipstatus">DdVideoPortGetFlipStatus</a> callback.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PDD_VPORTCB_GETFLIPSTATUS>}
      */
     GetVideoPortFlipStatus {
         get => NumGet(this, 96, "ptr")
@@ -163,7 +163,7 @@ class DD_VIDEOPORTCALLBACKS extends Win32Struct
 
     /**
      * Points to the driver-supplied <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/nc-ddrawint-pdd_vportcb_update">DdVideoPortUpdate</a> callback.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PDD_VPORTCB_UPDATE>}
      */
     UpdateVideoPort {
         get => NumGet(this, 104, "ptr")
@@ -172,7 +172,7 @@ class DD_VIDEOPORTCALLBACKS extends Win32Struct
 
     /**
      * Points to the driver-supplied <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/nc-ddrawint-pdd_vportcb_waitforsync">DdVideoPortWaitForSync</a> callback.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PDD_VPORTCB_WAITFORSYNC>}
      */
     WaitForVideoPortSync {
         get => NumGet(this, 112, "ptr")
@@ -181,7 +181,7 @@ class DD_VIDEOPORTCALLBACKS extends Win32Struct
 
     /**
      * Points to the driver-supplied <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/nc-ddrawint-pdd_vportcb_getsignalstatus">DdVideoPortGetSignalStatus</a> callback.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PDD_VPORTCB_GETSIGNALSTATUS>}
      */
     GetVideoSignalStatus {
         get => NumGet(this, 120, "ptr")
@@ -190,7 +190,7 @@ class DD_VIDEOPORTCALLBACKS extends Win32Struct
 
     /**
      * Points to the driver-supplied <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/nc-ddrawint-pdd_vportcb_colorcontrol">DdVideoPortColorControl</a> callback.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PDD_VPORTCB_COLORCONTROL>}
      */
     ColorControl {
         get => NumGet(this, 128, "ptr")

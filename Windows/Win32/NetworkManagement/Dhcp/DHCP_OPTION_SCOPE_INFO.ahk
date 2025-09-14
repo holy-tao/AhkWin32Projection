@@ -59,7 +59,7 @@ class DHCP_OPTION_SCOPE_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     MScopeInfo {
         get => NumGet(this, 8, "ptr")

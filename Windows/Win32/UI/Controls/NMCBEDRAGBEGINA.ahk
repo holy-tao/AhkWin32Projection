@@ -47,10 +47,13 @@ class NMCBEDRAGBEGINA extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">TCHAR</a></b>
      * 
      * The character buffer that contains the text of the item being dragged.
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    szText {
-        get => StrGet(this.ptr + 28, 259, "UTF-8")
-        set => StrPut(value, this.ptr + 28, 259, "UTF-8")
+    szText{
+        get {
+            if(!this.HasProp("__szTextProxyArray"))
+                this.__szTextProxyArray := Win32FixedArray(this.ptr + 28, 260, Primitive, "char")
+            return this.__szTextProxyArray
+        }
     }
 }

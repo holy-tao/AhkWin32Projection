@@ -33,7 +33,7 @@ class UMS_SCHEDULER_STARTUP_INFO extends Win32Struct
 
     /**
      * A pointer to an application-defined <a href="https://docs.microsoft.com/windows/desktop/api/winnt/nc-winnt-rtl_ums_scheduler_entry_point">UmsSchedulerProc</a> entry point function. The system calls this function when the calling thread has been converted to UMS and is ready to run UMS worker threads. Subsequently, it calls this function when a UMS worker thread running on the calling thread yields or blocks.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PRTL_UMS_SCHEDULER_ENTRY_POINT>}
      */
     SchedulerProc {
         get => NumGet(this, 16, "ptr")

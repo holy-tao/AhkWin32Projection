@@ -16,7 +16,7 @@ class MI_ProviderFT extends Win32Struct
     /**
      * The server invokes this function to initialize the provider, which
      *  performs initialization activities.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<MI_ProviderFT_Load>}
      */
     Load {
         get => NumGet(this, 0, "ptr")
@@ -26,7 +26,7 @@ class MI_ProviderFT extends Win32Struct
     /**
      * The server invokes this function to release any resources held by the 
      *  provider.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<MI_ProviderFT_Unload>}
      */
     Unload {
         get => NumGet(this, 8, "ptr")
@@ -36,7 +36,7 @@ class MI_ProviderFT extends Win32Struct
     /**
      * The server invokes this function to obtain a single CIM 
      *  instance from the provider.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<MI_ProviderFT_GetInstance>}
      */
     GetInstance {
         get => NumGet(this, 16, "ptr")
@@ -46,7 +46,7 @@ class MI_ProviderFT extends Win32Struct
     /**
      * The server calls this function to enumerate instances of a CIM class 
      *  in the target namespace.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<MI_ProviderFT_EnumerateInstances>}
      */
     EnumerateInstances {
         get => NumGet(this, 24, "ptr")
@@ -56,7 +56,7 @@ class MI_ProviderFT extends Win32Struct
     /**
      * The server calls this function to create a single CIM 
      *  instance in the target namespace.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<MI_ProviderFT_CreateInstance>}
      */
     CreateInstance {
         get => NumGet(this, 32, "ptr")
@@ -66,7 +66,7 @@ class MI_ProviderFT extends Win32Struct
     /**
      * The server calls this function to modify an existing CIM 
      *  instance in the target namespace. The instance must already exist.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<MI_ProviderFT_ModifyInstance>}
      */
     ModifyInstance {
         get => NumGet(this, 40, "ptr")
@@ -76,7 +76,7 @@ class MI_ProviderFT extends Win32Struct
     /**
      * The server calls this function to delete a single CIM 
      *  instance from the target namespace.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<MI_ProviderFT_DeleteInstance>}
      */
     DeleteInstance {
         get => NumGet(this, 48, "ptr")
@@ -86,7 +86,7 @@ class MI_ProviderFT extends Win32Struct
     /**
      * The server calls this function to find all CIM instances
      *  associated with a particular 'source' CIM instance.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<MI_ProviderFT_AssociatorInstances>}
      */
     AssociatorInstances {
         get => NumGet(this, 56, "ptr")
@@ -96,7 +96,7 @@ class MI_ProviderFT extends Win32Struct
     /**
      * The server calls this function to enumerate association 
      *  instances that refer to a particular CIM instance.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<MI_ProviderFT_ReferenceInstances>}
      */
     ReferenceInstances {
         get => NumGet(this, 64, "ptr")
@@ -106,7 +106,7 @@ class MI_ProviderFT extends Win32Struct
     /**
      * The server calls this function to enable indications delivery 
      *  from the provider.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<MI_ProviderFT_EnableIndications>}
      */
     EnableIndications {
         get => NumGet(this, 72, "ptr")
@@ -116,7 +116,7 @@ class MI_ProviderFT extends Win32Struct
     /**
      * The server calls this function to disable indications delivery 
      *  from the provider.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<MI_ProviderFT_DisableIndications>}
      */
     DisableIndications {
         get => NumGet(this, 80, "ptr")
@@ -125,7 +125,7 @@ class MI_ProviderFT extends Win32Struct
 
     /**
      * The server invokes this function to subscribe to indications.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<MI_ProviderFT_Subscribe>}
      */
     Subscribe {
         get => NumGet(this, 88, "ptr")
@@ -134,7 +134,7 @@ class MI_ProviderFT extends Win32Struct
 
     /**
      * The server invokes this function to unsubscribe from indications.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<MI_ProviderFT_Unsubscribe>}
      */
     Unsubscribe {
         get => NumGet(this, 96, "ptr")
@@ -144,7 +144,7 @@ class MI_ProviderFT extends Win32Struct
     /**
      * The server calls this function to carry out a CIM extrinsic method 
      *  invocation on behalf of a requestor.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<MI_ProviderFT_Invoke>}
      */
     Invoke {
         get => NumGet(this, 104, "ptr")

@@ -213,7 +213,7 @@ class MIDL_STUB_MESSAGE extends Win32Struct
 
     /**
      * Reserved.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_RPC_ALLOCATE>}
      */
     pfnAllocate {
         get => NumGet(this, 120, "ptr")
@@ -222,7 +222,7 @@ class MIDL_STUB_MESSAGE extends Win32Struct
 
     /**
      * Reserved.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_RPC_FREE>}
      */
     pfnFree {
         get => NumGet(this, 128, "ptr")

@@ -78,7 +78,7 @@ class DWRITE_STRIKETHROUGH extends Win32Struct
      * Type: <b>const WCHAR*</b>
      * 
      * An array of characters containing the locale of the  text that is the strikethrough is being drawn over.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     localeName {
         get => NumGet(this, 24, "ptr")

@@ -47,7 +47,7 @@ class DD_CALLBACKS extends Win32Struct
 
     /**
      * Unused on Microsoft Windows 2000 and later and should be ignored by the driver.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PDD_DESTROYDRIVER>}
      */
     DestroyDriver {
         get => NumGet(this, 8, "ptr")
@@ -56,7 +56,7 @@ class DD_CALLBACKS extends Win32Struct
 
     /**
      * Points to the driver-supplied <a href="https://docs.microsoft.com/previous-versions/windows/hardware/drivers/ff549263(v=vs.85)">DdCreateSurface</a> callback.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PDD_CREATESURFACE>}
      */
     CreateSurface {
         get => NumGet(this, 16, "ptr")
@@ -65,7 +65,7 @@ class DD_CALLBACKS extends Win32Struct
 
     /**
      * Points to the driver-supplied <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/nc-ddrawint-pdd_surfcb_setcolorkey">DdSetColorKey</a> callback.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PDD_SETCOLORKEY>}
      */
     SetColorKey {
         get => NumGet(this, 24, "ptr")
@@ -74,7 +74,7 @@ class DD_CALLBACKS extends Win32Struct
 
     /**
      * Unused on Windows 2000 and later and should be ignored by the driver.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PDD_SETMODE>}
      */
     SetMode {
         get => NumGet(this, 32, "ptr")
@@ -83,7 +83,7 @@ class DD_CALLBACKS extends Win32Struct
 
     /**
      * Points to the driver-supplied <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/nc-ddrawint-pdd_waitforverticalblank">DdWaitForVerticalBlank</a> callback.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PDD_WAITFORVERTICALBLANK>}
      */
     WaitForVerticalBlank {
         get => NumGet(this, 40, "ptr")
@@ -92,7 +92,7 @@ class DD_CALLBACKS extends Win32Struct
 
     /**
      * Points to the driver-supplied <a href="https://docs.microsoft.com/previous-versions/windows/hardware/drivers/ff549213(v=vs.85)">DdCanCreateSurface</a> callback.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PDD_CANCREATESURFACE>}
      */
     CanCreateSurface {
         get => NumGet(this, 48, "ptr")
@@ -101,7 +101,7 @@ class DD_CALLBACKS extends Win32Struct
 
     /**
      * Points to the driver-supplied <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/nc-ddrawint-pdd_createpalette">DdCreatePalette</a> callback.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PDD_CREATEPALETTE>}
      */
     CreatePalette {
         get => NumGet(this, 56, "ptr")
@@ -110,7 +110,7 @@ class DD_CALLBACKS extends Win32Struct
 
     /**
      * Points to the driver-supplied <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/nc-ddrawint-pdd_getscanline">DdGetScanLine</a> callback.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PDD_GETSCANLINE>}
      */
     GetScanLine {
         get => NumGet(this, 64, "ptr")
@@ -119,7 +119,7 @@ class DD_CALLBACKS extends Win32Struct
 
     /**
      * Points to the driver-supplied <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/nc-ddrawint-pdd_mapmemory">DdMapMemory</a> callback.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PDD_MAPMEMORY>}
      */
     MapMemory {
         get => NumGet(this, 72, "ptr")

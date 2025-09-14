@@ -51,7 +51,7 @@ class CRYPTUI_WIZ_EXPORT_CERTCONTEXT_INFO extends Win32Struct
 
     /**
      * A pointer to a null-terminated Unicode string that contains the password used to access the private key.  This is required if <b>fExportPrivateKeys</b> is nonzero and is otherwise ignored.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pwszPassword {
         get => NumGet(this, 16, "ptr")

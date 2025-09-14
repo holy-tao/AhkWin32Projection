@@ -20,7 +20,7 @@ class D3D12_AUTO_BREADCRUMB_NODE1 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pCommandListDebugNameW {
         get => NumGet(this, 8, "ptr")
@@ -36,7 +36,7 @@ class D3D12_AUTO_BREADCRUMB_NODE1 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pCommandQueueDebugNameW {
         get => NumGet(this, 24, "ptr")

@@ -7,7 +7,7 @@
  */
 class GNSS_SUPL_NI_INFO extends Win32Struct
 {
-    static sizeof => 1568
+    static sizeof => 1308
 
     static packingSize => 4
 
@@ -44,10 +44,13 @@ class GNSS_SUPL_NI_INFO extends Win32Struct
     }
 
     /**
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    SuplNiUrl {
-        get => StrGet(this.ptr + 1048, 259, "UTF-16")
-        set => StrPut(value, this.ptr + 1048, 259, "UTF-16")
+    SuplNiUrl{
+        get {
+            if(!this.HasProp("__SuplNiUrlProxyArray"))
+                this.__SuplNiUrlProxyArray := Win32FixedArray(this.ptr + 1048, 260, Primitive, "char")
+            return this.__SuplNiUrlProxyArray
+        }
     }
 }

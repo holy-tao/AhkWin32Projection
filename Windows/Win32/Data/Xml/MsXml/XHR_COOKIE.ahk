@@ -16,7 +16,7 @@ class XHR_COOKIE extends Win32Struct
 
     /**
      * A null-terminated string that specifies the URL in the cookie.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pwszUrl {
         get => NumGet(this, 0, "ptr")
@@ -25,7 +25,7 @@ class XHR_COOKIE extends Win32Struct
 
     /**
      * A null-terminated string that specifies the name in the cookie.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pwszName {
         get => NumGet(this, 8, "ptr")
@@ -34,7 +34,7 @@ class XHR_COOKIE extends Win32Struct
 
     /**
      * A null-terminated string that specifies the value in the cookie.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pwszValue {
         get => NumGet(this, 16, "ptr")
@@ -43,7 +43,7 @@ class XHR_COOKIE extends Win32Struct
 
     /**
      * A null-terminated string that specifies the user policy in the cookie.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pwszP3PPolicy {
         get => NumGet(this, 24, "ptr")

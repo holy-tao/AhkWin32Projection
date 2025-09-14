@@ -32,7 +32,7 @@ class FINDREPLACEW extends Win32Struct
      * Type: <b>HWND</b>
      * 
      * A handle to the window that owns the dialog box. The window procedure of the specified window receives <a href="https://docs.microsoft.com/windows/desktop/dlgbox/findmsgstring">FINDMSGSTRING</a> messages from the dialog box. This member can be any valid window handle, but it must not be <b>NULL</b>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HWND>}
      */
     hwndOwner {
         get => NumGet(this, 4, "ptr")
@@ -43,7 +43,7 @@ class FINDREPLACEW extends Win32Struct
      * Type: <b>HINSTANCE</b>
      * 
      * If the <b>FR_ENABLETEMPLATEHANDLE</b> flag is set in the <b>Flags</b>, <b>hInstance</b> is a handle to a memory object containing a dialog box template. If the <b>FR_ENABLETEMPLATE</b> flag is set, <b>hInstance</b> is a handle to a module that contains a dialog box template named by the <b>lpTemplateName</b> member. If neither flag is set, this member is ignored.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HINSTANCE>}
      */
     hInstance {
         get => NumGet(this, 12, "ptr")
@@ -63,7 +63,7 @@ class FINDREPLACEW extends Win32Struct
      * Type: <b>LPTSTR</b>
      * 
      * The search string that the user typed in the <b>Find What</b> edit control. You must dynamically allocate the buffer or use a global or static array so it does not go out of scope before the dialog box closes. The buffer should be at least 80 characters long. If the buffer contains a string when you initialize the dialog box, the string is displayed in the <b>Find What</b> edit control. If a <a href="https://docs.microsoft.com/windows/desktop/dlgbox/findmsgstring">FINDMSGSTRING</a> message specifies the <b>FR_FINDNEXT</b> flag, <b>lpstrFindWhat</b> contains the string to search for. The <b>FR_DOWN</b>, <b>FR_WHOLEWORD</b>, and <b>FR_MATCHCASE</b> flags indicate the direction and type of search. If a <b>FINDMSGSTRING</b> message specifies the <b>FR_REPLACE</b> or <b>FR_REPLACE</b> flags, <b>lpstrFindWhat</b> contains the string to be replaced.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     lpstrFindWhat {
         get => NumGet(this, 24, "ptr")
@@ -78,7 +78,7 @@ class FINDREPLACEW extends Win32Struct
      * If a <a href="https://docs.microsoft.com/windows/desktop/dlgbox/findmsgstring">FINDMSGSTRING</a> message specifies the <b>FR_REPLACE</b> or <b>FR_REPLACEALL</b> flags, <b>lpstrReplaceWith</b> contains the replacement string . 
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/commdlg/nf-commdlg-findtexta">FindText</a> function ignores this member.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     lpstrReplaceWith {
         get => NumGet(this, 32, "ptr")
@@ -122,7 +122,7 @@ class FINDREPLACEW extends Win32Struct
      * Type: <b>LPFRHOOKPROC</b>
      * 
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/commdlg/nc-commdlg-lpfrhookproc">FRHookProc</a> hook procedure that can process messages intended for the dialog box. This member is ignored unless the <b>FR_ENABLEHOOK</b> flag is set in the <b>Flags</b> member. If the hook procedure returns <b>FALSE</b> in response to the <a href="https://docs.microsoft.com/windows/desktop/dlgbox/wm-initdialog">WM_INITDIALOG</a> message, the hook procedure must display the dialog box or else the dialog box will not be shown. To do this, first perform any other paint operations, and then call the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-showwindow">ShowWindow</a> and <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-updatewindow">UpdateWindow</a> functions.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPFRHOOKPROC>}
      */
     lpfnHook {
         get => NumGet(this, 52, "ptr")
@@ -133,7 +133,7 @@ class FINDREPLACEW extends Win32Struct
      * Type: <b>LPCTSTR</b>
      * 
      * The name of the dialog box template resource in the module identified by the <b>hInstance</b> member. This template is substituted for the standard dialog box template. For numbered dialog box resources, this can be a value returned by the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-makeintresourcea">MAKEINTRESOURCE</a> macro. This member is ignored unless the <b>FR_ENABLETEMPLATE</b> flag is set in the <b>Flags</b> member.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     lpTemplateName {
         get => NumGet(this, 60, "ptr")

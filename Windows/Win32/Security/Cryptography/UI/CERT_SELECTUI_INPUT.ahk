@@ -15,7 +15,7 @@ class CERT_SELECTUI_INPUT extends Win32Struct
 
     /**
      * The  handle of a certificate store created by the caller. The store contains the set of  application preselected certificates.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HCERTSTORE>}
      */
     hStore {
         get => NumGet(this, 0, "ptr")

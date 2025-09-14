@@ -52,7 +52,7 @@ class DDHAL_CREATESURFACEDATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPDDHAL_CREATESURFACE>}
      */
     CreateSurface {
         get => NumGet(this, 32, "ptr")

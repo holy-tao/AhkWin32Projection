@@ -35,7 +35,7 @@ class MDNS_QUERY_REQUEST extends Win32Struct
 
     /**
      * A string representing the name to be queried over mDNS.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     Query {
         get => NumGet(this, 8, "ptr")
@@ -71,7 +71,7 @@ class MDNS_QUERY_REQUEST extends Win32Struct
 
     /**
      * A pointer to a function (of type [MDNS_QUERY_CALLBACK](nc-windns-mdns_query_callback.md)) that represents the callback to be invoked asynchronously whenever mDNS results are available.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PMDNS_QUERY_CALLBACK>}
      */
     pQueryCallback {
         get => NumGet(this, 40, "ptr")

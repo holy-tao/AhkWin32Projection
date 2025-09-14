@@ -12,7 +12,7 @@ class CRYPT_ASYNC_RETRIEVAL_COMPLETION extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_CRYPT_ASYNC_RETRIEVAL_COMPLETION_FUNC>}
      */
     pfnCompletion {
         get => NumGet(this, 0, "ptr")

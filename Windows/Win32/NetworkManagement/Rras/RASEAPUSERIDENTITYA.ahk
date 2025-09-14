@@ -13,11 +13,14 @@ class RASEAPUSERIDENTITYA extends Win32Struct
     static packingSize => 4
 
     /**
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    szUserName {
-        get => StrGet(this.ptr + 0, 256, "UTF-8")
-        set => StrPut(value, this.ptr + 0, 256, "UTF-8")
+    szUserName{
+        get {
+            if(!this.HasProp("__szUserNameProxyArray"))
+                this.__szUserNameProxyArray := Win32FixedArray(this.ptr + 0, 257, Primitive, "char")
+            return this.__szUserNameProxyArray
+        }
     }
 
     /**

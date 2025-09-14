@@ -43,29 +43,38 @@ class WTSINFOEX_LEVEL1_A extends Win32Struct
 
     /**
      * A  null-terminated string that contains the name of the window station for the session.
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    WinStationName {
-        get => StrGet(this.ptr + 12, 32, "UTF-8")
-        set => StrPut(value, this.ptr + 12, 32, "UTF-8")
+    WinStationName{
+        get {
+            if(!this.HasProp("__WinStationNameProxyArray"))
+                this.__WinStationNameProxyArray := Win32FixedArray(this.ptr + 12, 33, Primitive, "char")
+            return this.__WinStationNameProxyArray
+        }
     }
 
     /**
      * A  null-terminated string that contains the name of the user who owns the session.
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    UserName {
-        get => StrGet(this.ptr + 45, 20, "UTF-8")
-        set => StrPut(value, this.ptr + 45, 20, "UTF-8")
+    UserName{
+        get {
+            if(!this.HasProp("__UserNameProxyArray"))
+                this.__UserNameProxyArray := Win32FixedArray(this.ptr + 45, 21, Primitive, "char")
+            return this.__UserNameProxyArray
+        }
     }
 
     /**
      * A  null-terminated string that contains the name of the domain that the user belongs to.
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    DomainName {
-        get => StrGet(this.ptr + 66, 17, "UTF-8")
-        set => StrPut(value, this.ptr + 66, 17, "UTF-8")
+    DomainName{
+        get {
+            if(!this.HasProp("__DomainNameProxyArray"))
+                this.__DomainNameProxyArray := Win32FixedArray(this.ptr + 66, 18, Primitive, "char")
+            return this.__DomainNameProxyArray
+        }
     }
 
     /**

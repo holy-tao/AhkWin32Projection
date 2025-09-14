@@ -41,7 +41,7 @@ class IPSEC_KEY_MANAGER_CALLBACKS0 extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nc-fwpmu-ipsec_key_manager_key_dictation_check0">IPSEC_KEY_MANAGER_KEY_DICTATION_CHECK0</a></b>
      * 
      * Specifies that the Trusted Intermediary Agent (TIA) will dictate the keys for the SA being negotiated. Only used if the <b>IPSEC_DICTATE_KEY</b> flag is set.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<IPSEC_KEY_MANAGER_KEY_DICTATION_CHECK0>}
      */
     keyDictationCheck {
         get => NumGet(this, 16, "ptr")
@@ -52,7 +52,7 @@ class IPSEC_KEY_MANAGER_CALLBACKS0 extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nc-fwpmu-ipsec_key_manager_dictate_key0">IPSEC_KEY_MANAGER_DICTATE_KEY0</a></b>
      * 
      * Allows the TIA to dictate the keys for the SA being negotiated. Only used if the <b>IPSEC_DICTATE_KEY</b> flag is set.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<IPSEC_KEY_MANAGER_DICTATE_KEY0>}
      */
     keyDictation {
         get => NumGet(this, 24, "ptr")
@@ -63,7 +63,7 @@ class IPSEC_KEY_MANAGER_CALLBACKS0 extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nc-fwpmu-ipsec_key_manager_notify_key0">IPSEC_KEY_MANAGER_NOTIFY_KEY0</a></b>
      * 
      * Notifies the TIA of the keys for the SA being negotiated.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<IPSEC_KEY_MANAGER_NOTIFY_KEY0>}
      */
     keyNotify {
         get => NumGet(this, 32, "ptr")

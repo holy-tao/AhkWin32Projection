@@ -29,7 +29,7 @@ class ETW_OPEN_TRACE_OPTIONS extends Win32Struct
 
     /**
      * Function pointer of type [PEVENT_RECORD_CALLBACK](nc-evntrace-pevent_record_callback.md). Called for each event in time order. If NULL then all event playback processing will be bypassed for improved performance.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PEVENT_RECORD_CALLBACK>}
      */
     EventCallback {
         get => NumGet(this, 8, "ptr")
@@ -47,7 +47,7 @@ class ETW_OPEN_TRACE_OPTIONS extends Win32Struct
 
     /**
      * Called for each buffer once processing on that buffer is complete. If NULL then no buffer callback will be executed.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PETW_BUFFER_CALLBACK>}
      */
     BufferCallback {
         get => NumGet(this, 24, "ptr")

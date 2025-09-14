@@ -44,7 +44,7 @@ class PROPSHEETUI_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HANDLE>}
      */
     hComPropSheet {
         get => NumGet(this, 8, "ptr")
@@ -52,7 +52,7 @@ class PROPSHEETUI_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFNCOMPROPSHEET>}
      */
     pfnComPropSheet {
         get => NumGet(this, 16, "ptr")

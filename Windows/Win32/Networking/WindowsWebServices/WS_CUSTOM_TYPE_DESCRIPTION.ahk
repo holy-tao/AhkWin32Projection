@@ -34,7 +34,7 @@ class WS_CUSTOM_TYPE_DESCRIPTION extends Win32Struct
 
     /**
      * A pointer to a callback which is invoked to read the type.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<WS_READ_TYPE_CALLBACK>}
      */
     readCallback {
         get => NumGet(this, 8, "ptr")
@@ -43,7 +43,7 @@ class WS_CUSTOM_TYPE_DESCRIPTION extends Win32Struct
 
     /**
      * A pointer to a callback which is invoked to write the type.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<WS_WRITE_TYPE_CALLBACK>}
      */
     writeCallback {
         get => NumGet(this, 16, "ptr")
@@ -69,7 +69,7 @@ class WS_CUSTOM_TYPE_DESCRIPTION extends Win32Struct
 
     /**
      * 
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<WS_IS_DEFAULT_VALUE_CALLBACK>}
      */
     isDefaultValueCallback {
         get => NumGet(this, 32, "ptr")

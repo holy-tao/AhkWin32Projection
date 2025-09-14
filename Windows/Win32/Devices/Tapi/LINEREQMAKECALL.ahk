@@ -21,37 +21,49 @@ class LINEREQMAKECALL extends Win32Struct
 
     /**
      * <b>Null</b>-terminated destination address of the make-call request. The address can use the canonical address format or the dialable address format. The maximum length of the address is TAPIMAXDESTADDRESSSIZE characters, which includes the <b>NULL</b> terminator. Longer strings are truncated.
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    szDestAddress {
-        get => StrGet(this.ptr + 0, 79, "UTF-8")
-        set => StrPut(value, this.ptr + 0, 79, "UTF-8")
+    szDestAddress{
+        get {
+            if(!this.HasProp("__szDestAddressProxyArray"))
+                this.__szDestAddressProxyArray := Win32FixedArray(this.ptr + 0, 80, Primitive, "char")
+            return this.__szDestAddressProxyArray
+        }
     }
 
     /**
      * <b>Null</b>-terminated user-friendly application name or filename of the application that originated the request. The maximum length of the address is TAPIMAXAPPNAMESIZE characters, which includes the <b>NULL</b> terminator.
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    szAppName {
-        get => StrGet(this.ptr + 80, 39, "UTF-8")
-        set => StrPut(value, this.ptr + 80, 39, "UTF-8")
+    szAppName{
+        get {
+            if(!this.HasProp("__szAppNameProxyArray"))
+                this.__szAppNameProxyArray := Win32FixedArray(this.ptr + 80, 40, Primitive, "char")
+            return this.__szAppNameProxyArray
+        }
     }
 
     /**
      * <b>Null</b>-terminated user-friendly called-party name. The maximum length of the called-party information is TAPIMAXCALLEDPARTYSIZE characters, which includes the <b>NULL</b> terminator.
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    szCalledParty {
-        get => StrGet(this.ptr + 120, 39, "UTF-8")
-        set => StrPut(value, this.ptr + 120, 39, "UTF-8")
+    szCalledParty{
+        get {
+            if(!this.HasProp("__szCalledPartyProxyArray"))
+                this.__szCalledPartyProxyArray := Win32FixedArray(this.ptr + 120, 40, Primitive, "char")
+            return this.__szCalledPartyProxyArray
+        }
     }
 
     /**
      * <b>Null</b>-terminated comment about the call request. The maximum length of the comment string is TAPIMAXCOMMENTSIZE characters, which includes the <b>NULL</b> terminator.
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    szComment {
-        get => StrGet(this.ptr + 160, 79, "UTF-8")
-        set => StrPut(value, this.ptr + 160, 79, "UTF-8")
+    szComment{
+        get {
+            if(!this.HasProp("__szCommentProxyArray"))
+                this.__szCommentProxyArray := Win32FixedArray(this.ptr + 160, 80, Primitive, "char")
+            return this.__szCommentProxyArray
+        }
     }
 }

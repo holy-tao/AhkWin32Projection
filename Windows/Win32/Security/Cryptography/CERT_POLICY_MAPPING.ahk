@@ -15,7 +15,7 @@ class CERT_POLICY_MAPPING extends Win32Struct
 
     /**
      * <b>pszObjId</b> of an issuer domain policy.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     pszIssuerDomainPolicy {
         get => NumGet(this, 0, "ptr")
@@ -24,7 +24,7 @@ class CERT_POLICY_MAPPING extends Win32Struct
 
     /**
      * <b>pszObjId</b> of the equivalent subject domain policy.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     pszSubjectDomainPolicy {
         get => NumGet(this, 8, "ptr")

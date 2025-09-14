@@ -39,7 +39,7 @@ class MCI_DGV_UPDATE_PARMS extends Win32Struct
 
     /**
      * Handle to display context.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HDC>}
      */
     hDC {
         get => NumGet(this, 24, "ptr")

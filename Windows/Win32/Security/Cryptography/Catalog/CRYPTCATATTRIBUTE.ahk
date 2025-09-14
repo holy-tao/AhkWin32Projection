@@ -24,7 +24,7 @@ class CRYPTCATATTRIBUTE extends Win32Struct
 
     /**
      * A pointer to a null-terminated string that contains the reference tag value.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pwszReferenceTag {
         get => NumGet(this, 8, "ptr")

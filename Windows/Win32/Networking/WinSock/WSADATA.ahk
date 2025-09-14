@@ -26,7 +26,7 @@
  */
 class WSADATA extends Win32Struct
 {
-    static sizeof => 792
+    static sizeof => 408
 
     static packingSize => 8
 
@@ -58,22 +58,28 @@ class WSADATA extends Win32Struct
      * Type: <b>char[WSADESCRIPTION_LEN+1]</b>
      * 
      * A <b>NULL</b>-terminated ASCII string into which the <i>Ws2_32.dll</i> copies a description of the Windows Sockets implementation. The text (up to 256 characters in length) can contain any characters except control and formatting characters. The most likely use that an application would have for this member is to display it (possibly truncated) in a status message.
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    szDescription {
-        get => StrGet(this.ptr + 4, 256, "UTF-16")
-        set => StrPut(value, this.ptr + 4, 256, "UTF-16")
+    szDescription{
+        get {
+            if(!this.HasProp("__szDescriptionProxyArray"))
+                this.__szDescriptionProxyArray := Win32FixedArray(this.ptr + 4, 257, Primitive, "char")
+            return this.__szDescriptionProxyArray
+        }
     }
 
     /**
      * Type: <b>char[WSASYS_STATUS_LEN+1]</b>
      * 
      * A <b>NULL</b>-terminated ASCII string into which the <i>Ws2_32.dll</i> copies relevant status or configuration information. The <i>Ws2_32.dll</i> should use this parameter only if the information might be useful to the user or support staff. This member should not be considered as an extension of the <b>szDescription</b> parameter.
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    szSystemStatus {
-        get => StrGet(this.ptr + 518, 128, "UTF-16")
-        set => StrPut(value, this.ptr + 518, 128, "UTF-16")
+    szSystemStatus{
+        get {
+            if(!this.HasProp("__szSystemStatusProxyArray"))
+                this.__szSystemStatusProxyArray := Win32FixedArray(this.ptr + 261, 129, Primitive, "char")
+            return this.__szSystemStatusProxyArray
+        }
     }
 
     /**
@@ -85,8 +91,8 @@ class WSADATA extends Win32Struct
      * @type {Integer}
      */
     iMaxSockets {
-        get => NumGet(this, 776, "ushort")
-        set => NumPut("ushort", value, this, 776)
+        get => NumGet(this, 390, "ushort")
+        set => NumPut("ushort", value, this, 390)
     }
 
     /**
@@ -99,8 +105,8 @@ class WSADATA extends Win32Struct
      * @type {Integer}
      */
     iMaxUdpDg {
-        get => NumGet(this, 778, "ushort")
-        set => NumPut("ushort", value, this, 778)
+        get => NumGet(this, 392, "ushort")
+        set => NumPut("ushort", value, this, 392)
     }
 
     /**
@@ -110,10 +116,10 @@ class WSADATA extends Win32Struct
      * 
      * The <b>lpVendorInfo</b> member is retained for compatibility with Windows Sockets specification 1.1. The architecture of Windows Sockets changed in version 2 to support multiple providers, and the <b>WSADATA</b> structure no longer applies to a single vendor's stack. Applications needing to access vendor-specific configuration information should use 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-getsockopt">getsockopt</a> to retrieve the value of option PVD_CONFIG for vendor-specific information.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     lpVendorInfo {
-        get => NumGet(this, 784, "ptr")
-        set => NumPut("ptr", value, this, 784)
+        get => NumGet(this, 400, "ptr")
+        set => NumPut("ptr", value, this, 400)
     }
 }

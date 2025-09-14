@@ -15,7 +15,7 @@
  */
 class IMAGEHLP_DEFERRED_SYMBOL_LOAD extends Win32Struct
 {
-    static sizeof => 552
+    static sizeof => 288
 
     static packingSize => 8
 
@@ -57,11 +57,14 @@ class IMAGEHLP_DEFERRED_SYMBOL_LOAD extends Win32Struct
 
     /**
      * The image name. The name may or may not contain a full path.
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    FileName {
-        get => StrGet(this.ptr + 16, 259, "UTF-16")
-        set => StrPut(value, this.ptr + 16, 259, "UTF-16")
+    FileName{
+        get {
+            if(!this.HasProp("__FileNameProxyArray"))
+                this.__FileNameProxyArray := Win32FixedArray(this.ptr + 16, 260, Primitive, "char")
+            return this.__FileNameProxyArray
+        }
     }
 
     /**
@@ -69,16 +72,16 @@ class IMAGEHLP_DEFERRED_SYMBOL_LOAD extends Win32Struct
      * @type {Integer}
      */
     Reparse {
-        get => NumGet(this, 536, "char")
-        set => NumPut("char", value, this, 536)
+        get => NumGet(this, 276, "char")
+        set => NumPut("char", value, this, 276)
     }
 
     /**
      * A handle to a file. This member is used with <b>CBA_DEFERRED_SYMBOL_LOAD_PARTIAL</b> and <b>IMAGEHLP_DEFERRED_SYMBOL_LOAD_FAILURE</b> callbacks.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HANDLE>}
      */
     hFile {
-        get => NumGet(this, 544, "ptr")
-        set => NumPut("ptr", value, this, 544)
+        get => NumGet(this, 280, "ptr")
+        set => NumPut("ptr", value, this, 280)
     }
 }

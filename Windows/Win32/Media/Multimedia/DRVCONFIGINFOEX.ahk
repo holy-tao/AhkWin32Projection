@@ -20,7 +20,7 @@ class DRVCONFIGINFOEX extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     lpszDCISectionName {
         get => NumGet(this, 4, "ptr")
@@ -28,7 +28,7 @@ class DRVCONFIGINFOEX extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     lpszDCIAliasName {
         get => NumGet(this, 12, "ptr")

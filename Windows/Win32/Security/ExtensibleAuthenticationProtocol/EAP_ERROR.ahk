@@ -532,7 +532,7 @@ class EAP_ERROR extends Win32Struct
 
     /**
      * A localized and readable string that describes the root cause of the error.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pRootCauseString {
         get => NumGet(this, 56, "ptr")
@@ -541,7 +541,7 @@ class EAP_ERROR extends Win32Struct
 
     /**
      * A localized and readable string that describes the possible repair action.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pRepairString {
         get => NumGet(this, 64, "ptr")

@@ -23,7 +23,7 @@ class D3DAUTHENTICATEDCHANNEL_QUERY_INPUT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HANDLE>}
      */
     hChannel {
         get => NumGet(this, 8, "ptr")

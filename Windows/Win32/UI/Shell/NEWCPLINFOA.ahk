@@ -67,7 +67,7 @@ class NEWCPLINFOA extends Win32Struct
      * Type: <b>HICON</b>
      * 
      * The identifier of the icon that represents the dialog box. This icon is intended to be displayed by the application that controls the Control Panel application.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HICON>}
      */
     hIcon {
         get => NumGet(this, 20, "ptr")
@@ -78,32 +78,41 @@ class NEWCPLINFOA extends Win32Struct
      * Type: <b>TCHAR[32]</b>
      * 
      * A null-terminated string that contains the dialog box name. The name is intended to be displayed below the icon.
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    szName {
-        get => StrGet(this.ptr + 28, 31, "UTF-8")
-        set => StrPut(value, this.ptr + 28, 31, "UTF-8")
+    szName{
+        get {
+            if(!this.HasProp("__szNameProxyArray"))
+                this.__szNameProxyArray := Win32FixedArray(this.ptr + 28, 32, Primitive, "char")
+            return this.__szNameProxyArray
+        }
     }
 
     /**
      * Type: <b>TCHAR[64]</b>
      * 
      * A null-terminated string containing the dialog box description. The description is intended to be displayed when the icon for the dialog box is selected.
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    szInfo {
-        get => StrGet(this.ptr + 60, 63, "UTF-8")
-        set => StrPut(value, this.ptr + 60, 63, "UTF-8")
+    szInfo{
+        get {
+            if(!this.HasProp("__szInfoProxyArray"))
+                this.__szInfoProxyArray := Win32FixedArray(this.ptr + 60, 64, Primitive, "char")
+            return this.__szInfoProxyArray
+        }
     }
 
     /**
      * Type: <b>TCHAR[128]</b>
      * 
      * This member is ignored.
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    szHelpFile {
-        get => StrGet(this.ptr + 124, 127, "UTF-8")
-        set => StrPut(value, this.ptr + 124, 127, "UTF-8")
+    szHelpFile{
+        get {
+            if(!this.HasProp("__szHelpFileProxyArray"))
+                this.__szHelpFileProxyArray := Win32FixedArray(this.ptr + 124, 128, Primitive, "char")
+            return this.__szHelpFileProxyArray
+        }
     }
 }

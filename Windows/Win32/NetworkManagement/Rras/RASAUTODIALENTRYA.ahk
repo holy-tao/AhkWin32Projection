@@ -37,10 +37,13 @@ class RASAUTODIALENTRYA extends Win32Struct
     }
 
     /**
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    szEntry {
-        get => StrGet(this.ptr + 12, 256, "UTF-8")
-        set => StrPut(value, this.ptr + 12, 256, "UTF-8")
+    szEntry{
+        get {
+            if(!this.HasProp("__szEntryProxyArray"))
+                this.__szEntryProxyArray := Win32FixedArray(this.ptr + 12, 257, Primitive, "char")
+            return this.__szEntryProxyArray
+        }
     }
 }

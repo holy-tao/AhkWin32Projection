@@ -79,7 +79,7 @@ class NMTBDISPINFOW extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPTSTR</a></b>
      * 
      * Pointer to a character buffer that receives the item's text.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pszText {
         get => NumGet(this, 48, "ptr")

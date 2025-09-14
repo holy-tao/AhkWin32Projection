@@ -13,7 +13,7 @@ class INTERNET_CALLBACK_COOKIE extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pcwszName {
         get => NumGet(this, 0, "ptr")
@@ -21,7 +21,7 @@ class INTERNET_CALLBACK_COOKIE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pcwszValue {
         get => NumGet(this, 8, "ptr")
@@ -29,7 +29,7 @@ class INTERNET_CALLBACK_COOKIE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pcwszDomain {
         get => NumGet(this, 16, "ptr")
@@ -37,7 +37,7 @@ class INTERNET_CALLBACK_COOKIE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pcwszPath {
         get => NumGet(this, 24, "ptr")

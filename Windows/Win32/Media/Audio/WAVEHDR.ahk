@@ -19,7 +19,7 @@ class WAVEHDR extends Win32Struct
 
     /**
      * Pointer to the waveform buffer.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     lpData {
         get => NumGet(this, 0, "ptr")

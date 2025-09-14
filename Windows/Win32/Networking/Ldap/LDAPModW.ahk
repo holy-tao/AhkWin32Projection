@@ -41,7 +41,7 @@ class LDAPModW extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that specifies the name of  the attribute to modify.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     mod_type {
         get => NumGet(this, 8, "ptr")
@@ -49,7 +49,7 @@ class LDAPModW extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     modv_strvals {
         get => NumGet(this, 16, "ptr")

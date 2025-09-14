@@ -35,7 +35,7 @@ class MCI_DGV_SAVE_PARMSW extends Win32Struct
 
     /**
      * String for filename to save.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     lpstrFileName {
         get => NumGet(this, 8, "ptr")

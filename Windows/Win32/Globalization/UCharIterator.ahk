@@ -60,7 +60,7 @@ class UCharIterator extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<UCharIteratorGetIndex>}
      */
     getIndex {
         get => NumGet(this, 32, "ptr")
@@ -68,7 +68,7 @@ class UCharIterator extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<UCharIteratorMove>}
      */
     move {
         get => NumGet(this, 40, "ptr")
@@ -76,7 +76,7 @@ class UCharIterator extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<UCharIteratorHasNext>}
      */
     hasNext {
         get => NumGet(this, 48, "ptr")
@@ -84,7 +84,7 @@ class UCharIterator extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<UCharIteratorHasPrevious>}
      */
     hasPrevious {
         get => NumGet(this, 56, "ptr")
@@ -92,7 +92,7 @@ class UCharIterator extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<UCharIteratorCurrent>}
      */
     current {
         get => NumGet(this, 64, "ptr")
@@ -100,7 +100,7 @@ class UCharIterator extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<UCharIteratorNext>}
      */
     next {
         get => NumGet(this, 72, "ptr")
@@ -108,7 +108,7 @@ class UCharIterator extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<UCharIteratorPrevious>}
      */
     previous {
         get => NumGet(this, 80, "ptr")
@@ -116,7 +116,7 @@ class UCharIterator extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<UCharIteratorReserved>}
      */
     reservedFn {
         get => NumGet(this, 88, "ptr")
@@ -124,7 +124,7 @@ class UCharIterator extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<UCharIteratorGetState>}
      */
     getState {
         get => NumGet(this, 96, "ptr")
@@ -132,7 +132,7 @@ class UCharIterator extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<UCharIteratorSetState>}
      */
     setState {
         get => NumGet(this, 104, "ptr")

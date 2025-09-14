@@ -7,7 +7,7 @@
  */
 class VAL extends Win32Struct
 {
-    static sizeof => 576
+    static sizeof => 320
 
     static packingSize => 8
 
@@ -44,7 +44,7 @@ class VAL extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HGLOBAL>}
      */
     handle {
         get => NumGet(this, 32, "ptr")
@@ -60,7 +60,7 @@ class VAL extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HANDLE>}
      */
     pHandle {
         get => NumGet(this, 48, "ptr")
@@ -76,10 +76,13 @@ class VAL extends Win32Struct
     }
 
     /**
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    szVal {
-        get => StrGet(this.ptr + 60, 254, "UTF-16")
-        set => StrPut(value, this.ptr + 60, 254, "UTF-16")
+    szVal{
+        get {
+            if(!this.HasProp("__szValProxyArray"))
+                this.__szValProxyArray := Win32FixedArray(this.ptr + 60, 255, Primitive, "char")
+            return this.__szValProxyArray
+        }
     }
 }

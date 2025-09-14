@@ -46,11 +46,14 @@ class MIXERCAPSA extends Win32Struct
 
     /**
      * Name of the product. If the mixer device driver supports multiple cards, this string must uniquely and easily identify (potentially to a user) the specific card.
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    szPname {
-        get => StrGet(this.ptr + 8, 31, "UTF-8")
-        set => StrPut(value, this.ptr + 8, 31, "UTF-8")
+    szPname{
+        get {
+            if(!this.HasProp("__szPnameProxyArray"))
+                this.__szPnameProxyArray := Win32FixedArray(this.ptr + 8, 32, Primitive, "char")
+            return this.__szPnameProxyArray
+        }
     }
 
     /**

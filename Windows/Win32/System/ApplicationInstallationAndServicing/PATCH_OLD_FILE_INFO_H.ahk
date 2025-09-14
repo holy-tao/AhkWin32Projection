@@ -20,7 +20,7 @@ class PATCH_OLD_FILE_INFO_H extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HANDLE>}
      */
     OldFileHandle {
         get => NumGet(this, 8, "ptr")

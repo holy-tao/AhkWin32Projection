@@ -25,7 +25,7 @@ class CONTENTRESTRICTION extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pwcsPhrase {
         get => NumGet(this, 16, "ptr")

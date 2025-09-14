@@ -38,19 +38,25 @@ class SP_TROUBLESHOOTER_PARAMS_A extends Win32Struct
 
     /**
      * Optionally specifies a string buffer that contains the path of a CHM file. The CHM file contains HTML help topics with troubleshooting information. The path must be fully qualified if the file is not in default system help directory (%SystemRoot%\help).
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    ChmFile {
-        get => StrGet(this.ptr + 8, 259, "UTF-8")
-        set => StrPut(value, this.ptr + 8, 259, "UTF-8")
+    ChmFile{
+        get {
+            if(!this.HasProp("__ChmFileProxyArray"))
+                this.__ChmFileProxyArray := Win32FixedArray(this.ptr + 8, 260, Primitive, "char")
+            return this.__ChmFileProxyArray
+        }
     }
 
     /**
      * Optionally specifies a string buffer that contains the path of a topic in the <b>ChmFile</b>. This parameter identifies the page of the <b>ChmFile</b> that Windows should display first.
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    HtmlTroubleShooter {
-        get => StrGet(this.ptr + 268, 259, "UTF-8")
-        set => StrPut(value, this.ptr + 268, 259, "UTF-8")
+    HtmlTroubleShooter{
+        get {
+            if(!this.HasProp("__HtmlTroubleShooterProxyArray"))
+                this.__HtmlTroubleShooterProxyArray := Win32FixedArray(this.ptr + 268, 260, Primitive, "char")
+            return this.__HtmlTroubleShooterProxyArray
+        }
     }
 }

@@ -21,7 +21,7 @@ class RASENTRYDLGA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HWND>}
      */
     hwndOwner {
         get => NumGet(this, 8, "ptr")
@@ -53,11 +53,14 @@ class RASENTRYDLGA extends Win32Struct
     }
 
     /**
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    szEntry {
-        get => StrGet(this.ptr + 28, 256, "UTF-8")
-        set => StrPut(value, this.ptr + 28, 256, "UTF-8")
+    szEntry{
+        get {
+            if(!this.HasProp("__szEntryProxyArray"))
+                this.__szEntryProxyArray := Win32FixedArray(this.ptr + 28, 257, Primitive, "char")
+            return this.__szEntryProxyArray
+        }
     }
 
     /**

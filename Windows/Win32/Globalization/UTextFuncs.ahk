@@ -44,7 +44,7 @@ class UTextFuncs extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<UTextClone>}
      */
     clone {
         get => NumGet(this, 16, "ptr")
@@ -52,7 +52,7 @@ class UTextFuncs extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<UTextNativeLength>}
      */
     nativeLength {
         get => NumGet(this, 24, "ptr")
@@ -60,7 +60,7 @@ class UTextFuncs extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<UTextAccess>}
      */
     access {
         get => NumGet(this, 32, "ptr")
@@ -68,7 +68,7 @@ class UTextFuncs extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<UTextExtract>}
      */
     extract {
         get => NumGet(this, 40, "ptr")
@@ -76,7 +76,7 @@ class UTextFuncs extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<UTextReplace>}
      */
     replace {
         get => NumGet(this, 48, "ptr")
@@ -84,7 +84,7 @@ class UTextFuncs extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<UTextCopy>}
      */
     copy {
         get => NumGet(this, 56, "ptr")
@@ -92,7 +92,7 @@ class UTextFuncs extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<UTextMapOffsetToNative>}
      */
     mapOffsetToNative {
         get => NumGet(this, 64, "ptr")
@@ -100,7 +100,7 @@ class UTextFuncs extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<UTextMapNativeIndexToUTF16>}
      */
     mapNativeIndexToUTF16 {
         get => NumGet(this, 72, "ptr")
@@ -108,7 +108,7 @@ class UTextFuncs extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<UTextClose>}
      */
     close {
         get => NumGet(this, 80, "ptr")
@@ -116,7 +116,7 @@ class UTextFuncs extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<UTextClose>}
      */
     spare1 {
         get => NumGet(this, 88, "ptr")
@@ -124,7 +124,7 @@ class UTextFuncs extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<UTextClose>}
      */
     spare2 {
         get => NumGet(this, 96, "ptr")
@@ -132,7 +132,7 @@ class UTextFuncs extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<UTextClose>}
      */
     spare3 {
         get => NumGet(this, 104, "ptr")

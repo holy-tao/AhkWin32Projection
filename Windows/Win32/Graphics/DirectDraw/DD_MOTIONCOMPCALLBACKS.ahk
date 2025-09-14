@@ -49,7 +49,7 @@ class DD_MOTIONCOMPCALLBACKS extends Win32Struct
 
     /**
      * Points to the driver-supplied <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/nc-ddrawint-pdd_mocompcb_getguids">DdMoCompGetGuids</a> callback function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PDD_MOCOMPCB_GETGUIDS>}
      */
     GetMoCompGuids {
         get => NumGet(this, 8, "ptr")
@@ -58,7 +58,7 @@ class DD_MOTIONCOMPCALLBACKS extends Win32Struct
 
     /**
      * Points to the driver-supplied <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/nc-ddrawint-pdd_mocompcb_getformats">DdMoCompGetFormats</a> callback function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PDD_MOCOMPCB_GETFORMATS>}
      */
     GetMoCompFormats {
         get => NumGet(this, 16, "ptr")
@@ -67,7 +67,7 @@ class DD_MOTIONCOMPCALLBACKS extends Win32Struct
 
     /**
      * Points to the driver-supplied <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/nc-ddrawint-pdd_mocompcb_create">DdMoCompCreate</a> callback function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PDD_MOCOMPCB_CREATE>}
      */
     CreateMoComp {
         get => NumGet(this, 24, "ptr")
@@ -76,7 +76,7 @@ class DD_MOTIONCOMPCALLBACKS extends Win32Struct
 
     /**
      * Points to the driver-supplied <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/nc-ddrawint-pdd_mocompcb_getcompbuffinfo">DdMoCompGetBuffInfo</a> callback function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PDD_MOCOMPCB_GETCOMPBUFFINFO>}
      */
     GetMoCompBuffInfo {
         get => NumGet(this, 32, "ptr")
@@ -85,7 +85,7 @@ class DD_MOTIONCOMPCALLBACKS extends Win32Struct
 
     /**
      * Points to the driver-supplied <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/nc-ddrawint-pdd_mocompcb_getinternalinfo">DdMoCompGetInternalInfo</a> callback function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PDD_MOCOMPCB_GETINTERNALINFO>}
      */
     GetInternalMoCompInfo {
         get => NumGet(this, 40, "ptr")
@@ -94,7 +94,7 @@ class DD_MOTIONCOMPCALLBACKS extends Win32Struct
 
     /**
      * Points to the driver-supplied <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/nc-ddrawint-pdd_mocompcb_beginframe">DdMoCompBeginFrame</a> callback function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PDD_MOCOMPCB_BEGINFRAME>}
      */
     BeginMoCompFrame {
         get => NumGet(this, 48, "ptr")
@@ -103,7 +103,7 @@ class DD_MOTIONCOMPCALLBACKS extends Win32Struct
 
     /**
      * Points to the driver-supplied <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/nc-ddrawint-pdd_mocompcb_endframe">DdMoCompEndFrame</a> callback function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PDD_MOCOMPCB_ENDFRAME>}
      */
     EndMoCompFrame {
         get => NumGet(this, 56, "ptr")
@@ -112,7 +112,7 @@ class DD_MOTIONCOMPCALLBACKS extends Win32Struct
 
     /**
      * Points to the driver-supplied <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/nc-ddrawint-pdd_mocompcb_render">DdMoCompRender</a> callback function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PDD_MOCOMPCB_RENDER>}
      */
     RenderMoComp {
         get => NumGet(this, 64, "ptr")
@@ -121,7 +121,7 @@ class DD_MOTIONCOMPCALLBACKS extends Win32Struct
 
     /**
      * Points to the driver-supplied <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/nc-ddrawint-pdd_mocompcb_querystatus">DdMoCompQueryStatus</a> callback function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PDD_MOCOMPCB_QUERYSTATUS>}
      */
     QueryMoCompStatus {
         get => NumGet(this, 72, "ptr")
@@ -130,7 +130,7 @@ class DD_MOTIONCOMPCALLBACKS extends Win32Struct
 
     /**
      * Points to the driver-supplied <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/nc-ddrawint-pdd_mocompcb_destroy">DdMoCompDestroy</a> callback function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PDD_MOCOMPCB_DESTROY>}
      */
     DestroyMoComp {
         get => NumGet(this, 80, "ptr")

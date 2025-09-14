@@ -43,7 +43,7 @@ class PACKAGE_INFO extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">PWSTR</a></b>
      * 
      * The location of the package.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     path {
         get => NumGet(this, 8, "ptr")
@@ -54,7 +54,7 @@ class PACKAGE_INFO extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">PWSTR</a></b>
      * 
      * The package full name.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     packageFullName {
         get => NumGet(this, 16, "ptr")
@@ -65,7 +65,7 @@ class PACKAGE_INFO extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">PWSTR</a></b>
      * 
      * The package family name.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     packageFamilyName {
         get => NumGet(this, 24, "ptr")

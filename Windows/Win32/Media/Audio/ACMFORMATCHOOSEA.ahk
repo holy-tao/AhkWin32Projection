@@ -29,7 +29,7 @@ class ACMFORMATCHOOSEA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HWND>}
      */
     hwndOwner {
         get => NumGet(this, 8, "ptr")
@@ -53,7 +53,7 @@ class ACMFORMATCHOOSEA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     pszTitle {
         get => NumGet(this, 28, "ptr")
@@ -61,23 +61,29 @@ class ACMFORMATCHOOSEA extends Win32Struct
     }
 
     /**
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    szFormatTag {
-        get => StrGet(this.ptr + 36, 47, "UTF-8")
-        set => StrPut(value, this.ptr + 36, 47, "UTF-8")
+    szFormatTag{
+        get {
+            if(!this.HasProp("__szFormatTagProxyArray"))
+                this.__szFormatTagProxyArray := Win32FixedArray(this.ptr + 36, 48, Primitive, "char")
+            return this.__szFormatTagProxyArray
+        }
     }
 
     /**
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    szFormat {
-        get => StrGet(this.ptr + 84, 127, "UTF-8")
-        set => StrPut(value, this.ptr + 84, 127, "UTF-8")
+    szFormat{
+        get {
+            if(!this.HasProp("__szFormatProxyArray"))
+                this.__szFormatProxyArray := Win32FixedArray(this.ptr + 84, 128, Primitive, "char")
+            return this.__szFormatProxyArray
+        }
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     pszName {
         get => NumGet(this, 212, "ptr")
@@ -109,7 +115,7 @@ class ACMFORMATCHOOSEA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HINSTANCE>}
      */
     hInstance {
         get => NumGet(this, 236, "ptr")
@@ -117,7 +123,7 @@ class ACMFORMATCHOOSEA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     pszTemplateName {
         get => NumGet(this, 244, "ptr")
@@ -133,7 +139,7 @@ class ACMFORMATCHOOSEA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<ACMFORMATCHOOSEHOOKPROCA>}
      */
     pfnHook {
         get => NumGet(this, 260, "ptr")

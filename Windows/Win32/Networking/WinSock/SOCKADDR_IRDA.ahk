@@ -17,7 +17,7 @@
  */
 class SOCKADDR_IRDA extends Win32Struct
 {
-    static sizeof => 56
+    static sizeof => 32
 
     static packingSize => 2
 
@@ -46,10 +46,13 @@ class SOCKADDR_IRDA extends Win32Struct
     /**
      * Well-known service name associated with a server application. Specified by servers during their 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-bind">bind</a> function call.
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    irdaServiceName {
-        get => StrGet(this.ptr + 6, 24, "UTF-16")
-        set => StrPut(value, this.ptr + 6, 24, "UTF-16")
+    irdaServiceName{
+        get {
+            if(!this.HasProp("__irdaServiceNameProxyArray"))
+                this.__irdaServiceNameProxyArray := Win32FixedArray(this.ptr + 6, 25, Primitive, "char")
+            return this.__irdaServiceNameProxyArray
+        }
     }
 }

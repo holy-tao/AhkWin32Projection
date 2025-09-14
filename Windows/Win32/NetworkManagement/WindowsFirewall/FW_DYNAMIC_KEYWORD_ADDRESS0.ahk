@@ -30,7 +30,7 @@ class FW_DYNAMIC_KEYWORD_ADDRESS0 extends Win32Struct
      * Type: **[PCWSTR](/windows/win32/api/guiddef/ns-guiddef-guid)**
      * 
      * Either a string (for management convenience), or a resolvable string (that is, a FQDN or hostname) when the **FW_DYNAMIC_KEYWORD_ADDRESS_FLAGS_AUTO_RESOLVE** flag is set.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     keyword {
         get => NumGet(this, 8, "ptr")
@@ -52,7 +52,7 @@ class FW_DYNAMIC_KEYWORD_ADDRESS0 extends Win32Struct
      * Type: **[PCWSTR](/windows/win32/api/guiddef/ns-guiddef-guid)**
      * 
      * The list of IP addresses for this keyword. If the **FW_DYNAMIC_KEYWORD_ADDRESS_FLAGS_AUTO_RESOLVE** flag is set, then this indicates that the *addresses* field was populated outside the firewall service.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     addresses {
         get => NumGet(this, 24, "ptr")

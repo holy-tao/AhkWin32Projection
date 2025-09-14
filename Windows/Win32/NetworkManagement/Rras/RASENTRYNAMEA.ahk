@@ -21,11 +21,14 @@ class RASENTRYNAMEA extends Win32Struct
     }
 
     /**
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    szEntryName {
-        get => StrGet(this.ptr + 4, 256, "UTF-8")
-        set => StrPut(value, this.ptr + 4, 256, "UTF-8")
+    szEntryName{
+        get {
+            if(!this.HasProp("__szEntryNameProxyArray"))
+                this.__szEntryNameProxyArray := Win32FixedArray(this.ptr + 4, 257, Primitive, "char")
+            return this.__szEntryNameProxyArray
+        }
     }
 
     /**
@@ -37,10 +40,13 @@ class RASENTRYNAMEA extends Win32Struct
     }
 
     /**
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    szPhonebookPath {
-        get => StrGet(this.ptr + 268, 260, "UTF-8")
-        set => StrPut(value, this.ptr + 268, 260, "UTF-8")
+    szPhonebookPath{
+        get {
+            if(!this.HasProp("__szPhonebookPathProxyArray"))
+                this.__szPhonebookPathProxyArray := Win32FixedArray(this.ptr + 268, 261, Primitive, "char")
+            return this.__szPhonebookPathProxyArray
+        }
     }
 }

@@ -8,7 +8,7 @@
  */
 class DEVICEDUMP_PUBLIC_SUBSECTION extends Win32Struct
 {
-    static sizeof => 165
+    static sizeof => 149
 
     static packingSize => 1
 
@@ -32,11 +32,14 @@ class DEVICEDUMP_PUBLIC_SUBSECTION extends Win32Struct
     }
 
     /**
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    szDescription {
-        get => StrGet(this.ptr + 132, 15, "UTF-16")
-        set => StrPut(value, this.ptr + 132, 15, "UTF-16")
+    szDescription{
+        get {
+            if(!this.HasProp("__szDescriptionProxyArray"))
+                this.__szDescriptionProxyArray := Win32FixedArray(this.ptr + 132, 16, Primitive, "char")
+            return this.__szDescriptionProxyArray
+        }
     }
 
     /**
@@ -45,7 +48,7 @@ class DEVICEDUMP_PUBLIC_SUBSECTION extends Win32Struct
     bData{
         get {
             if(!this.HasProp("__bDataProxyArray"))
-                this.__bDataProxyArray := Win32FixedArray(this.ptr + 164, 1, Primitive, "char")
+                this.__bDataProxyArray := Win32FixedArray(this.ptr + 148, 1, Primitive, "char")
             return this.__bDataProxyArray
         }
     }

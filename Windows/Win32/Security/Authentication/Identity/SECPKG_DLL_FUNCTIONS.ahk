@@ -15,7 +15,7 @@ class SECPKG_DLL_FUNCTIONS extends Win32Struct
 
     /**
      * Pointer to the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa374721(v=vs.85)">AllocateHeap</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PLSA_ALLOCATE_LSA_HEAP>}
      */
     AllocateHeap {
         get => NumGet(this, 0, "ptr")
@@ -24,7 +24,7 @@ class SECPKG_DLL_FUNCTIONS extends Win32Struct
 
     /**
      * Pointer to the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa375418(v=vs.85)">FreeHeap</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PLSA_FREE_LSA_HEAP>}
      */
     FreeHeap {
         get => NumGet(this, 8, "ptr")
@@ -33,7 +33,7 @@ class SECPKG_DLL_FUNCTIONS extends Win32Struct
 
     /**
      * Pointer to the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa379372(v=vs.85)">RegisterCallback</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PLSA_REGISTER_CALLBACK>}
      */
     RegisterCallback {
         get => NumGet(this, 16, "ptr")
@@ -42,7 +42,7 @@ class SECPKG_DLL_FUNCTIONS extends Win32Struct
 
     /**
      * 
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PLSA_LOCATE_PKG_BY_ID>}
      */
     LocatePackageById {
         get => NumGet(this, 24, "ptr")

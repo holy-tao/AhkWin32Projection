@@ -7,7 +7,7 @@
  */
 class DIFILEEFFECT extends Win32Struct
 {
-    static sizeof => 544
+    static sizeof => 288
 
     static packingSize => 8
 
@@ -36,10 +36,13 @@ class DIFILEEFFECT extends Win32Struct
     }
 
     /**
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    szFriendlyName {
-        get => StrGet(this.ptr + 24, 259, "UTF-16")
-        set => StrPut(value, this.ptr + 24, 259, "UTF-16")
+    szFriendlyName{
+        get {
+            if(!this.HasProp("__szFriendlyNameProxyArray"))
+                this.__szFriendlyNameProxyArray := Win32FixedArray(this.ptr + 24, 260, Primitive, "char")
+            return this.__szFriendlyNameProxyArray
+        }
     }
 }

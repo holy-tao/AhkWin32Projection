@@ -26,7 +26,7 @@ class WEBAUTHN_COMMON_ATTESTATION extends Win32Struct
 
     /**
      * The hash and padding algorithm. This won't be set for _fido-u2f_ which assumes **"ES256"**.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pwszAlg {
         get => NumGet(this, 8, "ptr")
@@ -80,7 +80,7 @@ class WEBAUTHN_COMMON_ATTESTATION extends Win32Struct
 
     /**
      * A pointer to the version of the attestation statement. (This is set for tpm.)
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pwszVer {
         get => NumGet(this, 48, "ptr")

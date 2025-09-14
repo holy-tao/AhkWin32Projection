@@ -61,11 +61,14 @@ class NTMS_I1_PMIDINFORMATIONA extends Win32Struct
     }
 
     /**
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    szBarCode {
-        get => StrGet(this.ptr + 48, 63, "UTF-8")
-        set => StrPut(value, this.ptr + 48, 63, "UTF-8")
+    szBarCode{
+        get {
+            if(!this.HasProp("__szBarCodeProxyArray"))
+                this.__szBarCodeProxyArray := Win32FixedArray(this.ptr + 48, 64, Primitive, "char")
+            return this.__szBarCodeProxyArray
+        }
     }
 
     /**
@@ -77,11 +80,14 @@ class NTMS_I1_PMIDINFORMATIONA extends Win32Struct
     }
 
     /**
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    szSequenceNumber {
-        get => StrGet(this.ptr + 116, 31, "UTF-8")
-        set => StrPut(value, this.ptr + 116, 31, "UTF-8")
+    szSequenceNumber{
+        get {
+            if(!this.HasProp("__szSequenceNumberProxyArray"))
+                this.__szSequenceNumberProxyArray := Win32FixedArray(this.ptr + 116, 32, Primitive, "char")
+            return this.__szSequenceNumberProxyArray
+        }
     }
 
     /**

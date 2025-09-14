@@ -12,7 +12,7 @@ class RESOURCEMANAGER_COMPLETION_INFORMATION extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HANDLE>}
      */
     IoCompletionPortHandle {
         get => NumGet(this, 0, "ptr")

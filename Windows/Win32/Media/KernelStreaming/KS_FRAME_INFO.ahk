@@ -45,7 +45,7 @@ class KS_FRAME_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HANDLE>}
      */
     hDirectDraw {
         get => NumGet(this, 24, "ptr")
@@ -53,7 +53,7 @@ class KS_FRAME_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HANDLE>}
      */
     hSurfaceHandle {
         get => NumGet(this, 32, "ptr")

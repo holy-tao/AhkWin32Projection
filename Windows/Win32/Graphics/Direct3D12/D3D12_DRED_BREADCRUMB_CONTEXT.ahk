@@ -20,7 +20,7 @@ class D3D12_DRED_BREADCRUMB_CONTEXT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pContextString {
         get => NumGet(this, 8, "ptr")

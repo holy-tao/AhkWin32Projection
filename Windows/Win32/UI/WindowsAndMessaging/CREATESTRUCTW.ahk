@@ -63,7 +63,7 @@ class CREATESTRUCTW extends Win32Struct
      * Type: <b>HINSTANCE</b>
      * 
      * A handle to the module that owns the new window.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HINSTANCE>}
      */
     hInstance {
         get => NumGet(this, 8, "ptr")
@@ -74,7 +74,7 @@ class CREATESTRUCTW extends Win32Struct
      * Type: <b>HMENU</b>
      * 
      * A handle to the menu to be used by the new window.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HMENU>}
      */
     hMenu {
         get => NumGet(this, 16, "ptr")
@@ -85,7 +85,7 @@ class CREATESTRUCTW extends Win32Struct
      * Type: <b>HWND</b>
      * 
      * A handle to the parent window, if the window is a child window. If the window is owned, this member identifies the owner window. If the window is not a child or owned window, this member is <b>NULL</b>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HWND>}
      */
     hwndParent {
         get => NumGet(this, 24, "ptr")
@@ -151,7 +151,7 @@ class CREATESTRUCTW extends Win32Struct
      * Type: <b>LPCTSTR</b>
      * 
      * The name of the new window.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     lpszName {
         get => NumGet(this, 56, "ptr")
@@ -162,7 +162,7 @@ class CREATESTRUCTW extends Win32Struct
      * Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string or an atom that specifies the class name of the new window.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     lpszClass {
         get => NumGet(this, 64, "ptr")

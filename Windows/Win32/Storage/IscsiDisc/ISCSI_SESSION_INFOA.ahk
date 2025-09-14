@@ -32,7 +32,7 @@ class ISCSI_SESSION_INFOA extends Win32Struct
 
     /**
      * A string that represents the initiator name.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     InitiatorName {
         get => NumGet(this, 16, "ptr")
@@ -41,7 +41,7 @@ class ISCSI_SESSION_INFOA extends Win32Struct
 
     /**
      * A string that represents the target node name.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     TargetNodeName {
         get => NumGet(this, 24, "ptr")
@@ -50,7 +50,7 @@ class ISCSI_SESSION_INFOA extends Win32Struct
 
     /**
      * A string that represents the target name.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     TargetName {
         get => NumGet(this, 32, "ptr")

@@ -27,20 +27,26 @@ class NTMS_CHANGERTYPEINFORMATIONA extends Win32Struct
 
     /**
      * Name of the vendor of the changer. This is acquired directly from the device inquiry data.
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    szVendor {
-        get => StrGet(this.ptr + 0, 127, "UTF-8")
-        set => StrPut(value, this.ptr + 0, 127, "UTF-8")
+    szVendor{
+        get {
+            if(!this.HasProp("__szVendorProxyArray"))
+                this.__szVendorProxyArray := Win32FixedArray(this.ptr + 0, 128, Primitive, "char")
+            return this.__szVendorProxyArray
+        }
     }
 
     /**
      * Product name of the changer. This is acquired directly from the device inquiry data.
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    szProduct {
-        get => StrGet(this.ptr + 128, 127, "UTF-8")
-        set => StrPut(value, this.ptr + 128, 127, "UTF-8")
+    szProduct{
+        get {
+            if(!this.HasProp("__szProductProxyArray"))
+                this.__szProductProxyArray := Win32FixedArray(this.ptr + 128, 128, Primitive, "char")
+            return this.__szProductProxyArray
+        }
     }
 
     /**

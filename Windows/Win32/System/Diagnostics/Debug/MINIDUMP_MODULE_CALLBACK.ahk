@@ -16,7 +16,7 @@ class MINIDUMP_MODULE_CALLBACK extends Win32Struct
 
     /**
      * The fully qualified path of the module executable.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     FullPath {
         get => NumGet(this, 0, "ptr")

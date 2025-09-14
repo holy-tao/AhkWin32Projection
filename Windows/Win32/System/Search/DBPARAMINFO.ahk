@@ -28,7 +28,7 @@ class DBPARAMINFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pwszName {
         get => NumGet(this, 12, "ptr")

@@ -15,7 +15,7 @@ class ADS_POSTALADDRESS extends Win32Struct
 
     /**
      * An array of six null-terminated Unicode strings that represent the postal address.
-     * @type {Array<Ptr>}
+     * @type {Array<PWSTR>}
      */
     PostalAddress{
         get {

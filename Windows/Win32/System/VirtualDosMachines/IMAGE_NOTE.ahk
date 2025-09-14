@@ -7,39 +7,45 @@
  */
 class IMAGE_NOTE extends Win32Struct
 {
-    static sizeof => 536
+    static sizeof => 270
 
     static packingSize => 2
 
     /**
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    Module {
-        get => StrGet(this.ptr + 0, 9, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 9, "UTF-16")
+    Module{
+        get {
+            if(!this.HasProp("__ModuleProxyArray"))
+                this.__ModuleProxyArray := Win32FixedArray(this.ptr + 0, 10, Primitive, "char")
+            return this.__ModuleProxyArray
+        }
     }
 
     /**
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    FileName {
-        get => StrGet(this.ptr + 20, 255, "UTF-16")
-        set => StrPut(value, this.ptr + 20, 255, "UTF-16")
+    FileName{
+        get {
+            if(!this.HasProp("__FileNameProxyArray"))
+                this.__FileNameProxyArray := Win32FixedArray(this.ptr + 10, 256, Primitive, "char")
+            return this.__FileNameProxyArray
+        }
     }
 
     /**
      * @type {Integer}
      */
     hModule {
-        get => NumGet(this, 532, "ushort")
-        set => NumPut("ushort", value, this, 532)
+        get => NumGet(this, 266, "ushort")
+        set => NumPut("ushort", value, this, 266)
     }
 
     /**
      * @type {Integer}
      */
     hTask {
-        get => NumGet(this, 534, "ushort")
-        set => NumPut("ushort", value, this, 534)
+        get => NumGet(this, 268, "ushort")
+        set => NumPut("ushort", value, this, 268)
     }
 }

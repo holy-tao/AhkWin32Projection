@@ -25,47 +25,62 @@ class WTSCLIENTA extends Win32Struct
 
     /**
      * The NetBIOS name of the client computer.
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    ClientName {
-        get => StrGet(this.ptr + 0, 20, "UTF-8")
-        set => StrPut(value, this.ptr + 0, 20, "UTF-8")
+    ClientName{
+        get {
+            if(!this.HasProp("__ClientNameProxyArray"))
+                this.__ClientNameProxyArray := Win32FixedArray(this.ptr + 0, 21, Primitive, "char")
+            return this.__ClientNameProxyArray
+        }
     }
 
     /**
      * The domain name of the client computer.
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    Domain {
-        get => StrGet(this.ptr + 21, 17, "UTF-8")
-        set => StrPut(value, this.ptr + 21, 17, "UTF-8")
+    Domain{
+        get {
+            if(!this.HasProp("__DomainProxyArray"))
+                this.__DomainProxyArray := Win32FixedArray(this.ptr + 21, 18, Primitive, "char")
+            return this.__DomainProxyArray
+        }
     }
 
     /**
      * The client user name.
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    UserName {
-        get => StrGet(this.ptr + 39, 20, "UTF-8")
-        set => StrPut(value, this.ptr + 39, 20, "UTF-8")
+    UserName{
+        get {
+            if(!this.HasProp("__UserNameProxyArray"))
+                this.__UserNameProxyArray := Win32FixedArray(this.ptr + 39, 21, Primitive, "char")
+            return this.__UserNameProxyArray
+        }
     }
 
     /**
      * The folder for the initial program.
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    WorkDirectory {
-        get => StrGet(this.ptr + 60, 260, "UTF-8")
-        set => StrPut(value, this.ptr + 60, 260, "UTF-8")
+    WorkDirectory{
+        get {
+            if(!this.HasProp("__WorkDirectoryProxyArray"))
+                this.__WorkDirectoryProxyArray := Win32FixedArray(this.ptr + 60, 261, Primitive, "char")
+            return this.__WorkDirectoryProxyArray
+        }
     }
 
     /**
      * The program to start on connection.
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    InitialProgram {
-        get => StrGet(this.ptr + 321, 260, "UTF-8")
-        set => StrPut(value, this.ptr + 321, 260, "UTF-8")
+    InitialProgram{
+        get {
+            if(!this.HasProp("__InitialProgramProxyArray"))
+                this.__InitialProgramProxyArray := Win32FixedArray(this.ptr + 321, 261, Primitive, "char")
+            return this.__InitialProgramProxyArray
+        }
     }
 
     /**
@@ -129,11 +144,14 @@ class WTSCLIENTA extends Win32Struct
 
     /**
      * The location of the client ActiveX control DLL.
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    ClientDirectory {
-        get => StrGet(this.ptr + 656, 260, "UTF-8")
-        set => StrPut(value, this.ptr + 656, 260, "UTF-8")
+    ClientDirectory{
+        get {
+            if(!this.HasProp("__ClientDirectoryProxyArray"))
+                this.__ClientDirectoryProxyArray := Win32FixedArray(this.ptr + 656, 261, Primitive, "char")
+            return this.__ClientDirectoryProxyArray
+        }
     }
 
     /**
@@ -192,10 +210,13 @@ class WTSCLIENTA extends Win32Struct
 
     /**
      * The device ID of the network adapter.
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    DeviceId {
-        get => StrGet(this.ptr + 936, 260, "UTF-8")
-        set => StrPut(value, this.ptr + 936, 260, "UTF-8")
+    DeviceId{
+        get {
+            if(!this.HasProp("__DeviceIdProxyArray"))
+                this.__DeviceIdProxyArray := Win32FixedArray(this.ptr + 936, 261, Primitive, "char")
+            return this.__DeviceIdProxyArray
+        }
     }
 }

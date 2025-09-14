@@ -26,7 +26,7 @@ class WMPContextMenuInfo extends Win32Struct
 
     /**
      * The menu text to display for the command.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<BSTR>}
      */
     bstrMenuText {
         get => NumGet(this, 8, "ptr")
@@ -35,7 +35,7 @@ class WMPContextMenuInfo extends Win32Struct
 
     /**
      * The help text to display for the command.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<BSTR>}
      */
     bstrHelpText {
         get => NumGet(this, 16, "ptr")

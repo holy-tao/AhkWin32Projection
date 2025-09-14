@@ -28,7 +28,7 @@
  */
 class D3DADAPTER_IDENTIFIER9 extends Win32Struct
 {
-    static sizeof => 2148
+    static sizeof => 1092
 
     static packingSize => 4
 
@@ -37,11 +37,14 @@ class D3DADAPTER_IDENTIFIER9 extends Win32Struct
      * 
      * 
      * Used for presentation to the user. This should not be used to identify particular drivers, because many different strings might be associated with the same device and driver from different vendors.
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    Driver {
-        get => StrGet(this.ptr + 0, 511, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 511, "UTF-16")
+    Driver{
+        get {
+            if(!this.HasProp("__DriverProxyArray"))
+                this.__DriverProxyArray := Win32FixedArray(this.ptr + 0, 512, Primitive, "char")
+            return this.__DriverProxyArray
+        }
     }
 
     /**
@@ -49,11 +52,14 @@ class D3DADAPTER_IDENTIFIER9 extends Win32Struct
      * 
      * 
      * Used for presentation to the user.
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    Description {
-        get => StrGet(this.ptr + 1024, 511, "UTF-16")
-        set => StrPut(value, this.ptr + 1024, 511, "UTF-16")
+    Description{
+        get {
+            if(!this.HasProp("__DescriptionProxyArray"))
+                this.__DescriptionProxyArray := Win32FixedArray(this.ptr + 512, 512, Primitive, "char")
+            return this.__DescriptionProxyArray
+        }
     }
 
     /**
@@ -61,11 +67,14 @@ class D3DADAPTER_IDENTIFIER9 extends Win32Struct
      * 
      * 
      * Device name for GDI.
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    DeviceName {
-        get => StrGet(this.ptr + 2048, 31, "UTF-16")
-        set => StrPut(value, this.ptr + 2048, 31, "UTF-16")
+    DeviceName{
+        get {
+            if(!this.HasProp("__DeviceNameProxyArray"))
+                this.__DeviceNameProxyArray := Win32FixedArray(this.ptr + 1024, 32, Primitive, "char")
+            return this.__DeviceNameProxyArray
+        }
     }
 
     /**
@@ -76,8 +85,8 @@ class D3DADAPTER_IDENTIFIER9 extends Win32Struct
      * @type {Integer}
      */
     DriverVersion {
-        get => NumGet(this, 2112, "int64")
-        set => NumPut("int64", value, this, 2112)
+        get => NumGet(this, 1056, "int64")
+        set => NumPut("int64", value, this, 1056)
     }
 
     /**
@@ -88,8 +97,8 @@ class D3DADAPTER_IDENTIFIER9 extends Win32Struct
      * @type {Integer}
      */
     VendorId {
-        get => NumGet(this, 2120, "uint")
-        set => NumPut("uint", value, this, 2120)
+        get => NumGet(this, 1064, "uint")
+        set => NumPut("uint", value, this, 1064)
     }
 
     /**
@@ -100,8 +109,8 @@ class D3DADAPTER_IDENTIFIER9 extends Win32Struct
      * @type {Integer}
      */
     DeviceId {
-        get => NumGet(this, 2124, "uint")
-        set => NumPut("uint", value, this, 2124)
+        get => NumGet(this, 1068, "uint")
+        set => NumPut("uint", value, this, 1068)
     }
 
     /**
@@ -112,8 +121,8 @@ class D3DADAPTER_IDENTIFIER9 extends Win32Struct
      * @type {Integer}
      */
     SubSysId {
-        get => NumGet(this, 2128, "uint")
-        set => NumPut("uint", value, this, 2128)
+        get => NumGet(this, 1072, "uint")
+        set => NumPut("uint", value, this, 1072)
     }
 
     /**
@@ -124,8 +133,8 @@ class D3DADAPTER_IDENTIFIER9 extends Win32Struct
      * @type {Integer}
      */
     Revision {
-        get => NumGet(this, 2132, "uint")
-        set => NumPut("uint", value, this, 2132)
+        get => NumGet(this, 1076, "uint")
+        set => NumPut("uint", value, this, 1076)
     }
 
     /**
@@ -136,8 +145,8 @@ class D3DADAPTER_IDENTIFIER9 extends Win32Struct
      * @type {Pointer<Guid>}
      */
     DeviceIdentifier {
-        get => NumGet(this, 2136, "ptr")
-        set => NumPut("ptr", value, this, 2136)
+        get => NumGet(this, 1080, "ptr")
+        set => NumPut("ptr", value, this, 1080)
     }
 
     /**
@@ -177,7 +186,7 @@ class D3DADAPTER_IDENTIFIER9 extends Win32Struct
      * @type {Integer}
      */
     WHQLLevel {
-        get => NumGet(this, 2144, "uint")
-        set => NumPut("uint", value, this, 2144)
+        get => NumGet(this, 1088, "uint")
+        set => NumPut("uint", value, this, 1088)
     }
 }

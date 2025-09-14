@@ -28,7 +28,7 @@ class CSTRING extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     Buffer {
         get => NumGet(this, 8, "ptr")

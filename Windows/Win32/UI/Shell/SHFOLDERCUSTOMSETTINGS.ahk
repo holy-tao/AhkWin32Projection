@@ -50,7 +50,7 @@ class SHFOLDERCUSTOMSETTINGS extends Win32Struct
      * Type: <b>LPTSTR</b>
      * 
      * A pointer to a null-terminated string containing the path to the folder's <a href="https://docs.microsoft.com/windows/desktop/lwef/web-view">WebView template</a>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pszWebViewTemplate {
         get => NumGet(this, 16, "ptr")
@@ -72,7 +72,7 @@ class SHFOLDERCUSTOMSETTINGS extends Win32Struct
      * Type: <b>LPTSTR</b>
      * 
      * A pointer to a null-terminated buffer containing the WebView template version.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pszWebViewTemplateVersion {
         get => NumGet(this, 32, "ptr")
@@ -83,7 +83,7 @@ class SHFOLDERCUSTOMSETTINGS extends Win32Struct
      * Type: <b>LPTSTR</b>
      * 
      * A pointer to a null-terminated buffer containing the text of the folder's infotip.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pszInfoTip {
         get => NumGet(this, 40, "ptr")
@@ -127,7 +127,7 @@ class SHFOLDERCUSTOMSETTINGS extends Win32Struct
      * Type: <b>LPTSTR</b>
      * 
      * A pointer to a null-terminated buffer containing the path to file containing the folder's icon.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pszIconFile {
         get => NumGet(this, 72, "ptr")
@@ -160,7 +160,7 @@ class SHFOLDERCUSTOMSETTINGS extends Win32Struct
      * Type: <b>LPTSTR</b>
      * 
      * A pointer to a null-terminated buffer containing the path to the file containing the folder's logo image. This is the image used in thumbnail views.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pszLogo {
         get => NumGet(this, 88, "ptr")

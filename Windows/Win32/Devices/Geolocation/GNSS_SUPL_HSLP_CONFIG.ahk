@@ -7,7 +7,7 @@
  */
 class GNSS_SUPL_HSLP_CONFIG extends Win32Struct
 {
-    static sizeof => 1564
+    static sizeof => 1044
 
     static packingSize => 4
 
@@ -28,27 +28,33 @@ class GNSS_SUPL_HSLP_CONFIG extends Win32Struct
     }
 
     /**
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    SuplHslp {
-        get => StrGet(this.ptr + 8, 259, "UTF-16")
-        set => StrPut(value, this.ptr + 8, 259, "UTF-16")
+    SuplHslp{
+        get {
+            if(!this.HasProp("__SuplHslpProxyArray"))
+                this.__SuplHslpProxyArray := Win32FixedArray(this.ptr + 8, 260, Primitive, "char")
+            return this.__SuplHslpProxyArray
+        }
     }
 
     /**
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    SuplHslpFromImsi {
-        get => StrGet(this.ptr + 528, 259, "UTF-16")
-        set => StrPut(value, this.ptr + 528, 259, "UTF-16")
+    SuplHslpFromImsi{
+        get {
+            if(!this.HasProp("__SuplHslpFromImsiProxyArray"))
+                this.__SuplHslpFromImsiProxyArray := Win32FixedArray(this.ptr + 268, 260, Primitive, "char")
+            return this.__SuplHslpFromImsiProxyArray
+        }
     }
 
     /**
      * @type {Integer}
      */
     Reserved {
-        get => NumGet(this, 1048, "uint")
-        set => NumPut("uint", value, this, 1048)
+        get => NumGet(this, 528, "uint")
+        set => NumPut("uint", value, this, 528)
     }
 
     /**
@@ -57,7 +63,7 @@ class GNSS_SUPL_HSLP_CONFIG extends Win32Struct
     Unused{
         get {
             if(!this.HasProp("__UnusedProxyArray"))
-                this.__UnusedProxyArray := Win32FixedArray(this.ptr + 1052, 512, Primitive, "char")
+                this.__UnusedProxyArray := Win32FixedArray(this.ptr + 532, 512, Primitive, "char")
             return this.__UnusedProxyArray
         }
     }

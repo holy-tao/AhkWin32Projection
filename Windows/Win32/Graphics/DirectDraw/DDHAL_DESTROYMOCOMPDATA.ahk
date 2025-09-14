@@ -36,7 +36,7 @@ class DDHAL_DESTROYMOCOMPDATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPDDHALMOCOMPCB_DESTROY>}
      */
     DestroyMoComp {
         get => NumGet(this, 24, "ptr")

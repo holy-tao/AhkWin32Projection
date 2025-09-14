@@ -15,7 +15,7 @@ class SECURITY_CAPABILITIES extends Win32Struct
 
     /**
      * The SID of the app container.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSID>}
      */
     AppContainerSid {
         get => NumGet(this, 0, "ptr")

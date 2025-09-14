@@ -100,7 +100,7 @@ class SECPKG_PARAMETERS extends Win32Struct
 
     /**
      * The security identifier of the primary domain.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSID>}
      */
     DomainSid {
         get => NumGet(this, 16, "ptr")

@@ -105,7 +105,7 @@ class MONHSZSTRUCTA extends Win32Struct
      * Type: <b>HSZ</b>
      * 
      * A handle to the string. Because string handles are local to the process, this member is a global atom.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HSZ>}
      */
     hsz {
         get => NumGet(this, 16, "ptr")
@@ -116,7 +116,7 @@ class MONHSZSTRUCTA extends Win32Struct
      * Type: <b>HANDLE</b>
      * 
      * A handle to the task (application instance) performing the action on the string handle.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HANDLE>}
      */
     hTask {
         get => NumGet(this, 24, "ptr")
@@ -127,10 +127,13 @@ class MONHSZSTRUCTA extends Win32Struct
      * Type: <b>TCHAR[1]</b>
      * 
      * Pointer to the string identified by the <b>hsz</b> member.
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    str {
-        get => StrGet(this.ptr + 32, 0, "UTF-8")
-        set => StrPut(value, this.ptr + 32, 0, "UTF-8")
+    str{
+        get {
+            if(!this.HasProp("__strProxyArray"))
+                this.__strProxyArray := Win32FixedArray(this.ptr + 32, 1, Primitive, "char")
+            return this.__strProxyArray
+        }
     }
 }

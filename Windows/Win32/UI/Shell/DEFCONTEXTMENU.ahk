@@ -21,7 +21,7 @@ class DEFCONTEXTMENU extends Win32Struct
      * Type: <b>HWND</b>
      * 
      * A handle to the context menu. Set this member to the handle returned from <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-createmenu">CreateMenu</a>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HWND>}
      */
     hwnd {
         get => NumGet(this, 0, "ptr")
@@ -116,7 +116,7 @@ class DEFCONTEXTMENU extends Win32Struct
      * Type: <b>const HKEY*</b>
      * 
      * A pointer to an HKEY that specifies the registry key from which to load extensions. This parameter is optional and can be <b>NULL</b>. If the value is <b>NULL</b>, the extensions are loaded based on the object that supports interface <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/nn-shlwapi-iqueryassociations">IQueryAssociations</a> as specified in <b>punkAssociationInfo</b>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HKEY>}
      */
     aKeys {
         get => NumGet(this, 64, "ptr")

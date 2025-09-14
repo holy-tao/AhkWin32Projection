@@ -111,7 +111,7 @@ class TBBUTTONINFOA extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPTSTR</a></b>
      * 
      * Address of a character buffer that contains or receives the button text.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     pszText {
         get => NumGet(this, 32, "ptr")

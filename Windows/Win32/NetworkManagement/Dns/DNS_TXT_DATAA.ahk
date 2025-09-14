@@ -36,7 +36,7 @@ class DNS_TXT_DATAA extends Win32Struct
 
     /**
      * An array of strings representing the descriptive text of the TXT resource record.
-     * @type {Array<Ptr>}
+     * @type {Array<PSTR>}
      */
     pStringArray{
         get {

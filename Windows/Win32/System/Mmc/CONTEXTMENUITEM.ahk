@@ -15,7 +15,7 @@ class CONTEXTMENUITEM extends Win32Struct
 
     /**
      * A pointer to a null-terminated string that contains the name of the menu item or of the submenu. This member cannot be <b>NULL</b> except for a separator or insertion point.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     strName {
         get => NumGet(this, 0, "ptr")
@@ -24,7 +24,7 @@ class CONTEXTMENUITEM extends Win32Struct
 
     /**
      * A pointer to a null-terminated string that contains the text that is displayed in the status bar when this item is highlighted. This member can be <b>NULL</b>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     strStatusBarText {
         get => NumGet(this, 8, "ptr")

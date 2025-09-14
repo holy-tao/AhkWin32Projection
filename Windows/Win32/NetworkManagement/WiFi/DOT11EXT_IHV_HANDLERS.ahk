@@ -12,7 +12,7 @@ class DOT11EXT_IHV_HANDLERS extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<DOT11EXTIHV_DEINIT_SERVICE>}
      */
     Dot11ExtIhvDeinitService {
         get => NumGet(this, 0, "ptr")
@@ -20,7 +20,7 @@ class DOT11EXT_IHV_HANDLERS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<DOT11EXTIHV_INIT_ADAPTER>}
      */
     Dot11ExtIhvInitAdapter {
         get => NumGet(this, 8, "ptr")
@@ -28,7 +28,7 @@ class DOT11EXT_IHV_HANDLERS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<DOT11EXTIHV_DEINIT_ADAPTER>}
      */
     Dot11ExtIhvDeinitAdapter {
         get => NumGet(this, 16, "ptr")
@@ -36,7 +36,7 @@ class DOT11EXT_IHV_HANDLERS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<DOT11EXTIHV_PERFORM_PRE_ASSOCIATE>}
      */
     Dot11ExtIhvPerformPreAssociate {
         get => NumGet(this, 24, "ptr")
@@ -44,7 +44,7 @@ class DOT11EXT_IHV_HANDLERS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<DOT11EXTIHV_ADAPTER_RESET>}
      */
     Dot11ExtIhvAdapterReset {
         get => NumGet(this, 32, "ptr")
@@ -52,7 +52,7 @@ class DOT11EXT_IHV_HANDLERS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<DOT11EXTIHV_PERFORM_POST_ASSOCIATE>}
      */
     Dot11ExtIhvPerformPostAssociate {
         get => NumGet(this, 40, "ptr")
@@ -60,7 +60,7 @@ class DOT11EXT_IHV_HANDLERS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<DOT11EXTIHV_STOP_POST_ASSOCIATE>}
      */
     Dot11ExtIhvStopPostAssociate {
         get => NumGet(this, 48, "ptr")
@@ -68,7 +68,7 @@ class DOT11EXT_IHV_HANDLERS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<DOT11EXTIHV_VALIDATE_PROFILE>}
      */
     Dot11ExtIhvValidateProfile {
         get => NumGet(this, 56, "ptr")
@@ -76,7 +76,7 @@ class DOT11EXT_IHV_HANDLERS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<DOT11EXTIHV_PERFORM_CAPABILITY_MATCH>}
      */
     Dot11ExtIhvPerformCapabilityMatch {
         get => NumGet(this, 64, "ptr")
@@ -84,7 +84,7 @@ class DOT11EXT_IHV_HANDLERS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<DOT11EXTIHV_CREATE_DISCOVERY_PROFILES>}
      */
     Dot11ExtIhvCreateDiscoveryProfiles {
         get => NumGet(this, 72, "ptr")
@@ -92,7 +92,7 @@ class DOT11EXT_IHV_HANDLERS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<DOT11EXTIHV_PROCESS_SESSION_CHANGE>}
      */
     Dot11ExtIhvProcessSessionChange {
         get => NumGet(this, 80, "ptr")
@@ -100,7 +100,7 @@ class DOT11EXT_IHV_HANDLERS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<DOT11EXTIHV_RECEIVE_INDICATION>}
      */
     Dot11ExtIhvReceiveIndication {
         get => NumGet(this, 88, "ptr")
@@ -108,7 +108,7 @@ class DOT11EXT_IHV_HANDLERS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<DOT11EXTIHV_RECEIVE_PACKET>}
      */
     Dot11ExtIhvReceivePacket {
         get => NumGet(this, 96, "ptr")
@@ -116,7 +116,7 @@ class DOT11EXT_IHV_HANDLERS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<DOT11EXTIHV_SEND_PACKET_COMPLETION>}
      */
     Dot11ExtIhvSendPacketCompletion {
         get => NumGet(this, 104, "ptr")
@@ -124,7 +124,7 @@ class DOT11EXT_IHV_HANDLERS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<DOT11EXTIHV_IS_UI_REQUEST_PENDING>}
      */
     Dot11ExtIhvIsUIRequestPending {
         get => NumGet(this, 112, "ptr")
@@ -132,7 +132,7 @@ class DOT11EXT_IHV_HANDLERS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<DOT11EXTIHV_PROCESS_UI_RESPONSE>}
      */
     Dot11ExtIhvProcessUIResponse {
         get => NumGet(this, 120, "ptr")
@@ -140,7 +140,7 @@ class DOT11EXT_IHV_HANDLERS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<DOT11EXTIHV_QUERY_UI_REQUEST>}
      */
     Dot11ExtIhvQueryUIRequest {
         get => NumGet(this, 128, "ptr")
@@ -148,7 +148,7 @@ class DOT11EXT_IHV_HANDLERS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<DOT11EXTIHV_ONEX_INDICATE_RESULT>}
      */
     Dot11ExtIhvOnexIndicateResult {
         get => NumGet(this, 136, "ptr")
@@ -156,7 +156,7 @@ class DOT11EXT_IHV_HANDLERS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<DOT11EXTIHV_CONTROL>}
      */
     Dot11ExtIhvControl {
         get => NumGet(this, 144, "ptr")

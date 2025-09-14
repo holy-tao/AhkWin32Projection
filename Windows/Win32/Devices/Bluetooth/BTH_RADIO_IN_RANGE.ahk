@@ -10,7 +10,7 @@
  */
 class BTH_RADIO_IN_RANGE extends Win32Struct
 {
-    static sizeof => 528
+    static sizeof => 280
 
     static packingSize => 8
 
@@ -31,7 +31,7 @@ class BTH_RADIO_IN_RANGE extends Win32Struct
      * @type {Integer}
      */
     previousDeviceFlags {
-        get => NumGet(this, 520, "uint")
-        set => NumPut("uint", value, this, 520)
+        get => NumGet(this, 272, "uint")
+        set => NumPut("uint", value, this, 272)
     }
 }

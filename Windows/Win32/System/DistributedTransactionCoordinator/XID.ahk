@@ -7,7 +7,7 @@
  */
 class XID extends Win32Struct
 {
-    static sizeof => 268
+    static sizeof => 140
 
     static packingSize => 4
 
@@ -36,10 +36,13 @@ class XID extends Win32Struct
     }
 
     /**
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    data {
-        get => StrGet(this.ptr + 12, 127, "UTF-16")
-        set => StrPut(value, this.ptr + 12, 127, "UTF-16")
+    data{
+        get {
+            if(!this.HasProp("__dataProxyArray"))
+                this.__dataProxyArray := Win32FixedArray(this.ptr + 12, 128, Primitive, "char")
+            return this.__dataProxyArray
+        }
     }
 }

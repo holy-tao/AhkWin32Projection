@@ -23,7 +23,7 @@ class STRRET extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pOleStr {
         get => NumGet(this, 4, "ptr")

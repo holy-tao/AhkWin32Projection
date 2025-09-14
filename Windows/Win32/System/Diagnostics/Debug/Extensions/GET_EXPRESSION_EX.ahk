@@ -12,7 +12,7 @@ class GET_EXPRESSION_EX extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     Expression {
         get => NumGet(this, 0, "ptr")
@@ -20,7 +20,7 @@ class GET_EXPRESSION_EX extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     Remainder {
         get => NumGet(this, 8, "ptr")

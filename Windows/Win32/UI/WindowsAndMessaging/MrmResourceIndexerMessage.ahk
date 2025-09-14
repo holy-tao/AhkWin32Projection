@@ -42,7 +42,7 @@ class MrmResourceIndexerMessage extends Win32Struct
      * 
      * 
      * The text of the message. Do not free this pointer; the memory is owned by the operating system.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     text {
         get => NumGet(this, 8, "ptr")

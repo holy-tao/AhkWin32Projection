@@ -28,7 +28,7 @@ class WS_XML_WRITER_STREAM_OUTPUT extends Win32Struct
 
     /**
      * A callback that will get invoked when <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsflushwriter">WsFlushWriter</a> is called.  This may not be <b>NULL</b>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<WS_WRITE_CALLBACK>}
      */
     writeCallback {
         get => NumGet(this, 8, "ptr")

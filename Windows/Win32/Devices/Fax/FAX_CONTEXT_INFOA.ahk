@@ -38,7 +38,7 @@ class FAX_CONTEXT_INFOA extends Win32Struct
      * Type: <b>HDC</b>
      * 
      * Handle to a fax printer device context. A call to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winfax/nf-winfax-faxstartprintjoba">FaxStartPrintJob</a> function supplies the data for this member.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HDC>}
      */
     hDC {
         get => NumGet(this, 8, "ptr")
@@ -49,10 +49,13 @@ class FAX_CONTEXT_INFOA extends Win32Struct
      * Type: <b>TCHAR[MAX_COMPUTERNAME_LENGTH+1]</b>
      * 
      * Specifies a variable that contains a null-terminated string that is the fax server name of interest. A call to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winfax/nf-winfax-faxstartprintjoba">FaxStartPrintJob</a> function supplies the data for this member. If the fax server is on the local computer, this member will be empty. The client application does not need to fill in this member.
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    ServerName {
-        get => StrGet(this.ptr + 16, 15, "UTF-8")
-        set => StrPut(value, this.ptr + 16, 15, "UTF-8")
+    ServerName{
+        get {
+            if(!this.HasProp("__ServerNameProxyArray"))
+                this.__ServerNameProxyArray := Win32FixedArray(this.ptr + 16, 16, Primitive, "char")
+            return this.__ServerNameProxyArray
+        }
     }
 }

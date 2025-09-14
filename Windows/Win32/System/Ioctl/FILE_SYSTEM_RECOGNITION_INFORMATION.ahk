@@ -9,17 +9,20 @@
  */
 class FILE_SYSTEM_RECOGNITION_INFORMATION extends Win32Struct
 {
-    static sizeof => 18
+    static sizeof => 9
 
-    static packingSize => 2
+    static packingSize => 1
 
     /**
      * The file system name stored on the disk. This is a null-terminated string of 8 ASCII characters that represents the nonlocalizable human-readable name of the 
      *     file system the volume is formatted with.
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    FileSystem {
-        get => StrGet(this.ptr + 0, 8, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 8, "UTF-16")
+    FileSystem{
+        get {
+            if(!this.HasProp("__FileSystemProxyArray"))
+                this.__FileSystemProxyArray := Win32FixedArray(this.ptr + 0, 9, Primitive, "char")
+            return this.__FileSystemProxyArray
+        }
     }
 }

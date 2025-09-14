@@ -37,7 +37,7 @@ class DELAYLOAD_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     TargetDllName {
         get => NumGet(this, 24, "ptr")

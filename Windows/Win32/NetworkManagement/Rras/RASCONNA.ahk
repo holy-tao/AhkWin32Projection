@@ -22,7 +22,7 @@ class RASCONNA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HRASCONN>}
      */
     hrasconn {
         get => NumGet(this, 8, "ptr")
@@ -30,35 +30,47 @@ class RASCONNA extends Win32Struct
     }
 
     /**
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    szEntryName {
-        get => StrGet(this.ptr + 16, 256, "UTF-8")
-        set => StrPut(value, this.ptr + 16, 256, "UTF-8")
+    szEntryName{
+        get {
+            if(!this.HasProp("__szEntryNameProxyArray"))
+                this.__szEntryNameProxyArray := Win32FixedArray(this.ptr + 16, 257, Primitive, "char")
+            return this.__szEntryNameProxyArray
+        }
     }
 
     /**
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    szDeviceType {
-        get => StrGet(this.ptr + 273, 16, "UTF-8")
-        set => StrPut(value, this.ptr + 273, 16, "UTF-8")
+    szDeviceType{
+        get {
+            if(!this.HasProp("__szDeviceTypeProxyArray"))
+                this.__szDeviceTypeProxyArray := Win32FixedArray(this.ptr + 273, 17, Primitive, "char")
+            return this.__szDeviceTypeProxyArray
+        }
     }
 
     /**
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    szDeviceName {
-        get => StrGet(this.ptr + 290, 128, "UTF-8")
-        set => StrPut(value, this.ptr + 290, 128, "UTF-8")
+    szDeviceName{
+        get {
+            if(!this.HasProp("__szDeviceNameProxyArray"))
+                this.__szDeviceNameProxyArray := Win32FixedArray(this.ptr + 290, 129, Primitive, "char")
+            return this.__szDeviceNameProxyArray
+        }
     }
 
     /**
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    szPhonebook {
-        get => StrGet(this.ptr + 419, 259, "UTF-8")
-        set => StrPut(value, this.ptr + 419, 259, "UTF-8")
+    szPhonebook{
+        get {
+            if(!this.HasProp("__szPhonebookProxyArray"))
+                this.__szPhonebookProxyArray := Win32FixedArray(this.ptr + 419, 260, Primitive, "char")
+            return this.__szPhonebookProxyArray
+        }
     }
 
     /**

@@ -17,7 +17,7 @@ class WSATHREADID extends Win32Struct
 
     /**
      * Handle to the thread ID.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HANDLE>}
      */
     ThreadHandle {
         get => NumGet(this, 0, "ptr")

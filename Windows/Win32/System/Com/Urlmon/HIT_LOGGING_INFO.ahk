@@ -21,7 +21,7 @@ class HIT_LOGGING_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     lpszLoggedUrlName {
         get => NumGet(this, 8, "ptr")
@@ -51,7 +51,7 @@ class HIT_LOGGING_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     lpszExtendedInfo {
         get => NumGet(this, 48, "ptr")

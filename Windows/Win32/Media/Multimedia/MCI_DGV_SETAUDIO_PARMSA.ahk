@@ -61,7 +61,7 @@ class MCI_DGV_SETAUDIO_PARMSA extends Win32Struct
 
     /**
      * Pointer to a null-terminated string containing the name of the audio-compression algorithm.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     lpstrAlgorithm {
         get => NumGet(this, 20, "ptr")
@@ -70,7 +70,7 @@ class MCI_DGV_SETAUDIO_PARMSA extends Win32Struct
 
     /**
      * Pointer to a null-terminated string containing a descriptor of the audio-compression algorithm.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     lpstrQuality {
         get => NumGet(this, 28, "ptr")

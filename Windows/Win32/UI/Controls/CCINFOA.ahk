@@ -13,11 +13,14 @@ class CCINFOA extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    szClass {
-        get => StrGet(this.ptr + 0, 31, "UTF-8")
-        set => StrPut(value, this.ptr + 0, 31, "UTF-8")
+    szClass{
+        get {
+            if(!this.HasProp("__szClassProxyArray"))
+                this.__szClassProxyArray := Win32FixedArray(this.ptr + 0, 32, Primitive, "char")
+            return this.__szClassProxyArray
+        }
     }
 
     /**
@@ -29,11 +32,14 @@ class CCINFOA extends Win32Struct
     }
 
     /**
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    szDesc {
-        get => StrGet(this.ptr + 36, 31, "UTF-8")
-        set => StrPut(value, this.ptr + 36, 31, "UTF-8")
+    szDesc{
+        get {
+            if(!this.HasProp("__szDescProxyArray"))
+                this.__szDescProxyArray := Win32FixedArray(this.ptr + 36, 32, Primitive, "char")
+            return this.__szDescProxyArray
+        }
     }
 
     /**
@@ -77,11 +83,14 @@ class CCINFOA extends Win32Struct
     }
 
     /**
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    szTextDefault {
-        get => StrGet(this.ptr + 88, 255, "UTF-8")
-        set => StrPut(value, this.ptr + 88, 255, "UTF-8")
+    szTextDefault{
+        get {
+            if(!this.HasProp("__szTextDefaultProxyArray"))
+                this.__szTextDefaultProxyArray := Win32FixedArray(this.ptr + 88, 256, Primitive, "char")
+            return this.__szTextDefaultProxyArray
+        }
     }
 
     /**
@@ -101,7 +110,7 @@ class CCINFOA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPFNCCSTYLEA>}
      */
     lpfnStyle {
         get => NumGet(this, 360, "ptr")
@@ -109,7 +118,7 @@ class CCINFOA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPFNCCSIZETOTEXTA>}
      */
     lpfnSizeToText {
         get => NumGet(this, 368, "ptr")

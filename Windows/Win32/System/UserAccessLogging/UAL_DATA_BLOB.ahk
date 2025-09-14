@@ -10,7 +10,7 @@
  */
 class UAL_DATA_BLOB extends Win32Struct
 {
-    static sizeof => 792
+    static sizeof => 672
 
     static packingSize => 8
 
@@ -58,7 +58,7 @@ class UAL_DATA_BLOB extends Win32Struct
      * @type {String}
      */
     UserName {
-        get => StrGet(this.ptr + 272, 259, "UTF-16")
-        set => StrPut(value, this.ptr + 272, 259, "UTF-16")
+        get => StrGet(this.ptr + 152, 259, "UTF-16")
+        set => StrPut(value, this.ptr + 152, 259, "UTF-16")
     }
 }

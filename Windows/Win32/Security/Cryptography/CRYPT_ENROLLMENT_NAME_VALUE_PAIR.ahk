@@ -15,7 +15,7 @@ class CRYPT_ENROLLMENT_NAME_VALUE_PAIR extends Win32Struct
 
     /**
      * Name of a certificate requester.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pwszName {
         get => NumGet(this, 0, "ptr")
@@ -24,7 +24,7 @@ class CRYPT_ENROLLMENT_NAME_VALUE_PAIR extends Win32Struct
 
     /**
      * Name of the user for whom the certificate is being requested.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pwszValue {
         get => NumGet(this, 8, "ptr")

@@ -47,7 +47,7 @@ class WHEA_ERROR_SOURCE_CONFIGURATION_DEVICE_DRIVER_V1 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<WHEA_ERROR_SOURCE_INITIALIZE_DEVICE_DRIVER>}
      */
     Initialize {
         get => NumGet(this, 20, "ptr")
@@ -55,7 +55,7 @@ class WHEA_ERROR_SOURCE_CONFIGURATION_DEVICE_DRIVER_V1 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<WHEA_ERROR_SOURCE_UNINITIALIZE_DEVICE_DRIVER>}
      */
     Uninitialize {
         get => NumGet(this, 28, "ptr")

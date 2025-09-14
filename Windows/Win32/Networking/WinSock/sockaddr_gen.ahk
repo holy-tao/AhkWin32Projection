@@ -16,7 +16,7 @@
  */
 class sockaddr_gen extends Win32Struct
 {
-    static sizeof => 80
+    static sizeof => 56
 
     static packingSize => 8
 

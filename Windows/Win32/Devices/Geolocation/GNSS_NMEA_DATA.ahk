@@ -7,7 +7,7 @@
  */
 class GNSS_NMEA_DATA extends Win32Struct
 {
-    static sizeof => 520
+    static sizeof => 264
 
     static packingSize => 4
 
@@ -28,10 +28,13 @@ class GNSS_NMEA_DATA extends Win32Struct
     }
 
     /**
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    NmeaSentences {
-        get => StrGet(this.ptr + 8, 255, "UTF-16")
-        set => StrPut(value, this.ptr + 8, 255, "UTF-16")
+    NmeaSentences{
+        get {
+            if(!this.HasProp("__NmeaSentencesProxyArray"))
+                this.__NmeaSentencesProxyArray := Win32FixedArray(this.ptr + 8, 256, Primitive, "char")
+            return this.__NmeaSentencesProxyArray
+        }
     }
 }

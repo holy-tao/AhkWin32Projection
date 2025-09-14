@@ -15,7 +15,7 @@ class LSA_DISPATCH_TABLE extends Win32Struct
 
     /**
      * Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/ntsecpkg/nc-ntsecpkg-lsa_create_logon_session">CreateLogonSession</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PLSA_CREATE_LOGON_SESSION>}
      */
     CreateLogonSession {
         get => NumGet(this, 0, "ptr")
@@ -24,7 +24,7 @@ class LSA_DISPATCH_TABLE extends Win32Struct
 
     /**
      * Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/ntsecpkg/nc-ntsecpkg-lsa_delete_logon_session">DeleteLogonSession</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PLSA_DELETE_LOGON_SESSION>}
      */
     DeleteLogonSession {
         get => NumGet(this, 8, "ptr")
@@ -34,7 +34,7 @@ class LSA_DISPATCH_TABLE extends Win32Struct
     /**
      * Pointer to the 
      * 					<a href="https://docs.microsoft.com/windows/desktop/api/ntsecpkg/nc-ntsecpkg-lsa_add_credential">AddCredential</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PLSA_ADD_CREDENTIAL>}
      */
     AddCredential {
         get => NumGet(this, 16, "ptr")
@@ -43,7 +43,7 @@ class LSA_DISPATCH_TABLE extends Win32Struct
 
     /**
      * Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/ntsecpkg/nc-ntsecpkg-lsa_get_credentials">GetCredentials</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PLSA_GET_CREDENTIALS>}
      */
     GetCredentials {
         get => NumGet(this, 24, "ptr")
@@ -53,7 +53,7 @@ class LSA_DISPATCH_TABLE extends Win32Struct
     /**
      * Pointer to the
      * 					<a href="https://docs.microsoft.com/windows/desktop/api/ntsecpkg/nc-ntsecpkg-lsa_delete_credential">DeleteCredential</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PLSA_DELETE_CREDENTIAL>}
      */
     DeleteCredential {
         get => NumGet(this, 32, "ptr")
@@ -63,7 +63,7 @@ class LSA_DISPATCH_TABLE extends Win32Struct
     /**
      * Pointer to the
      * 					<a href="https://docs.microsoft.com/windows/desktop/api/ntsecpkg/nc-ntsecpkg-lsa_allocate_lsa_heap">AllocateLsaHeap</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PLSA_ALLOCATE_LSA_HEAP>}
      */
     AllocateLsaHeap {
         get => NumGet(this, 40, "ptr")
@@ -73,7 +73,7 @@ class LSA_DISPATCH_TABLE extends Win32Struct
     /**
      * Pointer to the
      * 					<a href="https://docs.microsoft.com/windows/desktop/api/ntlsa/nc-ntlsa-lsa_free_lsa_heap">FreeLsaHeap</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PLSA_FREE_LSA_HEAP>}
      */
     FreeLsaHeap {
         get => NumGet(this, 48, "ptr")
@@ -83,7 +83,7 @@ class LSA_DISPATCH_TABLE extends Win32Struct
     /**
      * Pointer to the
      * 					<a href="https://docs.microsoft.com/windows/desktop/api/ntsecpkg/nc-ntsecpkg-lsa_allocate_client_buffer">AllocateClientBuffer</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PLSA_ALLOCATE_CLIENT_BUFFER>}
      */
     AllocateClientBuffer {
         get => NumGet(this, 56, "ptr")
@@ -93,7 +93,7 @@ class LSA_DISPATCH_TABLE extends Win32Struct
     /**
      * Pointer to the
      * 					<a href="https://docs.microsoft.com/windows/desktop/api/ntsecpkg/nc-ntsecpkg-lsa_free_client_buffer">FreeClientBuffer</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PLSA_FREE_CLIENT_BUFFER>}
      */
     FreeClientBuffer {
         get => NumGet(this, 64, "ptr")
@@ -103,7 +103,7 @@ class LSA_DISPATCH_TABLE extends Win32Struct
     /**
      * Pointer to the
      * 					<a href="https://docs.microsoft.com/windows/desktop/api/ntsecpkg/nc-ntsecpkg-lsa_copy_to_client_buffer">CopyToClientBuffer</a>  function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PLSA_COPY_TO_CLIENT_BUFFER>}
      */
     CopyToClientBuffer {
         get => NumGet(this, 72, "ptr")
@@ -112,7 +112,7 @@ class LSA_DISPATCH_TABLE extends Win32Struct
 
     /**
      * Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/ntsecpkg/nc-ntsecpkg-lsa_copy_from_client_buffer">CopyFromClientBuffer</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PLSA_COPY_FROM_CLIENT_BUFFER>}
      */
     CopyFromClientBuffer {
         get => NumGet(this, 80, "ptr")

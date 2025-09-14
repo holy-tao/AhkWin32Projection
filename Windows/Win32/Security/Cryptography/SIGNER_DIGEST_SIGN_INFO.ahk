@@ -41,7 +41,7 @@ class SIGNER_DIGEST_SIGN_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_AUTHENTICODE_DIGEST_SIGN>}
      */
     pfnAuthenticodeDigestSign {
         get => NumGet(this, 8, "ptr")
@@ -49,7 +49,7 @@ class SIGNER_DIGEST_SIGN_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_AUTHENTICODE_DIGEST_SIGN_WITHFILEHANDLE>}
      */
     pfnAuthenticodeDigestSignWithFileHandle {
         get => NumGet(this, 8, "ptr")
@@ -57,7 +57,7 @@ class SIGNER_DIGEST_SIGN_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_AUTHENTICODE_DIGEST_SIGN_EX>}
      */
     pfnAuthenticodeDigestSignEx {
         get => NumGet(this, 8, "ptr")
@@ -65,7 +65,7 @@ class SIGNER_DIGEST_SIGN_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_AUTHENTICODE_DIGEST_SIGN_EX_WITHFILEHANDLE>}
      */
     pfnAuthenticodeDigestSignExWithFileHandle {
         get => NumGet(this, 8, "ptr")

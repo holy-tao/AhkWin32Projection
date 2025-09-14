@@ -9,7 +9,7 @@
  */
 class SOCKADDR extends Win32Struct
 {
-    static sizeof => 30
+    static sizeof => 16
 
     static packingSize => 2
 
@@ -24,10 +24,13 @@ class SOCKADDR extends Win32Struct
 
     /**
      * 
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    sa_data {
-        get => StrGet(this.ptr + 2, 13, "UTF-16")
-        set => StrPut(value, this.ptr + 2, 13, "UTF-16")
+    sa_data{
+        get {
+            if(!this.HasProp("__sa_dataProxyArray"))
+                this.__sa_dataProxyArray := Win32FixedArray(this.ptr + 2, 14, Primitive, "char")
+            return this.__sa_dataProxyArray
+        }
     }
 }

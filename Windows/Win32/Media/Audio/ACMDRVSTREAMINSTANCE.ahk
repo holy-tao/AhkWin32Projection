@@ -84,7 +84,7 @@ class ACMDRVSTREAMINSTANCE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HACMSTREAM>}
      */
     has {
         get => NumGet(this, 60, "ptr")

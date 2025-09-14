@@ -17,7 +17,7 @@ class CRYPT_XML_KEY_ECDSA_KEY_VALUE extends Win32Struct
 
     /**
      * A pointer to a null-terminated Unicode string that contains the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/o-gly">object identifier</a> (OID) of the named curve.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     wszNamedCurve {
         get => NumGet(this, 0, "ptr")

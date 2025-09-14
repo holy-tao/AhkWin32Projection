@@ -98,7 +98,7 @@ class SECURITY_LOGON_SESSION_DATA extends Win32Struct
 
     /**
      * A pointer to the user's <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security identifier</a> (SID).
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSID>}
      */
     Sid {
         get => NumGet(this, 72, "ptr")

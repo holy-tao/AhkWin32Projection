@@ -40,7 +40,7 @@ class SIGNER_CERT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pwszSpcFile {
         get => NumGet(this, 8, "ptr")
@@ -65,7 +65,7 @@ class SIGNER_CERT extends Win32Struct
 
     /**
      * The handle of the window to use as the owner of any dialog boxes that are displayed. This member is not currently used and is ignored.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HWND>}
      */
     hwnd {
         get => NumGet(this, 16, "ptr")

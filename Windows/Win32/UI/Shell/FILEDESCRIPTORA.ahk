@@ -154,10 +154,13 @@ class FILEDESCRIPTORA extends Win32Struct
      * Type: <b>TCHAR[MAX_PATH]</b>
      * 
      * The null-terminated string that contains the name of the file.
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    cFileName {
-        get => StrGet(this.ptr + 64, 259, "UTF-8")
-        set => StrPut(value, this.ptr + 64, 259, "UTF-8")
+    cFileName{
+        get {
+            if(!this.HasProp("__cFileNameProxyArray"))
+                this.__cFileNameProxyArray := Win32FixedArray(this.ptr + 64, 260, Primitive, "char")
+            return this.__cFileNameProxyArray
+        }
     }
 }

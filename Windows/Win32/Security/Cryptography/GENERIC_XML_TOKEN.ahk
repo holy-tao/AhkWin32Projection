@@ -35,7 +35,7 @@ class GENERIC_XML_TOKEN extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     xmlToken {
         get => NumGet(this, 16, "ptr")
@@ -43,7 +43,7 @@ class GENERIC_XML_TOKEN extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     internalTokenReference {
         get => NumGet(this, 24, "ptr")
@@ -51,7 +51,7 @@ class GENERIC_XML_TOKEN extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     externalTokenReference {
         get => NumGet(this, 32, "ptr")

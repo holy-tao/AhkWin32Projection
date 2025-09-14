@@ -36,7 +36,7 @@ class RMTPACK extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<BSTR>}
      */
     rgBSTR {
         get => NumGet(this, 16, "ptr")

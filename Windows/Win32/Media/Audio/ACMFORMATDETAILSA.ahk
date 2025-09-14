@@ -7,7 +7,7 @@
  */
 class ACMFORMATDETAILSA extends Win32Struct
 {
-    static sizeof => 284
+    static sizeof => 156
 
     static packingSize => 1
 
@@ -60,10 +60,13 @@ class ACMFORMATDETAILSA extends Win32Struct
     }
 
     /**
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    szFormat {
-        get => StrGet(this.ptr + 28, 127, "UTF-16")
-        set => StrPut(value, this.ptr + 28, 127, "UTF-16")
+    szFormat{
+        get {
+            if(!this.HasProp("__szFormatProxyArray"))
+                this.__szFormatProxyArray := Win32FixedArray(this.ptr + 28, 128, Primitive, "char")
+            return this.__szFormatProxyArray
+        }
     }
 }

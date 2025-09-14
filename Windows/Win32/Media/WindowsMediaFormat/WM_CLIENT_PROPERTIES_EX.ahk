@@ -24,7 +24,7 @@ class WM_CLIENT_PROPERTIES_EX extends Win32Struct
 
     /**
      * String containing the client's IP address in dot notation (for example, "192.168.10.2").
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pwszIPAddress {
         get => NumGet(this, 8, "ptr")
@@ -33,7 +33,7 @@ class WM_CLIENT_PROPERTIES_EX extends Win32Struct
 
     /**
      * String containing the client's port number.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pwszPort {
         get => NumGet(this, 16, "ptr")
@@ -42,7 +42,7 @@ class WM_CLIENT_PROPERTIES_EX extends Win32Struct
 
     /**
      * String containing the client's name on the domain name server (DNS), if known.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pwszDNSName {
         get => NumGet(this, 24, "ptr")

@@ -28,7 +28,7 @@ class OBO_TOKEN extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pszwManufacturer {
         get => NumGet(this, 16, "ptr")
@@ -36,7 +36,7 @@ class OBO_TOKEN extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pszwProduct {
         get => NumGet(this, 24, "ptr")
@@ -44,7 +44,7 @@ class OBO_TOKEN extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pszwDisplayName {
         get => NumGet(this, 32, "ptr")

@@ -453,7 +453,7 @@ class ADDRINFOA extends Win32Struct
      * Type: <b>char*</b>
      * 
      * The canonical name for the host.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     ai_canonname {
         get => NumGet(this, 24, "ptr")

@@ -21,51 +21,69 @@ class RASDIALPARAMSA extends Win32Struct
     }
 
     /**
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    szEntryName {
-        get => StrGet(this.ptr + 4, 256, "UTF-8")
-        set => StrPut(value, this.ptr + 4, 256, "UTF-8")
+    szEntryName{
+        get {
+            if(!this.HasProp("__szEntryNameProxyArray"))
+                this.__szEntryNameProxyArray := Win32FixedArray(this.ptr + 4, 257, Primitive, "char")
+            return this.__szEntryNameProxyArray
+        }
     }
 
     /**
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    szPhoneNumber {
-        get => StrGet(this.ptr + 261, 128, "UTF-8")
-        set => StrPut(value, this.ptr + 261, 128, "UTF-8")
+    szPhoneNumber{
+        get {
+            if(!this.HasProp("__szPhoneNumberProxyArray"))
+                this.__szPhoneNumberProxyArray := Win32FixedArray(this.ptr + 261, 129, Primitive, "char")
+            return this.__szPhoneNumberProxyArray
+        }
     }
 
     /**
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    szCallbackNumber {
-        get => StrGet(this.ptr + 390, 128, "UTF-8")
-        set => StrPut(value, this.ptr + 390, 128, "UTF-8")
+    szCallbackNumber{
+        get {
+            if(!this.HasProp("__szCallbackNumberProxyArray"))
+                this.__szCallbackNumberProxyArray := Win32FixedArray(this.ptr + 390, 129, Primitive, "char")
+            return this.__szCallbackNumberProxyArray
+        }
     }
 
     /**
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    szUserName {
-        get => StrGet(this.ptr + 519, 256, "UTF-8")
-        set => StrPut(value, this.ptr + 519, 256, "UTF-8")
+    szUserName{
+        get {
+            if(!this.HasProp("__szUserNameProxyArray"))
+                this.__szUserNameProxyArray := Win32FixedArray(this.ptr + 519, 257, Primitive, "char")
+            return this.__szUserNameProxyArray
+        }
     }
 
     /**
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    szPassword {
-        get => StrGet(this.ptr + 776, 256, "UTF-8")
-        set => StrPut(value, this.ptr + 776, 256, "UTF-8")
+    szPassword{
+        get {
+            if(!this.HasProp("__szPasswordProxyArray"))
+                this.__szPasswordProxyArray := Win32FixedArray(this.ptr + 776, 257, Primitive, "char")
+            return this.__szPasswordProxyArray
+        }
     }
 
     /**
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    szDomain {
-        get => StrGet(this.ptr + 1033, 15, "UTF-8")
-        set => StrPut(value, this.ptr + 1033, 15, "UTF-8")
+    szDomain{
+        get {
+            if(!this.HasProp("__szDomainProxyArray"))
+                this.__szDomainProxyArray := Win32FixedArray(this.ptr + 1033, 16, Primitive, "char")
+            return this.__szDomainProxyArray
+        }
     }
 
     /**
@@ -93,7 +111,7 @@ class RASDIALPARAMSA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     szEncPassword {
         get => NumGet(this, 1072, "ptr")

@@ -32,10 +32,13 @@ class MONITORINFOEXA extends Win32Struct
 
     /**
      * A string that specifies the device name of the monitor being used.  Most applications have no use for a display monitor name, and so can save some bytes by using a <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-monitorinfo">MONITORINFO</a> structure.
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    szDevice {
-        get => StrGet(this.ptr + 48, 31, "UTF-8")
-        set => StrPut(value, this.ptr + 48, 31, "UTF-8")
+    szDevice{
+        get {
+            if(!this.HasProp("__szDeviceProxyArray"))
+                this.__szDeviceProxyArray := Win32FixedArray(this.ptr + 48, 32, Primitive, "char")
+            return this.__szDeviceProxyArray
+        }
     }
 }

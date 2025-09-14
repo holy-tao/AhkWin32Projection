@@ -36,7 +36,7 @@ class TEXTRANGEW extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPSTR</a></b>
      * 
      * The text.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     lpstrText {
         get => NumGet(this, 8, "ptr")

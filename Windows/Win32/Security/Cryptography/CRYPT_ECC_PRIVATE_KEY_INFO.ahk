@@ -33,7 +33,7 @@ class CRYPT_ECC_PRIVATE_KEY_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     szCurveOid {
         get => NumGet(this, 24, "ptr")

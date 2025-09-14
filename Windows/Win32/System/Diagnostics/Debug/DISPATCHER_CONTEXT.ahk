@@ -60,7 +60,7 @@ class DISPATCHER_CONTEXT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<EXCEPTION_ROUTINE>}
      */
     LanguageHandler {
         get => NumGet(this, 48, "ptr")

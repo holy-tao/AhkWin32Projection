@@ -46,11 +46,14 @@ class MIDIINCAPSA extends Win32Struct
 
     /**
      * Product name in a null-terminated string.
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    szPname {
-        get => StrGet(this.ptr + 8, 31, "UTF-8")
-        set => StrPut(value, this.ptr + 8, 31, "UTF-8")
+    szPname{
+        get {
+            if(!this.HasProp("__szPnameProxyArray"))
+                this.__szPnameProxyArray := Win32FixedArray(this.ptr + 8, 32, Primitive, "char")
+            return this.__szPnameProxyArray
+        }
     }
 
     /**

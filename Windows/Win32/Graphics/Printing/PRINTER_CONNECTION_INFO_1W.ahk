@@ -21,7 +21,7 @@ class PRINTER_CONNECTION_INFO_1W extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pszDriverName {
         get => NumGet(this, 8, "ptr")

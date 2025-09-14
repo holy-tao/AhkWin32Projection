@@ -33,7 +33,7 @@ class CQPAGE extends Win32Struct
 
     /**
      * Pointer to a query page callback function defined by the query form extension. This callback function is used to notify the extension of events in the page and takes  the form of the <a href="https://docs.microsoft.com/windows/desktop/api/cmnquery/nc-cmnquery-lpcqpageproc">CQPageProc</a> callback function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPCQPAGEPROC>}
      */
     pPageProc {
         get => NumGet(this, 8, "ptr")
@@ -42,7 +42,7 @@ class CQPAGE extends Win32Struct
 
     /**
      * Contains the instance handle of the module that contains the resources identified by the <b>idPageName</b> and <b>idPageTemplate</b> members.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HINSTANCE>}
      */
     hInstance {
         get => NumGet(this, 16, "ptr")
@@ -69,7 +69,7 @@ class CQPAGE extends Win32Struct
 
     /**
      * Pointer to the dialog box procedure. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nc-winuser-dlgproc">DialogProc</a>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<DLGPROC>}
      */
     pDlgProc {
         get => NumGet(this, 32, "ptr")

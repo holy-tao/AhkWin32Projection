@@ -15,7 +15,7 @@ class METHODDATA extends Win32Struct
 
     /**
      * The method name.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     szName {
         get => NumGet(this, 0, "ptr")

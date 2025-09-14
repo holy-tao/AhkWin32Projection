@@ -61,7 +61,7 @@ class DML_INTERMEDIATE_GRAPH_EDGE_DESC extends Win32Struct
      * Type: \_Field\_z\_ \_Maybenull\_ **const char\***
      * 
      * An optional name for the graph connection. If provided, this might be used within certain error messages emitted by the DirectML debug layer.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     Name {
         get => NumGet(this, 16, "ptr")

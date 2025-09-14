@@ -24,7 +24,7 @@ class PropertyChainValue extends Win32Struct
 
     /**
      * The type of the object.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<BSTR>}
      */
     Type {
         get => NumGet(this, 8, "ptr")
@@ -33,7 +33,7 @@ class PropertyChainValue extends Win32Struct
 
     /**
      * The base type of the object.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<BSTR>}
      */
     DeclaringType {
         get => NumGet(this, 16, "ptr")
@@ -42,7 +42,7 @@ class PropertyChainValue extends Win32Struct
 
     /**
      * The type of the current value of the property.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<BSTR>}
      */
     ValueType {
         get => NumGet(this, 24, "ptr")
@@ -51,7 +51,7 @@ class PropertyChainValue extends Win32Struct
 
     /**
      * Collection item type, or <b>null</b> if not a collection.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<BSTR>}
      */
     ItemType {
         get => NumGet(this, 32, "ptr")
@@ -60,7 +60,7 @@ class PropertyChainValue extends Win32Struct
 
     /**
      * The value of the property.  (Represents an <b>InstanceHandle</b> if <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/xamlom/ne-xamlom-metadatabit">MetadataBit</a> is set.)
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<BSTR>}
      */
     Value {
         get => NumGet(this, 40, "ptr")
@@ -87,7 +87,7 @@ class PropertyChainValue extends Win32Struct
 
     /**
      * The name of the property.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<BSTR>}
      */
     PropertyName {
         get => NumGet(this, 64, "ptr")

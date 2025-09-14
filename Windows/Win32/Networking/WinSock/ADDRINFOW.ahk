@@ -455,7 +455,7 @@ class ADDRINFOW extends Win32Struct
      * Type: <b>PWSTR</b>
      * 
      * The canonical name for the host.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     ai_canonname {
         get => NumGet(this, 24, "ptr")

@@ -42,7 +42,7 @@ class NMTTDISPINFOA extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPTSTR</a></b>
      * 
      * Pointer to a null-terminated string that will be displayed as the tooltip text. If <b>hinst</b> specifies an instance handle, this member must be the identifier of a string resource.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     lpszText {
         get => NumGet(this, 24, "ptr")
@@ -53,18 +53,21 @@ class NMTTDISPINFOA extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">TCHAR</a></b>
      * 
      * Buffer that receives the tooltip text. An application can copy the text to this buffer instead of specifying a string address or string resource. For tooltip text that exceeds 80 <b>TCHAR</b><b>s</b>, see comments in the remarks section of this document.
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    szText {
-        get => StrGet(this.ptr + 32, 79, "UTF-8")
-        set => StrPut(value, this.ptr + 32, 79, "UTF-8")
+    szText{
+        get {
+            if(!this.HasProp("__szTextProxyArray"))
+                this.__szTextProxyArray := Win32FixedArray(this.ptr + 32, 80, Primitive, "char")
+            return this.__szTextProxyArray
+        }
     }
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HINSTANCE</a></b>
      * 
      * Handle to the instance that contains a string resource to be used as the tooltip text. If <b>lpszText</b> is the address of the tooltip text string, this member must be <b>NULL</b>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HINSTANCE>}
      */
     hinst {
         get => NumGet(this, 112, "ptr")

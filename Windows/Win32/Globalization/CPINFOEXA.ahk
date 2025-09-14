@@ -81,10 +81,13 @@ class CPINFOEXA extends Win32Struct
 
     /**
      * Full name of the code page. Note that this name is localized and is not guaranteed for uniqueness or consistency between operating system versions or computers.
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    CodePageName {
-        get => StrGet(this.ptr + 24, 259, "UTF-8")
-        set => StrPut(value, this.ptr + 24, 259, "UTF-8")
+    CodePageName{
+        get {
+            if(!this.HasProp("__CodePageNameProxyArray"))
+                this.__CodePageNameProxyArray := Win32FixedArray(this.ptr + 24, 260, Primitive, "char")
+            return this.__CodePageNameProxyArray
+        }
     }
 }

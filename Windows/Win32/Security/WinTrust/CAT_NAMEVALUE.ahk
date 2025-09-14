@@ -13,7 +13,7 @@ class CAT_NAMEVALUE extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pwszTag {
         get => NumGet(this, 0, "ptr")

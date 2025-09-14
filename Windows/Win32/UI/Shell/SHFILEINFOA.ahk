@@ -26,7 +26,7 @@ class SHFILEINFOA extends Win32Struct
      * Type: <b>HICON</b>
      * 
      * A handle to the icon that represents the file. You are responsible for destroying this handle with <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-destroyicon">DestroyIcon</a> when you no longer need it.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HICON>}
      */
     hIcon {
         get => NumGet(this, 0, "ptr")
@@ -59,21 +59,27 @@ class SHFILEINFOA extends Win32Struct
      * Type: <b>TCHAR[MAX_PATH]</b>
      * 
      * A string that contains the name of the file as it appears in the Windows Shell, or the path and file name of the file that contains the icon representing the file.
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    szDisplayName {
-        get => StrGet(this.ptr + 16, 259, "UTF-8")
-        set => StrPut(value, this.ptr + 16, 259, "UTF-8")
+    szDisplayName{
+        get {
+            if(!this.HasProp("__szDisplayNameProxyArray"))
+                this.__szDisplayNameProxyArray := Win32FixedArray(this.ptr + 16, 260, Primitive, "char")
+            return this.__szDisplayNameProxyArray
+        }
     }
 
     /**
      * Type: <b>TCHAR[80]</b>
      * 
      * A string that describes the type of file.
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    szTypeName {
-        get => StrGet(this.ptr + 276, 79, "UTF-8")
-        set => StrPut(value, this.ptr + 276, 79, "UTF-8")
+    szTypeName{
+        get {
+            if(!this.HasProp("__szTypeNameProxyArray"))
+                this.__szTypeNameProxyArray := Win32FixedArray(this.ptr + 276, 80, Primitive, "char")
+            return this.__szTypeNameProxyArray
+        }
     }
 }

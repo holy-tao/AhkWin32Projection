@@ -28,7 +28,7 @@ class PATCH_OPTION_DATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     NewFileSymbolPath {
         get => NumGet(this, 8, "ptr")
@@ -36,7 +36,7 @@ class PATCH_OPTION_DATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     OldFileSymbolPathArray {
         get => NumGet(this, 16, "ptr")
@@ -52,7 +52,7 @@ class PATCH_OPTION_DATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PPATCH_SYMLOAD_CALLBACK>}
      */
     SymLoadCallback {
         get => NumGet(this, 32, "ptr")

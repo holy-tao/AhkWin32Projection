@@ -53,7 +53,7 @@ class WTD_GENERIC_CHAIN_POLICY_DATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_WTD_GENERIC_CHAIN_POLICY_CALLBACK>}
      */
     pfnPolicyCallback {
         get => NumGet(this, 24, "ptr")

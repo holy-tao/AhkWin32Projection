@@ -29,7 +29,7 @@ class ACMFILTERCHOOSEW extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HWND>}
      */
     hwndOwner {
         get => NumGet(this, 8, "ptr")
@@ -53,7 +53,7 @@ class ACMFILTERCHOOSEW extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pszTitle {
         get => NumGet(this, 28, "ptr")
@@ -77,7 +77,7 @@ class ACMFILTERCHOOSEW extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pszName {
         get => NumGet(this, 388, "ptr")
@@ -109,7 +109,7 @@ class ACMFILTERCHOOSEW extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HINSTANCE>}
      */
     hInstance {
         get => NumGet(this, 412, "ptr")
@@ -117,7 +117,7 @@ class ACMFILTERCHOOSEW extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pszTemplateName {
         get => NumGet(this, 420, "ptr")
@@ -133,7 +133,7 @@ class ACMFILTERCHOOSEW extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<ACMFILTERCHOOSEHOOKPROCW>}
      */
     pfnHook {
         get => NumGet(this, 436, "ptr")

@@ -35,7 +35,7 @@ class MCI_DGV_RESTORE_PARMSW extends Win32Struct
 
     /**
      * Pointer to a null-terminated string containing the filename from which the frame buffer information will be restored.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     lpstrFileName {
         get => NumGet(this, 8, "ptr")

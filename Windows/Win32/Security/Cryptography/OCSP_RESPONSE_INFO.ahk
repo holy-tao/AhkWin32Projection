@@ -138,7 +138,7 @@ class OCSP_RESPONSE_INFO extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     pszObjId {
         get => NumGet(this, 8, "ptr")

@@ -56,7 +56,7 @@ class NSP_ROUTINE extends Win32Struct
      * Type: **LPNSPCLEANUP**
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/ws2spi/nc-ws2spi-lpnspcleanup">NSPCleanup</a> function implemented by the namespace provider. Every NSP function entry must point to a valid function. If the provider does not implement this function, the **NSPCleanup** function should return <a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2#WSAEOPNOTSUPP">WSAEOPNOTSUPP</a>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPNSPCLEANUP>}
      */
     NSPCleanup {
         get => NumGet(this, 16, "ptr")
@@ -67,7 +67,7 @@ class NSP_ROUTINE extends Win32Struct
      * Type: **LPNSPLOOKUPSERVICEBEGIN**
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/ws2spi/nc-ws2spi-lpnsplookupservicebegin">NSPLookupServiceBegin</a> function implemented by the namespace provider. Every NSP function entry must point to a valid function. If the provider does not implement this function, the **NSPLookupServiceBegin** function should return <a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2#WSAEOPNOTSUPP">WSAEOPNOTSUPP</a>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPNSPLOOKUPSERVICEBEGIN>}
      */
     NSPLookupServiceBegin {
         get => NumGet(this, 24, "ptr")
@@ -78,7 +78,7 @@ class NSP_ROUTINE extends Win32Struct
      * Type: **LPNSPLOOKUPSERVICENEXT**
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/ws2spi/nc-ws2spi-lpnsplookupservicenext">NSPLookupServiceNext</a> function implemented by the namespace provider. Every NSP function entry must point to a valid function. If the provider does not implement this function, the **NSPLookupServiceNext** function should return <a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2#WSAEOPNOTSUPP">WSAEOPNOTSUPP</a>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPNSPLOOKUPSERVICENEXT>}
      */
     NSPLookupServiceNext {
         get => NumGet(this, 32, "ptr")
@@ -89,7 +89,7 @@ class NSP_ROUTINE extends Win32Struct
      * Type: **LPNSPLOOKUPSERVICEEND**
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/ws2spi/nc-ws2spi-lpnsplookupserviceend">NSPLookupServiceEnd</a> function implemented by the namespace provider. Every NSP function entry must point to a valid function. If the provider does not implement this function, the **NSPLookupServiceEnd** function should return <a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2#WSAEOPNOTSUPP">WSAEOPNOTSUPP</a>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPNSPLOOKUPSERVICEEND>}
      */
     NSPLookupServiceEnd {
         get => NumGet(this, 40, "ptr")
@@ -100,7 +100,7 @@ class NSP_ROUTINE extends Win32Struct
      * Type: **LPNSPSETSERVICE**
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/ws2spi/nc-ws2spi-lpnspsetservice">NSPSetService</a> function implemented by the namespace provider. Every NSP function entry must point to a valid function. If the provider does not implement this function, the **NSPSetService** function should return <a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2#WSAEOPNOTSUPP">WSAEOPNOTSUPP</a>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPNSPSETSERVICE>}
      */
     NSPSetService {
         get => NumGet(this, 48, "ptr")
@@ -111,7 +111,7 @@ class NSP_ROUTINE extends Win32Struct
      * Type: **LPNSPINSTALLSERVICECLASS**
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/ws2spi/nc-ws2spi-lpnspinstallserviceclass">NSPInstallServiceClass</a> function implemented by the namespace provider. Every NSP function entry must point to a valid function. If the provider does not implement this function, the **NSPInstallServiceClass** function should return <a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2#WSAEOPNOTSUPP">WSAEOPNOTSUPP</a>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPNSPINSTALLSERVICECLASS>}
      */
     NSPInstallServiceClass {
         get => NumGet(this, 56, "ptr")
@@ -122,7 +122,7 @@ class NSP_ROUTINE extends Win32Struct
      * Type: **LPNSPREMOVESERVICECLASS**
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/ws2spi/nc-ws2spi-lpnspremoveserviceclass">NSPRemoveServiceClass</a> function implemented by the namespace provider. Every NSP function entry must point to a valid function. If the provider does not implement this function, the **NSPRemoveServiceClass** function should return <a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2#WSAEOPNOTSUPP">WSAEOPNOTSUPP</a>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPNSPREMOVESERVICECLASS>}
      */
     NSPRemoveServiceClass {
         get => NumGet(this, 64, "ptr")
@@ -133,7 +133,7 @@ class NSP_ROUTINE extends Win32Struct
      * Type: **LPNSPGETSERVICECLASSINFO**
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/ws2spi/nc-ws2spi-lpnspgetserviceclassinfo">NSPGetServiceClassInfo</a> function implemented by the namespace provider. Every NSP function entry must point to a valid function. If the provider does not implement this function, the **NSPGetServiceClassInfo** function should return <a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2#WSAEOPNOTSUPP">WSAEOPNOTSUPP</a>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPNSPGETSERVICECLASSINFO>}
      */
     NSPGetServiceClassInfo {
         get => NumGet(this, 72, "ptr")
@@ -148,7 +148,7 @@ class NSP_ROUTINE extends Win32Struct
      * <div class="alert">**Note**  This structure member is only available on Windows XP and later.
      * </div>
      * <div> </div>
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPNSPIOCTL>}
      */
     NSPIoctl {
         get => NumGet(this, 80, "ptr")

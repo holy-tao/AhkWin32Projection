@@ -256,10 +256,13 @@ class AVISTREAMINFOA extends Win32Struct
 
     /**
      * Null-terminated string containing a description of the stream.
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    szName {
-        get => StrGet(this.ptr + 80, 63, "UTF-8")
-        set => StrPut(value, this.ptr + 80, 63, "UTF-8")
+    szName{
+        get {
+            if(!this.HasProp("__szNameProxyArray"))
+                this.__szNameProxyArray := Win32FixedArray(this.ptr + 80, 64, Primitive, "char")
+            return this.__szNameProxyArray
+        }
     }
 }

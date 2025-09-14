@@ -8,7 +8,7 @@
  */
 class KSM_BDA_GPNV_GETVALUE extends Win32Struct
 {
-    static sizeof => 40
+    static sizeof => 32
 
     static packingSize => 8
 
@@ -32,11 +32,14 @@ class KSM_BDA_GPNV_GETVALUE extends Win32Struct
     }
 
     /**
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    cLanguage {
-        get => StrGet(this.ptr + 12, 11, "UTF-16")
-        set => StrPut(value, this.ptr + 12, 11, "UTF-16")
+    cLanguage{
+        get {
+            if(!this.HasProp("__cLanguageProxyArray"))
+                this.__cLanguageProxyArray := Win32FixedArray(this.ptr + 12, 12, Primitive, "char")
+            return this.__cLanguageProxyArray
+        }
     }
 
     /**
@@ -45,7 +48,7 @@ class KSM_BDA_GPNV_GETVALUE extends Win32Struct
     argbData{
         get {
             if(!this.HasProp("__argbDataProxyArray"))
-                this.__argbDataProxyArray := Win32FixedArray(this.ptr + 36, 1, Primitive, "char")
+                this.__argbDataProxyArray := Win32FixedArray(this.ptr + 24, 1, Primitive, "char")
             return this.__argbDataProxyArray
         }
     }

@@ -15,7 +15,7 @@ class ADSPROPERROR extends Win32Struct
 
     /**
      * Contains the window handle of the property page that generated the error.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HWND>}
      */
     hwndPage {
         get => NumGet(this, 0, "ptr")
@@ -24,7 +24,7 @@ class ADSPROPERROR extends Win32Struct
 
     /**
      * Pointer to a NULL-terminated Unicode string that contains the title of the property page that generated the error.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pszPageTitle {
         get => NumGet(this, 8, "ptr")
@@ -33,7 +33,7 @@ class ADSPROPERROR extends Win32Struct
 
     /**
      * Pointer to a NULL-terminated Unicode string that contains the ADsPath of the directory object that the error occurred on.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pszObjPath {
         get => NumGet(this, 16, "ptr")
@@ -42,7 +42,7 @@ class ADSPROPERROR extends Win32Struct
 
     /**
      * Pointer to a NULL-terminated Unicode string that contains the class name of the directory object that the error occurred on.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pszObjClass {
         get => NumGet(this, 24, "ptr")
@@ -60,7 +60,7 @@ class ADSPROPERROR extends Win32Struct
 
     /**
      * Pointer to a NULL-terminated Unicode string that contains the error message to be displayed in the error dialog box. This member is ignored if <i>hr</i> is not equal to <b>S_OK</b>. In this case, the error dialog box will display a system-defined message for the error specified by <i>hr</i>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pszError {
         get => NumGet(this, 40, "ptr")

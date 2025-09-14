@@ -37,7 +37,7 @@
  */
 class MIB_IPFORWARD_ROW2 extends Win32Struct
 {
-    static sizeof => 192
+    static sizeof => 176
 
     static packingSize => 8
 
@@ -89,7 +89,7 @@ class MIB_IPFORWARD_ROW2 extends Win32Struct
     NextHop{
         get {
             if(!this.HasProp("__NextHop"))
-                this.__NextHop := SOCKADDR_INET(this.ptr + 96)
+                this.__NextHop := SOCKADDR_INET(this.ptr + 88)
             return this.__NextHop
         }
     }
@@ -102,8 +102,8 @@ class MIB_IPFORWARD_ROW2 extends Win32Struct
      * @type {Integer}
      */
     SitePrefixLength {
-        get => NumGet(this, 160, "char")
-        set => NumPut("char", value, this, 160)
+        get => NumGet(this, 144, "char")
+        set => NumPut("char", value, this, 144)
     }
 
     /**
@@ -113,8 +113,8 @@ class MIB_IPFORWARD_ROW2 extends Win32Struct
      * @type {Integer}
      */
     ValidLifetime {
-        get => NumGet(this, 164, "uint")
-        set => NumPut("uint", value, this, 164)
+        get => NumGet(this, 148, "uint")
+        set => NumPut("uint", value, this, 148)
     }
 
     /**
@@ -124,8 +124,8 @@ class MIB_IPFORWARD_ROW2 extends Win32Struct
      * @type {Integer}
      */
     PreferredLifetime {
-        get => NumGet(this, 168, "uint")
-        set => NumPut("uint", value, this, 168)
+        get => NumGet(this, 152, "uint")
+        set => NumPut("uint", value, this, 152)
     }
 
     /**
@@ -136,8 +136,8 @@ class MIB_IPFORWARD_ROW2 extends Win32Struct
      * @type {Integer}
      */
     Metric {
-        get => NumGet(this, 172, "uint")
-        set => NumPut("uint", value, this, 172)
+        get => NumGet(this, 156, "uint")
+        set => NumPut("uint", value, this, 156)
     }
 
     /**
@@ -348,8 +348,8 @@ class MIB_IPFORWARD_ROW2 extends Win32Struct
      * @type {Integer}
      */
     Protocol {
-        get => NumGet(this, 176, "int")
-        set => NumPut("int", value, this, 176)
+        get => NumGet(this, 160, "int")
+        set => NumPut("int", value, this, 160)
     }
 
     /**
@@ -359,8 +359,8 @@ class MIB_IPFORWARD_ROW2 extends Win32Struct
      * @type {Integer}
      */
     Loopback {
-        get => NumGet(this, 180, "char")
-        set => NumPut("char", value, this, 180)
+        get => NumGet(this, 164, "char")
+        set => NumPut("char", value, this, 164)
     }
 
     /**
@@ -370,8 +370,8 @@ class MIB_IPFORWARD_ROW2 extends Win32Struct
      * @type {Integer}
      */
     AutoconfigureAddress {
-        get => NumGet(this, 181, "char")
-        set => NumPut("char", value, this, 181)
+        get => NumGet(this, 165, "char")
+        set => NumPut("char", value, this, 165)
     }
 
     /**
@@ -381,8 +381,8 @@ class MIB_IPFORWARD_ROW2 extends Win32Struct
      * @type {Integer}
      */
     Publish {
-        get => NumGet(this, 182, "char")
-        set => NumPut("char", value, this, 182)
+        get => NumGet(this, 166, "char")
+        set => NumPut("char", value, this, 166)
     }
 
     /**
@@ -392,8 +392,8 @@ class MIB_IPFORWARD_ROW2 extends Win32Struct
      * @type {Integer}
      */
     Immortal {
-        get => NumGet(this, 183, "char")
-        set => NumPut("char", value, this, 183)
+        get => NumGet(this, 167, "char")
+        set => NumPut("char", value, this, 167)
     }
 
     /**
@@ -404,8 +404,8 @@ class MIB_IPFORWARD_ROW2 extends Win32Struct
      * @type {Integer}
      */
     Age {
-        get => NumGet(this, 184, "uint")
-        set => NumPut("uint", value, this, 184)
+        get => NumGet(this, 168, "uint")
+        set => NumPut("uint", value, this, 168)
     }
 
     /**
@@ -477,7 +477,7 @@ class MIB_IPFORWARD_ROW2 extends Win32Struct
      * @type {Integer}
      */
     Origin {
-        get => NumGet(this, 188, "int")
-        set => NumPut("int", value, this, 188)
+        get => NumGet(this, 172, "int")
+        set => NumPut("int", value, this, 172)
     }
 }

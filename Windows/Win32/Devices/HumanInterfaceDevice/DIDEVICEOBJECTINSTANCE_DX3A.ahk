@@ -53,10 +53,13 @@ class DIDEVICEOBJECTINSTANCE_DX3A extends Win32Struct
     }
 
     /**
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    tszName {
-        get => StrGet(this.ptr + 28, 259, "UTF-8")
-        set => StrPut(value, this.ptr + 28, 259, "UTF-8")
+    tszName{
+        get {
+            if(!this.HasProp("__tszNameProxyArray"))
+                this.__tszNameProxyArray := Win32FixedArray(this.ptr + 28, 260, Primitive, "char")
+            return this.__tszNameProxyArray
+        }
     }
 }

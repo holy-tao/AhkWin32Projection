@@ -73,7 +73,7 @@ class AASHELLMENUITEM extends Win32Struct
      * Type: <b>LPTSTR</b>
      * 
      * A pointer to the string that contains the text to use if there is no file.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     psz {
         get => NumGet(this, 24, "ptr")

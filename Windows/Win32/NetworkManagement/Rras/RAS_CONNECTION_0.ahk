@@ -15,7 +15,7 @@ class RAS_CONNECTION_0 extends Win32Struct
 
     /**
      * A handle to the connection.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HANDLE>}
      */
     hConnection {
         get => NumGet(this, 0, "ptr")
@@ -24,7 +24,7 @@ class RAS_CONNECTION_0 extends Win32Struct
 
     /**
      * A handle to the interface.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HANDLE>}
      */
     hInterface {
         get => NumGet(this, 8, "ptr")

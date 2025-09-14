@@ -118,7 +118,7 @@ class WINTRUST_DATA extends Win32Struct
 
     /**
      * A handle to the state data. The contents of this member depends on the value of the <b>dwStateAction</b> member.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HANDLE>}
      */
     hWVTStateData {
         get => NumGet(this, 56, "ptr")
@@ -127,7 +127,7 @@ class WINTRUST_DATA extends Win32Struct
 
     /**
      * Reserved for future use. Set to <b>NULL</b>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pwszURLReference {
         get => NumGet(this, 64, "ptr")

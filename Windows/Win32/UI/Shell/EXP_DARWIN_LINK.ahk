@@ -12,7 +12,7 @@
  */
 class EXP_DARWIN_LINK extends Win32Struct
 {
-    static sizeof => 1048
+    static sizeof => 788
 
     static packingSize => 1
 
@@ -35,11 +35,14 @@ class EXP_DARWIN_LINK extends Win32Struct
      * Type: <b>__wchar_t[MAX_PATH]</b>
      * 
      * The link's ID in the form of an ANSI string.
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    szDarwinID {
-        get => StrGet(this.ptr + 8, 259, "UTF-16")
-        set => StrPut(value, this.ptr + 8, 259, "UTF-16")
+    szDarwinID{
+        get {
+            if(!this.HasProp("__szDarwinIDProxyArray"))
+                this.__szDarwinIDProxyArray := Win32FixedArray(this.ptr + 8, 260, Primitive, "char")
+            return this.__szDarwinIDProxyArray
+        }
     }
 
     /**
@@ -49,7 +52,7 @@ class EXP_DARWIN_LINK extends Win32Struct
      * @type {String}
      */
     szwDarwinID {
-        get => StrGet(this.ptr + 528, 259, "UTF-16")
-        set => StrPut(value, this.ptr + 528, 259, "UTF-16")
+        get => StrGet(this.ptr + 268, 259, "UTF-16")
+        set => StrPut(value, this.ptr + 268, 259, "UTF-16")
     }
 }

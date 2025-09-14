@@ -40,27 +40,36 @@ class RASCONNSTATUSA extends Win32Struct
     }
 
     /**
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    szDeviceType {
-        get => StrGet(this.ptr + 12, 16, "UTF-8")
-        set => StrPut(value, this.ptr + 12, 16, "UTF-8")
+    szDeviceType{
+        get {
+            if(!this.HasProp("__szDeviceTypeProxyArray"))
+                this.__szDeviceTypeProxyArray := Win32FixedArray(this.ptr + 12, 17, Primitive, "char")
+            return this.__szDeviceTypeProxyArray
+        }
     }
 
     /**
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    szDeviceName {
-        get => StrGet(this.ptr + 29, 128, "UTF-8")
-        set => StrPut(value, this.ptr + 29, 128, "UTF-8")
+    szDeviceName{
+        get {
+            if(!this.HasProp("__szDeviceNameProxyArray"))
+                this.__szDeviceNameProxyArray := Win32FixedArray(this.ptr + 29, 129, Primitive, "char")
+            return this.__szDeviceNameProxyArray
+        }
     }
 
     /**
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    szPhoneNumber {
-        get => StrGet(this.ptr + 158, 128, "UTF-8")
-        set => StrPut(value, this.ptr + 158, 128, "UTF-8")
+    szPhoneNumber{
+        get {
+            if(!this.HasProp("__szPhoneNumberProxyArray"))
+                this.__szPhoneNumberProxyArray := Win32FixedArray(this.ptr + 158, 129, Primitive, "char")
+            return this.__szPhoneNumberProxyArray
+        }
     }
 
     /**

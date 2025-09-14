@@ -12,7 +12,7 @@ class NDR_CS_SIZE_CONVERT_ROUTINES extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<CS_TYPE_NET_SIZE_ROUTINE>}
      */
     pfnNetSize {
         get => NumGet(this, 0, "ptr")
@@ -20,7 +20,7 @@ class NDR_CS_SIZE_CONVERT_ROUTINES extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<CS_TYPE_TO_NETCS_ROUTINE>}
      */
     pfnToNetCs {
         get => NumGet(this, 8, "ptr")
@@ -28,7 +28,7 @@ class NDR_CS_SIZE_CONVERT_ROUTINES extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<CS_TYPE_LOCAL_SIZE_ROUTINE>}
      */
     pfnLocalSize {
         get => NumGet(this, 16, "ptr")
@@ -36,7 +36,7 @@ class NDR_CS_SIZE_CONVERT_ROUTINES extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<CS_TYPE_FROM_NETCS_ROUTINE>}
      */
     pfnFromNetCs {
         get => NumGet(this, 24, "ptr")

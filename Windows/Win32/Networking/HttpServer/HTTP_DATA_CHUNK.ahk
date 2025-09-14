@@ -51,7 +51,7 @@ class HTTP_DATA_CHUNK extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HANDLE>}
      */
     FileHandle {
         get => NumGet(this, 24, "ptr")
@@ -67,7 +67,7 @@ class HTTP_DATA_CHUNK extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pFragmentName {
         get => NumGet(this, 16, "ptr")
@@ -75,7 +75,7 @@ class HTTP_DATA_CHUNK extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pFragmentName1 {
         get => NumGet(this, 24, "ptr")

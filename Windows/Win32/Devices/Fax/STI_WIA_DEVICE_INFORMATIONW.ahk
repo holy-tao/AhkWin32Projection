@@ -52,7 +52,7 @@ class STI_WIA_DEVICE_INFORMATIONW extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pszVendorDescription {
         get => NumGet(this, 272, "ptr")
@@ -60,7 +60,7 @@ class STI_WIA_DEVICE_INFORMATIONW extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pszDeviceDescription {
         get => NumGet(this, 280, "ptr")
@@ -68,7 +68,7 @@ class STI_WIA_DEVICE_INFORMATIONW extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pszPortName {
         get => NumGet(this, 288, "ptr")
@@ -76,7 +76,7 @@ class STI_WIA_DEVICE_INFORMATIONW extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pszPropProvider {
         get => NumGet(this, 296, "ptr")
@@ -84,7 +84,7 @@ class STI_WIA_DEVICE_INFORMATIONW extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pszLocalName {
         get => NumGet(this, 304, "ptr")
@@ -92,7 +92,7 @@ class STI_WIA_DEVICE_INFORMATIONW extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pszUiDll {
         get => NumGet(this, 312, "ptr")
@@ -100,7 +100,7 @@ class STI_WIA_DEVICE_INFORMATIONW extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pszServer {
         get => NumGet(this, 320, "ptr")

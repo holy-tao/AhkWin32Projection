@@ -44,7 +44,7 @@ class ERROR_LOG extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     el_name {
         get => NumGet(this, 16, "ptr")
@@ -52,7 +52,7 @@ class ERROR_LOG extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     el_text {
         get => NumGet(this, 24, "ptr")

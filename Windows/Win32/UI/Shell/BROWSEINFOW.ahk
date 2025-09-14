@@ -21,7 +21,7 @@ class BROWSEINFOW extends Win32Struct
      * Type: <b>HWND</b>
      * 
      * A handle to the owner window for the dialog box.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HWND>}
      */
     hwndOwner {
         get => NumGet(this, 0, "ptr")
@@ -43,7 +43,7 @@ class BROWSEINFOW extends Win32Struct
      * Type: <b>LPTSTR</b>
      * 
      * Pointer to a buffer to receive the display name of the folder selected by the user. The size of this buffer is assumed to be MAX_PATH characters.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pszDisplayName {
         get => NumGet(this, 16, "ptr")
@@ -54,7 +54,7 @@ class BROWSEINFOW extends Win32Struct
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a null-terminated string that is displayed above the tree view control in the dialog box. This string can be used to specify instructions to the user.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     lpszTitle {
         get => NumGet(this, 24, "ptr")
@@ -74,7 +74,7 @@ class BROWSEINFOW extends Win32Struct
      * Type: <b>BFFCALLBACK</b>
      * 
      * Pointer to an application-defined function that the dialog box calls when an event occurs. For more information, see the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/bb762598(v=vs.85)">BrowseCallbackProc</a> function. This member can be <b>NULL</b>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<BFFCALLBACK>}
      */
     lpfn {
         get => NumGet(this, 40, "ptr")

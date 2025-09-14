@@ -32,7 +32,7 @@ class SP_INSTALLWIZARD_DATA extends Win32Struct
     }
 
     /**
-     * @type {Array<Ptr>}
+     * @type {Array<HPROPSHEETPAGE>}
      */
     DynamicPages{
         get {
@@ -75,7 +75,7 @@ class SP_INSTALLWIZARD_DATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HWND>}
      */
     hwndWizardDlg {
         get => NumGet(this, 192, "ptr")

@@ -25,10 +25,13 @@ class SYMBOL_INFO_PACKAGE extends Win32Struct
     }
 
     /**
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    name {
-        get => StrGet(this.ptr + 88, 2000, "UTF-8")
-        set => StrPut(value, this.ptr + 88, 2000, "UTF-8")
+    name{
+        get {
+            if(!this.HasProp("__nameProxyArray"))
+                this.__nameProxyArray := Win32FixedArray(this.ptr + 88, 2001, Primitive, "char")
+            return this.__nameProxyArray
+        }
     }
 }

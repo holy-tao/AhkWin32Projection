@@ -39,7 +39,7 @@ class PKCS12_PBES2_EXPORT_PARAMS extends Win32Struct
      * | Value | Meaning |
      * |-------|---------|
      * | **PKCS12_PBES2_ALG_AES256_SHA256**</br>AES256-SHA256 | AES256 will be used for key/certificate encryption, and SHA256 will be used for KDF2, and MacData hashing. |
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pwszPbes2Alg {
         get => NumGet(this, 16, "ptr")

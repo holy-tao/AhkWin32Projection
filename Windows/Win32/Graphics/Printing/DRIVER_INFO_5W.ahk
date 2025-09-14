@@ -25,7 +25,7 @@ class DRIVER_INFO_5W extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that specifies the name of the driver (for example, QMS 810).
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pName {
         get => NumGet(this, 8, "ptr")
@@ -34,7 +34,7 @@ class DRIVER_INFO_5W extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that specifies the environment for which the driver was written (for example, Windows x86, Windows IA64, and Windows x64).
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pEnvironment {
         get => NumGet(this, 16, "ptr")
@@ -43,7 +43,7 @@ class DRIVER_INFO_5W extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that specifies a file name or a full path and file name for the file that contains the device driver (for example, C:\\DRIVERS\\Pscript.dll).
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pDriverPath {
         get => NumGet(this, 24, "ptr")
@@ -52,7 +52,7 @@ class DRIVER_INFO_5W extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that specifies a file name or a full path and file name for the file that contains driver data (for example, C:\\DRIVERS\\Qms810.ppd).
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pDataFile {
         get => NumGet(this, 32, "ptr")
@@ -61,7 +61,7 @@ class DRIVER_INFO_5W extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that specifies a file name or a full path and file name for the device driver's configuration dynamic-link library (for example, C:\\DRIVERS\\Pscrptui.dll).
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pConfigFile {
         get => NumGet(this, 40, "ptr")

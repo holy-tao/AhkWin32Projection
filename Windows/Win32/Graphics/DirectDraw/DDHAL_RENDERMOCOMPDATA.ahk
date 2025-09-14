@@ -92,7 +92,7 @@ class DDHAL_RENDERMOCOMPDATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPDDHALMOCOMPCB_RENDER>}
      */
     RenderMoComp {
         get => NumGet(this, 72, "ptr")

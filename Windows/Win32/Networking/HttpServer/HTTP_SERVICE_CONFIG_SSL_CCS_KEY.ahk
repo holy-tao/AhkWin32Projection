@@ -12,7 +12,7 @@
  */
 class HTTP_SERVICE_CONFIG_SSL_CCS_KEY extends Win32Struct
 {
-    static sizeof => 248
+    static sizeof => 128
 
     static packingSize => 8
 

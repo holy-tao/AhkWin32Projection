@@ -12,7 +12,7 @@ class CLUSTER_HEALTH_FAULT extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     Id {
         get => NumGet(this, 0, "ptr")
@@ -36,7 +36,7 @@ class CLUSTER_HEALTH_FAULT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     Description {
         get => NumGet(this, 16, "ptr")
@@ -44,7 +44,7 @@ class CLUSTER_HEALTH_FAULT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     Provider {
         get => NumGet(this, 24, "ptr")

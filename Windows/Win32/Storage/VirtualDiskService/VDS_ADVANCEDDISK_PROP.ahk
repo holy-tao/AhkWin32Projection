@@ -12,7 +12,7 @@ class VDS_ADVANCEDDISK_PROP extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pwszId {
         get => NumGet(this, 0, "ptr")
@@ -20,7 +20,7 @@ class VDS_ADVANCEDDISK_PROP extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pwszPathname {
         get => NumGet(this, 8, "ptr")
@@ -28,7 +28,7 @@ class VDS_ADVANCEDDISK_PROP extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pwszLocation {
         get => NumGet(this, 16, "ptr")
@@ -36,7 +36,7 @@ class VDS_ADVANCEDDISK_PROP extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pwszFriendlyName {
         get => NumGet(this, 24, "ptr")
@@ -44,7 +44,7 @@ class VDS_ADVANCEDDISK_PROP extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pswzIdentifier {
         get => NumGet(this, 32, "ptr")
@@ -68,7 +68,7 @@ class VDS_ADVANCEDDISK_PROP extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pwszSerialNumber {
         get => NumGet(this, 48, "ptr")
@@ -76,7 +76,7 @@ class VDS_ADVANCEDDISK_PROP extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pwszFirmwareVersion {
         get => NumGet(this, 56, "ptr")
@@ -84,7 +84,7 @@ class VDS_ADVANCEDDISK_PROP extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pwszManufacturer {
         get => NumGet(this, 64, "ptr")
@@ -92,7 +92,7 @@ class VDS_ADVANCEDDISK_PROP extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pwszModel {
         get => NumGet(this, 72, "ptr")

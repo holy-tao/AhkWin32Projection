@@ -40,7 +40,7 @@ class D3D11_AUTHENTICATED_CONFIGURE_SHARED_RESOURCE_INPUT extends Win32Struct
 
     /**
      * A process handle. If the <b>ProcessType</b> member equals <b>D3D11_PROCESSIDTYPE_HANDLE</b>, the <b>ProcessHandle</b> member specifies a handle to a process. Otherwise, the value is ignored.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HANDLE>}
      */
     ProcessHandle {
         get => NumGet(this, 48, "ptr")

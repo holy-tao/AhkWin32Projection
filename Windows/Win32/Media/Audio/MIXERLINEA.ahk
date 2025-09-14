@@ -13,7 +13,7 @@
  */
 class MIXERLINEA extends Win32Struct
 {
-    static sizeof => 204
+    static sizeof => 172
 
     static packingSize => 1
 
@@ -161,20 +161,26 @@ class MIXERLINEA extends Win32Struct
 
     /**
      * Short string that describes the audio mixer line specified in the <b>dwLineID</b> member. This description should be appropriate as a concise label for the line.
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    szShortName {
-        get => StrGet(this.ptr + 44, 15, "UTF-8")
-        set => StrPut(value, this.ptr + 44, 15, "UTF-8")
+    szShortName{
+        get {
+            if(!this.HasProp("__szShortNameProxyArray"))
+                this.__szShortNameProxyArray := Win32FixedArray(this.ptr + 44, 16, Primitive, "char")
+            return this.__szShortNameProxyArray
+        }
     }
 
     /**
      * String that describes the audio mixer line specified in the <b>dwLineID</b> member. This description should be appropriate as a complete description for the line.
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    szName {
-        get => StrGet(this.ptr + 60, 63, "UTF-8")
-        set => StrPut(value, this.ptr + 60, 63, "UTF-8")
+    szName{
+        get {
+            if(!this.HasProp("__szNameProxyArray"))
+                this.__szNameProxyArray := Win32FixedArray(this.ptr + 60, 64, Primitive, "char")
+            return this.__szNameProxyArray
+        }
     }
 
     /**
@@ -218,10 +224,13 @@ class MIXERLINEA extends Win32Struct
     }
 
     /**
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    szPname {
-        get => StrGet(this.ptr + 140, 31, "UTF-16")
-        set => StrPut(value, this.ptr + 140, 31, "UTF-16")
+    szPname{
+        get {
+            if(!this.HasProp("__szPnameProxyArray"))
+                this.__szPnameProxyArray := Win32FixedArray(this.ptr + 140, 32, Primitive, "char")
+            return this.__szPnameProxyArray
+        }
     }
 }

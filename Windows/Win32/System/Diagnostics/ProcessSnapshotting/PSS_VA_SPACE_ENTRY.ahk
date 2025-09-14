@@ -125,7 +125,7 @@ class PSS_VA_SPACE_ENTRY extends Win32Struct
 
     /**
      * If section information was captured, this is the file path backing the section (if any). The path may be in NT namespace. The string may not be terminated by a <b>NULL</b> character. The pointer is valid for the lifetime of the walk marker passed to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/processsnapshot/nf-processsnapshot-psswalksnapshot">PssWalkSnapshot</a>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     MappedFileName {
         get => NumGet(this, 72, "ptr")

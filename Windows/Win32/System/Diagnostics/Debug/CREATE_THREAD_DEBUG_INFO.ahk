@@ -15,7 +15,7 @@ class CREATE_THREAD_DEBUG_INFO extends Win32Struct
 
     /**
      * A handle to the thread whose creation caused the debugging event. If this member is <b>NULL</b>, the handle is not valid. Otherwise, the debugger has THREAD_GET_CONTEXT, THREAD_SET_CONTEXT, and THREAD_SUSPEND_RESUME access to the thread, allowing the debugger to read from and write to the registers of the thread and control execution of the thread.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HANDLE>}
      */
     hThread {
         get => NumGet(this, 0, "ptr")
@@ -34,7 +34,7 @@ class CREATE_THREAD_DEBUG_INFO extends Win32Struct
     /**
      * A pointer to the starting address of the thread. This value may only be an approximation of the thread's starting address, because any application with appropriate access to the thread can change the thread's context by using the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-setthreadcontext">SetThreadContext</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPTHREAD_START_ROUTINE>}
      */
     lpStartAddress {
         get => NumGet(this, 16, "ptr")

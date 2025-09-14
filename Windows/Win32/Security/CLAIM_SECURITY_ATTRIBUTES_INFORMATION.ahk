@@ -42,7 +42,7 @@ class CLAIM_SECURITY_ATTRIBUTES_INFORMATION extends Win32Struct
 
     /**
      * The actual attribute.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<_Attribute_e__Union>}
      */
     Attribute {
         get => NumGet(this, 8, "ptr")

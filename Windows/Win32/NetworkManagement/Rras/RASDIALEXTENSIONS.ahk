@@ -30,7 +30,7 @@ class RASDIALEXTENSIONS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HWND>}
      */
     hwndParent {
         get => NumGet(this, 8, "ptr")

@@ -26,7 +26,7 @@ class CRYPT_OBJECT_LOCATOR_PROVIDER_TABLE extends Win32Struct
 
     /**
      * Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nc-wincrypt-pfn_crypt_object_locator_provider_get">PFN_CRYPT_OBJECT_LOCATOR_PROVIDER_GET</a> function implemented by the provider.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_CRYPT_OBJECT_LOCATOR_PROVIDER_GET>}
      */
     pfnGet {
         get => NumGet(this, 8, "ptr")
@@ -35,7 +35,7 @@ class CRYPT_OBJECT_LOCATOR_PROVIDER_TABLE extends Win32Struct
 
     /**
      * Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nc-wincrypt-pfn_crypt_object_locator_provider_release">PFN_CRYPT_OBJECT_LOCATOR_PROVIDER_RELEASE</a>  function implemented by the provider.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_CRYPT_OBJECT_LOCATOR_PROVIDER_RELEASE>}
      */
     pfnRelease {
         get => NumGet(this, 16, "ptr")
@@ -44,7 +44,7 @@ class CRYPT_OBJECT_LOCATOR_PROVIDER_TABLE extends Win32Struct
 
     /**
      * Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nc-wincrypt-pfn_crypt_object_locator_provider_free_password">PFN_CRYPT_OBJECT_LOCATOR_PROVIDER_FREE_PASSWORD</a>  function implemented by the provider.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_CRYPT_OBJECT_LOCATOR_PROVIDER_FREE_PASSWORD>}
      */
     pfnFreePassword {
         get => NumGet(this, 24, "ptr")
@@ -53,7 +53,7 @@ class CRYPT_OBJECT_LOCATOR_PROVIDER_TABLE extends Win32Struct
 
     /**
      * Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nc-wincrypt-pfn_crypt_object_locator_provider_free">PFN_CRYPT_OBJECT_LOCATOR_PROVIDER_FREE</a>  function implemented by the provider.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_CRYPT_OBJECT_LOCATOR_PROVIDER_FREE>}
      */
     pfnFree {
         get => NumGet(this, 32, "ptr")
@@ -62,7 +62,7 @@ class CRYPT_OBJECT_LOCATOR_PROVIDER_TABLE extends Win32Struct
 
     /**
      * Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nc-wincrypt-pfn_crypt_object_locator_provider_free_identifier">PFN_CRYPT_OBJECT_LOCATOR_PROVIDER_FREE_IDENTIFIER</a>  function implemented by the provider.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_CRYPT_OBJECT_LOCATOR_PROVIDER_FREE_IDENTIFIER>}
      */
     pfnFreeIdentifier {
         get => NumGet(this, 40, "ptr")

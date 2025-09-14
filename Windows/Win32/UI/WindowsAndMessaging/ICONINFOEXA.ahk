@@ -71,7 +71,7 @@ class ICONINFOEXA extends Win32Struct
      * Type: <b>HBITMAP</b>
      * 
      * A handle to the icon monochrome mask <a href="https://docs.microsoft.com/windows/win32/gdi/bitmaps">bitmap</a>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HBITMAP>}
      */
     hbmMask {
         get => NumGet(this, 16, "ptr")
@@ -82,7 +82,7 @@ class ICONINFOEXA extends Win32Struct
      * Type: <b>HBITMAP</b>
      * 
      * A handle to the icon color <a href="https://docs.microsoft.com/windows/win32/gdi/bitmaps">bitmap</a>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HBITMAP>}
      */
     hbmColor {
         get => NumGet(this, 24, "ptr")
@@ -104,22 +104,28 @@ class ICONINFOEXA extends Win32Struct
      * Type: <b>TCHAR[MAX_PATH]</b>
      * 
      * The fully qualified path of the module.
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    szModName {
-        get => StrGet(this.ptr + 34, 259, "UTF-8")
-        set => StrPut(value, this.ptr + 34, 259, "UTF-8")
+    szModName{
+        get {
+            if(!this.HasProp("__szModNameProxyArray"))
+                this.__szModNameProxyArray := Win32FixedArray(this.ptr + 34, 260, Primitive, "char")
+            return this.__szModNameProxyArray
+        }
     }
 
     /**
      * Type: <b>TCHAR[MAX_PATH]</b>
      * 
      * The fully qualified path of the resource.
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    szResName {
-        get => StrGet(this.ptr + 294, 259, "UTF-8")
-        set => StrPut(value, this.ptr + 294, 259, "UTF-8")
+    szResName{
+        get {
+            if(!this.HasProp("__szResNameProxyArray"))
+                this.__szResNameProxyArray := Win32FixedArray(this.ptr + 294, 260, Primitive, "char")
+            return this.__szResNameProxyArray
+        }
     }
 
     /**

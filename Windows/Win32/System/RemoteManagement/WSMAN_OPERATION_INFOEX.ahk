@@ -68,7 +68,7 @@ class WSMAN_OPERATION_INFOEX extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     uiLocale {
         get => NumGet(this, 88, "ptr")
@@ -76,7 +76,7 @@ class WSMAN_OPERATION_INFOEX extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     dataLocale {
         get => NumGet(this, 96, "ptr")

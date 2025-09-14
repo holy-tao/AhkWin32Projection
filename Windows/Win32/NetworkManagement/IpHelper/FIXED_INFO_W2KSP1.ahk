@@ -24,7 +24,7 @@
  */
 class FIXED_INFO_W2KSP1 extends Win32Struct
 {
-    static sizeof => 1152
+    static sizeof => 600
 
     static packingSize => 8
 
@@ -32,22 +32,28 @@ class FIXED_INFO_W2KSP1 extends Win32Struct
      * Type: <b>char[MAX_HOSTNAME_LEN + 4]</b>
      * 
      * The hostname for the local computer. This may be the fully qualified hostname (including the domain) for a computer that is joined to a domain.
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    HostName {
-        get => StrGet(this.ptr + 0, 131, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 131, "UTF-16")
+    HostName{
+        get {
+            if(!this.HasProp("__HostNameProxyArray"))
+                this.__HostNameProxyArray := Win32FixedArray(this.ptr + 0, 132, Primitive, "char")
+            return this.__HostNameProxyArray
+        }
     }
 
     /**
      * Type: <b>char[MAX_DOMAIN_NAME_LEN + 4]</b>
      * 
      * The domain in which the local computer is registered.
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    DomainName {
-        get => StrGet(this.ptr + 264, 131, "UTF-16")
-        set => StrPut(value, this.ptr + 264, 131, "UTF-16")
+    DomainName{
+        get {
+            if(!this.HasProp("__DomainNameProxyArray"))
+                this.__DomainNameProxyArray := Win32FixedArray(this.ptr + 132, 132, Primitive, "char")
+            return this.__DomainNameProxyArray
+        }
     }
 
     /**
@@ -57,8 +63,8 @@ class FIXED_INFO_W2KSP1 extends Win32Struct
      * @type {Pointer<IP_ADDR_STRING>}
      */
     CurrentDnsServer {
-        get => NumGet(this, 528, "ptr")
-        set => NumPut("ptr", value, this, 528)
+        get => NumGet(this, 264, "ptr")
+        set => NumPut("ptr", value, this, 264)
     }
 
     /**
@@ -71,7 +77,7 @@ class FIXED_INFO_W2KSP1 extends Win32Struct
     DnsServerList{
         get {
             if(!this.HasProp("__DnsServerList"))
-                this.__DnsServerList := IP_ADDR_STRING(this.ptr + 536)
+                this.__DnsServerList := IP_ADDR_STRING(this.ptr + 272)
             return this.__DnsServerList
         }
     }
@@ -143,19 +149,22 @@ class FIXED_INFO_W2KSP1 extends Win32Struct
      * @type {Integer}
      */
     NodeType {
-        get => NumGet(this, 616, "uint")
-        set => NumPut("uint", value, this, 616)
+        get => NumGet(this, 320, "uint")
+        set => NumPut("uint", value, this, 320)
     }
 
     /**
      * Type: <b>char[MAX_SCOPE_ID_LEN + 4]</b>
      * 
      * The DHCP scope name.
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    ScopeId {
-        get => StrGet(this.ptr + 620, 259, "UTF-16")
-        set => StrPut(value, this.ptr + 620, 259, "UTF-16")
+    ScopeId{
+        get {
+            if(!this.HasProp("__ScopeIdProxyArray"))
+                this.__ScopeIdProxyArray := Win32FixedArray(this.ptr + 324, 260, Primitive, "char")
+            return this.__ScopeIdProxyArray
+        }
     }
 
     /**
@@ -165,8 +174,8 @@ class FIXED_INFO_W2KSP1 extends Win32Struct
      * @type {Integer}
      */
     EnableRouting {
-        get => NumGet(this, 1140, "uint")
-        set => NumPut("uint", value, this, 1140)
+        get => NumGet(this, 584, "uint")
+        set => NumPut("uint", value, this, 584)
     }
 
     /**
@@ -176,8 +185,8 @@ class FIXED_INFO_W2KSP1 extends Win32Struct
      * @type {Integer}
      */
     EnableProxy {
-        get => NumGet(this, 1144, "uint")
-        set => NumPut("uint", value, this, 1144)
+        get => NumGet(this, 588, "uint")
+        set => NumPut("uint", value, this, 588)
     }
 
     /**
@@ -187,7 +196,7 @@ class FIXED_INFO_W2KSP1 extends Win32Struct
      * @type {Integer}
      */
     EnableDns {
-        get => NumGet(this, 1148, "uint")
-        set => NumPut("uint", value, this, 1148)
+        get => NumGet(this, 592, "uint")
+        set => NumPut("uint", value, this, 592)
     }
 }

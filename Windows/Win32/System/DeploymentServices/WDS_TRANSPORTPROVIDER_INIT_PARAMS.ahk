@@ -34,7 +34,7 @@ class WDS_TRANSPORTPROVIDER_INIT_PARAMS extends Win32Struct
     /**
      * An open handle to the registry key where this provider should
      *      store and retrieve its settings.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HKEY>}
      */
     hRegistryKey {
         get => NumGet(this, 8, "ptr")
@@ -43,7 +43,7 @@ class WDS_TRANSPORTPROVIDER_INIT_PARAMS extends Win32Struct
 
     /**
      * A handle that the provider can use to uniquely identify itself in calls to the multicast server.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HANDLE>}
      */
     hProvider {
         get => NumGet(this, 16, "ptr")

@@ -84,7 +84,7 @@ class MIXERCONTROLDETAILS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HWND>}
      */
     hwndOwner {
         get => NumGet(this, 12, "ptr")

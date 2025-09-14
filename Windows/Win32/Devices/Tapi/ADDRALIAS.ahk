@@ -7,47 +7,56 @@
  */
 class ADDRALIAS extends Win32Struct
 {
-    static sizeof => 136
+    static sizeof => 72
 
     static packingSize => 4
 
     /**
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    rgchName {
-        get => StrGet(this.ptr + 0, 40, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 40, "UTF-16")
+    rgchName{
+        get {
+            if(!this.HasProp("__rgchNameProxyArray"))
+                this.__rgchNameProxyArray := Win32FixedArray(this.ptr + 0, 41, Primitive, "char")
+            return this.__rgchNameProxyArray
+        }
     }
 
     /**
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    rgchEName {
-        get => StrGet(this.ptr + 82, 10, "UTF-16")
-        set => StrPut(value, this.ptr + 82, 10, "UTF-16")
+    rgchEName{
+        get {
+            if(!this.HasProp("__rgchENameProxyArray"))
+                this.__rgchENameProxyArray := Win32FixedArray(this.ptr + 41, 11, Primitive, "char")
+            return this.__rgchENameProxyArray
+        }
     }
 
     /**
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    rgchSrvr {
-        get => StrGet(this.ptr + 104, 11, "UTF-16")
-        set => StrPut(value, this.ptr + 104, 11, "UTF-16")
+    rgchSrvr{
+        get {
+            if(!this.HasProp("__rgchSrvrProxyArray"))
+                this.__rgchSrvrProxyArray := Win32FixedArray(this.ptr + 52, 12, Primitive, "char")
+            return this.__rgchSrvrProxyArray
+        }
     }
 
     /**
      * @type {Integer}
      */
     dibDetail {
-        get => NumGet(this, 128, "uint")
-        set => NumPut("uint", value, this, 128)
+        get => NumGet(this, 64, "uint")
+        set => NumPut("uint", value, this, 64)
     }
 
     /**
      * @type {Integer}
      */
     type {
-        get => NumGet(this, 132, "ushort")
-        set => NumPut("ushort", value, this, 132)
+        get => NumGet(this, 68, "ushort")
+        set => NumPut("ushort", value, this, 68)
     }
 }

@@ -67,7 +67,7 @@ class NEWCPLINFOW extends Win32Struct
      * Type: <b>HICON</b>
      * 
      * The identifier of the icon that represents the dialog box. This icon is intended to be displayed by the application that controls the Control Panel application.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HICON>}
      */
     hIcon {
         get => NumGet(this, 20, "ptr")

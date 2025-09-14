@@ -112,7 +112,7 @@ class DOT11_RECV_EXTENSION_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HANDLE>}
      */
     hWEPOffloadContext {
         get => NumGet(this, 56, "ptr")
@@ -120,7 +120,7 @@ class DOT11_RECV_EXTENSION_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HANDLE>}
      */
     hAuthOffloadContext {
         get => NumGet(this, 64, "ptr")

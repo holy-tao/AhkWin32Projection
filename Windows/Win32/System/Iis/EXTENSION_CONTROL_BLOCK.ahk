@@ -7,7 +7,7 @@
  */
 class EXTENSION_CONTROL_BLOCK extends Win32Struct
 {
-    static sizeof => 272
+    static sizeof => 192
 
     static packingSize => 8
 
@@ -28,7 +28,7 @@ class EXTENSION_CONTROL_BLOCK extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HCONN>}
      */
     ConnID {
         get => NumGet(this, 8, "ptr")
@@ -44,107 +44,110 @@ class EXTENSION_CONTROL_BLOCK extends Win32Struct
     }
 
     /**
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    lpszLogData {
-        get => StrGet(this.ptr + 20, 79, "UTF-16")
-        set => StrPut(value, this.ptr + 20, 79, "UTF-16")
+    lpszLogData{
+        get {
+            if(!this.HasProp("__lpszLogDataProxyArray"))
+                this.__lpszLogDataProxyArray := Win32FixedArray(this.ptr + 20, 80, Primitive, "char")
+            return this.__lpszLogDataProxyArray
+        }
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     lpszMethod {
-        get => NumGet(this, 184, "ptr")
-        set => NumPut("ptr", value, this, 184)
+        get => NumGet(this, 104, "ptr")
+        set => NumPut("ptr", value, this, 104)
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     lpszQueryString {
-        get => NumGet(this, 192, "ptr")
-        set => NumPut("ptr", value, this, 192)
+        get => NumGet(this, 112, "ptr")
+        set => NumPut("ptr", value, this, 112)
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     lpszPathInfo {
-        get => NumGet(this, 200, "ptr")
-        set => NumPut("ptr", value, this, 200)
+        get => NumGet(this, 120, "ptr")
+        set => NumPut("ptr", value, this, 120)
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     lpszPathTranslated {
-        get => NumGet(this, 208, "ptr")
-        set => NumPut("ptr", value, this, 208)
+        get => NumGet(this, 128, "ptr")
+        set => NumPut("ptr", value, this, 128)
     }
 
     /**
      * @type {Integer}
      */
     cbTotalBytes {
-        get => NumGet(this, 216, "uint")
-        set => NumPut("uint", value, this, 216)
+        get => NumGet(this, 136, "uint")
+        set => NumPut("uint", value, this, 136)
     }
 
     /**
      * @type {Integer}
      */
     cbAvailable {
-        get => NumGet(this, 220, "uint")
-        set => NumPut("uint", value, this, 220)
+        get => NumGet(this, 140, "uint")
+        set => NumPut("uint", value, this, 140)
     }
 
     /**
      * @type {Pointer<Byte>}
      */
     lpbData {
-        get => NumGet(this, 224, "ptr")
-        set => NumPut("ptr", value, this, 224)
+        get => NumGet(this, 144, "ptr")
+        set => NumPut("ptr", value, this, 144)
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     lpszContentType {
-        get => NumGet(this, 232, "ptr")
-        set => NumPut("ptr", value, this, 232)
+        get => NumGet(this, 152, "ptr")
+        set => NumPut("ptr", value, this, 152)
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_IIS_GETSERVERVARIABLE>}
      */
     GetServerVariable {
-        get => NumGet(this, 240, "ptr")
-        set => NumPut("ptr", value, this, 240)
+        get => NumGet(this, 160, "ptr")
+        set => NumPut("ptr", value, this, 160)
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_IIS_WRITECLIENT>}
      */
     WriteClient {
-        get => NumGet(this, 248, "ptr")
-        set => NumPut("ptr", value, this, 248)
+        get => NumGet(this, 168, "ptr")
+        set => NumPut("ptr", value, this, 168)
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_IIS_READCLIENT>}
      */
     ReadClient {
-        get => NumGet(this, 256, "ptr")
-        set => NumPut("ptr", value, this, 256)
+        get => NumGet(this, 176, "ptr")
+        set => NumPut("ptr", value, this, 176)
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_IIS_SERVERSUPPORTFUNCTION>}
      */
     ServerSupportFunction {
-        get => NumGet(this, 264, "ptr")
-        set => NumPut("ptr", value, this, 264)
+        get => NumGet(this, 184, "ptr")
+        set => NumPut("ptr", value, this, 184)
     }
 
     /**
@@ -153,6 +156,6 @@ class EXTENSION_CONTROL_BLOCK extends Win32Struct
      */
     __New(ptr := 0){
         super.__New(ptr)
-        this.cbSize := 272
+        this.cbSize := 192
     }
 }

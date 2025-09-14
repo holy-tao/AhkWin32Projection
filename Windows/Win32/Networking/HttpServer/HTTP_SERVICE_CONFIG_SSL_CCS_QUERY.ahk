@@ -13,7 +13,7 @@
  */
 class HTTP_SERVICE_CONFIG_SSL_CCS_QUERY extends Win32Struct
 {
-    static sizeof => 264
+    static sizeof => 144
 
     static packingSize => 8
 
@@ -44,7 +44,7 @@ class HTTP_SERVICE_CONFIG_SSL_CCS_QUERY extends Win32Struct
      * @type {Integer}
      */
     dwToken {
-        get => NumGet(this, 256, "uint")
-        set => NumPut("uint", value, this, 256)
+        get => NumGet(this, 136, "uint")
+        set => NumPut("uint", value, this, 136)
     }
 }

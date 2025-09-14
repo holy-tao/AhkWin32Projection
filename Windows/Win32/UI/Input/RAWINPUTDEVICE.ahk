@@ -52,7 +52,7 @@ class RAWINPUTDEVICE extends Win32Struct
      * Type: <b>HWND</b>
      * 
      * A handle to the target window. If <b>NULL</b> it follows the keyboard focus.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HWND>}
      */
     hwndTarget {
         get => NumGet(this, 8, "ptr")

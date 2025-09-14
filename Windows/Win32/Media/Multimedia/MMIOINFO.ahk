@@ -28,7 +28,7 @@ class MMIOINFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPMMIOPROC>}
      */
     pIOProc {
         get => NumGet(this, 8, "ptr")
@@ -44,7 +44,7 @@ class MMIOINFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HTASK>}
      */
     htask {
         get => NumGet(this, 20, "ptr")
@@ -135,7 +135,7 @@ class MMIOINFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HMMIO>}
      */
     hmmio {
         get => NumGet(this, 92, "ptr")

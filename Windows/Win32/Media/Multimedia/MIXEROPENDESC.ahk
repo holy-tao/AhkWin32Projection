@@ -12,7 +12,7 @@ class MIXEROPENDESC extends Win32Struct
     static packingSize => 1
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HMIXER>}
      */
     hmx {
         get => NumGet(this, 0, "ptr")

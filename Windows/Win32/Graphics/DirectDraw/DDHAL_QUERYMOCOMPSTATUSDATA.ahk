@@ -52,7 +52,7 @@ class DDHAL_QUERYMOCOMPSTATUSDATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPDDHALMOCOMPCB_QUERYSTATUS>}
      */
     QueryMoCompStatus {
         get => NumGet(this, 32, "ptr")

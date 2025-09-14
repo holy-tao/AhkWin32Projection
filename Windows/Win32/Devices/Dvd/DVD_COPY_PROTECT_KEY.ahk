@@ -44,7 +44,7 @@ class DVD_COPY_PROTECT_KEY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HANDLE>}
      */
     FileHandle {
         get => NumGet(this, 16, "ptr")

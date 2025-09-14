@@ -10,7 +10,7 @@
  */
 class JET_SIGNATURE extends Win32Struct
 {
-    static sizeof => 44
+    static sizeof => 28
 
     static packingSize => 1
 
@@ -34,10 +34,13 @@ class JET_SIGNATURE extends Win32Struct
     }
 
     /**
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    szComputerName {
-        get => StrGet(this.ptr + 12, 15, "UTF-16")
-        set => StrPut(value, this.ptr + 12, 15, "UTF-16")
+    szComputerName{
+        get {
+            if(!this.HasProp("__szComputerNameProxyArray"))
+                this.__szComputerNameProxyArray := Win32FixedArray(this.ptr + 12, 16, Primitive, "char")
+            return this.__szComputerNameProxyArray
+        }
     }
 }

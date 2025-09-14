@@ -22,7 +22,7 @@ class PRINTER_INFO_4A extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that specifies the name of the printer (local or remote).
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     pPrinterName {
         get => NumGet(this, 0, "ptr")
@@ -31,7 +31,7 @@ class PRINTER_INFO_4A extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that is the name of the server.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     pServerName {
         get => NumGet(this, 8, "ptr")

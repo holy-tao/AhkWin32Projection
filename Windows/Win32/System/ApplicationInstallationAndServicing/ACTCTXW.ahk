@@ -136,7 +136,7 @@ class ACTCTXW extends Win32Struct
 
     /**
      * Null-terminated string specifying the path of the manifest file or PE image to be used to create the activation context. If this path refers to an EXE or DLL file, the  <b>lpResourceName</b> member is required.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     lpSource {
         get => NumGet(this, 8, "ptr")
@@ -176,7 +176,7 @@ class ACTCTXW extends Win32Struct
 
     /**
      * The base directory in which to perform private assembly probing if assemblies in the activation context are not present in the system-wide store.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     lpAssemblyDirectory {
         get => NumGet(this, 24, "ptr")
@@ -185,7 +185,7 @@ class ACTCTXW extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that contains the resource name to be loaded from the PE specified in <b>hModule</b> or <b>lpSource</b>. If the resource name is an integer, set this member using MAKEINTRESOURCE. This member is required if   <b>lpSource</b> refers to an EXE or DLL.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     lpResourceName {
         get => NumGet(this, 32, "ptr")
@@ -194,7 +194,7 @@ class ACTCTXW extends Win32Struct
 
     /**
      * The name of the current application. If the value of this member is set to null, the name of the executable that launched the current process is used.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     lpApplicationName {
         get => NumGet(this, 40, "ptr")
@@ -203,7 +203,7 @@ class ACTCTXW extends Win32Struct
 
     /**
      * Use this member rather than <b>lpSource</b> if you have already loaded a DLL and wish to use it to create activation contexts rather than using a path in <b>lpSource</b>. See <b>lpResourceName</b> for the rules of looking up resources in this module.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HMODULE>}
      */
     hModule {
         get => NumGet(this, 48, "ptr")

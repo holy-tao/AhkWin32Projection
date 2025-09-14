@@ -27,7 +27,7 @@ class CERT_ACCESS_DESCRIPTION extends Win32Struct
      * <li>szOID_PKIX_TIME_STAMPING</li>
      * </ul>
      * The default provider does not support the szOID_PKIX_TIME_STAMPING method.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     pszAccessMethod {
         get => NumGet(this, 0, "ptr")

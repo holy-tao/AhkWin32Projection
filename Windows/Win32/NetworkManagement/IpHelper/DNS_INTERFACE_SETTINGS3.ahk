@@ -61,7 +61,7 @@ class DNS_INTERFACE_SETTINGS3 extends Win32Struct
      * Type: **[PWSTR](/windows/win32/winprog/windows-data-types)**
      * 
      * A NULL-terminated wide string containing the adapter domain name.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     Domain {
         get => NumGet(this, 16, "ptr")
@@ -74,7 +74,7 @@ class DNS_INTERFACE_SETTINGS3 extends Win32Struct
      * A NULL-terminated wide string containing a series of comma- or space-separated DNS servers. For example, L"1.1.1.1 8.8.8.8", or L"1.1.1.1,8.8.8.8".
      *  
      * If the **DNS_SETTING_IPV6** flag is present, then the servers must be IPv6 addresses. For example, L"2606:4700:4700::1001,2606:4700:4700::1111".
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     NameServer {
         get => NumGet(this, 24, "ptr")
@@ -85,7 +85,7 @@ class DNS_INTERFACE_SETTINGS3 extends Win32Struct
      * Type: **[PWSTR](/windows/win32/winprog/windows-data-types)**
      * 
      * A NULL-terminated wide string containing a series of comma- or space-separated search names. For example, L"contoso1.com contoso2.com", or L"contoso1.com, contoso2.com".
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     SearchList {
         get => NumGet(this, 32, "ptr")
@@ -142,7 +142,7 @@ class DNS_INTERFACE_SETTINGS3 extends Win32Struct
      * A NULL-terminated wide string containing a series of comma- or space-separated DNS servers. For example, L"1.1.1.1 8.8.8.8" or L"1.1.1.1,8.8.8.8".
      *  
      * If the **DNS_SETTING_IPV6** flag is present, then the servers must be IPv6 addresses. For example, L"2606:4700:4700::1001,2606:4700:4700::1111".
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     ProfileNameServer {
         get => NumGet(this, 56, "ptr")
@@ -164,7 +164,7 @@ class DNS_INTERFACE_SETTINGS3 extends Win32Struct
      * Type: **[PWSTR](/windows/win32/winprog/windows-data-types)**
      * 
      * Reserved.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     SupplementalSearchList {
         get => NumGet(this, 72, "ptr")

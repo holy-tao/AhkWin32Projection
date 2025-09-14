@@ -12,7 +12,7 @@ class ACCESS_INFO_1 extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     acc1_resource_name {
         get => NumGet(this, 0, "ptr")

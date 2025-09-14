@@ -20,7 +20,7 @@ class SERENUM_PORT_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSERENUM_READPORT>}
      */
     ReadAccessor {
         get => NumGet(this, 8, "ptr")
@@ -28,7 +28,7 @@ class SERENUM_PORT_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSERENUM_WRITEPORT>}
      */
     WriteAccessor {
         get => NumGet(this, 16, "ptr")

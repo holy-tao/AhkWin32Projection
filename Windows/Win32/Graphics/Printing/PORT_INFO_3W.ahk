@@ -47,7 +47,7 @@ class PORT_INFO_3W extends Win32Struct
 
     /**
      * Pointer to a new printer port status value string to set. Use this member if there is no suitable status value among those listed for **dwStatus**.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pszStatus {
         get => NumGet(this, 8, "ptr")

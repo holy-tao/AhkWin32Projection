@@ -15,7 +15,7 @@ class DHCP_SERVER_SPECIFIC_STRINGS extends Win32Struct
 
     /**
      * Pointer to a Unicode string that specifies the default vendor class name for the DHCP server.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     DefaultVendorClassName {
         get => NumGet(this, 0, "ptr")
@@ -24,7 +24,7 @@ class DHCP_SERVER_SPECIFIC_STRINGS extends Win32Struct
 
     /**
      * Pointer to a Unicode string that specifies the default user class name for the DHCP server.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     DefaultUserClassName {
         get => NumGet(this, 8, "ptr")

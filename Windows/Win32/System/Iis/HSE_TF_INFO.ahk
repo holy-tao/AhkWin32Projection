@@ -12,7 +12,7 @@ class HSE_TF_INFO extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_HSE_IO_COMPLETION>}
      */
     pfnHseIO {
         get => NumGet(this, 0, "ptr")
@@ -28,7 +28,7 @@ class HSE_TF_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HANDLE>}
      */
     hFile {
         get => NumGet(this, 16, "ptr")
@@ -36,7 +36,7 @@ class HSE_TF_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     pszStatusCode {
         get => NumGet(this, 24, "ptr")

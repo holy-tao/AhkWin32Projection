@@ -48,7 +48,7 @@ class DDHAL_DRVSETCOLORKEYDATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPDDHAL_SETCOLORKEY>}
      */
     SetColorKey {
         get => NumGet(this, 32, "ptr")

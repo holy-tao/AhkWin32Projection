@@ -24,7 +24,7 @@ class NETCON_PROPERTIES extends Win32Struct
 
     /**
      * Name of the connection itself.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pszwName {
         get => NumGet(this, 8, "ptr")
@@ -33,7 +33,7 @@ class NETCON_PROPERTIES extends Win32Struct
 
     /**
      * Name of the device associated with the connection.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pszwDeviceName {
         get => NumGet(this, 16, "ptr")

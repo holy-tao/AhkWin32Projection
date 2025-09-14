@@ -16,7 +16,7 @@ class MONITOR_INFO_2W extends Win32Struct
 
     /**
      * A pointer to a null-terminated string that is the name of the monitor.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pName {
         get => NumGet(this, 0, "ptr")
@@ -25,7 +25,7 @@ class MONITOR_INFO_2W extends Win32Struct
 
     /**
      * A pointer to a null-terminated string that specifies the environment for which the monitor was written (for example, Windows NT x86, Windows IA64, Windows x64).
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pEnvironment {
         get => NumGet(this, 8, "ptr")
@@ -34,7 +34,7 @@ class MONITOR_INFO_2W extends Win32Struct
 
     /**
      * A pointer to a null-terminated string that is the name of the monitor DLL.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pDLLName {
         get => NumGet(this, 16, "ptr")

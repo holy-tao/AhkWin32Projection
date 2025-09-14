@@ -31,7 +31,7 @@ class HCS_EVENT extends Win32Struct
      * |`HcsEventSystemCrashInitiated`|[`CrashReport`](../SchemaReference.md#CrashReport)|
      * |`HcsEventSystemCrashReport`|[`CrashReport`](../SchemaReference.md#CrashReport)|
      * |`HcsEventProcessExited`|[`ProcessStatus`](../SchemaReference.md#ProcessStatus)|
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     EventData {
         get => NumGet(this, 8, "ptr")
@@ -40,7 +40,7 @@ class HCS_EVENT extends Win32Struct
 
     /**
      * Handle to a completed operation, if `Type` is `HcsEventOperationCallback`. This is only possible when [`HcsSetComputeSystemCallback`](./HcsSetComputeSystemCallback.md) has specified event option `HcsEventOptionEnableOperationCallbacks`.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HCS_OPERATION>}
      */
     Operation {
         get => NumGet(this, 16, "ptr")

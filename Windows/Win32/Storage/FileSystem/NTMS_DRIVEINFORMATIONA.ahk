@@ -55,29 +55,38 @@ class NTMS_DRIVEINFORMATIONA extends Win32Struct
 
     /**
      * Name of the device used to access the drive. For a tape drive this contains the device name \\.\tape0 or \\.\tape1. Other devices provide the name of a SCSI disk drive or the root of a file system that currently has the device mounted (raw, NTFS, FAT and so forth).
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    szDeviceName {
-        get => StrGet(this.ptr + 16, 63, "UTF-8")
-        set => StrPut(value, this.ptr + 16, 63, "UTF-8")
+    szDeviceName{
+        get {
+            if(!this.HasProp("__szDeviceNameProxyArray"))
+                this.__szDeviceNameProxyArray := Win32FixedArray(this.ptr + 16, 64, Primitive, "char")
+            return this.__szDeviceNameProxyArray
+        }
     }
 
     /**
      * Serial number for the drive represented as a string. Devices that do not support serial numbers report NULL for this member.
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    szSerialNumber {
-        get => StrGet(this.ptr + 80, 31, "UTF-8")
-        set => StrPut(value, this.ptr + 80, 31, "UTF-8")
+    szSerialNumber{
+        get {
+            if(!this.HasProp("__szSerialNumberProxyArray"))
+                this.__szSerialNumberProxyArray := Win32FixedArray(this.ptr + 80, 32, Primitive, "char")
+            return this.__szSerialNumberProxyArray
+        }
     }
 
     /**
      * Revision for the drive represented as a string.
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    szRevision {
-        get => StrGet(this.ptr + 112, 31, "UTF-8")
-        set => StrPut(value, this.ptr + 112, 31, "UTF-8")
+    szRevision{
+        get {
+            if(!this.HasProp("__szRevisionProxyArray"))
+                this.__szRevisionProxyArray := Win32FixedArray(this.ptr + 112, 32, Primitive, "char")
+            return this.__szRevisionProxyArray
+        }
     }
 
     /**

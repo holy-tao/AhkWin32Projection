@@ -33,7 +33,7 @@ class FEATURE_ERROR extends Win32Struct
 
     /**
      * Infrastructure use only.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     file {
         get => NumGet(this, 8, "ptr")
@@ -42,7 +42,7 @@ class FEATURE_ERROR extends Win32Struct
 
     /**
      * Infrastructure use only.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     process {
         get => NumGet(this, 16, "ptr")
@@ -51,7 +51,7 @@ class FEATURE_ERROR extends Win32Struct
 
     /**
      * Infrastructure use only.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     module {
         get => NumGet(this, 24, "ptr")
@@ -69,7 +69,7 @@ class FEATURE_ERROR extends Win32Struct
 
     /**
      * Infrastructure use only.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     callerModule {
         get => NumGet(this, 40, "ptr")
@@ -78,7 +78,7 @@ class FEATURE_ERROR extends Win32Struct
 
     /**
      * Infrastructure use only.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     message {
         get => NumGet(this, 48, "ptr")
@@ -96,7 +96,7 @@ class FEATURE_ERROR extends Win32Struct
 
     /**
      * Infrastructure use only.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     originFile {
         get => NumGet(this, 64, "ptr")
@@ -105,7 +105,7 @@ class FEATURE_ERROR extends Win32Struct
 
     /**
      * Infrastructure use only.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     originModule {
         get => NumGet(this, 72, "ptr")
@@ -123,7 +123,7 @@ class FEATURE_ERROR extends Win32Struct
 
     /**
      * Infrastructure use only.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     originCallerModule {
         get => NumGet(this, 88, "ptr")
@@ -132,7 +132,7 @@ class FEATURE_ERROR extends Win32Struct
 
     /**
      * Infrastructure use only.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     originName {
         get => NumGet(this, 96, "ptr")

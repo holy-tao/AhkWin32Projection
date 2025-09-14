@@ -37,7 +37,7 @@ class DNS_PROXY_INFORMATION extends Win32Struct
      * <div class="alert"><b>Note</b>  To free this string, use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/windns/nf-windns-dnsfreeproxyname">DnsFreeProxyName</a> function.</div>
      * <div> </div>
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     proxyName {
         get => NumGet(this, 8, "ptr")

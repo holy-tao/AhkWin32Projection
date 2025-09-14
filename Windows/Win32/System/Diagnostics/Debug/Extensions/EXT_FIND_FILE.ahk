@@ -12,7 +12,7 @@ class EXT_FIND_FILE extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     FileName {
         get => NumGet(this, 0, "ptr")
@@ -84,7 +84,7 @@ class EXT_FIND_FILE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HANDLE>}
      */
     FileHandle {
         get => NumGet(this, 56, "ptr")
@@ -92,7 +92,7 @@ class EXT_FIND_FILE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     FoundFileName {
         get => NumGet(this, 64, "ptr")

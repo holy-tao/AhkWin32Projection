@@ -38,10 +38,13 @@ class SP_POWERMESSAGEWAKE_PARAMS_A extends Win32Struct
 
     /**
      * Buffer that contains a string of custom text. Windows displays this text on the power management page of the device properties display in Device Manager.
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    PowerMessageWake {
-        get => StrGet(this.ptr + 8, 511, "UTF-8")
-        set => StrPut(value, this.ptr + 8, 511, "UTF-8")
+    PowerMessageWake{
+        get {
+            if(!this.HasProp("__PowerMessageWakeProxyArray"))
+                this.__PowerMessageWakeProxyArray := Win32FixedArray(this.ptr + 8, 512, Primitive, "char")
+            return this.__PowerMessageWakeProxyArray
+        }
     }
 }

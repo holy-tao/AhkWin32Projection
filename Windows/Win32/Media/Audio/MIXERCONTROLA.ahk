@@ -188,20 +188,26 @@ class MIXERCONTROLA extends Win32Struct
 
     /**
      * Short string that describes the audio line control specified by <b>dwControlID</b>. This description should be appropriate to use as a concise label for the control.
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    szShortName {
-        get => StrGet(this.ptr + 20, 15, "UTF-8")
-        set => StrPut(value, this.ptr + 20, 15, "UTF-8")
+    szShortName{
+        get {
+            if(!this.HasProp("__szShortNameProxyArray"))
+                this.__szShortNameProxyArray := Win32FixedArray(this.ptr + 20, 16, Primitive, "char")
+            return this.__szShortNameProxyArray
+        }
     }
 
     /**
      * String that describes the audio line control specified by <b>dwControlID</b>. This description should be appropriate to use as a complete description for the control.
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    szName {
-        get => StrGet(this.ptr + 36, 63, "UTF-8")
-        set => StrPut(value, this.ptr + 36, 63, "UTF-8")
+    szName{
+        get {
+            if(!this.HasProp("__szNameProxyArray"))
+                this.__szNameProxyArray := Win32FixedArray(this.ptr + 36, 64, Primitive, "char")
+            return this.__szNameProxyArray
+        }
     }
 
     /**

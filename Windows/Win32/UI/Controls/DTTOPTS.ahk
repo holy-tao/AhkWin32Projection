@@ -320,7 +320,7 @@ class DTTOPTS extends Win32Struct
      * Type: <b>DTT_CALLBACK_PROC</b>
      * 
      * Pointer to callback function for <a href="https://docs.microsoft.com/windows/desktop/api/uxtheme/nf-uxtheme-drawthemetextex">DrawThemeTextEx</a>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<DTT_CALLBACK_PROC>}
      */
     pfnDrawTextCallback {
         get => NumGet(this, 56, "ptr")

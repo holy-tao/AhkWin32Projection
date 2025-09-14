@@ -12,7 +12,7 @@ class MLOperatorSetId extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     domain {
         get => NumGet(this, 0, "ptr")

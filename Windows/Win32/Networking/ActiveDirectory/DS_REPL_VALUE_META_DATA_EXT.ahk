@@ -13,7 +13,7 @@ class DS_REPL_VALUE_META_DATA_EXT extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pszAttributeName {
         get => NumGet(this, 0, "ptr")
@@ -21,7 +21,7 @@ class DS_REPL_VALUE_META_DATA_EXT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pszObjectDn {
         get => NumGet(this, 8, "ptr")
@@ -110,7 +110,7 @@ class DS_REPL_VALUE_META_DATA_EXT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pszLastOriginatingDsaDN {
         get => NumGet(this, 88, "ptr")

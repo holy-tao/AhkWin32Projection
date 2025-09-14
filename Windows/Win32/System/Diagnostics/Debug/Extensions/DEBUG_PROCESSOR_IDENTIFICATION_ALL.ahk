@@ -13,7 +13,7 @@
  */
 class DEBUG_PROCESSOR_IDENTIFICATION_ALL extends Win32Struct
 {
-    static sizeof => 232
+    static sizeof => 152
 
     static packingSize => 8
 

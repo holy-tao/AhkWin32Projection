@@ -69,7 +69,7 @@ class COMSVCSEVENTINFO extends Win32Struct
 
     /**
      * The fully qualified name of the computer where the event originated.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     sMachineName {
         get => NumGet(this, 40, "ptr")

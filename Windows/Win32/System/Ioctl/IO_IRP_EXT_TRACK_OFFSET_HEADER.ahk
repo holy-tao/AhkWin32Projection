@@ -28,7 +28,7 @@ class IO_IRP_EXT_TRACK_OFFSET_HEADER extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PIO_IRP_EXT_PROCESS_TRACKED_OFFSET_CALLBACK>}
      */
     TrackedOffsetCallback {
         get => NumGet(this, 8, "ptr")

@@ -26,7 +26,7 @@ class SFVM_PROPPAGE_DATA extends Win32Struct
      * Type: <b>LPFNADDPROPSHEETPAGE</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/prsht/nc-prsht-lpfnaddpropsheetpage">AddPropSheetPageProc</a> callback function used to add property pages. When this function is used by Windows Explorer, it provides <b>pfn</b> through the system folder view object's <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ishellview-addpropertysheetpages">IShellView::AddPropertySheetPages</a> method. The callback function can then pass the information to <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ishellpropsheetext-addpages">IShellPropSheetExt::AddPages</a>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPFNSVADDPROPSHEETPAGE>}
      */
     pfn {
         get => NumGet(this, 8, "ptr")

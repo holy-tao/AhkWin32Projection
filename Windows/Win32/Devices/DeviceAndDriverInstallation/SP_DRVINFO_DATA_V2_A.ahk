@@ -49,29 +49,38 @@ class SP_DRVINFO_DATA_V2_A extends Win32Struct
 
     /**
      * A NULL-terminated string that describes the device supported by this driver.
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    Description {
-        get => StrGet(this.ptr + 16, 255, "UTF-8")
-        set => StrPut(value, this.ptr + 16, 255, "UTF-8")
+    Description{
+        get {
+            if(!this.HasProp("__DescriptionProxyArray"))
+                this.__DescriptionProxyArray := Win32FixedArray(this.ptr + 16, 256, Primitive, "char")
+            return this.__DescriptionProxyArray
+        }
     }
 
     /**
      * A NULL-terminated string that contains the name of the manufacturer of the device supported by this driver.
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    MfgName {
-        get => StrGet(this.ptr + 272, 255, "UTF-8")
-        set => StrPut(value, this.ptr + 272, 255, "UTF-8")
+    MfgName{
+        get {
+            if(!this.HasProp("__MfgNameProxyArray"))
+                this.__MfgNameProxyArray := Win32FixedArray(this.ptr + 272, 256, Primitive, "char")
+            return this.__MfgNameProxyArray
+        }
     }
 
     /**
      * A NULL-terminated string giving the provider of this driver. This is typically the name of the organization that creates the driver or INF file. <b>ProviderName</b> can be an empty string.
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    ProviderName {
-        get => StrGet(this.ptr + 528, 255, "UTF-8")
-        set => StrPut(value, this.ptr + 528, 255, "UTF-8")
+    ProviderName{
+        get {
+            if(!this.HasProp("__ProviderNameProxyArray"))
+                this.__ProviderNameProxyArray := Win32FixedArray(this.ptr + 528, 256, Primitive, "char")
+            return this.__ProviderNameProxyArray
+        }
     }
 
     /**

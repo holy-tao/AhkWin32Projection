@@ -34,7 +34,7 @@ class MCI_DGV_WINDOW_PARMSA extends Win32Struct
 
     /**
      * Handle to the display window. If this member is MCI_DGV_WINDOW_HWND, the system uses a default window.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HWND>}
      */
     hWnd {
         get => NumGet(this, 8, "ptr")
@@ -52,7 +52,7 @@ class MCI_DGV_WINDOW_PARMSA extends Win32Struct
 
     /**
      * Window caption.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     lpstrText {
         get => NumGet(this, 20, "ptr")

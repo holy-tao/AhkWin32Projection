@@ -13,7 +13,7 @@ class MODULE_INFO extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     ProcessImageName {
         get => NumGet(this, 0, "ptr")

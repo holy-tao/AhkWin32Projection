@@ -20,7 +20,7 @@ class SERVER_INFO_103 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     sv103_name {
         get => NumGet(this, 8, "ptr")
@@ -52,7 +52,7 @@ class SERVER_INFO_103 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     sv103_comment {
         get => NumGet(this, 32, "ptr")
@@ -108,7 +108,7 @@ class SERVER_INFO_103 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     sv103_userpath {
         get => NumGet(this, 64, "ptr")

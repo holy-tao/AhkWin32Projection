@@ -15,7 +15,7 @@ class SPTRANSITIONPROPERTY extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pszName {
         get => NumGet(this, 0, "ptr")
@@ -31,7 +31,7 @@ class SPTRANSITIONPROPERTY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pszValue {
         get => NumGet(this, 16, "ptr")

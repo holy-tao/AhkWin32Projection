@@ -24,7 +24,7 @@ class SIGNER_DIGEST_SIGN_INFO_V2 extends Win32Struct
 
     /**
      * Pointer to the [**PFN_AUTHENTICODE_DIGEST_SIGN**](pfn-authenticode-digest-sign.md) callback function. Required if the caller of SignerSignEx3 specifies SPC_DIGEST_SIGN_FLAG in the dwFlags parameter.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_AUTHENTICODE_DIGEST_SIGN>}
      */
     pfnAuthenticodeDigestSign {
         get => NumGet(this, 8, "ptr")
@@ -33,7 +33,7 @@ class SIGNER_DIGEST_SIGN_INFO_V2 extends Win32Struct
 
     /**
      * Pointer to the [**PFN_AUTHENTICODE_DIGEST_SIGN_EX**](pfn-authenticode-digest-sign-ex.md) callback function. Required if the caller of SignerSignEx3 specifies SPC_DIGEST_SIGN_EX_FLAG in the dwFlags parameter.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_AUTHENTICODE_DIGEST_SIGN_EX>}
      */
     pfnAuthenticodeDigestSignEx {
         get => NumGet(this, 16, "ptr")

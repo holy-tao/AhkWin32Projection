@@ -39,7 +39,7 @@ class EDITSTREAM extends Win32Struct
      * Type: <b>EDITSTREAMCALLBACK</b>
      * 
      * Pointer to an <a href="https://docs.microsoft.com/windows/win32/api/richedit/nc-richedit-editstreamcallback">EditStreamCallback</a> function, which is an application-defined function that the control calls to transfer data. The control calls the callback function repeatedly, transferring a portion of the data with each call.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<EDITSTREAMCALLBACK>}
      */
     pfnCallback {
         get => NumGet(this, 16, "ptr")

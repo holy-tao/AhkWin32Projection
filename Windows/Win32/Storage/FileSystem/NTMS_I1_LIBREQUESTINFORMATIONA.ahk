@@ -100,26 +100,35 @@ class NTMS_I1_LIBREQUESTINFORMATIONA extends Win32Struct
     }
 
     /**
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    szApplication {
-        get => StrGet(this.ptr + 88, 63, "UTF-8")
-        set => StrPut(value, this.ptr + 88, 63, "UTF-8")
+    szApplication{
+        get {
+            if(!this.HasProp("__szApplicationProxyArray"))
+                this.__szApplicationProxyArray := Win32FixedArray(this.ptr + 88, 64, Primitive, "char")
+            return this.__szApplicationProxyArray
+        }
     }
 
     /**
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    szUser {
-        get => StrGet(this.ptr + 152, 63, "UTF-8")
-        set => StrPut(value, this.ptr + 152, 63, "UTF-8")
+    szUser{
+        get {
+            if(!this.HasProp("__szUserProxyArray"))
+                this.__szUserProxyArray := Win32FixedArray(this.ptr + 152, 64, Primitive, "char")
+            return this.__szUserProxyArray
+        }
     }
 
     /**
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    szComputer {
-        get => StrGet(this.ptr + 216, 63, "UTF-8")
-        set => StrPut(value, this.ptr + 216, 63, "UTF-8")
+    szComputer{
+        get {
+            if(!this.HasProp("__szComputerProxyArray"))
+                this.__szComputerProxyArray := Win32FixedArray(this.ptr + 216, 64, Primitive, "char")
+            return this.__szComputerProxyArray
+        }
     }
 }

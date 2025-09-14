@@ -24,7 +24,7 @@ class APPX_ENCRYPTED_PACKAGE_SETTINGS2 extends Win32Struct
 
     /**
      * The encryption algorithm used.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     encryptionAlgorithm {
         get => NumGet(this, 8, "ptr")

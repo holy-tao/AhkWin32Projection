@@ -52,7 +52,7 @@ class DIAGNOSTIC_DATA_RECORD extends Win32Struct
     /**
      * Type: **[LPWSTR](/windows/desktop/com/structure-of-com-error-codes)**
      * The full event name.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     fullEventName {
         get => NumGet(this, 24, "ptr")
@@ -62,7 +62,7 @@ class DIAGNOSTIC_DATA_RECORD extends Win32Struct
     /**
      * Type: **[LPWSTR](/windows/desktop/com/structure-of-com-error-codes)**
      * The provider group GUID for this event.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     providerGroupGuid {
         get => NumGet(this, 32, "ptr")
@@ -72,7 +72,7 @@ class DIAGNOSTIC_DATA_RECORD extends Win32Struct
     /**
      * Type: **[LPWSTR](/windows/desktop/com/structure-of-com-error-codes)**
      * The name of the producer associated with this event.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     producerName {
         get => NumGet(this, 40, "ptr")
@@ -131,7 +131,7 @@ class DIAGNOSTIC_DATA_RECORD extends Win32Struct
 
     /**
      * 
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     extra1 {
         get => NumGet(this, 80, "ptr")
@@ -140,7 +140,7 @@ class DIAGNOSTIC_DATA_RECORD extends Win32Struct
 
     /**
      * 
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     extra2 {
         get => NumGet(this, 88, "ptr")
@@ -149,7 +149,7 @@ class DIAGNOSTIC_DATA_RECORD extends Win32Struct
 
     /**
      * 
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     extra3 {
         get => NumGet(this, 96, "ptr")

@@ -11,7 +11,7 @@
  */
 class DNS_CUSTOM_SERVER extends Win32Struct
 {
-    static sizeof => 88
+    static sizeof => 56
 
     static packingSize => 8
 
@@ -47,7 +47,7 @@ class DNS_CUSTOM_SERVER extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     Anonymous1 {
         get => NumGet(this, 16, "ptr")
@@ -55,10 +55,13 @@ class DNS_CUSTOM_SERVER extends Win32Struct
     }
 
     /**
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    MaxSa {
-        get => StrGet(this.ptr + 24, 31, "UTF-16")
-        set => StrPut(value, this.ptr + 24, 31, "UTF-16")
+    MaxSa{
+        get {
+            if(!this.HasProp("__MaxSaProxyArray"))
+                this.__MaxSaProxyArray := Win32FixedArray(this.ptr + 24, 32, Primitive, "char")
+            return this.__MaxSaProxyArray
+        }
     }
 }

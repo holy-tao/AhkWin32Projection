@@ -17,7 +17,7 @@ class PREVIEWHANDLERFRAMEINFO extends Win32Struct
      * Type: <b>HACCEL</b>
      * 
      * A handle to the accelerator table.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HACCEL>}
      */
     haccel {
         get => NumGet(this, 0, "ptr")

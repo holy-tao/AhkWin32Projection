@@ -62,7 +62,7 @@ class CONNECTION_INFO_1 extends Win32Struct
      * Pointer to a string. If the server sharing the resource is running with user-level security, the <b>coni1_username</b> member describes which user made the connection. If the server is running with share-level security, <b>coni1_username</b> describes which computer (computername) made the connection. Note that Windows does not support share-level security.
      * 
      * This string is Unicode if  <b>_WIN32_WINNT</b> or <b>FORCE_UNICODE</b> are defined.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     coni1_username {
         get => NumGet(this, 24, "ptr")
@@ -75,7 +75,7 @@ class CONNECTION_INFO_1 extends Win32Struct
      * <b>NetConnectionEnum</b> is automatically supplied to <b>coni1_netname</b>.
      * 
      * This string is Unicode if  <b>_WIN32_WINNT</b> or <b>FORCE_UNICODE</b> are defined.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     coni1_netname {
         get => NumGet(this, 32, "ptr")

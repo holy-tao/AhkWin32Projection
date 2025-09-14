@@ -88,19 +88,22 @@ class INTERNET_CACHE_CONFIG_INFOA extends Win32Struct
     }
 
     /**
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    CachePath {
-        get => StrGet(this.ptr + 32, 259, "UTF-16")
-        set => StrPut(value, this.ptr + 32, 259, "UTF-16")
+    CachePath{
+        get {
+            if(!this.HasProp("__CachePathProxyArray"))
+                this.__CachePathProxyArray := Win32FixedArray(this.ptr + 32, 260, Primitive, "char")
+            return this.__CachePathProxyArray
+        }
     }
 
     /**
      * @type {Integer}
      */
     dwCacheSize {
-        get => NumGet(this, 552, "uint")
-        set => NumPut("uint", value, this, 552)
+        get => NumGet(this, 292, "uint")
+        set => NumPut("uint", value, this, 292)
     }
 
     /**

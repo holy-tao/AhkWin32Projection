@@ -21,11 +21,14 @@ class HWPROFILEINFO_A extends Win32Struct
     }
 
     /**
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    HWPI_szFriendlyName {
-        get => StrGet(this.ptr + 4, 79, "UTF-8")
-        set => StrPut(value, this.ptr + 4, 79, "UTF-8")
+    HWPI_szFriendlyName{
+        get {
+            if(!this.HasProp("__HWPI_szFriendlyNameProxyArray"))
+                this.__HWPI_szFriendlyNameProxyArray := Win32FixedArray(this.ptr + 4, 80, Primitive, "char")
+            return this.__HWPI_szFriendlyNameProxyArray
+        }
     }
 
     /**

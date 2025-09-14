@@ -26,11 +26,14 @@ class GOPHER_FIND_DATAA extends Win32Struct
 
     /**
      * Friendly name of an object. An application can display this string to allow the user to select the object.
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    DisplayString {
-        get => StrGet(this.ptr + 0, 128, "UTF-8")
-        set => StrPut(value, this.ptr + 0, 128, "UTF-8")
+    DisplayString{
+        get {
+            if(!this.HasProp("__DisplayStringProxyArray"))
+                this.__DisplayStringProxyArray := Win32FixedArray(this.ptr + 0, 129, Primitive, "char")
+            return this.__DisplayStringProxyArray
+        }
     }
 
     /**
@@ -76,10 +79,13 @@ class GOPHER_FIND_DATAA extends Win32Struct
      * File locator. An application can pass the locator string to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-gopheropenfilea">GopherOpenFile</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-gopherfindfirstfilea">GopherFindFirstFile</a>.
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    Locator {
-        get => StrGet(this.ptr + 152, 653, "UTF-8")
-        set => StrPut(value, this.ptr + 152, 653, "UTF-8")
+    Locator{
+        get {
+            if(!this.HasProp("__LocatorProxyArray"))
+                this.__LocatorProxyArray := Win32FixedArray(this.ptr + 152, 654, Primitive, "char")
+            return this.__LocatorProxyArray
+        }
     }
 }

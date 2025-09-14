@@ -122,10 +122,13 @@ class HELPWININFOA extends Win32Struct
      * Type: <b>TCHAR[2]</b>
      * 
      * The name of the window.
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    rgchMember {
-        get => StrGet(this.ptr + 24, 1, "UTF-8")
-        set => StrPut(value, this.ptr + 24, 1, "UTF-8")
+    rgchMember{
+        get {
+            if(!this.HasProp("__rgchMemberProxyArray"))
+                this.__rgchMemberProxyArray := Win32FixedArray(this.ptr + 24, 2, Primitive, "char")
+            return this.__rgchMemberProxyArray
+        }
     }
 }

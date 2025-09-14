@@ -53,7 +53,7 @@ class OFNOTIFYW extends Win32Struct
      * Type: <b>LPTSTR</b>
      * 
      * The file name for which a network sharing violation has occurred. This member is valid only with the <a href="https://docs.microsoft.com/windows/desktop/dlgbox/cdn-shareviolation">CDN_SHAREVIOLATION</a> notification message.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pszFile {
         get => NumGet(this, 32, "ptr")

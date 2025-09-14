@@ -21,7 +21,7 @@ class USB_TRANSPORT_CHARACTERISTICS_CHANGE_REGISTRATION extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<USB_CHANGE_REGISTRATION_HANDLE>}
      */
     Handle {
         get => NumGet(this, 4, "ptr")

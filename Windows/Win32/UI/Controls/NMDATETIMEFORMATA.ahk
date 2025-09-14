@@ -37,7 +37,7 @@ class NMDATETIMEFORMATA extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCTSTR</a></b>
      * 
      * A pointer to the substring that defines a DTP control callback field. The substring consists of one or more "X" characters followed by a NULL character. (For more information about callback fields, see <a href="https://docs.microsoft.com/windows/desktop/Controls/date-and-time-picker-controls">Callback fields</a>.)
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     pszFormat {
         get => NumGet(this, 24, "ptr")
@@ -64,7 +64,7 @@ class NMDATETIMEFORMATA extends Win32Struct
      * A pointer to a null-terminated string that contains the display text of the control. By default, this is the address of the 
      * 					<b>szDisplay</b> member of this structure. It is acceptable to have <b>pszDisplay</b> point to an existing string. In this case, you do not need to assign a value to <b>szDisplay</b>. However, the string that 
      * <b>pszDisplay</b> points to must remain valid until another <a href="https://docs.microsoft.com/windows/desktop/Controls/dtn-format">DTN_FORMAT</a> notification is sent, or until the control is destroyed.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     pszDisplay {
         get => NumGet(this, 48, "ptr")
@@ -75,10 +75,13 @@ class NMDATETIMEFORMATA extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">TCHAR</a></b>
      * 
      * 64-character buffer that is to receive the zero-terminated string that the DTP control will display. It is not necessary to fill the entire buffer.
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    szDisplay {
-        get => StrGet(this.ptr + 56, 63, "UTF-8")
-        set => StrPut(value, this.ptr + 56, 63, "UTF-8")
+    szDisplay{
+        get {
+            if(!this.HasProp("__szDisplayProxyArray"))
+                this.__szDisplayProxyArray := Win32FixedArray(this.ptr + 56, 64, Primitive, "char")
+            return this.__szDisplayProxyArray
+        }
     }
 }

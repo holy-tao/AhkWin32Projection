@@ -60,7 +60,7 @@ class DDHAL_SETOVERLAYPOSITIONDATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPDDHALSURFCB_SETOVERLAYPOSITION>}
      */
     SetOverlayPosition {
         get => NumGet(this, 40, "ptr")

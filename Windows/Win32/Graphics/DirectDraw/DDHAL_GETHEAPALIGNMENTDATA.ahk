@@ -38,7 +38,7 @@ class DDHAL_GETHEAPALIGNMENTDATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPDDHAL_GETHEAPALIGNMENT>}
      */
     GetHeapAlignment {
         get => NumGet(this, 16, "ptr")

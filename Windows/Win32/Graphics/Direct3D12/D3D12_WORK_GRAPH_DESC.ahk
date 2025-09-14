@@ -12,7 +12,7 @@ class D3D12_WORK_GRAPH_DESC extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     ProgramName {
         get => NumGet(this, 0, "ptr")

@@ -24,7 +24,7 @@ class CRYPT_CONTEXT_FUNCTION_PROVIDERS extends Win32Struct
 
     /**
      * An array of pointers to null-terminated Unicode strings that contain the identifiers of the function providers contained in this set. The <b>cProviders</b> member contains the number of elements in this array.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     rgpszProviders {
         get => NumGet(this, 8, "ptr")

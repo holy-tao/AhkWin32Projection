@@ -28,7 +28,7 @@ class NOTIFICATION_CONFIG_1 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<ROUTER_NOTIFY_CALLBACK>}
      */
     pfnNotifyCallback {
         get => NumGet(this, 8, "ptr")

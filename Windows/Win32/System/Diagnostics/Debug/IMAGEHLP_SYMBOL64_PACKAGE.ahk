@@ -8,7 +8,7 @@
  */
 class IMAGEHLP_SYMBOL64_PACKAGE extends Win32Struct
 {
-    static sizeof => 4040
+    static sizeof => 2040
 
     static packingSize => 8
 
@@ -24,10 +24,13 @@ class IMAGEHLP_SYMBOL64_PACKAGE extends Win32Struct
     }
 
     /**
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    name {
-        get => StrGet(this.ptr + 32, 2000, "UTF-16")
-        set => StrPut(value, this.ptr + 32, 2000, "UTF-16")
+    name{
+        get {
+            if(!this.HasProp("__nameProxyArray"))
+                this.__nameProxyArray := Win32FixedArray(this.ptr + 32, 2001, Primitive, "char")
+            return this.__nameProxyArray
+        }
     }
 }

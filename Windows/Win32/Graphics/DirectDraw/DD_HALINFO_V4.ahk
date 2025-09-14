@@ -45,7 +45,7 @@ class DD_HALINFO_V4 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PDD_GETDRIVERINFO>}
      */
     GetDriverInfo {
         get => NumGet(this, 416, "ptr")

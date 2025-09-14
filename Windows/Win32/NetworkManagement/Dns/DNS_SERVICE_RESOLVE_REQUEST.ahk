@@ -35,7 +35,7 @@ class DNS_SERVICE_RESOLVE_REQUEST extends Win32Struct
 
     /**
      * A pointer to a string that represents the service name. This is a fully qualified domain name that begins with a service name, and ends with ".local". It takes the generalized form "\<ServiceName\>.\_\<ServiceType\>.\_\<TransportProtocol\>.local". For example, "MyMusicServer._http._tcp.local".
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     QueryName {
         get => NumGet(this, 8, "ptr")
@@ -44,7 +44,7 @@ class DNS_SERVICE_RESOLVE_REQUEST extends Win32Struct
 
     /**
      * A pointer to a function (of type [DNS_SERVICE_RESOLVE_COMPLETE](nc-windns-dns_service_resolve_complete.md)) that represents the callback to be invoked asynchronously.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PDNS_SERVICE_RESOLVE_COMPLETE>}
      */
     pResolveCompletionCallback {
         get => NumGet(this, 16, "ptr")

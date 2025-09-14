@@ -34,7 +34,7 @@ class CRYPT_PSOURCE_ALGORITHM extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     pszObjId {
         get => NumGet(this, 0, "ptr")

@@ -26,7 +26,7 @@ class SHFILEINFOW extends Win32Struct
      * Type: <b>HICON</b>
      * 
      * A handle to the icon that represents the file. You are responsible for destroying this handle with <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-destroyicon">DestroyIcon</a> when you no longer need it.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HICON>}
      */
     hIcon {
         get => NumGet(this, 0, "ptr")

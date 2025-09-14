@@ -7,7 +7,7 @@
  */
 class KDEXT_FILELOCK_OWNER extends Win32Struct
 {
-    static sizeof => 104
+    static sizeof => 72
 
     static packingSize => 8
 
@@ -52,10 +52,13 @@ class KDEXT_FILELOCK_OWNER extends Win32Struct
     }
 
     /**
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    BlockingDirver {
-        get => StrGet(this.ptr + 40, 31, "UTF-16")
-        set => StrPut(value, this.ptr + 40, 31, "UTF-16")
+    BlockingDirver{
+        get {
+            if(!this.HasProp("__BlockingDirverProxyArray"))
+                this.__BlockingDirverProxyArray := Win32FixedArray(this.ptr + 40, 32, Primitive, "char")
+            return this.__BlockingDirverProxyArray
+        }
     }
 }

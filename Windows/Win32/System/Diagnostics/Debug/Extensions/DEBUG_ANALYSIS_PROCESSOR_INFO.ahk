@@ -7,7 +7,7 @@
  */
 class DEBUG_ANALYSIS_PROCESSOR_INFO extends Win32Struct
 {
-    static sizeof => 616
+    static sizeof => 328
 
     static packingSize => 4
 
@@ -92,42 +92,57 @@ class DEBUG_ANALYSIS_PROCESSOR_INFO extends Win32Struct
     }
 
     /**
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    DeviceID {
-        get => StrGet(this.ptr + 40, 31, "UTF-16")
-        set => StrPut(value, this.ptr + 40, 31, "UTF-16")
+    DeviceID{
+        get {
+            if(!this.HasProp("__DeviceIDProxyArray"))
+                this.__DeviceIDProxyArray := Win32FixedArray(this.ptr + 40, 32, Primitive, "char")
+            return this.__DeviceIDProxyArray
+        }
     }
 
     /**
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    Manufacturer {
-        get => StrGet(this.ptr + 104, 63, "UTF-16")
-        set => StrPut(value, this.ptr + 104, 63, "UTF-16")
+    Manufacturer{
+        get {
+            if(!this.HasProp("__ManufacturerProxyArray"))
+                this.__ManufacturerProxyArray := Win32FixedArray(this.ptr + 72, 64, Primitive, "char")
+            return this.__ManufacturerProxyArray
+        }
     }
 
     /**
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    Name {
-        get => StrGet(this.ptr + 232, 63, "UTF-16")
-        set => StrPut(value, this.ptr + 232, 63, "UTF-16")
+    Name{
+        get {
+            if(!this.HasProp("__NameProxyArray"))
+                this.__NameProxyArray := Win32FixedArray(this.ptr + 136, 64, Primitive, "char")
+            return this.__NameProxyArray
+        }
     }
 
     /**
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    Version {
-        get => StrGet(this.ptr + 360, 63, "UTF-16")
-        set => StrPut(value, this.ptr + 360, 63, "UTF-16")
+    Version{
+        get {
+            if(!this.HasProp("__VersionProxyArray"))
+                this.__VersionProxyArray := Win32FixedArray(this.ptr + 200, 64, Primitive, "char")
+            return this.__VersionProxyArray
+        }
     }
 
     /**
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    Description {
-        get => StrGet(this.ptr + 488, 63, "UTF-16")
-        set => StrPut(value, this.ptr + 488, 63, "UTF-16")
+    Description{
+        get {
+            if(!this.HasProp("__DescriptionProxyArray"))
+                this.__DescriptionProxyArray := Win32FixedArray(this.ptr + 264, 64, Primitive, "char")
+            return this.__DescriptionProxyArray
+        }
     }
 }

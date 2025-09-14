@@ -29,7 +29,7 @@ class ACMFILTERCHOOSEA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HWND>}
      */
     hwndOwner {
         get => NumGet(this, 8, "ptr")
@@ -53,7 +53,7 @@ class ACMFILTERCHOOSEA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     pszTitle {
         get => NumGet(this, 28, "ptr")
@@ -61,23 +61,29 @@ class ACMFILTERCHOOSEA extends Win32Struct
     }
 
     /**
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    szFilterTag {
-        get => StrGet(this.ptr + 36, 47, "UTF-8")
-        set => StrPut(value, this.ptr + 36, 47, "UTF-8")
+    szFilterTag{
+        get {
+            if(!this.HasProp("__szFilterTagProxyArray"))
+                this.__szFilterTagProxyArray := Win32FixedArray(this.ptr + 36, 48, Primitive, "char")
+            return this.__szFilterTagProxyArray
+        }
     }
 
     /**
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    szFilter {
-        get => StrGet(this.ptr + 84, 127, "UTF-8")
-        set => StrPut(value, this.ptr + 84, 127, "UTF-8")
+    szFilter{
+        get {
+            if(!this.HasProp("__szFilterProxyArray"))
+                this.__szFilterProxyArray := Win32FixedArray(this.ptr + 84, 128, Primitive, "char")
+            return this.__szFilterProxyArray
+        }
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     pszName {
         get => NumGet(this, 212, "ptr")
@@ -109,7 +115,7 @@ class ACMFILTERCHOOSEA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HINSTANCE>}
      */
     hInstance {
         get => NumGet(this, 236, "ptr")
@@ -117,7 +123,7 @@ class ACMFILTERCHOOSEA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     pszTemplateName {
         get => NumGet(this, 244, "ptr")
@@ -133,7 +139,7 @@ class ACMFILTERCHOOSEA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<ACMFILTERCHOOSEHOOKPROCA>}
      */
     pfnHook {
         get => NumGet(this, 260, "ptr")

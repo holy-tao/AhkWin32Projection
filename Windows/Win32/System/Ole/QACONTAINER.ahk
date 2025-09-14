@@ -125,7 +125,7 @@ class QACONTAINER extends Win32Struct
 
     /**
      * Specifies Palette, an ambient property supplied by the container with a DISPID = -726.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HPALETTE>}
      */
     hpal {
         get => NumGet(this, 80, "ptr")

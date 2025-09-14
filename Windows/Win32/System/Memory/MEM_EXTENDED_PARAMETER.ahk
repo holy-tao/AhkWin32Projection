@@ -46,7 +46,7 @@ class MEM_EXTENDED_PARAMETER extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HANDLE>}
      */
     Handle {
         get => NumGet(this, 8, "ptr")

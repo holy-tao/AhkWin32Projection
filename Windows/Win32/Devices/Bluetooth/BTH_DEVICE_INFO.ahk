@@ -9,7 +9,7 @@
  */
 class BTH_DEVICE_INFO extends Win32Struct
 {
-    static sizeof => 520
+    static sizeof => 272
 
     static packingSize => 8
 
@@ -149,10 +149,13 @@ class BTH_DEVICE_INFO extends Win32Struct
     /**
      * Name of the remote Bluetooth device, as reported by the device, encoded in UTF8.  The user may have locally provided a display name for the remote Bluetooth device; that name is overridden, and does not appear in this member; it is accessible only with a call to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/bluetoothapis/nf-bluetoothapis-bluetoothgetdeviceinfo">BluetoothGetDeviceInfo</a> function.
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    name {
-        get => StrGet(this.ptr + 20, 247, "UTF-16")
-        set => StrPut(value, this.ptr + 20, 247, "UTF-16")
+    name{
+        get {
+            if(!this.HasProp("__nameProxyArray"))
+                this.__nameProxyArray := Win32FixedArray(this.ptr + 20, 248, Primitive, "char")
+            return this.__nameProxyArray
+        }
     }
 }

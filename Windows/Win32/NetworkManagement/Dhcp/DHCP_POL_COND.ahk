@@ -51,7 +51,7 @@ class DHCP_POL_COND extends Win32Struct
 
     /**
      * A pointer to a null-terminated Unicode string that represents the vendor name.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     VendorName {
         get => NumGet(this, 16, "ptr")

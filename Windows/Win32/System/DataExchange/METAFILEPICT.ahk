@@ -50,7 +50,7 @@ class METAFILEPICT extends Win32Struct
      * Type: <b>HMETAFILE</b>
      * 
      * A handle to a memory metafile.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HMETAFILE>}
      */
     hMF {
         get => NumGet(this, 16, "ptr")

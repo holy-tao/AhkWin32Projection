@@ -7,9 +7,9 @@
  */
 class CORRELATION_VECTOR extends Win32Struct
 {
-    static sizeof => 260
+    static sizeof => 130
 
-    static packingSize => 2
+    static packingSize => 1
 
     /**
      * @type {Integer}
@@ -20,10 +20,13 @@ class CORRELATION_VECTOR extends Win32Struct
     }
 
     /**
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    Vector {
-        get => StrGet(this.ptr + 2, 128, "UTF-16")
-        set => StrPut(value, this.ptr + 2, 128, "UTF-16")
+    Vector{
+        get {
+            if(!this.HasProp("__VectorProxyArray"))
+                this.__VectorProxyArray := Win32FixedArray(this.ptr + 1, 129, Primitive, "char")
+            return this.__VectorProxyArray
+        }
     }
 }

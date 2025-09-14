@@ -35,7 +35,7 @@ class FORM_INFO_1W extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that specifies the name of the form. The form name cannot exceed 31 characters.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pName {
         get => NumGet(this, 8, "ptr")

@@ -32,7 +32,7 @@ class WEBAUTHN_CREDENTIAL_ATTESTATION extends Win32Struct
 
     /**
      * The attestation format type.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pwszFormatType {
         get => NumGet(this, 8, "ptr")

@@ -94,7 +94,7 @@ class DIACTIONFORMATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HINSTANCE>}
      */
     hInstString {
         get => NumGet(this, 48, "ptr")
@@ -121,10 +121,13 @@ class DIACTIONFORMATA extends Win32Struct
     }
 
     /**
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    tszActionMap {
-        get => StrGet(this.ptr + 68, 259, "UTF-8")
-        set => StrPut(value, this.ptr + 68, 259, "UTF-8")
+    tszActionMap{
+        get {
+            if(!this.HasProp("__tszActionMapProxyArray"))
+                this.__tszActionMapProxyArray := Win32FixedArray(this.ptr + 68, 260, Primitive, "char")
+            return this.__tszActionMapProxyArray
+        }
     }
 }

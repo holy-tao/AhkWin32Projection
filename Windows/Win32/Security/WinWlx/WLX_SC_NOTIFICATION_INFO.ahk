@@ -12,7 +12,7 @@ class WLX_SC_NOTIFICATION_INFO extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pszCard {
         get => NumGet(this, 0, "ptr")
@@ -20,7 +20,7 @@ class WLX_SC_NOTIFICATION_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pszReader {
         get => NumGet(this, 8, "ptr")
@@ -28,7 +28,7 @@ class WLX_SC_NOTIFICATION_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pszContainer {
         get => NumGet(this, 16, "ptr")
@@ -36,7 +36,7 @@ class WLX_SC_NOTIFICATION_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pszCryptoProvider {
         get => NumGet(this, 24, "ptr")

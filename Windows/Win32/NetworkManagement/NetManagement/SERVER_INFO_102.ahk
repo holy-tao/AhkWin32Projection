@@ -96,7 +96,7 @@ class SERVER_INFO_102 extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to a Unicode string specifying the name of a server.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     sv102_name {
         get => NumGet(this, 8, "ptr")
@@ -144,7 +144,7 @@ class SERVER_INFO_102 extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to a Unicode string specifying a comment describing the server. The comment can be null.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     sv102_comment {
         get => NumGet(this, 32, "ptr")
@@ -222,7 +222,7 @@ class SERVER_INFO_102 extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to a Unicode string specifying the path to user directories.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     sv102_userpath {
         get => NumGet(this, 64, "ptr")

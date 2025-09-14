@@ -156,7 +156,7 @@ class SERVER_INFO_599 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     sv599_domain {
         get => NumGet(this, 72, "ptr")

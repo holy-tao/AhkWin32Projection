@@ -15,7 +15,7 @@ class CRYPT_IMAGE_REF extends Win32Struct
 
     /**
      * A pointer to a null-terminated Unicode string that contains the name of the provider module.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pszImage {
         get => NumGet(this, 0, "ptr")

@@ -24,7 +24,7 @@ class CRYPT_XML_KEY_INFO extends Win32Struct
 
     /**
      * A pointer to a null-terminated wide character string that specifies the value of the <b>ID</b> attribute of the key information element.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     wszId {
         get => NumGet(this, 8, "ptr")
@@ -51,7 +51,7 @@ class CRYPT_XML_KEY_INFO extends Win32Struct
 
     /**
      * Optional. The handle of data  derived from the first key value.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<BCRYPT_KEY_HANDLE>}
      */
     hVerifyKey {
         get => NumGet(this, 32, "ptr")

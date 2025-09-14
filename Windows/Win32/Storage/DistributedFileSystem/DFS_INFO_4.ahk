@@ -46,7 +46,7 @@ class DFS_INFO_4 extends Win32Struct
      * &#92;&#92;<i>DomainName</i>&#92;<i>DomDfsname</i>
      * 
      * where the values of the names are the same as those described previously.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     EntryPath {
         get => NumGet(this, 0, "ptr")
@@ -56,7 +56,7 @@ class DFS_INFO_4 extends Win32Struct
     /**
      * Pointer to a null-terminated Unicode string that contains a comment associated with the DFS root or 
      *       link.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     Comment {
         get => NumGet(this, 8, "ptr")

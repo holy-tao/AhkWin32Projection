@@ -21,11 +21,14 @@ class SP_BACKUP_QUEUE_PARAMS_V2_A extends Win32Struct
     }
 
     /**
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    FullInfPath {
-        get => StrGet(this.ptr + 4, 259, "UTF-8")
-        set => StrPut(value, this.ptr + 4, 259, "UTF-8")
+    FullInfPath{
+        get {
+            if(!this.HasProp("__FullInfPathProxyArray"))
+                this.__FullInfPathProxyArray := Win32FixedArray(this.ptr + 4, 260, Primitive, "char")
+            return this.__FullInfPathProxyArray
+        }
     }
 
     /**
@@ -37,11 +40,14 @@ class SP_BACKUP_QUEUE_PARAMS_V2_A extends Win32Struct
     }
 
     /**
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    ReinstallInstance {
-        get => StrGet(this.ptr + 268, 259, "UTF-8")
-        set => StrPut(value, this.ptr + 268, 259, "UTF-8")
+    ReinstallInstance{
+        get {
+            if(!this.HasProp("__ReinstallInstanceProxyArray"))
+                this.__ReinstallInstanceProxyArray := Win32FixedArray(this.ptr + 268, 260, Primitive, "char")
+            return this.__ReinstallInstanceProxyArray
+        }
     }
 
     /**

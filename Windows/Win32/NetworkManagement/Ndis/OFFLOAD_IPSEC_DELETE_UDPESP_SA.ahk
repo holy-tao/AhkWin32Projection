@@ -12,7 +12,7 @@ class OFFLOAD_IPSEC_DELETE_UDPESP_SA extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HANDLE>}
      */
     OffloadHandle {
         get => NumGet(this, 0, "ptr")
@@ -20,7 +20,7 @@ class OFFLOAD_IPSEC_DELETE_UDPESP_SA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HANDLE>}
      */
     EncapTypeEntryOffldHandle {
         get => NumGet(this, 8, "ptr")

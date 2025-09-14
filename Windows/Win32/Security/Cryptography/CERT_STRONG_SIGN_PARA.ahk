@@ -98,7 +98,7 @@ class CERT_STRONG_SIGN_PARA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     pszOID {
         get => NumGet(this, 8, "ptr")

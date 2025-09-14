@@ -7,7 +7,7 @@
  */
 class DBG_THREAD_ATTRIBUTES extends Win32Struct
 {
-    static sizeof => 472
+    static sizeof => 272
 
     static packingSize => 8
 
@@ -84,18 +84,24 @@ class DBG_THREAD_ATTRIBUTES extends Win32Struct
     }
 
     /**
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    StringData {
-        get => StrGet(this.ptr + 68, 99, "UTF-16")
-        set => StrPut(value, this.ptr + 68, 99, "UTF-16")
+    StringData{
+        get {
+            if(!this.HasProp("__StringDataProxyArray"))
+                this.__StringDataProxyArray := Win32FixedArray(this.ptr + 68, 100, Primitive, "char")
+            return this.__StringDataProxyArray
+        }
     }
 
     /**
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    SymName {
-        get => StrGet(this.ptr + 268, 99, "UTF-16")
-        set => StrPut(value, this.ptr + 268, 99, "UTF-16")
+    SymName{
+        get {
+            if(!this.HasProp("__SymNameProxyArray"))
+                this.__SymNameProxyArray := Win32FixedArray(this.ptr + 168, 100, Primitive, "char")
+            return this.__SymNameProxyArray
+        }
     }
 }

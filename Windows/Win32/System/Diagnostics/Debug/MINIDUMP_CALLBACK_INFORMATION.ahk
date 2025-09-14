@@ -16,7 +16,7 @@ class MINIDUMP_CALLBACK_INFORMATION extends Win32Struct
     /**
      * A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/minidumpapiset/nc-minidumpapiset-minidump_callback_routine">MiniDumpCallback</a> callback function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<MINIDUMP_CALLBACK_ROUTINE>}
      */
     CallbackRoutine {
         get => NumGet(this, 0, "ptr")

@@ -40,7 +40,7 @@ class MINIDUMP_CALLBACK_INPUT extends Win32Struct
      * A handle to the process that contains the callback function.
      * 
      * This member is not used if <b>CallbackType</b> is <b>IoStartCallback</b>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HANDLE>}
      */
     ProcessHandle {
         get => NumGet(this, 4, "ptr")

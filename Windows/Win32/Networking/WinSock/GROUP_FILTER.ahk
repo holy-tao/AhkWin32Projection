@@ -22,7 +22,7 @@
  */
 class GROUP_FILTER extends Win32Struct
 {
-    static sizeof => 272
+    static sizeof => 152
 
     static packingSize => 8
 
@@ -83,8 +83,8 @@ class GROUP_FILTER extends Win32Struct
      * @type {Integer}
      */
     gf_fmode {
-        get => NumGet(this, 256, "int")
-        set => NumPut("int", value, this, 256)
+        get => NumGet(this, 136, "int")
+        set => NumPut("int", value, this, 136)
     }
 
     /**
@@ -92,8 +92,8 @@ class GROUP_FILTER extends Win32Struct
      * @type {Integer}
      */
     gf_numsrc {
-        get => NumGet(this, 260, "uint")
-        set => NumPut("uint", value, this, 260)
+        get => NumGet(this, 140, "uint")
+        set => NumPut("uint", value, this, 140)
     }
 
     /**
@@ -103,7 +103,7 @@ class GROUP_FILTER extends Win32Struct
     gf_slist{
         get {
             if(!this.HasProp("__gf_slistProxyArray"))
-                this.__gf_slistProxyArray := Win32FixedArray(this.ptr + 264, 1, SOCKADDR_STORAGE, "")
+                this.__gf_slistProxyArray := Win32FixedArray(this.ptr + 144, 1, SOCKADDR_STORAGE, "")
             return this.__gf_slistProxyArray
         }
     }

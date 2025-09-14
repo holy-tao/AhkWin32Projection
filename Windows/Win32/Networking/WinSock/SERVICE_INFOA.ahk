@@ -42,7 +42,7 @@ class SERVICE_INFOA extends Win32Struct
      * 
      * If you are calling the 
      * <b>SetService</b> function with the <i>dwNameSpace</i> parameter set to a specific service name, the network service name can be a common name or a distinguished name. A distinguished name distinguishes the service to a unique location with a directory service. An example of a distinguished name for a network service is "MS\\SYS\\NT\\DEV\\My SQL Server".
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     lpServiceName {
         get => NumGet(this, 8, "ptr")
@@ -53,7 +53,7 @@ class SERVICE_INFOA extends Win32Struct
      * Type: <b>LPTSTR</b>
      * 
      * A pointer to a <b>NULL</b>-terminated string that is a comment or description for the network service. For example, "Used for development upgrades."
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     lpComment {
         get => NumGet(this, 16, "ptr")
@@ -64,7 +64,7 @@ class SERVICE_INFOA extends Win32Struct
      * Type: <b>LPTSTR</b>
      * 
      * A pointer to a <b>NULL</b>-terminated string that contains locale information.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     lpLocale {
         get => NumGet(this, 24, "ptr")
@@ -106,7 +106,7 @@ class SERVICE_INFOA extends Win32Struct
      * Type: <b>LPTSTR</b>
      * 
      * A pointer to a <b>NULL</b>-terminated string that is the name of the computer on which the network service is running.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     lpMachineName {
         get => NumGet(this, 48, "ptr")

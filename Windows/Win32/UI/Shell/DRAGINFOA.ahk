@@ -41,7 +41,7 @@ class DRAGINFOA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     lpFileList {
         get => NumGet(this, 16, "ptr")

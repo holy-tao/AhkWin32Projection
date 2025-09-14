@@ -37,7 +37,7 @@ class RECIPIENTPOLICY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     tokenType {
         get => NumGet(this, 64, "ptr")
@@ -67,7 +67,7 @@ class RECIPIENTPOLICY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     privacyUrl {
         get => NumGet(this, 104, "ptr")

@@ -27,7 +27,7 @@ class DNS_NXT_DATAA extends Win32Struct
 
     /**
      * A pointer to a string that represents the name of the next domain.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     pNameNext {
         get => NumGet(this, 0, "ptr")

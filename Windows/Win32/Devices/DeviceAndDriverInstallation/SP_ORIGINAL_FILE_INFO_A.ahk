@@ -28,20 +28,26 @@ class SP_ORIGINAL_FILE_INFO_A extends Win32Struct
 
     /**
      * Original file name of the INF file stored in array of size MAX_PATH.
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    OriginalInfName {
-        get => StrGet(this.ptr + 4, 259, "UTF-8")
-        set => StrPut(value, this.ptr + 4, 259, "UTF-8")
+    OriginalInfName{
+        get {
+            if(!this.HasProp("__OriginalInfNameProxyArray"))
+                this.__OriginalInfNameProxyArray := Win32FixedArray(this.ptr + 4, 260, Primitive, "char")
+            return this.__OriginalInfNameProxyArray
+        }
     }
 
     /**
      * Catalog name of the INF file stored in array of size MAX_PATH.
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    OriginalCatalogName {
-        get => StrGet(this.ptr + 264, 259, "UTF-8")
-        set => StrPut(value, this.ptr + 264, 259, "UTF-8")
+    OriginalCatalogName{
+        get {
+            if(!this.HasProp("__OriginalCatalogNameProxyArray"))
+                this.__OriginalCatalogNameProxyArray := Win32FixedArray(this.ptr + 264, 260, Primitive, "char")
+            return this.__OriginalCatalogNameProxyArray
+        }
     }
 
     /**

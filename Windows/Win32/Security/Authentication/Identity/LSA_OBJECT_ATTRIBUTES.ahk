@@ -28,7 +28,7 @@ class LSA_OBJECT_ATTRIBUTES extends Win32Struct
 
     /**
      * Should be <b>NULL</b>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HANDLE>}
      */
     RootDirectory {
         get => NumGet(this, 8, "ptr")

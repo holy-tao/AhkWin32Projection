@@ -16,7 +16,7 @@
  */
 class TARGET_DEBUG_INFO_v2 extends Win32Struct
 {
-    static sizeof => 11840
+    static sizeof => 11104
 
     static packingSize => 8
 
@@ -85,16 +85,19 @@ class TARGET_DEBUG_INFO_v2 extends Win32Struct
     Cpu{
         get {
             if(!this.HasProp("__Cpu"))
-                this.__Cpu := CPU_INFO_v2(this.ptr + 1056)
+                this.__Cpu := CPU_INFO_v2(this.ptr + 576)
             return this.__Cpu
         }
     }
 
     /**
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    DumpFile {
-        get => StrGet(this.ptr + 11320, 259, "UTF-16")
-        set => StrPut(value, this.ptr + 11320, 259, "UTF-16")
+    DumpFile{
+        get {
+            if(!this.HasProp("__DumpFileProxyArray"))
+                this.__DumpFileProxyArray := Win32FixedArray(this.ptr + 10840, 260, Primitive, "char")
+            return this.__DumpFileProxyArray
+        }
     }
 }

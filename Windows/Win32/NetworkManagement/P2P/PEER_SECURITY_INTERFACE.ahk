@@ -26,7 +26,7 @@ class PEER_SECURITY_INTERFACE extends Win32Struct
 
     /**
      * Specifies the full path and file name of a .DLL that  implements the SSP interface. See the <a href="https://docs.microsoft.com/windows/desktop/P2PSdk/graphing-reference-links">SSPI documentation</a> for further information on the SSP interface.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pwzSspFilename {
         get => NumGet(this, 8, "ptr")
@@ -35,7 +35,7 @@ class PEER_SECURITY_INTERFACE extends Win32Struct
 
     /**
      * Specifies the ID of the security module in the SSP to use.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pwzPackageName {
         get => NumGet(this, 16, "ptr")
@@ -74,7 +74,7 @@ class PEER_SECURITY_INTERFACE extends Win32Struct
     /**
      * Pointer to a callback function that is called when a record requires validation. This member is optional and can be <b>NULL</b>. If <b>pfnSecureRecord</b> is <b>NULL</b>, this member must also be <b>NULL</b>.
      * @deprecated
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFNPEER_VALIDATE_RECORD>}
      */
     pfnValidateRecord {
         get => NumGet(this, 48, "ptr")
@@ -84,7 +84,7 @@ class PEER_SECURITY_INTERFACE extends Win32Struct
     /**
      * Pointer to a callback function that is called when a record must be secured. This member is optional and can be <b>NULL</b>. If <b>pfnValidateRecord</b> is <b>NULL</b>, this member must also be <b>NULL</b>.
      * @deprecated
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFNPEER_SECURE_RECORD>}
      */
     pfnSecureRecord {
         get => NumGet(this, 56, "ptr")
@@ -94,7 +94,7 @@ class PEER_SECURITY_INTERFACE extends Win32Struct
     /**
      * Pointer to a callback function used to free any data allocated by the callback pointed to by <b>pfnSecureRecord</b>. This member is optional and can be <b>NULL</b>.
      * @deprecated
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFNPEER_FREE_SECURITY_DATA>}
      */
     pfnFreeSecurityData {
         get => NumGet(this, 64, "ptr")
@@ -104,7 +104,7 @@ class PEER_SECURITY_INTERFACE extends Win32Struct
     /**
      * 
      * @deprecated
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFNPEER_ON_PASSWORD_AUTH_FAILED>}
      */
     pfnAuthFailed {
         get => NumGet(this, 72, "ptr")

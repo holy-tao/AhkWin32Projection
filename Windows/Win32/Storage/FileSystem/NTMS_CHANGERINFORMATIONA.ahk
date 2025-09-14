@@ -45,29 +45,38 @@ class NTMS_CHANGERINFORMATIONA extends Win32Struct
 
     /**
      * Serial number for the changer represented as a string. Devices that do not support serial numbers report <b>NULL</b> for this member.
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    szSerialNumber {
-        get => StrGet(this.ptr + 16, 31, "UTF-8")
-        set => StrPut(value, this.ptr + 16, 31, "UTF-8")
+    szSerialNumber{
+        get {
+            if(!this.HasProp("__szSerialNumberProxyArray"))
+                this.__szSerialNumberProxyArray := Win32FixedArray(this.ptr + 16, 32, Primitive, "char")
+            return this.__szSerialNumberProxyArray
+        }
     }
 
     /**
      * Revision for the changer, represented as a string.
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    szRevision {
-        get => StrGet(this.ptr + 48, 31, "UTF-8")
-        set => StrPut(value, this.ptr + 48, 31, "UTF-8")
+    szRevision{
+        get {
+            if(!this.HasProp("__szRevisionProxyArray"))
+                this.__szRevisionProxyArray := Win32FixedArray(this.ptr + 48, 32, Primitive, "char")
+            return this.__szRevisionProxyArray
+        }
     }
 
     /**
      * Name of the device used to access the changer.
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    szDeviceName {
-        get => StrGet(this.ptr + 80, 63, "UTF-8")
-        set => StrPut(value, this.ptr + 80, 63, "UTF-8")
+    szDeviceName{
+        get {
+            if(!this.HasProp("__szDeviceNameProxyArray"))
+                this.__szDeviceNameProxyArray := Win32FixedArray(this.ptr + 80, 64, Primitive, "char")
+            return this.__szDeviceNameProxyArray
+        }
     }
 
     /**

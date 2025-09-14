@@ -60,7 +60,7 @@ class HTTP_RESPONSE_V1 extends Win32Struct
 
     /**
      * A pointer to a human-readable, null-terminated string of printable characters that characterizes the result of the HTTP request (for example, "OK" or "Not Found").
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     pReason {
         get => NumGet(this, 16, "ptr")

@@ -12,7 +12,7 @@ class alljoyn_pinglistener_callback extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<alljoyn_autopinger_destination_found_ptr>}
      */
     destination_found {
         get => NumGet(this, 0, "ptr")
@@ -20,7 +20,7 @@ class alljoyn_pinglistener_callback extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<alljoyn_autopinger_destination_lost_ptr>}
      */
     destination_lost {
         get => NumGet(this, 8, "ptr")

@@ -173,7 +173,7 @@ class WSANAMESPACE_INFOEXW extends Win32Struct
      * Type: <b>LPTSTR</b>
      * 
      * A display string that identifies the namespace provider.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     lpszIdentifier {
         get => NumGet(this, 24, "ptr")

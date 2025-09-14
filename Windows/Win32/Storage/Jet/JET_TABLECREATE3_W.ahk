@@ -21,7 +21,7 @@ class JET_TABLECREATE3_W extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     szTableName {
         get => NumGet(this, 8, "ptr")
@@ -29,7 +29,7 @@ class JET_TABLECREATE3_W extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     szTemplateTableName {
         get => NumGet(this, 16, "ptr")
@@ -85,7 +85,7 @@ class JET_TABLECREATE3_W extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     szCallback {
         get => NumGet(this, 64, "ptr")

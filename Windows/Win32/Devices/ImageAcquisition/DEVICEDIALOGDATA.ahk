@@ -30,7 +30,7 @@ class DEVICEDIALOGDATA extends Win32Struct
      * 
      * 
      * Specifies the handle to the parent window of the dialog.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HWND>}
      */
     hwndParent {
         get => NumGet(this, 8, "ptr")

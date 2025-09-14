@@ -143,7 +143,7 @@ class GESTUREINFO extends Win32Struct
 
     /**
      * A handle to the window that is targeted by this gesture.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HWND>}
      */
     hwndTarget {
         get => NumGet(this, 16, "ptr")

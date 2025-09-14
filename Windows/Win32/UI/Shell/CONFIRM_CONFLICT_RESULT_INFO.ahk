@@ -17,7 +17,7 @@ class CONFIRM_CONFLICT_RESULT_INFO extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      * The new item name.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pszNewName {
         get => NumGet(this, 0, "ptr")

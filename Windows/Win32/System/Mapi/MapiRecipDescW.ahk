@@ -85,7 +85,7 @@ class MapiRecipDescW extends Win32Struct
 
     /**
      * Pointer to the display name of the message recipient or sender.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     lpszName {
         get => NumGet(this, 8, "ptr")
@@ -98,7 +98,7 @@ class MapiRecipDescW extends Win32Struct
      * Generally, the messaging system provides such addresses for inbound messages. For outbound messages, the <b>lpszAddress</b> member can point to an address entered by the user for a recipient that is not in an address book (a custom recipient).
      * 
      * The format of the address is <i>address type</i>:<i>email address</i>. Two examples of valid addresses are FAX:206-555-1212 and SMTP:M@X.COM.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     lpszAddress {
         get => NumGet(this, 16, "ptr")

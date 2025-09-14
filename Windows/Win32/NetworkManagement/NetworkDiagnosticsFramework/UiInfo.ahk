@@ -26,7 +26,7 @@ class UiInfo extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pwzNull {
         get => NumGet(this, 8, "ptr")
@@ -45,7 +45,7 @@ class UiInfo extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pwzHelpUrl {
         get => NumGet(this, 8, "ptr")
@@ -53,7 +53,7 @@ class UiInfo extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pwzDui {
         get => NumGet(this, 8, "ptr")

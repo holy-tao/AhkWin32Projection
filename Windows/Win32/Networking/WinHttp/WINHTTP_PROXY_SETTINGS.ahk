@@ -37,7 +37,7 @@ class WINHTTP_PROXY_SETTINGS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pwszConnectionName {
         get => NumGet(this, 16, "ptr")
@@ -45,7 +45,7 @@ class WINHTTP_PROXY_SETTINGS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pwszProxy {
         get => NumGet(this, 24, "ptr")
@@ -53,7 +53,7 @@ class WINHTTP_PROXY_SETTINGS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pwszProxyBypass {
         get => NumGet(this, 32, "ptr")
@@ -61,7 +61,7 @@ class WINHTTP_PROXY_SETTINGS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pwszAutoconfigUrl {
         get => NumGet(this, 40, "ptr")
@@ -69,7 +69,7 @@ class WINHTTP_PROXY_SETTINGS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pwszAutoconfigSecondaryUrl {
         get => NumGet(this, 48, "ptr")
@@ -85,7 +85,7 @@ class WINHTTP_PROXY_SETTINGS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pwszLastKnownGoodAutoConfigUrl {
         get => NumGet(this, 64, "ptr")

@@ -28,7 +28,7 @@ class DNS_SETTINGS2 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     Hostname {
         get => NumGet(this, 16, "ptr")
@@ -36,7 +36,7 @@ class DNS_SETTINGS2 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     Domain {
         get => NumGet(this, 24, "ptr")
@@ -44,7 +44,7 @@ class DNS_SETTINGS2 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     SearchList {
         get => NumGet(this, 32, "ptr")

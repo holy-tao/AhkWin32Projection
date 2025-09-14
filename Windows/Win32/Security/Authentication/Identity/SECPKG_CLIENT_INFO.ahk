@@ -91,7 +91,7 @@ class SECPKG_CLIENT_INFO extends Win32Struct
 
     /**
      * 
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HANDLE>}
      */
     ClientToken {
         get => NumGet(this, 24, "ptr")

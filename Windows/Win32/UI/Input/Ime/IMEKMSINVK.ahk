@@ -20,7 +20,7 @@ class IMEKMSINVK extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HIMC>}
      */
     hIMC {
         get => NumGet(this, 4, "ptr")

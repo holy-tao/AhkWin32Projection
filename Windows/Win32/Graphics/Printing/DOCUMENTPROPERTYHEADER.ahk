@@ -28,7 +28,7 @@ class DOCUMENTPROPERTYHEADER extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HANDLE>}
      */
     hPrinter {
         get => NumGet(this, 8, "ptr")

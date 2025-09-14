@@ -12,7 +12,7 @@ class SWbemRpnConst extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     m_pszStrVal {
         get => NumGet(this, 0, "ptr")

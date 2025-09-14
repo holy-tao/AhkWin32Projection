@@ -39,7 +39,7 @@ class SP_DEVINFO_LIST_DETAIL_DATA_W extends Win32Struct
      * If the device information set is for a remote computer, this member is a configuration manager machine handle for the remote computer. If the device information set is for the local computer, this member is <b>NULL</b>. 
      * 
      * This is typically the parameter that components use to access the remote computer. The <b>RemoteMachineName</b> contains a string, in case the component requires the name of the remote computer.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HANDLE>}
      */
     RemoteMachineHandle {
         get => NumGet(this, 12, "ptr")

@@ -61,7 +61,7 @@ class RESPONSEBODY_SubscriptionEnd extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     Status {
         get => NumGet(this, 8, "ptr")

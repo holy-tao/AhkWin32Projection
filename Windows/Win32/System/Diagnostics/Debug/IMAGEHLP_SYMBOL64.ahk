@@ -66,10 +66,13 @@ class IMAGEHLP_SYMBOL64 extends Win32Struct
 
     /**
      * The decorated or undecorated symbol name. If the buffer is not large enough for the complete name, it is truncated to <b>MaxNameLength</b> characters, including the null-terminating character.
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    Name {
-        get => StrGet(this.ptr + 28, 0, "UTF-16")
-        set => StrPut(value, this.ptr + 28, 0, "UTF-16")
+    Name{
+        get {
+            if(!this.HasProp("__NameProxyArray"))
+                this.__NameProxyArray := Win32FixedArray(this.ptr + 28, 1, Primitive, "char")
+            return this.__NameProxyArray
+        }
     }
 }

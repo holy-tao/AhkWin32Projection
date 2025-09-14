@@ -83,7 +83,7 @@ class SV2CVW2_PARAMS extends Win32Struct
      * Type: <b>HWND</b>
      * 
      * A window handle to the new Shell view.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HWND>}
      */
     hwndView {
         get => NumGet(this, 48, "ptr")

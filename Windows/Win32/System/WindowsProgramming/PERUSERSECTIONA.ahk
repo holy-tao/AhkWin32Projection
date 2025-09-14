@@ -13,51 +13,69 @@ class PERUSERSECTIONA extends Win32Struct
     static packingSize => 4
 
     /**
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    szGUID {
-        get => StrGet(this.ptr + 0, 58, "UTF-8")
-        set => StrPut(value, this.ptr + 0, 58, "UTF-8")
+    szGUID{
+        get {
+            if(!this.HasProp("__szGUIDProxyArray"))
+                this.__szGUIDProxyArray := Win32FixedArray(this.ptr + 0, 59, Primitive, "char")
+            return this.__szGUIDProxyArray
+        }
     }
 
     /**
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    szDispName {
-        get => StrGet(this.ptr + 59, 127, "UTF-8")
-        set => StrPut(value, this.ptr + 59, 127, "UTF-8")
+    szDispName{
+        get {
+            if(!this.HasProp("__szDispNameProxyArray"))
+                this.__szDispNameProxyArray := Win32FixedArray(this.ptr + 59, 128, Primitive, "char")
+            return this.__szDispNameProxyArray
+        }
     }
 
     /**
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    szLocale {
-        get => StrGet(this.ptr + 187, 9, "UTF-8")
-        set => StrPut(value, this.ptr + 187, 9, "UTF-8")
+    szLocale{
+        get {
+            if(!this.HasProp("__szLocaleProxyArray"))
+                this.__szLocaleProxyArray := Win32FixedArray(this.ptr + 187, 10, Primitive, "char")
+            return this.__szLocaleProxyArray
+        }
     }
 
     /**
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    szStub {
-        get => StrGet(this.ptr + 197, 1039, "UTF-8")
-        set => StrPut(value, this.ptr + 197, 1039, "UTF-8")
+    szStub{
+        get {
+            if(!this.HasProp("__szStubProxyArray"))
+                this.__szStubProxyArray := Win32FixedArray(this.ptr + 197, 1040, Primitive, "char")
+            return this.__szStubProxyArray
+        }
     }
 
     /**
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    szVersion {
-        get => StrGet(this.ptr + 1237, 31, "UTF-8")
-        set => StrPut(value, this.ptr + 1237, 31, "UTF-8")
+    szVersion{
+        get {
+            if(!this.HasProp("__szVersionProxyArray"))
+                this.__szVersionProxyArray := Win32FixedArray(this.ptr + 1237, 32, Primitive, "char")
+            return this.__szVersionProxyArray
+        }
     }
 
     /**
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    szCompID {
-        get => StrGet(this.ptr + 1269, 127, "UTF-8")
-        set => StrPut(value, this.ptr + 1269, 127, "UTF-8")
+    szCompID{
+        get {
+            if(!this.HasProp("__szCompIDProxyArray"))
+                this.__szCompIDProxyArray := Win32FixedArray(this.ptr + 1269, 128, Primitive, "char")
+            return this.__szCompIDProxyArray
+        }
     }
 
     /**

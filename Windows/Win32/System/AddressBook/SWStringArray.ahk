@@ -26,7 +26,7 @@ class SWStringArray extends Win32Struct
 
     /**
      * > Pointer to an array of null-ended Unicode character strings.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     lppszW {
         get => NumGet(this, 8, "ptr")

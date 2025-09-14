@@ -22,7 +22,7 @@ class MCI_OVLY_LOAD_PARMSA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     lpfilename {
         get => NumGet(this, 8, "ptr")

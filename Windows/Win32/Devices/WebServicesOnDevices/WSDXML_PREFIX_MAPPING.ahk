@@ -42,7 +42,7 @@ class WSDXML_PREFIX_MAPPING extends Win32Struct
 
     /**
      * The text of the XML prefix.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     Prefix {
         get => NumGet(this, 24, "ptr")

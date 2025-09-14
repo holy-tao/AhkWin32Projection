@@ -91,7 +91,7 @@ class WS_OPERATION_DESCRIPTION extends Win32Struct
     /**
      * A pointer to the stub function for the given operation to which the service model will delegate 
      *                     to do the service operation call. This will be <b>NULL</b> for proxies.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<WS_SERVICE_STUB_CALLBACK>}
      */
     stubCallback {
         get => NumGet(this, 48, "ptr")

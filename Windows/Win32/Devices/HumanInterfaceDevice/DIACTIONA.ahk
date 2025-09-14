@@ -37,7 +37,7 @@ class DIACTIONA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     lptszActionName {
         get => NumGet(this, 16, "ptr")

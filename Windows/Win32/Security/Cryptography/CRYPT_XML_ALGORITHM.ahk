@@ -26,7 +26,7 @@ class CRYPT_XML_ALGORITHM extends Win32Struct
     /**
      * A pointer to a null-terminated Unicode string that contains the <b>Algorithm</b> attribute. 
      *     When the <b>Encoded</b> member contains an element that is proved by an application, this member is set to <b>NULL</b>.XML
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     wszAlgorithm {
         get => NumGet(this, 8, "ptr")

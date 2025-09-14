@@ -15,7 +15,7 @@ class SERVENT extends Win32Struct
 
     /**
      * The official name of the service.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     s_name {
         get => NumGet(this, 0, "ptr")
@@ -42,7 +42,7 @@ class SERVENT extends Win32Struct
 
     /**
      * The name of the protocol to use when contacting the service.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     s_proto {
         get => NumGet(this, 24, "ptr")

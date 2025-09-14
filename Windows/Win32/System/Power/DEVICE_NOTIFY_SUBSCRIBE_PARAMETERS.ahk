@@ -15,7 +15,7 @@ class DEVICE_NOTIFY_SUBSCRIBE_PARAMETERS extends Win32Struct
 
     /**
      * Indicates the callback function that will be called when the application receives the notification.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PDEVICE_NOTIFY_CALLBACK_ROUTINE>}
      */
     Callback {
         get => NumGet(this, 0, "ptr")

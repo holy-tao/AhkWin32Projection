@@ -17,7 +17,7 @@
  */
 class INTERFACE_INFO extends Win32Struct
 {
-    static sizeof => 248
+    static sizeof => 176
 
     static packingSize => 8
 
@@ -106,7 +106,7 @@ class INTERFACE_INFO extends Win32Struct
     iiBroadcastAddress{
         get {
             if(!this.HasProp("__iiBroadcastAddress"))
-                this.__iiBroadcastAddress := sockaddr_gen(this.ptr + 88)
+                this.__iiBroadcastAddress := sockaddr_gen(this.ptr + 64)
             return this.__iiBroadcastAddress
         }
     }
@@ -118,7 +118,7 @@ class INTERFACE_INFO extends Win32Struct
     iiNetmask{
         get {
             if(!this.HasProp("__iiNetmask"))
-                this.__iiNetmask := sockaddr_gen(this.ptr + 168)
+                this.__iiNetmask := sockaddr_gen(this.ptr + 120)
             return this.__iiNetmask
         }
     }

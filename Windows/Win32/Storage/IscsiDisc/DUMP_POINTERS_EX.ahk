@@ -128,7 +128,7 @@ class DUMP_POINTERS_EX extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PDUMP_DEVICE_POWERON_ROUTINE>}
      */
     DumpDevicePowerOn {
         get => NumGet(this, 88, "ptr")

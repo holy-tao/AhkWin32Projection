@@ -13,7 +13,7 @@ class DBCOLUMNINFO extends Win32Struct
     static packingSize => 2
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pwszName {
         get => NumGet(this, 0, "ptr")

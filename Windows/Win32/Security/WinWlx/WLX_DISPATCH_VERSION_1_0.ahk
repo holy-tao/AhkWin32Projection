@@ -15,7 +15,7 @@ class WLX_DISPATCH_VERSION_1_0 extends Win32Struct
 
     /**
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winwlx/nc-winwlx-pwlx_use_ctrl_alt_del">WlxUseCtrlAltDel</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWLX_USE_CTRL_ALT_DEL>}
      */
     WlxUseCtrlAltDel {
         get => NumGet(this, 0, "ptr")
@@ -24,7 +24,7 @@ class WLX_DISPATCH_VERSION_1_0 extends Win32Struct
 
     /**
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winwlx/nc-winwlx-pwlx_set_context_pointer">WlxSetContextPointer</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWLX_SET_CONTEXT_POINTER>}
      */
     WlxSetContextPointer {
         get => NumGet(this, 8, "ptr")
@@ -33,7 +33,7 @@ class WLX_DISPATCH_VERSION_1_0 extends Win32Struct
 
     /**
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winwlx/nc-winwlx-pwlx_sas_notify">WlxSasNotify</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWLX_SAS_NOTIFY>}
      */
     WlxSasNotify {
         get => NumGet(this, 16, "ptr")
@@ -42,7 +42,7 @@ class WLX_DISPATCH_VERSION_1_0 extends Win32Struct
 
     /**
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winwlx/nc-winwlx-pwlx_set_timeout">WlxSetTimeout</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWLX_SET_TIMEOUT>}
      */
     WlxSetTimeout {
         get => NumGet(this, 24, "ptr")
@@ -51,7 +51,7 @@ class WLX_DISPATCH_VERSION_1_0 extends Win32Struct
 
     /**
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winwlx/nc-winwlx-pwlx_assign_shell_protection">WlxAssignShellProtection</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWLX_ASSIGN_SHELL_PROTECTION>}
      */
     WlxAssignShellProtection {
         get => NumGet(this, 32, "ptr")
@@ -60,7 +60,7 @@ class WLX_DISPATCH_VERSION_1_0 extends Win32Struct
 
     /**
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winwlx/nc-winwlx-pwlx_message_box">WlxMessageBox</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWLX_MESSAGE_BOX>}
      */
     WlxMessageBox {
         get => NumGet(this, 40, "ptr")
@@ -69,7 +69,7 @@ class WLX_DISPATCH_VERSION_1_0 extends Win32Struct
 
     /**
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winwlx/nc-winwlx-pwlx_dialog_box">WlxDialogBox</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWLX_DIALOG_BOX>}
      */
     WlxDialogBox {
         get => NumGet(this, 48, "ptr")
@@ -78,7 +78,7 @@ class WLX_DISPATCH_VERSION_1_0 extends Win32Struct
 
     /**
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winwlx/nc-winwlx-pwlx_dialog_box_param">WlxDialogBoxParam</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWLX_DIALOG_BOX_PARAM>}
      */
     WlxDialogBoxParam {
         get => NumGet(this, 56, "ptr")
@@ -87,7 +87,7 @@ class WLX_DISPATCH_VERSION_1_0 extends Win32Struct
 
     /**
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winwlx/nc-winwlx-pwlx_dialog_box_indirect">WlxDialogBoxIndirect</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWLX_DIALOG_BOX_INDIRECT>}
      */
     WlxDialogBoxIndirect {
         get => NumGet(this, 64, "ptr")
@@ -96,7 +96,7 @@ class WLX_DISPATCH_VERSION_1_0 extends Win32Struct
 
     /**
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winwlx/nc-winwlx-pwlx_dialog_box_indirect_param">WlxDialogBoxIndirectParam</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWLX_DIALOG_BOX_INDIRECT_PARAM>}
      */
     WlxDialogBoxIndirectParam {
         get => NumGet(this, 72, "ptr")
@@ -105,7 +105,7 @@ class WLX_DISPATCH_VERSION_1_0 extends Win32Struct
 
     /**
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winwlx/nc-winwlx-pwlx_switch_desktop_to_user">WlxSwitchDesktopToUser</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWLX_SWITCH_DESKTOP_TO_USER>}
      */
     WlxSwitchDesktopToUser {
         get => NumGet(this, 80, "ptr")
@@ -114,7 +114,7 @@ class WLX_DISPATCH_VERSION_1_0 extends Win32Struct
 
     /**
      * Pointer to a  <a href="https://docs.microsoft.com/windows/desktop/api/winwlx/nc-winwlx-pwlx_switch_desktop_to_winlogon">WlxSwitchDesktopToWinlogon</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWLX_SWITCH_DESKTOP_TO_WINLOGON>}
      */
     WlxSwitchDesktopToWinlogon {
         get => NumGet(this, 88, "ptr")
@@ -123,7 +123,7 @@ class WLX_DISPATCH_VERSION_1_0 extends Win32Struct
 
     /**
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winwlx/nc-winwlx-pwlx_change_password_notify">WlxChangePasswordNotify</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWLX_CHANGE_PASSWORD_NOTIFY>}
      */
     WlxChangePasswordNotify {
         get => NumGet(this, 96, "ptr")

@@ -9,7 +9,7 @@
  */
 class EXP_SZ_LINK extends Win32Struct
 {
-    static sizeof => 1048
+    static sizeof => 788
 
     static packingSize => 1
 
@@ -37,11 +37,14 @@ class EXP_SZ_LINK extends Win32Struct
      * Type: <b>__wchar_t[MAX_PATH]</b>
      * 
      * The null-terminated ANSI string with the path of the target or icon.
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    szTarget {
-        get => StrGet(this.ptr + 8, 259, "UTF-16")
-        set => StrPut(value, this.ptr + 8, 259, "UTF-16")
+    szTarget{
+        get {
+            if(!this.HasProp("__szTargetProxyArray"))
+                this.__szTargetProxyArray := Win32FixedArray(this.ptr + 8, 260, Primitive, "char")
+            return this.__szTargetProxyArray
+        }
     }
 
     /**
@@ -51,8 +54,8 @@ class EXP_SZ_LINK extends Win32Struct
      * @type {String}
      */
     swzTarget {
-        get => StrGet(this.ptr + 528, 259, "UTF-16")
-        set => StrPut(value, this.ptr + 528, 259, "UTF-16")
+        get => StrGet(this.ptr + 268, 259, "UTF-16")
+        set => StrPut(value, this.ptr + 268, 259, "UTF-16")
     }
 
     /**
@@ -61,6 +64,6 @@ class EXP_SZ_LINK extends Win32Struct
      */
     __New(ptr := 0){
         super.__New(ptr)
-        this.cbSize := 1048
+        this.cbSize := 788
     }
 }

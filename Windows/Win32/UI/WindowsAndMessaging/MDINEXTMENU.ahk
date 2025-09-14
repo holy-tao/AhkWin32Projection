@@ -17,7 +17,7 @@ class MDINEXTMENU extends Win32Struct
      * Type: <b>HMENU</b>
      * 
      * A handle to the current menu.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HMENU>}
      */
     hmenuIn {
         get => NumGet(this, 0, "ptr")
@@ -28,7 +28,7 @@ class MDINEXTMENU extends Win32Struct
      * Type: <b>HMENU</b>
      * 
      * A handle to the menu to be activated.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HMENU>}
      */
     hmenuNext {
         get => NumGet(this, 8, "ptr")
@@ -39,7 +39,7 @@ class MDINEXTMENU extends Win32Struct
      * Type: <b>HWND</b>
      * 
      * A handle to the window to receive the menu notification messages.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HWND>}
      */
     hwndNext {
         get => NumGet(this, 16, "ptr")

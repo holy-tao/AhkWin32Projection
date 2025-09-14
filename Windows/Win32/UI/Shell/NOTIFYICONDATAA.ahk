@@ -41,7 +41,7 @@ class NOTIFYICONDATAA extends Win32Struct
      * Type: <b>HWND</b>
      * 
      * A handle to the window that receives notifications associated with an icon in the notification area.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HWND>}
      */
     hWnd {
         get => NumGet(this, 4, "ptr")
@@ -102,7 +102,7 @@ class NOTIFYICONDATAA extends Win32Struct
      * A handle to the icon to be added, modified, or deleted. Windows XP and later support icons of up to 32 BPP.
      * 
      * If only a 16x16 pixel icon is provided, it is scaled to a larger size in a system set to a high dpi value. This can lead to an unattractive result. It is recommended that you provide both a 16x16 pixel icon and a 32x32 icon in your resource file. Use <a href="https://docs.microsoft.com/windows/desktop/api/commctrl/nf-commctrl-loadiconmetric">LoadIconMetric</a> to ensure that the correct icon is loaded and scaled appropriately. See Remarks for a code example.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HICON>}
      */
     hIcon {
         get => NumGet(this, 24, "ptr")
@@ -117,11 +117,14 @@ class NOTIFYICONDATAA extends Win32Struct
      * 
      * 
      * For Windows 2000 and later, <b>szTip</b> can have a maximum of 128 characters, including the terminating null character.
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    szTip {
-        get => StrGet(this.ptr + 32, 127, "UTF-8")
-        set => StrPut(value, this.ptr + 32, 127, "UTF-8")
+    szTip{
+        get {
+            if(!this.HasProp("__szTipProxyArray"))
+                this.__szTipProxyArray := Win32FixedArray(this.ptr + 32, 128, Primitive, "char")
+            return this.__szTipProxyArray
+        }
     }
 
     /**
@@ -148,11 +151,14 @@ class NOTIFYICONDATAA extends Win32Struct
      * Type: <b>TCHAR[256]</b>
      * 
      * <b>Windows 2000 and later</b>. A null-terminated string that specifies the text to display in a balloon notification. It can have a maximum of 256 characters, including the terminating null character, but should be restricted to 200 characters in English to accommodate localization. To remove the balloon notification from the UI, either delete the icon (with <a href="https://docs.microsoft.com/windows/desktop/api/shellapi/nf-shellapi-shell_notifyicona">NIM_DELETE</a>) or set the <b>NIF_INFO</b> flag in <b>uFlags</b> and set <b>szInfo</b> to an empty string.
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    szInfo {
-        get => StrGet(this.ptr + 168, 255, "UTF-8")
-        set => StrPut(value, this.ptr + 168, 255, "UTF-8")
+    szInfo{
+        get {
+            if(!this.HasProp("__szInfoProxyArray"))
+                this.__szInfoProxyArray := Win32FixedArray(this.ptr + 168, 256, Primitive, "char")
+            return this.__szInfoProxyArray
+        }
     }
 
     /**
@@ -175,11 +181,14 @@ class NOTIFYICONDATAA extends Win32Struct
      * Type: <b>TCHAR[64]</b>
      * 
      * <b>Windows 2000 and later</b>. A null-terminated string that specifies a title for a balloon notification. This title appears in a larger font immediately above the text. It can have a maximum of 64 characters, including the terminating null character, but should be restricted to 48 characters in English to accommodate localization.
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    szInfoTitle {
-        get => StrGet(this.ptr + 428, 63, "UTF-8")
-        set => StrPut(value, this.ptr + 428, 63, "UTF-8")
+    szInfoTitle{
+        get {
+            if(!this.HasProp("__szInfoTitleProxyArray"))
+                this.__szInfoTitleProxyArray := Win32FixedArray(this.ptr + 428, 64, Primitive, "char")
+            return this.__szInfoTitleProxyArray
+        }
     }
 
     /**
@@ -220,7 +229,7 @@ class NOTIFYICONDATAA extends Win32Struct
      * Type: <b>HICON</b>
      * 
      * <b>Windows Vista and later</b>. The handle of a customized notification icon provided by the application that should be used independently of the notification area icon. If this member is non-NULL and the NIIF_USER flag is set in the <b>dwInfoFlags</b> member, this icon is used as the notification icon. If this member is <b>NULL</b>, the legacy behavior is carried out.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HICON>}
      */
     hBalloonIcon {
         get => NumGet(this, 504, "ptr")

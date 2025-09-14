@@ -21,7 +21,7 @@
  */
 class NET_ADDRESS_INFO extends Win32Struct
 {
-    static sizeof => 40
+    static sizeof => 24
 
     static packingSize => 8
 

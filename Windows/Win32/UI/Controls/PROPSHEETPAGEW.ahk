@@ -29,7 +29,7 @@ class PROPSHEETPAGEW extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HINSTANCE>}
      */
     hInstance {
         get => NumGet(this, 8, "ptr")
@@ -37,7 +37,7 @@ class PROPSHEETPAGEW extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pszTemplate {
         get => NumGet(this, 16, "ptr")
@@ -53,7 +53,7 @@ class PROPSHEETPAGEW extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HICON>}
      */
     hIcon {
         get => NumGet(this, 24, "ptr")
@@ -61,7 +61,7 @@ class PROPSHEETPAGEW extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pszIcon {
         get => NumGet(this, 24, "ptr")
@@ -69,7 +69,7 @@ class PROPSHEETPAGEW extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pszTitle {
         get => NumGet(this, 32, "ptr")
@@ -77,7 +77,7 @@ class PROPSHEETPAGEW extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<DLGPROC>}
      */
     pfnDlgProc {
         get => NumGet(this, 40, "ptr")
@@ -93,7 +93,7 @@ class PROPSHEETPAGEW extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPFNPSPCALLBACKW>}
      */
     pfnCallback {
         get => NumGet(this, 56, "ptr")
@@ -109,7 +109,7 @@ class PROPSHEETPAGEW extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pszHeaderTitle {
         get => NumGet(this, 72, "ptr")
@@ -117,7 +117,7 @@ class PROPSHEETPAGEW extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pszHeaderSubTitle {
         get => NumGet(this, 80, "ptr")
@@ -125,7 +125,7 @@ class PROPSHEETPAGEW extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HANDLE>}
      */
     hActCtx {
         get => NumGet(this, 88, "ptr")
@@ -133,7 +133,7 @@ class PROPSHEETPAGEW extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HBITMAP>}
      */
     hbmHeader {
         get => NumGet(this, 96, "ptr")
@@ -141,7 +141,7 @@ class PROPSHEETPAGEW extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pszbmHeader {
         get => NumGet(this, 96, "ptr")

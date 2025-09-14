@@ -21,20 +21,26 @@ class ISCSI_DEVICE_ON_SESSIONA extends Win32Struct
 
     /**
      * A string that indicates the initiator name.
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    InitiatorName {
-        get => StrGet(this.ptr + 0, 255, "UTF-8")
-        set => StrPut(value, this.ptr + 0, 255, "UTF-8")
+    InitiatorName{
+        get {
+            if(!this.HasProp("__InitiatorNameProxyArray"))
+                this.__InitiatorNameProxyArray := Win32FixedArray(this.ptr + 0, 256, Primitive, "char")
+            return this.__InitiatorNameProxyArray
+        }
     }
 
     /**
      * A string that indicates the target name.
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    TargetName {
-        get => StrGet(this.ptr + 256, 223, "UTF-8")
-        set => StrPut(value, this.ptr + 256, 223, "UTF-8")
+    TargetName{
+        get {
+            if(!this.HasProp("__TargetNameProxyArray"))
+                this.__TargetNameProxyArray := Win32FixedArray(this.ptr + 256, 224, Primitive, "char")
+            return this.__TargetNameProxyArray
+        }
     }
 
     /**
@@ -95,20 +101,26 @@ class ISCSI_DEVICE_ON_SESSIONA extends Win32Struct
 
     /**
      * A string that specifies the name of the device interface class.
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    DeviceInterfaceName {
-        get => StrGet(this.ptr + 496, 259, "UTF-8")
-        set => StrPut(value, this.ptr + 496, 259, "UTF-8")
+    DeviceInterfaceName{
+        get {
+            if(!this.HasProp("__DeviceInterfaceNameProxyArray"))
+                this.__DeviceInterfaceNameProxyArray := Win32FixedArray(this.ptr + 496, 260, Primitive, "char")
+            return this.__DeviceInterfaceNameProxyArray
+        }
     }
 
     /**
      * A string that specifies the legacy device name.
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    LegacyName {
-        get => StrGet(this.ptr + 756, 259, "UTF-8")
-        set => StrPut(value, this.ptr + 756, 259, "UTF-8")
+    LegacyName{
+        get {
+            if(!this.HasProp("__LegacyNameProxyArray"))
+                this.__LegacyNameProxyArray := Win32FixedArray(this.ptr + 756, 260, Primitive, "char")
+            return this.__LegacyNameProxyArray
+        }
     }
 
     /**

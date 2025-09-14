@@ -12,7 +12,7 @@ class SPC_SP_OPUS_INFO extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pwszProgramName {
         get => NumGet(this, 0, "ptr")

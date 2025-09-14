@@ -12,7 +12,7 @@ class SECPKG_KERNEL_FUNCTION_TABLE extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<KspInitPackageFn>}
      */
     Initialize {
         get => NumGet(this, 0, "ptr")
@@ -20,7 +20,7 @@ class SECPKG_KERNEL_FUNCTION_TABLE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<KspDeleteContextFn>}
      */
     DeleteContext {
         get => NumGet(this, 8, "ptr")
@@ -28,7 +28,7 @@ class SECPKG_KERNEL_FUNCTION_TABLE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<KspInitContextFn>}
      */
     InitContext {
         get => NumGet(this, 16, "ptr")
@@ -36,7 +36,7 @@ class SECPKG_KERNEL_FUNCTION_TABLE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<KspMapHandleFn>}
      */
     MapHandle {
         get => NumGet(this, 24, "ptr")
@@ -44,7 +44,7 @@ class SECPKG_KERNEL_FUNCTION_TABLE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<KspMakeSignatureFn>}
      */
     Sign {
         get => NumGet(this, 32, "ptr")
@@ -52,7 +52,7 @@ class SECPKG_KERNEL_FUNCTION_TABLE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<KspVerifySignatureFn>}
      */
     Verify {
         get => NumGet(this, 40, "ptr")
@@ -60,7 +60,7 @@ class SECPKG_KERNEL_FUNCTION_TABLE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<KspSealMessageFn>}
      */
     Seal {
         get => NumGet(this, 48, "ptr")
@@ -68,7 +68,7 @@ class SECPKG_KERNEL_FUNCTION_TABLE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<KspUnsealMessageFn>}
      */
     Unseal {
         get => NumGet(this, 56, "ptr")
@@ -76,7 +76,7 @@ class SECPKG_KERNEL_FUNCTION_TABLE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<KspGetTokenFn>}
      */
     GetToken {
         get => NumGet(this, 64, "ptr")
@@ -84,7 +84,7 @@ class SECPKG_KERNEL_FUNCTION_TABLE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<KspQueryAttributesFn>}
      */
     QueryAttributes {
         get => NumGet(this, 72, "ptr")
@@ -92,7 +92,7 @@ class SECPKG_KERNEL_FUNCTION_TABLE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<KspCompleteTokenFn>}
      */
     CompleteToken {
         get => NumGet(this, 80, "ptr")
@@ -100,7 +100,7 @@ class SECPKG_KERNEL_FUNCTION_TABLE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<SpExportSecurityContextFn>}
      */
     ExportContext {
         get => NumGet(this, 88, "ptr")
@@ -108,7 +108,7 @@ class SECPKG_KERNEL_FUNCTION_TABLE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<SpImportSecurityContextFn>}
      */
     ImportContext {
         get => NumGet(this, 96, "ptr")
@@ -116,7 +116,7 @@ class SECPKG_KERNEL_FUNCTION_TABLE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<KspSetPagingModeFn>}
      */
     SetPackagePagingMode {
         get => NumGet(this, 104, "ptr")
@@ -124,7 +124,7 @@ class SECPKG_KERNEL_FUNCTION_TABLE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<KspSerializeAuthDataFn>}
      */
     SerializeAuthData {
         get => NumGet(this, 112, "ptr")

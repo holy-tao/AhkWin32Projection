@@ -35,7 +35,7 @@ class DNS_SERVICE_BROWSE_REQUEST extends Win32Struct
 
     /**
      * A pointer to a string that represents the service type whose matching services you wish to browse for. It takes the generalized form "\_\<ServiceType\>.\_\<TransportProtocol\>.local". For example, "_http._tcp.local", which defines a query to browse for http services on the local link.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     QueryName {
         get => NumGet(this, 8, "ptr")
@@ -43,7 +43,7 @@ class DNS_SERVICE_BROWSE_REQUEST extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PDNS_SERVICE_BROWSE_CALLBACK>}
      */
     pBrowseCallback {
         get => NumGet(this, 16, "ptr")
@@ -51,7 +51,7 @@ class DNS_SERVICE_BROWSE_REQUEST extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PDNS_QUERY_COMPLETION_ROUTINE>}
      */
     pBrowseCallbackV2 {
         get => NumGet(this, 16, "ptr")

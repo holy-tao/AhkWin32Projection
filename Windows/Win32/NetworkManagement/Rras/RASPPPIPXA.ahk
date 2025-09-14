@@ -7,7 +7,7 @@
  */
 class RASPPPIPXA extends Win32Struct
 {
-    static sizeof => 52
+    static sizeof => 32
 
     static packingSize => 4
 
@@ -28,10 +28,13 @@ class RASPPPIPXA extends Win32Struct
     }
 
     /**
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    szIpxAddress {
-        get => StrGet(this.ptr + 8, 21, "UTF-16")
-        set => StrPut(value, this.ptr + 8, 21, "UTF-16")
+    szIpxAddress{
+        get {
+            if(!this.HasProp("__szIpxAddressProxyArray"))
+                this.__szIpxAddressProxyArray := Win32FixedArray(this.ptr + 8, 22, Primitive, "char")
+            return this.__szIpxAddressProxyArray
+        }
     }
 }

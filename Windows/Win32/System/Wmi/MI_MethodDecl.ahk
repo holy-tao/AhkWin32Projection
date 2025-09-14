@@ -126,7 +126,7 @@ class MI_MethodDecl extends Win32Struct
 
     /**
      * The extrinsic function that implements this method.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<MI_MethodDecl_Invoke>}
      */
     function {
         get => NumGet(this, 80, "ptr")

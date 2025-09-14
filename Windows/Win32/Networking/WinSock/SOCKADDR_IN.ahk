@@ -10,7 +10,7 @@
  */
 class SOCKADDR_IN extends Win32Struct
 {
-    static sizeof => 24
+    static sizeof => 16
 
     static packingSize => 4
 
@@ -46,10 +46,13 @@ class SOCKADDR_IN extends Win32Struct
 
     /**
      * 
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    sin_zero {
-        get => StrGet(this.ptr + 8, 7, "UTF-16")
-        set => StrPut(value, this.ptr + 8, 7, "UTF-16")
+    sin_zero{
+        get {
+            if(!this.HasProp("__sin_zeroProxyArray"))
+                this.__sin_zeroProxyArray := Win32FixedArray(this.ptr + 8, 8, Primitive, "char")
+            return this.__sin_zeroProxyArray
+        }
     }
 }

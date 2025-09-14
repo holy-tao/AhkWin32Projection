@@ -61,10 +61,13 @@ class ACMFILTERTAGDETAILSA extends Win32Struct
     }
 
     /**
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    szFilterTag {
-        get => StrGet(this.ptr + 24, 47, "UTF-8")
-        set => StrPut(value, this.ptr + 24, 47, "UTF-8")
+    szFilterTag{
+        get {
+            if(!this.HasProp("__szFilterTagProxyArray"))
+                this.__szFilterTagProxyArray := Win32FixedArray(this.ptr + 24, 48, Primitive, "char")
+            return this.__szFilterTagProxyArray
+        }
     }
 }

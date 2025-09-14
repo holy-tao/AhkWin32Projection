@@ -25,7 +25,7 @@ class LSA_TRANSLATED_SID2 extends Win32Struct
 
     /**
      * The complete SID of the account.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSID>}
      */
     Sid {
         get => NumGet(this, 8, "ptr")

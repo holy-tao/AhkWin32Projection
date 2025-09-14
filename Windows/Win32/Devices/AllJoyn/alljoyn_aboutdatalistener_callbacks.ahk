@@ -12,7 +12,7 @@ class alljoyn_aboutdatalistener_callbacks extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<alljoyn_aboutdatalistener_getaboutdata_ptr>}
      */
     about_datalistener_getaboutdata {
         get => NumGet(this, 0, "ptr")
@@ -20,7 +20,7 @@ class alljoyn_aboutdatalistener_callbacks extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<alljoyn_aboutdatalistener_getannouncedaboutdata_ptr>}
      */
     about_datalistener_getannouncedaboutdata {
         get => NumGet(this, 8, "ptr")

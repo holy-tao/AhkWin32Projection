@@ -60,7 +60,7 @@ class SpatialAudioObjectRenderStreamForMetadataActivationParams extends Win32Str
 
     /**
      * The event that will signal the client to provide more audio data. This handle will be duplicated internally before it is used.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HANDLE>}
      */
     EventHandle {
         get => NumGet(this, 24, "ptr")

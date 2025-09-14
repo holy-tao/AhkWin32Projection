@@ -10,7 +10,7 @@
  */
 class HTTP_SERVICE_CONFIG_SSL_SNI_KEY extends Win32Struct
 {
-    static sizeof => 256
+    static sizeof => 136
 
     static packingSize => 8
 
@@ -28,10 +28,10 @@ class HTTP_SERVICE_CONFIG_SSL_SNI_KEY extends Win32Struct
 
     /**
      * A pointer to a null-terminated Unicode UTF-16 string that represents the hostname.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     Host {
-        get => NumGet(this, 248, "ptr")
-        set => NumPut("ptr", value, this, 248)
+        get => NumGet(this, 128, "ptr")
+        set => NumPut("ptr", value, this, 128)
     }
 }

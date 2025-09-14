@@ -113,11 +113,14 @@ class CHARFORMATA extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">TCHAR</a>[LF_FACESIZE]</b>
      * 
      * Null-terminated character array specifying the font name.
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    szFaceName {
-        get => StrGet(this.ptr + 26, 31, "UTF-8")
-        set => StrPut(value, this.ptr + 26, 31, "UTF-8")
+    szFaceName{
+        get {
+            if(!this.HasProp("__szFaceNameProxyArray"))
+                this.__szFaceNameProxyArray := Win32FixedArray(this.ptr + 26, 32, Primitive, "char")
+            return this.__szFaceNameProxyArray
+        }
     }
 
     /**

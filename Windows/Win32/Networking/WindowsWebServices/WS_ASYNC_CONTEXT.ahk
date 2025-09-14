@@ -16,7 +16,7 @@ class WS_ASYNC_CONTEXT extends Win32Struct
     /**
      * The callback function to call if the operation completes asynchronously.
      *                     This field may not be <b>NULL</b>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<WS_ASYNC_CALLBACK>}
      */
     callback {
         get => NumGet(this, 0, "ptr")

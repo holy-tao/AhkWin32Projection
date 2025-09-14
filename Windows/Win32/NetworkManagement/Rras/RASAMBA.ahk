@@ -29,11 +29,14 @@ class RASAMBA extends Win32Struct
     }
 
     /**
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    szNetBiosError {
-        get => StrGet(this.ptr + 8, 16, "UTF-8")
-        set => StrPut(value, this.ptr + 8, 16, "UTF-8")
+    szNetBiosError{
+        get {
+            if(!this.HasProp("__szNetBiosErrorProxyArray"))
+                this.__szNetBiosErrorProxyArray := Win32FixedArray(this.ptr + 8, 17, Primitive, "char")
+            return this.__szNetBiosErrorProxyArray
+        }
     }
 
     /**

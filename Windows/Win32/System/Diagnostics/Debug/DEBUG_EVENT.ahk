@@ -119,7 +119,7 @@ class DEBUG_EVENT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<UNLOAD_DLL_DEBUG_INFO>}
      */
     UnloadDll {
         get => NumGet(this, 12, "ptr")

@@ -20,7 +20,7 @@ class DFS_SITENAME_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     SiteName {
         get => NumGet(this, 8, "ptr")

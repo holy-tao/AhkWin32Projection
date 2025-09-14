@@ -20,7 +20,7 @@ class WINHTTP_CREDS_EX extends Win32Struct
 
     /**
      * Pointer to a buffer that contains username.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     lpszUserName {
         get => NumGet(this, 0, "ptr")
@@ -29,7 +29,7 @@ class WINHTTP_CREDS_EX extends Win32Struct
 
     /**
      * Pointer to a buffer that contains password.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     lpszPassword {
         get => NumGet(this, 8, "ptr")
@@ -38,7 +38,7 @@ class WINHTTP_CREDS_EX extends Win32Struct
 
     /**
      * Pointer to a buffer that contains realm.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     lpszRealm {
         get => NumGet(this, 16, "ptr")
@@ -56,7 +56,7 @@ class WINHTTP_CREDS_EX extends Win32Struct
 
     /**
      * Pointer to a buffer that contains hostname.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     lpszHostName {
         get => NumGet(this, 32, "ptr")
@@ -74,7 +74,7 @@ class WINHTTP_CREDS_EX extends Win32Struct
 
     /**
      * Pointer to a buffer that contains target URL.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     lpszUrl {
         get => NumGet(this, 48, "ptr")

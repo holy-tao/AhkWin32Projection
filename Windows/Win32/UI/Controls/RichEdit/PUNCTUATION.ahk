@@ -31,7 +31,7 @@ class PUNCTUATION extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPSTR</a></b>
      * 
      * The buffer containing the punctuation characters.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     szPunctuation {
         get => NumGet(this, 8, "ptr")

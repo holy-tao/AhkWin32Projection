@@ -55,7 +55,7 @@ class IMEMENUITEMINFOA extends Win32Struct
 
     /**
      * Handle to the bitmap to display next to the item if it is checked. If this member is <b>NULL</b>, a default bitmap is used. If the IMFT_RADIOCHECK type value is specified, the default bitmap is a bullet. Otherwise, it is a check mark.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HBITMAP>}
      */
     hbmpChecked {
         get => NumGet(this, 16, "ptr")
@@ -64,7 +64,7 @@ class IMEMENUITEMINFOA extends Win32Struct
 
     /**
      * Handle to the bitmap to display next to the item if it is not checked. If this member is <b>NULL</b>, no bitmap is used.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HBITMAP>}
      */
     hbmpUnchecked {
         get => NumGet(this, 24, "ptr")
@@ -82,16 +82,19 @@ class IMEMENUITEMINFOA extends Win32Struct
 
     /**
      * Content of the menu item. This is a null-terminated string.
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    szString {
-        get => StrGet(this.ptr + 36, 79, "UTF-8")
-        set => StrPut(value, this.ptr + 36, 79, "UTF-8")
+    szString{
+        get {
+            if(!this.HasProp("__szStringProxyArray"))
+                this.__szStringProxyArray := Win32FixedArray(this.ptr + 36, 80, Primitive, "char")
+            return this.__szStringProxyArray
+        }
     }
 
     /**
      * Handle to a bitmap to display.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HBITMAP>}
      */
     hbmpItem {
         get => NumGet(this, 120, "ptr")

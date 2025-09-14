@@ -34,7 +34,7 @@ class RPC_EXTENDED_ERROR_INFO extends Win32Struct
 
     /**
      * Non-qualified DNS name, expressed in Unicode.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     ComputerName {
         get => NumGet(this, 8, "ptr")

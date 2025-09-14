@@ -42,7 +42,7 @@ class CMSG_STREAM_INFO extends Win32Struct
      * 
      * 
      * ```cpp
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_CMSG_STREAM_OUTPUT>}
      */
     pfnStreamOutput {
         get => NumGet(this, 8, "ptr")

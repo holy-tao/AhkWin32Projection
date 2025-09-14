@@ -7,7 +7,7 @@
  */
 class MODULEENTRY extends Win32Struct
 {
-    static sizeof => 548
+    static sizeof => 284
 
     static packingSize => 4
 
@@ -20,42 +20,48 @@ class MODULEENTRY extends Win32Struct
     }
 
     /**
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    szModule {
-        get => StrGet(this.ptr + 4, 9, "UTF-16")
-        set => StrPut(value, this.ptr + 4, 9, "UTF-16")
+    szModule{
+        get {
+            if(!this.HasProp("__szModuleProxyArray"))
+                this.__szModuleProxyArray := Win32FixedArray(this.ptr + 4, 10, Primitive, "char")
+            return this.__szModuleProxyArray
+        }
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HANDLE>}
      */
     hModule {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * @type {Integer}
      */
     wcUsage {
-        get => NumGet(this, 32, "ushort")
-        set => NumPut("ushort", value, this, 32)
+        get => NumGet(this, 24, "ushort")
+        set => NumPut("ushort", value, this, 24)
     }
 
     /**
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    szExePath {
-        get => StrGet(this.ptr + 34, 255, "UTF-16")
-        set => StrPut(value, this.ptr + 34, 255, "UTF-16")
+    szExePath{
+        get {
+            if(!this.HasProp("__szExePathProxyArray"))
+                this.__szExePathProxyArray := Win32FixedArray(this.ptr + 26, 256, Primitive, "char")
+            return this.__szExePathProxyArray
+        }
     }
 
     /**
      * @type {Integer}
      */
     wNext {
-        get => NumGet(this, 546, "ushort")
-        set => NumPut("ushort", value, this, 546)
+        get => NumGet(this, 282, "ushort")
+        set => NumPut("ushort", value, this, 282)
     }
 }

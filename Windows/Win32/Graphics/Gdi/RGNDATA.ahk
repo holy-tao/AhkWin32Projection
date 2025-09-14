@@ -29,10 +29,13 @@ class RGNDATA extends Win32Struct
 
     /**
      * Specifies an arbitrary-size buffer that contains the <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structures that make up the region.
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    Buffer {
-        get => StrGet(this.ptr + 32, 0, "UTF-16")
-        set => StrPut(value, this.ptr + 32, 0, "UTF-16")
+    Buffer{
+        get {
+            if(!this.HasProp("__BufferProxyArray"))
+                this.__BufferProxyArray := Win32FixedArray(this.ptr + 32, 1, Primitive, "char")
+            return this.__BufferProxyArray
+        }
     }
 }

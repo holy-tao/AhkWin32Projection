@@ -30,7 +30,7 @@ class DICONFIGUREDEVICESPARAMSW extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     lptszUserNames {
         get => NumGet(this, 8, "ptr")
@@ -54,7 +54,7 @@ class DICONFIGUREDEVICESPARAMSW extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HWND>}
      */
     hwnd {
         get => NumGet(this, 32, "ptr")

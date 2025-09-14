@@ -9,7 +9,7 @@
  */
 class PROPPRG extends Win32Struct
 {
-    static sizeof => 1300
+    static sizeof => 658
 
     static packingSize => 1
 
@@ -39,33 +39,42 @@ class PROPPRG extends Win32Struct
      * Type: <b>__wchar_t</b>
      * 
      * A null-terminated string that contains the title.
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    achTitle {
-        get => StrGet(this.ptr + 4, 29, "UTF-16")
-        set => StrPut(value, this.ptr + 4, 29, "UTF-16")
+    achTitle{
+        get {
+            if(!this.HasProp("__achTitleProxyArray"))
+                this.__achTitleProxyArray := Win32FixedArray(this.ptr + 4, 30, Primitive, "char")
+            return this.__achTitleProxyArray
+        }
     }
 
     /**
      * Type: <b>__wchar_t</b>
      * 
      * A null-terminated string that contains the command line, including arguments.
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    achCmdLine {
-        get => StrGet(this.ptr + 64, 127, "UTF-16")
-        set => StrPut(value, this.ptr + 64, 127, "UTF-16")
+    achCmdLine{
+        get {
+            if(!this.HasProp("__achCmdLineProxyArray"))
+                this.__achCmdLineProxyArray := Win32FixedArray(this.ptr + 34, 128, Primitive, "char")
+            return this.__achCmdLineProxyArray
+        }
     }
 
     /**
      * Type: <b>__wchar_t</b>
      * 
      * A null-terminated string that contains the working directory.
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    achWorkDir {
-        get => StrGet(this.ptr + 320, 63, "UTF-16")
-        set => StrPut(value, this.ptr + 320, 63, "UTF-16")
+    achWorkDir{
+        get {
+            if(!this.HasProp("__achWorkDirProxyArray"))
+                this.__achWorkDirProxyArray := Win32FixedArray(this.ptr + 162, 64, Primitive, "char")
+            return this.__achWorkDirProxyArray
+        }
     }
 
     /**
@@ -75,19 +84,22 @@ class PROPPRG extends Win32Struct
      * @type {Integer}
      */
     wHotKey {
-        get => NumGet(this, 448, "ushort")
-        set => NumPut("ushort", value, this, 448)
+        get => NumGet(this, 226, "ushort")
+        set => NumPut("ushort", value, this, 226)
     }
 
     /**
      * Type: <b>__wchar_t</b>
      * 
      * A null-terminated string that contains the name of the file that contains the icon.
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    achIconFile {
-        get => StrGet(this.ptr + 450, 79, "UTF-16")
-        set => StrPut(value, this.ptr + 450, 79, "UTF-16")
+    achIconFile{
+        get {
+            if(!this.HasProp("__achIconFileProxyArray"))
+                this.__achIconFileProxyArray := Win32FixedArray(this.ptr + 228, 80, Primitive, "char")
+            return this.__achIconFileProxyArray
+        }
     }
 
     /**
@@ -97,8 +109,8 @@ class PROPPRG extends Win32Struct
      * @type {Integer}
      */
     wIconIndex {
-        get => NumGet(this, 610, "ushort")
-        set => NumPut("ushort", value, this, 610)
+        get => NumGet(this, 308, "ushort")
+        set => NumPut("ushort", value, this, 308)
     }
 
     /**
@@ -108,8 +120,8 @@ class PROPPRG extends Win32Struct
      * @type {Integer}
      */
     dwEnhModeFlags {
-        get => NumGet(this, 612, "uint")
-        set => NumPut("uint", value, this, 612)
+        get => NumGet(this, 310, "uint")
+        set => NumPut("uint", value, this, 310)
     }
 
     /**
@@ -119,29 +131,35 @@ class PROPPRG extends Win32Struct
      * @type {Integer}
      */
     dwRealModeFlags {
-        get => NumGet(this, 616, "uint")
-        set => NumPut("uint", value, this, 616)
+        get => NumGet(this, 314, "uint")
+        set => NumPut("uint", value, this, 314)
     }
 
     /**
      * Type: <b>__wchar_t</b>
      * 
      * A null-terminated string that contains the name of the "other" file in the directory.
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    achOtherFile {
-        get => StrGet(this.ptr + 620, 79, "UTF-16")
-        set => StrPut(value, this.ptr + 620, 79, "UTF-16")
+    achOtherFile{
+        get {
+            if(!this.HasProp("__achOtherFileProxyArray"))
+                this.__achOtherFileProxyArray := Win32FixedArray(this.ptr + 318, 80, Primitive, "char")
+            return this.__achOtherFileProxyArray
+        }
     }
 
     /**
      * Type: <b>__wchar_t</b>
      * 
      * A null-terminated string that contains the name of the .pif file in the directory.
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    achPIFFile {
-        get => StrGet(this.ptr + 780, 259, "UTF-16")
-        set => StrPut(value, this.ptr + 780, 259, "UTF-16")
+    achPIFFile{
+        get {
+            if(!this.HasProp("__achPIFFileProxyArray"))
+                this.__achPIFFileProxyArray := Win32FixedArray(this.ptr + 398, 260, Primitive, "char")
+            return this.__achPIFFileProxyArray
+        }
     }
 }

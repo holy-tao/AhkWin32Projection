@@ -142,7 +142,7 @@ class HTTP_LOG_FIELDS_DATA extends Win32Struct
 
     /**
      * The name of the  user.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     UserName {
         get => NumGet(this, 32, "ptr")
@@ -151,7 +151,7 @@ class HTTP_LOG_FIELDS_DATA extends Win32Struct
 
     /**
      * The URI stem.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     UriStem {
         get => NumGet(this, 40, "ptr")
@@ -160,7 +160,7 @@ class HTTP_LOG_FIELDS_DATA extends Win32Struct
 
     /**
      * The IP address of the client.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     ClientIp {
         get => NumGet(this, 48, "ptr")
@@ -169,7 +169,7 @@ class HTTP_LOG_FIELDS_DATA extends Win32Struct
 
     /**
      * The name of the server.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     ServerName {
         get => NumGet(this, 56, "ptr")
@@ -178,7 +178,7 @@ class HTTP_LOG_FIELDS_DATA extends Win32Struct
 
     /**
      * The name of the service.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     ServiceName {
         get => NumGet(this, 64, "ptr")
@@ -187,7 +187,7 @@ class HTTP_LOG_FIELDS_DATA extends Win32Struct
 
     /**
      * The IP address of the server.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     ServerIp {
         get => NumGet(this, 72, "ptr")
@@ -196,7 +196,7 @@ class HTTP_LOG_FIELDS_DATA extends Win32Struct
 
     /**
      * The HTTP method.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     Method {
         get => NumGet(this, 80, "ptr")
@@ -205,7 +205,7 @@ class HTTP_LOG_FIELDS_DATA extends Win32Struct
 
     /**
      * The URI query.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     UriQuery {
         get => NumGet(this, 88, "ptr")
@@ -214,7 +214,7 @@ class HTTP_LOG_FIELDS_DATA extends Win32Struct
 
     /**
      * The host information from the request.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     Host {
         get => NumGet(this, 96, "ptr")
@@ -223,7 +223,7 @@ class HTTP_LOG_FIELDS_DATA extends Win32Struct
 
     /**
      * The user agent name.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     UserAgent {
         get => NumGet(this, 104, "ptr")
@@ -232,7 +232,7 @@ class HTTP_LOG_FIELDS_DATA extends Win32Struct
 
     /**
      * The cookie provided by the application.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     Cookie {
         get => NumGet(this, 112, "ptr")
@@ -241,7 +241,7 @@ class HTTP_LOG_FIELDS_DATA extends Win32Struct
 
     /**
      * The referrer.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     Referrer {
         get => NumGet(this, 120, "ptr")

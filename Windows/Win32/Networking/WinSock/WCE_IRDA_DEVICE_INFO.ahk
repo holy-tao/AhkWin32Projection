@@ -7,9 +7,9 @@
  */
 class WCE_IRDA_DEVICE_INFO extends Win32Struct
 {
-    static sizeof => 50
+    static sizeof => 28
 
-    static packingSize => 2
+    static packingSize => 1
 
     /**
      * @type {Array<Byte>}
@@ -23,11 +23,14 @@ class WCE_IRDA_DEVICE_INFO extends Win32Struct
     }
 
     /**
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    irdaDeviceName {
-        get => StrGet(this.ptr + 4, 21, "UTF-16")
-        set => StrPut(value, this.ptr + 4, 21, "UTF-16")
+    irdaDeviceName{
+        get {
+            if(!this.HasProp("__irdaDeviceNameProxyArray"))
+                this.__irdaDeviceNameProxyArray := Win32FixedArray(this.ptr + 4, 22, Primitive, "char")
+            return this.__irdaDeviceNameProxyArray
+        }
     }
 
     /**
@@ -36,7 +39,7 @@ class WCE_IRDA_DEVICE_INFO extends Win32Struct
     Reserved{
         get {
             if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 48, 2, Primitive, "char")
+                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 26, 2, Primitive, "char")
             return this.__ReservedProxyArray
         }
     }

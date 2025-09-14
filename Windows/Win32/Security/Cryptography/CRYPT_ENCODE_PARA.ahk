@@ -24,7 +24,7 @@ class CRYPT_ENCODE_PARA extends Win32Struct
 
     /**
      * This member is an optional pointer to a callback function used to allocate memory.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_CRYPT_ALLOC>}
      */
     pfnAlloc {
         get => NumGet(this, 8, "ptr")
@@ -33,7 +33,7 @@ class CRYPT_ENCODE_PARA extends Win32Struct
 
     /**
      * This member is an optional pointer to a callback function used to free memory allocated by the allocate callback function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_CRYPT_FREE>}
      */
     pfnFree {
         get => NumGet(this, 16, "ptr")

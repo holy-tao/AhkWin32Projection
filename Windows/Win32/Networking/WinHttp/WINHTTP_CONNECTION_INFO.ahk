@@ -12,7 +12,7 @@
  */
 class WINHTTP_CONNECTION_INFO extends Win32Struct
 {
-    static sizeof => 500
+    static sizeof => 260
 
     static packingSize => 4
 
@@ -44,7 +44,7 @@ class WINHTTP_CONNECTION_INFO extends Win32Struct
     RemoteAddress{
         get {
             if(!this.HasProp("__RemoteAddress"))
-                this.__RemoteAddress := SOCKADDR_STORAGE(this.ptr + 252)
+                this.__RemoteAddress := SOCKADDR_STORAGE(this.ptr + 132)
             return this.__RemoteAddress
         }
     }
@@ -55,6 +55,6 @@ class WINHTTP_CONNECTION_INFO extends Win32Struct
      */
     __New(ptr := 0){
         super.__New(ptr)
-        this.cbSize := 500
+        this.cbSize := 260
     }
 }

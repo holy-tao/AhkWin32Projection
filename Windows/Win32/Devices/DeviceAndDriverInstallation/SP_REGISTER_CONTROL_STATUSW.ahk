@@ -28,7 +28,7 @@ class SP_REGISTER_CONTROL_STATUSW extends Win32Struct
 
     /**
      * Fully qualified path of the file being registered or unregistered.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     FileName {
         get => NumGet(this, 4, "ptr")

@@ -68,7 +68,7 @@ class SYM_DUMP_PARAM extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSYM_DUMP_FIELD_CALLBACK>}
      */
     CallbackRoutine {
         get => NumGet(this, 48, "ptr")

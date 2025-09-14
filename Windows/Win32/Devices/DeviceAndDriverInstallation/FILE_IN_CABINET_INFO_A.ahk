@@ -19,7 +19,7 @@ class FILE_IN_CABINET_INFO_A extends Win32Struct
 
     /**
      * File name as it exists within the cabinet file.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     NameInCabinet {
         get => NumGet(this, 0, "ptr")
@@ -73,10 +73,13 @@ class FILE_IN_CABINET_INFO_A extends Win32Struct
 
     /**
      * Target path and file name.
-     * @type {String}
+     * @type {Array<SByte>}
      */
-    FullTargetName {
-        get => StrGet(this.ptr + 22, 259, "UTF-8")
-        set => StrPut(value, this.ptr + 22, 259, "UTF-8")
+    FullTargetName{
+        get {
+            if(!this.HasProp("__FullTargetNameProxyArray"))
+                this.__FullTargetNameProxyArray := Win32FixedArray(this.ptr + 22, 260, Primitive, "char")
+            return this.__FullTargetNameProxyArray
+        }
     }
 }

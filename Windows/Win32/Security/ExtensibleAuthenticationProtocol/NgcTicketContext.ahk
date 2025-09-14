@@ -28,7 +28,7 @@ class NgcTicketContext extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HANDLE>}
      */
     hImpersonateToken {
         get => NumGet(this, 104, "ptr")

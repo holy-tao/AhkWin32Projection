@@ -77,7 +77,7 @@ class DHCPV6_BIND_ELEMENT extends Win32Struct
 
     /**
      * Pointer to a null-terminated Unicode string that specifies the name assigned to this interface.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     IfDescription {
         get => NumGet(this, 40, "ptr")

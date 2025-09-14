@@ -96,7 +96,7 @@ class JAVA_TRUST extends Win32Struct
 
     /**
      * The zone index.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pwszZone {
         get => NumGet(this, 56, "ptr")

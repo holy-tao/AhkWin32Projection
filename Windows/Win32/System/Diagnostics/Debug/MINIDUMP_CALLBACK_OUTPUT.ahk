@@ -71,7 +71,7 @@ class MINIDUMP_CALLBACK_OUTPUT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HANDLE>}
      */
     Handle {
         get => NumGet(this, 0, "ptr")

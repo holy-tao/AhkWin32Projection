@@ -366,7 +366,7 @@ class EVENT_TRACE_PROPERTIES_V2 extends Win32Struct
 
     /**
      * On output, the thread identifier for the event tracing session.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HANDLE>}
      */
     LoggerThreadId {
         get => NumGet(this, 96, "ptr")

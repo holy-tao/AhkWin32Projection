@@ -21,7 +21,7 @@ class ACTRL_ACCESS_INFOA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     lpAccessPermissionName {
         get => NumGet(this, 8, "ptr")
