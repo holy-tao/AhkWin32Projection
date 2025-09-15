@@ -10,9 +10,9 @@
  */
 class OPENFILENAME_NT4A extends Win32Struct
 {
-    static sizeof => 124
+    static sizeof => 136
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * 
@@ -28,8 +28,8 @@ class OPENFILENAME_NT4A extends Win32Struct
      * @type {Pointer<HWND>}
      */
     hwndOwner {
-        get => NumGet(this, 4, "ptr")
-        set => NumPut("ptr", value, this, 4)
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -37,8 +37,8 @@ class OPENFILENAME_NT4A extends Win32Struct
      * @type {Pointer<HINSTANCE>}
      */
     hInstance {
-        get => NumGet(this, 12, "ptr")
-        set => NumPut("ptr", value, this, 12)
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
@@ -46,8 +46,8 @@ class OPENFILENAME_NT4A extends Win32Struct
      * @type {Pointer<PSTR>}
      */
     lpstrFilter {
-        get => NumGet(this, 20, "ptr")
-        set => NumPut("ptr", value, this, 20)
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
@@ -55,8 +55,8 @@ class OPENFILENAME_NT4A extends Win32Struct
      * @type {Pointer<PSTR>}
      */
     lpstrCustomFilter {
-        get => NumGet(this, 28, "ptr")
-        set => NumPut("ptr", value, this, 28)
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
@@ -64,8 +64,8 @@ class OPENFILENAME_NT4A extends Win32Struct
      * @type {Integer}
      */
     nMaxCustFilter {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
+        get => NumGet(this, 40, "uint")
+        set => NumPut("uint", value, this, 40)
     }
 
     /**
@@ -73,8 +73,8 @@ class OPENFILENAME_NT4A extends Win32Struct
      * @type {Integer}
      */
     nFilterIndex {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
+        get => NumGet(this, 44, "uint")
+        set => NumPut("uint", value, this, 44)
     }
 
     /**
@@ -82,8 +82,8 @@ class OPENFILENAME_NT4A extends Win32Struct
      * @type {Pointer<PSTR>}
      */
     lpstrFile {
-        get => NumGet(this, 44, "ptr")
-        set => NumPut("ptr", value, this, 44)
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**
@@ -91,8 +91,8 @@ class OPENFILENAME_NT4A extends Win32Struct
      * @type {Integer}
      */
     nMaxFile {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
+        get => NumGet(this, 56, "uint")
+        set => NumPut("uint", value, this, 56)
     }
 
     /**
@@ -100,8 +100,8 @@ class OPENFILENAME_NT4A extends Win32Struct
      * @type {Pointer<PSTR>}
      */
     lpstrFileTitle {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
+        get => NumGet(this, 64, "ptr")
+        set => NumPut("ptr", value, this, 64)
     }
 
     /**
@@ -109,8 +109,8 @@ class OPENFILENAME_NT4A extends Win32Struct
      * @type {Integer}
      */
     nMaxFileTitle {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
+        get => NumGet(this, 72, "uint")
+        set => NumPut("uint", value, this, 72)
     }
 
     /**
@@ -118,8 +118,8 @@ class OPENFILENAME_NT4A extends Win32Struct
      * @type {Pointer<PSTR>}
      */
     lpstrInitialDir {
-        get => NumGet(this, 68, "ptr")
-        set => NumPut("ptr", value, this, 68)
+        get => NumGet(this, 80, "ptr")
+        set => NumPut("ptr", value, this, 80)
     }
 
     /**
@@ -127,8 +127,8 @@ class OPENFILENAME_NT4A extends Win32Struct
      * @type {Pointer<PSTR>}
      */
     lpstrTitle {
-        get => NumGet(this, 76, "ptr")
-        set => NumPut("ptr", value, this, 76)
+        get => NumGet(this, 88, "ptr")
+        set => NumPut("ptr", value, this, 88)
     }
 
     /**
@@ -136,8 +136,8 @@ class OPENFILENAME_NT4A extends Win32Struct
      * @type {Integer}
      */
     Flags {
-        get => NumGet(this, 84, "uint")
-        set => NumPut("uint", value, this, 84)
+        get => NumGet(this, 96, "uint")
+        set => NumPut("uint", value, this, 96)
     }
 
     /**
@@ -145,8 +145,8 @@ class OPENFILENAME_NT4A extends Win32Struct
      * @type {Integer}
      */
     nFileOffset {
-        get => NumGet(this, 88, "ushort")
-        set => NumPut("ushort", value, this, 88)
+        get => NumGet(this, 100, "ushort")
+        set => NumPut("ushort", value, this, 100)
     }
 
     /**
@@ -154,8 +154,8 @@ class OPENFILENAME_NT4A extends Win32Struct
      * @type {Integer}
      */
     nFileExtension {
-        get => NumGet(this, 90, "ushort")
-        set => NumPut("ushort", value, this, 90)
+        get => NumGet(this, 102, "ushort")
+        set => NumPut("ushort", value, this, 102)
     }
 
     /**
@@ -163,8 +163,8 @@ class OPENFILENAME_NT4A extends Win32Struct
      * @type {Pointer<PSTR>}
      */
     lpstrDefExt {
-        get => NumGet(this, 92, "ptr")
-        set => NumPut("ptr", value, this, 92)
+        get => NumGet(this, 104, "ptr")
+        set => NumPut("ptr", value, this, 104)
     }
 
     /**
@@ -172,8 +172,8 @@ class OPENFILENAME_NT4A extends Win32Struct
      * @type {Pointer}
      */
     lCustData {
-        get => NumGet(this, 100, "ptr")
-        set => NumPut("ptr", value, this, 100)
+        get => NumGet(this, 112, "ptr")
+        set => NumPut("ptr", value, this, 112)
     }
 
     /**
@@ -181,8 +181,8 @@ class OPENFILENAME_NT4A extends Win32Struct
      * @type {Pointer<LPOFNHOOKPROC>}
      */
     lpfnHook {
-        get => NumGet(this, 108, "ptr")
-        set => NumPut("ptr", value, this, 108)
+        get => NumGet(this, 120, "ptr")
+        set => NumPut("ptr", value, this, 120)
     }
 
     /**
@@ -190,7 +190,7 @@ class OPENFILENAME_NT4A extends Win32Struct
      * @type {Pointer<PSTR>}
      */
     lpTemplateName {
-        get => NumGet(this, 116, "ptr")
-        set => NumPut("ptr", value, this, 116)
+        get => NumGet(this, 128, "ptr")
+        set => NumPut("ptr", value, this, 128)
     }
 }

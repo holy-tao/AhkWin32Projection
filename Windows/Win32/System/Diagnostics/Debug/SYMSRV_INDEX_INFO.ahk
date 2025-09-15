@@ -25,14 +25,11 @@ class SYMSRV_INDEX_INFO extends Win32Struct
 
     /**
      * The name of the .pdb, .dbg, or image file.
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    file{
-        get {
-            if(!this.HasProp("__fileProxyArray"))
-                this.__fileProxyArray := Win32FixedArray(this.ptr + 4, 261, Primitive, "char")
-            return this.__fileProxyArray
-        }
+    file {
+        get => StrGet(this.ptr + 4, 260, "UTF-8")
+        set => StrPut(value, this.ptr + 4, 260, "UTF-8")
     }
 
     /**
@@ -64,26 +61,20 @@ class SYMSRV_INDEX_INFO extends Win32Struct
 
     /**
      * If the image file is stripped and there is a .dbg file, this member is the path to the .dbg file from the CV record.
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    dbgfile{
-        get {
-            if(!this.HasProp("__dbgfileProxyArray"))
-                this.__dbgfileProxyArray := Win32FixedArray(this.ptr + 280, 261, Primitive, "char")
-            return this.__dbgfileProxyArray
-        }
+    dbgfile {
+        get => StrGet(this.ptr + 280, 260, "UTF-8")
+        set => StrPut(value, this.ptr + 280, 260, "UTF-8")
     }
 
     /**
      * The .pdb file from the CV record. This member is used only for image and .dbg files.
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    pdbfile{
-        get {
-            if(!this.HasProp("__pdbfileProxyArray"))
-                this.__pdbfileProxyArray := Win32FixedArray(this.ptr + 541, 261, Primitive, "char")
-            return this.__pdbfileProxyArray
-        }
+    pdbfile {
+        get => StrGet(this.ptr + 541, 260, "UTF-8")
+        set => StrPut(value, this.ptr + 541, 260, "UTF-8")
     }
 
     /**

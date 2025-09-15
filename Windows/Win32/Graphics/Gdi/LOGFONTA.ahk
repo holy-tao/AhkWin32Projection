@@ -356,13 +356,10 @@ class LOGFONTA extends Win32Struct
      * Type: <b>TCHAR[LF_FACESIZE]</b>
      * 
      * Specifies a null-terminated string that specifies the typeface name of the font. The length of this string must not exceed 32 characters, including the terminating null character. The <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-enumfontfamiliesa">EnumFontFamilies</a> function can be used to enumerate the typeface names of all currently available fonts. If <b>lfFaceName</b> is an empty string, GDI uses the first font that matches the other specified attributes.
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    lfFaceName{
-        get {
-            if(!this.HasProp("__lfFaceNameProxyArray"))
-                this.__lfFaceNameProxyArray := Win32FixedArray(this.ptr + 28, 32, Primitive, "char")
-            return this.__lfFaceNameProxyArray
-        }
+    lfFaceName {
+        get => StrGet(this.ptr + 28, 31, "UTF-8")
+        set => StrPut(value, this.ptr + 28, 31, "UTF-8")
     }
 }

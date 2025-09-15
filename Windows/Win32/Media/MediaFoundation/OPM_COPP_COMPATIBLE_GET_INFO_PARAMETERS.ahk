@@ -14,7 +14,7 @@ class OPM_COPP_COMPATIBLE_GET_INFO_PARAMETERS extends Win32Struct
 {
     static sizeof => 4088
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * An <a href="https://docs.microsoft.com/windows/desktop/api/ksopmapi/ns-ksopmapi-opm_random_number">OPM_RANDOM_NUMBER</a> structure that contains a cryptographically secure 128-bit random number.

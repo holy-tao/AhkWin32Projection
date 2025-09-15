@@ -11,9 +11,9 @@
  */
 class MINIDUMP_THREAD_CALLBACK extends Win32Struct
 {
-    static sizeof => 688
+    static sizeof => 696
 
-    static packingSize => 4
+    static packingSize => 8
 
     /**
      * The identifier of the thread.
@@ -29,8 +29,8 @@ class MINIDUMP_THREAD_CALLBACK extends Win32Struct
      * @type {Pointer<HANDLE>}
      */
     ThreadHandle {
-        get => NumGet(this, 4, "ptr")
-        set => NumPut("ptr", value, this, 4)
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -41,7 +41,7 @@ class MINIDUMP_THREAD_CALLBACK extends Win32Struct
     Context{
         get {
             if(!this.HasProp("__Context"))
-                this.__Context := CONTEXT(this.ptr + 12)
+                this.__Context := CONTEXT(this.ptr + 16)
             return this.__Context
         }
     }
@@ -51,8 +51,8 @@ class MINIDUMP_THREAD_CALLBACK extends Win32Struct
      * @type {Integer}
      */
     SizeOfContext {
-        get => NumGet(this, 668, "uint")
-        set => NumPut("uint", value, this, 668)
+        get => NumGet(this, 672, "uint")
+        set => NumPut("uint", value, this, 672)
     }
 
     /**
@@ -60,8 +60,8 @@ class MINIDUMP_THREAD_CALLBACK extends Win32Struct
      * @type {Integer}
      */
     StackBase {
-        get => NumGet(this, 672, "uint")
-        set => NumPut("uint", value, this, 672)
+        get => NumGet(this, 680, "uint")
+        set => NumPut("uint", value, this, 680)
     }
 
     /**
@@ -69,7 +69,7 @@ class MINIDUMP_THREAD_CALLBACK extends Win32Struct
      * @type {Integer}
      */
     StackEnd {
-        get => NumGet(this, 680, "uint")
-        set => NumPut("uint", value, this, 680)
+        get => NumGet(this, 688, "uint")
+        set => NumPut("uint", value, this, 688)
     }
 }

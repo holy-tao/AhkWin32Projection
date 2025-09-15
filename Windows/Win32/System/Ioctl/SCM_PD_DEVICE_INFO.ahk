@@ -183,13 +183,10 @@ class SCM_PD_DEVICE_INFO extends Win32Struct
     }
 
     /**
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    SerialNumber{
-        get {
-            if(!this.HasProp("__SerialNumberProxyArray"))
-                this.__SerialNumberProxyArray := Win32FixedArray(this.ptr + 104, 1, Primitive, "char")
-            return this.__SerialNumberProxyArray
-        }
+    SerialNumber {
+        get => StrGet(this.ptr + 104, 0, "UTF-16")
+        set => StrPut(value, this.ptr + 104, 0, "UTF-16")
     }
 }

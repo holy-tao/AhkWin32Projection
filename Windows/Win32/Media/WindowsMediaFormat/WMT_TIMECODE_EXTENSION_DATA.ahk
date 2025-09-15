@@ -15,9 +15,9 @@
  */
 class WMT_TIMECODE_EXTENSION_DATA extends Win32Struct
 {
-    static sizeof => 14
+    static sizeof => 16
 
-    static packingSize => 2
+    static packingSize => 4
 
     /**
      * <b>WORD</b> specifying the range to which the time code belongs. See Remarks.
@@ -33,8 +33,8 @@ class WMT_TIMECODE_EXTENSION_DATA extends Win32Struct
      * @type {Integer}
      */
     dwTimecode {
-        get => NumGet(this, 2, "uint")
-        set => NumPut("uint", value, this, 2)
+        get => NumGet(this, 4, "uint")
+        set => NumPut("uint", value, this, 4)
     }
 
     /**
@@ -42,8 +42,8 @@ class WMT_TIMECODE_EXTENSION_DATA extends Win32Struct
      * @type {Integer}
      */
     dwUserbits {
-        get => NumGet(this, 6, "uint")
-        set => NumPut("uint", value, this, 6)
+        get => NumGet(this, 8, "uint")
+        set => NumPut("uint", value, this, 8)
     }
 
     /**
@@ -51,7 +51,7 @@ class WMT_TIMECODE_EXTENSION_DATA extends Win32Struct
      * @type {Integer}
      */
     dwAmFlags {
-        get => NumGet(this, 10, "uint")
-        set => NumPut("uint", value, this, 10)
+        get => NumGet(this, 12, "uint")
+        set => NumPut("uint", value, this, 12)
     }
 }

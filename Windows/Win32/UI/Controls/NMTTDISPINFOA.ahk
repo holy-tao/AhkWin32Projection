@@ -53,14 +53,11 @@ class NMTTDISPINFOA extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">TCHAR</a></b>
      * 
      * Buffer that receives the tooltip text. An application can copy the text to this buffer instead of specifying a string address or string resource. For tooltip text that exceeds 80 <b>TCHAR</b><b>s</b>, see comments in the remarks section of this document.
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    szText{
-        get {
-            if(!this.HasProp("__szTextProxyArray"))
-                this.__szTextProxyArray := Win32FixedArray(this.ptr + 32, 80, Primitive, "char")
-            return this.__szTextProxyArray
-        }
+    szText {
+        get => StrGet(this.ptr + 32, 79, "UTF-8")
+        set => StrPut(value, this.ptr + 32, 79, "UTF-8")
     }
 
     /**

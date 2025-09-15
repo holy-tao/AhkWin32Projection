@@ -104,28 +104,22 @@ class ICONINFOEXA extends Win32Struct
      * Type: <b>TCHAR[MAX_PATH]</b>
      * 
      * The fully qualified path of the module.
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    szModName{
-        get {
-            if(!this.HasProp("__szModNameProxyArray"))
-                this.__szModNameProxyArray := Win32FixedArray(this.ptr + 34, 260, Primitive, "char")
-            return this.__szModNameProxyArray
-        }
+    szModName {
+        get => StrGet(this.ptr + 34, 259, "UTF-8")
+        set => StrPut(value, this.ptr + 34, 259, "UTF-8")
     }
 
     /**
      * Type: <b>TCHAR[MAX_PATH]</b>
      * 
      * The fully qualified path of the resource.
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    szResName{
-        get {
-            if(!this.HasProp("__szResNameProxyArray"))
-                this.__szResNameProxyArray := Win32FixedArray(this.ptr + 294, 260, Primitive, "char")
-            return this.__szResNameProxyArray
-        }
+    szResName {
+        get => StrGet(this.ptr + 294, 259, "UTF-8")
+        set => StrPut(value, this.ptr + 294, 259, "UTF-8")
     }
 
     /**

@@ -13,7 +13,7 @@ class WINHTTP_PROXY_SETTINGS_PARAM extends Win32Struct
 {
     static sizeof => 24
 
-    static packingSize => 4
+    static packingSize => 8
 
     /**
      * Type: **[ULONGLONG](/windows/win32/winprog/windows-data-types)**

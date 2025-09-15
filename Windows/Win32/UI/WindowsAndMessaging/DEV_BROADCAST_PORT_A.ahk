@@ -50,13 +50,10 @@ class DEV_BROADCAST_PORT_A extends Win32Struct
      * A null-terminated string specifying the friendly name of the port or the device connected to the port. 
      *       Friendly names are intended to help the user quickly and accurately identify the device—for example, 
      *       "COM1" and "Standard 28800 bps Modem" are considered friendly names.
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    dbcp_name{
-        get {
-            if(!this.HasProp("__dbcp_nameProxyArray"))
-                this.__dbcp_nameProxyArray := Win32FixedArray(this.ptr + 12, 1, Primitive, "char")
-            return this.__dbcp_nameProxyArray
-        }
+    dbcp_name {
+        get => StrGet(this.ptr + 12, 0, "UTF-8")
+        set => StrPut(value, this.ptr + 12, 0, "UTF-8")
     }
 }

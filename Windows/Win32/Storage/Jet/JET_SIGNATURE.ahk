@@ -10,9 +10,9 @@
  */
 class JET_SIGNATURE extends Win32Struct
 {
-    static sizeof => 28
+    static sizeof => 48
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * @type {Integer}
@@ -28,19 +28,16 @@ class JET_SIGNATURE extends Win32Struct
     logtimeCreate{
         get {
             if(!this.HasProp("__logtimeCreate"))
-                this.__logtimeCreate := JET_LOGTIME(this.ptr + 4)
+                this.__logtimeCreate := JET_LOGTIME(this.ptr + 8)
             return this.__logtimeCreate
         }
     }
 
     /**
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    szComputerName{
-        get {
-            if(!this.HasProp("__szComputerNameProxyArray"))
-                this.__szComputerNameProxyArray := Win32FixedArray(this.ptr + 12, 16, Primitive, "char")
-            return this.__szComputerNameProxyArray
-        }
+    szComputerName {
+        get => StrGet(this.ptr + 16, 15, "UTF-16")
+        set => StrPut(value, this.ptr + 16, 15, "UTF-16")
     }
 }

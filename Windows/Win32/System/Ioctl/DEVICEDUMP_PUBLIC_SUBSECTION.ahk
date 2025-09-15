@@ -8,9 +8,9 @@
  */
 class DEVICEDUMP_PUBLIC_SUBSECTION extends Win32Struct
 {
-    static sizeof => 149
+    static sizeof => 176
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * @type {Integer}
@@ -26,20 +26,17 @@ class DEVICEDUMP_PUBLIC_SUBSECTION extends Win32Struct
     GPLogTable{
         get {
             if(!this.HasProp("__GPLogTableProxyArray"))
-                this.__GPLogTableProxyArray := Win32FixedArray(this.ptr + 4, 16, GP_LOG_PAGE_DESCRIPTOR, "")
+                this.__GPLogTableProxyArray := Win32FixedArray(this.ptr + 8, 16, GP_LOG_PAGE_DESCRIPTOR, "")
             return this.__GPLogTableProxyArray
         }
     }
 
     /**
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    szDescription{
-        get {
-            if(!this.HasProp("__szDescriptionProxyArray"))
-                this.__szDescriptionProxyArray := Win32FixedArray(this.ptr + 132, 16, Primitive, "char")
-            return this.__szDescriptionProxyArray
-        }
+    szDescription {
+        get => StrGet(this.ptr + 136, 15, "UTF-16")
+        set => StrPut(value, this.ptr + 136, 15, "UTF-16")
     }
 
     /**
@@ -48,7 +45,7 @@ class DEVICEDUMP_PUBLIC_SUBSECTION extends Win32Struct
     bData{
         get {
             if(!this.HasProp("__bDataProxyArray"))
-                this.__bDataProxyArray := Win32FixedArray(this.ptr + 148, 1, Primitive, "char")
+                this.__bDataProxyArray := Win32FixedArray(this.ptr + 168, 1, Primitive, "char")
             return this.__bDataProxyArray
         }
     }

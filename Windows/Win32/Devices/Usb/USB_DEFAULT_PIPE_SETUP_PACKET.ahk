@@ -8,9 +8,9 @@
  */
 class USB_DEFAULT_PIPE_SETUP_PACKET extends Win32Struct
 {
-    static sizeof => 13
+    static sizeof => 16
 
-    static packingSize => 1
+    static packingSize => 4
 
     /**
      * @type {BM_REQUEST_TYPE}
@@ -35,14 +35,6 @@ class USB_DEFAULT_PIPE_SETUP_PACKET extends Win32Struct
      * @type {Integer}
      */
     LowByte {
-        get => NumGet(this, 3, "char")
-        set => NumPut("char", value, this, 3)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    HiByte {
         get => NumGet(this, 4, "char")
         set => NumPut("char", value, this, 4)
     }
@@ -50,16 +42,24 @@ class USB_DEFAULT_PIPE_SETUP_PACKET extends Win32Struct
     /**
      * @type {Integer}
      */
+    HiByte {
+        get => NumGet(this, 5, "char")
+        set => NumPut("char", value, this, 5)
+    }
+
+    /**
+     * @type {Integer}
+     */
     W {
-        get => NumGet(this, 3, "ushort")
-        set => NumPut("ushort", value, this, 3)
+        get => NumGet(this, 4, "ushort")
+        set => NumPut("ushort", value, this, 4)
     }
 
     /**
      * @type {Integer}
      */
     wLength {
-        get => NumGet(this, 11, "ushort")
-        set => NumPut("ushort", value, this, 11)
+        get => NumGet(this, 12, "ushort")
+        set => NumPut("ushort", value, this, 12)
     }
 }

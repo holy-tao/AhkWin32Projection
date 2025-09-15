@@ -13,7 +13,7 @@ class MINIDUMP_THREAD extends Win32Struct
 {
     static sizeof => 48
 
-    static packingSize => 4
+    static packingSize => 8
 
     /**
      * The identifier of the thread.

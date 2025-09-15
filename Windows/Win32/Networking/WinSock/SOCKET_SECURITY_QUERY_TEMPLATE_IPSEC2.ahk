@@ -8,7 +8,7 @@
  */
 class SOCKET_SECURITY_QUERY_TEMPLATE_IPSEC2 extends Win32Struct
 {
-    static sizeof => 152
+    static sizeof => 272
 
     static packingSize => 8
 
@@ -35,23 +35,23 @@ class SOCKET_SECURITY_QUERY_TEMPLATE_IPSEC2 extends Win32Struct
      * @type {Integer}
      */
     PeerTokenAccessMask {
-        get => NumGet(this, 136, "uint")
-        set => NumPut("uint", value, this, 136)
+        get => NumGet(this, 256, "uint")
+        set => NumPut("uint", value, this, 256)
     }
 
     /**
      * @type {Integer}
      */
     Flags {
-        get => NumGet(this, 140, "uint")
-        set => NumPut("uint", value, this, 140)
+        get => NumGet(this, 260, "uint")
+        set => NumPut("uint", value, this, 260)
     }
 
     /**
      * @type {Integer}
      */
     FieldMask {
-        get => NumGet(this, 144, "uint")
-        set => NumPut("uint", value, this, 144)
+        get => NumGet(this, 264, "uint")
+        set => NumPut("uint", value, this, 264)
     }
 }

@@ -10,9 +10,9 @@
  */
 class DBPROPINFO extends Win32Struct
 {
-    static sizeof => 34
+    static sizeof => 40
 
-    static packingSize => 2
+    static packingSize => 8
 
     /**
      * @type {Pointer<PWSTR>}
@@ -52,7 +52,7 @@ class DBPROPINFO extends Win32Struct
     vValues{
         get {
             if(!this.HasProp("__vValues"))
-                this.__vValues := VARIANT(this.ptr + 18)
+                this.__vValues := VARIANT(this.ptr + 24)
             return this.__vValues
         }
     }

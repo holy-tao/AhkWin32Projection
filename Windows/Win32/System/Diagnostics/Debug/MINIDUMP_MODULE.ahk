@@ -11,9 +11,9 @@
  */
 class MINIDUMP_MODULE extends Win32Struct
 {
-    static sizeof => 108
+    static sizeof => 112
 
-    static packingSize => 4
+    static packingSize => 8
 
     /**
      * The base address of the module executable image in memory.
@@ -81,7 +81,7 @@ class MINIDUMP_MODULE extends Win32Struct
     CvRecord{
         get {
             if(!this.HasProp("__CvRecord"))
-                this.__CvRecord := MINIDUMP_LOCATION_DESCRIPTOR(this.ptr + 76)
+                this.__CvRecord := MINIDUMP_LOCATION_DESCRIPTOR(this.ptr + 80)
             return this.__CvRecord
         }
     }
@@ -93,7 +93,7 @@ class MINIDUMP_MODULE extends Win32Struct
     MiscRecord{
         get {
             if(!this.HasProp("__MiscRecord"))
-                this.__MiscRecord := MINIDUMP_LOCATION_DESCRIPTOR(this.ptr + 84)
+                this.__MiscRecord := MINIDUMP_LOCATION_DESCRIPTOR(this.ptr + 88)
             return this.__MiscRecord
         }
     }
@@ -103,8 +103,8 @@ class MINIDUMP_MODULE extends Win32Struct
      * @type {Integer}
      */
     Reserved0 {
-        get => NumGet(this, 92, "uint")
-        set => NumPut("uint", value, this, 92)
+        get => NumGet(this, 96, "uint")
+        set => NumPut("uint", value, this, 96)
     }
 
     /**
@@ -112,7 +112,7 @@ class MINIDUMP_MODULE extends Win32Struct
      * @type {Integer}
      */
     Reserved1 {
-        get => NumGet(this, 100, "uint")
-        set => NumPut("uint", value, this, 100)
+        get => NumGet(this, 104, "uint")
+        set => NumPut("uint", value, this, 104)
     }
 }

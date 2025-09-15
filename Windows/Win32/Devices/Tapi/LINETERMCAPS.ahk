@@ -13,7 +13,7 @@ class LINETERMCAPS extends Win32Struct
 {
     static sizeof => 12
 
-    static packingSize => 1
+    static packingSize => 4
 
     /**
      * Device type of the terminal. This member uses one of the 

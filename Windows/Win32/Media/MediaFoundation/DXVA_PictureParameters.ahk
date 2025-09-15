@@ -9,7 +9,7 @@ class DXVA_PictureParameters extends Win32Struct
 {
     static sizeof => 44
 
-    static packingSize => 1
+    static packingSize => 2
 
     /**
      * @type {Integer}

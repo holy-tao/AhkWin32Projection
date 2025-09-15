@@ -18,7 +18,7 @@ class XAUDIO2FX_REVERB_I3DL2_PARAMETERS extends Win32Struct
 {
     static sizeof => 52
 
-    static packingSize => 1
+    static packingSize => 4
 
     /**
      * Percentage of the output that will be reverb. Allowable values are from 0 to 100.

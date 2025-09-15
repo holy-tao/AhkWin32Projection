@@ -27,14 +27,11 @@ class PERSISTENT_ISCSI_LOGIN_INFOA extends Win32Struct
 
     /**
      * A string representing the name of the target the initiator will login to.
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    TargetName{
-        get {
-            if(!this.HasProp("__TargetNameProxyArray"))
-                this.__TargetNameProxyArray := Win32FixedArray(this.ptr + 0, 224, Primitive, "char")
-            return this.__TargetNameProxyArray
-        }
+    TargetName {
+        get => StrGet(this.ptr + 0, 223, "UTF-8")
+        set => StrPut(value, this.ptr + 0, 223, "UTF-8")
     }
 
     /**
@@ -52,14 +49,11 @@ class PERSISTENT_ISCSI_LOGIN_INFOA extends Win32Struct
 
     /**
      * A string representing the name of the initiator used to login to the target.
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    InitiatorInstance{
-        get {
-            if(!this.HasProp("__InitiatorInstanceProxyArray"))
-                this.__InitiatorInstanceProxyArray := Win32FixedArray(this.ptr + 225, 256, Primitive, "char")
-            return this.__InitiatorInstanceProxyArray
-        }
+    InitiatorInstance {
+        get => StrGet(this.ptr + 225, 255, "UTF-8")
+        set => StrPut(value, this.ptr + 225, 255, "UTF-8")
     }
 
     /**

@@ -12,9 +12,9 @@
  */
 class MCI_DGV_PASTE_PARMS extends Win32Struct
 {
-    static sizeof => 36
+    static sizeof => 40
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * The low-order word specifies a window handle used for the MCI_NOTIFY flag.
@@ -41,7 +41,7 @@ class MCI_DGV_PASTE_PARMS extends Win32Struct
     rc{
         get {
             if(!this.HasProp("__rc"))
-                this.__rc := RECT(this.ptr + 12)
+                this.__rc := RECT(this.ptr + 16)
             return this.__rc
         }
     }
@@ -51,8 +51,8 @@ class MCI_DGV_PASTE_PARMS extends Win32Struct
      * @type {Integer}
      */
     dwAudioStream {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
+        get => NumGet(this, 32, "uint")
+        set => NumPut("uint", value, this, 32)
     }
 
     /**
@@ -60,7 +60,7 @@ class MCI_DGV_PASTE_PARMS extends Win32Struct
      * @type {Integer}
      */
     dwVideoStream {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
+        get => NumGet(this, 36, "uint")
+        set => NumPut("uint", value, this, 36)
     }
 }

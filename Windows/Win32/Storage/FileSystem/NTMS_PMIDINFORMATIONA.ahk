@@ -81,14 +81,11 @@ class NTMS_PMIDINFORMATIONA extends Win32Struct
 
     /**
      * String that matches the bar-code value on a bar-code label of a piece of physical media.
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    szBarCode{
-        get {
-            if(!this.HasProp("__szBarCodeProxyArray"))
-                this.__szBarCodeProxyArray := Win32FixedArray(this.ptr + 48, 64, Primitive, "char")
-            return this.__szBarCodeProxyArray
-        }
+    szBarCode {
+        get => StrGet(this.ptr + 48, 63, "UTF-8")
+        set => StrPut(value, this.ptr + 48, 63, "UTF-8")
     }
 
     /**
@@ -102,14 +99,11 @@ class NTMS_PMIDINFORMATIONA extends Win32Struct
 
     /**
      * Sequential number assigned to the specified medium as a human-readable value that must be transcribed by a user on the medium so that the medium can be located in an offline library.
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    szSequenceNumber{
-        get {
-            if(!this.HasProp("__szSequenceNumberProxyArray"))
-                this.__szSequenceNumberProxyArray := Win32FixedArray(this.ptr + 116, 32, Primitive, "char")
-            return this.__szSequenceNumberProxyArray
-        }
+    szSequenceNumber {
+        get => StrGet(this.ptr + 116, 31, "UTF-8")
+        set => StrPut(value, this.ptr + 116, 31, "UTF-8")
     }
 
     /**

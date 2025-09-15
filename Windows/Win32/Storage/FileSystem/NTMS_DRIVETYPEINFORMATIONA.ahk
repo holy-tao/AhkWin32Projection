@@ -27,26 +27,20 @@ class NTMS_DRIVETYPEINFORMATIONA extends Win32Struct
 
     /**
      * Name of the vendor of the drive. This is acquired directly from the device inquiry data.
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    szVendor{
-        get {
-            if(!this.HasProp("__szVendorProxyArray"))
-                this.__szVendorProxyArray := Win32FixedArray(this.ptr + 0, 128, Primitive, "char")
-            return this.__szVendorProxyArray
-        }
+    szVendor {
+        get => StrGet(this.ptr + 0, 127, "UTF-8")
+        set => StrPut(value, this.ptr + 0, 127, "UTF-8")
     }
 
     /**
      * Name of the product of the drive. This is acquired directly from the device inquiry data.
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    szProduct{
-        get {
-            if(!this.HasProp("__szProductProxyArray"))
-                this.__szProductProxyArray := Win32FixedArray(this.ptr + 128, 128, Primitive, "char")
-            return this.__szProductProxyArray
-        }
+    szProduct {
+        get => StrGet(this.ptr + 128, 127, "UTF-8")
+        set => StrPut(value, this.ptr + 128, 127, "UTF-8")
     }
 
     /**

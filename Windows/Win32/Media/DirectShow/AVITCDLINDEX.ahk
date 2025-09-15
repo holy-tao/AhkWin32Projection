@@ -11,7 +11,7 @@ class AVITCDLINDEX extends Win32Struct
 {
     static sizeof => 18752
 
-    static packingSize => 2
+    static packingSize => 8
 
     /**
      * @type {Integer}

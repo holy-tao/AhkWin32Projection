@@ -20,38 +20,29 @@ class ISCSI_TARGET_MAPPINGA extends Win32Struct
 
     /**
      * A string representing the name of the HBA initiator through which the target is accessed.
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    InitiatorName{
-        get {
-            if(!this.HasProp("__InitiatorNameProxyArray"))
-                this.__InitiatorNameProxyArray := Win32FixedArray(this.ptr + 0, 256, Primitive, "char")
-            return this.__InitiatorNameProxyArray
-        }
+    InitiatorName {
+        get => StrGet(this.ptr + 0, 255, "UTF-8")
+        set => StrPut(value, this.ptr + 0, 255, "UTF-8")
     }
 
     /**
      * A string representing the target name.
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    TargetName{
-        get {
-            if(!this.HasProp("__TargetNameProxyArray"))
-                this.__TargetNameProxyArray := Win32FixedArray(this.ptr + 256, 224, Primitive, "char")
-            return this.__TargetNameProxyArray
-        }
+    TargetName {
+        get => StrGet(this.ptr + 256, 223, "UTF-8")
+        set => StrPut(value, this.ptr + 256, 223, "UTF-8")
     }
 
     /**
      * A string representing the device name of the HBA initiator; for example '<b>\device\ScsiPort3</b>'.
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    OSDeviceName{
-        get {
-            if(!this.HasProp("__OSDeviceNameProxyArray"))
-                this.__OSDeviceNameProxyArray := Win32FixedArray(this.ptr + 480, 260, Primitive, "char")
-            return this.__OSDeviceNameProxyArray
-        }
+    OSDeviceName {
+        get => StrGet(this.ptr + 480, 259, "UTF-8")
+        set => StrPut(value, this.ptr + 480, 259, "UTF-8")
     }
 
     /**

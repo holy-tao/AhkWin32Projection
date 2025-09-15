@@ -37,14 +37,11 @@ class CABINFOA extends Win32Struct
     }
 
     /**
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    szSrcPath{
-        get {
-            if(!this.HasProp("__szSrcPathProxyArray"))
-                this.__szSrcPathProxyArray := Win32FixedArray(this.ptr + 24, 260, Primitive, "char")
-            return this.__szSrcPathProxyArray
-        }
+    szSrcPath {
+        get => StrGet(this.ptr + 24, 259, "UTF-8")
+        set => StrPut(value, this.ptr + 24, 259, "UTF-8")
     }
 
     /**

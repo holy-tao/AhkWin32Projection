@@ -9,9 +9,9 @@
  */
 class HCD_STAT_INFORMATION_2 extends Win32Struct
 {
-    static sizeof => 120
+    static sizeof => 128
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * @type {Integer}
@@ -41,16 +41,16 @@ class HCD_STAT_INFORMATION_2 extends Win32Struct
      * @type {Integer}
      */
     TimeRead {
-        get => NumGet(this, 12, "int64")
-        set => NumPut("int64", value, this, 12)
+        get => NumGet(this, 16, "int64")
+        set => NumPut("int64", value, this, 16)
     }
 
     /**
      * @type {Integer}
      */
     LockedMemoryUsed {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
+        get => NumGet(this, 24, "int")
+        set => NumPut("int", value, this, 24)
     }
 
     /**
@@ -59,7 +59,7 @@ class HCD_STAT_INFORMATION_2 extends Win32Struct
     Counters{
         get {
             if(!this.HasProp("__Counters"))
-                this.__Counters := HCD_STAT_COUNTERS(this.ptr + 24)
+                this.__Counters := HCD_STAT_COUNTERS(this.ptr + 32)
             return this.__Counters
         }
     }
@@ -70,7 +70,7 @@ class HCD_STAT_INFORMATION_2 extends Win32Struct
     IsoCounters{
         get {
             if(!this.HasProp("__IsoCounters"))
-                this.__IsoCounters := HCD_ISO_STAT_COUNTERS(this.ptr + 48)
+                this.__IsoCounters := HCD_ISO_STAT_COUNTERS(this.ptr + 56)
             return this.__IsoCounters
         }
     }

@@ -7,9 +7,9 @@
  */
 class USB_HUB_DESCRIPTOR extends Win32Struct
 {
-    static sizeof => 71
+    static sizeof => 72
 
-    static packingSize => 1
+    static packingSize => 2
 
     /**
      * @type {Integer}
@@ -39,24 +39,24 @@ class USB_HUB_DESCRIPTOR extends Win32Struct
      * @type {Integer}
      */
     wHubCharacteristics {
-        get => NumGet(this, 3, "ushort")
-        set => NumPut("ushort", value, this, 3)
+        get => NumGet(this, 4, "ushort")
+        set => NumPut("ushort", value, this, 4)
     }
 
     /**
      * @type {Integer}
      */
     bPowerOnToPowerGood {
-        get => NumGet(this, 5, "char")
-        set => NumPut("char", value, this, 5)
+        get => NumGet(this, 6, "char")
+        set => NumPut("char", value, this, 6)
     }
 
     /**
      * @type {Integer}
      */
     bHubControlCurrent {
-        get => NumGet(this, 6, "char")
-        set => NumPut("char", value, this, 6)
+        get => NumGet(this, 7, "char")
+        set => NumPut("char", value, this, 7)
     }
 
     /**
@@ -65,7 +65,7 @@ class USB_HUB_DESCRIPTOR extends Win32Struct
     bRemoveAndPowerMask{
         get {
             if(!this.HasProp("__bRemoveAndPowerMaskProxyArray"))
-                this.__bRemoveAndPowerMaskProxyArray := Win32FixedArray(this.ptr + 7, 64, Primitive, "char")
+                this.__bRemoveAndPowerMaskProxyArray := Win32FixedArray(this.ptr + 8, 64, Primitive, "char")
             return this.__bRemoveAndPowerMaskProxyArray
         }
     }

@@ -7,9 +7,9 @@
  */
 class WMDRMProtectionInfo extends Win32Struct
 {
-    static sizeof => 67
+    static sizeof => 80
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * @type {Array<UInt16>}
@@ -26,23 +26,23 @@ class WMDRMProtectionInfo extends Win32Struct
      * @type {Integer}
      */
     qwCounter {
-        get => NumGet(this, 50, "uint")
-        set => NumPut("uint", value, this, 50)
+        get => NumGet(this, 56, "uint")
+        set => NumPut("uint", value, this, 56)
     }
 
     /**
      * @type {Integer}
      */
     qwIndex {
-        get => NumGet(this, 58, "uint")
-        set => NumPut("uint", value, this, 58)
+        get => NumGet(this, 64, "uint")
+        set => NumPut("uint", value, this, 64)
     }
 
     /**
      * @type {Integer}
      */
     bOffset {
-        get => NumGet(this, 66, "char")
-        set => NumPut("char", value, this, 66)
+        get => NumGet(this, 72, "char")
+        set => NumPut("char", value, this, 72)
     }
 }

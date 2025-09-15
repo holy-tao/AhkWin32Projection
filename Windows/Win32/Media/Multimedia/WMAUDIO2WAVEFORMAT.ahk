@@ -8,9 +8,9 @@
  */
 class WMAUDIO2WAVEFORMAT extends Win32Struct
 {
-    static sizeof => 28
+    static sizeof => 32
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * @type {WAVEFORMATEX}
@@ -27,23 +27,23 @@ class WMAUDIO2WAVEFORMAT extends Win32Struct
      * @type {Integer}
      */
     dwSamplesPerBlock {
-        get => NumGet(this, 18, "uint")
-        set => NumPut("uint", value, this, 18)
+        get => NumGet(this, 20, "uint")
+        set => NumPut("uint", value, this, 20)
     }
 
     /**
      * @type {Integer}
      */
     wEncodeOptions {
-        get => NumGet(this, 22, "ushort")
-        set => NumPut("ushort", value, this, 22)
+        get => NumGet(this, 24, "ushort")
+        set => NumPut("ushort", value, this, 24)
     }
 
     /**
      * @type {Integer}
      */
     dwSuperBlockAlign {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+        get => NumGet(this, 28, "uint")
+        set => NumPut("uint", value, this, 28)
     }
 }

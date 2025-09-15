@@ -8,9 +8,9 @@
  */
 class IMEDP extends Win32Struct
 {
-    static sizeof => 92
+    static sizeof => 104
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * @type {IMEWRD}
@@ -29,7 +29,7 @@ class IMEDP extends Win32Struct
     wrdModifiee{
         get {
             if(!this.HasProp("__wrdModifiee"))
-                this.__wrdModifiee := IMEWRD(this.ptr + 44)
+                this.__wrdModifiee := IMEWRD(this.ptr + 48)
             return this.__wrdModifiee
         }
     }
@@ -38,7 +38,7 @@ class IMEDP extends Win32Struct
      * @type {Integer}
      */
     relID {
-        get => NumGet(this, 88, "int")
-        set => NumPut("int", value, this, 88)
+        get => NumGet(this, 96, "int")
+        set => NumPut("int", value, this, 96)
     }
 }

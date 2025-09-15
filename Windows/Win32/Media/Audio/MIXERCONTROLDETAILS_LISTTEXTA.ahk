@@ -33,7 +33,7 @@ class MIXERCONTROLDETAILS_LISTTEXTA extends Win32Struct
 {
     static sizeof => 72
 
-    static packingSize => 1
+    static packingSize => 4
 
     /**
      * Control class-specific values. The following control types are listed with their corresponding values:
@@ -61,13 +61,10 @@ class MIXERCONTROLDETAILS_LISTTEXTA extends Win32Struct
 
     /**
      * Name describing a single item in a multiple-item control. This text can be used as a label or item text, depending on the control class.
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    szName{
-        get {
-            if(!this.HasProp("__szNameProxyArray"))
-                this.__szNameProxyArray := Win32FixedArray(this.ptr + 8, 64, Primitive, "char")
-            return this.__szNameProxyArray
-        }
+    szName {
+        get => StrGet(this.ptr + 8, 63, "UTF-8")
+        set => StrPut(value, this.ptr + 8, 63, "UTF-8")
     }
 }

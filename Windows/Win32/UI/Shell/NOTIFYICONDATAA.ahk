@@ -22,9 +22,9 @@
  */
 class NOTIFYICONDATAA extends Win32Struct
 {
-    static sizeof => 512
+    static sizeof => 520
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * Type: <b>DWORD</b>
@@ -44,8 +44,8 @@ class NOTIFYICONDATAA extends Win32Struct
      * @type {Pointer<HWND>}
      */
     hWnd {
-        get => NumGet(this, 4, "ptr")
-        set => NumPut("ptr", value, this, 4)
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -55,8 +55,8 @@ class NOTIFYICONDATAA extends Win32Struct
      * @type {Integer}
      */
     uID {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
+        get => NumGet(this, 16, "uint")
+        set => NumPut("uint", value, this, 16)
     }
 
     /**
@@ -64,8 +64,8 @@ class NOTIFYICONDATAA extends Win32Struct
      * @type {Integer}
      */
     uFlags {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+        get => NumGet(this, 20, "uint")
+        set => NumPut("uint", value, this, 20)
     }
 
     /**
@@ -92,8 +92,8 @@ class NOTIFYICONDATAA extends Win32Struct
      * @type {Integer}
      */
     uCallbackMessage {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
     }
 
     /**
@@ -105,8 +105,8 @@ class NOTIFYICONDATAA extends Win32Struct
      * @type {Pointer<HICON>}
      */
     hIcon {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
@@ -117,14 +117,11 @@ class NOTIFYICONDATAA extends Win32Struct
      * 
      * 
      * For Windows 2000 and later, <b>szTip</b> can have a maximum of 128 characters, including the terminating null character.
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    szTip{
-        get {
-            if(!this.HasProp("__szTipProxyArray"))
-                this.__szTipProxyArray := Win32FixedArray(this.ptr + 32, 128, Primitive, "char")
-            return this.__szTipProxyArray
-        }
+    szTip {
+        get => StrGet(this.ptr + 40, 127, "UTF-8")
+        set => StrPut(value, this.ptr + 40, 127, "UTF-8")
     }
 
     /**
@@ -132,8 +129,8 @@ class NOTIFYICONDATAA extends Win32Struct
      * @type {Integer}
      */
     dwState {
-        get => NumGet(this, 160, "uint")
-        set => NumPut("uint", value, this, 160)
+        get => NumGet(this, 168, "uint")
+        set => NumPut("uint", value, this, 168)
     }
 
     /**
@@ -143,52 +140,46 @@ class NOTIFYICONDATAA extends Win32Struct
      * @type {Integer}
      */
     dwStateMask {
-        get => NumGet(this, 164, "uint")
-        set => NumPut("uint", value, this, 164)
+        get => NumGet(this, 172, "uint")
+        set => NumPut("uint", value, this, 172)
     }
 
     /**
      * Type: <b>TCHAR[256]</b>
      * 
      * <b>Windows 2000 and later</b>. A null-terminated string that specifies the text to display in a balloon notification. It can have a maximum of 256 characters, including the terminating null character, but should be restricted to 200 characters in English to accommodate localization. To remove the balloon notification from the UI, either delete the icon (with <a href="https://docs.microsoft.com/windows/desktop/api/shellapi/nf-shellapi-shell_notifyicona">NIM_DELETE</a>) or set the <b>NIF_INFO</b> flag in <b>uFlags</b> and set <b>szInfo</b> to an empty string.
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    szInfo{
-        get {
-            if(!this.HasProp("__szInfoProxyArray"))
-                this.__szInfoProxyArray := Win32FixedArray(this.ptr + 168, 256, Primitive, "char")
-            return this.__szInfoProxyArray
-        }
+    szInfo {
+        get => StrGet(this.ptr + 176, 255, "UTF-8")
+        set => StrPut(value, this.ptr + 176, 255, "UTF-8")
     }
 
     /**
      * @type {Integer}
      */
     uTimeout {
-        get => NumGet(this, 424, "uint")
-        set => NumPut("uint", value, this, 424)
+        get => NumGet(this, 432, "uint")
+        set => NumPut("uint", value, this, 432)
     }
 
     /**
      * @type {Integer}
      */
     uVersion {
-        get => NumGet(this, 424, "uint")
-        set => NumPut("uint", value, this, 424)
+        get => NumGet(this, 432, "uint")
+        set => NumPut("uint", value, this, 432)
     }
 
     /**
      * Type: <b>TCHAR[64]</b>
      * 
      * <b>Windows 2000 and later</b>. A null-terminated string that specifies a title for a balloon notification. This title appears in a larger font immediately above the text. It can have a maximum of 64 characters, including the terminating null character, but should be restricted to 48 characters in English to accommodate localization.
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    szInfoTitle{
-        get {
-            if(!this.HasProp("__szInfoTitleProxyArray"))
-                this.__szInfoTitleProxyArray := Win32FixedArray(this.ptr + 428, 64, Primitive, "char")
-            return this.__szInfoTitleProxyArray
-        }
+    szInfoTitle {
+        get => StrGet(this.ptr + 436, 63, "UTF-8")
+        set => StrPut(value, this.ptr + 436, 63, "UTF-8")
     }
 
     /**
@@ -198,8 +189,8 @@ class NOTIFYICONDATAA extends Win32Struct
      * @type {Integer}
      */
     dwInfoFlags {
-        get => NumGet(this, 492, "uint")
-        set => NumPut("uint", value, this, 492)
+        get => NumGet(this, 500, "uint")
+        set => NumPut("uint", value, this, 500)
     }
 
     /**
@@ -221,8 +212,8 @@ class NOTIFYICONDATAA extends Win32Struct
      * @type {Pointer<Guid>}
      */
     guidItem {
-        get => NumGet(this, 496, "ptr")
-        set => NumPut("ptr", value, this, 496)
+        get => NumGet(this, 504, "ptr")
+        set => NumPut("ptr", value, this, 504)
     }
 
     /**
@@ -232,8 +223,8 @@ class NOTIFYICONDATAA extends Win32Struct
      * @type {Pointer<HICON>}
      */
     hBalloonIcon {
-        get => NumGet(this, 504, "ptr")
-        set => NumPut("ptr", value, this, 504)
+        get => NumGet(this, 512, "ptr")
+        set => NumPut("ptr", value, this, 512)
     }
 
     /**
@@ -242,6 +233,6 @@ class NOTIFYICONDATAA extends Win32Struct
      */
     __New(ptr := 0){
         super.__New(ptr)
-        this.cbSize := 512
+        this.cbSize := 520
     }
 }

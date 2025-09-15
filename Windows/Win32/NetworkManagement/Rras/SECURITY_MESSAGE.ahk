@@ -9,7 +9,7 @@
  */
 class SECURITY_MESSAGE extends Win32Struct
 {
-    static sizeof => 296
+    static sizeof => 568
 
     static packingSize => 8
 
@@ -43,25 +43,19 @@ class SECURITY_MESSAGE extends Win32Struct
 
     /**
      * Specifies the name of the remote user if <b>dwMsgId</b> is SECURITYMSG_SUCCESS or SECURITYMSG_FAILURE. This string can be empty if <b>dwMsgId</b> is SECURITYMSG_ERROR.
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    UserName{
-        get {
-            if(!this.HasProp("__UserNameProxyArray"))
-                this.__UserNameProxyArray := Win32FixedArray(this.ptr + 20, 257, Primitive, "char")
-            return this.__UserNameProxyArray
-        }
+    UserName {
+        get => StrGet(this.ptr + 20, 256, "UTF-16")
+        set => StrPut(value, this.ptr + 20, 256, "UTF-16")
     }
 
     /**
      * Specifies the name of the logon domain for the remote user if <b>dwMsgId</b> is SECURITYMSG_SUCCESS or SECURITYMSG_FAILURE. This string can be empty if <b>dwMsgId</b> is SECURITYMSG_ERROR.
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    Domain{
-        get {
-            if(!this.HasProp("__DomainProxyArray"))
-                this.__DomainProxyArray := Win32FixedArray(this.ptr + 277, 16, Primitive, "char")
-            return this.__DomainProxyArray
-        }
+    Domain {
+        get => StrGet(this.ptr + 534, 15, "UTF-16")
+        set => StrPut(value, this.ptr + 534, 15, "UTF-16")
     }
 }

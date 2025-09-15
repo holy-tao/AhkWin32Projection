@@ -8,9 +8,9 @@
  */
 class ACMFILTERCHOOSEA extends Win32Struct
 {
-    static sizeof => 268
+    static sizeof => 272
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * @type {Integer}
@@ -56,93 +56,87 @@ class ACMFILTERCHOOSEA extends Win32Struct
      * @type {Pointer<PSTR>}
      */
     pszTitle {
-        get => NumGet(this, 28, "ptr")
-        set => NumPut("ptr", value, this, 28)
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    szFilterTag{
-        get {
-            if(!this.HasProp("__szFilterTagProxyArray"))
-                this.__szFilterTagProxyArray := Win32FixedArray(this.ptr + 36, 48, Primitive, "char")
-            return this.__szFilterTagProxyArray
-        }
+    szFilterTag {
+        get => StrGet(this.ptr + 40, 47, "UTF-8")
+        set => StrPut(value, this.ptr + 40, 47, "UTF-8")
     }
 
     /**
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    szFilter{
-        get {
-            if(!this.HasProp("__szFilterProxyArray"))
-                this.__szFilterProxyArray := Win32FixedArray(this.ptr + 84, 128, Primitive, "char")
-            return this.__szFilterProxyArray
-        }
+    szFilter {
+        get => StrGet(this.ptr + 88, 127, "UTF-8")
+        set => StrPut(value, this.ptr + 88, 127, "UTF-8")
     }
 
     /**
      * @type {Pointer<PSTR>}
      */
     pszName {
-        get => NumGet(this, 212, "ptr")
-        set => NumPut("ptr", value, this, 212)
+        get => NumGet(this, 216, "ptr")
+        set => NumPut("ptr", value, this, 216)
     }
 
     /**
      * @type {Integer}
      */
     cchName {
-        get => NumGet(this, 220, "uint")
-        set => NumPut("uint", value, this, 220)
+        get => NumGet(this, 224, "uint")
+        set => NumPut("uint", value, this, 224)
     }
 
     /**
      * @type {Integer}
      */
     fdwEnum {
-        get => NumGet(this, 224, "uint")
-        set => NumPut("uint", value, this, 224)
+        get => NumGet(this, 228, "uint")
+        set => NumPut("uint", value, this, 228)
     }
 
     /**
      * @type {Pointer<WAVEFILTER>}
      */
     pwfltrEnum {
-        get => NumGet(this, 228, "ptr")
-        set => NumPut("ptr", value, this, 228)
+        get => NumGet(this, 232, "ptr")
+        set => NumPut("ptr", value, this, 232)
     }
 
     /**
      * @type {Pointer<HINSTANCE>}
      */
     hInstance {
-        get => NumGet(this, 236, "ptr")
-        set => NumPut("ptr", value, this, 236)
+        get => NumGet(this, 240, "ptr")
+        set => NumPut("ptr", value, this, 240)
     }
 
     /**
      * @type {Pointer<PSTR>}
      */
     pszTemplateName {
-        get => NumGet(this, 244, "ptr")
-        set => NumPut("ptr", value, this, 244)
+        get => NumGet(this, 248, "ptr")
+        set => NumPut("ptr", value, this, 248)
     }
 
     /**
      * @type {Pointer}
      */
     lCustData {
-        get => NumGet(this, 252, "ptr")
-        set => NumPut("ptr", value, this, 252)
+        get => NumGet(this, 256, "ptr")
+        set => NumPut("ptr", value, this, 256)
     }
 
     /**
      * @type {Pointer<ACMFILTERCHOOSEHOOKPROCA>}
      */
     pfnHook {
-        get => NumGet(this, 260, "ptr")
-        set => NumPut("ptr", value, this, 260)
+        get => NumGet(this, 264, "ptr")
+        set => NumPut("ptr", value, this, 264)
     }
 }

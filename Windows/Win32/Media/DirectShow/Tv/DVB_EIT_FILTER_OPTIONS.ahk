@@ -9,9 +9,9 @@
  */
 class DVB_EIT_FILTER_OPTIONS extends Win32Struct
 {
-    static sizeof => 5
+    static sizeof => 8
 
-    static packingSize => 1
+    static packingSize => 4
 
     /**
      * If this flag is <b>TRUE</b>, the number of the segment that is queried from the header must match the value of the <b>bSegment</b> structure member. Otherwise, the segment field is ignored.

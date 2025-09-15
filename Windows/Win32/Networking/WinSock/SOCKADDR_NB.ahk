@@ -7,7 +7,7 @@
  */
 class SOCKADDR_NB extends Win32Struct
 {
-    static sizeof => 20
+    static sizeof => 36
 
     static packingSize => 2
 
@@ -28,13 +28,10 @@ class SOCKADDR_NB extends Win32Struct
     }
 
     /**
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    snb_name{
-        get {
-            if(!this.HasProp("__snb_nameProxyArray"))
-                this.__snb_nameProxyArray := Win32FixedArray(this.ptr + 4, 16, Primitive, "char")
-            return this.__snb_nameProxyArray
-        }
+    snb_name {
+        get => StrGet(this.ptr + 4, 15, "UTF-16")
+        set => StrPut(value, this.ptr + 4, 15, "UTF-16")
     }
 }

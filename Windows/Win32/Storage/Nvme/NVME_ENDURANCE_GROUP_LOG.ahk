@@ -13,7 +13,7 @@ class NVME_ENDURANCE_GROUP_LOG extends Win32Struct
 {
     static sizeof => 512
 
-    static packingSize => 1
+    static packingSize => 4
 
     /**
      * 

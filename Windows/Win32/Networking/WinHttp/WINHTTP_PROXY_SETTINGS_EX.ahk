@@ -11,9 +11,9 @@
  */
 class WINHTTP_PROXY_SETTINGS_EX extends Win32Struct
 {
-    static sizeof => 64
+    static sizeof => 72
 
-    static packingSize => 4
+    static packingSize => 8
 
     /**
      * Type: **[ULONGLONG](/windows/win32/winprog/windows-data-types)**
@@ -88,8 +88,8 @@ class WINHTTP_PROXY_SETTINGS_EX extends Win32Struct
      * @type {Pointer<PWSTR>}
      */
     rgpcwszProxyBypasses {
-        get => NumGet(this, 44, "ptr")
-        set => NumPut("ptr", value, this, 44)
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**
@@ -99,8 +99,8 @@ class WINHTTP_PROXY_SETTINGS_EX extends Win32Struct
      * @type {Integer}
      */
     dwInterfaceIndex {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
+        get => NumGet(this, 56, "uint")
+        set => NumPut("uint", value, this, 56)
     }
 
     /**
@@ -110,7 +110,7 @@ class WINHTTP_PROXY_SETTINGS_EX extends Win32Struct
      * @type {Pointer<PWSTR>}
      */
     pcwszConnectionName {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
+        get => NumGet(this, 64, "ptr")
+        set => NumPut("ptr", value, this, 64)
     }
 }

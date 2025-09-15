@@ -10,7 +10,7 @@ class SP_BACKUP_QUEUE_PARAMS_V2_W extends Win32Struct
 {
     static sizeof => 1048
 
-    static packingSize => 1
+    static packingSize => 4
 
     /**
      * @type {Integer}

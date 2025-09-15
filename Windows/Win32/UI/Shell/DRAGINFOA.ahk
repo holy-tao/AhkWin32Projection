@@ -9,9 +9,9 @@
  */
 class DRAGINFOA extends Win32Struct
 {
-    static sizeof => 28
+    static sizeof => 40
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * @type {Integer}
@@ -27,7 +27,7 @@ class DRAGINFOA extends Win32Struct
     pt{
         get {
             if(!this.HasProp("__pt"))
-                this.__pt := POINT(this.ptr + 4)
+                this.__pt := POINT(this.ptr + 8)
             return this.__pt
         }
     }
@@ -36,23 +36,23 @@ class DRAGINFOA extends Win32Struct
      * @type {Integer}
      */
     fNC {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
+        get => NumGet(this, 16, "int")
+        set => NumPut("int", value, this, 16)
     }
 
     /**
      * @type {Pointer<PSTR>}
      */
     lpFileList {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
      * @type {Integer}
      */
     grfKeyState {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+        get => NumGet(this, 32, "uint")
+        set => NumPut("uint", value, this, 32)
     }
 }

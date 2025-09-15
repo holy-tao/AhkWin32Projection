@@ -82,14 +82,11 @@ class IMEMENUITEMINFOA extends Win32Struct
 
     /**
      * Content of the menu item. This is a null-terminated string.
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    szString{
-        get {
-            if(!this.HasProp("__szStringProxyArray"))
-                this.__szStringProxyArray := Win32FixedArray(this.ptr + 36, 80, Primitive, "char")
-            return this.__szStringProxyArray
-        }
+    szString {
+        get => StrGet(this.ptr + 36, 79, "UTF-8")
+        set => StrPut(value, this.ptr + 36, 79, "UTF-8")
     }
 
     /**

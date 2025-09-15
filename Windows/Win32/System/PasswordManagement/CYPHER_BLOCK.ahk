@@ -9,19 +9,16 @@
  */
 class CYPHER_BLOCK extends Win32Struct
 {
-    static sizeof => 8
+    static sizeof => 16
 
-    static packingSize => 1
+    static packingSize => 2
 
     /**
      * An array of CHAR used to store the password hashes and cipher text passed by the MS-CHAP password management API.
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    data{
-        get {
-            if(!this.HasProp("__dataProxyArray"))
-                this.__dataProxyArray := Win32FixedArray(this.ptr + 0, 8, Primitive, "char")
-            return this.__dataProxyArray
-        }
+    data {
+        get => StrGet(this.ptr + 0, 7, "UTF-16")
+        set => StrPut(value, this.ptr + 0, 7, "UTF-16")
     }
 }

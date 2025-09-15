@@ -9,7 +9,7 @@ class IMAGE_ALPHA64_RUNTIME_FUNCTION_ENTRY extends Win32Struct
 {
     static sizeof => 40
 
-    static packingSize => 4
+    static packingSize => 8
 
     /**
      * @type {Integer}

@@ -7,7 +7,7 @@
  */
 class IMAGEHLP_SYMBOL_SRC extends Win32Struct
 {
-    static sizeof => 268
+    static sizeof => 528
 
     static packingSize => 4
 
@@ -28,13 +28,10 @@ class IMAGEHLP_SYMBOL_SRC extends Win32Struct
     }
 
     /**
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    file{
-        get {
-            if(!this.HasProp("__fileProxyArray"))
-                this.__fileProxyArray := Win32FixedArray(this.ptr + 8, 260, Primitive, "char")
-            return this.__fileProxyArray
-        }
+    file {
+        get => StrGet(this.ptr + 8, 259, "UTF-16")
+        set => StrPut(value, this.ptr + 8, 259, "UTF-16")
     }
 }

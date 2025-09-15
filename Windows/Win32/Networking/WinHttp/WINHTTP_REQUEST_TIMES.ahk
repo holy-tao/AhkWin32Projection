@@ -11,9 +11,9 @@
  */
 class WINHTTP_REQUEST_TIMES extends Win32Struct
 {
-    static sizeof => 516
+    static sizeof => 520
 
-    static packingSize => 4
+    static packingSize => 8
 
     /**
      * Unsigned long integer value that contains the number of timings to retrieve. This should generally be set to **WinHttpRequestTimeLast**.
@@ -33,7 +33,7 @@ class WINHTTP_REQUEST_TIMES extends Win32Struct
     rgullTimes{
         get {
             if(!this.HasProp("__rgullTimesProxyArray"))
-                this.__rgullTimesProxyArray := Win32FixedArray(this.ptr + 4, 64, Primitive, "uint")
+                this.__rgullTimesProxyArray := Win32FixedArray(this.ptr + 8, 64, Primitive, "uint")
             return this.__rgullTimesProxyArray
         }
     }

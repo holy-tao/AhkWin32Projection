@@ -11,7 +11,7 @@
  */
 class NETLOGON_NETWORK_INFO extends Win32Struct
 {
-    static sizeof => 104
+    static sizeof => 112
 
     static packingSize => 8
 
@@ -43,7 +43,7 @@ class NETLOGON_NETWORK_INFO extends Win32Struct
     NtChallengeResponse{
         get {
             if(!this.HasProp("__NtChallengeResponse"))
-                this.__NtChallengeResponse := LSA_STRING(this.ptr + 72)
+                this.__NtChallengeResponse := LSA_STRING(this.ptr + 80)
             return this.__NtChallengeResponse
         }
     }
@@ -54,7 +54,7 @@ class NETLOGON_NETWORK_INFO extends Win32Struct
     LmChallengeResponse{
         get {
             if(!this.HasProp("__LmChallengeResponse"))
-                this.__LmChallengeResponse := LSA_STRING(this.ptr + 88)
+                this.__LmChallengeResponse := LSA_STRING(this.ptr + 96)
             return this.__LmChallengeResponse
         }
     }

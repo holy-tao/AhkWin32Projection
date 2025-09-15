@@ -24,7 +24,7 @@
  */
 class MIB_IPPATH_ROW extends Win32Struct
 {
-    static sizeof => 232
+    static sizeof => 256
 
     static packingSize => 8
 
@@ -51,7 +51,7 @@ class MIB_IPPATH_ROW extends Win32Struct
     Destination{
         get {
             if(!this.HasProp("__Destination"))
-                this.__Destination := SOCKADDR_INET(this.ptr + 56)
+                this.__Destination := SOCKADDR_INET(this.ptr + 64)
             return this.__Destination
         }
     }
@@ -65,7 +65,7 @@ class MIB_IPPATH_ROW extends Win32Struct
     InterfaceLuid{
         get {
             if(!this.HasProp("__InterfaceLuid"))
-                this.__InterfaceLuid := NET_LUID_LH(this.ptr + 112)
+                this.__InterfaceLuid := NET_LUID_LH(this.ptr + 128)
             return this.__InterfaceLuid
         }
     }
@@ -77,8 +77,8 @@ class MIB_IPPATH_ROW extends Win32Struct
      * @type {Integer}
      */
     InterfaceIndex {
-        get => NumGet(this, 128, "uint")
-        set => NumPut("uint", value, this, 128)
+        get => NumGet(this, 144, "uint")
+        set => NumPut("uint", value, this, 144)
     }
 
     /**
@@ -90,7 +90,7 @@ class MIB_IPPATH_ROW extends Win32Struct
     CurrentNextHop{
         get {
             if(!this.HasProp("__CurrentNextHop"))
-                this.__CurrentNextHop := SOCKADDR_INET(this.ptr + 136)
+                this.__CurrentNextHop := SOCKADDR_INET(this.ptr + 152)
             return this.__CurrentNextHop
         }
     }
@@ -102,8 +102,8 @@ class MIB_IPPATH_ROW extends Win32Struct
      * @type {Integer}
      */
     PathMtu {
-        get => NumGet(this, 192, "uint")
-        set => NumPut("uint", value, this, 192)
+        get => NumGet(this, 216, "uint")
+        set => NumPut("uint", value, this, 216)
     }
 
     /**
@@ -113,8 +113,8 @@ class MIB_IPPATH_ROW extends Win32Struct
      * @type {Integer}
      */
     RttMean {
-        get => NumGet(this, 196, "uint")
-        set => NumPut("uint", value, this, 196)
+        get => NumGet(this, 220, "uint")
+        set => NumPut("uint", value, this, 220)
     }
 
     /**
@@ -124,24 +124,24 @@ class MIB_IPPATH_ROW extends Win32Struct
      * @type {Integer}
      */
     RttDeviation {
-        get => NumGet(this, 200, "uint")
-        set => NumPut("uint", value, this, 200)
+        get => NumGet(this, 224, "uint")
+        set => NumPut("uint", value, this, 224)
     }
 
     /**
      * @type {Integer}
      */
     LastReachable {
-        get => NumGet(this, 204, "uint")
-        set => NumPut("uint", value, this, 204)
+        get => NumGet(this, 228, "uint")
+        set => NumPut("uint", value, this, 228)
     }
 
     /**
      * @type {Integer}
      */
     LastUnreachable {
-        get => NumGet(this, 204, "uint")
-        set => NumPut("uint", value, this, 204)
+        get => NumGet(this, 228, "uint")
+        set => NumPut("uint", value, this, 228)
     }
 
     /**
@@ -151,8 +151,8 @@ class MIB_IPPATH_ROW extends Win32Struct
      * @type {Integer}
      */
     IsReachable {
-        get => NumGet(this, 208, "char")
-        set => NumPut("char", value, this, 208)
+        get => NumGet(this, 232, "char")
+        set => NumPut("char", value, this, 232)
     }
 
     /**
@@ -162,8 +162,8 @@ class MIB_IPPATH_ROW extends Win32Struct
      * @type {Integer}
      */
     LinkTransmitSpeed {
-        get => NumGet(this, 216, "uint")
-        set => NumPut("uint", value, this, 216)
+        get => NumGet(this, 240, "uint")
+        set => NumPut("uint", value, this, 240)
     }
 
     /**
@@ -173,7 +173,7 @@ class MIB_IPPATH_ROW extends Win32Struct
      * @type {Integer}
      */
     LinkReceiveSpeed {
-        get => NumGet(this, 224, "uint")
-        set => NumPut("uint", value, this, 224)
+        get => NumGet(this, 248, "uint")
+        set => NumPut("uint", value, this, 248)
     }
 }

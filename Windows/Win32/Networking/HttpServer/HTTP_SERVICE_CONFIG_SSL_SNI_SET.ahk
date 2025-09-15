@@ -12,7 +12,7 @@
  */
 class HTTP_SERVICE_CONFIG_SSL_SNI_SET extends Win32Struct
 {
-    static sizeof => 208
+    static sizeof => 328
 
     static packingSize => 8
 
@@ -35,7 +35,7 @@ class HTTP_SERVICE_CONFIG_SSL_SNI_SET extends Win32Struct
     ParamDesc{
         get {
             if(!this.HasProp("__ParamDesc"))
-                this.__ParamDesc := HTTP_SERVICE_CONFIG_SSL_PARAM(this.ptr + 136)
+                this.__ParamDesc := HTTP_SERVICE_CONFIG_SSL_PARAM(this.ptr + 256)
             return this.__ParamDesc
         }
     }

@@ -9,7 +9,7 @@
  */
 class RAS_SECURITY_INFO extends Win32Struct
 {
-    static sizeof => 140
+    static sizeof => 268
 
     static packingSize => 4
 
@@ -34,13 +34,10 @@ class RAS_SECURITY_INFO extends Win32Struct
 
     /**
      * Specifies a null-terminated string that contains the user-friendly display name of the device on the port, such as Hayes SmartModem 9600.
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    DeviceName{
-        get {
-            if(!this.HasProp("__DeviceNameProxyArray"))
-                this.__DeviceNameProxyArray := Win32FixedArray(this.ptr + 8, 129, Primitive, "char")
-            return this.__DeviceNameProxyArray
-        }
+    DeviceName {
+        get => StrGet(this.ptr + 8, 128, "UTF-16")
+        set => StrPut(value, this.ptr + 8, 128, "UTF-16")
     }
 }

@@ -7,7 +7,7 @@
  */
 class DEBUG_PROCESSOR_IDENTIFICATION_IA64 extends Win32Struct
 {
-    static sizeof => 32
+    static sizeof => 48
 
     static packingSize => 4
 
@@ -44,13 +44,10 @@ class DEBUG_PROCESSOR_IDENTIFICATION_IA64 extends Win32Struct
     }
 
     /**
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    VendorString{
-        get {
-            if(!this.HasProp("__VendorStringProxyArray"))
-                this.__VendorStringProxyArray := Win32FixedArray(this.ptr + 16, 16, Primitive, "char")
-            return this.__VendorStringProxyArray
-        }
+    VendorString {
+        get => StrGet(this.ptr + 16, 15, "UTF-16")
+        set => StrPut(value, this.ptr + 16, 15, "UTF-16")
     }
 }

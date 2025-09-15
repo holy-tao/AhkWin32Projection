@@ -7,9 +7,9 @@
  */
 class JET_THREADSTATS2 extends Win32Struct
 {
-    static sizeof => 44
+    static sizeof => 48
 
-    static packingSize => 4
+    static packingSize => 8
 
     /**
      * @type {Integer}

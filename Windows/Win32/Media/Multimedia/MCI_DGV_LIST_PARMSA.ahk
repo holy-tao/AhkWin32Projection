@@ -19,9 +19,9 @@
  */
 class MCI_DGV_LIST_PARMSA extends Win32Struct
 {
-    static sizeof => 36
+    static sizeof => 40
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * The low-order word specifies a window handle used for the MCI_NOTIFY flag.
@@ -73,7 +73,7 @@ class MCI_DGV_LIST_PARMSA extends Win32Struct
      * @type {Pointer<PSTR>}
      */
     lpstrAlgorithm {
-        get => NumGet(this, 28, "ptr")
-        set => NumPut("ptr", value, this, 28)
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 }

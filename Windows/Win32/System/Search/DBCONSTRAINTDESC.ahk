@@ -7,9 +7,9 @@
  */
 class DBCONSTRAINTDESC extends Win32Struct
 {
-    static sizeof => 92
+    static sizeof => 96
 
-    static packingSize => 2
+    static packingSize => 8
 
     /**
      * @type {Pointer<DBID>}
@@ -31,62 +31,54 @@ class DBCONSTRAINTDESC extends Win32Struct
      * @type {Pointer}
      */
     cColumns {
-        get => NumGet(this, 12, "ptr")
-        set => NumPut("ptr", value, this, 12)
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * @type {Pointer<DBID>}
      */
     rgColumnList {
-        get => NumGet(this, 20, "ptr")
-        set => NumPut("ptr", value, this, 20)
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
      * @type {Pointer<DBID>}
      */
     pReferencedTableID {
-        get => NumGet(this, 28, "ptr")
-        set => NumPut("ptr", value, this, 28)
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
      * @type {Pointer}
      */
     cForeignKeyColumns {
-        get => NumGet(this, 36, "ptr")
-        set => NumPut("ptr", value, this, 36)
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
      * @type {Pointer<DBID>}
      */
     rgForeignKeyColumnList {
-        get => NumGet(this, 44, "ptr")
-        set => NumPut("ptr", value, this, 44)
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**
      * @type {Pointer<PWSTR>}
      */
     pwszConstraintText {
-        get => NumGet(this, 52, "ptr")
-        set => NumPut("ptr", value, this, 52)
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 
     /**
      * @type {Integer}
      */
     UpdateRule {
-        get => NumGet(this, 60, "uint")
-        set => NumPut("uint", value, this, 60)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    DeleteRule {
         get => NumGet(this, 64, "uint")
         set => NumPut("uint", value, this, 64)
     }
@@ -94,7 +86,7 @@ class DBCONSTRAINTDESC extends Win32Struct
     /**
      * @type {Integer}
      */
-    MatchType {
+    DeleteRule {
         get => NumGet(this, 68, "uint")
         set => NumPut("uint", value, this, 68)
     }
@@ -102,24 +94,32 @@ class DBCONSTRAINTDESC extends Win32Struct
     /**
      * @type {Integer}
      */
-    Deferrability {
+    MatchType {
         get => NumGet(this, 72, "uint")
         set => NumPut("uint", value, this, 72)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Deferrability {
+        get => NumGet(this, 76, "uint")
+        set => NumPut("uint", value, this, 76)
     }
 
     /**
      * @type {Pointer}
      */
     cReserved {
-        get => NumGet(this, 76, "ptr")
-        set => NumPut("ptr", value, this, 76)
+        get => NumGet(this, 80, "ptr")
+        set => NumPut("ptr", value, this, 80)
     }
 
     /**
      * @type {Pointer<DBPROPSET>}
      */
     rgReserved {
-        get => NumGet(this, 84, "ptr")
-        set => NumPut("ptr", value, this, 84)
+        get => NumGet(this, 88, "ptr")
+        set => NumPut("ptr", value, this, 88)
     }
 }

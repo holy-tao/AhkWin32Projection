@@ -13,7 +13,7 @@ class DMA_RESOURCE extends Win32Struct
 {
     static sizeof => 24
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * A [DMA_DES](/windows/desktop/api/cfgmgr32/ns-cfgmgr32-dma_des) structure.

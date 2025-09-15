@@ -8,9 +8,9 @@
  */
 class USB_TRANSPORT_CHARACTERISTICS_CHANGE_REGISTRATION extends Win32Struct
 {
-    static sizeof => 36
+    static sizeof => 40
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * @type {Integer}
@@ -24,8 +24,8 @@ class USB_TRANSPORT_CHARACTERISTICS_CHANGE_REGISTRATION extends Win32Struct
      * @type {Pointer<USB_CHANGE_REGISTRATION_HANDLE>}
      */
     Handle {
-        get => NumGet(this, 4, "ptr")
-        set => NumPut("ptr", value, this, 4)
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -34,7 +34,7 @@ class USB_TRANSPORT_CHARACTERISTICS_CHANGE_REGISTRATION extends Win32Struct
     UsbTransportCharacteristics{
         get {
             if(!this.HasProp("__UsbTransportCharacteristics"))
-                this.__UsbTransportCharacteristics := USB_TRANSPORT_CHARACTERISTICS(this.ptr + 12)
+                this.__UsbTransportCharacteristics := USB_TRANSPORT_CHARACTERISTICS(this.ptr + 16)
             return this.__UsbTransportCharacteristics
         }
     }

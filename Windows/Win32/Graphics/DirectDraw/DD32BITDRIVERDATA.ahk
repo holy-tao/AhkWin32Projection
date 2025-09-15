@@ -7,37 +7,31 @@
  */
 class DD32BITDRIVERDATA extends Win32Struct
 {
-    static sizeof => 328
+    static sizeof => 652
 
     static packingSize => 4
 
     /**
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    szName{
-        get {
-            if(!this.HasProp("__szNameProxyArray"))
-                this.__szNameProxyArray := Win32FixedArray(this.ptr + 0, 260, Primitive, "char")
-            return this.__szNameProxyArray
-        }
+    szName {
+        get => StrGet(this.ptr + 0, 259, "UTF-16")
+        set => StrPut(value, this.ptr + 0, 259, "UTF-16")
     }
 
     /**
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    szEntryPoint{
-        get {
-            if(!this.HasProp("__szEntryPointProxyArray"))
-                this.__szEntryPointProxyArray := Win32FixedArray(this.ptr + 260, 64, Primitive, "char")
-            return this.__szEntryPointProxyArray
-        }
+    szEntryPoint {
+        get => StrGet(this.ptr + 520, 63, "UTF-16")
+        set => StrPut(value, this.ptr + 520, 63, "UTF-16")
     }
 
     /**
      * @type {Integer}
      */
     dwContext {
-        get => NumGet(this, 324, "uint")
-        set => NumPut("uint", value, this, 324)
+        get => NumGet(this, 648, "uint")
+        set => NumPut("uint", value, this, 648)
     }
 }

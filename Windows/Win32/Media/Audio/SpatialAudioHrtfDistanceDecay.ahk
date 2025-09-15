@@ -11,7 +11,7 @@ class SpatialAudioHrtfDistanceDecay extends Win32Struct
 {
     static sizeof => 20
 
-    static packingSize => 1
+    static packingSize => 4
 
     /**
      * The type of decay, natural or custom. The default value for this field is  <b>SpatialAudioHrtfDistanceDecay_NaturalDecay</b>.

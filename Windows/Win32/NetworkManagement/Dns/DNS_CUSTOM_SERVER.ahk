@@ -11,7 +11,7 @@
  */
 class DNS_CUSTOM_SERVER extends Win32Struct
 {
-    static sizeof => 56
+    static sizeof => 88
 
     static packingSize => 8
 
@@ -55,13 +55,10 @@ class DNS_CUSTOM_SERVER extends Win32Struct
     }
 
     /**
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    MaxSa{
-        get {
-            if(!this.HasProp("__MaxSaProxyArray"))
-                this.__MaxSaProxyArray := Win32FixedArray(this.ptr + 24, 32, Primitive, "char")
-            return this.__MaxSaProxyArray
-        }
+    MaxSa {
+        get => StrGet(this.ptr + 24, 31, "UTF-16")
+        set => StrPut(value, this.ptr + 24, 31, "UTF-16")
     }
 }

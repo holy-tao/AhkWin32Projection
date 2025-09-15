@@ -11,7 +11,7 @@ class ENCLAVE_IDENTITY extends Win32Struct
 {
     static sizeof => 152
 
-    static packingSize => 1
+    static packingSize => 4
 
     /**
      * The identifier of the owner for the enclave.

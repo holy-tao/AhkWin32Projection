@@ -10,9 +10,9 @@
  */
 class NMLVKEYDOWN extends Win32Struct
 {
-    static sizeof => 30
+    static sizeof => 32
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/richedit/ns-richedit-nmhdr">NMHDR</a></b>
@@ -48,7 +48,7 @@ class NMLVKEYDOWN extends Win32Struct
      * @type {Integer}
      */
     flags {
-        get => NumGet(this, 26, "uint")
-        set => NumPut("uint", value, this, 26)
+        get => NumGet(this, 28, "uint")
+        set => NumPut("uint", value, this, 28)
     }
 }

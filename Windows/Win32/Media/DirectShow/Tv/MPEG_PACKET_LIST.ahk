@@ -9,9 +9,9 @@
  */
 class MPEG_PACKET_LIST extends Win32Struct
 {
-    static sizeof => 10
+    static sizeof => 16
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * Specifies the size of the <b>PacketList</b> array.
@@ -29,7 +29,7 @@ class MPEG_PACKET_LIST extends Win32Struct
     PacketList{
         get {
             if(!this.HasProp("__PacketListProxyArray"))
-                this.__PacketListProxyArray := Win32FixedArray(this.ptr + 2, 1, Primitive, "ptr")
+                this.__PacketListProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "ptr")
             return this.__PacketListProxyArray
         }
     }

@@ -860,13 +860,10 @@ class WSAPROTOCOL_INFOA extends Win32Struct
      * Type: <b>TCHAR[WSAPROTOCOL_LEN+1]</b>
      * 
      * An array of characters that contains a human-readable name identifying the protocol, for example "MSAFD Tcpip [UDP/IP]". The maximum number of characters allowed is WSAPROTOCOL_LEN, which is defined to be 255.
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    szProtocol{
-        get {
-            if(!this.HasProp("__szProtocolProxyArray"))
-                this.__szProtocolProxyArray := Win32FixedArray(this.ptr + 116, 256, Primitive, "char")
-            return this.__szProtocolProxyArray
-        }
+    szProtocol {
+        get => StrGet(this.ptr + 116, 255, "UTF-8")
+        set => StrPut(value, this.ptr + 116, 255, "UTF-8")
     }
 }

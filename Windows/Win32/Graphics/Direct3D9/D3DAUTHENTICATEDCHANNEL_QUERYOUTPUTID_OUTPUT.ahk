@@ -9,9 +9,9 @@
  */
 class D3DAUTHENTICATEDCHANNEL_QUERYOUTPUTID_OUTPUT extends Win32Struct
 {
-    static sizeof => 68
+    static sizeof => 72
 
-    static packingSize => 4
+    static packingSize => 8
 
     /**
      * @type {D3DAUTHENTICATEDCHANNEL_QUERY_OUTPUT}
@@ -52,7 +52,7 @@ class D3DAUTHENTICATEDCHANNEL_QUERYOUTPUTID_OUTPUT extends Win32Struct
      * @type {Integer}
      */
     OutputID {
-        get => NumGet(this, 60, "uint")
-        set => NumPut("uint", value, this, 60)
+        get => NumGet(this, 64, "uint")
+        set => NumPut("uint", value, this, 64)
     }
 }

@@ -13,9 +13,9 @@
  */
 class FILE_IN_CABINET_INFO_A extends Win32Struct
 {
-    static sizeof => 282
+    static sizeof => 288
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * File name as it exists within the cabinet file.
@@ -73,13 +73,10 @@ class FILE_IN_CABINET_INFO_A extends Win32Struct
 
     /**
      * Target path and file name.
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    FullTargetName{
-        get {
-            if(!this.HasProp("__FullTargetNameProxyArray"))
-                this.__FullTargetNameProxyArray := Win32FixedArray(this.ptr + 22, 260, Primitive, "char")
-            return this.__FullTargetNameProxyArray
-        }
+    FullTargetName {
+        get => StrGet(this.ptr + 22, 259, "UTF-8")
+        set => StrPut(value, this.ptr + 22, 259, "UTF-8")
     }
 }

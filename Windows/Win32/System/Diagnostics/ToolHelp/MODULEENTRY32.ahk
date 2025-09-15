@@ -92,25 +92,19 @@ class MODULEENTRY32 extends Win32Struct
 
     /**
      * The module name.
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    szModule{
-        get {
-            if(!this.HasProp("__szModuleProxyArray"))
-                this.__szModuleProxyArray := Win32FixedArray(this.ptr + 48, 256, Primitive, "char")
-            return this.__szModuleProxyArray
-        }
+    szModule {
+        get => StrGet(this.ptr + 48, 255, "UTF-8")
+        set => StrPut(value, this.ptr + 48, 255, "UTF-8")
     }
 
     /**
      * The module path.
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    szExePath{
-        get {
-            if(!this.HasProp("__szExePathProxyArray"))
-                this.__szExePathProxyArray := Win32FixedArray(this.ptr + 304, 260, Primitive, "char")
-            return this.__szExePathProxyArray
-        }
+    szExePath {
+        get => StrGet(this.ptr + 304, 259, "UTF-8")
+        set => StrPut(value, this.ptr + 304, 259, "UTF-8")
     }
 }

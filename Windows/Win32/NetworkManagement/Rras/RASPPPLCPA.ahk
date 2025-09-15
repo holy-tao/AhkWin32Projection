@@ -109,14 +109,11 @@ class RASPPPLCPA extends Win32Struct
     }
 
     /**
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    szReplyMessage{
-        get {
-            if(!this.HasProp("__szReplyMessageProxyArray"))
-                this.__szReplyMessageProxyArray := Win32FixedArray(this.ptr + 48, 1024, Primitive, "char")
-            return this.__szReplyMessageProxyArray
-        }
+    szReplyMessage {
+        get => StrGet(this.ptr + 48, 1023, "UTF-8")
+        set => StrPut(value, this.ptr + 48, 1023, "UTF-8")
     }
 
     /**

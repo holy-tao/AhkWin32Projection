@@ -41,50 +41,38 @@ class SP_SELECTDEVICE_PARAMS_A extends Win32Struct
 
     /**
      * Buffer that contains an installer-provided window title for driver-selection windows. Windows uses this title for the window title for the Select Device dialogs.
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    Title{
-        get {
-            if(!this.HasProp("__TitleProxyArray"))
-                this.__TitleProxyArray := Win32FixedArray(this.ptr + 8, 60, Primitive, "char")
-            return this.__TitleProxyArray
-        }
+    Title {
+        get => StrGet(this.ptr + 8, 59, "UTF-8")
+        set => StrPut(value, this.ptr + 8, 59, "UTF-8")
     }
 
     /**
      * Buffer that contains an installer-provided select-device instructions.
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    Instructions{
-        get {
-            if(!this.HasProp("__InstructionsProxyArray"))
-                this.__InstructionsProxyArray := Win32FixedArray(this.ptr + 68, 256, Primitive, "char")
-            return this.__InstructionsProxyArray
-        }
+    Instructions {
+        get => StrGet(this.ptr + 68, 255, "UTF-8")
+        set => StrPut(value, this.ptr + 68, 255, "UTF-8")
     }
 
     /**
      * Buffer that contains an installer-provided label for the list of drivers from which the user can select.
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    ListLabel{
-        get {
-            if(!this.HasProp("__ListLabelProxyArray"))
-                this.__ListLabelProxyArray := Win32FixedArray(this.ptr + 324, 30, Primitive, "char")
-            return this.__ListLabelProxyArray
-        }
+    ListLabel {
+        get => StrGet(this.ptr + 324, 29, "UTF-8")
+        set => StrPut(value, this.ptr + 324, 29, "UTF-8")
     }
 
     /**
      * Buffer that contains an installer-provided subtitle used in select-device wizards. This string is not used in select dialogs.
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    SubTitle{
-        get {
-            if(!this.HasProp("__SubTitleProxyArray"))
-                this.__SubTitleProxyArray := Win32FixedArray(this.ptr + 354, 256, Primitive, "char")
-            return this.__SubTitleProxyArray
-        }
+    SubTitle {
+        get => StrGet(this.ptr + 354, 255, "UTF-8")
+        set => StrPut(value, this.ptr + 354, 255, "UTF-8")
     }
 
     /**

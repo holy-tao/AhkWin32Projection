@@ -36,14 +36,11 @@ class NLA_BLOB extends Win32Struct
     }
 
     /**
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    rawData{
-        get {
-            if(!this.HasProp("__rawDataProxyArray"))
-                this.__rawDataProxyArray := Win32FixedArray(this.ptr + 12, 1, Primitive, "char")
-            return this.__rawDataProxyArray
-        }
+    rawData {
+        get => StrGet(this.ptr + 12, 0, "UTF-16")
+        set => StrPut(value, this.ptr + 12, 0, "UTF-16")
     }
 
     /**
@@ -63,25 +60,19 @@ class NLA_BLOB extends Win32Struct
     }
 
     /**
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    adapterName{
-        get {
-            if(!this.HasProp("__adapterNameProxyArray"))
-                this.__adapterNameProxyArray := Win32FixedArray(this.ptr + 20, 1, Primitive, "char")
-            return this.__adapterNameProxyArray
-        }
+    adapterName {
+        get => StrGet(this.ptr + 20, 0, "UTF-16")
+        set => StrPut(value, this.ptr + 20, 0, "UTF-16")
     }
 
     /**
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    information{
-        get {
-            if(!this.HasProp("__informationProxyArray"))
-                this.__informationProxyArray := Win32FixedArray(this.ptr + 12, 1, Primitive, "char")
-            return this.__informationProxyArray
-        }
+    information {
+        get => StrGet(this.ptr + 12, 0, "UTF-16")
+        set => StrPut(value, this.ptr + 12, 0, "UTF-16")
     }
 
     /**

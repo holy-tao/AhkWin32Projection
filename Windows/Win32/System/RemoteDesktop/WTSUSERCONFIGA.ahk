@@ -136,61 +136,46 @@ class WTSUSERCONFIGA extends Win32Struct
 
     /**
      * A null-terminated string that contains the name of  the program to start immediately after the user logs on to the server.
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    InitialProgram{
-        get {
-            if(!this.HasProp("__InitialProgramProxyArray"))
-                this.__InitialProgramProxyArray := Win32FixedArray(this.ptr + 52, 261, Primitive, "char")
-            return this.__InitialProgramProxyArray
-        }
+    InitialProgram {
+        get => StrGet(this.ptr + 52, 260, "UTF-8")
+        set => StrPut(value, this.ptr + 52, 260, "UTF-8")
     }
 
     /**
      * A null-terminated string that contains the path of the working directory for the initial program.
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    WorkDirectory{
-        get {
-            if(!this.HasProp("__WorkDirectoryProxyArray"))
-                this.__WorkDirectoryProxyArray := Win32FixedArray(this.ptr + 313, 261, Primitive, "char")
-            return this.__WorkDirectoryProxyArray
-        }
+    WorkDirectory {
+        get => StrGet(this.ptr + 313, 260, "UTF-8")
+        set => StrPut(value, this.ptr + 313, 260, "UTF-8")
     }
 
     /**
      * A null-terminated string that contains the profile path that is assigned to the user when the user connects to the server. The directory specified by the path must be created manually, and must exist prior to the logon.
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    TerminalServerProfilePath{
-        get {
-            if(!this.HasProp("__TerminalServerProfilePathProxyArray"))
-                this.__TerminalServerProfilePathProxyArray := Win32FixedArray(this.ptr + 574, 261, Primitive, "char")
-            return this.__TerminalServerProfilePathProxyArray
-        }
+    TerminalServerProfilePath {
+        get => StrGet(this.ptr + 574, 260, "UTF-8")
+        set => StrPut(value, this.ptr + 574, 260, "UTF-8")
     }
 
     /**
      * A null-terminated string that contains the path to the home folder of the user's Remote Desktop Services sessions. The folder can be a local folder or a network share.
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    TerminalServerHomeDir{
-        get {
-            if(!this.HasProp("__TerminalServerHomeDirProxyArray"))
-                this.__TerminalServerHomeDirProxyArray := Win32FixedArray(this.ptr + 835, 261, Primitive, "char")
-            return this.__TerminalServerHomeDirProxyArray
-        }
+    TerminalServerHomeDir {
+        get => StrGet(this.ptr + 835, 260, "UTF-8")
+        set => StrPut(value, this.ptr + 835, 260, "UTF-8")
     }
 
     /**
      * A null-terminated string that contains the drive name (a drive letter followed by a colon) to which the path specified in the <b>TerminalServerHomeDir</b> member is mapped. This member is only valid when the <b>TerminalServerRemoteHomeDir</b> member is set to one.
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    TerminalServerHomeDirDrive{
-        get {
-            if(!this.HasProp("__TerminalServerHomeDirDriveProxyArray"))
-                this.__TerminalServerHomeDirDriveProxyArray := Win32FixedArray(this.ptr + 1096, 4, Primitive, "char")
-            return this.__TerminalServerHomeDirDriveProxyArray
-        }
+    TerminalServerHomeDirDrive {
+        get => StrGet(this.ptr + 1096, 3, "UTF-8")
+        set => StrPut(value, this.ptr + 1096, 3, "UTF-8")
     }
 }

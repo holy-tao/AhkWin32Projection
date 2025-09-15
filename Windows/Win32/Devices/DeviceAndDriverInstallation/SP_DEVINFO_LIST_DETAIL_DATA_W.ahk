@@ -13,9 +13,9 @@
  */
 class SP_DEVINFO_LIST_DETAIL_DATA_W extends Win32Struct
 {
-    static sizeof => 546
+    static sizeof => 552
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * The size, in bytes, of the SP_DEVINFO_LIST_DETAIL_DATA structure.
@@ -31,8 +31,8 @@ class SP_DEVINFO_LIST_DETAIL_DATA_W extends Win32Struct
      * @type {Pointer<Guid>}
      */
     ClassGuid {
-        get => NumGet(this, 4, "ptr")
-        set => NumPut("ptr", value, this, 4)
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -42,8 +42,8 @@ class SP_DEVINFO_LIST_DETAIL_DATA_W extends Win32Struct
      * @type {Pointer<HANDLE>}
      */
     RemoteMachineHandle {
-        get => NumGet(this, 12, "ptr")
-        set => NumPut("ptr", value, this, 12)
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
@@ -51,8 +51,8 @@ class SP_DEVINFO_LIST_DETAIL_DATA_W extends Win32Struct
      * @type {String}
      */
     RemoteMachineName {
-        get => StrGet(this.ptr + 20, 262, "UTF-16")
-        set => StrPut(value, this.ptr + 20, 262, "UTF-16")
+        get => StrGet(this.ptr + 24, 262, "UTF-16")
+        set => StrPut(value, this.ptr + 24, 262, "UTF-16")
     }
 
     /**
@@ -61,6 +61,6 @@ class SP_DEVINFO_LIST_DETAIL_DATA_W extends Win32Struct
      */
     __New(ptr := 0){
         super.__New(ptr)
-        this.cbSize := 546
+        this.cbSize := 552
     }
 }

@@ -9,9 +9,9 @@
  */
 class DSMCC_ELEMENT extends Win32Struct
 {
-    static sizeof => 19
+    static sizeof => 24
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * Packet identifier (PID).
@@ -36,8 +36,8 @@ class DSMCC_ELEMENT extends Win32Struct
      * @type {Integer}
      */
     dwCarouselId {
-        get => NumGet(this, 3, "uint")
-        set => NumPut("uint", value, this, 3)
+        get => NumGet(this, 4, "uint")
+        set => NumPut("uint", value, this, 4)
     }
 
     /**
@@ -45,8 +45,8 @@ class DSMCC_ELEMENT extends Win32Struct
      * @type {Integer}
      */
     dwTransactionId {
-        get => NumGet(this, 7, "uint")
-        set => NumPut("uint", value, this, 7)
+        get => NumGet(this, 8, "uint")
+        set => NumPut("uint", value, this, 8)
     }
 
     /**
@@ -54,7 +54,7 @@ class DSMCC_ELEMENT extends Win32Struct
      * @type {Pointer<DSMCC_ELEMENT>}
      */
     pNext {
-        get => NumGet(this, 11, "ptr")
-        set => NumPut("ptr", value, this, 11)
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 }

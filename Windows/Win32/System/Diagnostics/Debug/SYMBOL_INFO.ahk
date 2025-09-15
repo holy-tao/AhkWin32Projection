@@ -152,13 +152,10 @@ class SYMBOL_INFO extends Win32Struct
     /**
      * The name of the symbol. The name can be undecorated if the SYMOPT_UNDNAME option is used with the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-symsetoptions">SymSetOptions</a> function.
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    Name{
-        get {
-            if(!this.HasProp("__NameProxyArray"))
-                this.__NameProxyArray := Win32FixedArray(this.ptr + 84, 1, Primitive, "char")
-            return this.__NameProxyArray
-        }
+    Name {
+        get => StrGet(this.ptr + 84, 0, "UTF-8")
+        set => StrPut(value, this.ptr + 84, 0, "UTF-8")
     }
 }

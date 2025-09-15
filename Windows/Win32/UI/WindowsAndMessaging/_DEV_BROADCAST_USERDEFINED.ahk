@@ -36,13 +36,10 @@ class _DEV_BROADCAST_USERDEFINED extends Win32Struct
 
     /**
      * A pointer to a case-sensitive, null-terminated string that names the message. The string must consist of the vendor name, a backslash, followed by arbitrary user-defined null-terminated text.
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    dbud_szName{
-        get {
-            if(!this.HasProp("__dbud_szNameProxyArray"))
-                this.__dbud_szNameProxyArray := Win32FixedArray(this.ptr + 12, 1, Primitive, "char")
-            return this.__dbud_szNameProxyArray
-        }
+    dbud_szName {
+        get => StrGet(this.ptr + 12, 0, "UTF-16")
+        set => StrPut(value, this.ptr + 12, 0, "UTF-16")
     }
 }

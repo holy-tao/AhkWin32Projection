@@ -13,7 +13,7 @@ class AVIOLDINDEX extends Win32Struct
 {
     static sizeof => 16
 
-    static packingSize => 2
+    static packingSize => 8
 
     /**
      * Specifies a FOURCC code. The value must be 'idx1'.

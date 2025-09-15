@@ -9,7 +9,7 @@
  */
 class KSM_BDA_CAS_CLOSEMMIDIALOG extends Win32Struct
 {
-    static sizeof => 40
+    static sizeof => 56
 
     static packingSize => 8
 
@@ -33,29 +33,26 @@ class KSM_BDA_CAS_CLOSEMMIDIALOG extends Win32Struct
     }
 
     /**
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    cLanguage{
-        get {
-            if(!this.HasProp("__cLanguageProxyArray"))
-                this.__cLanguageProxyArray := Win32FixedArray(this.ptr + 20, 12, Primitive, "char")
-            return this.__cLanguageProxyArray
-        }
+    cLanguage {
+        get => StrGet(this.ptr + 20, 11, "UTF-16")
+        set => StrPut(value, this.ptr + 20, 11, "UTF-16")
     }
 
     /**
      * @type {Integer}
      */
     ulDialogNumber {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
+        get => NumGet(this, 44, "uint")
+        set => NumPut("uint", value, this, 44)
     }
 
     /**
      * @type {Integer}
      */
     ulReason {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
+        get => NumGet(this, 48, "uint")
+        set => NumPut("uint", value, this, 48)
     }
 }

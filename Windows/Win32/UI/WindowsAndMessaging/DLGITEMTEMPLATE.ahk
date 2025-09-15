@@ -65,9 +65,9 @@
  */
 class DLGITEMTEMPLATE extends Win32Struct
 {
-    static sizeof => 18
+    static sizeof => 20
 
-    static packingSize => 2
+    static packingSize => 4
 
     /**
      * Type: <b>DWORD</b>

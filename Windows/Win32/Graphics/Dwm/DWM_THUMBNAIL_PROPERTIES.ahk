@@ -10,9 +10,9 @@
  */
 class DWM_THUMBNAIL_PROPERTIES extends Win32Struct
 {
-    static sizeof => 45
+    static sizeof => 56
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * A bitwise combination of <a href="https://docs.microsoft.com/windows/desktop/dwm/dwm-tnp-constants">DWM thumbnail constant</a> values that indicates which members of this structure are set.
@@ -30,7 +30,7 @@ class DWM_THUMBNAIL_PROPERTIES extends Win32Struct
     rcDestination{
         get {
             if(!this.HasProp("__rcDestination"))
-                this.__rcDestination := RECT(this.ptr + 4)
+                this.__rcDestination := RECT(this.ptr + 8)
             return this.__rcDestination
         }
     }
@@ -42,7 +42,7 @@ class DWM_THUMBNAIL_PROPERTIES extends Win32Struct
     rcSource{
         get {
             if(!this.HasProp("__rcSource"))
-                this.__rcSource := RECT(this.ptr + 20)
+                this.__rcSource := RECT(this.ptr + 24)
             return this.__rcSource
         }
     }
@@ -52,8 +52,8 @@ class DWM_THUMBNAIL_PROPERTIES extends Win32Struct
      * @type {Integer}
      */
     opacity {
-        get => NumGet(this, 36, "char")
-        set => NumPut("char", value, this, 36)
+        get => NumGet(this, 40, "char")
+        set => NumPut("char", value, this, 40)
     }
 
     /**
@@ -61,8 +61,8 @@ class DWM_THUMBNAIL_PROPERTIES extends Win32Struct
      * @type {Integer}
      */
     fVisible {
-        get => NumGet(this, 37, "int")
-        set => NumPut("int", value, this, 37)
+        get => NumGet(this, 44, "int")
+        set => NumPut("int", value, this, 44)
     }
 
     /**
@@ -70,7 +70,7 @@ class DWM_THUMBNAIL_PROPERTIES extends Win32Struct
      * @type {Integer}
      */
     fSourceClientAreaOnly {
-        get => NumGet(this, 41, "int")
-        set => NumPut("int", value, this, 41)
+        get => NumGet(this, 48, "int")
+        set => NumPut("int", value, this, 48)
     }
 }

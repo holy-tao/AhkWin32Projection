@@ -39,9 +39,9 @@
  */
 class MXDC_S0PAGE_PASSTHROUGH_ESCAPE_T extends Win32Struct
 {
-    static sizeof => 17
+    static sizeof => 24
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * An [**MXDC\_ESCAPE\_HEADER\_T**](mxdcescapeheader.md) structure with its **opCode** member set to **MXDCOP\_SET\_S0PAGE**.
@@ -62,7 +62,7 @@ class MXDC_S0PAGE_PASSTHROUGH_ESCAPE_T extends Win32Struct
     xpsS0PageData{
         get {
             if(!this.HasProp("__xpsS0PageData"))
-                this.__xpsS0PageData := MXDC_S0PAGE_DATA_T(this.ptr + 12)
+                this.__xpsS0PageData := MXDC_S0PAGE_DATA_T(this.ptr + 16)
             return this.__xpsS0PageData
         }
     }

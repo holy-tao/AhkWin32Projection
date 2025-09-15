@@ -23,7 +23,7 @@ class MINIDUMP_MEMORY_DESCRIPTOR extends Win32Struct
 {
     static sizeof => 16
 
-    static packingSize => 4
+    static packingSize => 8
 
     /**
      * The starting address of the memory range.

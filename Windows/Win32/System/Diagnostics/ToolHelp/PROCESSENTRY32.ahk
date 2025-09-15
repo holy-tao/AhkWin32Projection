@@ -99,13 +99,10 @@ class PROCESSENTRY32 extends Win32Struct
 
     /**
      * The name of the executable file for the process. To retrieve the full path to the executable file, call the <a href="https://docs.microsoft.com/windows/desktop/api/tlhelp32/nf-tlhelp32-module32first">Module32First</a> function and check the <b>szExePath</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/tlhelp32/ns-tlhelp32-moduleentry32">MODULEENTRY32</a> structure that is returned. However, if the calling process is a 32-bit process, you must call the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-queryfullprocessimagenamea">QueryFullProcessImageName</a> function to retrieve the full path of the executable file for a 64-bit process.
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    szExeFile{
-        get {
-            if(!this.HasProp("__szExeFileProxyArray"))
-                this.__szExeFileProxyArray := Win32FixedArray(this.ptr + 44, 260, Primitive, "char")
-            return this.__szExeFileProxyArray
-        }
+    szExeFile {
+        get => StrGet(this.ptr + 44, 259, "UTF-8")
+        set => StrPut(value, this.ptr + 44, 259, "UTF-8")
     }
 }

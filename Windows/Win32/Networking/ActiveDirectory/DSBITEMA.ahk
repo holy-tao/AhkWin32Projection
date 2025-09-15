@@ -73,26 +73,20 @@ class DSBITEMA extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that contains the display name of the item. The display name of an item can be changed by copying the new display name into this member, setting the <b>DSBF_DISPLAYNAME</b> flag in the <b>dwMask</b> member, and returning a nonzero value from <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nc-shlobj_core-bffcallback">BFFCallBack</a>.
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    szDisplayName{
-        get {
-            if(!this.HasProp("__szDisplayNameProxyArray"))
-                this.__szDisplayNameProxyArray := Win32FixedArray(this.ptr + 36, 64, Primitive, "char")
-            return this.__szDisplayNameProxyArray
-        }
+    szDisplayName {
+        get => StrGet(this.ptr + 36, 63, "UTF-8")
+        set => StrPut(value, this.ptr + 36, 63, "UTF-8")
     }
 
     /**
      * Pointer to a null-terminated string that contains the name of an .exe, .dll, or .ico file that contains the icon to display for the item. This can be any file type that can be passed to the <a href="https://docs.microsoft.com/windows/desktop/api/shellapi/nf-shellapi-extracticona">ExtractIcon</a> function. The index for this icon is specified in <b>iIconResID</b>. To modify the icon displayed for the item, copy the icon source file name into this member, set  <b>iIconResID</b> to the zero-based index of the icon, set the <b>DSBF_ICONLOCATION</b> flag in  the <b>dwMask</b> member, and return a nonzero value from <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nc-shlobj_core-bffcallback">BFFCallBack</a>.
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    szIconLocation{
-        get {
-            if(!this.HasProp("__szIconLocationProxyArray"))
-                this.__szIconLocationProxyArray := Win32FixedArray(this.ptr + 100, 260, Primitive, "char")
-            return this.__szIconLocationProxyArray
-        }
+    szIconLocation {
+        get => StrGet(this.ptr + 100, 259, "UTF-8")
+        set => StrPut(value, this.ptr + 100, 259, "UTF-8")
     }
 
     /**

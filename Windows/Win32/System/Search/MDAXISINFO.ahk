@@ -9,7 +9,7 @@ class MDAXISINFO extends Win32Struct
 {
     static sizeof => 48
 
-    static packingSize => 2
+    static packingSize => 8
 
     /**
      * @type {Pointer}

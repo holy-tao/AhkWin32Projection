@@ -13,7 +13,7 @@ class WINHTTP_REQUEST_STATS extends Win32Struct
 {
     static sizeof => 272
 
-    static packingSize => 4
+    static packingSize => 8
 
     /**
      * Flags containing details on how the request was made. The following flags are available.

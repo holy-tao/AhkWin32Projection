@@ -7,9 +7,9 @@
  */
 class GLOBALENTRY extends Win32Struct
 {
-    static sizeof => 52
+    static sizeof => 64
 
-    static packingSize => 4
+    static packingSize => 8
 
     /**
      * @type {Integer}
@@ -39,30 +39,14 @@ class GLOBALENTRY extends Win32Struct
      * @type {Pointer<HANDLE>}
      */
     hBlock {
-        get => NumGet(this, 12, "ptr")
-        set => NumPut("ptr", value, this, 12)
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * @type {Integer}
      */
     wcLock {
-        get => NumGet(this, 20, "ushort")
-        set => NumPut("ushort", value, this, 20)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    wcPageLock {
-        get => NumGet(this, 22, "ushort")
-        set => NumPut("ushort", value, this, 22)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    wFlags {
         get => NumGet(this, 24, "ushort")
         set => NumPut("ushort", value, this, 24)
     }
@@ -70,48 +54,64 @@ class GLOBALENTRY extends Win32Struct
     /**
      * @type {Integer}
      */
+    wcPageLock {
+        get => NumGet(this, 26, "ushort")
+        set => NumPut("ushort", value, this, 26)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    wFlags {
+        get => NumGet(this, 28, "ushort")
+        set => NumPut("ushort", value, this, 28)
+    }
+
+    /**
+     * @type {Integer}
+     */
     wHeapPresent {
-        get => NumGet(this, 28, "int")
-        set => NumPut("int", value, this, 28)
+        get => NumGet(this, 32, "int")
+        set => NumPut("int", value, this, 32)
     }
 
     /**
      * @type {Pointer<HANDLE>}
      */
     hOwner {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
      * @type {Integer}
      */
     wType {
-        get => NumGet(this, 40, "ushort")
-        set => NumPut("ushort", value, this, 40)
+        get => NumGet(this, 48, "ushort")
+        set => NumPut("ushort", value, this, 48)
     }
 
     /**
      * @type {Integer}
      */
     wData {
-        get => NumGet(this, 42, "ushort")
-        set => NumPut("ushort", value, this, 42)
+        get => NumGet(this, 50, "ushort")
+        set => NumPut("ushort", value, this, 50)
     }
 
     /**
      * @type {Integer}
      */
     dwNext {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
+        get => NumGet(this, 52, "uint")
+        set => NumPut("uint", value, this, 52)
     }
 
     /**
      * @type {Integer}
      */
     dwNextAlt {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
+        get => NumGet(this, 56, "uint")
+        set => NumPut("uint", value, this, 56)
     }
 }

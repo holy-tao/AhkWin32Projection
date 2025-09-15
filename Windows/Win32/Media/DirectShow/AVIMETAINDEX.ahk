@@ -15,7 +15,7 @@ class AVIMETAINDEX extends Win32Struct
 {
     static sizeof => 36
 
-    static packingSize => 2
+    static packingSize => 4
 
     /**
      * A <b>FOURCC</b> code. The value is either 'indx' or '<i>nn</i>ix', where <i>nn</i> is the stream number.

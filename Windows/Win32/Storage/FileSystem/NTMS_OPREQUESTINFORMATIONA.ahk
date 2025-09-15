@@ -58,14 +58,11 @@ class NTMS_OPREQUESTINFORMATIONA extends Win32Struct
 
     /**
      * Operator message text.
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    szMessage{
-        get {
-            if(!this.HasProp("__szMessageProxyArray"))
-                this.__szMessageProxyArray := Win32FixedArray(this.ptr + 28, 256, Primitive, "char")
-            return this.__szMessageProxyArray
-        }
+    szMessage {
+        get => StrGet(this.ptr + 28, 255, "UTF-8")
+        set => StrPut(value, this.ptr + 28, 255, "UTF-8")
     }
 
     /**
@@ -106,37 +103,28 @@ class NTMS_OPREQUESTINFORMATIONA extends Win32Struct
 
     /**
      * Application that submitted the operator request.
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    szApplication{
-        get {
-            if(!this.HasProp("__szApplicationProxyArray"))
-                this.__szApplicationProxyArray := Win32FixedArray(this.ptr + 312, 64, Primitive, "char")
-            return this.__szApplicationProxyArray
-        }
+    szApplication {
+        get => StrGet(this.ptr + 312, 63, "UTF-8")
+        set => StrPut(value, this.ptr + 312, 63, "UTF-8")
     }
 
     /**
      * Interactive user logged on to the computer that submitted the operator request.
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    szUser{
-        get {
-            if(!this.HasProp("__szUserProxyArray"))
-                this.__szUserProxyArray := Win32FixedArray(this.ptr + 376, 64, Primitive, "char")
-            return this.__szUserProxyArray
-        }
+    szUser {
+        get => StrGet(this.ptr + 376, 63, "UTF-8")
+        set => StrPut(value, this.ptr + 376, 63, "UTF-8")
     }
 
     /**
      * Computer that submitted the operator request.
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    szComputer{
-        get {
-            if(!this.HasProp("__szComputerProxyArray"))
-                this.__szComputerProxyArray := Win32FixedArray(this.ptr + 440, 64, Primitive, "char")
-            return this.__szComputerProxyArray
-        }
+    szComputer {
+        get => StrGet(this.ptr + 440, 63, "UTF-8")
+        set => StrPut(value, this.ptr + 440, 63, "UTF-8")
     }
 }

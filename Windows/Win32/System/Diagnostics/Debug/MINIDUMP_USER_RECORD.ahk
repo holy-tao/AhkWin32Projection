@@ -8,9 +8,9 @@
  */
 class MINIDUMP_USER_RECORD extends Win32Struct
 {
-    static sizeof => 12
+    static sizeof => 16
 
-    static packingSize => 4
+    static packingSize => 8
 
     /**
      * @type {Integer}
@@ -26,7 +26,7 @@ class MINIDUMP_USER_RECORD extends Win32Struct
     Memory{
         get {
             if(!this.HasProp("__Memory"))
-                this.__Memory := MINIDUMP_LOCATION_DESCRIPTOR(this.ptr + 4)
+                this.__Memory := MINIDUMP_LOCATION_DESCRIPTOR(this.ptr + 8)
             return this.__Memory
         }
     }

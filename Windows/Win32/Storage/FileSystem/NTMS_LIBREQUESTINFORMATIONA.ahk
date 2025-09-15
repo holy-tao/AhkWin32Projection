@@ -126,38 +126,29 @@ class NTMS_LIBREQUESTINFORMATIONA extends Win32Struct
 
     /**
      * Application that submitted the operator request.
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    szApplication{
-        get {
-            if(!this.HasProp("__szApplicationProxyArray"))
-                this.__szApplicationProxyArray := Win32FixedArray(this.ptr + 88, 64, Primitive, "char")
-            return this.__szApplicationProxyArray
-        }
+    szApplication {
+        get => StrGet(this.ptr + 88, 63, "UTF-8")
+        set => StrPut(value, this.ptr + 88, 63, "UTF-8")
     }
 
     /**
      * Interactive user logged on to the computer that submitted the operator request.
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    szUser{
-        get {
-            if(!this.HasProp("__szUserProxyArray"))
-                this.__szUserProxyArray := Win32FixedArray(this.ptr + 152, 64, Primitive, "char")
-            return this.__szUserProxyArray
-        }
+    szUser {
+        get => StrGet(this.ptr + 152, 63, "UTF-8")
+        set => StrPut(value, this.ptr + 152, 63, "UTF-8")
     }
 
     /**
      * Computer that submitted the operator request.
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    szComputer{
-        get {
-            if(!this.HasProp("__szComputerProxyArray"))
-                this.__szComputerProxyArray := Win32FixedArray(this.ptr + 216, 64, Primitive, "char")
-            return this.__szComputerProxyArray
-        }
+    szComputer {
+        get => StrGet(this.ptr + 216, 63, "UTF-8")
+        set => StrPut(value, this.ptr + 216, 63, "UTF-8")
     }
 
     /**

@@ -9,7 +9,7 @@ class IMAGE_EPILOGUE_DYNAMIC_RELOCATION_HEADER extends Win32Struct
 {
     static sizeof => 8
 
-    static packingSize => 1
+    static packingSize => 4
 
     /**
      * @type {Integer}

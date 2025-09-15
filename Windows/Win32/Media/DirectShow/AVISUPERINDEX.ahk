@@ -15,7 +15,7 @@ class AVISUPERINDEX extends Win32Struct
 {
     static sizeof => 8208
 
-    static packingSize => 2
+    static packingSize => 8
 
     /**
      * A <b>FOURCC</b> code. The value must be 'indx'.

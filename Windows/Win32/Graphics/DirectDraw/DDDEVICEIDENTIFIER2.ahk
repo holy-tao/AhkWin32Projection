@@ -15,32 +15,26 @@
  */
 class DDDEVICEIDENTIFIER2 extends Win32Struct
 {
-    static sizeof => 1064
+    static sizeof => 2088
 
     static packingSize => 8
 
     /**
      * Name of the driver.
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    szDriver{
-        get {
-            if(!this.HasProp("__szDriverProxyArray"))
-                this.__szDriverProxyArray := Win32FixedArray(this.ptr + 0, 512, Primitive, "char")
-            return this.__szDriverProxyArray
-        }
+    szDriver {
+        get => StrGet(this.ptr + 0, 511, "UTF-16")
+        set => StrPut(value, this.ptr + 0, 511, "UTF-16")
     }
 
     /**
      * Description of the driver.
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    szDescription{
-        get {
-            if(!this.HasProp("__szDescriptionProxyArray"))
-                this.__szDescriptionProxyArray := Win32FixedArray(this.ptr + 512, 512, Primitive, "char")
-            return this.__szDescriptionProxyArray
-        }
+    szDescription {
+        get => StrGet(this.ptr + 1024, 511, "UTF-16")
+        set => StrPut(value, this.ptr + 1024, 511, "UTF-16")
     }
 
     /**
@@ -60,8 +54,8 @@ class DDDEVICEIDENTIFIER2 extends Win32Struct
      * @type {Integer}
      */
     liDriverVersion {
-        get => NumGet(this, 1024, "int64")
-        set => NumPut("int64", value, this, 1024)
+        get => NumGet(this, 2048, "int64")
+        set => NumPut("int64", value, this, 2048)
     }
 
     /**
@@ -69,8 +63,8 @@ class DDDEVICEIDENTIFIER2 extends Win32Struct
      * @type {Integer}
      */
     dwVendorId {
-        get => NumGet(this, 1032, "uint")
-        set => NumPut("uint", value, this, 1032)
+        get => NumGet(this, 2056, "uint")
+        set => NumPut("uint", value, this, 2056)
     }
 
     /**
@@ -78,8 +72,8 @@ class DDDEVICEIDENTIFIER2 extends Win32Struct
      * @type {Integer}
      */
     dwDeviceId {
-        get => NumGet(this, 1036, "uint")
-        set => NumPut("uint", value, this, 1036)
+        get => NumGet(this, 2060, "uint")
+        set => NumPut("uint", value, this, 2060)
     }
 
     /**
@@ -87,8 +81,8 @@ class DDDEVICEIDENTIFIER2 extends Win32Struct
      * @type {Integer}
      */
     dwSubSysId {
-        get => NumGet(this, 1040, "uint")
-        set => NumPut("uint", value, this, 1040)
+        get => NumGet(this, 2064, "uint")
+        set => NumPut("uint", value, this, 2064)
     }
 
     /**
@@ -96,8 +90,8 @@ class DDDEVICEIDENTIFIER2 extends Win32Struct
      * @type {Integer}
      */
     dwRevision {
-        get => NumGet(this, 1044, "uint")
-        set => NumPut("uint", value, this, 1044)
+        get => NumGet(this, 2068, "uint")
+        set => NumPut("uint", value, this, 2068)
     }
 
     /**
@@ -105,8 +99,8 @@ class DDDEVICEIDENTIFIER2 extends Win32Struct
      * @type {Pointer<Guid>}
      */
     guidDeviceIdentifier {
-        get => NumGet(this, 1048, "ptr")
-        set => NumPut("ptr", value, this, 1048)
+        get => NumGet(this, 2072, "ptr")
+        set => NumPut("ptr", value, this, 2072)
     }
 
     /**
@@ -114,7 +108,7 @@ class DDDEVICEIDENTIFIER2 extends Win32Struct
      * @type {Integer}
      */
     dwWHQLLevel {
-        get => NumGet(this, 1056, "uint")
-        set => NumPut("uint", value, this, 1056)
+        get => NumGet(this, 2080, "uint")
+        set => NumPut("uint", value, this, 2080)
     }
 }

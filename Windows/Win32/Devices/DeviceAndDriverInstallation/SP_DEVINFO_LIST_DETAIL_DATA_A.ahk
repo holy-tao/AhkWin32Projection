@@ -13,9 +13,9 @@
  */
 class SP_DEVINFO_LIST_DETAIL_DATA_A extends Win32Struct
 {
-    static sizeof => 283
+    static sizeof => 288
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * The size, in bytes, of the SP_DEVINFO_LIST_DETAIL_DATA structure.
@@ -31,8 +31,8 @@ class SP_DEVINFO_LIST_DETAIL_DATA_A extends Win32Struct
      * @type {Pointer<Guid>}
      */
     ClassGuid {
-        get => NumGet(this, 4, "ptr")
-        set => NumPut("ptr", value, this, 4)
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -42,20 +42,17 @@ class SP_DEVINFO_LIST_DETAIL_DATA_A extends Win32Struct
      * @type {Pointer<HANDLE>}
      */
     RemoteMachineHandle {
-        get => NumGet(this, 12, "ptr")
-        set => NumPut("ptr", value, this, 12)
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * A NULL-terminated string that contains the name of the remote computer. If the device information set is for the local computer, this member is an empty string.
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    RemoteMachineName{
-        get {
-            if(!this.HasProp("__RemoteMachineNameProxyArray"))
-                this.__RemoteMachineNameProxyArray := Win32FixedArray(this.ptr + 20, 263, Primitive, "char")
-            return this.__RemoteMachineNameProxyArray
-        }
+    RemoteMachineName {
+        get => StrGet(this.ptr + 24, 262, "UTF-8")
+        set => StrPut(value, this.ptr + 24, 262, "UTF-8")
     }
 
     /**
@@ -64,6 +61,6 @@ class SP_DEVINFO_LIST_DETAIL_DATA_A extends Win32Struct
      */
     __New(ptr := 0){
         super.__New(ptr)
-        this.cbSize := 283
+        this.cbSize := 288
     }
 }

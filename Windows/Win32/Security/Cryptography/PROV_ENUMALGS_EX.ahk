@@ -9,7 +9,7 @@
  */
 class PROV_ENUMALGS_EX extends Win32Struct
 {
-    static sizeof => 88
+    static sizeof => 148
 
     static packingSize => 4
 
@@ -69,14 +69,11 @@ class PROV_ENUMALGS_EX extends Win32Struct
 
     /**
      * A null-terminated ANSI string that contains the name of the algorithm.
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    szName{
-        get {
-            if(!this.HasProp("__szNameProxyArray"))
-                this.__szNameProxyArray := Win32FixedArray(this.ptr + 24, 20, Primitive, "char")
-            return this.__szNameProxyArray
-        }
+    szName {
+        get => StrGet(this.ptr + 24, 19, "UTF-16")
+        set => StrPut(value, this.ptr + 24, 19, "UTF-16")
     }
 
     /**
@@ -84,19 +81,16 @@ class PROV_ENUMALGS_EX extends Win32Struct
      * @type {Integer}
      */
     dwLongNameLen {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
+        get => NumGet(this, 64, "uint")
+        set => NumPut("uint", value, this, 64)
     }
 
     /**
      * A null-terminated ANSI string that contains the long name of the algorithm.
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    szLongName{
-        get {
-            if(!this.HasProp("__szLongNameProxyArray"))
-                this.__szLongNameProxyArray := Win32FixedArray(this.ptr + 48, 40, Primitive, "char")
-            return this.__szLongNameProxyArray
-        }
+    szLongName {
+        get => StrGet(this.ptr + 68, 39, "UTF-16")
+        set => StrPut(value, this.ptr + 68, 39, "UTF-16")
     }
 }

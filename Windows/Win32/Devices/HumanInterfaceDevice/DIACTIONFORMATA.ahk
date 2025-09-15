@@ -121,13 +121,10 @@ class DIACTIONFORMATA extends Win32Struct
     }
 
     /**
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    tszActionMap{
-        get {
-            if(!this.HasProp("__tszActionMapProxyArray"))
-                this.__tszActionMapProxyArray := Win32FixedArray(this.ptr + 68, 260, Primitive, "char")
-            return this.__tszActionMapProxyArray
-        }
+    tszActionMap {
+        get => StrGet(this.ptr + 68, 259, "UTF-8")
+        set => StrPut(value, this.ptr + 68, 259, "UTF-8")
     }
 }

@@ -18,9 +18,9 @@
  */
 class OPEN_PRINTER_PROPS_INFOA extends Win32Struct
 {
-    static sizeof => 24
+    static sizeof => 32
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * Type: <b>DWORD</b>
@@ -40,8 +40,8 @@ class OPEN_PRINTER_PROPS_INFOA extends Win32Struct
      * @type {Pointer<PSTR>}
      */
     pszSheetName {
-        get => NumGet(this, 4, "ptr")
-        set => NumPut("ptr", value, this, 4)
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -51,8 +51,8 @@ class OPEN_PRINTER_PROPS_INFOA extends Win32Struct
      * @type {Integer}
      */
     uSheetIndex {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
+        get => NumGet(this, 16, "uint")
+        set => NumPut("uint", value, this, 16)
     }
 
     /**
@@ -62,8 +62,8 @@ class OPEN_PRINTER_PROPS_INFOA extends Win32Struct
      * @type {Integer}
      */
     dwFlags {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+        get => NumGet(this, 20, "uint")
+        set => NumPut("uint", value, this, 20)
     }
 
     /**
@@ -73,7 +73,7 @@ class OPEN_PRINTER_PROPS_INFOA extends Win32Struct
      * @type {Integer}
      */
     bModal {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
+        get => NumGet(this, 24, "int")
+        set => NumPut("int", value, this, 24)
     }
 }

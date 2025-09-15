@@ -10,7 +10,7 @@
  */
 class DRT_ADDRESS extends Win32Struct
 {
-    static sizeof => 144
+    static sizeof => 264
 
     static packingSize => 8
 
@@ -31,8 +31,8 @@ class DRT_ADDRESS extends Win32Struct
      * @type {Integer}
      */
     flags {
-        get => NumGet(this, 128, "uint")
-        set => NumPut("uint", value, this, 128)
+        get => NumGet(this, 248, "uint")
+        set => NumPut("uint", value, this, 248)
     }
 
     /**
@@ -40,8 +40,8 @@ class DRT_ADDRESS extends Win32Struct
      * @type {Integer}
      */
     nearness {
-        get => NumGet(this, 132, "int")
-        set => NumPut("int", value, this, 132)
+        get => NumGet(this, 252, "int")
+        set => NumPut("int", value, this, 252)
     }
 
     /**
@@ -49,7 +49,7 @@ class DRT_ADDRESS extends Win32Struct
      * @type {Integer}
      */
     latency {
-        get => NumGet(this, 136, "uint")
-        set => NumPut("uint", value, this, 136)
+        get => NumGet(this, 256, "uint")
+        set => NumPut("uint", value, this, 256)
     }
 }

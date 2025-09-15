@@ -13,14 +13,11 @@ class INTERNET_CACHE_CONFIG_PATH_ENTRYA extends Win32Struct
     static packingSize => 4
 
     /**
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    CachePath{
-        get {
-            if(!this.HasProp("__CachePathProxyArray"))
-                this.__CachePathProxyArray := Win32FixedArray(this.ptr + 0, 260, Primitive, "char")
-            return this.__CachePathProxyArray
-        }
+    CachePath {
+        get => StrGet(this.ptr + 0, 259, "UTF-8")
+        set => StrPut(value, this.ptr + 0, 259, "UTF-8")
     }
 
     /**

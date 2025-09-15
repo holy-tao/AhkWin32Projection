@@ -28,13 +28,10 @@ class STYLEBUFA extends Win32Struct
 
     /**
      * Description of the style.
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    szDescription{
-        get {
-            if(!this.HasProp("__szDescriptionProxyArray"))
-                this.__szDescriptionProxyArray := Win32FixedArray(this.ptr + 4, 32, Primitive, "char")
-            return this.__szDescriptionProxyArray
-        }
+    szDescription {
+        get => StrGet(this.ptr + 4, 31, "UTF-8")
+        set => StrPut(value, this.ptr + 4, 31, "UTF-8")
     }
 }

@@ -14,7 +14,7 @@ class LINEMESSAGE extends Win32Struct
 {
     static sizeof => 40
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * Handle to either a line device or a call. The nature of this handle (line handle or call handle) can be determined by the context provided by <i>dwMessageID</i>.

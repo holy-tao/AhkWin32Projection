@@ -12,9 +12,9 @@
  */
 class TXF_LOG_RECORD_WRITE extends Win32Struct
 {
-    static sizeof => 60
+    static sizeof => 64
 
-    static packingSize => 4
+    static packingSize => 8
 
     /**
      * The version identifier for the replication record.
@@ -59,7 +59,7 @@ class TXF_LOG_RECORD_WRITE extends Win32Struct
     TxfFileId{
         get {
             if(!this.HasProp("__TxfFileId"))
-                this.__TxfFileId := TXF_ID(this.ptr + 12)
+                this.__TxfFileId := TXF_ID(this.ptr + 16)
             return this.__TxfFileId
         }
     }
@@ -69,8 +69,8 @@ class TXF_LOG_RECORD_WRITE extends Win32Struct
      * @type {Pointer<Guid>}
      */
     KtmGuid {
-        get => NumGet(this, 28, "ptr")
-        set => NumPut("ptr", value, this, 28)
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
@@ -78,8 +78,8 @@ class TXF_LOG_RECORD_WRITE extends Win32Struct
      * @type {Integer}
      */
     ByteOffsetInFile {
-        get => NumGet(this, 36, "int64")
-        set => NumPut("int64", value, this, 36)
+        get => NumGet(this, 40, "int64")
+        set => NumPut("int64", value, this, 40)
     }
 
     /**
@@ -87,8 +87,8 @@ class TXF_LOG_RECORD_WRITE extends Win32Struct
      * @type {Integer}
      */
     NumBytesWritten {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
+        get => NumGet(this, 48, "uint")
+        set => NumPut("uint", value, this, 48)
     }
 
     /**
@@ -96,8 +96,8 @@ class TXF_LOG_RECORD_WRITE extends Win32Struct
      * @type {Integer}
      */
     ByteOffsetInStructure {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
+        get => NumGet(this, 52, "uint")
+        set => NumPut("uint", value, this, 52)
     }
 
     /**
@@ -105,8 +105,8 @@ class TXF_LOG_RECORD_WRITE extends Win32Struct
      * @type {Integer}
      */
     FileNameLength {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
+        get => NumGet(this, 56, "uint")
+        set => NumPut("uint", value, this, 56)
     }
 
     /**
@@ -114,7 +114,7 @@ class TXF_LOG_RECORD_WRITE extends Win32Struct
      * @type {Integer}
      */
     FileNameByteOffsetInStructure {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
+        get => NumGet(this, 60, "uint")
+        set => NumPut("uint", value, this, 60)
     }
 }

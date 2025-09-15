@@ -9,7 +9,7 @@
  */
 class PROV_ENUMALGS extends Win32Struct
 {
-    static sizeof => 32
+    static sizeof => 52
 
     static packingSize => 4
 
@@ -42,13 +42,10 @@ class PROV_ENUMALGS extends Win32Struct
 
     /**
      * A null-terminated ANSI string that contains the name of the algorithm.
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    szName{
-        get {
-            if(!this.HasProp("__szNameProxyArray"))
-                this.__szNameProxyArray := Win32FixedArray(this.ptr + 12, 20, Primitive, "char")
-            return this.__szNameProxyArray
-        }
+    szName {
+        get => StrGet(this.ptr + 12, 19, "UTF-16")
+        set => StrPut(value, this.ptr + 12, 19, "UTF-16")
     }
 }

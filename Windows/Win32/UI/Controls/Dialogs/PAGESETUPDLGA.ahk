@@ -24,9 +24,9 @@
  */
 class PAGESETUPDLGA extends Win32Struct
 {
-    static sizeof => 120
+    static sizeof => 128
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * Type: <b>DWORD</b>
@@ -46,8 +46,8 @@ class PAGESETUPDLGA extends Win32Struct
      * @type {Pointer<HWND>}
      */
     hwndOwner {
-        get => NumGet(this, 4, "ptr")
-        set => NumPut("ptr", value, this, 4)
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -57,8 +57,8 @@ class PAGESETUPDLGA extends Win32Struct
      * @type {Pointer<HGLOBAL>}
      */
     hDevMode {
-        get => NumGet(this, 12, "ptr")
-        set => NumPut("ptr", value, this, 12)
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
@@ -69,8 +69,8 @@ class PAGESETUPDLGA extends Win32Struct
      * @type {Pointer<HGLOBAL>}
      */
     hDevNames {
-        get => NumGet(this, 20, "ptr")
-        set => NumPut("ptr", value, this, 20)
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
@@ -78,8 +78,8 @@ class PAGESETUPDLGA extends Win32Struct
      * @type {Integer}
      */
     Flags {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
+        get => NumGet(this, 32, "uint")
+        set => NumPut("uint", value, this, 32)
     }
 
     /**
@@ -91,7 +91,7 @@ class PAGESETUPDLGA extends Win32Struct
     ptPaperSize{
         get {
             if(!this.HasProp("__ptPaperSize"))
-                this.__ptPaperSize := POINT(this.ptr + 32)
+                this.__ptPaperSize := POINT(this.ptr + 40)
             return this.__ptPaperSize
         }
     }
@@ -105,7 +105,7 @@ class PAGESETUPDLGA extends Win32Struct
     rtMinMargin{
         get {
             if(!this.HasProp("__rtMinMargin"))
-                this.__rtMinMargin := RECT(this.ptr + 40)
+                this.__rtMinMargin := RECT(this.ptr + 48)
             return this.__rtMinMargin
         }
     }
@@ -119,7 +119,7 @@ class PAGESETUPDLGA extends Win32Struct
     rtMargin{
         get {
             if(!this.HasProp("__rtMargin"))
-                this.__rtMargin := RECT(this.ptr + 56)
+                this.__rtMargin := RECT(this.ptr + 64)
             return this.__rtMargin
         }
     }
@@ -131,8 +131,8 @@ class PAGESETUPDLGA extends Win32Struct
      * @type {Pointer<HINSTANCE>}
      */
     hInstance {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
+        get => NumGet(this, 80, "ptr")
+        set => NumPut("ptr", value, this, 80)
     }
 
     /**
@@ -142,8 +142,8 @@ class PAGESETUPDLGA extends Win32Struct
      * @type {Pointer}
      */
     lCustData {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
+        get => NumGet(this, 88, "ptr")
+        set => NumPut("ptr", value, this, 88)
     }
 
     /**
@@ -153,8 +153,8 @@ class PAGESETUPDLGA extends Win32Struct
      * @type {Pointer<LPPAGESETUPHOOK>}
      */
     lpfnPageSetupHook {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
+        get => NumGet(this, 96, "ptr")
+        set => NumPut("ptr", value, this, 96)
     }
 
     /**
@@ -164,8 +164,8 @@ class PAGESETUPDLGA extends Win32Struct
      * @type {Pointer<LPPAGEPAINTHOOK>}
      */
     lpfnPagePaintHook {
-        get => NumGet(this, 96, "ptr")
-        set => NumPut("ptr", value, this, 96)
+        get => NumGet(this, 104, "ptr")
+        set => NumPut("ptr", value, this, 104)
     }
 
     /**
@@ -175,8 +175,8 @@ class PAGESETUPDLGA extends Win32Struct
      * @type {Pointer<PSTR>}
      */
     lpPageSetupTemplateName {
-        get => NumGet(this, 104, "ptr")
-        set => NumPut("ptr", value, this, 104)
+        get => NumGet(this, 112, "ptr")
+        set => NumPut("ptr", value, this, 112)
     }
 
     /**
@@ -186,7 +186,7 @@ class PAGESETUPDLGA extends Win32Struct
      * @type {Pointer<HGLOBAL>}
      */
     hPageSetupTemplate {
-        get => NumGet(this, 112, "ptr")
-        set => NumPut("ptr", value, this, 112)
+        get => NumGet(this, 120, "ptr")
+        set => NumPut("ptr", value, this, 120)
     }
 }

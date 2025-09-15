@@ -11,9 +11,9 @@
  */
 class WHEA_XPF_CMC_DESCRIPTOR extends Win32Struct
 {
-    static sizeof => 276
+    static sizeof => 280
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * @type {Integer}
@@ -64,7 +64,7 @@ class WHEA_XPF_CMC_DESCRIPTOR extends Win32Struct
     Banks{
         get {
             if(!this.HasProp("__BanksProxyArray"))
-                this.__BanksProxyArray := Win32FixedArray(this.ptr + 20, 32, WHEA_XPF_MC_BANK_DESCRIPTOR, "")
+                this.__BanksProxyArray := Win32FixedArray(this.ptr + 24, 32, WHEA_XPF_MC_BANK_DESCRIPTOR, "")
             return this.__BanksProxyArray
         }
     }

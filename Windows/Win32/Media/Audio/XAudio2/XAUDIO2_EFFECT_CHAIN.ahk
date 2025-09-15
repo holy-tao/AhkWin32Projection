@@ -12,9 +12,9 @@
  */
 class XAUDIO2_EFFECT_CHAIN extends Win32Struct
 {
-    static sizeof => 12
+    static sizeof => 16
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * Number of effects in the effect chain for the voice.
@@ -30,7 +30,7 @@ class XAUDIO2_EFFECT_CHAIN extends Win32Struct
      * @type {Pointer<XAUDIO2_EFFECT_DESCRIPTOR>}
      */
     pEffectDescriptors {
-        get => NumGet(this, 4, "ptr")
-        set => NumPut("ptr", value, this, 4)
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 }

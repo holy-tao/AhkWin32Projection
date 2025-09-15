@@ -24,9 +24,9 @@
  */
 class PRINTDLGW extends Win32Struct
 {
-    static sizeof => 114
+    static sizeof => 120
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * Type: <b>DWORD</b>
@@ -46,8 +46,8 @@ class PRINTDLGW extends Win32Struct
      * @type {Pointer<HWND>}
      */
     hwndOwner {
-        get => NumGet(this, 4, "ptr")
-        set => NumPut("ptr", value, this, 4)
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -65,8 +65,8 @@ class PRINTDLGW extends Win32Struct
      * @type {Pointer<HGLOBAL>}
      */
     hDevMode {
-        get => NumGet(this, 12, "ptr")
-        set => NumPut("ptr", value, this, 12)
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
@@ -80,8 +80,8 @@ class PRINTDLGW extends Win32Struct
      * @type {Pointer<HGLOBAL>}
      */
     hDevNames {
-        get => NumGet(this, 20, "ptr")
-        set => NumPut("ptr", value, this, 20)
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
@@ -91,8 +91,8 @@ class PRINTDLGW extends Win32Struct
      * @type {Pointer<HDC>}
      */
     hDC {
-        get => NumGet(this, 28, "ptr")
-        set => NumPut("ptr", value, this, 28)
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
@@ -100,8 +100,8 @@ class PRINTDLGW extends Win32Struct
      * @type {Integer}
      */
     Flags {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
+        get => NumGet(this, 40, "uint")
+        set => NumPut("uint", value, this, 40)
     }
 
     /**
@@ -115,8 +115,8 @@ class PRINTDLGW extends Win32Struct
      * @type {Integer}
      */
     nFromPage {
-        get => NumGet(this, 40, "ushort")
-        set => NumPut("ushort", value, this, 40)
+        get => NumGet(this, 44, "ushort")
+        set => NumPut("ushort", value, this, 44)
     }
 
     /**
@@ -126,8 +126,8 @@ class PRINTDLGW extends Win32Struct
      * @type {Integer}
      */
     nToPage {
-        get => NumGet(this, 42, "ushort")
-        set => NumPut("ushort", value, this, 42)
+        get => NumGet(this, 46, "ushort")
+        set => NumPut("ushort", value, this, 46)
     }
 
     /**
@@ -137,8 +137,8 @@ class PRINTDLGW extends Win32Struct
      * @type {Integer}
      */
     nMinPage {
-        get => NumGet(this, 44, "ushort")
-        set => NumPut("ushort", value, this, 44)
+        get => NumGet(this, 48, "ushort")
+        set => NumPut("ushort", value, this, 48)
     }
 
     /**
@@ -148,8 +148,8 @@ class PRINTDLGW extends Win32Struct
      * @type {Integer}
      */
     nMaxPage {
-        get => NumGet(this, 46, "ushort")
-        set => NumPut("ushort", value, this, 46)
+        get => NumGet(this, 50, "ushort")
+        set => NumPut("ushort", value, this, 50)
     }
 
     /**
@@ -159,8 +159,8 @@ class PRINTDLGW extends Win32Struct
      * @type {Integer}
      */
     nCopies {
-        get => NumGet(this, 48, "ushort")
-        set => NumPut("ushort", value, this, 48)
+        get => NumGet(this, 52, "ushort")
+        set => NumPut("ushort", value, this, 52)
     }
 
     /**
@@ -170,8 +170,8 @@ class PRINTDLGW extends Win32Struct
      * @type {Pointer<HINSTANCE>}
      */
     hInstance {
-        get => NumGet(this, 50, "ptr")
-        set => NumPut("ptr", value, this, 50)
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 
     /**
@@ -181,8 +181,8 @@ class PRINTDLGW extends Win32Struct
      * @type {Pointer}
      */
     lCustData {
-        get => NumGet(this, 58, "ptr")
-        set => NumPut("ptr", value, this, 58)
+        get => NumGet(this, 64, "ptr")
+        set => NumPut("ptr", value, this, 64)
     }
 
     /**
@@ -192,8 +192,8 @@ class PRINTDLGW extends Win32Struct
      * @type {Pointer<LPPRINTHOOKPROC>}
      */
     lpfnPrintHook {
-        get => NumGet(this, 66, "ptr")
-        set => NumPut("ptr", value, this, 66)
+        get => NumGet(this, 72, "ptr")
+        set => NumPut("ptr", value, this, 72)
     }
 
     /**
@@ -203,8 +203,8 @@ class PRINTDLGW extends Win32Struct
      * @type {Pointer<LPSETUPHOOKPROC>}
      */
     lpfnSetupHook {
-        get => NumGet(this, 74, "ptr")
-        set => NumPut("ptr", value, this, 74)
+        get => NumGet(this, 80, "ptr")
+        set => NumPut("ptr", value, this, 80)
     }
 
     /**
@@ -214,8 +214,8 @@ class PRINTDLGW extends Win32Struct
      * @type {Pointer<PWSTR>}
      */
     lpPrintTemplateName {
-        get => NumGet(this, 82, "ptr")
-        set => NumPut("ptr", value, this, 82)
+        get => NumGet(this, 88, "ptr")
+        set => NumPut("ptr", value, this, 88)
     }
 
     /**
@@ -225,8 +225,8 @@ class PRINTDLGW extends Win32Struct
      * @type {Pointer<PWSTR>}
      */
     lpSetupTemplateName {
-        get => NumGet(this, 90, "ptr")
-        set => NumPut("ptr", value, this, 90)
+        get => NumGet(this, 96, "ptr")
+        set => NumPut("ptr", value, this, 96)
     }
 
     /**
@@ -236,8 +236,8 @@ class PRINTDLGW extends Win32Struct
      * @type {Pointer<HGLOBAL>}
      */
     hPrintTemplate {
-        get => NumGet(this, 98, "ptr")
-        set => NumPut("ptr", value, this, 98)
+        get => NumGet(this, 104, "ptr")
+        set => NumPut("ptr", value, this, 104)
     }
 
     /**
@@ -247,7 +247,7 @@ class PRINTDLGW extends Win32Struct
      * @type {Pointer<HGLOBAL>}
      */
     hSetupTemplate {
-        get => NumGet(this, 106, "ptr")
-        set => NumPut("ptr", value, this, 106)
+        get => NumGet(this, 112, "ptr")
+        set => NumPut("ptr", value, this, 112)
     }
 }

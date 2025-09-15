@@ -25,9 +25,9 @@
  */
 class PRINTDLGEXW extends Win32Struct
 {
-    static sizeof => 120
+    static sizeof => 136
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * Type: <b>DWORD</b>
@@ -47,8 +47,8 @@ class PRINTDLGEXW extends Win32Struct
      * @type {Pointer<HWND>}
      */
     hwndOwner {
-        get => NumGet(this, 4, "ptr")
-        set => NumPut("ptr", value, this, 4)
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -62,8 +62,8 @@ class PRINTDLGEXW extends Win32Struct
      * @type {Pointer<HGLOBAL>}
      */
     hDevMode {
-        get => NumGet(this, 12, "ptr")
-        set => NumPut("ptr", value, this, 12)
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
@@ -77,8 +77,8 @@ class PRINTDLGEXW extends Win32Struct
      * @type {Pointer<HGLOBAL>}
      */
     hDevNames {
-        get => NumGet(this, 20, "ptr")
-        set => NumPut("ptr", value, this, 20)
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
@@ -88,8 +88,8 @@ class PRINTDLGEXW extends Win32Struct
      * @type {Pointer<HDC>}
      */
     hDC {
-        get => NumGet(this, 28, "ptr")
-        set => NumPut("ptr", value, this, 28)
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
@@ -97,8 +97,8 @@ class PRINTDLGEXW extends Win32Struct
      * @type {Integer}
      */
     Flags {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
+        get => NumGet(this, 40, "uint")
+        set => NumPut("uint", value, this, 40)
     }
 
     /**
@@ -106,8 +106,8 @@ class PRINTDLGEXW extends Win32Struct
      * @type {Integer}
      */
     Flags2 {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
+        get => NumGet(this, 44, "uint")
+        set => NumPut("uint", value, this, 44)
     }
 
     /**
@@ -117,8 +117,8 @@ class PRINTDLGEXW extends Win32Struct
      * @type {Integer}
      */
     ExclusionFlags {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
+        get => NumGet(this, 48, "uint")
+        set => NumPut("uint", value, this, 48)
     }
 
     /**
@@ -128,8 +128,8 @@ class PRINTDLGEXW extends Win32Struct
      * @type {Integer}
      */
     nPageRanges {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
+        get => NumGet(this, 52, "uint")
+        set => NumPut("uint", value, this, 52)
     }
 
     /**
@@ -139,8 +139,8 @@ class PRINTDLGEXW extends Win32Struct
      * @type {Integer}
      */
     nMaxPageRanges {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
+        get => NumGet(this, 56, "uint")
+        set => NumPut("uint", value, this, 56)
     }
 
     /**
@@ -150,8 +150,8 @@ class PRINTDLGEXW extends Win32Struct
      * @type {Pointer<PRINTPAGERANGE>}
      */
     lpPageRanges {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
+        get => NumGet(this, 64, "ptr")
+        set => NumPut("ptr", value, this, 64)
     }
 
     /**
@@ -161,8 +161,8 @@ class PRINTDLGEXW extends Win32Struct
      * @type {Integer}
      */
     nMinPage {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
+        get => NumGet(this, 72, "uint")
+        set => NumPut("uint", value, this, 72)
     }
 
     /**
@@ -172,8 +172,8 @@ class PRINTDLGEXW extends Win32Struct
      * @type {Integer}
      */
     nMaxPage {
-        get => NumGet(this, 68, "uint")
-        set => NumPut("uint", value, this, 68)
+        get => NumGet(this, 76, "uint")
+        set => NumPut("uint", value, this, 76)
     }
 
     /**
@@ -183,8 +183,8 @@ class PRINTDLGEXW extends Win32Struct
      * @type {Integer}
      */
     nCopies {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
+        get => NumGet(this, 80, "uint")
+        set => NumPut("uint", value, this, 80)
     }
 
     /**
@@ -194,8 +194,8 @@ class PRINTDLGEXW extends Win32Struct
      * @type {Pointer<HINSTANCE>}
      */
     hInstance {
-        get => NumGet(this, 76, "ptr")
-        set => NumPut("ptr", value, this, 76)
+        get => NumGet(this, 88, "ptr")
+        set => NumPut("ptr", value, this, 88)
     }
 
     /**
@@ -205,8 +205,8 @@ class PRINTDLGEXW extends Win32Struct
      * @type {Pointer<PWSTR>}
      */
     lpPrintTemplateName {
-        get => NumGet(this, 84, "ptr")
-        set => NumPut("ptr", value, this, 84)
+        get => NumGet(this, 96, "ptr")
+        set => NumPut("ptr", value, this, 96)
     }
 
     /**
@@ -222,8 +222,8 @@ class PRINTDLGEXW extends Win32Struct
      * @type {Pointer<IUnknown>}
      */
     lpCallback {
-        get => NumGet(this, 92, "ptr")
-        set => NumPut("ptr", value, this, 92)
+        get => NumGet(this, 104, "ptr")
+        set => NumPut("ptr", value, this, 104)
     }
 
     /**
@@ -234,8 +234,8 @@ class PRINTDLGEXW extends Win32Struct
      * @type {Integer}
      */
     nPropertyPages {
-        get => NumGet(this, 100, "uint")
-        set => NumPut("uint", value, this, 100)
+        get => NumGet(this, 112, "uint")
+        set => NumPut("uint", value, this, 112)
     }
 
     /**
@@ -245,8 +245,8 @@ class PRINTDLGEXW extends Win32Struct
      * @type {Pointer<HPROPSHEETPAGE>}
      */
     lphPropertyPages {
-        get => NumGet(this, 104, "ptr")
-        set => NumPut("ptr", value, this, 104)
+        get => NumGet(this, 120, "ptr")
+        set => NumPut("ptr", value, this, 120)
     }
 
     /**
@@ -256,8 +256,8 @@ class PRINTDLGEXW extends Win32Struct
      * @type {Integer}
      */
     nStartPage {
-        get => NumGet(this, 112, "uint")
-        set => NumPut("uint", value, this, 112)
+        get => NumGet(this, 128, "uint")
+        set => NumPut("uint", value, this, 128)
     }
 
     /**
@@ -265,7 +265,7 @@ class PRINTDLGEXW extends Win32Struct
      * @type {Integer}
      */
     dwResultAction {
-        get => NumGet(this, 116, "uint")
-        set => NumPut("uint", value, this, 116)
+        get => NumGet(this, 132, "uint")
+        set => NumPut("uint", value, this, 132)
     }
 }

@@ -7,58 +7,55 @@
  */
 class HSE_URL_MAPEX_INFO extends Win32Struct
 {
-    static sizeof => 280
+    static sizeof => 540
 
     static packingSize => 4
 
     /**
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    lpszPath{
-        get {
-            if(!this.HasProp("__lpszPathProxyArray"))
-                this.__lpszPathProxyArray := Win32FixedArray(this.ptr + 0, 260, Primitive, "char")
-            return this.__lpszPathProxyArray
-        }
+    lpszPath {
+        get => StrGet(this.ptr + 0, 259, "UTF-16")
+        set => StrPut(value, this.ptr + 0, 259, "UTF-16")
     }
 
     /**
      * @type {Integer}
      */
     dwFlags {
-        get => NumGet(this, 260, "uint")
-        set => NumPut("uint", value, this, 260)
+        get => NumGet(this, 520, "uint")
+        set => NumPut("uint", value, this, 520)
     }
 
     /**
      * @type {Integer}
      */
     cchMatchingPath {
-        get => NumGet(this, 264, "uint")
-        set => NumPut("uint", value, this, 264)
+        get => NumGet(this, 524, "uint")
+        set => NumPut("uint", value, this, 524)
     }
 
     /**
      * @type {Integer}
      */
     cchMatchingURL {
-        get => NumGet(this, 268, "uint")
-        set => NumPut("uint", value, this, 268)
+        get => NumGet(this, 528, "uint")
+        set => NumPut("uint", value, this, 528)
     }
 
     /**
      * @type {Integer}
      */
     dwReserved1 {
-        get => NumGet(this, 272, "uint")
-        set => NumPut("uint", value, this, 272)
+        get => NumGet(this, 532, "uint")
+        set => NumPut("uint", value, this, 532)
     }
 
     /**
      * @type {Integer}
      */
     dwReserved2 {
-        get => NumGet(this, 276, "uint")
-        set => NumPut("uint", value, this, 276)
+        get => NumGet(this, 536, "uint")
+        set => NumPut("uint", value, this, 536)
     }
 }

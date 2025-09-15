@@ -7,7 +7,7 @@
  */
 class SOCKADDR_UN extends Win32Struct
 {
-    static sizeof => 110
+    static sizeof => 218
 
     static packingSize => 2
 
@@ -20,13 +20,10 @@ class SOCKADDR_UN extends Win32Struct
     }
 
     /**
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    sun_path{
-        get {
-            if(!this.HasProp("__sun_pathProxyArray"))
-                this.__sun_pathProxyArray := Win32FixedArray(this.ptr + 2, 108, Primitive, "char")
-            return this.__sun_pathProxyArray
-        }
+    sun_path {
+        get => StrGet(this.ptr + 2, 107, "UTF-16")
+        set => StrPut(value, this.ptr + 2, 107, "UTF-16")
     }
 }

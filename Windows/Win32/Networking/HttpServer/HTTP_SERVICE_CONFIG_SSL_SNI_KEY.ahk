@@ -10,7 +10,7 @@
  */
 class HTTP_SERVICE_CONFIG_SSL_SNI_KEY extends Win32Struct
 {
-    static sizeof => 136
+    static sizeof => 256
 
     static packingSize => 8
 
@@ -31,7 +31,7 @@ class HTTP_SERVICE_CONFIG_SSL_SNI_KEY extends Win32Struct
      * @type {Pointer<PWSTR>}
      */
     Host {
-        get => NumGet(this, 128, "ptr")
-        set => NumPut("ptr", value, this, 128)
+        get => NumGet(this, 248, "ptr")
+        set => NumPut("ptr", value, this, 248)
     }
 }

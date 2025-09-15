@@ -10,20 +10,17 @@
  */
 class TOKEN_SOURCE extends Win32Struct
 {
-    static sizeof => 16
+    static sizeof => 24
 
     static packingSize => 8
 
     /**
      * Specifies an 8-byte character string used to identify the source of an access token. This is used to distinguish between such sources as Session Manager, LAN Manager, and RPC Server. A string, rather than a constant, is used to identify the source so users and developers can make extensions to the system, such as by adding other networks, that act as the source of access tokens.
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    SourceName{
-        get {
-            if(!this.HasProp("__SourceNameProxyArray"))
-                this.__SourceNameProxyArray := Win32FixedArray(this.ptr + 0, 8, Primitive, "char")
-            return this.__SourceNameProxyArray
-        }
+    SourceName {
+        get => StrGet(this.ptr + 0, 7, "UTF-16")
+        set => StrPut(value, this.ptr + 0, 7, "UTF-16")
     }
 
     /**
@@ -33,7 +30,7 @@ class TOKEN_SOURCE extends Win32Struct
     SourceIdentifier{
         get {
             if(!this.HasProp("__SourceIdentifier"))
-                this.__SourceIdentifier := LUID(this.ptr + 8)
+                this.__SourceIdentifier := LUID(this.ptr + 16)
             return this.__SourceIdentifier
         }
     }

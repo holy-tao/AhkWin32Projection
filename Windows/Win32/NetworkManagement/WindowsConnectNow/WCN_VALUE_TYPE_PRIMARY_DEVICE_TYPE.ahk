@@ -9,9 +9,9 @@
  */
 class WCN_VALUE_TYPE_PRIMARY_DEVICE_TYPE extends Win32Struct
 {
-    static sizeof => 8
+    static sizeof => 12
 
-    static packingSize => 1
+    static packingSize => 4
 
     /**
      * Specifies the primary device type category. This data is supplied in network byte order.
@@ -188,8 +188,8 @@ class WCN_VALUE_TYPE_PRIMARY_DEVICE_TYPE extends Win32Struct
      * @type {Integer}
      */
     SubCategoryOUI {
-        get => NumGet(this, 2, "uint")
-        set => NumPut("uint", value, this, 2)
+        get => NumGet(this, 4, "uint")
+        set => NumPut("uint", value, this, 4)
     }
 
     /**
@@ -1068,7 +1068,7 @@ class WCN_VALUE_TYPE_PRIMARY_DEVICE_TYPE extends Win32Struct
      * @type {Integer}
      */
     SubCategory {
-        get => NumGet(this, 6, "ushort")
-        set => NumPut("ushort", value, this, 6)
+        get => NumGet(this, 8, "ushort")
+        set => NumPut("ushort", value, this, 8)
     }
 }

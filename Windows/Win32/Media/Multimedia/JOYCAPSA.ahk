@@ -15,7 +15,7 @@ class JOYCAPSA extends Win32Struct
 {
     static sizeof => 404
 
-    static packingSize => 1
+    static packingSize => 4
 
     /**
      * Manufacturer identifier. Manufacturer identifiers are defined in <a href="https://docs.microsoft.com/windows/desktop/Multimedia/manufacturer-and-product-identifiers">Manufacturer and Product Identifiers</a>.
@@ -37,14 +37,11 @@ class JOYCAPSA extends Win32Struct
 
     /**
      * Null-terminated string containing the joystick product name.
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    szPname{
-        get {
-            if(!this.HasProp("__szPnameProxyArray"))
-                this.__szPnameProxyArray := Win32FixedArray(this.ptr + 4, 32, Primitive, "char")
-            return this.__szPnameProxyArray
-        }
+    szPname {
+        get => StrGet(this.ptr + 4, 31, "UTF-8")
+        set => StrPut(value, this.ptr + 4, 31, "UTF-8")
     }
 
     /**
@@ -255,25 +252,19 @@ class JOYCAPSA extends Win32Struct
 
     /**
      * Null-terminated string containing the registry key for the joystick.
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    szRegKey{
-        get {
-            if(!this.HasProp("__szRegKeyProxyArray"))
-                this.__szRegKeyProxyArray := Win32FixedArray(this.ptr + 112, 32, Primitive, "char")
-            return this.__szRegKeyProxyArray
-        }
+    szRegKey {
+        get => StrGet(this.ptr + 112, 31, "UTF-8")
+        set => StrPut(value, this.ptr + 112, 31, "UTF-8")
     }
 
     /**
      * Null-terminated string identifying the joystick driver OEM.
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    szOEMVxD{
-        get {
-            if(!this.HasProp("__szOEMVxDProxyArray"))
-                this.__szOEMVxDProxyArray := Win32FixedArray(this.ptr + 144, 260, Primitive, "char")
-            return this.__szOEMVxDProxyArray
-        }
+    szOEMVxD {
+        get => StrGet(this.ptr + 144, 259, "UTF-8")
+        set => StrPut(value, this.ptr + 144, 259, "UTF-8")
     }
 }

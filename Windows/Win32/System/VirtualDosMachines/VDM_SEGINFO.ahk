@@ -7,7 +7,7 @@
  */
 class VDM_SEGINFO extends Win32Struct
 {
-    static sizeof => 276
+    static sizeof => 540
 
     static packingSize => 4
 
@@ -44,24 +44,18 @@ class VDM_SEGINFO extends Win32Struct
     }
 
     /**
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    ModuleName{
-        get {
-            if(!this.HasProp("__ModuleNameProxyArray"))
-                this.__ModuleNameProxyArray := Win32FixedArray(this.ptr + 10, 9, Primitive, "char")
-            return this.__ModuleNameProxyArray
-        }
+    ModuleName {
+        get => StrGet(this.ptr + 10, 8, "UTF-16")
+        set => StrPut(value, this.ptr + 10, 8, "UTF-16")
     }
 
     /**
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    FileName{
-        get {
-            if(!this.HasProp("__FileNameProxyArray"))
-                this.__FileNameProxyArray := Win32FixedArray(this.ptr + 19, 255, Primitive, "char")
-            return this.__FileNameProxyArray
-        }
+    FileName {
+        get => StrGet(this.ptr + 28, 254, "UTF-16")
+        set => StrPut(value, this.ptr + 28, 254, "UTF-16")
     }
 }

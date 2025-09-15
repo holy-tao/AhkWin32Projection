@@ -7,7 +7,7 @@
  */
 class HSE_VERSION_INFO extends Win32Struct
 {
-    static sizeof => 260
+    static sizeof => 516
 
     static packingSize => 4
 
@@ -20,13 +20,10 @@ class HSE_VERSION_INFO extends Win32Struct
     }
 
     /**
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    lpszExtensionDesc{
-        get {
-            if(!this.HasProp("__lpszExtensionDescProxyArray"))
-                this.__lpszExtensionDescProxyArray := Win32FixedArray(this.ptr + 4, 256, Primitive, "char")
-            return this.__lpszExtensionDescProxyArray
-        }
+    lpszExtensionDesc {
+        get => StrGet(this.ptr + 4, 255, "UTF-16")
+        set => StrPut(value, this.ptr + 4, 255, "UTF-16")
     }
 }

@@ -9,9 +9,9 @@
  */
 class LINEAGENTSESSIONENTRY extends Win32Struct
 {
-    static sizeof => 20
+    static sizeof => 24
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * Unique identifier for an agent session. It is the responsibility of the agent handler to generate and maintain uniqueness of these identifiers.

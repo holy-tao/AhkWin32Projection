@@ -22,7 +22,7 @@
  */
 class GROUP_SOURCE_REQ extends Win32Struct
 {
-    static sizeof => 264
+    static sizeof => 504
 
     static packingSize => 8
 
@@ -54,7 +54,7 @@ class GROUP_SOURCE_REQ extends Win32Struct
     gsr_source{
         get {
             if(!this.HasProp("__gsr_source"))
-                this.__gsr_source := SOCKADDR_STORAGE(this.ptr + 136)
+                this.__gsr_source := SOCKADDR_STORAGE(this.ptr + 256)
             return this.__gsr_source
         }
     }

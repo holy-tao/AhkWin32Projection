@@ -59,13 +59,10 @@ class NSID extends Win32Struct
     }
 
     /**
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    rgchInterNet{
-        get {
-            if(!this.HasProp("__rgchInterNetProxyArray"))
-                this.__rgchInterNetProxyArray := Win32FixedArray(this.ptr + 32, 1, Primitive, "char")
-            return this.__rgchInterNetProxyArray
-        }
+    rgchInterNet {
+        get => StrGet(this.ptr + 32, 0, "UTF-16")
+        set => StrPut(value, this.ptr + 32, 0, "UTF-16")
     }
 }

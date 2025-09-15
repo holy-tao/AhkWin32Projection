@@ -12,9 +12,9 @@
  */
 class XAUDIO2_SEND_DESCRIPTOR extends Win32Struct
 {
-    static sizeof => 12
+    static sizeof => 16
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * Indicates whether a filter should be used on data sent to the voice pointed to by <b>pOutputVoice</b>. Flags can be 0 or XAUDIO2_SEND_USEFILTER.
@@ -30,7 +30,7 @@ class XAUDIO2_SEND_DESCRIPTOR extends Win32Struct
      * @type {Pointer<IXAudio2Voice>}
      */
     pOutputVoice {
-        get => NumGet(this, 4, "ptr")
-        set => NumPut("ptr", value, this, 4)
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 }

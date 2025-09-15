@@ -12,7 +12,7 @@
  */
 class DIAG_SOCKADDR extends Win32Struct
 {
-    static sizeof => 128
+    static sizeof => 254
 
     static packingSize => 2
 
@@ -31,13 +31,10 @@ class DIAG_SOCKADDR extends Win32Struct
      * Type: <b>CHAR[126]</b>
      * 
      * The maximum size of all the different socket address structures.
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    data{
-        get {
-            if(!this.HasProp("__dataProxyArray"))
-                this.__dataProxyArray := Win32FixedArray(this.ptr + 2, 126, Primitive, "char")
-            return this.__dataProxyArray
-        }
+    data {
+        get => StrGet(this.ptr + 2, 125, "UTF-16")
+        set => StrPut(value, this.ptr + 2, 125, "UTF-16")
     }
 }

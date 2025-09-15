@@ -13,24 +13,18 @@ class PRODUCT_INFOA extends Win32Struct
     static packingSize => 1
 
     /**
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    CompanyName{
-        get {
-            if(!this.HasProp("__CompanyNameProxyArray"))
-                this.__CompanyNameProxyArray := Win32FixedArray(this.ptr + 0, 256, Primitive, "char")
-            return this.__CompanyNameProxyArray
-        }
+    CompanyName {
+        get => StrGet(this.ptr + 0, 255, "UTF-8")
+        set => StrPut(value, this.ptr + 0, 255, "UTF-8")
     }
 
     /**
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    ProductID{
-        get {
-            if(!this.HasProp("__ProductIDProxyArray"))
-                this.__ProductIDProxyArray := Win32FixedArray(this.ptr + 256, 4, Primitive, "char")
-            return this.__ProductIDProxyArray
-        }
+    ProductID {
+        get => StrGet(this.ptr + 256, 3, "UTF-8")
+        set => StrPut(value, this.ptr + 256, 3, "UTF-8")
     }
 }

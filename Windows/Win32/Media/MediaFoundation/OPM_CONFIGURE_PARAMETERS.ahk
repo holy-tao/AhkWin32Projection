@@ -23,7 +23,7 @@ class OPM_CONFIGURE_PARAMETERS extends Win32Struct
 {
     static sizeof => 4088
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * An <a href="https://docs.microsoft.com/windows/desktop/api/ksopmapi/ns-ksopmapi-opm_omac">OPM_MAC</a> structure. Fill in this structure with the Message Authentication Code (MAC) of the command data. Use AES-based one-key CBC MAC (OMAC) to calculate this value.

@@ -66,9 +66,9 @@
  */
 class D3DPRESENTSTATS extends Win32Struct
 {
-    static sizeof => 28
+    static sizeof => 32
 
-    static packingSize => 4
+    static packingSize => 8
 
     /**
      * Type: **[**UINT**](../winprog/windows-data-types.md)**
@@ -114,8 +114,8 @@ class D3DPRESENTSTATS extends Win32Struct
      * @type {Integer}
      */
     SyncQPCTime {
-        get => NumGet(this, 12, "int64")
-        set => NumPut("int64", value, this, 12)
+        get => NumGet(this, 16, "int64")
+        set => NumPut("int64", value, this, 16)
     }
 
     /**
@@ -126,7 +126,7 @@ class D3DPRESENTSTATS extends Win32Struct
      * @type {Integer}
      */
     SyncGPUTime {
-        get => NumGet(this, 20, "int64")
-        set => NumPut("int64", value, this, 20)
+        get => NumGet(this, 24, "int64")
+        set => NumPut("int64", value, this, 24)
     }
 }

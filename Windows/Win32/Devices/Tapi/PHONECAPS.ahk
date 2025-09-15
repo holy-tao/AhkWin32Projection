@@ -13,9 +13,9 @@
  */
 class PHONECAPS extends Win32Struct
 {
-    static sizeof => 188
+    static sizeof => 192
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * Total size allocated to this data structure, in bytes.
@@ -459,7 +459,7 @@ class PHONECAPS extends Win32Struct
      * @type {Pointer<Guid>}
      */
     PermanentPhoneGuid {
-        get => NumGet(this, 180, "ptr")
-        set => NumPut("ptr", value, this, 180)
+        get => NumGet(this, 184, "ptr")
+        set => NumPut("ptr", value, this, 184)
     }
 }

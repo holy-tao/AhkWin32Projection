@@ -14,9 +14,9 @@
  */
 class MTP_COMMAND_DATA_IN extends Win32Struct
 {
-    static sizeof => 35
+    static sizeof => 40
 
-    static packingSize => 1
+    static packingSize => 4
 
     /**
      * Operation code.
@@ -32,8 +32,8 @@ class MTP_COMMAND_DATA_IN extends Win32Struct
      * @type {Integer}
      */
     NumParams {
-        get => NumGet(this, 2, "uint")
-        set => NumPut("uint", value, this, 2)
+        get => NumGet(this, 4, "uint")
+        set => NumPut("uint", value, this, 4)
     }
 
     /**
@@ -43,7 +43,7 @@ class MTP_COMMAND_DATA_IN extends Win32Struct
     Params{
         get {
             if(!this.HasProp("__ParamsProxyArray"))
-                this.__ParamsProxyArray := Win32FixedArray(this.ptr + 6, 5, Primitive, "uint")
+                this.__ParamsProxyArray := Win32FixedArray(this.ptr + 8, 5, Primitive, "uint")
             return this.__ParamsProxyArray
         }
     }
@@ -53,8 +53,8 @@ class MTP_COMMAND_DATA_IN extends Win32Struct
      * @type {Integer}
      */
     NextPhase {
-        get => NumGet(this, 26, "uint")
-        set => NumPut("uint", value, this, 26)
+        get => NumGet(this, 28, "uint")
+        set => NumPut("uint", value, this, 28)
     }
 
     /**
@@ -62,8 +62,8 @@ class MTP_COMMAND_DATA_IN extends Win32Struct
      * @type {Integer}
      */
     CommandWriteDataSize {
-        get => NumGet(this, 30, "uint")
-        set => NumPut("uint", value, this, 30)
+        get => NumGet(this, 32, "uint")
+        set => NumPut("uint", value, this, 32)
     }
 
     /**
@@ -73,7 +73,7 @@ class MTP_COMMAND_DATA_IN extends Win32Struct
     CommandWriteData{
         get {
             if(!this.HasProp("__CommandWriteDataProxyArray"))
-                this.__CommandWriteDataProxyArray := Win32FixedArray(this.ptr + 34, 1, Primitive, "char")
+                this.__CommandWriteDataProxyArray := Win32FixedArray(this.ptr + 36, 1, Primitive, "char")
             return this.__CommandWriteDataProxyArray
         }
     }

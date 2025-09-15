@@ -11,9 +11,9 @@
  */
 class BUSNUMBER_RESOURCE extends Win32Struct
 {
-    static sizeof => 28
+    static sizeof => 32
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * A [BUSNUMBER_DES](/windows/desktop/api/cfgmgr32/ns-cfgmgr32-busnumber_des) structure.
@@ -34,7 +34,7 @@ class BUSNUMBER_RESOURCE extends Win32Struct
     BusNumber_Data{
         get {
             if(!this.HasProp("__BusNumber_DataProxyArray"))
-                this.__BusNumber_DataProxyArray := Win32FixedArray(this.ptr + 20, 1, BUSNUMBER_RANGE, "")
+                this.__BusNumber_DataProxyArray := Win32FixedArray(this.ptr + 24, 1, BUSNUMBER_RANGE, "")
             return this.__BusNumber_DataProxyArray
         }
     }

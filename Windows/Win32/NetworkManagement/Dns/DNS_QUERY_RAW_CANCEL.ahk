@@ -7,18 +7,15 @@
  */
 class DNS_QUERY_RAW_CANCEL extends Win32Struct
 {
-    static sizeof => 32
+    static sizeof => 64
 
-    static packingSize => 1
+    static packingSize => 2
 
     /**
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    reserved{
-        get {
-            if(!this.HasProp("__reservedProxyArray"))
-                this.__reservedProxyArray := Win32FixedArray(this.ptr + 0, 32, Primitive, "char")
-            return this.__reservedProxyArray
-        }
+    reserved {
+        get => StrGet(this.ptr + 0, 31, "UTF-16")
+        set => StrPut(value, this.ptr + 0, 31, "UTF-16")
     }
 }

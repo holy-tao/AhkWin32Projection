@@ -7,9 +7,9 @@
  */
 class USB_DEVICE_CAPABILITY_PLATFORM_DESCRIPTOR extends Win32Struct
 {
-    static sizeof => 13
+    static sizeof => 24
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * @type {Integer}
@@ -47,8 +47,8 @@ class USB_DEVICE_CAPABILITY_PLATFORM_DESCRIPTOR extends Win32Struct
      * @type {Pointer<Guid>}
      */
     PlatformCapabilityUuid {
-        get => NumGet(this, 4, "ptr")
-        set => NumPut("ptr", value, this, 4)
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -57,7 +57,7 @@ class USB_DEVICE_CAPABILITY_PLATFORM_DESCRIPTOR extends Win32Struct
     CapabililityData{
         get {
             if(!this.HasProp("__CapabililityDataProxyArray"))
-                this.__CapabililityDataProxyArray := Win32FixedArray(this.ptr + 12, 1, Primitive, "char")
+                this.__CapabililityDataProxyArray := Win32FixedArray(this.ptr + 16, 1, Primitive, "char")
             return this.__CapabililityDataProxyArray
         }
     }

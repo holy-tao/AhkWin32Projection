@@ -19,26 +19,20 @@ class ISCSI_TARGET_PORTALA extends Win32Struct
 
     /**
      * A string representing the name of the portal.
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    SymbolicName{
-        get {
-            if(!this.HasProp("__SymbolicNameProxyArray"))
-                this.__SymbolicNameProxyArray := Win32FixedArray(this.ptr + 0, 256, Primitive, "char")
-            return this.__SymbolicNameProxyArray
-        }
+    SymbolicName {
+        get => StrGet(this.ptr + 0, 255, "UTF-8")
+        set => StrPut(value, this.ptr + 0, 255, "UTF-8")
     }
 
     /**
      * A string representing the IP address or DNS name of the portal.
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    Address{
-        get {
-            if(!this.HasProp("__AddressProxyArray"))
-                this.__AddressProxyArray := Win32FixedArray(this.ptr + 256, 256, Primitive, "char")
-            return this.__AddressProxyArray
-        }
+    Address {
+        get => StrGet(this.ptr + 256, 255, "UTF-8")
+        set => StrPut(value, this.ptr + 256, 255, "UTF-8")
     }
 
     /**

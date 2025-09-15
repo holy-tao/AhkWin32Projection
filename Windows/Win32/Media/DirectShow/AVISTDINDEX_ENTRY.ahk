@@ -15,7 +15,7 @@ class AVISTDINDEX_ENTRY extends Win32Struct
 {
     static sizeof => 8
 
-    static packingSize => 2
+    static packingSize => 4
 
     /**
      * The offset, in bytes, to the start of the data. The offset is relative to the value of the <b>qwBaseOffset</b> member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/aviriff/ns-aviriff-avistdindex">AVISTDINDEX</a>. The value is the offset of the actual audio/video data in the chunk, not the offset of the start of the chunk.

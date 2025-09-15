@@ -7,7 +7,7 @@
  */
 class GNSS_SUPL_CERT_CONFIG extends Win32Struct
 {
-    static sizeof => 792
+    static sizeof => 1052
 
     static packingSize => 4
 
@@ -36,22 +36,19 @@ class GNSS_SUPL_CERT_CONFIG extends Win32Struct
     }
 
     /**
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    SuplCertName{
-        get {
-            if(!this.HasProp("__SuplCertNameProxyArray"))
-                this.__SuplCertNameProxyArray := Win32FixedArray(this.ptr + 12, 260, Primitive, "char")
-            return this.__SuplCertNameProxyArray
-        }
+    SuplCertName {
+        get => StrGet(this.ptr + 12, 259, "UTF-16")
+        set => StrPut(value, this.ptr + 12, 259, "UTF-16")
     }
 
     /**
      * @type {Integer}
      */
     CertSize {
-        get => NumGet(this, 272, "uint")
-        set => NumPut("uint", value, this, 272)
+        get => NumGet(this, 532, "uint")
+        set => NumPut("uint", value, this, 532)
     }
 
     /**
@@ -60,7 +57,7 @@ class GNSS_SUPL_CERT_CONFIG extends Win32Struct
     Unused{
         get {
             if(!this.HasProp("__UnusedProxyArray"))
-                this.__UnusedProxyArray := Win32FixedArray(this.ptr + 276, 512, Primitive, "char")
+                this.__UnusedProxyArray := Win32FixedArray(this.ptr + 536, 512, Primitive, "char")
             return this.__UnusedProxyArray
         }
     }
@@ -71,7 +68,7 @@ class GNSS_SUPL_CERT_CONFIG extends Win32Struct
     CertData{
         get {
             if(!this.HasProp("__CertDataProxyArray"))
-                this.__CertDataProxyArray := Win32FixedArray(this.ptr + 788, 1, Primitive, "char")
+                this.__CertDataProxyArray := Win32FixedArray(this.ptr + 1048, 1, Primitive, "char")
             return this.__CertDataProxyArray
         }
     }

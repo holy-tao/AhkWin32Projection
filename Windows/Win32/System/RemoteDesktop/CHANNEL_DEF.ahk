@@ -7,26 +7,23 @@
  */
 class CHANNEL_DEF extends Win32Struct
 {
-    static sizeof => 12
+    static sizeof => 20
 
-    static packingSize => 1
+    static packingSize => 4
 
     /**
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    name{
-        get {
-            if(!this.HasProp("__nameProxyArray"))
-                this.__nameProxyArray := Win32FixedArray(this.ptr + 0, 8, Primitive, "char")
-            return this.__nameProxyArray
-        }
+    name {
+        get => StrGet(this.ptr + 0, 7, "UTF-16")
+        set => StrPut(value, this.ptr + 0, 7, "UTF-16")
     }
 
     /**
      * @type {Integer}
      */
     options {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+        get => NumGet(this, 16, "uint")
+        set => NumPut("uint", value, this, 16)
     }
 }

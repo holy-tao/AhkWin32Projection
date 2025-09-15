@@ -9,9 +9,9 @@
  */
 class MEM_RANGE extends Win32Struct
 {
-    static sizeof => 36
+    static sizeof => 40
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * Mask used to specify the memory address boundary on which the first allocated memory address must be aligned.
@@ -36,8 +36,8 @@ class MEM_RANGE extends Win32Struct
      * @type {Integer}
      */
     MR_Min {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
+        get => NumGet(this, 16, "uint")
+        set => NumPut("uint", value, this, 16)
     }
 
     /**
@@ -45,8 +45,8 @@ class MEM_RANGE extends Win32Struct
      * @type {Integer}
      */
     MR_Max {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
     }
 
     /**
@@ -54,8 +54,8 @@ class MEM_RANGE extends Win32Struct
      * @type {Integer}
      */
     MR_Flags {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
+        get => NumGet(this, 32, "uint")
+        set => NumPut("uint", value, this, 32)
     }
 
     /**
@@ -63,7 +63,7 @@ class MEM_RANGE extends Win32Struct
      * @type {Integer}
      */
     MR_Reserved {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
+        get => NumGet(this, 36, "uint")
+        set => NumPut("uint", value, this, 36)
     }
 }

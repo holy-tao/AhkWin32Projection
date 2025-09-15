@@ -9,7 +9,7 @@
  */
 class HTTP_SERVICE_CONFIG_SSL_QUERY_EX extends Win32Struct
 {
-    static sizeof => 144
+    static sizeof => 264
 
     static packingSize => 8
 
@@ -36,15 +36,15 @@ class HTTP_SERVICE_CONFIG_SSL_QUERY_EX extends Win32Struct
      * @type {Integer}
      */
     dwToken {
-        get => NumGet(this, 136, "uint")
-        set => NumPut("uint", value, this, 136)
+        get => NumGet(this, 256, "uint")
+        set => NumPut("uint", value, this, 256)
     }
 
     /**
      * @type {Integer}
      */
     ParamType {
-        get => NumGet(this, 140, "int")
-        set => NumPut("int", value, this, 140)
+        get => NumGet(this, 260, "int")
+        set => NumPut("int", value, this, 260)
     }
 }

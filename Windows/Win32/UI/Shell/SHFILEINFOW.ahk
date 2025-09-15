@@ -20,7 +20,7 @@ class SHFILEINFOW extends Win32Struct
 {
     static sizeof => 696
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * Type: <b>HICON</b>

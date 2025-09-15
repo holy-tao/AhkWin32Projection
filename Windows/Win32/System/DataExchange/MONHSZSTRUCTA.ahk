@@ -127,13 +127,10 @@ class MONHSZSTRUCTA extends Win32Struct
      * Type: <b>TCHAR[1]</b>
      * 
      * Pointer to the string identified by the <b>hsz</b> member.
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    str{
-        get {
-            if(!this.HasProp("__strProxyArray"))
-                this.__strProxyArray := Win32FixedArray(this.ptr + 32, 1, Primitive, "char")
-            return this.__strProxyArray
-        }
+    str {
+        get => StrGet(this.ptr + 32, 0, "UTF-8")
+        set => StrPut(value, this.ptr + 32, 0, "UTF-8")
     }
 }

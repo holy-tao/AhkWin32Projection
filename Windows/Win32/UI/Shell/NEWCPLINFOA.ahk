@@ -15,9 +15,9 @@
  */
 class NEWCPLINFOA extends Win32Struct
 {
-    static sizeof => 252
+    static sizeof => 256
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * Type: <b>DWORD</b>
@@ -59,8 +59,8 @@ class NEWCPLINFOA extends Win32Struct
      * @type {Pointer}
      */
     lData {
-        get => NumGet(this, 12, "ptr")
-        set => NumPut("ptr", value, this, 12)
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
@@ -70,49 +70,40 @@ class NEWCPLINFOA extends Win32Struct
      * @type {Pointer<HICON>}
      */
     hIcon {
-        get => NumGet(this, 20, "ptr")
-        set => NumPut("ptr", value, this, 20)
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
      * Type: <b>TCHAR[32]</b>
      * 
      * A null-terminated string that contains the dialog box name. The name is intended to be displayed below the icon.
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    szName{
-        get {
-            if(!this.HasProp("__szNameProxyArray"))
-                this.__szNameProxyArray := Win32FixedArray(this.ptr + 28, 32, Primitive, "char")
-            return this.__szNameProxyArray
-        }
+    szName {
+        get => StrGet(this.ptr + 32, 31, "UTF-8")
+        set => StrPut(value, this.ptr + 32, 31, "UTF-8")
     }
 
     /**
      * Type: <b>TCHAR[64]</b>
      * 
      * A null-terminated string containing the dialog box description. The description is intended to be displayed when the icon for the dialog box is selected.
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    szInfo{
-        get {
-            if(!this.HasProp("__szInfoProxyArray"))
-                this.__szInfoProxyArray := Win32FixedArray(this.ptr + 60, 64, Primitive, "char")
-            return this.__szInfoProxyArray
-        }
+    szInfo {
+        get => StrGet(this.ptr + 64, 63, "UTF-8")
+        set => StrPut(value, this.ptr + 64, 63, "UTF-8")
     }
 
     /**
      * Type: <b>TCHAR[128]</b>
      * 
      * This member is ignored.
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    szHelpFile{
-        get {
-            if(!this.HasProp("__szHelpFileProxyArray"))
-                this.__szHelpFileProxyArray := Win32FixedArray(this.ptr + 124, 128, Primitive, "char")
-            return this.__szHelpFileProxyArray
-        }
+    szHelpFile {
+        get => StrGet(this.ptr + 128, 127, "UTF-8")
+        set => StrPut(value, this.ptr + 128, 127, "UTF-8")
     }
 }

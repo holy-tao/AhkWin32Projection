@@ -226,13 +226,10 @@ class AVIFILEINFOA extends Win32Struct
 
     /**
      * Null-terminated string containing descriptive information for the file type.
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    szFileType{
-        get {
-            if(!this.HasProp("__szFileTypeProxyArray"))
-                this.__szFileTypeProxyArray := Win32FixedArray(this.ptr + 44, 64, Primitive, "char")
-            return this.__szFileTypeProxyArray
-        }
+    szFileType {
+        get => StrGet(this.ptr + 44, 63, "UTF-8")
+        set => StrPut(value, this.ptr + 44, 63, "UTF-8")
     }
 }

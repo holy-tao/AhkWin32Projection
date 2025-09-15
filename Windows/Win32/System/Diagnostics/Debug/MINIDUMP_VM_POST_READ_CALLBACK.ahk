@@ -7,9 +7,9 @@
  */
 class MINIDUMP_VM_POST_READ_CALLBACK extends Win32Struct
 {
-    static sizeof => 28
+    static sizeof => 32
 
-    static packingSize => 4
+    static packingSize => 8
 
     /**
      * @type {Integer}

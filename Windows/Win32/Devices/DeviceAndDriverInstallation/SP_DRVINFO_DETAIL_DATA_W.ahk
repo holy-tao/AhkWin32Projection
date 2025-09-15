@@ -71,9 +71,9 @@
  */
 class SP_DRVINFO_DETAIL_DATA_W extends Win32Struct
 {
-    static sizeof => 1574
+    static sizeof => 1584
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * The size, in bytes, of the SP_DRVINFO_DETAIL_DATA structure.
@@ -91,7 +91,7 @@ class SP_DRVINFO_DETAIL_DATA_W extends Win32Struct
     InfDate{
         get {
             if(!this.HasProp("__InfDate"))
-                this.__InfDate := FILETIME(this.ptr + 4)
+                this.__InfDate := FILETIME(this.ptr + 8)
             return this.__InfDate
         }
     }
@@ -103,8 +103,8 @@ class SP_DRVINFO_DETAIL_DATA_W extends Win32Struct
      * @type {Integer}
      */
     CompatIDsOffset {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
+        get => NumGet(this, 16, "uint")
+        set => NumPut("uint", value, this, 16)
     }
 
     /**
@@ -116,8 +116,8 @@ class SP_DRVINFO_DETAIL_DATA_W extends Win32Struct
      * @type {Integer}
      */
     CompatIDsLength {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+        get => NumGet(this, 20, "uint")
+        set => NumPut("uint", value, this, 20)
     }
 
     /**
@@ -125,8 +125,8 @@ class SP_DRVINFO_DETAIL_DATA_W extends Win32Struct
      * @type {Pointer}
      */
     Reserved {
-        get => NumGet(this, 20, "ptr")
-        set => NumPut("ptr", value, this, 20)
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
@@ -134,8 +134,8 @@ class SP_DRVINFO_DETAIL_DATA_W extends Win32Struct
      * @type {String}
      */
     SectionName {
-        get => StrGet(this.ptr + 28, 255, "UTF-16")
-        set => StrPut(value, this.ptr + 28, 255, "UTF-16")
+        get => StrGet(this.ptr + 32, 255, "UTF-16")
+        set => StrPut(value, this.ptr + 32, 255, "UTF-16")
     }
 
     /**
@@ -143,8 +143,8 @@ class SP_DRVINFO_DETAIL_DATA_W extends Win32Struct
      * @type {String}
      */
     InfFileName {
-        get => StrGet(this.ptr + 540, 259, "UTF-16")
-        set => StrPut(value, this.ptr + 540, 259, "UTF-16")
+        get => StrGet(this.ptr + 544, 259, "UTF-16")
+        set => StrPut(value, this.ptr + 544, 259, "UTF-16")
     }
 
     /**
@@ -152,8 +152,8 @@ class SP_DRVINFO_DETAIL_DATA_W extends Win32Struct
      * @type {String}
      */
     DrvDescription {
-        get => StrGet(this.ptr + 1060, 255, "UTF-16")
-        set => StrPut(value, this.ptr + 1060, 255, "UTF-16")
+        get => StrGet(this.ptr + 1064, 255, "UTF-16")
+        set => StrPut(value, this.ptr + 1064, 255, "UTF-16")
     }
 
     /**
@@ -167,8 +167,8 @@ class SP_DRVINFO_DETAIL_DATA_W extends Win32Struct
      * @type {String}
      */
     HardwareID {
-        get => StrGet(this.ptr + 1572, 0, "UTF-16")
-        set => StrPut(value, this.ptr + 1572, 0, "UTF-16")
+        get => StrGet(this.ptr + 1576, 0, "UTF-16")
+        set => StrPut(value, this.ptr + 1576, 0, "UTF-16")
     }
 
     /**
@@ -177,6 +177,6 @@ class SP_DRVINFO_DETAIL_DATA_W extends Win32Struct
      */
     __New(ptr := 0){
         super.__New(ptr)
-        this.cbSize := 1574
+        this.cbSize := 1584
     }
 }

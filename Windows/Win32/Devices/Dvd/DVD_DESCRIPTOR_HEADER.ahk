@@ -7,9 +7,9 @@
  */
 class DVD_DESCRIPTOR_HEADER extends Win32Struct
 {
-    static sizeof => 5
+    static sizeof => 6
 
-    static packingSize => 1
+    static packingSize => 2
 
     /**
      * @type {Integer}

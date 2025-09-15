@@ -11,7 +11,7 @@ class WM_USER_TEXT extends Win32Struct
 {
     static sizeof => 16
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * Pointer to a wide-character null-terminated string containing the description of the text entry.

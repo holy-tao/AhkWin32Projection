@@ -11,19 +11,16 @@
  */
 class DNS_QUERY_CANCEL extends Win32Struct
 {
-    static sizeof => 32
+    static sizeof => 64
 
-    static packingSize => 1
+    static packingSize => 2
 
     /**
      * Contains a handle to the asynchronous query to cancel. Applications must not modify this value.
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    Reserved{
-        get {
-            if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 0, 32, Primitive, "char")
-            return this.__ReservedProxyArray
-        }
+    Reserved {
+        get => StrGet(this.ptr + 0, 31, "UTF-16")
+        set => StrPut(value, this.ptr + 0, 31, "UTF-16")
     }
 }

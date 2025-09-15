@@ -9,9 +9,9 @@
  */
 class PXE_DHCPV6_OPTION extends Win32Struct
 {
-    static sizeof => 5
+    static sizeof => 6
 
-    static packingSize => 1
+    static packingSize => 2
 
     /**
      * A DHCPv6 option type.

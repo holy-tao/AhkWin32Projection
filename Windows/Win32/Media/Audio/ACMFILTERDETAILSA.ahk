@@ -8,9 +8,9 @@
  */
 class ACMFILTERDETAILSA extends Win32Struct
 {
-    static sizeof => 156
+    static sizeof => 160
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * @type {Integer}
@@ -61,13 +61,10 @@ class ACMFILTERDETAILSA extends Win32Struct
     }
 
     /**
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    szFilter{
-        get {
-            if(!this.HasProp("__szFilterProxyArray"))
-                this.__szFilterProxyArray := Win32FixedArray(this.ptr + 28, 128, Primitive, "char")
-            return this.__szFilterProxyArray
-        }
+    szFilter {
+        get => StrGet(this.ptr + 28, 127, "UTF-8")
+        set => StrPut(value, this.ptr + 28, 127, "UTF-8")
     }
 }

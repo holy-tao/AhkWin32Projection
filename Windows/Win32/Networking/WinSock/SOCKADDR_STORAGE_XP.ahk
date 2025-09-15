@@ -14,7 +14,7 @@
  */
 class SOCKADDR_STORAGE_XP extends Win32Struct
 {
-    static sizeof => 128
+    static sizeof => 248
 
     static packingSize => 8
 
@@ -32,14 +32,11 @@ class SOCKADDR_STORAGE_XP extends Win32Struct
     /**
      * A padding of 6 bytes that puts the 
      *      <b>__ss_align</b> member on an eight-byte boundary within the structure.
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    __ss_pad1{
-        get {
-            if(!this.HasProp("____ss_pad1ProxyArray"))
-                this.____ss_pad1ProxyArray := Win32FixedArray(this.ptr + 2, 6, Primitive, "char")
-            return this.____ss_pad1ProxyArray
-        }
+    __ss_pad1 {
+        get => StrGet(this.ptr + 2, 5, "UTF-16")
+        set => StrPut(value, this.ptr + 2, 5, "UTF-16")
     }
 
     /**
@@ -47,20 +44,17 @@ class SOCKADDR_STORAGE_XP extends Win32Struct
      * @type {Integer}
      */
     __ss_align {
-        get => NumGet(this, 8, "int64")
-        set => NumPut("int64", value, this, 8)
+        get => NumGet(this, 16, "int64")
+        set => NumPut("int64", value, this, 16)
     }
 
     /**
      * A padding of an additional 112 bytes that brings the total size of the SOCKADDR_STORAGE structure
      *      to 128 bytes.
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    __ss_pad2{
-        get {
-            if(!this.HasProp("____ss_pad2ProxyArray"))
-                this.____ss_pad2ProxyArray := Win32FixedArray(this.ptr + 16, 112, Primitive, "char")
-            return this.____ss_pad2ProxyArray
-        }
+    __ss_pad2 {
+        get => StrGet(this.ptr + 24, 111, "UTF-16")
+        set => StrPut(value, this.ptr + 24, 111, "UTF-16")
     }
 }

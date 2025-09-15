@@ -12,9 +12,9 @@
  */
 class MINIDUMP_THREAD_LIST extends Win32Struct
 {
-    static sizeof => 12
+    static sizeof => 16
 
-    static packingSize => 4
+    static packingSize => 8
 
     /**
      * The number of structures in the <b>Threads</b> array.
@@ -33,7 +33,7 @@ class MINIDUMP_THREAD_LIST extends Win32Struct
     Threads{
         get {
             if(!this.HasProp("__ThreadsProxyArray"))
-                this.__ThreadsProxyArray := Win32FixedArray(this.ptr + 4, 1, MINIDUMP_THREAD, "")
+                this.__ThreadsProxyArray := Win32FixedArray(this.ptr + 8, 1, MINIDUMP_THREAD, "")
             return this.__ThreadsProxyArray
         }
     }

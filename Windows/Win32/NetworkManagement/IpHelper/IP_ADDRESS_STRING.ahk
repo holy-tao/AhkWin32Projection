@@ -11,19 +11,16 @@
  */
 class IP_ADDRESS_STRING extends Win32Struct
 {
-    static sizeof => 16
+    static sizeof => 32
 
-    static packingSize => 1
+    static packingSize => 2
 
     /**
      * A character string that represents an IPv4 address or an IPv4 subnet mask in dotted decimal notation.
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    String{
-        get {
-            if(!this.HasProp("__StringProxyArray"))
-                this.__StringProxyArray := Win32FixedArray(this.ptr + 0, 16, Primitive, "char")
-            return this.__StringProxyArray
-        }
+    String {
+        get => StrGet(this.ptr + 0, 15, "UTF-16")
+        set => StrPut(value, this.ptr + 0, 15, "UTF-16")
     }
 }

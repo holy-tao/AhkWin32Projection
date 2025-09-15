@@ -53,13 +53,10 @@ class CORE_PRINTER_DRIVERA extends Win32Struct
     }
 
     /**
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    szPackageID{
-        get {
-            if(!this.HasProp("__szPackageIDProxyArray"))
-                this.__szPackageIDProxyArray := Win32FixedArray(this.ptr + 24, 260, Primitive, "char")
-            return this.__szPackageIDProxyArray
-        }
+    szPackageID {
+        get => StrGet(this.ptr + 24, 259, "UTF-8")
+        set => StrPut(value, this.ptr + 24, 259, "UTF-8")
     }
 }

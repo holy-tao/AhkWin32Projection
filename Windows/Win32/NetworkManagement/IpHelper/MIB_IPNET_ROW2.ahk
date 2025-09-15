@@ -26,7 +26,7 @@
  */
 class MIB_IPNET_ROW2 extends Win32Struct
 {
-    static sizeof => 128
+    static sizeof => 136
 
     static packingSize => 8
 
@@ -51,8 +51,8 @@ class MIB_IPNET_ROW2 extends Win32Struct
      * @type {Integer}
      */
     InterfaceIndex {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
+        get => NumGet(this, 64, "uint")
+        set => NumPut("uint", value, this, 64)
     }
 
     /**
@@ -64,7 +64,7 @@ class MIB_IPNET_ROW2 extends Win32Struct
     InterfaceLuid{
         get {
             if(!this.HasProp("__InterfaceLuid"))
-                this.__InterfaceLuid := NET_LUID_LH(this.ptr + 64)
+                this.__InterfaceLuid := NET_LUID_LH(this.ptr + 72)
             return this.__InterfaceLuid
         }
     }
@@ -78,7 +78,7 @@ class MIB_IPNET_ROW2 extends Win32Struct
     PhysicalAddress{
         get {
             if(!this.HasProp("__PhysicalAddressProxyArray"))
-                this.__PhysicalAddressProxyArray := Win32FixedArray(this.ptr + 80, 32, Primitive, "char")
+                this.__PhysicalAddressProxyArray := Win32FixedArray(this.ptr + 88, 32, Primitive, "char")
             return this.__PhysicalAddressProxyArray
         }
     }
@@ -90,8 +90,8 @@ class MIB_IPNET_ROW2 extends Win32Struct
      * @type {Integer}
      */
     PhysicalAddressLength {
-        get => NumGet(this, 112, "uint")
-        set => NumPut("uint", value, this, 112)
+        get => NumGet(this, 120, "uint")
+        set => NumPut("uint", value, this, 120)
     }
 
     /**
@@ -207,39 +207,39 @@ class MIB_IPNET_ROW2 extends Win32Struct
      * @type {Integer}
      */
     State {
-        get => NumGet(this, 116, "int")
-        set => NumPut("int", value, this, 116)
+        get => NumGet(this, 124, "int")
+        set => NumPut("int", value, this, 124)
     }
 
     /**
      * @type {Integer}
      */
     Anonymous {
-        get => NumGet(this, 120, "char")
-        set => NumPut("char", value, this, 120)
+        get => NumGet(this, 128, "char")
+        set => NumPut("char", value, this, 128)
     }
 
     /**
      * @type {Integer}
      */
     Flags {
-        get => NumGet(this, 120, "char")
-        set => NumPut("char", value, this, 120)
+        get => NumGet(this, 128, "char")
+        set => NumPut("char", value, this, 128)
     }
 
     /**
      * @type {Integer}
      */
     LastReachable {
-        get => NumGet(this, 124, "uint")
-        set => NumPut("uint", value, this, 124)
+        get => NumGet(this, 132, "uint")
+        set => NumPut("uint", value, this, 132)
     }
 
     /**
      * @type {Integer}
      */
     LastUnreachable {
-        get => NumGet(this, 124, "uint")
-        set => NumPut("uint", value, this, 124)
+        get => NumGet(this, 132, "uint")
+        set => NumPut("uint", value, this, 132)
     }
 }

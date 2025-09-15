@@ -10,7 +10,7 @@ class JOYCAPS2W extends Win32Struct
 {
     static sizeof => 752
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * @type {Integer}

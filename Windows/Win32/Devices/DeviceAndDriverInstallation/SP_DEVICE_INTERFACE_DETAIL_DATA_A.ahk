@@ -21,9 +21,9 @@
  */
 class SP_DEVICE_INTERFACE_DETAIL_DATA_A extends Win32Struct
 {
-    static sizeof => 5
+    static sizeof => 8
 
-    static packingSize => 1
+    static packingSize => 4
 
     /**
      * The size, in bytes, of the SP_DEVICE_INTERFACE_DETAIL_DATA structure. For more information, see the following Remarks section.
@@ -36,14 +36,11 @@ class SP_DEVICE_INTERFACE_DETAIL_DATA_A extends Win32Struct
 
     /**
      * A NULL-terminated string that contains the device interface path. This path can be passed to Win32 functions such as <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a>.
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    DevicePath{
-        get {
-            if(!this.HasProp("__DevicePathProxyArray"))
-                this.__DevicePathProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")
-            return this.__DevicePathProxyArray
-        }
+    DevicePath {
+        get => StrGet(this.ptr + 4, 0, "UTF-8")
+        set => StrPut(value, this.ptr + 4, 0, "UTF-8")
     }
 
     /**
@@ -52,6 +49,6 @@ class SP_DEVICE_INTERFACE_DETAIL_DATA_A extends Win32Struct
      */
     __New(ptr := 0){
         super.__New(ptr)
-        this.cbSize := 5
+        this.cbSize := 8
     }
 }

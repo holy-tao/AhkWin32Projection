@@ -15,7 +15,7 @@ class FILEPATHS_SIGNERINFO_W extends Win32Struct
 {
     static sizeof => 48
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * Path to the target file.

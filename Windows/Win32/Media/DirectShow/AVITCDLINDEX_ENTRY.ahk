@@ -8,9 +8,9 @@
  */
 class AVITCDLINDEX_ENTRY extends Win32Struct
 {
-    static sizeof => 40
+    static sizeof => 48
 
-    static packingSize => 2
+    static packingSize => 8
 
     /**
      * @type {Integer}
@@ -26,7 +26,7 @@ class AVITCDLINDEX_ENTRY extends Win32Struct
     time{
         get {
             if(!this.HasProp("__time"))
-                this.__time := TIMECODE(this.ptr + 4)
+                this.__time := TIMECODE(this.ptr + 8)
             return this.__time
         }
     }
@@ -35,16 +35,16 @@ class AVITCDLINDEX_ENTRY extends Win32Struct
      * @type {Integer}
      */
     dwSMPTEflags {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
     }
 
     /**
      * @type {Integer}
      */
     dwUser {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+        get => NumGet(this, 28, "uint")
+        set => NumPut("uint", value, this, 28)
     }
 
     /**
@@ -53,7 +53,7 @@ class AVITCDLINDEX_ENTRY extends Win32Struct
     szReelId{
         get {
             if(!this.HasProp("__szReelIdProxyArray"))
-                this.__szReelIdProxyArray := Win32FixedArray(this.ptr + 28, 12, Primitive, "char")
+                this.__szReelIdProxyArray := Win32FixedArray(this.ptr + 32, 12, Primitive, "char")
             return this.__szReelIdProxyArray
         }
     }

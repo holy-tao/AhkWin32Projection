@@ -10,7 +10,7 @@
  */
 class IP_ADDR_STRING extends Win32Struct
 {
-    static sizeof => 48
+    static sizeof => 80
 
     static packingSize => 8
 
@@ -43,7 +43,7 @@ class IP_ADDR_STRING extends Win32Struct
     IpMask{
         get {
             if(!this.HasProp("__IpMask"))
-                this.__IpMask := IP_ADDRESS_STRING(this.ptr + 24)
+                this.__IpMask := IP_ADDRESS_STRING(this.ptr + 40)
             return this.__IpMask
         }
     }
@@ -55,7 +55,7 @@ class IP_ADDR_STRING extends Win32Struct
      * @type {Integer}
      */
     Context {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
+        get => NumGet(this, 72, "uint")
+        set => NumPut("uint", value, this, 72)
     }
 }

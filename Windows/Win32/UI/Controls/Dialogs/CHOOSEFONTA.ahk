@@ -13,9 +13,9 @@
  */
 class CHOOSEFONTA extends Win32Struct
 {
-    static sizeof => 92
+    static sizeof => 104
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * Type: <b>DWORD</b>
@@ -35,8 +35,8 @@ class CHOOSEFONTA extends Win32Struct
      * @type {Pointer<HWND>}
      */
     hwndOwner {
-        get => NumGet(this, 4, "ptr")
-        set => NumPut("ptr", value, this, 4)
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -48,8 +48,8 @@ class CHOOSEFONTA extends Win32Struct
      * @type {Pointer<HDC>}
      */
     hDC {
-        get => NumGet(this, 12, "ptr")
-        set => NumPut("ptr", value, this, 12)
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
@@ -59,8 +59,8 @@ class CHOOSEFONTA extends Win32Struct
      * @type {Pointer<LOGFONTA>}
      */
     lpLogFont {
-        get => NumGet(this, 20, "ptr")
-        set => NumPut("ptr", value, this, 20)
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
@@ -70,8 +70,8 @@ class CHOOSEFONTA extends Win32Struct
      * @type {Integer}
      */
     iPointSize {
-        get => NumGet(this, 28, "int")
-        set => NumPut("int", value, this, 28)
+        get => NumGet(this, 32, "int")
+        set => NumPut("int", value, this, 32)
     }
 
     /**
@@ -79,8 +79,8 @@ class CHOOSEFONTA extends Win32Struct
      * @type {Integer}
      */
     Flags {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
+        get => NumGet(this, 36, "uint")
+        set => NumPut("uint", value, this, 36)
     }
 
     /**
@@ -90,8 +90,8 @@ class CHOOSEFONTA extends Win32Struct
      * @type {Integer}
      */
     rgbColors {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
+        get => NumGet(this, 40, "uint")
+        set => NumPut("uint", value, this, 40)
     }
 
     /**
@@ -101,8 +101,8 @@ class CHOOSEFONTA extends Win32Struct
      * @type {Pointer}
      */
     lCustData {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**
@@ -112,8 +112,8 @@ class CHOOSEFONTA extends Win32Struct
      * @type {Pointer<LPCFHOOKPROC>}
      */
     lpfnHook {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 
     /**
@@ -123,8 +123,8 @@ class CHOOSEFONTA extends Win32Struct
      * @type {Pointer<PSTR>}
      */
     lpTemplateName {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
+        get => NumGet(this, 64, "ptr")
+        set => NumPut("ptr", value, this, 64)
     }
 
     /**
@@ -134,8 +134,8 @@ class CHOOSEFONTA extends Win32Struct
      * @type {Pointer<HINSTANCE>}
      */
     hInstance {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
+        get => NumGet(this, 72, "ptr")
+        set => NumPut("ptr", value, this, 72)
     }
 
     /**
@@ -145,8 +145,8 @@ class CHOOSEFONTA extends Win32Struct
      * @type {Pointer<PSTR>}
      */
     lpszStyle {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
+        get => NumGet(this, 80, "ptr")
+        set => NumPut("ptr", value, this, 80)
     }
 
     /**
@@ -154,8 +154,8 @@ class CHOOSEFONTA extends Win32Struct
      * @type {Integer}
      */
     nFontType {
-        get => NumGet(this, 80, "ushort")
-        set => NumPut("ushort", value, this, 80)
+        get => NumGet(this, 88, "ushort")
+        set => NumPut("ushort", value, this, 88)
     }
 
     /**
@@ -165,8 +165,8 @@ class CHOOSEFONTA extends Win32Struct
      * @type {Integer}
      */
     nSizeMin {
-        get => NumGet(this, 84, "int")
-        set => NumPut("int", value, this, 84)
+        get => NumGet(this, 92, "int")
+        set => NumPut("int", value, this, 92)
     }
 
     /**
@@ -176,7 +176,7 @@ class CHOOSEFONTA extends Win32Struct
      * @type {Integer}
      */
     nSizeMax {
-        get => NumGet(this, 88, "int")
-        set => NumPut("int", value, this, 88)
+        get => NumGet(this, 96, "int")
+        set => NumPut("int", value, this, 96)
     }
 }

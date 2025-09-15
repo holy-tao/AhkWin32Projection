@@ -13,7 +13,7 @@ class WINHTTP_MATCH_CONNECTION_GUID extends Win32Struct
 {
     static sizeof => 16
 
-    static packingSize => 4
+    static packingSize => 8
 
     /**
      * Type: **[GUID](/windows/win32/api/guiddef/ns-guiddef-guid)**

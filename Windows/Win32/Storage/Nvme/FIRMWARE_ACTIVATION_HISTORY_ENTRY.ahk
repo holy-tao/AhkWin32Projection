@@ -7,9 +7,9 @@
  */
 class FIRMWARE_ACTIVATION_HISTORY_ENTRY extends Win32Struct
 {
-    static sizeof => 64
+    static sizeof => 72
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * @type {Integer}
@@ -47,64 +47,64 @@ class FIRMWARE_ACTIVATION_HISTORY_ENTRY extends Win32Struct
      * @type {Integer}
      */
     Timestamp {
-        get => NumGet(this, 6, "uint")
-        set => NumPut("uint", value, this, 6)
+        get => NumGet(this, 8, "uint")
+        set => NumPut("uint", value, this, 8)
     }
 
     /**
      * @type {Integer}
      */
     Reserved1 {
-        get => NumGet(this, 14, "uint")
-        set => NumPut("uint", value, this, 14)
+        get => NumGet(this, 16, "uint")
+        set => NumPut("uint", value, this, 16)
     }
 
     /**
      * @type {Integer}
      */
     PowerCycleCount {
-        get => NumGet(this, 22, "uint")
-        set => NumPut("uint", value, this, 22)
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
     }
 
     /**
      * @type {Integer}
      */
     PreviousFirmware {
-        get => NumGet(this, 30, "uint")
-        set => NumPut("uint", value, this, 30)
+        get => NumGet(this, 32, "uint")
+        set => NumPut("uint", value, this, 32)
     }
 
     /**
      * @type {Integer}
      */
     NewFirmware {
-        get => NumGet(this, 38, "uint")
-        set => NumPut("uint", value, this, 38)
+        get => NumGet(this, 40, "uint")
+        set => NumPut("uint", value, this, 40)
     }
 
     /**
      * @type {Integer}
      */
     SlotNumber {
-        get => NumGet(this, 46, "char")
-        set => NumPut("char", value, this, 46)
+        get => NumGet(this, 48, "char")
+        set => NumPut("char", value, this, 48)
     }
 
     /**
      * @type {Integer}
      */
     CommitActionType {
-        get => NumGet(this, 47, "char")
-        set => NumPut("char", value, this, 47)
+        get => NumGet(this, 49, "char")
+        set => NumPut("char", value, this, 49)
     }
 
     /**
      * @type {Integer}
      */
     Result {
-        get => NumGet(this, 48, "ushort")
-        set => NumPut("ushort", value, this, 48)
+        get => NumGet(this, 50, "ushort")
+        set => NumPut("ushort", value, this, 50)
     }
 
     /**
@@ -113,7 +113,7 @@ class FIRMWARE_ACTIVATION_HISTORY_ENTRY extends Win32Struct
     Reserved2{
         get {
             if(!this.HasProp("__Reserved2ProxyArray"))
-                this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 50, 14, Primitive, "char")
+                this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 52, 14, Primitive, "char")
             return this.__Reserved2ProxyArray
         }
     }

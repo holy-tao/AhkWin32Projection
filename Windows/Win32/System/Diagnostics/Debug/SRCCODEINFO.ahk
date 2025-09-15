@@ -43,26 +43,20 @@ class SRCCODEINFO extends Win32Struct
 
     /**
      * The name of the object file within the module that contains the line.
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    Obj{
-        get {
-            if(!this.HasProp("__ObjProxyArray"))
-                this.__ObjProxyArray := Win32FixedArray(this.ptr + 24, 261, Primitive, "char")
-            return this.__ObjProxyArray
-        }
+    Obj {
+        get => StrGet(this.ptr + 24, 260, "UTF-8")
+        set => StrPut(value, this.ptr + 24, 260, "UTF-8")
     }
 
     /**
      * The fully qualified source file name.
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    FileName{
-        get {
-            if(!this.HasProp("__FileNameProxyArray"))
-                this.__FileNameProxyArray := Win32FixedArray(this.ptr + 285, 261, Primitive, "char")
-            return this.__FileNameProxyArray
-        }
+    FileName {
+        get => StrGet(this.ptr + 285, 260, "UTF-8")
+        set => StrPut(value, this.ptr + 285, 260, "UTF-8")
     }
 
     /**

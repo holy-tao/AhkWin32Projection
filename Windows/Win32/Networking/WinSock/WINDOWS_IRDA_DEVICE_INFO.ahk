@@ -7,9 +7,9 @@
  */
 class WINDOWS_IRDA_DEVICE_INFO extends Win32Struct
 {
-    static sizeof => 29
+    static sizeof => 52
 
-    static packingSize => 1
+    static packingSize => 2
 
     /**
      * @type {Array<Byte>}
@@ -23,37 +23,34 @@ class WINDOWS_IRDA_DEVICE_INFO extends Win32Struct
     }
 
     /**
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    irdaDeviceName{
-        get {
-            if(!this.HasProp("__irdaDeviceNameProxyArray"))
-                this.__irdaDeviceNameProxyArray := Win32FixedArray(this.ptr + 4, 22, Primitive, "char")
-            return this.__irdaDeviceNameProxyArray
-        }
+    irdaDeviceName {
+        get => StrGet(this.ptr + 4, 21, "UTF-16")
+        set => StrPut(value, this.ptr + 4, 21, "UTF-16")
     }
 
     /**
      * @type {Integer}
      */
     irdaDeviceHints1 {
-        get => NumGet(this, 26, "char")
-        set => NumPut("char", value, this, 26)
+        get => NumGet(this, 48, "char")
+        set => NumPut("char", value, this, 48)
     }
 
     /**
      * @type {Integer}
      */
     irdaDeviceHints2 {
-        get => NumGet(this, 27, "char")
-        set => NumPut("char", value, this, 27)
+        get => NumGet(this, 49, "char")
+        set => NumPut("char", value, this, 49)
     }
 
     /**
      * @type {Integer}
      */
     irdaCharSet {
-        get => NumGet(this, 28, "char")
-        set => NumPut("char", value, this, 28)
+        get => NumGet(this, 50, "char")
+        set => NumPut("char", value, this, 50)
     }
 }

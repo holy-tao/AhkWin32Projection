@@ -28,13 +28,10 @@ class FLAT_STRING extends Win32Struct
     }
 
     /**
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    Buffer{
-        get {
-            if(!this.HasProp("__BufferProxyArray"))
-                this.__BufferProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")
-            return this.__BufferProxyArray
-        }
+    Buffer {
+        get => StrGet(this.ptr + 4, 0, "UTF-16")
+        set => StrPut(value, this.ptr + 4, 0, "UTF-16")
     }
 }

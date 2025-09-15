@@ -11,7 +11,7 @@ class JET_RECSIZE2 extends Win32Struct
 {
     static sizeof => 88
 
-    static packingSize => 4
+    static packingSize => 8
 
     /**
      * @type {Integer}

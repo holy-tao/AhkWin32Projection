@@ -57,9 +57,9 @@
  */
 class MPEG1WAVEFORMAT extends Win32Struct
 {
-    static sizeof => 40
+    static sizeof => 48
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * <a href="https://docs.microsoft.com/previous-versions/dd757713(v=vs.85)">WAVEFORMATEX</a> structure that contains information about the audio format. See Remarks.
@@ -118,8 +118,8 @@ class MPEG1WAVEFORMAT extends Win32Struct
      * @type {Integer}
      */
     fwHeadLayer {
-        get => NumGet(this, 18, "ushort")
-        set => NumPut("ushort", value, this, 18)
+        get => NumGet(this, 20, "ushort")
+        set => NumPut("ushort", value, this, 20)
     }
 
     /**
@@ -127,8 +127,8 @@ class MPEG1WAVEFORMAT extends Win32Struct
      * @type {Integer}
      */
     dwHeadBitrate {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
     }
 
     /**
@@ -186,8 +186,8 @@ class MPEG1WAVEFORMAT extends Win32Struct
      * @type {Integer}
      */
     fwHeadMode {
-        get => NumGet(this, 24, "ushort")
-        set => NumPut("ushort", value, this, 24)
+        get => NumGet(this, 28, "ushort")
+        set => NumPut("ushort", value, this, 28)
     }
 
     /**
@@ -233,8 +233,8 @@ class MPEG1WAVEFORMAT extends Win32Struct
      * @type {Integer}
      */
     fwHeadModeExt {
-        get => NumGet(this, 26, "ushort")
-        set => NumPut("ushort", value, this, 26)
+        get => NumGet(this, 30, "ushort")
+        set => NumPut("ushort", value, this, 30)
     }
 
     /**
@@ -270,8 +270,8 @@ class MPEG1WAVEFORMAT extends Win32Struct
      * @type {Integer}
      */
     wHeadEmphasis {
-        get => NumGet(this, 28, "ushort")
-        set => NumPut("ushort", value, this, 28)
+        get => NumGet(this, 32, "ushort")
+        set => NumPut("ushort", value, this, 32)
     }
 
     /**
@@ -339,8 +339,8 @@ class MPEG1WAVEFORMAT extends Win32Struct
      * @type {Integer}
      */
     fwHeadFlags {
-        get => NumGet(this, 30, "ushort")
-        set => NumPut("ushort", value, this, 30)
+        get => NumGet(this, 34, "ushort")
+        set => NumPut("ushort", value, this, 34)
     }
 
     /**
@@ -348,8 +348,8 @@ class MPEG1WAVEFORMAT extends Win32Struct
      * @type {Integer}
      */
     dwPTSLow {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
+        get => NumGet(this, 36, "uint")
+        set => NumPut("uint", value, this, 36)
     }
 
     /**
@@ -357,7 +357,7 @@ class MPEG1WAVEFORMAT extends Win32Struct
      * @type {Integer}
      */
     dwPTSHigh {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
+        get => NumGet(this, 40, "uint")
+        set => NumPut("uint", value, this, 40)
     }
 }

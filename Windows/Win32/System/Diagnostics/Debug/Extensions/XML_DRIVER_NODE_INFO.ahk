@@ -7,89 +7,71 @@
  */
 class XML_DRIVER_NODE_INFO extends Win32Struct
 {
-    static sizeof => 1184
+    static sizeof => 2352
 
     static packingSize => 8
 
     /**
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    FileName{
-        get {
-            if(!this.HasProp("__FileNameProxyArray"))
-                this.__FileNameProxyArray := Win32FixedArray(this.ptr + 0, 64, Primitive, "char")
-            return this.__FileNameProxyArray
-        }
+    FileName {
+        get => StrGet(this.ptr + 0, 63, "UTF-16")
+        set => StrPut(value, this.ptr + 0, 63, "UTF-16")
     }
 
     /**
      * @type {Integer}
      */
     FileSize {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
+        get => NumGet(this, 128, "uint")
+        set => NumPut("uint", value, this, 128)
     }
 
     /**
      * @type {Integer}
      */
     CreationDate {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
+        get => NumGet(this, 136, "uint")
+        set => NumPut("uint", value, this, 136)
     }
 
     /**
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    Version{
-        get {
-            if(!this.HasProp("__VersionProxyArray"))
-                this.__VersionProxyArray := Win32FixedArray(this.ptr + 80, 64, Primitive, "char")
-            return this.__VersionProxyArray
-        }
+    Version {
+        get => StrGet(this.ptr + 144, 63, "UTF-16")
+        set => StrPut(value, this.ptr + 144, 63, "UTF-16")
     }
 
     /**
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    Manufacturer{
-        get {
-            if(!this.HasProp("__ManufacturerProxyArray"))
-                this.__ManufacturerProxyArray := Win32FixedArray(this.ptr + 144, 260, Primitive, "char")
-            return this.__ManufacturerProxyArray
-        }
+    Manufacturer {
+        get => StrGet(this.ptr + 272, 259, "UTF-16")
+        set => StrPut(value, this.ptr + 272, 259, "UTF-16")
     }
 
     /**
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    ProductName{
-        get {
-            if(!this.HasProp("__ProductNameProxyArray"))
-                this.__ProductNameProxyArray := Win32FixedArray(this.ptr + 404, 260, Primitive, "char")
-            return this.__ProductNameProxyArray
-        }
+    ProductName {
+        get => StrGet(this.ptr + 792, 259, "UTF-16")
+        set => StrPut(value, this.ptr + 792, 259, "UTF-16")
     }
 
     /**
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    Group{
-        get {
-            if(!this.HasProp("__GroupProxyArray"))
-                this.__GroupProxyArray := Win32FixedArray(this.ptr + 664, 260, Primitive, "char")
-            return this.__GroupProxyArray
-        }
+    Group {
+        get => StrGet(this.ptr + 1312, 259, "UTF-16")
+        set => StrPut(value, this.ptr + 1312, 259, "UTF-16")
     }
 
     /**
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    Altitude{
-        get {
-            if(!this.HasProp("__AltitudeProxyArray"))
-                this.__AltitudeProxyArray := Win32FixedArray(this.ptr + 924, 260, Primitive, "char")
-            return this.__AltitudeProxyArray
-        }
+    Altitude {
+        get => StrGet(this.ptr + 1832, 259, "UTF-16")
+        set => StrPut(value, this.ptr + 1832, 259, "UTF-16")
     }
 }

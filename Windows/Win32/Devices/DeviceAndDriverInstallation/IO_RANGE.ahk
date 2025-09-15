@@ -11,9 +11,9 @@
  */
 class IO_RANGE extends Win32Struct
 {
-    static sizeof => 40
+    static sizeof => 48
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * Mask used to specify the port address boundary on which the first allocated I/O port address must be aligned.
@@ -38,8 +38,8 @@ class IO_RANGE extends Win32Struct
      * @type {Integer}
      */
     IOR_Min {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
+        get => NumGet(this, 16, "uint")
+        set => NumPut("uint", value, this, 16)
     }
 
     /**
@@ -47,8 +47,8 @@ class IO_RANGE extends Win32Struct
      * @type {Integer}
      */
     IOR_Max {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
     }
 
     /**
@@ -56,8 +56,8 @@ class IO_RANGE extends Win32Struct
      * @type {Integer}
      */
     IOR_RangeFlags {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
+        get => NumGet(this, 32, "uint")
+        set => NumPut("uint", value, this, 32)
     }
 
     /**
@@ -115,7 +115,7 @@ class IO_RANGE extends Win32Struct
      * @type {Integer}
      */
     IOR_Alias {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
+        get => NumGet(this, 40, "uint")
+        set => NumPut("uint", value, this, 40)
     }
 }

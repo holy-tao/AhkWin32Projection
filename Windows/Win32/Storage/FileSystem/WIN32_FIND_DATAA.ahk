@@ -160,27 +160,21 @@ class WIN32_FIND_DATAA extends Win32Struct
 
     /**
      * The name of the file.
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    cFileName{
-        get {
-            if(!this.HasProp("__cFileNameProxyArray"))
-                this.__cFileNameProxyArray := Win32FixedArray(this.ptr + 48, 260, Primitive, "char")
-            return this.__cFileNameProxyArray
-        }
+    cFileName {
+        get => StrGet(this.ptr + 48, 259, "UTF-8")
+        set => StrPut(value, this.ptr + 48, 259, "UTF-8")
     }
 
     /**
      * An alternative name for the file.
      * 
      * This name is in the classic 8.3 file name format.
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    cAlternateFileName{
-        get {
-            if(!this.HasProp("__cAlternateFileNameProxyArray"))
-                this.__cAlternateFileNameProxyArray := Win32FixedArray(this.ptr + 308, 14, Primitive, "char")
-            return this.__cAlternateFileNameProxyArray
-        }
+    cAlternateFileName {
+        get => StrGet(this.ptr + 308, 13, "UTF-8")
+        set => StrPut(value, this.ptr + 308, 13, "UTF-8")
     }
 }

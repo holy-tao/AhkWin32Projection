@@ -12,7 +12,7 @@ class LINEREQMEDIACALL extends Win32Struct
 {
     static sizeof => 344
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * A handle to the window of the application that  made the request.
@@ -34,14 +34,11 @@ class LINEREQMEDIACALL extends Win32Struct
 
     /**
      * The device class required to fill the request.
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    szDeviceClass{
-        get {
-            if(!this.HasProp("__szDeviceClassProxyArray"))
-                this.__szDeviceClassProxyArray := Win32FixedArray(this.ptr + 16, 40, Primitive, "char")
-            return this.__szDeviceClassProxyArray
-        }
+    szDeviceClass {
+        get => StrGet(this.ptr + 16, 39, "UTF-8")
+        set => StrPut(value, this.ptr + 16, 39, "UTF-8")
     }
 
     /**
@@ -76,49 +73,37 @@ class LINEREQMEDIACALL extends Win32Struct
 
     /**
      * The destination address.
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    szDestAddress{
-        get {
-            if(!this.HasProp("__szDestAddressProxyArray"))
-                this.__szDestAddressProxyArray := Win32FixedArray(this.ptr + 104, 80, Primitive, "char")
-            return this.__szDestAddressProxyArray
-        }
+    szDestAddress {
+        get => StrGet(this.ptr + 104, 79, "UTF-8")
+        set => StrPut(value, this.ptr + 104, 79, "UTF-8")
     }
 
     /**
      * The name of application that made the request.
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    szAppName{
-        get {
-            if(!this.HasProp("__szAppNameProxyArray"))
-                this.__szAppNameProxyArray := Win32FixedArray(this.ptr + 184, 40, Primitive, "char")
-            return this.__szAppNameProxyArray
-        }
+    szAppName {
+        get => StrGet(this.ptr + 184, 39, "UTF-8")
+        set => StrPut(value, this.ptr + 184, 39, "UTF-8")
     }
 
     /**
      * The called party name.
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    szCalledParty{
-        get {
-            if(!this.HasProp("__szCalledPartyProxyArray"))
-                this.__szCalledPartyProxyArray := Win32FixedArray(this.ptr + 224, 40, Primitive, "char")
-            return this.__szCalledPartyProxyArray
-        }
+    szCalledParty {
+        get => StrGet(this.ptr + 224, 39, "UTF-8")
+        set => StrPut(value, this.ptr + 224, 39, "UTF-8")
     }
 
     /**
      * The comment buffer.
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    szComment{
-        get {
-            if(!this.HasProp("__szCommentProxyArray"))
-                this.__szCommentProxyArray := Win32FixedArray(this.ptr + 264, 80, Primitive, "char")
-            return this.__szCommentProxyArray
-        }
+    szComment {
+        get => StrGet(this.ptr + 264, 79, "UTF-8")
+        set => StrPut(value, this.ptr + 264, 79, "UTF-8")
     }
 }

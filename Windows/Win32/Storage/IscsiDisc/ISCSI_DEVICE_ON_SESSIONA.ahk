@@ -21,26 +21,20 @@ class ISCSI_DEVICE_ON_SESSIONA extends Win32Struct
 
     /**
      * A string that indicates the initiator name.
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    InitiatorName{
-        get {
-            if(!this.HasProp("__InitiatorNameProxyArray"))
-                this.__InitiatorNameProxyArray := Win32FixedArray(this.ptr + 0, 256, Primitive, "char")
-            return this.__InitiatorNameProxyArray
-        }
+    InitiatorName {
+        get => StrGet(this.ptr + 0, 255, "UTF-8")
+        set => StrPut(value, this.ptr + 0, 255, "UTF-8")
     }
 
     /**
      * A string that indicates the target name.
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    TargetName{
-        get {
-            if(!this.HasProp("__TargetNameProxyArray"))
-                this.__TargetNameProxyArray := Win32FixedArray(this.ptr + 256, 224, Primitive, "char")
-            return this.__TargetNameProxyArray
-        }
+    TargetName {
+        get => StrGet(this.ptr + 256, 223, "UTF-8")
+        set => StrPut(value, this.ptr + 256, 223, "UTF-8")
     }
 
     /**
@@ -101,26 +95,20 @@ class ISCSI_DEVICE_ON_SESSIONA extends Win32Struct
 
     /**
      * A string that specifies the name of the device interface class.
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    DeviceInterfaceName{
-        get {
-            if(!this.HasProp("__DeviceInterfaceNameProxyArray"))
-                this.__DeviceInterfaceNameProxyArray := Win32FixedArray(this.ptr + 496, 260, Primitive, "char")
-            return this.__DeviceInterfaceNameProxyArray
-        }
+    DeviceInterfaceName {
+        get => StrGet(this.ptr + 496, 259, "UTF-8")
+        set => StrPut(value, this.ptr + 496, 259, "UTF-8")
     }
 
     /**
      * A string that specifies the legacy device name.
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    LegacyName{
-        get {
-            if(!this.HasProp("__LegacyNameProxyArray"))
-                this.__LegacyNameProxyArray := Win32FixedArray(this.ptr + 756, 260, Primitive, "char")
-            return this.__LegacyNameProxyArray
-        }
+    LegacyName {
+        get => StrGet(this.ptr + 756, 259, "UTF-8")
+        set => StrPut(value, this.ptr + 756, 259, "UTF-8")
     }
 
     /**

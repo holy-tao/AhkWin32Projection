@@ -14,7 +14,7 @@ class MINIDUMP_HANDLE_DESCRIPTOR_2 extends Win32Struct
 {
     static sizeof => 40
 
-    static packingSize => 4
+    static packingSize => 8
 
     /**
      * The operating system handle value.

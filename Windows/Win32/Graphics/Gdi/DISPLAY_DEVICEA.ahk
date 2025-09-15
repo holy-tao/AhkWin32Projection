@@ -34,26 +34,20 @@ class DISPLAY_DEVICEA extends Win32Struct
 
     /**
      * An array of characters identifying the device name. This is either the adapter device or the monitor device.
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    DeviceName{
-        get {
-            if(!this.HasProp("__DeviceNameProxyArray"))
-                this.__DeviceNameProxyArray := Win32FixedArray(this.ptr + 4, 32, Primitive, "char")
-            return this.__DeviceNameProxyArray
-        }
+    DeviceName {
+        get => StrGet(this.ptr + 4, 31, "UTF-8")
+        set => StrPut(value, this.ptr + 4, 31, "UTF-8")
     }
 
     /**
      * An array of characters containing the device context string. This is either a description of the display adapter or of the display monitor.
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    DeviceString{
-        get {
-            if(!this.HasProp("__DeviceStringProxyArray"))
-                this.__DeviceStringProxyArray := Win32FixedArray(this.ptr + 36, 128, Primitive, "char")
-            return this.__DeviceStringProxyArray
-        }
+    DeviceString {
+        get => StrGet(this.ptr + 36, 127, "UTF-8")
+        set => StrPut(value, this.ptr + 36, 127, "UTF-8")
     }
 
     /**
@@ -100,25 +94,19 @@ class DISPLAY_DEVICEA extends Win32Struct
 
     /**
      * Not used.
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    DeviceID{
-        get {
-            if(!this.HasProp("__DeviceIDProxyArray"))
-                this.__DeviceIDProxyArray := Win32FixedArray(this.ptr + 168, 128, Primitive, "char")
-            return this.__DeviceIDProxyArray
-        }
+    DeviceID {
+        get => StrGet(this.ptr + 168, 127, "UTF-8")
+        set => StrPut(value, this.ptr + 168, 127, "UTF-8")
     }
 
     /**
      * Reserved.
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    DeviceKey{
-        get {
-            if(!this.HasProp("__DeviceKeyProxyArray"))
-                this.__DeviceKeyProxyArray := Win32FixedArray(this.ptr + 296, 128, Primitive, "char")
-            return this.__DeviceKeyProxyArray
-        }
+    DeviceKey {
+        get => StrGet(this.ptr + 296, 127, "UTF-8")
+        set => StrPut(value, this.ptr + 296, 127, "UTF-8")
     }
 }

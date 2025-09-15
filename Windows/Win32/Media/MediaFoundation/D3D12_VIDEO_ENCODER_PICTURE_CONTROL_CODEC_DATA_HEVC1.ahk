@@ -7,7 +7,7 @@
  */
 class D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA_HEVC1 extends Win32Struct
 {
-    static sizeof => 136
+    static sizeof => 144
 
     static packingSize => 8
 
@@ -188,24 +188,18 @@ class D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA_HEVC1 extends Win32Struct
     }
 
     /**
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    cb_qp_offset_list{
-        get {
-            if(!this.HasProp("__cb_qp_offset_listProxyArray"))
-                this.__cb_qp_offset_listProxyArray := Win32FixedArray(this.ptr + 117, 6, Primitive, "char")
-            return this.__cb_qp_offset_listProxyArray
-        }
+    cb_qp_offset_list {
+        get => StrGet(this.ptr + 118, 5, "UTF-16")
+        set => StrPut(value, this.ptr + 118, 5, "UTF-16")
     }
 
     /**
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    cr_qp_offset_list{
-        get {
-            if(!this.HasProp("__cr_qp_offset_listProxyArray"))
-                this.__cr_qp_offset_listProxyArray := Win32FixedArray(this.ptr + 123, 6, Primitive, "char")
-            return this.__cr_qp_offset_listProxyArray
-        }
+    cr_qp_offset_list {
+        get => StrGet(this.ptr + 130, 5, "UTF-16")
+        set => StrPut(value, this.ptr + 130, 5, "UTF-16")
     }
 }

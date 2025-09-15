@@ -9,7 +9,7 @@ class WHEA_ERROR_SOURCE_CONFIGURATION_DD extends Win32Struct
 {
     static sizeof => 24
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * @type {Pointer<WHEA_ERROR_SOURCE_INITIALIZE_DEVICE_DRIVER>}

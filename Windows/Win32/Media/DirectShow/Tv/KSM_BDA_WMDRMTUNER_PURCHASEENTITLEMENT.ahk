@@ -9,7 +9,7 @@
  */
 class KSM_BDA_WMDRMTUNER_PURCHASEENTITLEMENT extends Win32Struct
 {
-    static sizeof => 40
+    static sizeof => 56
 
     static packingSize => 8
 
@@ -33,22 +33,19 @@ class KSM_BDA_WMDRMTUNER_PURCHASEENTITLEMENT extends Win32Struct
     }
 
     /**
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    cLanguage{
-        get {
-            if(!this.HasProp("__cLanguageProxyArray"))
-                this.__cLanguageProxyArray := Win32FixedArray(this.ptr + 20, 12, Primitive, "char")
-            return this.__cLanguageProxyArray
-        }
+    cLanguage {
+        get => StrGet(this.ptr + 20, 11, "UTF-16")
+        set => StrPut(value, this.ptr + 20, 11, "UTF-16")
     }
 
     /**
      * @type {Integer}
      */
     ulPurchaseTokenLength {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
+        get => NumGet(this, 44, "uint")
+        set => NumPut("uint", value, this, 44)
     }
 
     /**
@@ -57,7 +54,7 @@ class KSM_BDA_WMDRMTUNER_PURCHASEENTITLEMENT extends Win32Struct
     argbDataBuffer{
         get {
             if(!this.HasProp("__argbDataBufferProxyArray"))
-                this.__argbDataBufferProxyArray := Win32FixedArray(this.ptr + 36, 1, Primitive, "char")
+                this.__argbDataBufferProxyArray := Win32FixedArray(this.ptr + 48, 1, Primitive, "char")
             return this.__argbDataBufferProxyArray
         }
     }

@@ -8,9 +8,9 @@
  */
 class WMAUDIO3WAVEFORMAT extends Win32Struct
 {
-    static sizeof => 36
+    static sizeof => 40
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * @type {WAVEFORMATEX}
@@ -27,22 +27,14 @@ class WMAUDIO3WAVEFORMAT extends Win32Struct
      * @type {Integer}
      */
     wValidBitsPerSample {
-        get => NumGet(this, 18, "ushort")
-        set => NumPut("ushort", value, this, 18)
+        get => NumGet(this, 20, "ushort")
+        set => NumPut("ushort", value, this, 20)
     }
 
     /**
      * @type {Integer}
      */
     dwChannelMask {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    dwReserved1 {
         get => NumGet(this, 24, "uint")
         set => NumPut("uint", value, this, 24)
     }
@@ -50,7 +42,7 @@ class WMAUDIO3WAVEFORMAT extends Win32Struct
     /**
      * @type {Integer}
      */
-    dwReserved2 {
+    dwReserved1 {
         get => NumGet(this, 28, "uint")
         set => NumPut("uint", value, this, 28)
     }
@@ -58,16 +50,24 @@ class WMAUDIO3WAVEFORMAT extends Win32Struct
     /**
      * @type {Integer}
      */
+    dwReserved2 {
+        get => NumGet(this, 32, "uint")
+        set => NumPut("uint", value, this, 32)
+    }
+
+    /**
+     * @type {Integer}
+     */
     wEncodeOptions {
-        get => NumGet(this, 32, "ushort")
-        set => NumPut("ushort", value, this, 32)
+        get => NumGet(this, 36, "ushort")
+        set => NumPut("ushort", value, this, 36)
     }
 
     /**
      * @type {Integer}
      */
     wReserved3 {
-        get => NumGet(this, 34, "ushort")
-        set => NumPut("ushort", value, this, 34)
+        get => NumGet(this, 38, "ushort")
+        set => NumPut("ushort", value, this, 38)
     }
 }

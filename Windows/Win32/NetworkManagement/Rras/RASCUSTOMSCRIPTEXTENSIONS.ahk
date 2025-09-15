@@ -7,9 +7,9 @@
  */
 class RASCUSTOMSCRIPTEXTENSIONS extends Win32Struct
 {
-    static sizeof => 12
+    static sizeof => 16
 
-    static packingSize => 4
+    static packingSize => 8
 
     /**
      * @type {Integer}
@@ -23,7 +23,7 @@ class RASCUSTOMSCRIPTEXTENSIONS extends Win32Struct
      * @type {Pointer<PFNRASSETCOMMSETTINGS>}
      */
     pfnRasSetCommSettings {
-        get => NumGet(this, 4, "ptr")
-        set => NumPut("ptr", value, this, 4)
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 }

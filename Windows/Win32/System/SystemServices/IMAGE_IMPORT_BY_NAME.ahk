@@ -20,13 +20,10 @@ class IMAGE_IMPORT_BY_NAME extends Win32Struct
     }
 
     /**
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    Name{
-        get {
-            if(!this.HasProp("__NameProxyArray"))
-                this.__NameProxyArray := Win32FixedArray(this.ptr + 2, 1, Primitive, "char")
-            return this.__NameProxyArray
-        }
+    Name {
+        get => StrGet(this.ptr + 2, 0, "UTF-16")
+        set => StrPut(value, this.ptr + 2, 0, "UTF-16")
     }
 }

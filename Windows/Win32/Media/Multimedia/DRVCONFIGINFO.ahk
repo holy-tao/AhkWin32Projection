@@ -9,9 +9,9 @@
  */
 class DRVCONFIGINFO extends Win32Struct
 {
-    static sizeof => 20
+    static sizeof => 24
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * Size of the structure, in bytes.
@@ -27,8 +27,8 @@ class DRVCONFIGINFO extends Win32Struct
      * @type {Pointer<PWSTR>}
      */
     lpszDCISectionName {
-        get => NumGet(this, 4, "ptr")
-        set => NumPut("ptr", value, this, 4)
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -36,7 +36,7 @@ class DRVCONFIGINFO extends Win32Struct
      * @type {Pointer<PWSTR>}
      */
     lpszDCIAliasName {
-        get => NumGet(this, 12, "ptr")
-        set => NumPut("ptr", value, this, 12)
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 }

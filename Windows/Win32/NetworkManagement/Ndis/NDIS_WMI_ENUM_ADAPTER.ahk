@@ -52,13 +52,10 @@ class NDIS_WMI_ENUM_ADAPTER extends Win32Struct
     }
 
     /**
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    DeviceName{
-        get {
-            if(!this.HasProp("__DeviceNameProxyArray"))
-                this.__DeviceNameProxyArray := Win32FixedArray(this.ptr + 26, 1, Primitive, "char")
-            return this.__DeviceNameProxyArray
-        }
+    DeviceName {
+        get => StrGet(this.ptr + 26, 0, "UTF-16")
+        set => StrPut(value, this.ptr + 26, 0, "UTF-16")
     }
 }

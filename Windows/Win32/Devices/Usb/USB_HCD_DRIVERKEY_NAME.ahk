@@ -7,9 +7,9 @@
  */
 class USB_HCD_DRIVERKEY_NAME extends Win32Struct
 {
-    static sizeof => 6
+    static sizeof => 8
 
-    static packingSize => 1
+    static packingSize => 4
 
     /**
      * @type {Integer}

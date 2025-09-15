@@ -202,13 +202,10 @@ class OSVERSIONINFOA extends Win32Struct
 
     /**
      * A null-terminated string, such as "Service Pack 3", that indicates the latest Service Pack installed on the system. If no Service Pack has been installed, the string is empty.
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    szCSDVersion{
-        get {
-            if(!this.HasProp("__szCSDVersionProxyArray"))
-                this.__szCSDVersionProxyArray := Win32FixedArray(this.ptr + 20, 128, Primitive, "char")
-            return this.__szCSDVersionProxyArray
-        }
+    szCSDVersion {
+        get => StrGet(this.ptr + 20, 127, "UTF-8")
+        set => StrPut(value, this.ptr + 20, 127, "UTF-8")
     }
 }

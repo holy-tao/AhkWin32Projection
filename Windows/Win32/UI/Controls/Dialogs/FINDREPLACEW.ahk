@@ -13,9 +13,9 @@
  */
 class FINDREPLACEW extends Win32Struct
 {
-    static sizeof => 68
+    static sizeof => 80
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * Type: <b>DWORD</b>
@@ -35,8 +35,8 @@ class FINDREPLACEW extends Win32Struct
      * @type {Pointer<HWND>}
      */
     hwndOwner {
-        get => NumGet(this, 4, "ptr")
-        set => NumPut("ptr", value, this, 4)
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -46,8 +46,8 @@ class FINDREPLACEW extends Win32Struct
      * @type {Pointer<HINSTANCE>}
      */
     hInstance {
-        get => NumGet(this, 12, "ptr")
-        set => NumPut("ptr", value, this, 12)
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
@@ -55,8 +55,8 @@ class FINDREPLACEW extends Win32Struct
      * @type {Integer}
      */
     Flags {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
     }
 
     /**
@@ -66,8 +66,8 @@ class FINDREPLACEW extends Win32Struct
      * @type {Pointer<PWSTR>}
      */
     lpstrFindWhat {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
@@ -81,8 +81,8 @@ class FINDREPLACEW extends Win32Struct
      * @type {Pointer<PWSTR>}
      */
     lpstrReplaceWith {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
@@ -92,8 +92,8 @@ class FINDREPLACEW extends Win32Struct
      * @type {Integer}
      */
     wFindWhatLen {
-        get => NumGet(this, 40, "ushort")
-        set => NumPut("ushort", value, this, 40)
+        get => NumGet(this, 48, "ushort")
+        set => NumPut("ushort", value, this, 48)
     }
 
     /**
@@ -103,8 +103,8 @@ class FINDREPLACEW extends Win32Struct
      * @type {Integer}
      */
     wReplaceWithLen {
-        get => NumGet(this, 42, "ushort")
-        set => NumPut("ushort", value, this, 42)
+        get => NumGet(this, 50, "ushort")
+        set => NumPut("ushort", value, this, 50)
     }
 
     /**
@@ -114,8 +114,8 @@ class FINDREPLACEW extends Win32Struct
      * @type {Pointer}
      */
     lCustData {
-        get => NumGet(this, 44, "ptr")
-        set => NumPut("ptr", value, this, 44)
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 
     /**
@@ -125,8 +125,8 @@ class FINDREPLACEW extends Win32Struct
      * @type {Pointer<LPFRHOOKPROC>}
      */
     lpfnHook {
-        get => NumGet(this, 52, "ptr")
-        set => NumPut("ptr", value, this, 52)
+        get => NumGet(this, 64, "ptr")
+        set => NumPut("ptr", value, this, 64)
     }
 
     /**
@@ -136,7 +136,7 @@ class FINDREPLACEW extends Win32Struct
      * @type {Pointer<PWSTR>}
      */
     lpTemplateName {
-        get => NumGet(this, 60, "ptr")
-        set => NumPut("ptr", value, this, 60)
+        get => NumGet(this, 72, "ptr")
+        set => NumPut("ptr", value, this, 72)
     }
 }

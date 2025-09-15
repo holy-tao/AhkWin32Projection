@@ -10,7 +10,7 @@ class LINEREQMEDIACALLW extends Win32Struct
 {
     static sizeof => 624
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * @type {Pointer<HWND>}

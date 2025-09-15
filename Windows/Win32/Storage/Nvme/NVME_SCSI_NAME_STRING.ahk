@@ -11,63 +11,51 @@
  */
 class NVME_SCSI_NAME_STRING extends Win32Struct
 {
-    static sizeof => 68
+    static sizeof => 136
 
-    static packingSize => 1
+    static packingSize => 2
 
     /**
      * The company vendor identifier that is assigned by the [Peripheral Component Interconnect - Special Interest Group (PCI-SIG)](https://pcisig.com/).
      * 
      * This value is also in the **VID** field of the [NVME_IDENTIFY_CONTROLLER_DATA](ns-nvme-nvme_identify_controller_data.md) data structure.
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    PCIVendorID{
-        get {
-            if(!this.HasProp("__PCIVendorIDProxyArray"))
-                this.__PCIVendorIDProxyArray := Win32FixedArray(this.ptr + 0, 4, Primitive, "char")
-            return this.__PCIVendorIDProxyArray
-        }
+    PCIVendorID {
+        get => StrGet(this.ptr + 0, 3, "UTF-16")
+        set => StrPut(value, this.ptr + 0, 3, "UTF-16")
     }
 
     /**
      * The model number for the NVM subsystem that is assigned by the vendor as an ASCII string.
      * 
      * This value is also in the **MN** field of the [NVME_IDENTIFY_CONTROLLER_DATA](ns-nvme-nvme_identify_controller_data.md) data structure.
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    ModelNumber{
-        get {
-            if(!this.HasProp("__ModelNumberProxyArray"))
-                this.__ModelNumberProxyArray := Win32FixedArray(this.ptr + 4, 40, Primitive, "char")
-            return this.__ModelNumberProxyArray
-        }
+    ModelNumber {
+        get => StrGet(this.ptr + 8, 39, "UTF-16")
+        set => StrPut(value, this.ptr + 8, 39, "UTF-16")
     }
 
     /**
      * The namespace identifier.
      * 
      * This value is also in the **NSID** field of the [NVME_COMMAND](ns-nvme-nvme_command.md) structure.
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    NamespaceID{
-        get {
-            if(!this.HasProp("__NamespaceIDProxyArray"))
-                this.__NamespaceIDProxyArray := Win32FixedArray(this.ptr + 44, 4, Primitive, "char")
-            return this.__NamespaceIDProxyArray
-        }
+    NamespaceID {
+        get => StrGet(this.ptr + 88, 3, "UTF-16")
+        set => StrPut(value, this.ptr + 88, 3, "UTF-16")
     }
 
     /**
      * The serial number for the NVM subsystem that is assigned by the vendor as an ASCII string.
      * 
      * This value is also in the **SN** field of the [NVME_IDENTIFY_CONTROLLER_DATA](ns-nvme-nvme_identify_controller_data.md) data structure.
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    SerialNumber{
-        get {
-            if(!this.HasProp("__SerialNumberProxyArray"))
-                this.__SerialNumberProxyArray := Win32FixedArray(this.ptr + 48, 20, Primitive, "char")
-            return this.__SerialNumberProxyArray
-        }
+    SerialNumber {
+        get => StrGet(this.ptr + 96, 19, "UTF-16")
+        set => StrPut(value, this.ptr + 96, 19, "UTF-16")
     }
 }

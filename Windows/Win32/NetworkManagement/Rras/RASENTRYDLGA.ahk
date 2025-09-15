@@ -53,14 +53,11 @@ class RASENTRYDLGA extends Win32Struct
     }
 
     /**
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    szEntry{
-        get {
-            if(!this.HasProp("__szEntryProxyArray"))
-                this.__szEntryProxyArray := Win32FixedArray(this.ptr + 28, 257, Primitive, "char")
-            return this.__szEntryProxyArray
-        }
+    szEntry {
+        get => StrGet(this.ptr + 28, 256, "UTF-8")
+        set => StrPut(value, this.ptr + 28, 256, "UTF-8")
     }
 
     /**

@@ -85,37 +85,28 @@ class IMAGEHLP_MODULE extends Win32Struct
 
     /**
      * The module name.
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    ModuleName{
-        get {
-            if(!this.HasProp("__ModuleNameProxyArray"))
-                this.__ModuleNameProxyArray := Win32FixedArray(this.ptr + 28, 32, Primitive, "char")
-            return this.__ModuleNameProxyArray
-        }
+    ModuleName {
+        get => StrGet(this.ptr + 28, 31, "UTF-8")
+        set => StrPut(value, this.ptr + 28, 31, "UTF-8")
     }
 
     /**
      * The image name. The name may or may not contain a full path.
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    ImageName{
-        get {
-            if(!this.HasProp("__ImageNameProxyArray"))
-                this.__ImageNameProxyArray := Win32FixedArray(this.ptr + 60, 256, Primitive, "char")
-            return this.__ImageNameProxyArray
-        }
+    ImageName {
+        get => StrGet(this.ptr + 60, 255, "UTF-8")
+        set => StrPut(value, this.ptr + 60, 255, "UTF-8")
     }
 
     /**
      * The full path and file name of the file from which symbols were loaded.
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    LoadedImageName{
-        get {
-            if(!this.HasProp("__LoadedImageNameProxyArray"))
-                this.__LoadedImageNameProxyArray := Win32FixedArray(this.ptr + 316, 256, Primitive, "char")
-            return this.__LoadedImageNameProxyArray
-        }
+    LoadedImageName {
+        get => StrGet(this.ptr + 316, 255, "UTF-8")
+        set => StrPut(value, this.ptr + 316, 255, "UTF-8")
     }
 }

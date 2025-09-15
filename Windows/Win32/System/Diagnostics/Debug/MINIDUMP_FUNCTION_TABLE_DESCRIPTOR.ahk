@@ -14,7 +14,7 @@ class MINIDUMP_FUNCTION_TABLE_DESCRIPTOR extends Win32Struct
 {
     static sizeof => 32
 
-    static packingSize => 4
+    static packingSize => 8
 
     /**
      * The minimum address of functions described by the table.

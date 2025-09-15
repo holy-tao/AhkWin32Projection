@@ -55,9 +55,9 @@
  */
 class HEAACWAVEINFO extends Win32Struct
 {
-    static sizeof => 30
+    static sizeof => 32
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * A <b>WAVEFORMATEX</b> structure that describes the core AAC stream,
@@ -132,8 +132,8 @@ class HEAACWAVEINFO extends Win32Struct
      * @type {Integer}
      */
     wPayloadType {
-        get => NumGet(this, 18, "ushort")
-        set => NumPut("ushort", value, this, 18)
+        get => NumGet(this, 20, "ushort")
+        set => NumPut("ushort", value, this, 20)
     }
 
     /**
@@ -141,8 +141,8 @@ class HEAACWAVEINFO extends Win32Struct
      * @type {Integer}
      */
     wAudioProfileLevelIndication {
-        get => NumGet(this, 20, "ushort")
-        set => NumPut("ushort", value, this, 20)
+        get => NumGet(this, 22, "ushort")
+        set => NumPut("ushort", value, this, 22)
     }
 
     /**
@@ -173,15 +173,6 @@ class HEAACWAVEINFO extends Win32Struct
      * @type {Integer}
      */
     wStructType {
-        get => NumGet(this, 22, "ushort")
-        set => NumPut("ushort", value, this, 22)
-    }
-
-    /**
-     * Reserved. Set to zero.
-     * @type {Integer}
-     */
-    wReserved1 {
         get => NumGet(this, 24, "ushort")
         set => NumPut("ushort", value, this, 24)
     }
@@ -190,8 +181,17 @@ class HEAACWAVEINFO extends Win32Struct
      * Reserved. Set to zero.
      * @type {Integer}
      */
+    wReserved1 {
+        get => NumGet(this, 26, "ushort")
+        set => NumPut("ushort", value, this, 26)
+    }
+
+    /**
+     * Reserved. Set to zero.
+     * @type {Integer}
+     */
     dwReserved2 {
-        get => NumGet(this, 26, "uint")
-        set => NumPut("uint", value, this, 26)
+        get => NumGet(this, 28, "uint")
+        set => NumPut("uint", value, this, 28)
     }
 }

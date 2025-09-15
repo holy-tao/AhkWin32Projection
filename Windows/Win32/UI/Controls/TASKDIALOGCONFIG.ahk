@@ -9,9 +9,9 @@
  */
 class TASKDIALOGCONFIG extends Win32Struct
 {
-    static sizeof => 160
+    static sizeof => 176
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
@@ -31,8 +31,8 @@ class TASKDIALOGCONFIG extends Win32Struct
      * @type {Pointer<HWND>}
      */
     hwndParent {
-        get => NumGet(this, 4, "ptr")
-        set => NumPut("ptr", value, this, 4)
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -42,8 +42,8 @@ class TASKDIALOGCONFIG extends Win32Struct
      * @type {Pointer<HINSTANCE>}
      */
     hInstance {
-        get => NumGet(this, 12, "ptr")
-        set => NumPut("ptr", value, this, 12)
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
@@ -251,8 +251,8 @@ class TASKDIALOGCONFIG extends Win32Struct
      * @type {Integer}
      */
     dwFlags {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
+        get => NumGet(this, 24, "int")
+        set => NumPut("int", value, this, 24)
     }
 
     /**
@@ -329,8 +329,8 @@ class TASKDIALOGCONFIG extends Win32Struct
      * @type {Integer}
      */
     dwCommonButtons {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
+        get => NumGet(this, 28, "int")
+        set => NumPut("int", value, this, 28)
     }
 
     /**
@@ -340,24 +340,24 @@ class TASKDIALOGCONFIG extends Win32Struct
      * @type {Pointer<PWSTR>}
      */
     pszWindowTitle {
-        get => NumGet(this, 28, "ptr")
-        set => NumPut("ptr", value, this, 28)
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
      * @type {Pointer<HICON>}
      */
     hMainIcon {
-        get => NumGet(this, 36, "ptr")
-        set => NumPut("ptr", value, this, 36)
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
      * @type {Pointer<PWSTR>}
      */
     pszMainIcon {
-        get => NumGet(this, 36, "ptr")
-        set => NumPut("ptr", value, this, 36)
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
@@ -367,8 +367,8 @@ class TASKDIALOGCONFIG extends Win32Struct
      * @type {Pointer<PWSTR>}
      */
     pszMainInstruction {
-        get => NumGet(this, 44, "ptr")
-        set => NumPut("ptr", value, this, 44)
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**
@@ -378,8 +378,8 @@ class TASKDIALOGCONFIG extends Win32Struct
      * @type {Pointer<PWSTR>}
      */
     pszContent {
-        get => NumGet(this, 52, "ptr")
-        set => NumPut("ptr", value, this, 52)
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 
     /**
@@ -389,8 +389,8 @@ class TASKDIALOGCONFIG extends Win32Struct
      * @type {Integer}
      */
     cButtons {
-        get => NumGet(this, 60, "uint")
-        set => NumPut("uint", value, this, 60)
+        get => NumGet(this, 64, "uint")
+        set => NumPut("uint", value, this, 64)
     }
 
     /**
@@ -400,8 +400,8 @@ class TASKDIALOGCONFIG extends Win32Struct
      * @type {Pointer<TASKDIALOG_BUTTON>}
      */
     pButtons {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
+        get => NumGet(this, 72, "ptr")
+        set => NumPut("ptr", value, this, 72)
     }
 
     /**
@@ -441,8 +441,8 @@ class TASKDIALOGCONFIG extends Win32Struct
      * @type {Integer}
      */
     nDefaultButton {
-        get => NumGet(this, 72, "int")
-        set => NumPut("int", value, this, 72)
+        get => NumGet(this, 80, "int")
+        set => NumPut("int", value, this, 80)
     }
 
     /**
@@ -452,8 +452,8 @@ class TASKDIALOGCONFIG extends Win32Struct
      * @type {Integer}
      */
     cRadioButtons {
-        get => NumGet(this, 76, "uint")
-        set => NumPut("uint", value, this, 76)
+        get => NumGet(this, 84, "uint")
+        set => NumPut("uint", value, this, 84)
     }
 
     /**
@@ -463,8 +463,8 @@ class TASKDIALOGCONFIG extends Win32Struct
      * @type {Pointer<TASKDIALOG_BUTTON>}
      */
     pRadioButtons {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
+        get => NumGet(this, 88, "ptr")
+        set => NumPut("ptr", value, this, 88)
     }
 
     /**
@@ -474,8 +474,8 @@ class TASKDIALOGCONFIG extends Win32Struct
      * @type {Integer}
      */
     nDefaultRadioButton {
-        get => NumGet(this, 88, "int")
-        set => NumPut("int", value, this, 88)
+        get => NumGet(this, 96, "int")
+        set => NumPut("int", value, this, 96)
     }
 
     /**
@@ -485,8 +485,8 @@ class TASKDIALOGCONFIG extends Win32Struct
      * @type {Pointer<PWSTR>}
      */
     pszVerificationText {
-        get => NumGet(this, 92, "ptr")
-        set => NumPut("ptr", value, this, 92)
+        get => NumGet(this, 104, "ptr")
+        set => NumPut("ptr", value, this, 104)
     }
 
     /**
@@ -496,8 +496,8 @@ class TASKDIALOGCONFIG extends Win32Struct
      * @type {Pointer<PWSTR>}
      */
     pszExpandedInformation {
-        get => NumGet(this, 100, "ptr")
-        set => NumPut("ptr", value, this, 100)
+        get => NumGet(this, 112, "ptr")
+        set => NumPut("ptr", value, this, 112)
     }
 
     /**
@@ -507,8 +507,8 @@ class TASKDIALOGCONFIG extends Win32Struct
      * @type {Pointer<PWSTR>}
      */
     pszExpandedControlText {
-        get => NumGet(this, 108, "ptr")
-        set => NumPut("ptr", value, this, 108)
+        get => NumGet(this, 120, "ptr")
+        set => NumPut("ptr", value, this, 120)
     }
 
     /**
@@ -518,24 +518,24 @@ class TASKDIALOGCONFIG extends Win32Struct
      * @type {Pointer<PWSTR>}
      */
     pszCollapsedControlText {
-        get => NumGet(this, 116, "ptr")
-        set => NumPut("ptr", value, this, 116)
+        get => NumGet(this, 128, "ptr")
+        set => NumPut("ptr", value, this, 128)
     }
 
     /**
      * @type {Pointer<HICON>}
      */
     hFooterIcon {
-        get => NumGet(this, 124, "ptr")
-        set => NumPut("ptr", value, this, 124)
+        get => NumGet(this, 136, "ptr")
+        set => NumPut("ptr", value, this, 136)
     }
 
     /**
      * @type {Pointer<PWSTR>}
      */
     pszFooterIcon {
-        get => NumGet(this, 124, "ptr")
-        set => NumPut("ptr", value, this, 124)
+        get => NumGet(this, 136, "ptr")
+        set => NumPut("ptr", value, this, 136)
     }
 
     /**
@@ -556,8 +556,8 @@ class TASKDIALOGCONFIG extends Win32Struct
      * @type {Pointer<PWSTR>}
      */
     pszFooter {
-        get => NumGet(this, 132, "ptr")
-        set => NumPut("ptr", value, this, 132)
+        get => NumGet(this, 144, "ptr")
+        set => NumPut("ptr", value, this, 144)
     }
 
     /**
@@ -567,8 +567,8 @@ class TASKDIALOGCONFIG extends Win32Struct
      * @type {Pointer<PFTASKDIALOGCALLBACK>}
      */
     pfCallback {
-        get => NumGet(this, 140, "ptr")
-        set => NumPut("ptr", value, this, 140)
+        get => NumGet(this, 152, "ptr")
+        set => NumPut("ptr", value, this, 152)
     }
 
     /**
@@ -578,8 +578,8 @@ class TASKDIALOGCONFIG extends Win32Struct
      * @type {Pointer}
      */
     lpCallbackData {
-        get => NumGet(this, 148, "ptr")
-        set => NumPut("ptr", value, this, 148)
+        get => NumGet(this, 160, "ptr")
+        set => NumPut("ptr", value, this, 160)
     }
 
     /**
@@ -589,8 +589,8 @@ class TASKDIALOGCONFIG extends Win32Struct
      * @type {Integer}
      */
     cxWidth {
-        get => NumGet(this, 156, "uint")
-        set => NumPut("uint", value, this, 156)
+        get => NumGet(this, 168, "uint")
+        set => NumPut("uint", value, this, 168)
     }
 
     /**
@@ -599,6 +599,6 @@ class TASKDIALOGCONFIG extends Win32Struct
      */
     __New(ptr := 0){
         super.__New(ptr)
-        this.cbSize := 160
+        this.cbSize := 176
     }
 }

@@ -7,7 +7,7 @@
  */
 class OS_INFO_v1 extends Win32Struct
 {
-    static sizeof => 192
+    static sizeof => 352
 
     static packingSize => 8
 
@@ -76,35 +76,26 @@ class OS_INFO_v1 extends Win32Struct
     }
 
     /**
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    Language{
-        get {
-            if(!this.HasProp("__LanguageProxyArray"))
-                this.__LanguageProxyArray := Win32FixedArray(this.ptr + 32, 30, Primitive, "char")
-            return this.__LanguageProxyArray
-        }
+    Language {
+        get => StrGet(this.ptr + 32, 29, "UTF-16")
+        set => StrPut(value, this.ptr + 32, 29, "UTF-16")
     }
 
     /**
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    OsString{
-        get {
-            if(!this.HasProp("__OsStringProxyArray"))
-                this.__OsStringProxyArray := Win32FixedArray(this.ptr + 62, 64, Primitive, "char")
-            return this.__OsStringProxyArray
-        }
+    OsString {
+        get => StrGet(this.ptr + 92, 63, "UTF-16")
+        set => StrPut(value, this.ptr + 92, 63, "UTF-16")
     }
 
     /**
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    ServicePackString{
-        get {
-            if(!this.HasProp("__ServicePackStringProxyArray"))
-                this.__ServicePackStringProxyArray := Win32FixedArray(this.ptr + 126, 64, Primitive, "char")
-            return this.__ServicePackStringProxyArray
-        }
+    ServicePackString {
+        get => StrGet(this.ptr + 220, 63, "UTF-16")
+        set => StrPut(value, this.ptr + 220, 63, "UTF-16")
     }
 }

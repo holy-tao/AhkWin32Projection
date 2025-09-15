@@ -9,7 +9,7 @@ class DBTIMESTAMP extends Win32Struct
 {
     static sizeof => 16
 
-    static packingSize => 2
+    static packingSize => 4
 
     /**
      * @type {Integer}

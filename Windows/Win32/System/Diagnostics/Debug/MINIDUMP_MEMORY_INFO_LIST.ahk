@@ -11,7 +11,7 @@ class MINIDUMP_MEMORY_INFO_LIST extends Win32Struct
 {
     static sizeof => 16
 
-    static packingSize => 4
+    static packingSize => 8
 
     /**
      * The size of the header data for the stream, in bytes. This is generally <c>sizeof(MINIDUMP_MEMORY_INFO_LIST)</c>.

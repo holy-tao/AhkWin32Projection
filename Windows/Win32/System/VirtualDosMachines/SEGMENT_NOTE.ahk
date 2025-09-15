@@ -7,7 +7,7 @@
  */
 class SEGMENT_NOTE extends Win32Struct
 {
-    static sizeof => 280
+    static sizeof => 544
 
     static packingSize => 4
 
@@ -36,40 +36,34 @@ class SEGMENT_NOTE extends Win32Struct
     }
 
     /**
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    Module{
-        get {
-            if(!this.HasProp("__ModuleProxyArray"))
-                this.__ModuleProxyArray := Win32FixedArray(this.ptr + 6, 10, Primitive, "char")
-            return this.__ModuleProxyArray
-        }
+    Module {
+        get => StrGet(this.ptr + 6, 9, "UTF-16")
+        set => StrPut(value, this.ptr + 6, 9, "UTF-16")
     }
 
     /**
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    FileName{
-        get {
-            if(!this.HasProp("__FileNameProxyArray"))
-                this.__FileNameProxyArray := Win32FixedArray(this.ptr + 16, 256, Primitive, "char")
-            return this.__FileNameProxyArray
-        }
+    FileName {
+        get => StrGet(this.ptr + 26, 255, "UTF-16")
+        set => StrPut(value, this.ptr + 26, 255, "UTF-16")
     }
 
     /**
      * @type {Integer}
      */
     Type {
-        get => NumGet(this, 272, "ushort")
-        set => NumPut("ushort", value, this, 272)
+        get => NumGet(this, 538, "ushort")
+        set => NumPut("ushort", value, this, 538)
     }
 
     /**
      * @type {Integer}
      */
     Length {
-        get => NumGet(this, 276, "uint")
-        set => NumPut("uint", value, this, 276)
+        get => NumGet(this, 540, "uint")
+        set => NumPut("uint", value, this, 540)
     }
 }

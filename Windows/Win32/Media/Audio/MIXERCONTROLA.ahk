@@ -13,9 +13,9 @@
  */
 class MIXERCONTROLA extends Win32Struct
 {
-    static sizeof => 112
+    static sizeof => 120
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * Size, in bytes, of the <b>MIXERCONTROL</b> structure.
@@ -188,40 +188,26 @@ class MIXERCONTROLA extends Win32Struct
 
     /**
      * Short string that describes the audio line control specified by <b>dwControlID</b>. This description should be appropriate to use as a concise label for the control.
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    szShortName{
-        get {
-            if(!this.HasProp("__szShortNameProxyArray"))
-                this.__szShortNameProxyArray := Win32FixedArray(this.ptr + 20, 16, Primitive, "char")
-            return this.__szShortNameProxyArray
-        }
+    szShortName {
+        get => StrGet(this.ptr + 20, 15, "UTF-8")
+        set => StrPut(value, this.ptr + 20, 15, "UTF-8")
     }
 
     /**
      * String that describes the audio line control specified by <b>dwControlID</b>. This description should be appropriate to use as a complete description for the control.
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    szName{
-        get {
-            if(!this.HasProp("__szNameProxyArray"))
-                this.__szNameProxyArray := Win32FixedArray(this.ptr + 36, 64, Primitive, "char")
-            return this.__szNameProxyArray
-        }
+    szName {
+        get => StrGet(this.ptr + 36, 63, "UTF-8")
+        set => StrPut(value, this.ptr + 36, 63, "UTF-8")
     }
 
     /**
      * @type {Integer}
      */
     lMinimum {
-        get => NumGet(this, 100, "int")
-        set => NumPut("int", value, this, 100)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    lMaximum {
         get => NumGet(this, 104, "int")
         set => NumPut("int", value, this, 104)
     }
@@ -229,17 +215,25 @@ class MIXERCONTROLA extends Win32Struct
     /**
      * @type {Integer}
      */
+    lMaximum {
+        get => NumGet(this, 108, "int")
+        set => NumPut("int", value, this, 108)
+    }
+
+    /**
+     * @type {Integer}
+     */
     dwMinimum {
-        get => NumGet(this, 100, "uint")
-        set => NumPut("uint", value, this, 100)
+        get => NumGet(this, 104, "uint")
+        set => NumPut("uint", value, this, 104)
     }
 
     /**
      * @type {Integer}
      */
     dwMaximum {
-        get => NumGet(this, 104, "uint")
-        set => NumPut("uint", value, this, 104)
+        get => NumGet(this, 108, "uint")
+        set => NumPut("uint", value, this, 108)
     }
 
     /**
@@ -248,7 +242,7 @@ class MIXERCONTROLA extends Win32Struct
     dwReserved{
         get {
             if(!this.HasProp("__dwReservedProxyArray"))
-                this.__dwReservedProxyArray := Win32FixedArray(this.ptr + 100, 6, Primitive, "uint")
+                this.__dwReservedProxyArray := Win32FixedArray(this.ptr + 104, 6, Primitive, "uint")
             return this.__dwReservedProxyArray
         }
     }
@@ -257,15 +251,15 @@ class MIXERCONTROLA extends Win32Struct
      * @type {Integer}
      */
     cSteps {
-        get => NumGet(this, 108, "uint")
-        set => NumPut("uint", value, this, 108)
+        get => NumGet(this, 112, "uint")
+        set => NumPut("uint", value, this, 112)
     }
 
     /**
      * @type {Integer}
      */
     cbCustomData {
-        get => NumGet(this, 108, "uint")
-        set => NumPut("uint", value, this, 108)
+        get => NumGet(this, 112, "uint")
+        set => NumPut("uint", value, this, 112)
     }
 }

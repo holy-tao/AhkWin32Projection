@@ -7,9 +7,9 @@
  */
 class TCG_PCClientPCREventStruct extends Win32Struct
 {
-    static sizeof => 33
+    static sizeof => 36
 
-    static packingSize => 1
+    static packingSize => 4
 
     /**
      * @type {Integer}

@@ -91,25 +91,19 @@ class NTMS_I1_OBJECTINFORMATIONA extends Win32Struct
     }
 
     /**
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    szName{
-        get {
-            if(!this.HasProp("__szNameProxyArray"))
-                this.__szNameProxyArray := Win32FixedArray(this.ptr + 56, 64, Primitive, "char")
-            return this.__szNameProxyArray
-        }
+    szName {
+        get => StrGet(this.ptr + 56, 63, "UTF-8")
+        set => StrPut(value, this.ptr + 56, 63, "UTF-8")
     }
 
     /**
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    szDescription{
-        get {
-            if(!this.HasProp("__szDescriptionProxyArray"))
-                this.__szDescriptionProxyArray := Win32FixedArray(this.ptr + 120, 127, Primitive, "char")
-            return this.__szDescriptionProxyArray
-        }
+    szDescription {
+        get => StrGet(this.ptr + 120, 126, "UTF-8")
+        set => StrPut(value, this.ptr + 120, 126, "UTF-8")
     }
 
     /**

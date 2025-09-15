@@ -58,14 +58,11 @@ class NMCBEENDEDITA extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">TCHAR</a></b>
      * 
      * A zero-terminated string that contains the text from within the control's edit box.
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    szText{
-        get {
-            if(!this.HasProp("__szTextProxyArray"))
-                this.__szTextProxyArray := Win32FixedArray(this.ptr + 32, 260, Primitive, "char")
-            return this.__szTextProxyArray
-        }
+    szText {
+        get => StrGet(this.ptr + 32, 259, "UTF-8")
+        set => StrPut(value, this.ptr + 32, 259, "UTF-8")
     }
 
     /**

@@ -29,9 +29,9 @@
  */
 class ASF_FLAT_SYNCHRONISED_LYRICS extends Win32Struct
 {
-    static sizeof => 6
+    static sizeof => 8
 
-    static packingSize => 1
+    static packingSize => 4
 
     /**
      * Specifies the format of time stamps in the lyrics. This member is equivalent to the <b>bTimeStampFormat</b> member in the <b>WM_SYNCHRONISED_LYRICS</b> structure. The <b>WM_SYNCHRONISED_LYRICS</b> structure is documented in the Windows Media Format SDK.
@@ -56,7 +56,7 @@ class ASF_FLAT_SYNCHRONISED_LYRICS extends Win32Struct
      * @type {Integer}
      */
     dwLyricsLen {
-        get => NumGet(this, 2, "uint")
-        set => NumPut("uint", value, this, 2)
+        get => NumGet(this, 4, "uint")
+        set => NumPut("uint", value, this, 4)
     }
 }

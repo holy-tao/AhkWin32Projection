@@ -11,7 +11,7 @@ class DMA_DES extends Win32Struct
 {
     static sizeof => 16
 
-    static packingSize => 1
+    static packingSize => 4
 
     /**
      * 

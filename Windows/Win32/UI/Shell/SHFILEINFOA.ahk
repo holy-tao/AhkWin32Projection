@@ -18,9 +18,9 @@
  */
 class SHFILEINFOA extends Win32Struct
 {
-    static sizeof => 356
+    static sizeof => 360
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * Type: <b>HICON</b>
@@ -59,27 +59,21 @@ class SHFILEINFOA extends Win32Struct
      * Type: <b>TCHAR[MAX_PATH]</b>
      * 
      * A string that contains the name of the file as it appears in the Windows Shell, or the path and file name of the file that contains the icon representing the file.
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    szDisplayName{
-        get {
-            if(!this.HasProp("__szDisplayNameProxyArray"))
-                this.__szDisplayNameProxyArray := Win32FixedArray(this.ptr + 16, 260, Primitive, "char")
-            return this.__szDisplayNameProxyArray
-        }
+    szDisplayName {
+        get => StrGet(this.ptr + 16, 259, "UTF-8")
+        set => StrPut(value, this.ptr + 16, 259, "UTF-8")
     }
 
     /**
      * Type: <b>TCHAR[80]</b>
      * 
      * A string that describes the type of file.
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    szTypeName{
-        get {
-            if(!this.HasProp("__szTypeNameProxyArray"))
-                this.__szTypeNameProxyArray := Win32FixedArray(this.ptr + 276, 80, Primitive, "char")
-            return this.__szTypeNameProxyArray
-        }
+    szTypeName {
+        get => StrGet(this.ptr + 276, 79, "UTF-8")
+        set => StrPut(value, this.ptr + 276, 79, "UTF-8")
     }
 }

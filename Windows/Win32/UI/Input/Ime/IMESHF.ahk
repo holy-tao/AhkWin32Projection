@@ -9,9 +9,9 @@
  */
 class IMESHF extends Win32Struct
 {
-    static sizeof => 436
+    static sizeof => 868
 
-    static packingSize => 1
+    static packingSize => 2
 
     /**
      * The size of this structure. You must set this value before using the structure.
@@ -33,37 +33,28 @@ class IMESHF extends Win32Struct
 
     /**
      * Dictionary title.
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    szTitle{
-        get {
-            if(!this.HasProp("__szTitleProxyArray"))
-                this.__szTitleProxyArray := Win32FixedArray(this.ptr + 4, 48, Primitive, "char")
-            return this.__szTitleProxyArray
-        }
+    szTitle {
+        get => StrGet(this.ptr + 4, 47, "UTF-16")
+        set => StrPut(value, this.ptr + 4, 47, "UTF-16")
     }
 
     /**
      * Dictionary description.
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    szDescription{
-        get {
-            if(!this.HasProp("__szDescriptionProxyArray"))
-                this.__szDescriptionProxyArray := Win32FixedArray(this.ptr + 52, 256, Primitive, "char")
-            return this.__szDescriptionProxyArray
-        }
+    szDescription {
+        get => StrGet(this.ptr + 100, 255, "UTF-16")
+        set => StrPut(value, this.ptr + 100, 255, "UTF-16")
     }
 
     /**
      * Dictionary copyright information.
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    szCopyright{
-        get {
-            if(!this.HasProp("__szCopyrightProxyArray"))
-                this.__szCopyrightProxyArray := Win32FixedArray(this.ptr + 308, 128, Primitive, "char")
-            return this.__szCopyrightProxyArray
-        }
+    szCopyright {
+        get => StrGet(this.ptr + 612, 127, "UTF-16")
+        set => StrPut(value, this.ptr + 612, 127, "UTF-16")
     }
 }

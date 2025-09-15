@@ -11,7 +11,7 @@ class LINEAGENTENTRY extends Win32Struct
 {
     static sizeof => 28
 
-    static packingSize => 1
+    static packingSize => 4
 
     /**
      * Unique identifier for an agent. It is the responsibility of the agent handler to generate and maintain uniqueness of these identifiers.

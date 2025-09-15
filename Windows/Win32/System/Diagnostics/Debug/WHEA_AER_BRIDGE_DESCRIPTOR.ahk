@@ -9,9 +9,9 @@
  */
 class WHEA_AER_BRIDGE_DESCRIPTOR extends Win32Struct
 {
-    static sizeof => 46
+    static sizeof => 48
 
-    static packingSize => 1
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -70,7 +70,7 @@ class WHEA_AER_BRIDGE_DESCRIPTOR extends Win32Struct
     Flags{
         get {
             if(!this.HasProp("__Flags"))
-                this.__Flags := AER_BRIDGE_DESCRIPTOR_FLAGS(this.ptr + 14)
+                this.__Flags := AER_BRIDGE_DESCRIPTOR_FLAGS(this.ptr + 16)
             return this.__Flags
         }
     }
@@ -79,55 +79,55 @@ class WHEA_AER_BRIDGE_DESCRIPTOR extends Win32Struct
      * @type {Integer}
      */
     UncorrectableErrorMask {
-        get => NumGet(this, 18, "uint")
-        set => NumPut("uint", value, this, 18)
+        get => NumGet(this, 20, "uint")
+        set => NumPut("uint", value, this, 20)
     }
 
     /**
      * @type {Integer}
      */
     UncorrectableErrorSeverity {
-        get => NumGet(this, 22, "uint")
-        set => NumPut("uint", value, this, 22)
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
     }
 
     /**
      * @type {Integer}
      */
     CorrectableErrorMask {
-        get => NumGet(this, 26, "uint")
-        set => NumPut("uint", value, this, 26)
+        get => NumGet(this, 28, "uint")
+        set => NumPut("uint", value, this, 28)
     }
 
     /**
      * @type {Integer}
      */
     AdvancedCapsAndControl {
-        get => NumGet(this, 30, "uint")
-        set => NumPut("uint", value, this, 30)
+        get => NumGet(this, 32, "uint")
+        set => NumPut("uint", value, this, 32)
     }
 
     /**
      * @type {Integer}
      */
     SecondaryUncorrectableErrorMask {
-        get => NumGet(this, 34, "uint")
-        set => NumPut("uint", value, this, 34)
+        get => NumGet(this, 36, "uint")
+        set => NumPut("uint", value, this, 36)
     }
 
     /**
      * @type {Integer}
      */
     SecondaryUncorrectableErrorSev {
-        get => NumGet(this, 38, "uint")
-        set => NumPut("uint", value, this, 38)
+        get => NumGet(this, 40, "uint")
+        set => NumPut("uint", value, this, 40)
     }
 
     /**
      * @type {Integer}
      */
     SecondaryCapsAndControl {
-        get => NumGet(this, 42, "uint")
-        set => NumPut("uint", value, this, 42)
+        get => NumGet(this, 44, "uint")
+        set => NumPut("uint", value, this, 44)
     }
 }

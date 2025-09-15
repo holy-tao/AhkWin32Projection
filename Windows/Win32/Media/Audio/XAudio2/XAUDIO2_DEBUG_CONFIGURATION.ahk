@@ -18,7 +18,7 @@ class XAUDIO2_DEBUG_CONFIGURATION extends Win32Struct
 {
     static sizeof => 24
 
-    static packingSize => 1
+    static packingSize => 4
 
     /**
      * Bitmask of enabled debug message types. Can be 0 or one or more of the following:

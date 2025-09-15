@@ -30,47 +30,35 @@ class RASCONNA extends Win32Struct
     }
 
     /**
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    szEntryName{
-        get {
-            if(!this.HasProp("__szEntryNameProxyArray"))
-                this.__szEntryNameProxyArray := Win32FixedArray(this.ptr + 16, 257, Primitive, "char")
-            return this.__szEntryNameProxyArray
-        }
+    szEntryName {
+        get => StrGet(this.ptr + 16, 256, "UTF-8")
+        set => StrPut(value, this.ptr + 16, 256, "UTF-8")
     }
 
     /**
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    szDeviceType{
-        get {
-            if(!this.HasProp("__szDeviceTypeProxyArray"))
-                this.__szDeviceTypeProxyArray := Win32FixedArray(this.ptr + 273, 17, Primitive, "char")
-            return this.__szDeviceTypeProxyArray
-        }
+    szDeviceType {
+        get => StrGet(this.ptr + 273, 16, "UTF-8")
+        set => StrPut(value, this.ptr + 273, 16, "UTF-8")
     }
 
     /**
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    szDeviceName{
-        get {
-            if(!this.HasProp("__szDeviceNameProxyArray"))
-                this.__szDeviceNameProxyArray := Win32FixedArray(this.ptr + 290, 129, Primitive, "char")
-            return this.__szDeviceNameProxyArray
-        }
+    szDeviceName {
+        get => StrGet(this.ptr + 290, 128, "UTF-8")
+        set => StrPut(value, this.ptr + 290, 128, "UTF-8")
     }
 
     /**
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    szPhonebook{
-        get {
-            if(!this.HasProp("__szPhonebookProxyArray"))
-                this.__szPhonebookProxyArray := Win32FixedArray(this.ptr + 419, 260, Primitive, "char")
-            return this.__szPhonebookProxyArray
-        }
+    szPhonebook {
+        get => StrGet(this.ptr + 419, 259, "UTF-8")
+        set => StrPut(value, this.ptr + 419, 259, "UTF-8")
     }
 
     /**

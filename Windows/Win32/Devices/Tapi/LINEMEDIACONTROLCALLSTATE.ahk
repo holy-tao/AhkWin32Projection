@@ -17,7 +17,7 @@ class LINEMEDIACONTROLCALLSTATE extends Win32Struct
 {
     static sizeof => 8
 
-    static packingSize => 1
+    static packingSize => 4
 
     /**
      * One or more call states. This member uses one of the 

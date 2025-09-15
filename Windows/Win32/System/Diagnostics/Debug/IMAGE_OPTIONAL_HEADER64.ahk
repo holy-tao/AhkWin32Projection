@@ -58,7 +58,7 @@ class IMAGE_OPTIONAL_HEADER64 extends Win32Struct
 {
     static sizeof => 240
 
-    static packingSize => 4
+    static packingSize => 8
 
     /**
      * 

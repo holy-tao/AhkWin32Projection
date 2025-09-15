@@ -13,9 +13,9 @@
  */
 class FILE_IN_CABINET_INFO_W extends Win32Struct
 {
-    static sizeof => 542
+    static sizeof => 544
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * File name as it exists within the cabinet file.

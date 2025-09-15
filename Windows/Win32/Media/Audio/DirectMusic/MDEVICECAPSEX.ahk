@@ -9,9 +9,9 @@
  */
 class MDEVICECAPSEX extends Win32Struct
 {
-    static sizeof => 12
+    static sizeof => 16
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * Specifies the size of the structure, in bytes.
@@ -27,8 +27,8 @@ class MDEVICECAPSEX extends Win32Struct
      * @type {Pointer<Void>}
      */
     pCaps {
-        get => NumGet(this, 4, "ptr")
-        set => NumPut("ptr", value, this, 4)
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -37,6 +37,6 @@ class MDEVICECAPSEX extends Win32Struct
      */
     __New(ptr := 0){
         super.__New(ptr)
-        this.cbSize := 12
+        this.cbSize := 16
     }
 }

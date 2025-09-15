@@ -7,26 +7,23 @@
  */
 class DvbParentalRatingParam extends Win32Struct
 {
-    static sizeof => 5
+    static sizeof => 10
 
-    static packingSize => 1
+    static packingSize => 2
 
     /**
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    szCountryCode{
-        get {
-            if(!this.HasProp("__szCountryCodeProxyArray"))
-                this.__szCountryCodeProxyArray := Win32FixedArray(this.ptr + 0, 4, Primitive, "char")
-            return this.__szCountryCodeProxyArray
-        }
+    szCountryCode {
+        get => StrGet(this.ptr + 0, 3, "UTF-16")
+        set => StrPut(value, this.ptr + 0, 3, "UTF-16")
     }
 
     /**
      * @type {Integer}
      */
     bRating {
-        get => NumGet(this, 4, "char")
-        set => NumPut("char", value, this, 4)
+        get => NumGet(this, 8, "char")
+        set => NumPut("char", value, this, 8)
     }
 }

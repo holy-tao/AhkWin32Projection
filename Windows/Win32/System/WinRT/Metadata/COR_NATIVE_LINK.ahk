@@ -7,9 +7,9 @@
  */
 class COR_NATIVE_LINK extends Win32Struct
 {
-    static sizeof => 6
+    static sizeof => 8
 
-    static packingSize => 1
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -31,7 +31,7 @@ class COR_NATIVE_LINK extends Win32Struct
      * @type {Integer}
      */
     m_entryPoint {
-        get => NumGet(this, 2, "uint")
-        set => NumPut("uint", value, this, 2)
+        get => NumGet(this, 4, "uint")
+        set => NumPut("uint", value, this, 4)
     }
 }

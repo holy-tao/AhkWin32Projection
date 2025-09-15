@@ -8,9 +8,9 @@
  */
 class MINIDUMP_THREAD_NAME_LIST extends Win32Struct
 {
-    static sizeof => 12
+    static sizeof => 16
 
-    static packingSize => 4
+    static packingSize => 8
 
     /**
      * @type {Integer}
@@ -26,7 +26,7 @@ class MINIDUMP_THREAD_NAME_LIST extends Win32Struct
     ThreadNames{
         get {
             if(!this.HasProp("__ThreadNamesProxyArray"))
-                this.__ThreadNamesProxyArray := Win32FixedArray(this.ptr + 4, 1, MINIDUMP_THREAD_NAME, "")
+                this.__ThreadNamesProxyArray := Win32FixedArray(this.ptr + 8, 1, MINIDUMP_THREAD_NAME, "")
             return this.__ThreadNamesProxyArray
         }
     }

@@ -7,7 +7,7 @@
  */
 class DEBUG_SMBIOS_INFO extends Win32Struct
 {
-    static sizeof => 720
+    static sizeof => 1424
 
     static packingSize => 4
 
@@ -84,123 +84,90 @@ class DEBUG_SMBIOS_INFO extends Win32Struct
     }
 
     /**
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    BaseBoardManufacturer{
-        get {
-            if(!this.HasProp("__BaseBoardManufacturerProxyArray"))
-                this.__BaseBoardManufacturerProxyArray := Win32FixedArray(this.ptr + 16, 64, Primitive, "char")
-            return this.__BaseBoardManufacturerProxyArray
-        }
+    BaseBoardManufacturer {
+        get => StrGet(this.ptr + 16, 63, "UTF-16")
+        set => StrPut(value, this.ptr + 16, 63, "UTF-16")
     }
 
     /**
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    BaseBoardProduct{
-        get {
-            if(!this.HasProp("__BaseBoardProductProxyArray"))
-                this.__BaseBoardProductProxyArray := Win32FixedArray(this.ptr + 80, 64, Primitive, "char")
-            return this.__BaseBoardProductProxyArray
-        }
+    BaseBoardProduct {
+        get => StrGet(this.ptr + 144, 63, "UTF-16")
+        set => StrPut(value, this.ptr + 144, 63, "UTF-16")
     }
 
     /**
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    BaseBoardVersion{
-        get {
-            if(!this.HasProp("__BaseBoardVersionProxyArray"))
-                this.__BaseBoardVersionProxyArray := Win32FixedArray(this.ptr + 144, 64, Primitive, "char")
-            return this.__BaseBoardVersionProxyArray
-        }
+    BaseBoardVersion {
+        get => StrGet(this.ptr + 272, 63, "UTF-16")
+        set => StrPut(value, this.ptr + 272, 63, "UTF-16")
     }
 
     /**
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    BiosReleaseDate{
-        get {
-            if(!this.HasProp("__BiosReleaseDateProxyArray"))
-                this.__BiosReleaseDateProxyArray := Win32FixedArray(this.ptr + 208, 64, Primitive, "char")
-            return this.__BiosReleaseDateProxyArray
-        }
+    BiosReleaseDate {
+        get => StrGet(this.ptr + 400, 63, "UTF-16")
+        set => StrPut(value, this.ptr + 400, 63, "UTF-16")
     }
 
     /**
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    BiosVendor{
-        get {
-            if(!this.HasProp("__BiosVendorProxyArray"))
-                this.__BiosVendorProxyArray := Win32FixedArray(this.ptr + 272, 64, Primitive, "char")
-            return this.__BiosVendorProxyArray
-        }
+    BiosVendor {
+        get => StrGet(this.ptr + 528, 63, "UTF-16")
+        set => StrPut(value, this.ptr + 528, 63, "UTF-16")
     }
 
     /**
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    BiosVersion{
-        get {
-            if(!this.HasProp("__BiosVersionProxyArray"))
-                this.__BiosVersionProxyArray := Win32FixedArray(this.ptr + 336, 64, Primitive, "char")
-            return this.__BiosVersionProxyArray
-        }
+    BiosVersion {
+        get => StrGet(this.ptr + 656, 63, "UTF-16")
+        set => StrPut(value, this.ptr + 656, 63, "UTF-16")
     }
 
     /**
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    SystemFamily{
-        get {
-            if(!this.HasProp("__SystemFamilyProxyArray"))
-                this.__SystemFamilyProxyArray := Win32FixedArray(this.ptr + 400, 64, Primitive, "char")
-            return this.__SystemFamilyProxyArray
-        }
+    SystemFamily {
+        get => StrGet(this.ptr + 784, 63, "UTF-16")
+        set => StrPut(value, this.ptr + 784, 63, "UTF-16")
     }
 
     /**
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    SystemManufacturer{
-        get {
-            if(!this.HasProp("__SystemManufacturerProxyArray"))
-                this.__SystemManufacturerProxyArray := Win32FixedArray(this.ptr + 464, 64, Primitive, "char")
-            return this.__SystemManufacturerProxyArray
-        }
+    SystemManufacturer {
+        get => StrGet(this.ptr + 912, 63, "UTF-16")
+        set => StrPut(value, this.ptr + 912, 63, "UTF-16")
     }
 
     /**
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    SystemProductName{
-        get {
-            if(!this.HasProp("__SystemProductNameProxyArray"))
-                this.__SystemProductNameProxyArray := Win32FixedArray(this.ptr + 528, 64, Primitive, "char")
-            return this.__SystemProductNameProxyArray
-        }
+    SystemProductName {
+        get => StrGet(this.ptr + 1040, 63, "UTF-16")
+        set => StrPut(value, this.ptr + 1040, 63, "UTF-16")
     }
 
     /**
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    SystemSKU{
-        get {
-            if(!this.HasProp("__SystemSKUProxyArray"))
-                this.__SystemSKUProxyArray := Win32FixedArray(this.ptr + 592, 64, Primitive, "char")
-            return this.__SystemSKUProxyArray
-        }
+    SystemSKU {
+        get => StrGet(this.ptr + 1168, 63, "UTF-16")
+        set => StrPut(value, this.ptr + 1168, 63, "UTF-16")
     }
 
     /**
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    SystemVersion{
-        get {
-            if(!this.HasProp("__SystemVersionProxyArray"))
-                this.__SystemVersionProxyArray := Win32FixedArray(this.ptr + 656, 64, Primitive, "char")
-            return this.__SystemVersionProxyArray
-        }
+    SystemVersion {
+        get => StrGet(this.ptr + 1296, 63, "UTF-16")
+        set => StrPut(value, this.ptr + 1296, 63, "UTF-16")
     }
 }

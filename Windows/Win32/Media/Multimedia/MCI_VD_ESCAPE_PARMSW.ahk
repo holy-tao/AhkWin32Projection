@@ -10,7 +10,7 @@ class MCI_VD_ESCAPE_PARMSW extends Win32Struct
 {
     static sizeof => 16
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * @type {Pointer}

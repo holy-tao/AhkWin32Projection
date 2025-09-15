@@ -7,7 +7,7 @@
  */
 class DNS_QUERY_RAW_RESULT extends Win32Struct
 {
-    static sizeof => 96
+    static sizeof => 128
 
     static packingSize => 8
 
@@ -84,13 +84,10 @@ class DNS_QUERY_RAW_RESULT extends Win32Struct
     }
 
     /**
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    maxSa{
-        get {
-            if(!this.HasProp("__maxSaProxyArray"))
-                this.__maxSaProxyArray := Win32FixedArray(this.ptr + 64, 32, Primitive, "char")
-            return this.__maxSaProxyArray
-        }
+    maxSa {
+        get => StrGet(this.ptr + 64, 31, "UTF-16")
+        set => StrPut(value, this.ptr + 64, 31, "UTF-16")
     }
 }

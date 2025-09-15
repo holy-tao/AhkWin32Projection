@@ -126,14 +126,11 @@ class OLEUICHANGEICONA extends Win32Struct
 
     /**
      * Input only. Pointer to the executable to extract the default icon from. This member is ignored unless CIF\_USEICONEXE is included in the **dwFlags** member and an attempt to retrieve the class icon from the specified CLSID fails.
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    szIconExe{
-        get {
-            if(!this.HasProp("__szIconExeProxyArray"))
-                this.__szIconExeProxyArray := Win32FixedArray(this.ptr + 80, 260, Primitive, "char")
-            return this.__szIconExeProxyArray
-        }
+    szIconExe {
+        get => StrGet(this.ptr + 80, 259, "UTF-8")
+        set => StrPut(value, this.ptr + 80, 259, "UTF-8")
     }
 
     /**

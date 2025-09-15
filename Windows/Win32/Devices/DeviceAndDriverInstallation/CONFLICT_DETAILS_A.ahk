@@ -148,13 +148,10 @@ class CONFLICT_DETAILS_A extends Win32Struct
 
     /**
      * If CM_CDMASK_DESCRIPTION is set in <b>CD_ulMask</b>, this member will receive a NULL-terminated text string representing a description of the device that owns the resources. If CM_CDFLAGS_DRIVER is set in <b>CD_ulFlags</b>, this string represents a driver name. If CM_CDFLAGS_ROOT_OWNED or CM_CDFLAGS_RESERVED is set, the string value is <b>NULL</b>.
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    CD_szDescription{
-        get {
-            if(!this.HasProp("__CD_szDescriptionProxyArray"))
-                this.__CD_szDescriptionProxyArray := Win32FixedArray(this.ptr + 28, 260, Primitive, "char")
-            return this.__CD_szDescriptionProxyArray
-        }
+    CD_szDescription {
+        get => StrGet(this.ptr + 28, 259, "UTF-8")
+        set => StrPut(value, this.ptr + 28, 259, "UTF-8")
     }
 }

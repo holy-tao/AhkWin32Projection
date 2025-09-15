@@ -15,7 +15,7 @@ class MINIDUMP_EXCEPTION_STREAM extends Win32Struct
 {
     static sizeof => 168
 
-    static packingSize => 4
+    static packingSize => 8
 
     /**
      * The identifier of the thread that caused the exception.

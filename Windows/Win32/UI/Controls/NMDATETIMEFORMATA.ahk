@@ -75,13 +75,10 @@ class NMDATETIMEFORMATA extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">TCHAR</a></b>
      * 
      * 64-character buffer that is to receive the zero-terminated string that the DTP control will display. It is not necessary to fill the entire buffer.
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    szDisplay{
-        get {
-            if(!this.HasProp("__szDisplayProxyArray"))
-                this.__szDisplayProxyArray := Win32FixedArray(this.ptr + 56, 64, Primitive, "char")
-            return this.__szDisplayProxyArray
-        }
+    szDisplay {
+        get => StrGet(this.ptr + 56, 63, "UTF-8")
+        set => StrPut(value, this.ptr + 56, 63, "UTF-8")
     }
 }

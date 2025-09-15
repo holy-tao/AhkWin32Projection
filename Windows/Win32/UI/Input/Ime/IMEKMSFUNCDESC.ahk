@@ -7,9 +7,9 @@
  */
 class IMEKMSFUNCDESC extends Win32Struct
 {
-    static sizeof => 266
+    static sizeof => 268
 
-    static packingSize => 1
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -31,16 +31,16 @@ class IMEKMSFUNCDESC extends Win32Struct
      * @type {Integer}
      */
     dwControl {
-        get => NumGet(this, 6, "uint")
-        set => NumPut("uint", value, this, 6)
+        get => NumGet(this, 8, "uint")
+        set => NumPut("uint", value, this, 8)
     }
 
     /**
      * @type {String}
      */
     pwszDescription {
-        get => StrGet(this.ptr + 10, 127, "UTF-16")
-        set => StrPut(value, this.ptr + 10, 127, "UTF-16")
+        get => StrGet(this.ptr + 12, 127, "UTF-16")
+        set => StrPut(value, this.ptr + 12, 127, "UTF-16")
     }
 
     /**
@@ -49,6 +49,6 @@ class IMEKMSFUNCDESC extends Win32Struct
      */
     __New(ptr := 0){
         super.__New(ptr)
-        this.cbSize := 266
+        this.cbSize := 268
     }
 }

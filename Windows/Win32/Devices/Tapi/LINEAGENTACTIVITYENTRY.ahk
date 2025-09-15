@@ -11,7 +11,7 @@ class LINEAGENTACTIVITYENTRY extends Win32Struct
 {
     static sizeof => 12
 
-    static packingSize => 1
+    static packingSize => 4
 
     /**
      * Unique identifier for an activity. It is the responsibility of the agent handler to generate and maintain uniqueness of this identifier.

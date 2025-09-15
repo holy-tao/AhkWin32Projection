@@ -25,9 +25,9 @@
  */
 class SHELLEXECUTEINFOA extends Win32Struct
 {
-    static sizeof => 104
+    static sizeof => 112
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * Type: <b>DWORD</b>
@@ -150,8 +150,8 @@ class SHELLEXECUTEINFOA extends Win32Struct
      * @type {Pointer<HINSTANCE>}
      */
     hInstApp {
-        get => NumGet(this, 52, "ptr")
-        set => NumPut("ptr", value, this, 52)
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 
     /**
@@ -161,8 +161,8 @@ class SHELLEXECUTEINFOA extends Win32Struct
      * @type {Pointer<Void>}
      */
     lpIDList {
-        get => NumGet(this, 60, "ptr")
-        set => NumPut("ptr", value, this, 60)
+        get => NumGet(this, 64, "ptr")
+        set => NumPut("ptr", value, this, 64)
     }
 
     /**
@@ -179,8 +179,8 @@ class SHELLEXECUTEINFOA extends Win32Struct
      * @type {Pointer<PSTR>}
      */
     lpClass {
-        get => NumGet(this, 68, "ptr")
-        set => NumPut("ptr", value, this, 68)
+        get => NumGet(this, 72, "ptr")
+        set => NumPut("ptr", value, this, 72)
     }
 
     /**
@@ -190,8 +190,8 @@ class SHELLEXECUTEINFOA extends Win32Struct
      * @type {Pointer<HKEY>}
      */
     hkeyClass {
-        get => NumGet(this, 76, "ptr")
-        set => NumPut("ptr", value, this, 76)
+        get => NumGet(this, 80, "ptr")
+        set => NumPut("ptr", value, this, 80)
     }
 
     /**
@@ -201,24 +201,24 @@ class SHELLEXECUTEINFOA extends Win32Struct
      * @type {Integer}
      */
     dwHotKey {
-        get => NumGet(this, 84, "uint")
-        set => NumPut("uint", value, this, 84)
+        get => NumGet(this, 88, "uint")
+        set => NumPut("uint", value, this, 88)
     }
 
     /**
      * @type {Pointer<HANDLE>}
      */
     hIcon {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
+        get => NumGet(this, 96, "ptr")
+        set => NumPut("ptr", value, this, 96)
     }
 
     /**
      * @type {Pointer<HANDLE>}
      */
     hMonitor {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
+        get => NumGet(this, 96, "ptr")
+        set => NumPut("ptr", value, this, 96)
     }
 
     /**
@@ -230,8 +230,8 @@ class SHELLEXECUTEINFOA extends Win32Struct
      * @type {Pointer<HANDLE>}
      */
     hProcess {
-        get => NumGet(this, 96, "ptr")
-        set => NumPut("ptr", value, this, 96)
+        get => NumGet(this, 104, "ptr")
+        set => NumPut("ptr", value, this, 104)
     }
 
     /**
@@ -240,6 +240,6 @@ class SHELLEXECUTEINFOA extends Win32Struct
      */
     __New(ptr := 0){
         super.__New(ptr)
-        this.cbSize := 104
+        this.cbSize := 112
     }
 }

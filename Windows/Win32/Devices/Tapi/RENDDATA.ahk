@@ -7,9 +7,9 @@
  */
 class RENDDATA extends Win32Struct
 {
-    static sizeof => 14
+    static sizeof => 16
 
-    static packingSize => 1
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -23,22 +23,14 @@ class RENDDATA extends Win32Struct
      * @type {Integer}
      */
     ulPosition {
-        get => NumGet(this, 2, "uint")
-        set => NumPut("uint", value, this, 2)
+        get => NumGet(this, 4, "uint")
+        set => NumPut("uint", value, this, 4)
     }
 
     /**
      * @type {Integer}
      */
     dxWidth {
-        get => NumGet(this, 6, "ushort")
-        set => NumPut("ushort", value, this, 6)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    dyHeight {
         get => NumGet(this, 8, "ushort")
         set => NumPut("ushort", value, this, 8)
     }
@@ -46,8 +38,16 @@ class RENDDATA extends Win32Struct
     /**
      * @type {Integer}
      */
+    dyHeight {
+        get => NumGet(this, 10, "ushort")
+        set => NumPut("ushort", value, this, 10)
+    }
+
+    /**
+     * @type {Integer}
+     */
     dwFlags {
-        get => NumGet(this, 10, "uint")
-        set => NumPut("uint", value, this, 10)
+        get => NumGet(this, 12, "uint")
+        set => NumPut("uint", value, this, 12)
     }
 }

@@ -16,7 +16,7 @@
  */
 class TARGET_DEBUG_INFO_v1 extends Win32Struct
 {
-    static sizeof => 4904
+    static sizeof => 9416
 
     static packingSize => 8
 
@@ -101,38 +101,32 @@ class TARGET_DEBUG_INFO_v1 extends Win32Struct
     Cpu{
         get {
             if(!this.HasProp("__Cpu"))
-                this.__Cpu := CPU_INFO_v1(this.ptr + 256)
+                this.__Cpu := CPU_INFO_v1(this.ptr + 416)
             return this.__Cpu
         }
     }
 
     /**
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    DumpFile{
-        get {
-            if(!this.HasProp("__DumpFileProxyArray"))
-                this.__DumpFileProxyArray := Win32FixedArray(this.ptr + 536, 260, Primitive, "char")
-            return this.__DumpFileProxyArray
-        }
+    DumpFile {
+        get => StrGet(this.ptr + 696, 259, "UTF-16")
+        set => StrPut(value, this.ptr + 696, 259, "UTF-16")
     }
 
     /**
      * @type {Pointer<Void>}
      */
     FailureData {
-        get => NumGet(this, 800, "ptr")
-        set => NumPut("ptr", value, this, 800)
+        get => NumGet(this, 1216, "ptr")
+        set => NumPut("ptr", value, this, 1216)
     }
 
     /**
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    StackTr{
-        get {
-            if(!this.HasProp("__StackTrProxyArray"))
-                this.__StackTrProxyArray := Win32FixedArray(this.ptr + 808, 4096, Primitive, "char")
-            return this.__StackTrProxyArray
-        }
+    StackTr {
+        get => StrGet(this.ptr + 1224, 4095, "UTF-16")
+        set => StrPut(value, this.ptr + 1224, 4095, "UTF-16")
     }
 }

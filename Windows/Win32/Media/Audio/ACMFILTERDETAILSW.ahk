@@ -8,9 +8,9 @@
  */
 class ACMFILTERDETAILSW extends Win32Struct
 {
-    static sizeof => 284
+    static sizeof => 288
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * @type {Integer}

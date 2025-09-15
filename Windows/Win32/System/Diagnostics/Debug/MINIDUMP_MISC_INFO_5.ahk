@@ -11,9 +11,9 @@
  */
 class MINIDUMP_MISC_INFO_5 extends Win32Struct
 {
-    static sizeof => 1376
+    static sizeof => 1384
 
-    static packingSize => 4
+    static packingSize => 8
 
     /**
      * @type {Integer}
@@ -141,7 +141,7 @@ class MINIDUMP_MISC_INFO_5 extends Win32Struct
     TimeZone{
         get {
             if(!this.HasProp("__TimeZone"))
-                this.__TimeZone := TIME_ZONE_INFORMATION(this.ptr + 60)
+                this.__TimeZone := TIME_ZONE_INFORMATION(this.ptr + 64)
             return this.__TimeZone
         }
     }
@@ -150,16 +150,16 @@ class MINIDUMP_MISC_INFO_5 extends Win32Struct
      * @type {String}
      */
     BuildString {
-        get => StrGet(this.ptr + 244, 259, "UTF-16")
-        set => StrPut(value, this.ptr + 244, 259, "UTF-16")
+        get => StrGet(this.ptr + 248, 259, "UTF-16")
+        set => StrPut(value, this.ptr + 248, 259, "UTF-16")
     }
 
     /**
      * @type {String}
      */
     DbgBldStr {
-        get => StrGet(this.ptr + 764, 39, "UTF-16")
-        set => StrPut(value, this.ptr + 764, 39, "UTF-16")
+        get => StrGet(this.ptr + 768, 39, "UTF-16")
+        set => StrPut(value, this.ptr + 768, 39, "UTF-16")
     }
 
     /**
@@ -168,7 +168,7 @@ class MINIDUMP_MISC_INFO_5 extends Win32Struct
     XStateData{
         get {
             if(!this.HasProp("__XStateData"))
-                this.__XStateData := XSTATE_CONFIG_FEATURE_MSC_INFO(this.ptr + 844)
+                this.__XStateData := XSTATE_CONFIG_FEATURE_MSC_INFO(this.ptr + 848)
             return this.__XStateData
         }
     }
@@ -177,7 +177,7 @@ class MINIDUMP_MISC_INFO_5 extends Win32Struct
      * @type {Integer}
      */
     ProcessCookie {
-        get => NumGet(this, 1372, "uint")
-        set => NumPut("uint", value, this, 1372)
+        get => NumGet(this, 1376, "uint")
+        set => NumPut("uint", value, this, 1376)
     }
 }

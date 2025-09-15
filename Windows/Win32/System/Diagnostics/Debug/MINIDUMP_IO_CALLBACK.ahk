@@ -9,9 +9,9 @@
  */
 class MINIDUMP_IO_CALLBACK extends Win32Struct
 {
-    static sizeof => 28
+    static sizeof => 32
 
-    static packingSize => 4
+    static packingSize => 8
 
     /**
      * The file handle passed to the <a href="https://docs.microsoft.com/windows/desktop/api/minidumpapiset/nf-minidumpapiset-minidumpwritedump">MiniDumpWriteDump</a> function.

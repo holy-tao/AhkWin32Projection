@@ -30,9 +30,9 @@
  */
 class SECTION extends Win32Struct
 {
-    static sizeof => 4
+    static sizeof => 6
 
-    static packingSize => 1
+    static packingSize => 2
 
     /**
      * Specifies the table identifier (TID) of the section.
@@ -47,16 +47,16 @@ class SECTION extends Win32Struct
      * @type {Integer}
      */
     S {
-        get => NumGet(this, 1, "ushort")
-        set => NumPut("ushort", value, this, 1)
+        get => NumGet(this, 2, "ushort")
+        set => NumPut("ushort", value, this, 2)
     }
 
     /**
      * @type {Integer}
      */
     W {
-        get => NumGet(this, 1, "ushort")
-        set => NumPut("ushort", value, this, 1)
+        get => NumGet(this, 2, "ushort")
+        set => NumPut("ushort", value, this, 2)
     }
 
     /**
@@ -66,7 +66,7 @@ class SECTION extends Win32Struct
     SectionData{
         get {
             if(!this.HasProp("__SectionDataProxyArray"))
-                this.__SectionDataProxyArray := Win32FixedArray(this.ptr + 3, 1, Primitive, "char")
+                this.__SectionDataProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")
             return this.__SectionDataProxyArray
         }
     }

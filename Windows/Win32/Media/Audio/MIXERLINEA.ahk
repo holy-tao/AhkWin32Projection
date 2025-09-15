@@ -13,9 +13,9 @@
  */
 class MIXERLINEA extends Win32Struct
 {
-    static sizeof => 172
+    static sizeof => 208
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * Size, in bytes, of the <b>MIXERLINE</b> structure. This member must be initialized before calling the <a href="https://docs.microsoft.com/previous-versions/dd757303(v=vs.85)">mixerGetLineInfo</a> function. The size specified in this member must be large enough to contain the <b>MIXERLINE</b> structure. When <b>mixerGetLineInfo</b> returns, this member contains the actual size of the information returned. The returned information will not exceed the requested size.
@@ -113,8 +113,8 @@ class MIXERLINEA extends Win32Struct
      * @type {Pointer}
      */
     dwUser {
-        get => NumGet(this, 20, "ptr")
-        set => NumPut("ptr", value, this, 20)
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
@@ -122,8 +122,8 @@ class MIXERLINEA extends Win32Struct
      * @type {Integer}
      */
     dwComponentType {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
+        get => NumGet(this, 32, "uint")
+        set => NumPut("uint", value, this, 32)
     }
 
     /**
@@ -137,8 +137,8 @@ class MIXERLINEA extends Win32Struct
      * @type {Integer}
      */
     cChannels {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
+        get => NumGet(this, 36, "uint")
+        set => NumPut("uint", value, this, 36)
     }
 
     /**
@@ -146,8 +146,8 @@ class MIXERLINEA extends Win32Struct
      * @type {Integer}
      */
     cConnections {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
+        get => NumGet(this, 40, "uint")
+        set => NumPut("uint", value, this, 40)
     }
 
     /**
@@ -155,46 +155,32 @@ class MIXERLINEA extends Win32Struct
      * @type {Integer}
      */
     cControls {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
+        get => NumGet(this, 44, "uint")
+        set => NumPut("uint", value, this, 44)
     }
 
     /**
      * Short string that describes the audio mixer line specified in the <b>dwLineID</b> member. This description should be appropriate as a concise label for the line.
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    szShortName{
-        get {
-            if(!this.HasProp("__szShortNameProxyArray"))
-                this.__szShortNameProxyArray := Win32FixedArray(this.ptr + 44, 16, Primitive, "char")
-            return this.__szShortNameProxyArray
-        }
+    szShortName {
+        get => StrGet(this.ptr + 48, 15, "UTF-8")
+        set => StrPut(value, this.ptr + 48, 15, "UTF-8")
     }
 
     /**
      * String that describes the audio mixer line specified in the <b>dwLineID</b> member. This description should be appropriate as a complete description for the line.
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    szName{
-        get {
-            if(!this.HasProp("__szNameProxyArray"))
-                this.__szNameProxyArray := Win32FixedArray(this.ptr + 60, 64, Primitive, "char")
-            return this.__szNameProxyArray
-        }
+    szName {
+        get => StrGet(this.ptr + 64, 63, "UTF-8")
+        set => StrPut(value, this.ptr + 64, 63, "UTF-8")
     }
 
     /**
      * @type {Integer}
      */
     dwType {
-        get => NumGet(this, 124, "uint")
-        set => NumPut("uint", value, this, 124)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    dwDeviceID {
         get => NumGet(this, 128, "uint")
         set => NumPut("uint", value, this, 128)
     }
@@ -202,35 +188,40 @@ class MIXERLINEA extends Win32Struct
     /**
      * @type {Integer}
      */
+    dwDeviceID {
+        get => NumGet(this, 132, "uint")
+        set => NumPut("uint", value, this, 132)
+    }
+
+    /**
+     * @type {Integer}
+     */
     wMid {
-        get => NumGet(this, 132, "ushort")
-        set => NumPut("ushort", value, this, 132)
+        get => NumGet(this, 136, "ushort")
+        set => NumPut("ushort", value, this, 136)
     }
 
     /**
      * @type {Integer}
      */
     wPid {
-        get => NumGet(this, 134, "ushort")
-        set => NumPut("ushort", value, this, 134)
+        get => NumGet(this, 138, "ushort")
+        set => NumPut("ushort", value, this, 138)
     }
 
     /**
      * @type {Integer}
      */
     vDriverVersion {
-        get => NumGet(this, 136, "uint")
-        set => NumPut("uint", value, this, 136)
+        get => NumGet(this, 140, "uint")
+        set => NumPut("uint", value, this, 140)
     }
 
     /**
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    szPname{
-        get {
-            if(!this.HasProp("__szPnameProxyArray"))
-                this.__szPnameProxyArray := Win32FixedArray(this.ptr + 140, 32, Primitive, "char")
-            return this.__szPnameProxyArray
-        }
+    szPname {
+        get => StrGet(this.ptr + 144, 31, "UTF-16")
+        set => StrPut(value, this.ptr + 144, 31, "UTF-16")
     }
 }

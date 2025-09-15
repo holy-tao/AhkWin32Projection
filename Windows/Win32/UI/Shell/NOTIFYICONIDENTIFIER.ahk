@@ -19,9 +19,9 @@
  */
 class NOTIFYICONIDENTIFIER extends Win32Struct
 {
-    static sizeof => 24
+    static sizeof => 32
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * Type: <b>DWORD</b>
@@ -41,8 +41,8 @@ class NOTIFYICONIDENTIFIER extends Win32Struct
      * @type {Pointer<HWND>}
      */
     hWnd {
-        get => NumGet(this, 4, "ptr")
-        set => NumPut("ptr", value, this, 4)
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -52,8 +52,8 @@ class NOTIFYICONIDENTIFIER extends Win32Struct
      * @type {Integer}
      */
     uID {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
+        get => NumGet(this, 16, "uint")
+        set => NumPut("uint", value, this, 16)
     }
 
     /**
@@ -63,8 +63,8 @@ class NOTIFYICONIDENTIFIER extends Win32Struct
      * @type {Pointer<Guid>}
      */
     guidItem {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
@@ -73,6 +73,6 @@ class NOTIFYICONIDENTIFIER extends Win32Struct
      */
     __New(ptr := 0){
         super.__New(ptr)
-        this.cbSize := 24
+        this.cbSize := 32
     }
 }

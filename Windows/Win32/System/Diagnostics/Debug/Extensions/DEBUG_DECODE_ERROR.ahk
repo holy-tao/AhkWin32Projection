@@ -7,7 +7,7 @@
  */
 class DEBUG_DECODE_ERROR extends Win32Struct
 {
-    static sizeof => 336
+    static sizeof => 660
 
     static packingSize => 4
 
@@ -36,24 +36,18 @@ class DEBUG_DECODE_ERROR extends Win32Struct
     }
 
     /**
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    Source{
-        get {
-            if(!this.HasProp("__SourceProxyArray"))
-                this.__SourceProxyArray := Win32FixedArray(this.ptr + 12, 64, Primitive, "char")
-            return this.__SourceProxyArray
-        }
+    Source {
+        get => StrGet(this.ptr + 12, 63, "UTF-16")
+        set => StrPut(value, this.ptr + 12, 63, "UTF-16")
     }
 
     /**
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    Message{
-        get {
-            if(!this.HasProp("__MessageProxyArray"))
-                this.__MessageProxyArray := Win32FixedArray(this.ptr + 76, 260, Primitive, "char")
-            return this.__MessageProxyArray
-        }
+    Message {
+        get => StrGet(this.ptr + 140, 259, "UTF-16")
+        set => StrPut(value, this.ptr + 140, 259, "UTF-16")
     }
 }

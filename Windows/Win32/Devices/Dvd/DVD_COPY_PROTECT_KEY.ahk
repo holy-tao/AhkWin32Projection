@@ -7,9 +7,9 @@
  */
 class DVD_COPY_PROTECT_KEY extends Win32Struct
 {
-    static sizeof => 25
+    static sizeof => 32
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * @type {Integer}

@@ -7,9 +7,9 @@
  */
 class BDA_TS_SELECTORINFO extends Win32Struct
 {
-    static sizeof => 14
+    static sizeof => 24
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * @type {Integer}
@@ -34,16 +34,16 @@ class BDA_TS_SELECTORINFO extends Win32Struct
      * @type {Pointer<Guid>}
      */
     guidNetworkType {
-        get => NumGet(this, 3, "ptr")
-        set => NumPut("ptr", value, this, 3)
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * @type {Integer}
      */
     bTSIDCount {
-        get => NumGet(this, 11, "char")
-        set => NumPut("char", value, this, 11)
+        get => NumGet(this, 16, "char")
+        set => NumPut("char", value, this, 16)
     }
 
     /**
@@ -52,7 +52,7 @@ class BDA_TS_SELECTORINFO extends Win32Struct
     usTSID{
         get {
             if(!this.HasProp("__usTSIDProxyArray"))
-                this.__usTSIDProxyArray := Win32FixedArray(this.ptr + 12, 1, Primitive, "ushort")
+                this.__usTSIDProxyArray := Win32FixedArray(this.ptr + 18, 1, Primitive, "ushort")
             return this.__usTSIDProxyArray
         }
     }

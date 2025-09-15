@@ -18,7 +18,7 @@
  */
 class SOCKET_SECURITY_QUERY_TEMPLATE extends Win32Struct
 {
-    static sizeof => 144
+    static sizeof => 264
 
     static packingSize => 8
 
@@ -48,7 +48,7 @@ class SOCKET_SECURITY_QUERY_TEMPLATE extends Win32Struct
      * @type {Integer}
      */
     PeerTokenAccessMask {
-        get => NumGet(this, 136, "uint")
-        set => NumPut("uint", value, this, 136)
+        get => NumGet(this, 256, "uint")
+        set => NumPut("uint", value, this, 256)
     }
 }

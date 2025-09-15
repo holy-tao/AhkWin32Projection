@@ -9,9 +9,9 @@
  */
 class SHSTOCKICONINFO extends Win32Struct
 {
-    static sizeof => 540
+    static sizeof => 544
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * Type: <b>DWORD</b>
@@ -31,8 +31,8 @@ class SHSTOCKICONINFO extends Win32Struct
      * @type {Pointer<HICON>}
      */
     hIcon {
-        get => NumGet(this, 4, "ptr")
-        set => NumPut("ptr", value, this, 4)
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -42,8 +42,8 @@ class SHSTOCKICONINFO extends Win32Struct
      * @type {Integer}
      */
     iSysImageIndex {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
+        get => NumGet(this, 16, "int")
+        set => NumPut("int", value, this, 16)
     }
 
     /**
@@ -53,8 +53,8 @@ class SHSTOCKICONINFO extends Win32Struct
      * @type {Integer}
      */
     iIcon {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
+        get => NumGet(this, 20, "int")
+        set => NumPut("int", value, this, 20)
     }
 
     /**
@@ -64,8 +64,8 @@ class SHSTOCKICONINFO extends Win32Struct
      * @type {String}
      */
     szPath {
-        get => StrGet(this.ptr + 20, 259, "UTF-16")
-        set => StrPut(value, this.ptr + 20, 259, "UTF-16")
+        get => StrGet(this.ptr + 24, 259, "UTF-16")
+        set => StrPut(value, this.ptr + 24, 259, "UTF-16")
     }
 
     /**
@@ -74,6 +74,6 @@ class SHSTOCKICONINFO extends Win32Struct
      */
     __New(ptr := 0){
         super.__New(ptr)
-        this.cbSize := 540
+        this.cbSize := 544
     }
 }

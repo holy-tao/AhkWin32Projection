@@ -11,7 +11,7 @@ class MCI_OVLY_SAVE_PARMSW extends Win32Struct
 {
     static sizeof => 32
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * @type {Pointer}

@@ -82,13 +82,10 @@ class INTERNET_CACHE_GROUP_INFOA extends Win32Struct
 
     /**
      * Group name.
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    szGroupName{
-        get {
-            if(!this.HasProp("__szGroupNameProxyArray"))
-                this.__szGroupNameProxyArray := Win32FixedArray(this.ptr + 36, 120, Primitive, "char")
-            return this.__szGroupNameProxyArray
-        }
+    szGroupName {
+        get => StrGet(this.ptr + 36, 119, "UTF-8")
+        set => StrPut(value, this.ptr + 36, 119, "UTF-8")
     }
 }

@@ -7,9 +7,9 @@
  */
 class SIPAEVENT_REVOCATION_LIST_PAYLOAD extends Win32Struct
 {
-    static sizeof => 15
+    static sizeof => 16
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * @type {Integer}

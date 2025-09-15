@@ -12,9 +12,9 @@
  */
 class CHOOSECOLORW extends Win32Struct
 {
-    static sizeof => 60
+    static sizeof => 72
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * Type: <b>DWORD</b>
@@ -34,8 +34,8 @@ class CHOOSECOLORW extends Win32Struct
      * @type {Pointer<HWND>}
      */
     hwndOwner {
-        get => NumGet(this, 4, "ptr")
-        set => NumPut("ptr", value, this, 4)
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -45,8 +45,8 @@ class CHOOSECOLORW extends Win32Struct
      * @type {Pointer<HWND>}
      */
     hInstance {
-        get => NumGet(this, 12, "ptr")
-        set => NumPut("ptr", value, this, 12)
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
@@ -56,8 +56,8 @@ class CHOOSECOLORW extends Win32Struct
      * @type {Integer}
      */
     rgbResult {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
     }
 
     /**
@@ -67,8 +67,8 @@ class CHOOSECOLORW extends Win32Struct
      * @type {Pointer<UInt32>}
      */
     lpCustColors {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
@@ -184,8 +184,8 @@ class CHOOSECOLORW extends Win32Struct
      * @type {Integer}
      */
     Flags {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
+        get => NumGet(this, 40, "uint")
+        set => NumPut("uint", value, this, 40)
     }
 
     /**
@@ -195,8 +195,8 @@ class CHOOSECOLORW extends Win32Struct
      * @type {Pointer}
      */
     lCustData {
-        get => NumGet(this, 36, "ptr")
-        set => NumPut("ptr", value, this, 36)
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**
@@ -206,8 +206,8 @@ class CHOOSECOLORW extends Win32Struct
      * @type {Pointer<LPCCHOOKPROC>}
      */
     lpfnHook {
-        get => NumGet(this, 44, "ptr")
-        set => NumPut("ptr", value, this, 44)
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 
     /**
@@ -217,7 +217,7 @@ class CHOOSECOLORW extends Win32Struct
      * @type {Pointer<PWSTR>}
      */
     lpTemplateName {
-        get => NumGet(this, 52, "ptr")
-        set => NumPut("ptr", value, this, 52)
+        get => NumGet(this, 64, "ptr")
+        set => NumPut("ptr", value, this, 64)
     }
 }

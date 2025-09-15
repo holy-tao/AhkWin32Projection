@@ -7,9 +7,9 @@
  */
 class USB_HUB_DEVICE_UXD_SETTINGS extends Win32Struct
 {
-    static sizeof => 52
+    static sizeof => 56
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * @type {Integer}
@@ -23,30 +23,22 @@ class USB_HUB_DEVICE_UXD_SETTINGS extends Win32Struct
      * @type {Pointer<Guid>}
      */
     PnpGuid {
-        get => NumGet(this, 4, "ptr")
-        set => NumPut("ptr", value, this, 4)
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * @type {Pointer<Guid>}
      */
     OwnerGuid {
-        get => NumGet(this, 12, "ptr")
-        set => NumPut("ptr", value, this, 12)
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * @type {Integer}
      */
     DeleteOnShutdown {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    DeleteOnReload {
         get => NumGet(this, 24, "uint")
         set => NumPut("uint", value, this, 24)
     }
@@ -54,9 +46,17 @@ class USB_HUB_DEVICE_UXD_SETTINGS extends Win32Struct
     /**
      * @type {Integer}
      */
-    DeleteOnDisconnect {
+    DeleteOnReload {
         get => NumGet(this, 28, "uint")
         set => NumPut("uint", value, this, 28)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    DeleteOnDisconnect {
+        get => NumGet(this, 32, "uint")
+        set => NumPut("uint", value, this, 32)
     }
 
     /**
@@ -65,7 +65,7 @@ class USB_HUB_DEVICE_UXD_SETTINGS extends Win32Struct
     Reserved{
         get {
             if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 32, 5, Primitive, "uint")
+                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 36, 5, Primitive, "uint")
             return this.__ReservedProxyArray
         }
     }

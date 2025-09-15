@@ -8,7 +8,7 @@
  */
 class IMAGEHLP_MODULE64_EX extends Win32Struct
 {
-    static sizeof => 1680
+    static sizeof => 3264
 
     static packingSize => 8
 
@@ -27,7 +27,7 @@ class IMAGEHLP_MODULE64_EX extends Win32Struct
      * @type {Integer}
      */
     RegionFlags {
-        get => NumGet(this, 1672, "uint")
-        set => NumPut("uint", value, this, 1672)
+        get => NumGet(this, 3256, "uint")
+        set => NumPut("uint", value, this, 3256)
     }
 }

@@ -34,13 +34,10 @@ class DNS_MESSAGE_BUFFER extends Win32Struct
 
     /**
      * An array of characters that comprises the DNS query or resource records (RR).
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    MessageBody{
-        get {
-            if(!this.HasProp("__MessageBodyProxyArray"))
-                this.__MessageBodyProxyArray := Win32FixedArray(this.ptr + 12, 1, Primitive, "char")
-            return this.__MessageBodyProxyArray
-        }
+    MessageBody {
+        get => StrGet(this.ptr + 12, 0, "UTF-16")
+        set => StrPut(value, this.ptr + 12, 0, "UTF-16")
     }
 }

@@ -22,7 +22,7 @@
  */
 class GROUP_REQ extends Win32Struct
 {
-    static sizeof => 136
+    static sizeof => 256
 
     static packingSize => 8
 

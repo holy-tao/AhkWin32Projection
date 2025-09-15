@@ -29,25 +29,19 @@ class RASPPPIPA extends Win32Struct
     }
 
     /**
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    szIpAddress{
-        get {
-            if(!this.HasProp("__szIpAddressProxyArray"))
-                this.__szIpAddressProxyArray := Win32FixedArray(this.ptr + 8, 16, Primitive, "char")
-            return this.__szIpAddressProxyArray
-        }
+    szIpAddress {
+        get => StrGet(this.ptr + 8, 15, "UTF-8")
+        set => StrPut(value, this.ptr + 8, 15, "UTF-8")
     }
 
     /**
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    szServerIpAddress{
-        get {
-            if(!this.HasProp("__szServerIpAddressProxyArray"))
-                this.__szServerIpAddressProxyArray := Win32FixedArray(this.ptr + 24, 16, Primitive, "char")
-            return this.__szServerIpAddressProxyArray
-        }
+    szServerIpAddress {
+        get => StrGet(this.ptr + 24, 15, "UTF-8")
+        set => StrPut(value, this.ptr + 24, 15, "UTF-8")
     }
 
     /**

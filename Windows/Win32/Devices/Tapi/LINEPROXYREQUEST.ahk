@@ -21,9 +21,9 @@
  */
 class LINEPROXYREQUEST extends Win32Struct
 {
-    static sizeof => 36
+    static sizeof => 40
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * Total number of bytes allocated by TAPI to contain the 
@@ -97,8 +97,8 @@ class LINEPROXYREQUEST extends Win32Struct
      * @type {Integer}
      */
     dwAddressID {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
+        get => NumGet(this, 32, "uint")
+        set => NumPut("uint", value, this, 32)
     }
 
     /**
@@ -107,7 +107,7 @@ class LINEPROXYREQUEST extends Win32Struct
     GroupList{
         get {
             if(!this.HasProp("__GroupList"))
-                this.__GroupList := LINEAGENTGROUPLIST(this.ptr + 32)
+                this.__GroupList := LINEAGENTGROUPLIST(this.ptr + 40)
             return this.__GroupList
         }
     }
@@ -116,14 +116,6 @@ class LINEPROXYREQUEST extends Win32Struct
      * @type {Integer}
      */
     dwAgentState {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    dwNextAgentState {
         get => NumGet(this, 36, "uint")
         set => NumPut("uint", value, this, 36)
     }
@@ -131,9 +123,17 @@ class LINEPROXYREQUEST extends Win32Struct
     /**
      * @type {Integer}
      */
+    dwNextAgentState {
+        get => NumGet(this, 40, "uint")
+        set => NumPut("uint", value, this, 40)
+    }
+
+    /**
+     * @type {Integer}
+     */
     dwActivityID {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
+        get => NumGet(this, 36, "uint")
+        set => NumPut("uint", value, this, 36)
     }
 
     /**
@@ -142,7 +142,7 @@ class LINEPROXYREQUEST extends Win32Struct
     AgentCaps{
         get {
             if(!this.HasProp("__AgentCaps"))
-                this.__AgentCaps := LINEAGENTCAPS(this.ptr + 32)
+                this.__AgentCaps := LINEAGENTCAPS(this.ptr + 40)
             return this.__AgentCaps
         }
     }
@@ -153,7 +153,7 @@ class LINEPROXYREQUEST extends Win32Struct
     AgentStatus{
         get {
             if(!this.HasProp("__AgentStatus"))
-                this.__AgentStatus := LINEAGENTSTATUS(this.ptr + 32)
+                this.__AgentStatus := LINEAGENTSTATUS(this.ptr + 40)
             return this.__AgentStatus
         }
     }
@@ -162,16 +162,16 @@ class LINEPROXYREQUEST extends Win32Struct
      * @type {Integer}
      */
     dwAgentExtensionIDIndex {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
+        get => NumGet(this, 36, "uint")
+        set => NumPut("uint", value, this, 36)
     }
 
     /**
      * @type {Integer}
      */
     dwSize1 {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
+        get => NumGet(this, 40, "uint")
+        set => NumPut("uint", value, this, 40)
     }
 
     /**
@@ -180,7 +180,7 @@ class LINEPROXYREQUEST extends Win32Struct
     Params{
         get {
             if(!this.HasProp("__ParamsProxyArray"))
-                this.__ParamsProxyArray := Win32FixedArray(this.ptr + 40, 1, Primitive, "char")
+                this.__ParamsProxyArray := Win32FixedArray(this.ptr + 44, 1, Primitive, "char")
             return this.__ParamsProxyArray
         }
     }
@@ -191,7 +191,7 @@ class LINEPROXYREQUEST extends Win32Struct
     ActivityList{
         get {
             if(!this.HasProp("__ActivityList"))
-                this.__ActivityList := LINEAGENTACTIVITYLIST(this.ptr + 32)
+                this.__ActivityList := LINEAGENTACTIVITYLIST(this.ptr + 40)
             return this.__ActivityList
         }
     }
@@ -200,14 +200,6 @@ class LINEPROXYREQUEST extends Win32Struct
      * @type {Integer}
      */
     hAgent {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    dwAgentIDSize {
         get => NumGet(this, 32, "uint")
         set => NumPut("uint", value, this, 32)
     }
@@ -215,7 +207,7 @@ class LINEPROXYREQUEST extends Win32Struct
     /**
      * @type {Integer}
      */
-    dwAgentIDOffset {
+    dwAgentIDSize {
         get => NumGet(this, 36, "uint")
         set => NumPut("uint", value, this, 36)
     }
@@ -223,7 +215,7 @@ class LINEPROXYREQUEST extends Win32Struct
     /**
      * @type {Integer}
      */
-    dwAgentPINSize {
+    dwAgentIDOffset {
         get => NumGet(this, 40, "uint")
         set => NumPut("uint", value, this, 40)
     }
@@ -231,7 +223,7 @@ class LINEPROXYREQUEST extends Win32Struct
     /**
      * @type {Integer}
      */
-    dwAgentPINOffset {
+    dwAgentPINSize {
         get => NumGet(this, 44, "uint")
         set => NumPut("uint", value, this, 44)
     }
@@ -239,9 +231,17 @@ class LINEPROXYREQUEST extends Win32Struct
     /**
      * @type {Integer}
      */
+    dwAgentPINOffset {
+        get => NumGet(this, 48, "uint")
+        set => NumPut("uint", value, this, 48)
+    }
+
+    /**
+     * @type {Integer}
+     */
     dwMeasurementPeriod {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
+        get => NumGet(this, 36, "uint")
+        set => NumPut("uint", value, this, 36)
     }
 
     /**
@@ -250,7 +250,7 @@ class LINEPROXYREQUEST extends Win32Struct
     AgentInfo{
         get {
             if(!this.HasProp("__AgentInfo"))
-                this.__AgentInfo := LINEAGENTINFO(this.ptr + 32)
+                this.__AgentInfo := LINEAGENTINFO(this.ptr + 40)
             return this.__AgentInfo
         }
     }
@@ -259,14 +259,6 @@ class LINEPROXYREQUEST extends Win32Struct
      * @type {Integer}
      */
     hAgentSession {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    dwAgentPINSize1 {
         get => NumGet(this, 32, "uint")
         set => NumPut("uint", value, this, 32)
     }
@@ -274,7 +266,7 @@ class LINEPROXYREQUEST extends Win32Struct
     /**
      * @type {Integer}
      */
-    dwAgentPINOffset1 {
+    dwAgentPINSize1 {
         get => NumGet(this, 36, "uint")
         set => NumPut("uint", value, this, 36)
     }
@@ -282,25 +274,33 @@ class LINEPROXYREQUEST extends Win32Struct
     /**
      * @type {Integer}
      */
-    hAgent1 {
+    dwAgentPINOffset1 {
         get => NumGet(this, 40, "uint")
         set => NumPut("uint", value, this, 40)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    hAgent1 {
+        get => NumGet(this, 44, "uint")
+        set => NumPut("uint", value, this, 44)
     }
 
     /**
      * @type {Pointer<Guid>}
      */
     GroupID {
-        get => NumGet(this, 44, "ptr")
-        set => NumPut("ptr", value, this, 44)
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**
      * @type {Integer}
      */
     dwWorkingAddressID {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
+        get => NumGet(this, 56, "uint")
+        set => NumPut("uint", value, this, 56)
     }
 
     /**
@@ -309,7 +309,7 @@ class LINEPROXYREQUEST extends Win32Struct
     SessionList{
         get {
             if(!this.HasProp("__SessionList"))
-                this.__SessionList := LINEAGENTSESSIONLIST(this.ptr + 32)
+                this.__SessionList := LINEAGENTSESSIONLIST(this.ptr + 40)
             return this.__SessionList
         }
     }
@@ -320,7 +320,7 @@ class LINEPROXYREQUEST extends Win32Struct
     SessionInfo{
         get {
             if(!this.HasProp("__SessionInfo"))
-                this.__SessionInfo := LINEAGENTSESSIONINFO(this.ptr + 32)
+                this.__SessionInfo := LINEAGENTSESSIONINFO(this.ptr + 40)
             return this.__SessionInfo
         }
     }
@@ -329,24 +329,24 @@ class LINEPROXYREQUEST extends Win32Struct
      * @type {Integer}
      */
     dwAgentSessionState {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
+        get => NumGet(this, 36, "uint")
+        set => NumPut("uint", value, this, 36)
     }
 
     /**
      * @type {Integer}
      */
     dwNextAgentSessionState {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
+        get => NumGet(this, 40, "uint")
+        set => NumPut("uint", value, this, 40)
     }
 
     /**
      * @type {Pointer<Guid>}
      */
     GroupID1 {
-        get => NumGet(this, 28, "ptr")
-        set => NumPut("ptr", value, this, 28)
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
@@ -355,7 +355,7 @@ class LINEPROXYREQUEST extends Win32Struct
     QueueList{
         get {
             if(!this.HasProp("__QueueList"))
-                this.__QueueList := LINEQUEUELIST(this.ptr + 36)
+                this.__QueueList := LINEQUEUELIST(this.ptr + 40)
             return this.__QueueList
         }
     }
@@ -364,8 +364,8 @@ class LINEPROXYREQUEST extends Win32Struct
      * @type {Integer}
      */
     dwQueueID {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
+        get => NumGet(this, 32, "uint")
+        set => NumPut("uint", value, this, 32)
     }
 
     /**
@@ -374,7 +374,7 @@ class LINEPROXYREQUEST extends Win32Struct
     QueueInfo{
         get {
             if(!this.HasProp("__QueueInfo"))
-                this.__QueueInfo := LINEQUEUEINFO(this.ptr + 32)
+                this.__QueueInfo := LINEQUEUEINFO(this.ptr + 40)
             return this.__QueueInfo
         }
     }
@@ -385,7 +385,7 @@ class LINEPROXYREQUEST extends Win32Struct
     GroupList1{
         get {
             if(!this.HasProp("__GroupList1"))
-                this.__GroupList1 := LINEAGENTGROUPLIST(this.ptr + 28)
+                this.__GroupList1 := LINEAGENTGROUPLIST(this.ptr + 32)
             return this.__GroupList1
         }
     }

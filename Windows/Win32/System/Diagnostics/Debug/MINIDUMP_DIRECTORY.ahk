@@ -12,9 +12,9 @@
  */
 class MINIDUMP_DIRECTORY extends Win32Struct
 {
-    static sizeof => 12
+    static sizeof => 16
 
-    static packingSize => 4
+    static packingSize => 8
 
     /**
      * The type of data stream. This member can be one of the values in the 
@@ -34,7 +34,7 @@ class MINIDUMP_DIRECTORY extends Win32Struct
     Location{
         get {
             if(!this.HasProp("__Location"))
-                this.__Location := MINIDUMP_LOCATION_DESCRIPTOR(this.ptr + 4)
+                this.__Location := MINIDUMP_LOCATION_DESCRIPTOR(this.ptr + 8)
             return this.__Location
         }
     }

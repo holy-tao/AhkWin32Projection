@@ -8,9 +8,9 @@
  */
 class MCI_ANIM_WINDOW_PARMSA extends Win32Struct
 {
-    static sizeof => 28
+    static sizeof => 32
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * @type {Pointer}
@@ -40,7 +40,7 @@ class MCI_ANIM_WINDOW_PARMSA extends Win32Struct
      * @type {Pointer<PSTR>}
      */
     lpstrText {
-        get => NumGet(this, 20, "ptr")
-        set => NumPut("ptr", value, this, 20)
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 }

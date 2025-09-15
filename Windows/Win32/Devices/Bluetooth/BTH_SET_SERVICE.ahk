@@ -52,9 +52,9 @@
  */
 class BTH_SET_SERVICE extends Win32Struct
 {
-    static sizeof => 45
+    static sizeof => 48
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * Version of the SDP. Clients set this member to 

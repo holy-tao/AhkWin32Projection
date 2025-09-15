@@ -8,9 +8,9 @@
  */
 class AVITIMEDINDEX extends Win32Struct
 {
-    static sizeof => 21864
+    static sizeof => 21872
 
-    static packingSize => 2
+    static packingSize => 8
 
     /**
      * @type {Integer}
@@ -72,16 +72,16 @@ class AVITIMEDINDEX extends Win32Struct
      * @type {Integer}
      */
     qwBaseOffset {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
     }
 
     /**
      * @type {Integer}
      */
     dwReserved_3 {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
+        get => NumGet(this, 32, "uint")
+        set => NumPut("uint", value, this, 32)
     }
 
     /**
@@ -90,7 +90,7 @@ class AVITIMEDINDEX extends Win32Struct
     aIndex{
         get {
             if(!this.HasProp("__aIndexProxyArray"))
-                this.__aIndexProxyArray := Win32FixedArray(this.ptr + 32, 1362, AVITIMEDINDEX_ENTRY, "")
+                this.__aIndexProxyArray := Win32FixedArray(this.ptr + 40, 1362, AVITIMEDINDEX_ENTRY, "")
             return this.__aIndexProxyArray
         }
     }
@@ -101,7 +101,7 @@ class AVITIMEDINDEX extends Win32Struct
     adwTrailingFill{
         get {
             if(!this.HasProp("__adwTrailingFillProxyArray"))
-                this.__adwTrailingFillProxyArray := Win32FixedArray(this.ptr + 10928, 2734, Primitive, "uint")
+                this.__adwTrailingFillProxyArray := Win32FixedArray(this.ptr + 10936, 2734, Primitive, "uint")
             return this.__adwTrailingFillProxyArray
         }
     }

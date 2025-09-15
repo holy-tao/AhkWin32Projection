@@ -71,9 +71,9 @@
  */
 class SP_DRVINFO_DETAIL_DATA_A extends Win32Struct
 {
-    static sizeof => 801
+    static sizeof => 808
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * The size, in bytes, of the SP_DRVINFO_DETAIL_DATA structure.
@@ -91,7 +91,7 @@ class SP_DRVINFO_DETAIL_DATA_A extends Win32Struct
     InfDate{
         get {
             if(!this.HasProp("__InfDate"))
-                this.__InfDate := FILETIME(this.ptr + 4)
+                this.__InfDate := FILETIME(this.ptr + 8)
             return this.__InfDate
         }
     }
@@ -103,8 +103,8 @@ class SP_DRVINFO_DETAIL_DATA_A extends Win32Struct
      * @type {Integer}
      */
     CompatIDsOffset {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
+        get => NumGet(this, 16, "uint")
+        set => NumPut("uint", value, this, 16)
     }
 
     /**
@@ -116,8 +116,8 @@ class SP_DRVINFO_DETAIL_DATA_A extends Win32Struct
      * @type {Integer}
      */
     CompatIDsLength {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+        get => NumGet(this, 20, "uint")
+        set => NumPut("uint", value, this, 20)
     }
 
     /**
@@ -125,44 +125,35 @@ class SP_DRVINFO_DETAIL_DATA_A extends Win32Struct
      * @type {Pointer}
      */
     Reserved {
-        get => NumGet(this, 20, "ptr")
-        set => NumPut("ptr", value, this, 20)
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
      * A NULL-terminated string that contains the name of the <a href="https://docs.microsoft.com/windows-hardware/drivers/install/inf-ddinstall-section">INF DDInstall section</a> for this driver. This must be the basic <i>DDInstall</i> section name, such as <b>InstallSec</b>, without any OS/architecture-specific extensions.
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    SectionName{
-        get {
-            if(!this.HasProp("__SectionNameProxyArray"))
-                this.__SectionNameProxyArray := Win32FixedArray(this.ptr + 28, 256, Primitive, "char")
-            return this.__SectionNameProxyArray
-        }
+    SectionName {
+        get => StrGet(this.ptr + 32, 255, "UTF-8")
+        set => StrPut(value, this.ptr + 32, 255, "UTF-8")
     }
 
     /**
      * A NULL-terminated string that contains the full-qualified name of the INF file for this driver.
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    InfFileName{
-        get {
-            if(!this.HasProp("__InfFileNameProxyArray"))
-                this.__InfFileNameProxyArray := Win32FixedArray(this.ptr + 284, 260, Primitive, "char")
-            return this.__InfFileNameProxyArray
-        }
+    InfFileName {
+        get => StrGet(this.ptr + 288, 259, "UTF-8")
+        set => StrPut(value, this.ptr + 288, 259, "UTF-8")
     }
 
     /**
      * A NULL-terminated string that describes the driver.
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    DrvDescription{
-        get {
-            if(!this.HasProp("__DrvDescriptionProxyArray"))
-                this.__DrvDescriptionProxyArray := Win32FixedArray(this.ptr + 544, 256, Primitive, "char")
-            return this.__DrvDescriptionProxyArray
-        }
+    DrvDescription {
+        get => StrGet(this.ptr + 548, 255, "UTF-8")
+        set => StrPut(value, this.ptr + 548, 255, "UTF-8")
     }
 
     /**
@@ -173,14 +164,11 @@ class SP_DRVINFO_DETAIL_DATA_A extends Win32Struct
      * If the hardware ID exists (that is, if <b>CompatIDsOffset</b> is greater than one), this single NULL-terminated string is found at the beginning of the buffer. 
      * 
      * If the CompatIDs list is not empty (that is, if <b>CompatIDsLength</b> is not zero), the CompatIDs list starts at offset <b>CompatIDsOffset</b> from the beginning of this buffer, and is terminated with an additional NULL character at the end of the list.
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    HardwareID{
-        get {
-            if(!this.HasProp("__HardwareIDProxyArray"))
-                this.__HardwareIDProxyArray := Win32FixedArray(this.ptr + 800, 1, Primitive, "char")
-            return this.__HardwareIDProxyArray
-        }
+    HardwareID {
+        get => StrGet(this.ptr + 804, 0, "UTF-8")
+        set => StrPut(value, this.ptr + 804, 0, "UTF-8")
     }
 
     /**
@@ -189,6 +177,6 @@ class SP_DRVINFO_DETAIL_DATA_A extends Win32Struct
      */
     __New(ptr := 0){
         super.__New(ptr)
-        this.cbSize := 801
+        this.cbSize := 808
     }
 }

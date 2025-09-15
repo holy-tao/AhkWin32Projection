@@ -7,7 +7,7 @@
  */
 class OS_INFO extends Win32Struct
 {
-    static sizeof => 528
+    static sizeof => 1004
 
     static packingSize => 4
 
@@ -108,57 +108,42 @@ class OS_INFO extends Win32Struct
     }
 
     /**
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    Name{
-        get {
-            if(!this.HasProp("__NameProxyArray"))
-                this.__NameProxyArray := Win32FixedArray(this.ptr + 48, 64, Primitive, "char")
-            return this.__NameProxyArray
-        }
+    Name {
+        get => StrGet(this.ptr + 48, 63, "UTF-16")
+        set => StrPut(value, this.ptr + 48, 63, "UTF-16")
     }
 
     /**
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    FullName{
-        get {
-            if(!this.HasProp("__FullNameProxyArray"))
-                this.__FullNameProxyArray := Win32FixedArray(this.ptr + 112, 256, Primitive, "char")
-            return this.__FullNameProxyArray
-        }
+    FullName {
+        get => StrGet(this.ptr + 176, 255, "UTF-16")
+        set => StrPut(value, this.ptr + 176, 255, "UTF-16")
     }
 
     /**
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    Language{
-        get {
-            if(!this.HasProp("__LanguageProxyArray"))
-                this.__LanguageProxyArray := Win32FixedArray(this.ptr + 368, 30, Primitive, "char")
-            return this.__LanguageProxyArray
-        }
+    Language {
+        get => StrGet(this.ptr + 688, 29, "UTF-16")
+        set => StrPut(value, this.ptr + 688, 29, "UTF-16")
     }
 
     /**
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    BuildVersion{
-        get {
-            if(!this.HasProp("__BuildVersionProxyArray"))
-                this.__BuildVersionProxyArray := Win32FixedArray(this.ptr + 398, 64, Primitive, "char")
-            return this.__BuildVersionProxyArray
-        }
+    BuildVersion {
+        get => StrGet(this.ptr + 748, 63, "UTF-16")
+        set => StrPut(value, this.ptr + 748, 63, "UTF-16")
     }
 
     /**
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    ServicePackString{
-        get {
-            if(!this.HasProp("__ServicePackStringProxyArray"))
-                this.__ServicePackStringProxyArray := Win32FixedArray(this.ptr + 462, 64, Primitive, "char")
-            return this.__ServicePackStringProxyArray
-        }
+    ServicePackString {
+        get => StrGet(this.ptr + 876, 63, "UTF-16")
+        set => StrPut(value, this.ptr + 876, 63, "UTF-16")
     }
 }

@@ -15,7 +15,7 @@
  */
 class HTTP_SERVICE_CONFIG_SSL_SET_EX extends Win32Struct
 {
-    static sizeof => 152
+    static sizeof => 272
 
     static packingSize => 8
 
@@ -36,7 +36,7 @@ class HTTP_SERVICE_CONFIG_SSL_SET_EX extends Win32Struct
     ParamDesc{
         get {
             if(!this.HasProp("__ParamDesc"))
-                this.__ParamDesc := HTTP_SERVICE_CONFIG_SSL_PARAM_EX(this.ptr + 128)
+                this.__ParamDesc := HTTP_SERVICE_CONFIG_SSL_PARAM_EX(this.ptr + 248)
             return this.__ParamDesc
         }
     }

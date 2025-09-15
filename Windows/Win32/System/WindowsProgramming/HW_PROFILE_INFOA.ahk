@@ -106,25 +106,19 @@ class HW_PROFILE_INFOA extends Win32Struct
      * {12340001-4980-1920-6788-123456789012}
      * 
      * You can use this string as a registry subkey under your application's configuration settings key in <b>HKEY_CURRENT_USER</b>. This enables you to store settings for each hardware profile.
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    szHwProfileGuid{
-        get {
-            if(!this.HasProp("__szHwProfileGuidProxyArray"))
-                this.__szHwProfileGuidProxyArray := Win32FixedArray(this.ptr + 4, 39, Primitive, "char")
-            return this.__szHwProfileGuidProxyArray
-        }
+    szHwProfileGuid {
+        get => StrGet(this.ptr + 4, 38, "UTF-8")
+        set => StrPut(value, this.ptr + 4, 38, "UTF-8")
     }
 
     /**
      * The display name for the current hardware profile.
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    szHwProfileName{
-        get {
-            if(!this.HasProp("__szHwProfileNameProxyArray"))
-                this.__szHwProfileNameProxyArray := Win32FixedArray(this.ptr + 43, 80, Primitive, "char")
-            return this.__szHwProfileNameProxyArray
-        }
+    szHwProfileName {
+        get => StrGet(this.ptr + 43, 79, "UTF-8")
+        set => StrPut(value, this.ptr + 43, 79, "UTF-8")
     }
 }

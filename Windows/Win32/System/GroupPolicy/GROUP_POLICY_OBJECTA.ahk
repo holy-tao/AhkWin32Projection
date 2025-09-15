@@ -79,14 +79,11 @@ class GROUP_POLICY_OBJECTA extends Win32Struct
 
     /**
      * Pointer to a string that specifies a unique name that identifies the GPO.
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    szGPOName{
-        get {
-            if(!this.HasProp("__szGPONameProxyArray"))
-                this.__szGPONameProxyArray := Win32FixedArray(this.ptr + 32, 50, Primitive, "char")
-            return this.__szGPONameProxyArray
-        }
+    szGPOName {
+        get => StrGet(this.ptr + 32, 49, "UTF-8")
+        set => StrPut(value, this.ptr + 32, 49, "UTF-8")
     }
 
     /**

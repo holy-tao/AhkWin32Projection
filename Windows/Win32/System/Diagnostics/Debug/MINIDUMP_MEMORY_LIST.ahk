@@ -26,9 +26,9 @@
  */
 class MINIDUMP_MEMORY_LIST extends Win32Struct
 {
-    static sizeof => 12
+    static sizeof => 16
 
-    static packingSize => 4
+    static packingSize => 8
 
     /**
      * The number of structures in the <b>MemoryRanges</b> array.
@@ -47,7 +47,7 @@ class MINIDUMP_MEMORY_LIST extends Win32Struct
     MemoryRanges{
         get {
             if(!this.HasProp("__MemoryRangesProxyArray"))
-                this.__MemoryRangesProxyArray := Win32FixedArray(this.ptr + 4, 1, MINIDUMP_MEMORY_DESCRIPTOR, "")
+                this.__MemoryRangesProxyArray := Win32FixedArray(this.ptr + 8, 1, MINIDUMP_MEMORY_DESCRIPTOR, "")
             return this.__MemoryRangesProxyArray
         }
     }

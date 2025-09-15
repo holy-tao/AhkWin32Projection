@@ -60,9 +60,9 @@
  */
 class SHChangeDWORDAsIDList extends Win32Struct
 {
-    static sizeof => 12
+    static sizeof => 16
 
-    static packingSize => 1
+    static packingSize => 4
 
     /**
      * Type: <b>USHORT</b>
@@ -82,8 +82,8 @@ class SHChangeDWORDAsIDList extends Win32Struct
      * @type {Integer}
      */
     dwItem1 {
-        get => NumGet(this, 2, "uint")
-        set => NumPut("uint", value, this, 2)
+        get => NumGet(this, 4, "uint")
+        set => NumPut("uint", value, this, 4)
     }
 
     /**
@@ -93,8 +93,8 @@ class SHChangeDWORDAsIDList extends Win32Struct
      * @type {Integer}
      */
     dwItem2 {
-        get => NumGet(this, 6, "uint")
-        set => NumPut("uint", value, this, 6)
+        get => NumGet(this, 8, "uint")
+        set => NumPut("uint", value, this, 8)
     }
 
     /**
@@ -102,7 +102,7 @@ class SHChangeDWORDAsIDList extends Win32Struct
      * @type {Integer}
      */
     cbZero {
-        get => NumGet(this, 10, "ushort")
-        set => NumPut("ushort", value, this, 10)
+        get => NumGet(this, 12, "ushort")
+        set => NumPut("ushort", value, this, 12)
     }
 }

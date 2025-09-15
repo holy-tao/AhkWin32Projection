@@ -11,9 +11,9 @@
  */
 class EXP_PROPERTYSTORAGE extends Win32Struct
 {
-    static sizeof => 9
+    static sizeof => 12
 
-    static packingSize => 1
+    static packingSize => 4
 
     /**
      * Type: <b>DWORD</b>
@@ -57,6 +57,6 @@ class EXP_PROPERTYSTORAGE extends Win32Struct
      */
     __New(ptr := 0){
         super.__New(ptr)
-        this.cbSize := 9
+        this.cbSize := 12
     }
 }

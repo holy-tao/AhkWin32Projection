@@ -11,7 +11,7 @@ class NABTS_BUFFER extends Win32Struct
 {
     static sizeof => 224
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * @type {VBICODECFILTERING_SCANLINES}

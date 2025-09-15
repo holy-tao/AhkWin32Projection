@@ -21,9 +21,9 @@
  */
 class SP_DEVICE_INTERFACE_DETAIL_DATA_W extends Win32Struct
 {
-    static sizeof => 6
+    static sizeof => 8
 
-    static packingSize => 1
+    static packingSize => 4
 
     /**
      * The size, in bytes, of the SP_DEVICE_INTERFACE_DETAIL_DATA structure. For more information, see the following Remarks section.
@@ -49,6 +49,6 @@ class SP_DEVICE_INTERFACE_DETAIL_DATA_W extends Win32Struct
      */
     __New(ptr := 0){
         super.__New(ptr)
-        this.cbSize := 6
+        this.cbSize := 8
     }
 }

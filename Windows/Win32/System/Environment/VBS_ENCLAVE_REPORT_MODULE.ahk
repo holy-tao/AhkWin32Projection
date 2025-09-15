@@ -10,9 +10,9 @@
  */
 class VBS_ENCLAVE_REPORT_MODULE extends Win32Struct
 {
-    static sizeof => 110
+    static sizeof => 112
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * The variable data header for the report.

@@ -21,7 +21,7 @@ class LINECARDENTRY extends Win32Struct
 {
     static sizeof => 44
 
-    static packingSize => 1
+    static packingSize => 4
 
     /**
      * Permanent identifier that identifies the card.

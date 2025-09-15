@@ -45,24 +45,18 @@ class DIDEVICEINSTANCE_DX3A extends Win32Struct
     }
 
     /**
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    tszInstanceName{
-        get {
-            if(!this.HasProp("__tszInstanceNameProxyArray"))
-                this.__tszInstanceNameProxyArray := Win32FixedArray(this.ptr + 28, 260, Primitive, "char")
-            return this.__tszInstanceNameProxyArray
-        }
+    tszInstanceName {
+        get => StrGet(this.ptr + 28, 259, "UTF-8")
+        set => StrPut(value, this.ptr + 28, 259, "UTF-8")
     }
 
     /**
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    tszProductName{
-        get {
-            if(!this.HasProp("__tszProductNameProxyArray"))
-                this.__tszProductNameProxyArray := Win32FixedArray(this.ptr + 288, 260, Primitive, "char")
-            return this.__tszProductNameProxyArray
-        }
+    tszProductName {
+        get => StrGet(this.ptr + 288, 259, "UTF-8")
+        set => StrPut(value, this.ptr + 288, 259, "UTF-8")
     }
 }

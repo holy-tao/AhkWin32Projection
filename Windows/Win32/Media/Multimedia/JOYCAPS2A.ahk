@@ -8,9 +8,9 @@
  */
 class JOYCAPS2A extends Win32Struct
 {
-    static sizeof => 428
+    static sizeof => 432
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * @type {Integer}
@@ -29,14 +29,11 @@ class JOYCAPS2A extends Win32Struct
     }
 
     /**
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    szPname{
-        get {
-            if(!this.HasProp("__szPnameProxyArray"))
-                this.__szPnameProxyArray := Win32FixedArray(this.ptr + 4, 32, Primitive, "char")
-            return this.__szPnameProxyArray
-        }
+    szPname {
+        get => StrGet(this.ptr + 4, 31, "UTF-8")
+        set => StrPut(value, this.ptr + 4, 31, "UTF-8")
     }
 
     /**
@@ -192,48 +189,42 @@ class JOYCAPS2A extends Win32Struct
     }
 
     /**
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    szRegKey{
-        get {
-            if(!this.HasProp("__szRegKeyProxyArray"))
-                this.__szRegKeyProxyArray := Win32FixedArray(this.ptr + 112, 32, Primitive, "char")
-            return this.__szRegKeyProxyArray
-        }
+    szRegKey {
+        get => StrGet(this.ptr + 112, 31, "UTF-8")
+        set => StrPut(value, this.ptr + 112, 31, "UTF-8")
     }
 
     /**
-     * @type {Array<SByte>}
+     * @type {String}
      */
-    szOEMVxD{
-        get {
-            if(!this.HasProp("__szOEMVxDProxyArray"))
-                this.__szOEMVxDProxyArray := Win32FixedArray(this.ptr + 144, 260, Primitive, "char")
-            return this.__szOEMVxDProxyArray
-        }
+    szOEMVxD {
+        get => StrGet(this.ptr + 144, 259, "UTF-8")
+        set => StrPut(value, this.ptr + 144, 259, "UTF-8")
     }
 
     /**
      * @type {Pointer<Guid>}
      */
     ManufacturerGuid {
-        get => NumGet(this, 404, "ptr")
-        set => NumPut("ptr", value, this, 404)
+        get => NumGet(this, 408, "ptr")
+        set => NumPut("ptr", value, this, 408)
     }
 
     /**
      * @type {Pointer<Guid>}
      */
     ProductGuid {
-        get => NumGet(this, 412, "ptr")
-        set => NumPut("ptr", value, this, 412)
+        get => NumGet(this, 416, "ptr")
+        set => NumPut("ptr", value, this, 416)
     }
 
     /**
      * @type {Pointer<Guid>}
      */
     NameGuid {
-        get => NumGet(this, 420, "ptr")
-        set => NumPut("ptr", value, this, 420)
+        get => NumGet(this, 424, "ptr")
+        set => NumPut("ptr", value, this, 424)
     }
 }

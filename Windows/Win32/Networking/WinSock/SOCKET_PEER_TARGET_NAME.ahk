@@ -18,7 +18,7 @@
  */
 class SOCKET_PEER_TARGET_NAME extends Win32Struct
 {
-    static sizeof => 144
+    static sizeof => 264
 
     static packingSize => 8
 
@@ -48,8 +48,8 @@ class SOCKET_PEER_TARGET_NAME extends Win32Struct
      * @type {Integer}
      */
     PeerTargetNameStringLen {
-        get => NumGet(this, 136, "uint")
-        set => NumPut("uint", value, this, 136)
+        get => NumGet(this, 256, "uint")
+        set => NumPut("uint", value, this, 256)
     }
 
     /**
@@ -57,7 +57,7 @@ class SOCKET_PEER_TARGET_NAME extends Win32Struct
      * @type {String}
      */
     AllStrings {
-        get => StrGet(this.ptr + 140, 0, "UTF-16")
-        set => StrPut(value, this.ptr + 140, 0, "UTF-16")
+        get => StrGet(this.ptr + 260, 0, "UTF-16")
+        set => StrPut(value, this.ptr + 260, 0, "UTF-16")
     }
 }

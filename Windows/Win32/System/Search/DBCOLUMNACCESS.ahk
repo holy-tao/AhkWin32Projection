@@ -8,9 +8,9 @@
  */
 class DBCOLUMNACCESS extends Win32Struct
 {
-    static sizeof => 64
+    static sizeof => 72
 
-    static packingSize => 2
+    static packingSize => 8
 
     /**
      * @type {Pointer<Void>}
@@ -51,39 +51,39 @@ class DBCOLUMNACCESS extends Win32Struct
      * @type {Pointer}
      */
     cbMaxLen {
-        get => NumGet(this, 44, "ptr")
-        set => NumPut("ptr", value, this, 44)
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**
      * @type {Pointer}
      */
     dwReserved {
-        get => NumGet(this, 52, "ptr")
-        set => NumPut("ptr", value, this, 52)
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 
     /**
      * @type {Integer}
      */
     wType {
-        get => NumGet(this, 60, "ushort")
-        set => NumPut("ushort", value, this, 60)
+        get => NumGet(this, 64, "ushort")
+        set => NumPut("ushort", value, this, 64)
     }
 
     /**
      * @type {Integer}
      */
     bPrecision {
-        get => NumGet(this, 62, "char")
-        set => NumPut("char", value, this, 62)
+        get => NumGet(this, 66, "char")
+        set => NumPut("char", value, this, 66)
     }
 
     /**
      * @type {Integer}
      */
     bScale {
-        get => NumGet(this, 63, "char")
-        set => NumPut("char", value, this, 63)
+        get => NumGet(this, 67, "char")
+        set => NumPut("char", value, this, 67)
     }
 }

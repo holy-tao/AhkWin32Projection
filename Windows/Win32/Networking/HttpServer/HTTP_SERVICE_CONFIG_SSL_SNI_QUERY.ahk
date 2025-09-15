@@ -11,7 +11,7 @@
  */
 class HTTP_SERVICE_CONFIG_SSL_SNI_QUERY extends Win32Struct
 {
-    static sizeof => 152
+    static sizeof => 272
 
     static packingSize => 8
 
@@ -79,7 +79,7 @@ class HTTP_SERVICE_CONFIG_SSL_SNI_QUERY extends Win32Struct
      * @type {Integer}
      */
     dwToken {
-        get => NumGet(this, 144, "uint")
-        set => NumPut("uint", value, this, 144)
+        get => NumGet(this, 264, "uint")
+        set => NumPut("uint", value, this, 264)
     }
 }

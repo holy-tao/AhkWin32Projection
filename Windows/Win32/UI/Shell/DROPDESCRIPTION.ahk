@@ -13,7 +13,7 @@ class DROPDESCRIPTION extends Win32Struct
 {
     static sizeof => 1044
 
-    static packingSize => 1
+    static packingSize => 4
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/ne-shlobj_core-dropimagetype">DROPIMAGETYPE</a></b>

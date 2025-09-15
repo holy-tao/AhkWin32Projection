@@ -8,9 +8,9 @@
  */
 class WHEA_XPF_MC_BANK_DESCRIPTOR extends Win32Struct
 {
-    static sizeof => 29
+    static sizeof => 32
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * @type {Integer}
@@ -42,7 +42,7 @@ class WHEA_XPF_MC_BANK_DESCRIPTOR extends Win32Struct
     Flags{
         get {
             if(!this.HasProp("__Flags"))
-                this.__Flags := XPF_MC_BANK_FLAGS(this.ptr + 3)
+                this.__Flags := XPF_MC_BANK_FLAGS(this.ptr + 4)
             return this.__Flags
         }
     }
@@ -51,39 +51,39 @@ class WHEA_XPF_MC_BANK_DESCRIPTOR extends Win32Struct
      * @type {Integer}
      */
     ControlMsr {
-        get => NumGet(this, 5, "uint")
-        set => NumPut("uint", value, this, 5)
+        get => NumGet(this, 8, "uint")
+        set => NumPut("uint", value, this, 8)
     }
 
     /**
      * @type {Integer}
      */
     StatusMsr {
-        get => NumGet(this, 9, "uint")
-        set => NumPut("uint", value, this, 9)
+        get => NumGet(this, 12, "uint")
+        set => NumPut("uint", value, this, 12)
     }
 
     /**
      * @type {Integer}
      */
     AddressMsr {
-        get => NumGet(this, 13, "uint")
-        set => NumPut("uint", value, this, 13)
+        get => NumGet(this, 16, "uint")
+        set => NumPut("uint", value, this, 16)
     }
 
     /**
      * @type {Integer}
      */
     MiscMsr {
-        get => NumGet(this, 17, "uint")
-        set => NumPut("uint", value, this, 17)
+        get => NumGet(this, 20, "uint")
+        set => NumPut("uint", value, this, 20)
     }
 
     /**
      * @type {Integer}
      */
     ControlData {
-        get => NumGet(this, 21, "uint")
-        set => NumPut("uint", value, this, 21)
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
     }
 }
