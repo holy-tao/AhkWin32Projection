@@ -1,5 +1,5 @@
 # AhkWin32Projection
-A language projection of the Win32 API into AutoHotkey V2.
+Win32 bindings for AutoHotkey V2. 
 
 This project allows you to replace this:
 ```autohotkey v2
@@ -13,7 +13,7 @@ myRect := Rect()
 myRect.top := 20
 ```
 
-Replace `DllCall` with readable function calls...
+Replace `DllCall`s with far more readable function calls...
 ```autohotkey
 hDC := DllCall("GetDC", "ptr", 0)
 hDC := Gdi.GetDC(0)                 ;Readable!
@@ -40,7 +40,7 @@ With rich IntelliSense features and full documentation directly in your IDE:
 
 
 ## What Is This?
-This project is a language projection of the Win32 API into 64-bit AutoHotkey V2. It aims greatly simplify the process of working with structs and DllCalls and to alleviate the plague of [magic numbers](https://en.wikipedia.org/wiki/Magic_number_(programming)) that afflicts AutoHotkey programmers.
+This project provides bindings Win32 APIs in 64-bit AutoHotkey V2. It aims greatly simplify the process of working with structs and DllCalls and to alleviate the plague of [magic numbers](https://en.wikipedia.org/wiki/Magic_number_(programming)) that afflicts AutoHotkey programmers.
 
 The project provides generated struct proxy objects, constant values, and friendly `DllCall` wrappers with doc comments rich Intellisense documentation compatible with [AHK++](https://github.com/mark-wiemer/ahkpp).
 
@@ -83,7 +83,7 @@ Namespaces can be unintuitive and they aren't really mapped to headers, so a few
 - [`Windows\Win32\Graphics\Gdi`](./Windows/Win32/Graphics/Gdi) and [`GdiPlus`](./Windows/Win32/Graphics/GdiPlus) : Contains most graphics-related types not otherwise contained in `UI\Controls` - font structs like [`LOGFONTW`](https://learn.microsoft.com/en-us/windows/win32/api/wingdi/ns-wingdi-logfontw), for example.
 - [`Windows\Win32\Networking\WinHttp`](./Windows/Win32/Networking/WinHttp): WinHTTP-related items (see also: [About WinHTTP - Win32 apps | Microsoft Learn](https://learn.microsoft.com/en-us/windows/win32/winhttp/about-winhttp))
 
-GitHub's file search functionality is also great if you're looking for something specific.
+GitHub's file search functionality is also great if you're looking for something specific. Namespaces come directly from the metadata, so they won't be changed unless Microsoft changes them.
 
 ## Structs
 All structs are represented with proxy objects extending [`Win32Struct`](./Win32FixedArray.ahk). The base class provides utilities for initializing structs, cloning, copying, and comparing memory blocks. Struct proxy objects have properties whose getters and setters invoke [`NumGet`](https://www.autohotkey.com/docs/v2/lib/NumGet.htm) and [`NumPut`](https://www.autohotkey.com/docs/v2/lib/NumPut.htm):
@@ -113,7 +113,7 @@ Note that in the first case, where the proxy is created at an existing memory lo
 ### Arrays
 Arrays in struct proxies are themselves proxy objects extending [`Win32FixedArray`](./Win32FixedArray.ahk). These are typed, fixed-length arrays. The class mimics the applicable functionality of `Array`, allowing enumeration and access via [`__Item`](https://www.autohotkey.com/docs/v2/Objects.htm#__Item).
 
-In cases where it is clear that an array is in fact a string (arrats of `char` or `tchar` elements, for example), properties are generated using `StrPut` and `StrGet`. In this case, assign strings to the properties directly:
+In cases where it is clear that an array is in fact a string (arrays of `char` or `tchar` elements, for example), properties are generated using `StrPut` and `StrGet`. In this case, assign strings to the properties directly:
 ```autohotkey v2
 lpLogFont := LOGFONTW()
 lpLogFont.lfFaceName := "Papyrus"
@@ -170,8 +170,7 @@ For methods that set the [last error](https://www.autohotkey.com/docs/v2/Variabl
 - In cases where parameter names conflict with reserved words ("this", "in", etc), an underscore is appended to the parameter name.
 
 ## Limitations
-This projet has some limitations, not all of which will be addressed.
-- Only 64-bit AutoHotkey is supported
+- Only 64-bit AutoHotkey is currently supported
   - ANSI and Unicode variants, where applicable, are both generated
   - Generated files all have the `#Requires AutoHotkey v2.0.0 64-bit` [directive](https://www.autohotkey.com/docs/v2/lib/_Requires.htm), which should prevent mix-ups.
 - Only structs with fixed layouts are supported. This means flexible arrays are **not** supported (unless you only need one element)
