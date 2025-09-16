@@ -4540,6 +4540,8 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varui1fromstr
      */
     static VarUI1FromStr(strIn, lcid, dwFlags, pbOut) {
+        strIn := strIn is String? StrPtr(strIn) : strIn
+
         result := DllCall("OLEAUT32.dll\VarUI1FromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, "ptr", pbOut, "int")
         return result
     }
@@ -5885,6 +5887,8 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vari2fromstr
      */
     static VarI2FromStr(strIn, lcid, dwFlags, psOut) {
+        strIn := strIn is String? StrPtr(strIn) : strIn
+
         result := DllCall("OLEAUT32.dll\VarI2FromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, "ptr", psOut, "int")
         return result
     }
@@ -7230,6 +7234,8 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vari4fromstr
      */
     static VarI4FromStr(strIn, lcid, dwFlags, plOut) {
+        strIn := strIn is String? StrPtr(strIn) : strIn
+
         result := DllCall("OLEAUT32.dll\VarI4FromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, "ptr", plOut, "int")
         return result
     }
@@ -8468,6 +8474,8 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vari8fromstr
      */
     static VarI8FromStr(strIn, lcid, dwFlags, pi64Out) {
+        strIn := strIn is String? StrPtr(strIn) : strIn
+
         result := DllCall("OLEAUT32.dll\VarI8FromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, "ptr", pi64Out, "int")
         return result
     }
@@ -9813,6 +9821,8 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varr4fromstr
      */
     static VarR4FromStr(strIn, lcid, dwFlags, pfltOut) {
+        strIn := strIn is String? StrPtr(strIn) : strIn
+
         result := DllCall("OLEAUT32.dll\VarR4FromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, "ptr", pfltOut, "int")
         return result
     }
@@ -11158,6 +11168,8 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varr8fromstr
      */
     static VarR8FromStr(strIn, lcid, dwFlags, pdblOut) {
+        strIn := strIn is String? StrPtr(strIn) : strIn
+
         result := DllCall("OLEAUT32.dll\VarR8FromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, "ptr", pdblOut, "int")
         return result
     }
@@ -12514,6 +12526,8 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vardatefromstr
      */
     static VarDateFromStr(strIn, lcid, dwFlags, pdateOut) {
+        strIn := strIn is String? StrPtr(strIn) : strIn
+
         result := DllCall("OLEAUT32.dll\VarDateFromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, "ptr", pdateOut, "int")
         return result
     }
@@ -13859,6 +13873,8 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varcyfromstr
      */
     static VarCyFromStr(strIn, lcid, dwFlags, pcyOut) {
+        strIn := strIn is String? StrPtr(strIn) : strIn
+
         result := DllCall("OLEAUT32.dll\VarCyFromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, "ptr", pcyOut, "int")
         return result
     }
@@ -16857,6 +16873,8 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varboolfromstr
      */
     static VarBoolFromStr(strIn, lcid, dwFlags, pboolOut) {
+        strIn := strIn is String? StrPtr(strIn) : strIn
+
         result := DllCall("OLEAUT32.dll\VarBoolFromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, "ptr", pboolOut, "int")
         return result
     }
@@ -17467,6 +17485,8 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vari1fromui1
      */
     static VarI1FromUI1(bIn, pcOut) {
+        pcOut := pcOut is String? StrPtr(pcOut) : pcOut
+
         result := DllCall("OLEAUT32.dll\VarI1FromUI1", "char", bIn, "ptr", pcOut, "int")
         return result
     }
@@ -17554,6 +17574,8 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vari1fromi2
      */
     static VarI1FromI2(uiIn, pcOut) {
+        pcOut := pcOut is String? StrPtr(pcOut) : pcOut
+
         result := DllCall("OLEAUT32.dll\VarI1FromI2", "short", uiIn, "ptr", pcOut, "int")
         return result
     }
@@ -17641,6 +17663,8 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vari1fromi4
      */
     static VarI1FromI4(lIn, pcOut) {
+        pcOut := pcOut is String? StrPtr(pcOut) : pcOut
+
         result := DllCall("OLEAUT32.dll\VarI1FromI4", "int", lIn, "ptr", pcOut, "int")
         return result
     }
@@ -17728,6 +17752,8 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vari1fromi8
      */
     static VarI1FromI8(i64In, pcOut) {
+        pcOut := pcOut is String? StrPtr(pcOut) : pcOut
+
         result := DllCall("OLEAUT32.dll\VarI1FromI8", "int64", i64In, "ptr", pcOut, "int")
         return result
     }
@@ -17815,6 +17841,8 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vari1fromr4
      */
     static VarI1FromR4(fltIn, pcOut) {
+        pcOut := pcOut is String? StrPtr(pcOut) : pcOut
+
         result := DllCall("OLEAUT32.dll\VarI1FromR4", "float", fltIn, "ptr", pcOut, "int")
         return result
     }
@@ -17902,6 +17930,8 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vari1fromr8
      */
     static VarI1FromR8(dblIn, pcOut) {
+        pcOut := pcOut is String? StrPtr(pcOut) : pcOut
+
         result := DllCall("OLEAUT32.dll\VarI1FromR8", "double", dblIn, "ptr", pcOut, "int")
         return result
     }
@@ -17989,6 +18019,8 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vari1fromdate
      */
     static VarI1FromDate(dateIn, pcOut) {
+        pcOut := pcOut is String? StrPtr(pcOut) : pcOut
+
         result := DllCall("OLEAUT32.dll\VarI1FromDate", "double", dateIn, "ptr", pcOut, "int")
         return result
     }
@@ -18076,6 +18108,8 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vari1fromcy
      */
     static VarI1FromCy(cyIn, pcOut) {
+        pcOut := pcOut is String? StrPtr(pcOut) : pcOut
+
         result := DllCall("OLEAUT32.dll\VarI1FromCy", "ptr", cyIn, "ptr", pcOut, "int")
         return result
     }
@@ -18182,6 +18216,9 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vari1fromstr
      */
     static VarI1FromStr(strIn, lcid, dwFlags, pcOut) {
+        strIn := strIn is String? StrPtr(strIn) : strIn
+        pcOut := pcOut is String? StrPtr(pcOut) : pcOut
+
         result := DllCall("OLEAUT32.dll\VarI1FromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, "ptr", pcOut, "int")
         return result
     }
@@ -18270,6 +18307,8 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vari1fromdisp
      */
     static VarI1FromDisp(pdispIn, lcid, pcOut) {
+        pcOut := pcOut is String? StrPtr(pcOut) : pcOut
+
         result := DllCall("OLEAUT32.dll\VarI1FromDisp", "ptr", pdispIn, "uint", lcid, "ptr", pcOut, "int")
         return result
     }
@@ -18357,6 +18396,8 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vari1frombool
      */
     static VarI1FromBool(boolIn, pcOut) {
+        pcOut := pcOut is String? StrPtr(pcOut) : pcOut
+
         result := DllCall("OLEAUT32.dll\VarI1FromBool", "short", boolIn, "ptr", pcOut, "int")
         return result
     }
@@ -18444,6 +18485,8 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vari1fromui2
      */
     static VarI1FromUI2(uiIn, pcOut) {
+        pcOut := pcOut is String? StrPtr(pcOut) : pcOut
+
         result := DllCall("OLEAUT32.dll\VarI1FromUI2", "ushort", uiIn, "ptr", pcOut, "int")
         return result
     }
@@ -18531,6 +18574,8 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vari1fromui4
      */
     static VarI1FromUI4(ulIn, pcOut) {
+        pcOut := pcOut is String? StrPtr(pcOut) : pcOut
+
         result := DllCall("OLEAUT32.dll\VarI1FromUI4", "uint", ulIn, "ptr", pcOut, "int")
         return result
     }
@@ -18618,6 +18663,8 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vari1fromui8
      */
     static VarI1FromUI8(i64In, pcOut) {
+        pcOut := pcOut is String? StrPtr(pcOut) : pcOut
+
         result := DllCall("OLEAUT32.dll\VarI1FromUI8", "uint", i64In, "ptr", pcOut, "int")
         return result
     }
@@ -18705,6 +18752,8 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vari1fromdec
      */
     static VarI1FromDec(pdecIn, pcOut) {
+        pcOut := pcOut is String? StrPtr(pcOut) : pcOut
+
         result := DllCall("OLEAUT32.dll\VarI1FromDec", "ptr", pdecIn, "ptr", pcOut, "int")
         return result
     }
@@ -19527,6 +19576,8 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varui2fromstr
      */
     static VarUI2FromStr(strIn, lcid, dwFlags, puiOut) {
+        strIn := strIn is String? StrPtr(strIn) : strIn
+
         result := DllCall("OLEAUT32.dll\VarUI2FromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, "ptr", puiOut, "int")
         return result
     }
@@ -20872,6 +20923,8 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varui4fromstr
      */
     static VarUI4FromStr(strIn, lcid, dwFlags, pulOut) {
+        strIn := strIn is String? StrPtr(strIn) : strIn
+
         result := DllCall("OLEAUT32.dll\VarUI4FromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, "ptr", pulOut, "int")
         return result
     }
@@ -22110,6 +22163,8 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varui8fromstr
      */
     static VarUI8FromStr(strIn, lcid, dwFlags, pi64Out) {
+        strIn := strIn is String? StrPtr(strIn) : strIn
+
         result := DllCall("OLEAUT32.dll\VarUI8FromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, "ptr", pi64Out, "int")
         return result
     }
@@ -23455,6 +23510,8 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vardecfromstr
      */
     static VarDecFromStr(strIn, lcid, dwFlags, pdecOut) {
+        strIn := strIn is String? StrPtr(strIn) : strIn
+
         result := DllCall("OLEAUT32.dll\VarDecFromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, "ptr", pdecOut, "int")
         return result
     }
@@ -24047,6 +24104,8 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varparsenumfromstr
      */
     static VarParseNumFromStr(strIn, lcid, dwFlags, pnumprs, rgbDig) {
+        strIn := strIn is String? StrPtr(strIn) : strIn
+
         result := DllCall("OLEAUT32.dll\VarParseNumFromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, "ptr", pnumprs, "ptr", rgbDig, "int")
         return result
     }
@@ -25921,6 +25980,8 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-getaltmonthnames
      */
     static GetAltMonthNames(lcid, prgp) {
+        prgp := prgp is String? StrPtr(prgp) : prgp
+
         result := DllCall("OLEAUT32.dll\GetAltMonthNames", "uint", lcid, "ptr", prgp, "int")
         return result
     }
@@ -26116,6 +26177,8 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varformat
      */
     static VarFormat(pvarIn, pstrFormat, iFirstDay, iFirstWeek, dwFlags, pbstrOut) {
+        pstrFormat := pstrFormat is String? StrPtr(pstrFormat) : pstrFormat
+
         result := DllCall("OLEAUT32.dll\VarFormat", "ptr", pvarIn, "ptr", pstrFormat, "int", iFirstDay, "int", iFirstWeek, "uint", dwFlags, "ptr", pbstrOut, "int")
         return result
     }
@@ -27095,6 +27158,8 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varformatfromtokens
      */
     static VarFormatFromTokens(pvarIn, pstrFormat, pbTokCur, dwFlags, pbstrOut, lcid) {
+        pstrFormat := pstrFormat is String? StrPtr(pstrFormat) : pstrFormat
+
         result := DllCall("OLEAUT32.dll\VarFormatFromTokens", "ptr", pvarIn, "ptr", pstrFormat, "ptr", pbTokCur, "uint", dwFlags, "ptr", pbstrOut, "uint", lcid, "int")
         return result
     }
@@ -27305,6 +27370,8 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vartokenizeformatstring
      */
     static VarTokenizeFormatString(pstrFormat, rgbTok, cbTok, iFirstDay, iFirstWeek, lcid, pcbActual) {
+        pstrFormat := pstrFormat is String? StrPtr(pstrFormat) : pstrFormat
+
         result := DllCall("OLEAUT32.dll\VarTokenizeFormatString", "ptr", pstrFormat, "ptr", rgbTok, "int", cbTok, "int", iFirstDay, "int", iFirstWeek, "uint", lcid, "ptr", pcbActual, "int")
         return result
     }
@@ -27318,6 +27385,8 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-lhashvalofnamesysa
      */
     static LHashValOfNameSysA(syskind, lcid, szName) {
+        szName := szName is String? StrPtr(szName) : szName
+
         result := DllCall("OLEAUT32.dll\LHashValOfNameSysA", "int", syskind, "uint", lcid, "ptr", szName, "uint")
         return result
     }
@@ -27331,6 +27400,8 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-lhashvalofnamesys
      */
     static LHashValOfNameSys(syskind, lcid, szName) {
+        szName := szName is String? StrPtr(szName) : szName
+
         result := DllCall("OLEAUT32.dll\LHashValOfNameSys", "int", syskind, "uint", lcid, "ptr", szName, "uint")
         return result
     }
@@ -27497,6 +27568,8 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-loadtypelib
      */
     static LoadTypeLib(szFile, pptlib) {
+        szFile := szFile is String? StrPtr(szFile) : szFile
+
         result := DllCall("OLEAUT32.dll\LoadTypeLib", "ptr", szFile, "ptr", pptlib, "int")
         return result
     }
@@ -27605,6 +27678,8 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-loadtypelibex
      */
     static LoadTypeLibEx(szFile, regkind, pptlib) {
+        szFile := szFile is String? StrPtr(szFile) : szFile
+
         result := DllCall("OLEAUT32.dll\LoadTypeLibEx", "ptr", szFile, "int", regkind, "ptr", pptlib, "int")
         return result
     }
@@ -27885,6 +27960,9 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-registertypelib
      */
     static RegisterTypeLib(ptlib, szFullPath, szHelpDir) {
+        szFullPath := szFullPath is String? StrPtr(szFullPath) : szFullPath
+        szHelpDir := szHelpDir is String? StrPtr(szHelpDir) : szHelpDir
+
         result := DllCall("OLEAUT32.dll\RegisterTypeLib", "ptr", ptlib, "ptr", szFullPath, "ptr", szHelpDir, "int")
         return result
     }
@@ -28081,6 +28159,9 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-registertypelibforuser
      */
     static RegisterTypeLibForUser(ptlib, szFullPath, szHelpDir) {
+        szFullPath := szFullPath is String? StrPtr(szFullPath) : szFullPath
+        szHelpDir := szHelpDir is String? StrPtr(szHelpDir) : szHelpDir
+
         result := DllCall("OLEAUT32.dll\RegisterTypeLibForUser", "ptr", ptlib, "ptr", szFullPath, "ptr", szHelpDir, "int")
         return result
     }
@@ -28263,6 +28344,8 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-createtypelib
      */
     static CreateTypeLib(syskind, szFile, ppctlib) {
+        szFile := szFile is String? StrPtr(szFile) : szFile
+
         result := DllCall("OLEAUT32.dll\CreateTypeLib", "int", syskind, "ptr", szFile, "ptr", ppctlib, "int")
         return result
     }
@@ -28276,6 +28359,8 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-createtypelib2
      */
     static CreateTypeLib2(syskind, szFile, ppctlib) {
+        szFile := szFile is String? StrPtr(szFile) : szFile
+
         result := DllCall("OLEAUT32.dll\CreateTypeLib2", "int", syskind, "ptr", szFile, "ptr", ppctlib, "int")
         return result
     }
@@ -28449,6 +28534,8 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-dispgetidsofnames
      */
     static DispGetIDsOfNames(ptinfo, rgszNames, cNames, rgdispid) {
+        rgszNames := rgszNames is String? StrPtr(rgszNames) : rgszNames
+
         result := DllCall("OLEAUT32.dll\DispGetIDsOfNames", "ptr", ptinfo, "ptr", rgszNames, "uint", cNames, "ptr", rgdispid, "int")
         return result
     }
@@ -30040,6 +30127,8 @@ class Ole {
      * @since windows5.0
      */
     static OleCreateLinkToFile(lpszFileName, riid, renderopt, lpFormatEtc, pClientSite, pStg, ppvObj) {
+        lpszFileName := lpszFileName is String? StrPtr(lpszFileName) : lpszFileName
+
         result := DllCall("OLE32.dll\OleCreateLinkToFile", "ptr", lpszFileName, "ptr", riid, "uint", renderopt, "ptr", lpFormatEtc, "ptr", pClientSite, "ptr", pStg, "ptr", ppvObj, "int")
         return result
     }
@@ -30121,6 +30210,8 @@ class Ole {
      * @since windows5.0
      */
     static OleCreateLinkToFileEx(lpszFileName, riid, dwFlags, renderopt, cFormats, rgAdvf, rgFormatEtc, lpAdviseSink, rgdwConnection, pClientSite, pStg, ppvObj) {
+        lpszFileName := lpszFileName is String? StrPtr(lpszFileName) : lpszFileName
+
         result := DllCall("ole32.dll\OleCreateLinkToFileEx", "ptr", lpszFileName, "ptr", riid, "uint", dwFlags, "uint", renderopt, "uint", cFormats, "ptr", rgAdvf, "ptr", rgFormatEtc, "ptr", lpAdviseSink, "ptr", rgdwConnection, "ptr", pClientSite, "ptr", pStg, "ptr", ppvObj, "int")
         return result
     }
@@ -30217,6 +30308,8 @@ class Ole {
      * @since windows5.0
      */
     static OleCreateFromFile(rclsid, lpszFileName, riid, renderopt, lpFormatEtc, pClientSite, pStg, ppvObj) {
+        lpszFileName := lpszFileName is String? StrPtr(lpszFileName) : lpszFileName
+
         result := DllCall("OLE32.dll\OleCreateFromFile", "ptr", rclsid, "ptr", lpszFileName, "ptr", riid, "uint", renderopt, "ptr", lpFormatEtc, "ptr", pClientSite, "ptr", pStg, "ptr", ppvObj, "int")
         return result
     }
@@ -30297,6 +30390,8 @@ class Ole {
      * @since windows5.0
      */
     static OleCreateFromFileEx(rclsid, lpszFileName, riid, dwFlags, renderopt, cFormats, rgAdvf, rgFormatEtc, lpAdviseSink, rgdwConnection, pClientSite, pStg, ppvObj) {
+        lpszFileName := lpszFileName is String? StrPtr(lpszFileName) : lpszFileName
+
         result := DllCall("ole32.dll\OleCreateFromFileEx", "ptr", rclsid, "ptr", lpszFileName, "ptr", riid, "uint", dwFlags, "uint", renderopt, "uint", cFormats, "ptr", rgAdvf, "ptr", rgFormatEtc, "ptr", lpAdviseSink, "ptr", rgdwConnection, "ptr", pClientSite, "ptr", pStg, "ptr", ppvObj, "int")
         return result
     }
@@ -31101,6 +31196,11 @@ class Ole {
      * @since windows10.0.10240
      */
     static OleGetClipboardWithEnterpriseInfo(dataObject, dataEnterpriseId, sourceDescription, targetDescription, dataDescription) {
+        dataEnterpriseId := dataEnterpriseId is String? StrPtr(dataEnterpriseId) : dataEnterpriseId
+        sourceDescription := sourceDescription is String? StrPtr(sourceDescription) : sourceDescription
+        targetDescription := targetDescription is String? StrPtr(targetDescription) : targetDescription
+        dataDescription := dataDescription is String? StrPtr(dataDescription) : dataDescription
+
         result := DllCall("ole32.dll\OleGetClipboardWithEnterpriseInfo", "ptr", dataObject, "ptr", dataEnterpriseId, "ptr", sourceDescription, "ptr", targetDescription, "ptr", dataDescription, "int")
         return result
     }
@@ -31837,6 +31937,8 @@ class Ole {
      * @since windows5.0
      */
     static OleGetIconOfFile(lpszPath, fUseFileAsLabel) {
+        lpszPath := lpszPath is String? StrPtr(lpszPath) : lpszPath
+
         result := DllCall("ole32.dll\OleGetIconOfFile", "ptr", lpszPath, "int", fUseFileAsLabel, "ptr")
         return result
     }
@@ -31851,6 +31953,8 @@ class Ole {
      * @since windows5.0
      */
     static OleGetIconOfClass(rclsid, lpszLabel, fUseTypeAsLabel) {
+        lpszLabel := lpszLabel is String? StrPtr(lpszLabel) : lpszLabel
+
         result := DllCall("OLE32.dll\OleGetIconOfClass", "ptr", rclsid, "ptr", lpszLabel, "int", fUseTypeAsLabel, "ptr")
         return result
     }
@@ -31872,6 +31976,9 @@ class Ole {
      * @since windows5.0
      */
     static OleMetafilePictFromIconAndLabel(hIcon, lpszLabel, lpszSourceFile, iIconIndex) {
+        lpszLabel := lpszLabel is String? StrPtr(lpszLabel) : lpszLabel
+        lpszSourceFile := lpszSourceFile is String? StrPtr(lpszSourceFile) : lpszSourceFile
+
         A_LastError := 0
 
         result := DllCall("ole32.dll\OleMetafilePictFromIconAndLabel", "ptr", hIcon, "ptr", lpszLabel, "ptr", lpszSourceFile, "uint", iIconIndex, "ptr")
@@ -31949,6 +32056,8 @@ class Ole {
      * @since windows5.0
      */
     static OleRegGetUserType(clsid, dwFormOfType, pszUserType) {
+        pszUserType := pszUserType is String? StrPtr(pszUserType) : pszUserType
+
         result := DllCall("OLE32.dll\OleRegGetUserType", "ptr", clsid, "uint", dwFormOfType, "ptr", pszUserType, "int")
         return result
     }
@@ -32554,6 +32663,8 @@ class Ole {
     static OleCreatePropertyFrame(hwndOwner, x, y, lpszCaption, cObjects, ppUnk, cPages, pPageClsID, lcid) {
         static dwReserved := 0, pvReserved := 0 ;Reserved parameters must always be NULL
 
+        lpszCaption := lpszCaption is String? StrPtr(lpszCaption) : lpszCaption
+
         result := DllCall("OLEAUT32.dll\OleCreatePropertyFrame", "ptr", hwndOwner, "uint", x, "uint", y, "ptr", lpszCaption, "uint", cObjects, "ptr", ppUnk, "uint", cPages, "ptr", pPageClsID, "uint", lcid, "uint", dwReserved, "ptr", pvReserved, "int")
         return result
     }
@@ -33038,6 +33149,8 @@ class Ole {
     static OleLoadPicturePath(szURLorPath, punkCaller, clrReserved, riid, ppvRet) {
         static dwReserved := 0 ;Reserved parameters must always be NULL
 
+        szURLorPath := szURLorPath is String? StrPtr(szURLorPath) : szURLorPath
+
         result := DllCall("OLEAUT32.dll\OleLoadPicturePath", "ptr", szURLorPath, "ptr", punkCaller, "uint", dwReserved, "uint", clrReserved, "ptr", riid, "ptr", ppvRet, "int")
         return result
     }
@@ -33284,6 +33397,8 @@ class Ole {
      * @since windows5.0
      */
     static OleUIAddVerbMenuW(lpOleObj, lpszShortType, hMenu, uPos, uIDVerbMin, uIDVerbMax, bAddConvert, idConvert, lphMenu) {
+        lpszShortType := lpszShortType is String? StrPtr(lpszShortType) : lpszShortType
+
         result := DllCall("oledlg.dll\OleUIAddVerbMenuW", "ptr", lpOleObj, "ptr", lpszShortType, "ptr", hMenu, "uint", uPos, "uint", uIDVerbMin, "uint", uIDVerbMax, "int", bAddConvert, "uint", idConvert, "ptr", lphMenu, "int")
         return result
     }
@@ -33313,6 +33428,8 @@ class Ole {
      * @since windows5.0
      */
     static OleUIAddVerbMenuA(lpOleObj, lpszShortType, hMenu, uPos, uIDVerbMin, uIDVerbMax, bAddConvert, idConvert, lphMenu) {
+        lpszShortType := lpszShortType is String? StrPtr(lpszShortType) : lpszShortType
+
         result := DllCall("oledlg.dll\OleUIAddVerbMenuA", "ptr", lpOleObj, "ptr", lpszShortType, "ptr", hMenu, "uint", uPos, "uint", uIDVerbMin, "uint", uIDVerbMax, "int", bAddConvert, "uint", idConvert, "ptr", lphMenu, "int")
         return result
     }
@@ -33853,6 +33970,8 @@ class Ole {
      * @since windows5.0
      */
     static OleUIUpdateLinksW(lpOleUILinkCntr, hwndParent, lpszTitle, cLinks) {
+        lpszTitle := lpszTitle is String? StrPtr(lpszTitle) : lpszTitle
+
         result := DllCall("oledlg.dll\OleUIUpdateLinksW", "ptr", lpOleUILinkCntr, "ptr", hwndParent, "ptr", lpszTitle, "int", cLinks, "int")
         return result
     }
@@ -33871,6 +33990,8 @@ class Ole {
      * @since windows5.0
      */
     static OleUIUpdateLinksA(lpOleUILinkCntr, hwndParent, lpszTitle, cLinks) {
+        lpszTitle := lpszTitle is String? StrPtr(lpszTitle) : lpszTitle
+
         result := DllCall("oledlg.dll\OleUIUpdateLinksA", "ptr", lpOleUILinkCntr, "ptr", hwndParent, "ptr", lpszTitle, "int", cLinks, "int")
         return result
     }

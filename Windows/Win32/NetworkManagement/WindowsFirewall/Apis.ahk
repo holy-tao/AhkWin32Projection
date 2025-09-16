@@ -49,6 +49,8 @@ class WindowsFirewall {
      * @since windows5.1.2600
      */
     static NcIsValidConnectionName(pszwName) {
+        pszwName := pszwName is String? StrPtr(pszwName) : pszwName
+
         result := DllCall("Netshell.dll\NcIsValidConnectionName", "ptr", pszwName, "int")
         return result
     }
@@ -87,6 +89,11 @@ class WindowsFirewall {
      * @since windows8.0
      */
     static NetworkIsolationSetupAppContainerBinaries(applicationContainerSid, packageFullName, packageFolder, displayName, bBinariesFullyComputed, binaries, binariesCount) {
+        packageFullName := packageFullName is String? StrPtr(packageFullName) : packageFullName
+        packageFolder := packageFolder is String? StrPtr(packageFolder) : packageFolder
+        displayName := displayName is String? StrPtr(displayName) : displayName
+        binaries := binaries is String? StrPtr(binaries) : binaries
+
         result := DllCall("api-ms-win-net-isolation-l1-1-0.dll\NetworkIsolationSetupAppContainerBinaries", "ptr", applicationContainerSid, "ptr", packageFullName, "ptr", packageFolder, "ptr", displayName, "int", bBinariesFullyComputed, "ptr", binaries, "uint", binariesCount, "int")
         return result
     }
@@ -304,6 +311,8 @@ class WindowsFirewall {
      * @since windows8.0
      */
     static NetworkIsolationDiagnoseConnectFailureAndGetInfo(wszServerName, netIsoError) {
+        wszServerName := wszServerName is String? StrPtr(wszServerName) : wszServerName
+
         result := DllCall("api-ms-win-net-isolation-l1-1-0.dll\NetworkIsolationDiagnoseConnectFailureAndGetInfo", "ptr", wszServerName, "ptr", netIsoError, "uint")
         return result
     }
@@ -378,6 +387,8 @@ class WindowsFirewall {
      * @since windows10.0.10240
      */
     static NetworkIsolationGetEnterpriseIdAsync(wszServerName, dwFlags, context, callback, hOperation) {
+        wszServerName := wszServerName is String? StrPtr(wszServerName) : wszServerName
+
         result := DllCall("Firewallapi.dll\NetworkIsolationGetEnterpriseIdAsync", "ptr", wszServerName, "uint", dwFlags, "ptr", context, "ptr", callback, "ptr", hOperation, "uint")
         return result
     }

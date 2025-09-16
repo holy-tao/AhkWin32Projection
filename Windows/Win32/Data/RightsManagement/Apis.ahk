@@ -415,6 +415,10 @@ class RightsManagement {
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drminitenvironment
      */
     static DRMInitEnvironment(eSecurityProviderType, eSpecification, wszSecurityProvider, wszManifestCredentials, wszMachineCredentials, phEnv, phDefaultLibrary) {
+        wszSecurityProvider := wszSecurityProvider is String? StrPtr(wszSecurityProvider) : wszSecurityProvider
+        wszManifestCredentials := wszManifestCredentials is String? StrPtr(wszManifestCredentials) : wszManifestCredentials
+        wszMachineCredentials := wszMachineCredentials is String? StrPtr(wszMachineCredentials) : wszMachineCredentials
+
         result := DllCall("msdrm.dll\DRMInitEnvironment", "int", eSecurityProviderType, "int", eSpecification, "ptr", wszSecurityProvider, "ptr", wszManifestCredentials, "ptr", wszMachineCredentials, "ptr", phEnv, "ptr", phDefaultLibrary, "int")
         return result
     }
@@ -437,6 +441,9 @@ class RightsManagement {
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmloadlibrary
      */
     static DRMLoadLibrary(hEnv, eSpecification, wszLibraryProvider, wszCredentials, phLibrary) {
+        wszLibraryProvider := wszLibraryProvider is String? StrPtr(wszLibraryProvider) : wszLibraryProvider
+        wszCredentials := wszCredentials is String? StrPtr(wszCredentials) : wszCredentials
+
         result := DllCall("msdrm.dll\DRMLoadLibrary", "uint", hEnv, "int", eSpecification, "ptr", wszLibraryProvider, "ptr", wszCredentials, "ptr", phLibrary, "int")
         return result
     }
@@ -457,6 +464,9 @@ class RightsManagement {
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmcreateenablingprincipal
      */
     static DRMCreateEnablingPrincipal(hEnv, hLibrary, wszObject, pidPrincipal, wszCredentials, phEnablingPrincipal) {
+        wszObject := wszObject is String? StrPtr(wszObject) : wszObject
+        wszCredentials := wszCredentials is String? StrPtr(wszCredentials) : wszCredentials
+
         result := DllCall("msdrm.dll\DRMCreateEnablingPrincipal", "uint", hEnv, "uint", hLibrary, "ptr", wszObject, "ptr", pidPrincipal, "ptr", wszCredentials, "ptr", phEnablingPrincipal, "int")
         return result
     }
@@ -541,6 +551,8 @@ class RightsManagement {
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmregisterrevocationlist
      */
     static DRMRegisterRevocationList(hEnv, wszRevocationList) {
+        wszRevocationList := wszRevocationList is String? StrPtr(wszRevocationList) : wszRevocationList
+
         result := DllCall("msdrm.dll\DRMRegisterRevocationList", "uint", hEnv, "ptr", wszRevocationList, "int")
         return result
     }
@@ -668,6 +680,8 @@ class RightsManagement {
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmcreateboundlicense
      */
     static DRMCreateBoundLicense(hEnv, pParams, wszLicenseChain, phBoundLicense, phErrorLog) {
+        wszLicenseChain := wszLicenseChain is String? StrPtr(wszLicenseChain) : wszLicenseChain
+
         result := DllCall("msdrm.dll\DRMCreateBoundLicense", "uint", hEnv, "ptr", pParams, "ptr", wszLicenseChain, "ptr", phBoundLicense, "ptr", phErrorLog, "int")
         return result
     }
@@ -695,6 +709,9 @@ class RightsManagement {
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmcreateenablingbitsdecryptor
      */
     static DRMCreateEnablingBitsDecryptor(hBoundLicense, wszRight, hAuxLib, wszAuxPlug, phDecryptor) {
+        wszRight := wszRight is String? StrPtr(wszRight) : wszRight
+        wszAuxPlug := wszAuxPlug is String? StrPtr(wszAuxPlug) : wszAuxPlug
+
         result := DllCall("msdrm.dll\DRMCreateEnablingBitsDecryptor", "uint", hBoundLicense, "ptr", wszRight, "uint", hAuxLib, "ptr", wszAuxPlug, "ptr", phDecryptor, "int")
         return result
     }
@@ -722,6 +739,9 @@ class RightsManagement {
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmcreateenablingbitsencryptor
      */
     static DRMCreateEnablingBitsEncryptor(hBoundLicense, wszRight, hAuxLib, wszAuxPlug, phEncryptor) {
+        wszRight := wszRight is String? StrPtr(wszRight) : wszRight
+        wszAuxPlug := wszAuxPlug is String? StrPtr(wszAuxPlug) : wszAuxPlug
+
         result := DllCall("msdrm.dll\DRMCreateEnablingBitsEncryptor", "uint", hBoundLicense, "ptr", wszRight, "uint", hAuxLib, "ptr", wszAuxPlug, "ptr", phEncryptor, "int")
         return result
     }
@@ -747,6 +767,9 @@ class RightsManagement {
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmattest
      */
     static DRMAttest(hEnablingPrincipal, wszData, eType, pcAttestedBlob, wszAttestedBlob) {
+        wszData := wszData is String? StrPtr(wszData) : wszData
+        wszAttestedBlob := wszAttestedBlob is String? StrPtr(wszAttestedBlob) : wszAttestedBlob
+
         result := DllCall("msdrm.dll\DRMAttest", "uint", hEnablingPrincipal, "ptr", wszData, "int", eType, "ptr", pcAttestedBlob, "ptr", wszAttestedBlob, "int")
         return result
     }
@@ -809,6 +832,8 @@ class RightsManagement {
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmgetinfo
      */
     static DRMGetInfo(handle, wszAttribute, peEncoding, pcBuffer, pbBuffer) {
+        wszAttribute := wszAttribute is String? StrPtr(wszAttribute) : wszAttribute
+
         result := DllCall("msdrm.dll\DRMGetInfo", "uint", handle, "ptr", wszAttribute, "ptr", peEncoding, "ptr", pcBuffer, "ptr", pbBuffer, "int")
         return result
     }
@@ -841,6 +866,8 @@ class RightsManagement {
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmgetenvironmentinfo
      */
     static DRMGetEnvironmentInfo(handle, wszAttribute, peEncoding, pcBuffer, pbBuffer) {
+        wszAttribute := wszAttribute is String? StrPtr(wszAttribute) : wszAttribute
+
         result := DllCall("msdrm.dll\DRMGetEnvironmentInfo", "uint", handle, "ptr", wszAttribute, "ptr", peEncoding, "ptr", pcBuffer, "ptr", pbBuffer, "int")
         return result
     }
@@ -858,6 +885,8 @@ class RightsManagement {
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmgetprocaddress
      */
     static DRMGetProcAddress(hLibrary, wszProcName, ppfnProcAddress) {
+        wszProcName := wszProcName is String? StrPtr(wszProcName) : wszProcName
+
         result := DllCall("msdrm.dll\DRMGetProcAddress", "uint", hLibrary, "ptr", wszProcName, "ptr", ppfnProcAddress, "int")
         return result
     }
@@ -877,6 +906,8 @@ class RightsManagement {
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmgetboundlicenseobjectcount
      */
     static DRMGetBoundLicenseObjectCount(hQueryRoot, wszSubObjectType, pcSubObjects) {
+        wszSubObjectType := wszSubObjectType is String? StrPtr(wszSubObjectType) : wszSubObjectType
+
         result := DllCall("msdrm.dll\DRMGetBoundLicenseObjectCount", "uint", hQueryRoot, "ptr", wszSubObjectType, "ptr", pcSubObjects, "int")
         return result
     }
@@ -911,6 +942,8 @@ class RightsManagement {
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmgetboundlicenseobject
      */
     static DRMGetBoundLicenseObject(hQueryRoot, wszSubObjectType, iWhich, phSubObject) {
+        wszSubObjectType := wszSubObjectType is String? StrPtr(wszSubObjectType) : wszSubObjectType
+
         result := DllCall("msdrm.dll\DRMGetBoundLicenseObject", "uint", hQueryRoot, "ptr", wszSubObjectType, "uint", iWhich, "ptr", phSubObject, "int")
         return result
     }
@@ -930,6 +963,8 @@ class RightsManagement {
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmgetboundlicenseattributecount
      */
     static DRMGetBoundLicenseAttributeCount(hQueryRoot, wszAttribute, pcAttributes) {
+        wszAttribute := wszAttribute is String? StrPtr(wszAttribute) : wszAttribute
+
         result := DllCall("msdrm.dll\DRMGetBoundLicenseAttributeCount", "uint", hQueryRoot, "ptr", wszAttribute, "ptr", pcAttributes, "int")
         return result
     }
@@ -954,6 +989,8 @@ class RightsManagement {
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmgetboundlicenseattribute
      */
     static DRMGetBoundLicenseAttribute(hQueryRoot, wszAttribute, iWhich, peEncoding, pcBuffer, pbBuffer) {
+        wszAttribute := wszAttribute is String? StrPtr(wszAttribute) : wszAttribute
+
         result := DllCall("msdrm.dll\DRMGetBoundLicenseAttribute", "uint", hQueryRoot, "ptr", wszAttribute, "uint", iWhich, "ptr", peEncoding, "ptr", pcBuffer, "ptr", pbBuffer, "int")
         return result
     }
@@ -981,6 +1018,9 @@ class RightsManagement {
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmcreateclientsession
      */
     static DRMCreateClientSession(pfnCallback, uCallbackVersion, wszGroupIDProviderType, wszGroupID, phClient) {
+        wszGroupIDProviderType := wszGroupIDProviderType is String? StrPtr(wszGroupIDProviderType) : wszGroupIDProviderType
+        wszGroupID := wszGroupID is String? StrPtr(wszGroupID) : wszGroupID
+
         result := DllCall("msdrm.dll\DRMCreateClientSession", "ptr", pfnCallback, "uint", uCallbackVersion, "ptr", wszGroupIDProviderType, "ptr", wszGroupID, "ptr", phClient, "int")
         return result
     }
@@ -1182,6 +1222,9 @@ class RightsManagement {
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmgetservicelocation
      */
     static DRMGetServiceLocation(hClient, uServiceType, uServiceLocation, wszIssuanceLicense, puServiceURLLength, wszServiceURL) {
+        wszIssuanceLicense := wszIssuanceLicense is String? StrPtr(wszIssuanceLicense) : wszIssuanceLicense
+        wszServiceURL := wszServiceURL is String? StrPtr(wszServiceURL) : wszServiceURL
+
         result := DllCall("msdrm.dll\DRMGetServiceLocation", "uint", hClient, "uint", uServiceType, "uint", uServiceLocation, "ptr", wszIssuanceLicense, "ptr", puServiceURLLength, "ptr", wszServiceURL, "int")
         return result
     }
@@ -1206,6 +1249,8 @@ class RightsManagement {
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmcreatelicensestoragesession
      */
     static DRMCreateLicenseStorageSession(hEnv, hDefaultLibrary, hClient, uFlags, wszIssuanceLicense, phLicenseStorage) {
+        wszIssuanceLicense := wszIssuanceLicense is String? StrPtr(wszIssuanceLicense) : wszIssuanceLicense
+
         result := DllCall("msdrm.dll\DRMCreateLicenseStorageSession", "uint", hEnv, "uint", hDefaultLibrary, "uint", hClient, "uint", uFlags, "ptr", wszIssuanceLicense, "ptr", phLicenseStorage, "int")
         return result
     }
@@ -1223,6 +1268,8 @@ class RightsManagement {
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmaddlicense
      */
     static DRMAddLicense(hLicenseStorage, uFlags, wszLicense) {
+        wszLicense := wszLicense is String? StrPtr(wszLicense) : wszLicense
+
         result := DllCall("msdrm.dll\DRMAddLicense", "uint", hLicenseStorage, "uint", uFlags, "ptr", wszLicense, "int")
         return result
     }
@@ -1251,6 +1298,9 @@ class RightsManagement {
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmacquireadvisories
      */
     static DRMAcquireAdvisories(hLicenseStorage, wszLicense, wszURL, pvContext) {
+        wszLicense := wszLicense is String? StrPtr(wszLicense) : wszLicense
+        wszURL := wszURL is String? StrPtr(wszURL) : wszURL
+
         result := DllCall("msdrm.dll\DRMAcquireAdvisories", "uint", hLicenseStorage, "ptr", wszLicense, "ptr", wszURL, "ptr", pvContext, "int")
         return result
     }
@@ -1404,6 +1454,8 @@ class RightsManagement {
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmenumeratelicense
      */
     static DRMEnumerateLicense(hSession, uFlags, uIndex, pfSharedFlag, puCertificateDataLen, wszCertificateData) {
+        wszCertificateData := wszCertificateData is String? StrPtr(wszCertificateData) : wszCertificateData
+
         result := DllCall("msdrm.dll\DRMEnumerateLicense", "uint", hSession, "uint", uFlags, "uint", uIndex, "ptr", pfSharedFlag, "ptr", puCertificateDataLen, "ptr", wszCertificateData, "int")
         return result
     }
@@ -1520,6 +1572,11 @@ class RightsManagement {
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmacquirelicense
      */
     static DRMAcquireLicense(hSession, uFlags, wszGroupIdentityCredential, wszRequestedRights, wszCustomData, wszURL, pvContext) {
+        wszGroupIdentityCredential := wszGroupIdentityCredential is String? StrPtr(wszGroupIdentityCredential) : wszGroupIdentityCredential
+        wszRequestedRights := wszRequestedRights is String? StrPtr(wszRequestedRights) : wszRequestedRights
+        wszCustomData := wszCustomData is String? StrPtr(wszCustomData) : wszCustomData
+        wszURL := wszURL is String? StrPtr(wszURL) : wszURL
+
         result := DllCall("msdrm.dll\DRMAcquireLicense", "uint", hSession, "uint", uFlags, "ptr", wszGroupIdentityCredential, "ptr", wszRequestedRights, "ptr", wszCustomData, "ptr", wszURL, "ptr", pvContext, "int")
         return result
     }
@@ -1544,6 +1601,8 @@ class RightsManagement {
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmdeletelicense
      */
     static DRMDeleteLicense(hSession, wszLicenseId) {
+        wszLicenseId := wszLicenseId is String? StrPtr(wszLicenseId) : wszLicenseId
+
         result := DllCall("msdrm.dll\DRMDeleteLicense", "uint", hSession, "ptr", wszLicenseId, "int")
         return result
     }
@@ -1594,6 +1653,9 @@ class RightsManagement {
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmgetsecurityprovider
      */
     static DRMGetSecurityProvider(uFlags, puTypeLen, wszType, puPathLen, wszPath) {
+        wszType := wszType is String? StrPtr(wszType) : wszType
+        wszPath := wszPath is String? StrPtr(wszPath) : wszPath
+
         result := DllCall("msdrm.dll\DRMGetSecurityProvider", "uint", uFlags, "ptr", puTypeLen, "ptr", wszType, "ptr", puPathLen, "ptr", wszPath, "int")
         return result
     }
@@ -1615,6 +1677,9 @@ class RightsManagement {
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmencode
      */
     static DRMEncode(wszAlgID, uDataLen, pbDecodedData, puEncodedStringLen, wszEncodedString) {
+        wszAlgID := wszAlgID is String? StrPtr(wszAlgID) : wszAlgID
+        wszEncodedString := wszEncodedString is String? StrPtr(wszEncodedString) : wszEncodedString
+
         result := DllCall("msdrm.dll\DRMEncode", "ptr", wszAlgID, "uint", uDataLen, "ptr", pbDecodedData, "ptr", puEncodedStringLen, "ptr", wszEncodedString, "int")
         return result
     }
@@ -1635,6 +1700,9 @@ class RightsManagement {
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmdecode
      */
     static DRMDecode(wszAlgID, wszEncodedString, puDecodedDataLen, pbDecodedData) {
+        wszAlgID := wszAlgID is String? StrPtr(wszAlgID) : wszAlgID
+        wszEncodedString := wszEncodedString is String? StrPtr(wszEncodedString) : wszEncodedString
+
         result := DllCall("msdrm.dll\DRMDecode", "ptr", wszAlgID, "ptr", wszEncodedString, "ptr", puDecodedDataLen, "ptr", pbDecodedData, "int")
         return result
     }
@@ -1659,6 +1727,9 @@ class RightsManagement {
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmconstructcertificatechain
      */
     static DRMConstructCertificateChain(cCertificates, rgwszCertificates, pcChain, wszChain) {
+        rgwszCertificates := rgwszCertificates is String? StrPtr(rgwszCertificates) : rgwszCertificates
+        wszChain := wszChain is String? StrPtr(wszChain) : wszChain
+
         result := DllCall("msdrm.dll\DRMConstructCertificateChain", "uint", cCertificates, "ptr", rgwszCertificates, "ptr", pcChain, "ptr", wszChain, "int")
         return result
     }
@@ -1683,6 +1754,8 @@ class RightsManagement {
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmparseunboundlicense
      */
     static DRMParseUnboundLicense(wszCertificate, phQueryRoot) {
+        wszCertificate := wszCertificate is String? StrPtr(wszCertificate) : wszCertificate
+
         result := DllCall("msdrm.dll\DRMParseUnboundLicense", "ptr", wszCertificate, "ptr", phQueryRoot, "int")
         return result
     }
@@ -1717,6 +1790,8 @@ class RightsManagement {
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmgetunboundlicenseobjectcount
      */
     static DRMGetUnboundLicenseObjectCount(hQueryRoot, wszSubObjectType, pcSubObjects) {
+        wszSubObjectType := wszSubObjectType is String? StrPtr(wszSubObjectType) : wszSubObjectType
+
         result := DllCall("msdrm.dll\DRMGetUnboundLicenseObjectCount", "uint", hQueryRoot, "ptr", wszSubObjectType, "ptr", pcSubObjects, "int")
         return result
     }
@@ -1751,6 +1826,8 @@ class RightsManagement {
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmgetunboundlicenseobject
      */
     static DRMGetUnboundLicenseObject(hQueryRoot, wszSubObjectType, iIndex, phSubQuery) {
+        wszSubObjectType := wszSubObjectType is String? StrPtr(wszSubObjectType) : wszSubObjectType
+
         result := DllCall("msdrm.dll\DRMGetUnboundLicenseObject", "uint", hQueryRoot, "ptr", wszSubObjectType, "uint", iIndex, "ptr", phSubQuery, "int")
         return result
     }
@@ -1768,6 +1845,8 @@ class RightsManagement {
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmgetunboundlicenseattributecount
      */
     static DRMGetUnboundLicenseAttributeCount(hQueryRoot, wszAttributeType, pcAttributes) {
+        wszAttributeType := wszAttributeType is String? StrPtr(wszAttributeType) : wszAttributeType
+
         result := DllCall("msdrm.dll\DRMGetUnboundLicenseAttributeCount", "uint", hQueryRoot, "ptr", wszAttributeType, "ptr", pcAttributes, "int")
         return result
     }
@@ -1794,6 +1873,8 @@ class RightsManagement {
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmgetunboundlicenseattribute
      */
     static DRMGetUnboundLicenseAttribute(hQueryRoot, wszAttributeType, iWhich, peEncoding, pcBuffer, pbBuffer) {
+        wszAttributeType := wszAttributeType is String? StrPtr(wszAttributeType) : wszAttributeType
+
         result := DllCall("msdrm.dll\DRMGetUnboundLicenseAttribute", "uint", hQueryRoot, "ptr", wszAttributeType, "uint", iWhich, "ptr", peEncoding, "ptr", pcBuffer, "ptr", pbBuffer, "int")
         return result
     }
@@ -1810,6 +1891,8 @@ class RightsManagement {
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmgetcertificatechaincount
      */
     static DRMGetCertificateChainCount(wszChain, pcCertCount) {
+        wszChain := wszChain is String? StrPtr(wszChain) : wszChain
+
         result := DllCall("msdrm.dll\DRMGetCertificateChainCount", "ptr", wszChain, "ptr", pcCertCount, "int")
         return result
     }
@@ -1830,6 +1913,9 @@ class RightsManagement {
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmdeconstructcertificatechain
      */
     static DRMDeconstructCertificateChain(wszChain, iWhich, pcCert, wszCert) {
+        wszChain := wszChain is String? StrPtr(wszChain) : wszChain
+        wszCert := wszCert is String? StrPtr(wszCert) : wszCert
+
         result := DllCall("msdrm.dll\DRMDeconstructCertificateChain", "ptr", wszChain, "uint", iWhich, "ptr", pcCert, "ptr", wszCert, "int")
         return result
     }
@@ -1850,6 +1936,11 @@ class RightsManagement {
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmverify
      */
     static DRMVerify(wszData, pcAttestedData, wszAttestedData, peType, pcPrincipal, wszPrincipal, pcManifest, wszManifest) {
+        wszData := wszData is String? StrPtr(wszData) : wszData
+        wszAttestedData := wszAttestedData is String? StrPtr(wszAttestedData) : wszAttestedData
+        wszPrincipal := wszPrincipal is String? StrPtr(wszPrincipal) : wszPrincipal
+        wszManifest := wszManifest is String? StrPtr(wszManifest) : wszManifest
+
         result := DllCall("msdrm.dll\DRMVerify", "ptr", wszData, "ptr", pcAttestedData, "ptr", wszAttestedData, "ptr", peType, "ptr", pcPrincipal, "ptr", wszPrincipal, "ptr", pcManifest, "ptr", wszManifest, "int")
         return result
     }
@@ -1899,6 +1990,10 @@ class RightsManagement {
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmcreateuser
      */
     static DRMCreateUser(wszUserName, wszUserId, wszUserIdType, phUser) {
+        wszUserName := wszUserName is String? StrPtr(wszUserName) : wszUserName
+        wszUserId := wszUserId is String? StrPtr(wszUserId) : wszUserId
+        wszUserIdType := wszUserIdType is String? StrPtr(wszUserIdType) : wszUserIdType
+
         result := DllCall("msdrm.dll\DRMCreateUser", "ptr", wszUserName, "ptr", wszUserId, "ptr", wszUserIdType, "ptr", phUser, "int")
         return result
     }
@@ -1930,6 +2025,10 @@ class RightsManagement {
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmcreateright
      */
     static DRMCreateRight(wszRightName, pstFrom, pstUntil, cExtendedInfo, pwszExtendedInfoName, pwszExtendedInfoValue, phRight) {
+        wszRightName := wszRightName is String? StrPtr(wszRightName) : wszRightName
+        pwszExtendedInfoName := pwszExtendedInfoName is String? StrPtr(pwszExtendedInfoName) : pwszExtendedInfoName
+        pwszExtendedInfoValue := pwszExtendedInfoValue is String? StrPtr(pwszExtendedInfoValue) : pwszExtendedInfoValue
+
         result := DllCall("msdrm.dll\DRMCreateRight", "ptr", wszRightName, "ptr", pstFrom, "ptr", pstUntil, "uint", cExtendedInfo, "ptr", pwszExtendedInfoName, "ptr", pwszExtendedInfoValue, "ptr", phRight, "int")
         return result
     }
@@ -2060,6 +2159,10 @@ class RightsManagement {
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmcreateissuancelicense
      */
     static DRMCreateIssuanceLicense(pstTimeFrom, pstTimeUntil, wszReferralInfoName, wszReferralInfoURL, hOwner, wszIssuanceLicense, hBoundLicense, phIssuanceLicense) {
+        wszReferralInfoName := wszReferralInfoName is String? StrPtr(wszReferralInfoName) : wszReferralInfoName
+        wszReferralInfoURL := wszReferralInfoURL is String? StrPtr(wszReferralInfoURL) : wszReferralInfoURL
+        wszIssuanceLicense := wszIssuanceLicense is String? StrPtr(wszIssuanceLicense) : wszIssuanceLicense
+
         result := DllCall("msdrm.dll\DRMCreateIssuanceLicense", "ptr", pstTimeFrom, "ptr", pstTimeUntil, "ptr", wszReferralInfoName, "ptr", wszReferralInfoURL, "uint", hOwner, "ptr", wszIssuanceLicense, "uint", hBoundLicense, "ptr", phIssuanceLicense, "int")
         return result
     }
@@ -2136,6 +2239,13 @@ class RightsManagement {
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmsetmetadata
      */
     static DRMSetMetaData(hIssuanceLicense, wszContentId, wszContentIdType, wszSKUId, wszSKUIdType, wszContentType, wszContentName) {
+        wszContentId := wszContentId is String? StrPtr(wszContentId) : wszContentId
+        wszContentIdType := wszContentIdType is String? StrPtr(wszContentIdType) : wszContentIdType
+        wszSKUId := wszSKUId is String? StrPtr(wszSKUId) : wszSKUId
+        wszSKUIdType := wszSKUIdType is String? StrPtr(wszSKUIdType) : wszSKUIdType
+        wszContentType := wszContentType is String? StrPtr(wszContentType) : wszContentType
+        wszContentName := wszContentName is String? StrPtr(wszContentName) : wszContentName
+
         result := DllCall("msdrm.dll\DRMSetMetaData", "uint", hIssuanceLicense, "ptr", wszContentId, "ptr", wszContentIdType, "ptr", wszSKUId, "ptr", wszSKUIdType, "ptr", wszContentType, "ptr", wszContentName, "int")
         return result
     }
@@ -2200,6 +2310,12 @@ class RightsManagement {
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmsetusagepolicy
      */
     static DRMSetUsagePolicy(hIssuanceLicense, eUsagePolicyType, fDelete, fExclusion, wszName, wszMinVersion, wszMaxVersion, wszPublicKey, wszDigestAlgorithm, pbDigest, cbDigest) {
+        wszName := wszName is String? StrPtr(wszName) : wszName
+        wszMinVersion := wszMinVersion is String? StrPtr(wszMinVersion) : wszMinVersion
+        wszMaxVersion := wszMaxVersion is String? StrPtr(wszMaxVersion) : wszMaxVersion
+        wszPublicKey := wszPublicKey is String? StrPtr(wszPublicKey) : wszPublicKey
+        wszDigestAlgorithm := wszDigestAlgorithm is String? StrPtr(wszDigestAlgorithm) : wszDigestAlgorithm
+
         result := DllCall("msdrm.dll\DRMSetUsagePolicy", "uint", hIssuanceLicense, "int", eUsagePolicyType, "int", fDelete, "int", fExclusion, "ptr", wszName, "ptr", wszMinVersion, "ptr", wszMaxVersion, "ptr", wszPublicKey, "ptr", wszDigestAlgorithm, "ptr", pbDigest, "uint", cbDigest, "int")
         return result
     }
@@ -2226,6 +2342,12 @@ class RightsManagement {
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmsetrevocationpoint
      */
     static DRMSetRevocationPoint(hIssuanceLicense, fDelete, wszId, wszIdType, wszURL, pstFrequency, wszName, wszPublicKey) {
+        wszId := wszId is String? StrPtr(wszId) : wszId
+        wszIdType := wszIdType is String? StrPtr(wszIdType) : wszIdType
+        wszURL := wszURL is String? StrPtr(wszURL) : wszURL
+        wszName := wszName is String? StrPtr(wszName) : wszName
+        wszPublicKey := wszPublicKey is String? StrPtr(wszPublicKey) : wszPublicKey
+
         result := DllCall("msdrm.dll\DRMSetRevocationPoint", "uint", hIssuanceLicense, "int", fDelete, "ptr", wszId, "ptr", wszIdType, "ptr", wszURL, "ptr", pstFrequency, "ptr", wszName, "ptr", wszPublicKey, "int")
         return result
     }
@@ -2248,6 +2370,9 @@ class RightsManagement {
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmsetapplicationspecificdata
      */
     static DRMSetApplicationSpecificData(hIssuanceLicense, fDelete, wszName, wszValue) {
+        wszName := wszName is String? StrPtr(wszName) : wszName
+        wszValue := wszValue is String? StrPtr(wszValue) : wszValue
+
         result := DllCall("msdrm.dll\DRMSetApplicationSpecificData", "uint", hIssuanceLicense, "int", fDelete, "ptr", wszName, "ptr", wszValue, "int")
         return result
     }
@@ -2270,6 +2395,9 @@ class RightsManagement {
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmsetnameanddescription
      */
     static DRMSetNameAndDescription(hIssuanceLicense, fDelete, lcid, wszName, wszDescription) {
+        wszName := wszName is String? StrPtr(wszName) : wszName
+        wszDescription := wszDescription is String? StrPtr(wszDescription) : wszDescription
+
         result := DllCall("msdrm.dll\DRMSetNameAndDescription", "uint", hIssuanceLicense, "int", fDelete, "uint", lcid, "ptr", wszName, "ptr", wszDescription, "int")
         return result
     }
@@ -2309,6 +2437,8 @@ class RightsManagement {
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmgetissuancelicensetemplate
      */
     static DRMGetIssuanceLicenseTemplate(hIssuanceLicense, puIssuanceLicenseTemplateLength, wszIssuanceLicenseTemplate) {
+        wszIssuanceLicenseTemplate := wszIssuanceLicenseTemplate is String? StrPtr(wszIssuanceLicenseTemplate) : wszIssuanceLicenseTemplate
+
         result := DllCall("msdrm.dll\DRMGetIssuanceLicenseTemplate", "uint", hIssuanceLicense, "ptr", puIssuanceLicenseTemplateLength, "ptr", wszIssuanceLicenseTemplate, "int")
         return result
     }
@@ -2737,6 +2867,10 @@ class RightsManagement {
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmgetsignedissuancelicense
      */
     static DRMGetSignedIssuanceLicense(hEnv, hIssuanceLicense, uFlags, pbSymKey, cbSymKey, wszSymKeyType, wszClientLicensorCertificate, pfnCallback, wszURL, pvContext) {
+        wszSymKeyType := wszSymKeyType is String? StrPtr(wszSymKeyType) : wszSymKeyType
+        wszClientLicensorCertificate := wszClientLicensorCertificate is String? StrPtr(wszClientLicensorCertificate) : wszClientLicensorCertificate
+        wszURL := wszURL is String? StrPtr(wszURL) : wszURL
+
         result := DllCall("msdrm.dll\DRMGetSignedIssuanceLicense", "uint", hEnv, "uint", hIssuanceLicense, "uint", uFlags, "ptr", pbSymKey, "uint", cbSymKey, "ptr", wszSymKeyType, "ptr", wszClientLicensorCertificate, "ptr", pfnCallback, "ptr", wszURL, "ptr", pvContext, "int")
         return result
     }
@@ -2763,6 +2897,8 @@ class RightsManagement {
      * @since windows6.1
      */
     static DRMGetSignedIssuanceLicenseEx(hEnv, hIssuanceLicense, uFlags, pbSymKey, cbSymKey, wszSymKeyType, pvReserved, hEnablingPrincipal, hBoundLicenseCLC, pfnCallback, pvContext) {
+        wszSymKeyType := wszSymKeyType is String? StrPtr(wszSymKeyType) : wszSymKeyType
+
         result := DllCall("msdrm.dll\DRMGetSignedIssuanceLicenseEx", "uint", hEnv, "uint", hIssuanceLicense, "uint", uFlags, "ptr", pbSymKey, "uint", cbSymKey, "ptr", wszSymKeyType, "ptr", pvReserved, "uint", hEnablingPrincipal, "uint", hBoundLicenseCLC, "ptr", pfnCallback, "ptr", pvContext, "int")
         return result
     }
@@ -2829,6 +2965,10 @@ class RightsManagement {
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmgetuserinfo
      */
     static DRMGetUserInfo(hUser, puUserNameLength, wszUserName, puUserIdLength, wszUserId, puUserIdTypeLength, wszUserIdType) {
+        wszUserName := wszUserName is String? StrPtr(wszUserName) : wszUserName
+        wszUserId := wszUserId is String? StrPtr(wszUserId) : wszUserId
+        wszUserIdType := wszUserIdType is String? StrPtr(wszUserIdType) : wszUserIdType
+
         result := DllCall("msdrm.dll\DRMGetUserInfo", "uint", hUser, "ptr", puUserNameLength, "ptr", wszUserName, "ptr", puUserIdLength, "ptr", wszUserId, "ptr", puUserIdTypeLength, "ptr", wszUserIdType, "int")
         return result
     }
@@ -2850,6 +2990,8 @@ class RightsManagement {
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmgetrightinfo
      */
     static DRMGetRightInfo(hRight, puRightNameLength, wszRightName, pstFrom, pstUntil) {
+        wszRightName := wszRightName is String? StrPtr(wszRightName) : wszRightName
+
         result := DllCall("msdrm.dll\DRMGetRightInfo", "uint", hRight, "ptr", puRightNameLength, "ptr", wszRightName, "ptr", pstFrom, "ptr", pstUntil, "int")
         return result
     }
@@ -2880,6 +3022,9 @@ class RightsManagement {
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmgetrightextendedinfo
      */
     static DRMGetRightExtendedInfo(hRight, uIndex, puExtendedInfoNameLength, wszExtendedInfoName, puExtendedInfoValueLength, wszExtendedInfoValue) {
+        wszExtendedInfoName := wszExtendedInfoName is String? StrPtr(wszExtendedInfoName) : wszExtendedInfoName
+        wszExtendedInfoValue := wszExtendedInfoValue is String? StrPtr(wszExtendedInfoValue) : wszExtendedInfoValue
+
         result := DllCall("msdrm.dll\DRMGetRightExtendedInfo", "uint", hRight, "uint", uIndex, "ptr", puExtendedInfoNameLength, "ptr", wszExtendedInfoName, "ptr", puExtendedInfoValueLength, "ptr", wszExtendedInfoValue, "int")
         return result
     }
@@ -2966,6 +3111,13 @@ class RightsManagement {
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmgetmetadata
      */
     static DRMGetMetaData(hIssuanceLicense, puContentIdLength, wszContentId, puContentIdTypeLength, wszContentIdType, puSKUIdLength, wszSKUId, puSKUIdTypeLength, wszSKUIdType, puContentTypeLength, wszContentType, puContentNameLength, wszContentName) {
+        wszContentId := wszContentId is String? StrPtr(wszContentId) : wszContentId
+        wszContentIdType := wszContentIdType is String? StrPtr(wszContentIdType) : wszContentIdType
+        wszSKUId := wszSKUId is String? StrPtr(wszSKUId) : wszSKUId
+        wszSKUIdType := wszSKUIdType is String? StrPtr(wszSKUIdType) : wszSKUIdType
+        wszContentType := wszContentType is String? StrPtr(wszContentType) : wszContentType
+        wszContentName := wszContentName is String? StrPtr(wszContentName) : wszContentName
+
         result := DllCall("msdrm.dll\DRMGetMetaData", "uint", hIssuanceLicense, "ptr", puContentIdLength, "ptr", wszContentId, "ptr", puContentIdTypeLength, "ptr", wszContentIdType, "ptr", puSKUIdLength, "ptr", wszSKUId, "ptr", puSKUIdTypeLength, "ptr", wszSKUIdType, "ptr", puContentTypeLength, "ptr", wszContentType, "ptr", puContentNameLength, "ptr", wszContentName, "int")
         return result
     }
@@ -2996,6 +3148,9 @@ class RightsManagement {
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmgetapplicationspecificdata
      */
     static DRMGetApplicationSpecificData(hIssuanceLicense, uIndex, puNameLength, wszName, puValueLength, wszValue) {
+        wszName := wszName is String? StrPtr(wszName) : wszName
+        wszValue := wszValue is String? StrPtr(wszValue) : wszValue
+
         result := DllCall("msdrm.dll\DRMGetApplicationSpecificData", "uint", hIssuanceLicense, "uint", uIndex, "ptr", puNameLength, "ptr", wszName, "ptr", puValueLength, "ptr", wszValue, "int")
         return result
     }
@@ -3034,6 +3189,9 @@ class RightsManagement {
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmgetissuancelicenseinfo
      */
     static DRMGetIssuanceLicenseInfo(hIssuanceLicense, pstTimeFrom, pstTimeUntil, uFlags, puDistributionPointNameLength, wszDistributionPointName, puDistributionPointURLLength, wszDistributionPointURL, phOwner, pfOfficial) {
+        wszDistributionPointName := wszDistributionPointName is String? StrPtr(wszDistributionPointName) : wszDistributionPointName
+        wszDistributionPointURL := wszDistributionPointURL is String? StrPtr(wszDistributionPointURL) : wszDistributionPointURL
+
         result := DllCall("msdrm.dll\DRMGetIssuanceLicenseInfo", "uint", hIssuanceLicense, "ptr", pstTimeFrom, "ptr", pstTimeUntil, "uint", uFlags, "ptr", puDistributionPointNameLength, "ptr", wszDistributionPointName, "ptr", puDistributionPointURLLength, "ptr", wszDistributionPointURL, "ptr", phOwner, "ptr", pfOfficial, "int")
         return result
     }
@@ -3082,6 +3240,12 @@ class RightsManagement {
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmgetrevocationpoint
      */
     static DRMGetRevocationPoint(hIssuanceLicense, puIdLength, wszId, puIdTypeLength, wszIdType, puURLLength, wszRL, pstFrequency, puNameLength, wszName, puPublicKeyLength, wszPublicKey) {
+        wszId := wszId is String? StrPtr(wszId) : wszId
+        wszIdType := wszIdType is String? StrPtr(wszIdType) : wszIdType
+        wszRL := wszRL is String? StrPtr(wszRL) : wszRL
+        wszName := wszName is String? StrPtr(wszName) : wszName
+        wszPublicKey := wszPublicKey is String? StrPtr(wszPublicKey) : wszPublicKey
+
         result := DllCall("msdrm.dll\DRMGetRevocationPoint", "uint", hIssuanceLicense, "ptr", puIdLength, "ptr", wszId, "ptr", puIdTypeLength, "ptr", wszIdType, "ptr", puURLLength, "ptr", wszRL, "ptr", pstFrequency, "ptr", puNameLength, "ptr", wszName, "ptr", puPublicKeyLength, "ptr", wszPublicKey, "int")
         return result
     }
@@ -3144,6 +3308,12 @@ class RightsManagement {
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmgetusagepolicy
      */
     static DRMGetUsagePolicy(hIssuanceLicense, uIndex, peUsagePolicyType, pfExclusion, puNameLength, wszName, puMinVersionLength, wszMinVersion, puMaxVersionLength, wszMaxVersion, puPublicKeyLength, wszPublicKey, puDigestAlgorithmLength, wszDigestAlgorithm, pcbDigest, pbDigest) {
+        wszName := wszName is String? StrPtr(wszName) : wszName
+        wszMinVersion := wszMinVersion is String? StrPtr(wszMinVersion) : wszMinVersion
+        wszMaxVersion := wszMaxVersion is String? StrPtr(wszMaxVersion) : wszMaxVersion
+        wszPublicKey := wszPublicKey is String? StrPtr(wszPublicKey) : wszPublicKey
+        wszDigestAlgorithm := wszDigestAlgorithm is String? StrPtr(wszDigestAlgorithm) : wszDigestAlgorithm
+
         result := DllCall("msdrm.dll\DRMGetUsagePolicy", "uint", hIssuanceLicense, "uint", uIndex, "ptr", peUsagePolicyType, "ptr", pfExclusion, "ptr", puNameLength, "ptr", wszName, "ptr", puMinVersionLength, "ptr", wszMinVersion, "ptr", puMaxVersionLength, "ptr", wszMaxVersion, "ptr", puPublicKeyLength, "ptr", wszPublicKey, "ptr", puDigestAlgorithmLength, "ptr", wszDigestAlgorithm, "ptr", pcbDigest, "ptr", pbDigest, "int")
         return result
     }
@@ -3174,6 +3344,9 @@ class RightsManagement {
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmgetnameanddescription
      */
     static DRMGetNameAndDescription(hIssuanceLicense, uIndex, pulcid, puNameLength, wszName, puDescriptionLength, wszDescription) {
+        wszName := wszName is String? StrPtr(wszName) : wszName
+        wszDescription := wszDescription is String? StrPtr(wszDescription) : wszDescription
+
         result := DllCall("msdrm.dll\DRMGetNameAndDescription", "uint", hIssuanceLicense, "uint", uIndex, "ptr", pulcid, "ptr", puNameLength, "ptr", wszName, "ptr", puDescriptionLength, "ptr", wszDescription, "int")
         return result
     }
@@ -3191,6 +3364,8 @@ class RightsManagement {
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmgetownerlicense
      */
     static DRMGetOwnerLicense(hIssuanceLicense, puOwnerLicenseLength, wszOwnerLicense) {
+        wszOwnerLicense := wszOwnerLicense is String? StrPtr(wszOwnerLicense) : wszOwnerLicense
+
         result := DllCall("msdrm.dll\DRMGetOwnerLicense", "uint", hIssuanceLicense, "ptr", puOwnerLicenseLength, "ptr", wszOwnerLicense, "int")
         return result
     }
@@ -3280,6 +3455,9 @@ class RightsManagement {
      * @since windows6.0.6000
      */
     static DRMAcquireIssuanceLicenseTemplate(hClient, uFlags, pvReserved, cTemplates, pwszTemplateIds, wszUrl, pvContext) {
+        pwszTemplateIds := pwszTemplateIds is String? StrPtr(pwszTemplateIds) : pwszTemplateIds
+        wszUrl := wszUrl is String? StrPtr(wszUrl) : wszUrl
+
         result := DllCall("msdrm.dll\DRMAcquireIssuanceLicenseTemplate", "uint", hClient, "uint", uFlags, "ptr", pvReserved, "uint", cTemplates, "ptr", pwszTemplateIds, "ptr", wszUrl, "ptr", pvContext, "int")
         return result
     }

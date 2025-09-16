@@ -2147,6 +2147,9 @@ class AddressBook {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/scuncfromlocalpath
      */
     static ScUNCFromLocalPath(lpszLocal, lpszUNC, cchUNC) {
+        lpszLocal := lpszLocal is String? StrPtr(lpszLocal) : lpszLocal
+        lpszUNC := lpszUNC is String? StrPtr(lpszUNC) : lpszUNC
+
         result := DllCall("MAPI32.dll\ScUNCFromLocalPath", "ptr", lpszLocal, "ptr", lpszUNC, "uint", cchUNC, "int")
         return result
     }
@@ -2174,6 +2177,9 @@ class AddressBook {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/sclocalpathfromunc
      */
     static ScLocalPathFromUNC(lpszUNC, lpszLocal, cchLocal) {
+        lpszUNC := lpszUNC is String? StrPtr(lpszUNC) : lpszUNC
+        lpszLocal := lpszLocal is String? StrPtr(lpszLocal) : lpszLocal
+
         result := DllCall("MAPI32.dll\ScLocalPathFromUNC", "ptr", lpszUNC, "ptr", lpszLocal, "uint", cchLocal, "int")
         return result
     }

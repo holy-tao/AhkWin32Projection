@@ -1455,6 +1455,8 @@ class WinTrust {
      * @since windows5.1.2600
      */
     static WintrustAddDefaultForUsage(pszUsageOID, psDefUsage) {
+        pszUsageOID := pszUsageOID is String? StrPtr(pszUsageOID) : pszUsageOID
+
         A_LastError := 0
 
         result := DllCall("WINTRUST.dll\WintrustAddDefaultForUsage", "ptr", pszUsageOID, "ptr", psDefUsage, "int")
@@ -1478,6 +1480,8 @@ class WinTrust {
      * @since windows5.1.2600
      */
     static WintrustGetDefaultForUsage(dwAction, pszUsageOID, psUsage) {
+        pszUsageOID := pszUsageOID is String? StrPtr(pszUsageOID) : pszUsageOID
+
         A_LastError := 0
 
         result := DllCall("WINTRUST.dll\WintrustGetDefaultForUsage", "uint", dwAction, "ptr", pszUsageOID, "ptr", psUsage, "int")

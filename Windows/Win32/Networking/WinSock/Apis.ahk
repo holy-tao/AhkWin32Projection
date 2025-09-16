@@ -5777,6 +5777,8 @@ class WinSock {
      * @since windows5.1.2600
      */
     static WSCInstallProvider64_32(lpProviderId, lpszProviderDllPath, lpProtocolInfoList, dwNumberOfEntries, lpErrno) {
+        lpszProviderDllPath := lpszProviderDllPath is String? StrPtr(lpszProviderDllPath) : lpszProviderDllPath
+
         DllCall("WS2_32.dll\WSCInstallProvider64_32", "ptr", lpProviderId, "ptr", lpszProviderDllPath, "ptr", lpProtocolInfoList, "uint", dwNumberOfEntries, "ptr", lpErrno)
     }
 
@@ -5797,6 +5799,8 @@ class WinSock {
      * @since windows6.0.6000
      */
     static WSCGetProviderPath32(lpProviderId, lpszProviderDllPath, lpProviderDllPathLen, lpErrno) {
+        lpszProviderDllPath := lpszProviderDllPath is String? StrPtr(lpszProviderDllPath) : lpszProviderDllPath
+
         DllCall("WS2_32.dll\WSCGetProviderPath32", "ptr", lpProviderId, "ptr", lpszProviderDllPath, "ptr", lpProviderDllPathLen, "ptr", lpErrno)
     }
 
@@ -5831,6 +5835,8 @@ class WinSock {
      * @since windows6.0.6000
      */
     static WSCUpdateProvider32(lpProviderId, lpszProviderDllPath, lpProtocolInfoList, dwNumberOfEntries, lpErrno) {
+        lpszProviderDllPath := lpszProviderDllPath is String? StrPtr(lpszProviderDllPath) : lpszProviderDllPath
+
         DllCall("WS2_32.dll\WSCUpdateProvider32", "ptr", lpProviderId, "ptr", lpszProviderDllPath, "ptr", lpProtocolInfoList, "uint", dwNumberOfEntries, "ptr", lpErrno)
     }
 
@@ -6076,6 +6082,9 @@ class WinSock {
      * @since windows6.0.6000
      */
     static WSCInstallNameSpace32(lpszIdentifier, lpszPathName, dwNameSpace, dwVersion, lpProviderId) {
+        lpszIdentifier := lpszIdentifier is String? StrPtr(lpszIdentifier) : lpszIdentifier
+        lpszPathName := lpszPathName is String? StrPtr(lpszPathName) : lpszPathName
+
         DllCall("WS2_32.dll\WSCInstallNameSpace32", "ptr", lpszIdentifier, "ptr", lpszPathName, "uint", dwNameSpace, "uint", dwVersion, "ptr", lpProviderId)
     }
 
@@ -6105,6 +6114,9 @@ class WinSock {
      * @since windows6.0.6000
      */
     static WSCInstallNameSpaceEx32(lpszIdentifier, lpszPathName, dwNameSpace, dwVersion, lpProviderId, lpProviderSpecific) {
+        lpszIdentifier := lpszIdentifier is String? StrPtr(lpszIdentifier) : lpszIdentifier
+        lpszPathName := lpszPathName is String? StrPtr(lpszPathName) : lpszPathName
+
         DllCall("WS2_32.dll\WSCInstallNameSpaceEx32", "ptr", lpszIdentifier, "ptr", lpszPathName, "uint", dwNameSpace, "uint", dwVersion, "ptr", lpProviderId, "ptr", lpProviderSpecific)
     }
 
@@ -6237,6 +6249,10 @@ class WinSock {
      * @since windows6.0.6000
      */
     static WSCInstallProviderAndChains64_32(lpProviderId, lpszProviderDllPath, lpszProviderDllPath32, lpszLspName, dwServiceFlags, lpProtocolInfoList, dwNumberOfEntries, lpdwCatalogEntryId, lpErrno) {
+        lpszProviderDllPath := lpszProviderDllPath is String? StrPtr(lpszProviderDllPath) : lpszProviderDllPath
+        lpszProviderDllPath32 := lpszProviderDllPath32 is String? StrPtr(lpszProviderDllPath32) : lpszProviderDllPath32
+        lpszLspName := lpszLspName is String? StrPtr(lpszLspName) : lpszLspName
+
         DllCall("WS2_32.dll\WSCInstallProviderAndChains64_32", "ptr", lpProviderId, "ptr", lpszProviderDllPath, "ptr", lpszProviderDllPath32, "ptr", lpszLspName, "uint", dwServiceFlags, "ptr", lpProtocolInfoList, "uint", dwNumberOfEntries, "ptr", lpdwCatalogEntryId, "ptr", lpErrno)
     }
 
@@ -7432,6 +7448,8 @@ class WinSock {
      * @since windows8.1
      */
     static getsockopt(s, level, optname, optval, optlen) {
+        optval := optval is String? StrPtr(optval) : optval
+
         A_LastError := 0
 
         DllCall("WS2_32.dll\getsockopt", "ptr", s, "int", level, "int", optname, "ptr", optval, "ptr", optlen)
@@ -7561,6 +7579,8 @@ class WinSock {
      * @since windows8.1
      */
     static inet_addr(cp) {
+        cp := cp is String? StrPtr(cp) : cp
+
         A_LastError := 0
 
         result := DllCall("WS2_32.dll\inet_addr", "ptr", cp, "uint")
@@ -7800,6 +7820,8 @@ class WinSock {
      * @since windows8.1
      */
     static recv(s, buf, len, flags) {
+        buf := buf is String? StrPtr(buf) : buf
+
         A_LastError := 0
 
         DllCall("WS2_32.dll\recv", "ptr", s, "ptr", buf, "int", len, "int", flags)
@@ -7880,6 +7902,8 @@ class WinSock {
      * @since windows8.1
      */
     static recvfrom(s, buf, len, flags, from, fromlen) {
+        buf := buf is String? StrPtr(buf) : buf
+
         A_LastError := 0
 
         DllCall("WS2_32.dll\recvfrom", "ptr", s, "ptr", buf, "int", len, "int", flags, "ptr", from, "ptr", fromlen)
@@ -8047,6 +8071,8 @@ class WinSock {
      * @since windows8.1
      */
     static send(s, buf, len, flags) {
+        buf := buf is String? StrPtr(buf) : buf
+
         A_LastError := 0
 
         DllCall("WS2_32.dll\send", "ptr", s, "ptr", buf, "int", len, "int", flags)
@@ -8105,6 +8131,8 @@ class WinSock {
      * @since windows8.1
      */
     static sendto(s, buf, len, flags, to, tolen) {
+        buf := buf is String? StrPtr(buf) : buf
+
         A_LastError := 0
 
         DllCall("WS2_32.dll\sendto", "ptr", s, "ptr", buf, "int", len, "int", flags, "ptr", to, "int", tolen)
@@ -8350,6 +8378,8 @@ class WinSock {
      * @since windows8.1
      */
     static setsockopt(s, level, optname, optval, optlen) {
+        optval := optval is String? StrPtr(optval) : optval
+
         A_LastError := 0
 
         DllCall("WS2_32.dll\setsockopt", "ptr", s, "int", level, "int", optname, "ptr", optval, "int", optlen)
@@ -9061,6 +9091,8 @@ class WinSock {
      * @since windows8.1
      */
     static gethostbyaddr(addr, len, type) {
+        addr := addr is String? StrPtr(addr) : addr
+
         A_LastError := 0
 
         result := DllCall("WS2_32.dll\gethostbyaddr", "ptr", addr, "int", len, "int", type, "ptr")
@@ -9113,6 +9145,8 @@ class WinSock {
      * @since windows8.1
      */
     static gethostbyname(name) {
+        name := name is String? StrPtr(name) : name
+
         A_LastError := 0
 
         result := DllCall("WS2_32.dll\gethostbyname", "ptr", name, "ptr")
@@ -9160,6 +9194,8 @@ class WinSock {
      * @since windows8.1
      */
     static gethostname(name, namelen) {
+        name := name is String? StrPtr(name) : name
+
         A_LastError := 0
 
         DllCall("WS2_32.dll\gethostname", "ptr", name, "int", namelen)
@@ -9205,6 +9241,8 @@ class WinSock {
      * @since windows8.1
      */
     static GetHostNameW(name, namelen) {
+        name := name is String? StrPtr(name) : name
+
         A_LastError := 0
 
         DllCall("WS2_32.dll\GetHostNameW", "ptr", name, "int", namelen)
@@ -9348,6 +9386,8 @@ class WinSock {
      * @since windows8.1
      */
     static getservbyport(port, proto) {
+        proto := proto is String? StrPtr(proto) : proto
+
         A_LastError := 0
 
         result := DllCall("WS2_32.dll\getservbyport", "int", port, "ptr", proto, "ptr")
@@ -9481,6 +9521,9 @@ class WinSock {
      * @since windows8.1
      */
     static getservbyname(name, proto) {
+        name := name is String? StrPtr(name) : name
+        proto := proto is String? StrPtr(proto) : proto
+
         A_LastError := 0
 
         result := DllCall("WS2_32.dll\getservbyname", "ptr", name, "ptr", proto, "ptr")
@@ -9747,6 +9790,8 @@ class WinSock {
      * @since windows8.1
      */
     static getprotobyname(name) {
+        name := name is String? StrPtr(name) : name
+
         A_LastError := 0
 
         result := DllCall("WS2_32.dll\getprotobyname", "ptr", name, "ptr")
@@ -10299,6 +10344,10 @@ class WinSock {
      * @since windows5.0
      */
     static WSAAsyncGetServByName(hWnd, wMsg, name, proto, buf, buflen) {
+        name := name is String? StrPtr(name) : name
+        proto := proto is String? StrPtr(proto) : proto
+        buf := buf is String? StrPtr(buf) : buf
+
         A_LastError := 0
 
         result := DllCall("WS2_32.dll\WSAAsyncGetServByName", "ptr", hWnd, "uint", wMsg, "ptr", name, "ptr", proto, "ptr", buf, "int", buflen, "ptr")
@@ -10473,6 +10522,9 @@ class WinSock {
      * @since windows5.0
      */
     static WSAAsyncGetServByPort(hWnd, wMsg, port, proto, buf, buflen) {
+        proto := proto is String? StrPtr(proto) : proto
+        buf := buf is String? StrPtr(buf) : buf
+
         A_LastError := 0
 
         result := DllCall("WS2_32.dll\WSAAsyncGetServByPort", "ptr", hWnd, "uint", wMsg, "int", port, "ptr", proto, "ptr", buf, "int", buflen, "ptr")
@@ -10643,6 +10695,9 @@ class WinSock {
      * @since windows5.0
      */
     static WSAAsyncGetProtoByName(hWnd, wMsg, name, buf, buflen) {
+        name := name is String? StrPtr(name) : name
+        buf := buf is String? StrPtr(buf) : buf
+
         A_LastError := 0
 
         result := DllCall("WS2_32.dll\WSAAsyncGetProtoByName", "ptr", hWnd, "uint", wMsg, "ptr", name, "ptr", buf, "int", buflen, "ptr")
@@ -10813,6 +10868,8 @@ class WinSock {
      * @since windows5.0
      */
     static WSAAsyncGetProtoByNumber(hWnd, wMsg, number, buf, buflen) {
+        buf := buf is String? StrPtr(buf) : buf
+
         A_LastError := 0
 
         result := DllCall("WS2_32.dll\WSAAsyncGetProtoByNumber", "ptr", hWnd, "uint", wMsg, "int", number, "ptr", buf, "int", buflen, "ptr")
@@ -10859,6 +10916,9 @@ class WinSock {
      * @since windows5.0
      */
     static WSAAsyncGetHostByName(hWnd, wMsg, name, buf, buflen) {
+        name := name is String? StrPtr(name) : name
+        buf := buf is String? StrPtr(buf) : buf
+
         A_LastError := 0
 
         result := DllCall("WS2_32.dll\WSAAsyncGetHostByName", "ptr", hWnd, "uint", wMsg, "ptr", name, "ptr", buf, "int", buflen, "ptr")
@@ -10906,6 +10966,9 @@ class WinSock {
      * @since windows5.0
      */
     static WSAAsyncGetHostByAddr(hWnd, wMsg, addr, len, type, buf, buflen) {
+        addr := addr is String? StrPtr(addr) : addr
+        buf := buf is String? StrPtr(buf) : buf
+
         A_LastError := 0
 
         result := DllCall("WS2_32.dll\WSAAsyncGetHostByAddr", "ptr", hWnd, "uint", wMsg, "ptr", addr, "int", len, "int", type, "ptr", buf, "int", buflen, "ptr")
@@ -11646,6 +11709,9 @@ class WinSock {
     static WSAConnectByNameW(s, nodename, servicename, LocalAddressLength, LocalAddress, RemoteAddressLength, RemoteAddress, timeout) {
         static Reserved := 0 ;Reserved parameters must always be NULL
 
+        nodename := nodename is String? StrPtr(nodename) : nodename
+        servicename := servicename is String? StrPtr(servicename) : servicename
+
         A_LastError := 0
 
         result := DllCall("WS2_32.dll\WSAConnectByNameW", "ptr", s, "ptr", nodename, "ptr", servicename, "ptr", LocalAddressLength, "ptr", LocalAddress, "ptr", RemoteAddressLength, "ptr", RemoteAddress, "ptr", timeout, "ptr", Reserved, "int")
@@ -11787,6 +11853,9 @@ class WinSock {
      */
     static WSAConnectByNameA(s, nodename, servicename, LocalAddressLength, LocalAddress, RemoteAddressLength, RemoteAddress, timeout) {
         static Reserved := 0 ;Reserved parameters must always be NULL
+
+        nodename := nodename is String? StrPtr(nodename) : nodename
+        servicename := servicename is String? StrPtr(servicename) : servicename
 
         A_LastError := 0
 
@@ -16357,6 +16426,8 @@ class WinSock {
      * @since windows8.1
      */
     static WSAAddressToStringA(lpsaAddress, dwAddressLength, lpProtocolInfo, lpszAddressString, lpdwAddressStringLength) {
+        lpszAddressString := lpszAddressString is String? StrPtr(lpszAddressString) : lpszAddressString
+
         A_LastError := 0
 
         DllCall("WS2_32.dll\WSAAddressToStringA", "ptr", lpsaAddress, "uint", dwAddressLength, "ptr", lpProtocolInfo, "ptr", lpszAddressString, "ptr", lpdwAddressStringLength)
@@ -16404,6 +16475,8 @@ class WinSock {
      * @since windows8.1
      */
     static WSAAddressToStringW(lpsaAddress, dwAddressLength, lpProtocolInfo, lpszAddressString, lpdwAddressStringLength) {
+        lpszAddressString := lpszAddressString is String? StrPtr(lpszAddressString) : lpszAddressString
+
         A_LastError := 0
 
         DllCall("WS2_32.dll\WSAAddressToStringW", "ptr", lpsaAddress, "uint", dwAddressLength, "ptr", lpProtocolInfo, "ptr", lpszAddressString, "ptr", lpdwAddressStringLength)
@@ -16450,6 +16523,8 @@ class WinSock {
      * @since windows8.1
      */
     static WSAStringToAddressA(AddressString, AddressFamily, lpProtocolInfo, lpAddress, lpAddressLength) {
+        AddressString := AddressString is String? StrPtr(AddressString) : AddressString
+
         A_LastError := 0
 
         DllCall("WS2_32.dll\WSAStringToAddressA", "ptr", AddressString, "int", AddressFamily, "ptr", lpProtocolInfo, "ptr", lpAddress, "ptr", lpAddressLength)
@@ -16495,6 +16570,8 @@ class WinSock {
      * @since windows8.1
      */
     static WSAStringToAddressW(AddressString, AddressFamily, lpProtocolInfo, lpAddress, lpAddressLength) {
+        AddressString := AddressString is String? StrPtr(AddressString) : AddressString
+
         A_LastError := 0
 
         DllCall("WS2_32.dll\WSAStringToAddressW", "ptr", AddressString, "int", AddressFamily, "ptr", lpProtocolInfo, "ptr", lpAddress, "ptr", lpAddressLength)
@@ -18242,6 +18319,8 @@ class WinSock {
      * @since windows5.0
      */
     static WSAGetServiceClassNameByClassIdA(lpServiceClassId, lpszServiceClassName, lpdwBufferLength) {
+        lpszServiceClassName := lpszServiceClassName is String? StrPtr(lpszServiceClassName) : lpszServiceClassName
+
         A_LastError := 0
 
         DllCall("WS2_32.dll\WSAGetServiceClassNameByClassIdA", "ptr", lpServiceClassId, "ptr", lpszServiceClassName, "ptr", lpdwBufferLength)
@@ -18263,6 +18342,8 @@ class WinSock {
      * @since windows5.0
      */
     static WSAGetServiceClassNameByClassIdW(lpServiceClassId, lpszServiceClassName, lpdwBufferLength) {
+        lpszServiceClassName := lpszServiceClassName is String? StrPtr(lpszServiceClassName) : lpszServiceClassName
+
         A_LastError := 0
 
         DllCall("WS2_32.dll\WSAGetServiceClassNameByClassIdW", "ptr", lpServiceClassId, "ptr", lpszServiceClassName, "ptr", lpdwBufferLength)
@@ -19020,6 +19101,8 @@ class WinSock {
      * @since windows6.0.6000
      */
     static RtlIpv4AddressToStringA(Addr, S) {
+        S := S is String? StrPtr(S) : S
+
         result := DllCall("ntdll.dll\RtlIpv4AddressToStringA", "ptr", Addr, "ptr", S, "ptr")
         return result
     }
@@ -19080,6 +19163,8 @@ class WinSock {
      * @see https://learn.microsoft.com/windows/win32/api/ip2string/nf-ip2string-rtlipv4addresstostringexa
      */
     static RtlIpv4AddressToStringExA(Address, Port, AddressString, AddressStringLength) {
+        AddressString := AddressString is String? StrPtr(AddressString) : AddressString
+
         result := DllCall("ntdll.dll\RtlIpv4AddressToStringExA", "ptr", Address, "ushort", Port, "ptr", AddressString, "ptr", AddressStringLength, "int")
         return result
     }
@@ -19117,6 +19202,8 @@ class WinSock {
      * @since windows6.0.6000
      */
     static RtlIpv4AddressToStringW(Addr, S) {
+        S := S is String? StrPtr(S) : S
+
         result := DllCall("ntdll.dll\RtlIpv4AddressToStringW", "ptr", Addr, "ptr", S, "ptr")
         return result
     }
@@ -19184,6 +19271,8 @@ class WinSock {
      * @since windows6.0.6000
      */
     static RtlIpv4AddressToStringExW(Address, Port, AddressString, AddressStringLength) {
+        AddressString := AddressString is String? StrPtr(AddressString) : AddressString
+
         result := DllCall("ntdll.dll\RtlIpv4AddressToStringExW", "ptr", Address, "ushort", Port, "ptr", AddressString, "ptr", AddressStringLength, "int")
         return result
     }
@@ -19279,6 +19368,9 @@ class WinSock {
      * @since windows6.0.6000
      */
     static RtlIpv4StringToAddressA(S, Strict, Terminator, Addr) {
+        S := S is String? StrPtr(S) : S
+        Terminator := Terminator is String? StrPtr(Terminator) : Terminator
+
         result := DllCall("ntdll.dll\RtlIpv4StringToAddressA", "ptr", S, "char", Strict, "ptr", Terminator, "ptr", Addr, "int")
         return result
     }
@@ -19332,6 +19424,8 @@ class WinSock {
      * @see https://learn.microsoft.com/windows/win32/api/ip2string/nf-ip2string-rtlipv4stringtoaddressexa
      */
     static RtlIpv4StringToAddressExA(AddressString, Strict, Address, Port) {
+        AddressString := AddressString is String? StrPtr(AddressString) : AddressString
+
         result := DllCall("ntdll.dll\RtlIpv4StringToAddressExA", "ptr", AddressString, "char", Strict, "ptr", Address, "ptr", Port, "int")
         return result
     }
@@ -19427,6 +19521,9 @@ class WinSock {
      * @since windows6.0.6000
      */
     static RtlIpv4StringToAddressW(S, Strict, Terminator, Addr) {
+        S := S is String? StrPtr(S) : S
+        Terminator := Terminator is String? StrPtr(Terminator) : Terminator
+
         result := DllCall("ntdll.dll\RtlIpv4StringToAddressW", "ptr", S, "char", Strict, "ptr", Terminator, "ptr", Addr, "int")
         return result
     }
@@ -19513,6 +19610,8 @@ class WinSock {
      * @since windows6.0.6000
      */
     static RtlIpv4StringToAddressExW(AddressString, Strict, Address, Port) {
+        AddressString := AddressString is String? StrPtr(AddressString) : AddressString
+
         result := DllCall("ntdll.dll\RtlIpv4StringToAddressExW", "ptr", AddressString, "char", Strict, "ptr", Address, "ptr", Port, "int")
         return result
     }
@@ -19556,6 +19655,8 @@ class WinSock {
      * @since windows6.0.6000
      */
     static RtlIpv6AddressToStringA(Addr, S) {
+        S := S is String? StrPtr(S) : S
+
         result := DllCall("ntdll.dll\RtlIpv6AddressToStringA", "ptr", Addr, "ptr", S, "ptr")
         return result
     }
@@ -19620,6 +19721,8 @@ class WinSock {
      * @see https://learn.microsoft.com/windows/win32/api/ip2string/nf-ip2string-rtlipv6addresstostringexa
      */
     static RtlIpv6AddressToStringExA(Address, ScopeId, Port, AddressString, AddressStringLength) {
+        AddressString := AddressString is String? StrPtr(AddressString) : AddressString
+
         result := DllCall("ntdll.dll\RtlIpv6AddressToStringExA", "ptr", Address, "uint", ScopeId, "ushort", Port, "ptr", AddressString, "ptr", AddressStringLength, "int")
         return result
     }
@@ -19663,6 +19766,8 @@ class WinSock {
      * @since windows6.0.6000
      */
     static RtlIpv6AddressToStringW(Addr, S) {
+        S := S is String? StrPtr(S) : S
+
         result := DllCall("ntdll.dll\RtlIpv6AddressToStringW", "ptr", Addr, "ptr", S, "ptr")
         return result
     }
@@ -19739,6 +19844,8 @@ class WinSock {
      * @since windows6.0.6000
      */
     static RtlIpv6AddressToStringExW(Address, ScopeId, Port, AddressString, AddressStringLength) {
+        AddressString := AddressString is String? StrPtr(AddressString) : AddressString
+
         result := DllCall("ntdll.dll\RtlIpv6AddressToStringExW", "ptr", Address, "uint", ScopeId, "ushort", Port, "ptr", AddressString, "ptr", AddressStringLength, "int")
         return result
     }
@@ -19824,6 +19931,9 @@ class WinSock {
      * @since windows6.0.6000
      */
     static RtlIpv6StringToAddressA(S, Terminator, Addr) {
+        S := S is String? StrPtr(S) : S
+        Terminator := Terminator is String? StrPtr(Terminator) : Terminator
+
         result := DllCall("ntdll.dll\RtlIpv6StringToAddressA", "ptr", S, "ptr", Terminator, "ptr", Addr, "int")
         return result
     }
@@ -19883,6 +19993,8 @@ class WinSock {
      * @see https://learn.microsoft.com/windows/win32/api/ip2string/nf-ip2string-rtlipv6stringtoaddressexa
      */
     static RtlIpv6StringToAddressExA(AddressString, Address, ScopeId, Port) {
+        AddressString := AddressString is String? StrPtr(AddressString) : AddressString
+
         result := DllCall("ntdll.dll\RtlIpv6StringToAddressExA", "ptr", AddressString, "ptr", Address, "ptr", ScopeId, "ptr", Port, "int")
         return result
     }
@@ -19968,6 +20080,9 @@ class WinSock {
      * @since windows6.0.6000
      */
     static RtlIpv6StringToAddressW(S, Terminator, Addr) {
+        S := S is String? StrPtr(S) : S
+        Terminator := Terminator is String? StrPtr(Terminator) : Terminator
+
         result := DllCall("ntdll.dll\RtlIpv6StringToAddressW", "ptr", S, "ptr", Terminator, "ptr", Addr, "int")
         return result
     }
@@ -20040,6 +20155,8 @@ class WinSock {
      * @since windows6.0.6000
      */
     static RtlIpv6StringToAddressExW(AddressString, Address, ScopeId, Port) {
+        AddressString := AddressString is String? StrPtr(AddressString) : AddressString
+
         result := DllCall("ntdll.dll\RtlIpv6StringToAddressExW", "ptr", AddressString, "ptr", Address, "ptr", ScopeId, "ptr", Port, "int")
         return result
     }
@@ -20080,6 +20197,8 @@ class WinSock {
      * @since windows6.1
      */
     static RtlEthernetAddressToStringA(Addr, S) {
+        S := S is String? StrPtr(S) : S
+
         result := DllCall("ntdll.dll\RtlEthernetAddressToStringA", "ptr", Addr, "ptr", S, "ptr")
         return result
     }
@@ -20120,6 +20239,8 @@ class WinSock {
      * @since windows6.1
      */
     static RtlEthernetAddressToStringW(Addr, S) {
+        S := S is String? StrPtr(S) : S
+
         result := DllCall("ntdll.dll\RtlEthernetAddressToStringW", "ptr", Addr, "ptr", S, "ptr")
         return result
     }
@@ -20202,6 +20323,9 @@ class WinSock {
      * @since windows6.1
      */
     static RtlEthernetStringToAddressA(S, Terminator, Addr) {
+        S := S is String? StrPtr(S) : S
+        Terminator := Terminator is String? StrPtr(Terminator) : Terminator
+
         result := DllCall("ntdll.dll\RtlEthernetStringToAddressA", "ptr", S, "ptr", Terminator, "ptr", Addr, "int")
         return result
     }
@@ -20284,6 +20408,9 @@ class WinSock {
      * @since windows6.1
      */
     static RtlEthernetStringToAddressW(S, Terminator, Addr) {
+        S := S is String? StrPtr(S) : S
+        Terminator := Terminator is String? StrPtr(Terminator) : Terminator
+
         result := DllCall("ntdll.dll\RtlEthernetStringToAddressW", "ptr", S, "ptr", Terminator, "ptr", Addr, "int")
         return result
     }
@@ -20340,6 +20467,8 @@ class WinSock {
      * @since windows5.0
      */
     static WSARecvEx(s, buf, len, flags) {
+        buf := buf is String? StrPtr(buf) : buf
+
         A_LastError := 0
 
         DllCall("MSWSOCK.dll\WSARecvEx", "ptr", s, "ptr", buf, "int", len, "ptr", flags)
@@ -20999,6 +21128,8 @@ class WinSock {
      * @since windows5.0
      */
     static WSCInstallProvider(lpProviderId, lpszProviderDllPath, lpProtocolInfoList, dwNumberOfEntries, lpErrno) {
+        lpszProviderDllPath := lpszProviderDllPath is String? StrPtr(lpszProviderDllPath) : lpszProviderDllPath
+
         DllCall("WS2_32.dll\WSCInstallProvider", "ptr", lpProviderId, "ptr", lpszProviderDllPath, "ptr", lpProtocolInfoList, "uint", dwNumberOfEntries, "ptr", lpErrno)
     }
 
@@ -21017,6 +21148,8 @@ class WinSock {
      * @since windows5.0
      */
     static WSCGetProviderPath(lpProviderId, lpszProviderDllPath, lpProviderDllPathLen, lpErrno) {
+        lpszProviderDllPath := lpszProviderDllPath is String? StrPtr(lpszProviderDllPath) : lpszProviderDllPath
+
         DllCall("WS2_32.dll\WSCGetProviderPath", "ptr", lpProviderId, "ptr", lpszProviderDllPath, "ptr", lpProviderDllPathLen, "ptr", lpErrno)
     }
 
@@ -21048,6 +21181,8 @@ class WinSock {
      * @since windows5.1.2600
      */
     static WSCUpdateProvider(lpProviderId, lpszProviderDllPath, lpProtocolInfoList, dwNumberOfEntries, lpErrno) {
+        lpszProviderDllPath := lpszProviderDllPath is String? StrPtr(lpszProviderDllPath) : lpszProviderDllPath
+
         DllCall("WS2_32.dll\WSCUpdateProvider", "ptr", lpProviderId, "ptr", lpszProviderDllPath, "ptr", lpProtocolInfoList, "uint", dwNumberOfEntries, "ptr", lpErrno)
     }
 
@@ -21332,6 +21467,9 @@ class WinSock {
      * @since windows6.0.6000
      */
     static WSCSetApplicationCategory(Path, PathLength, Extra, ExtraLength, PermittedLspCategories, pPrevPermLspCat, lpErrno) {
+        Path := Path is String? StrPtr(Path) : Path
+        Extra := Extra is String? StrPtr(Extra) : Extra
+
         DllCall("WS2_32.dll\WSCSetApplicationCategory", "ptr", Path, "uint", PathLength, "ptr", Extra, "uint", ExtraLength, "uint", PermittedLspCategories, "ptr", pPrevPermLspCat, "ptr", lpErrno)
     }
 
@@ -21423,6 +21561,9 @@ class WinSock {
      * @since windows6.0.6000
      */
     static WSCGetApplicationCategory(Path, PathLength, Extra, ExtraLength, pPermittedLspCategories, lpErrno) {
+        Path := Path is String? StrPtr(Path) : Path
+        Extra := Extra is String? StrPtr(Extra) : Extra
+
         DllCall("WS2_32.dll\WSCGetApplicationCategory", "ptr", Path, "uint", PathLength, "ptr", Extra, "uint", ExtraLength, "ptr", pPermittedLspCategories, "ptr", lpErrno)
     }
 
@@ -21502,6 +21643,9 @@ class WinSock {
      * @since windows5.0
      */
     static WSCInstallNameSpace(lpszIdentifier, lpszPathName, dwNameSpace, dwVersion, lpProviderId) {
+        lpszIdentifier := lpszIdentifier is String? StrPtr(lpszIdentifier) : lpszIdentifier
+        lpszPathName := lpszPathName is String? StrPtr(lpszPathName) : lpszPathName
+
         DllCall("WS2_32.dll\WSCInstallNameSpace", "ptr", lpszIdentifier, "ptr", lpszPathName, "uint", dwNameSpace, "uint", dwVersion, "ptr", lpProviderId)
     }
 
@@ -21554,6 +21698,9 @@ class WinSock {
      * @since windows6.0.6000
      */
     static WSCInstallNameSpaceEx(lpszIdentifier, lpszPathName, dwNameSpace, dwVersion, lpProviderId, lpProviderSpecific) {
+        lpszIdentifier := lpszIdentifier is String? StrPtr(lpszIdentifier) : lpszIdentifier
+        lpszPathName := lpszPathName is String? StrPtr(lpszPathName) : lpszPathName
+
         DllCall("WS2_32.dll\WSCInstallNameSpaceEx", "ptr", lpszIdentifier, "ptr", lpszPathName, "uint", dwNameSpace, "uint", dwVersion, "ptr", lpProviderId, "ptr", lpProviderSpecific)
     }
 
@@ -22065,6 +22212,9 @@ class WinSock {
      * @since windows5.0
      */
     static GetAddressByNameA(dwNameSpace, lpServiceType, lpServiceName, lpiProtocols, dwResolution, lpServiceAsyncInfo, lpCsaddrBuffer, lpdwBufferLength, lpAliasBuffer, lpdwAliasBufferLength) {
+        lpServiceName := lpServiceName is String? StrPtr(lpServiceName) : lpServiceName
+        lpAliasBuffer := lpAliasBuffer is String? StrPtr(lpAliasBuffer) : lpAliasBuffer
+
         A_LastError := 0
 
         DllCall("MSWSOCK.dll\GetAddressByNameA", "uint", dwNameSpace, "ptr", lpServiceType, "ptr", lpServiceName, "ptr", lpiProtocols, "uint", dwResolution, "ptr", lpServiceAsyncInfo, "ptr", lpCsaddrBuffer, "ptr", lpdwBufferLength, "ptr", lpAliasBuffer, "ptr", lpdwAliasBufferLength)
@@ -22259,6 +22409,9 @@ class WinSock {
      * @since windows5.0
      */
     static GetAddressByNameW(dwNameSpace, lpServiceType, lpServiceName, lpiProtocols, dwResolution, lpServiceAsyncInfo, lpCsaddrBuffer, lpdwBufferLength, lpAliasBuffer, lpdwAliasBufferLength) {
+        lpServiceName := lpServiceName is String? StrPtr(lpServiceName) : lpServiceName
+        lpAliasBuffer := lpAliasBuffer is String? StrPtr(lpAliasBuffer) : lpAliasBuffer
+
         A_LastError := 0
 
         DllCall("MSWSOCK.dll\GetAddressByNameW", "uint", dwNameSpace, "ptr", lpServiceType, "ptr", lpServiceName, "ptr", lpiProtocols, "uint", dwResolution, "ptr", lpServiceAsyncInfo, "ptr", lpCsaddrBuffer, "ptr", lpdwBufferLength, "ptr", lpAliasBuffer, "ptr", lpdwAliasBufferLength)
@@ -22281,6 +22434,8 @@ class WinSock {
      * @since windows5.0
      */
     static GetTypeByNameA(lpServiceName, lpServiceType) {
+        lpServiceName := lpServiceName is String? StrPtr(lpServiceName) : lpServiceName
+
         A_LastError := 0
 
         DllCall("MSWSOCK.dll\GetTypeByNameA", "ptr", lpServiceName, "ptr", lpServiceType)
@@ -22303,6 +22458,8 @@ class WinSock {
      * @since windows5.0
      */
     static GetTypeByNameW(lpServiceName, lpServiceType) {
+        lpServiceName := lpServiceName is String? StrPtr(lpServiceName) : lpServiceName
+
         A_LastError := 0
 
         DllCall("MSWSOCK.dll\GetTypeByNameW", "ptr", lpServiceName, "ptr", lpServiceType)
@@ -22326,6 +22483,8 @@ class WinSock {
      * @since windows5.0
      */
     static GetNameByTypeA(lpServiceType, lpServiceName, dwNameLength) {
+        lpServiceName := lpServiceName is String? StrPtr(lpServiceName) : lpServiceName
+
         A_LastError := 0
 
         DllCall("MSWSOCK.dll\GetNameByTypeA", "ptr", lpServiceType, "ptr", lpServiceName, "uint", dwNameLength)
@@ -22349,6 +22508,8 @@ class WinSock {
      * @since windows5.0
      */
     static GetNameByTypeW(lpServiceType, lpServiceName, dwNameLength) {
+        lpServiceName := lpServiceName is String? StrPtr(lpServiceName) : lpServiceName
+
         A_LastError := 0
 
         DllCall("MSWSOCK.dll\GetNameByTypeW", "ptr", lpServiceType, "ptr", lpServiceName, "uint", dwNameLength)
@@ -22895,6 +23056,8 @@ class WinSock {
      * @since windows5.0
      */
     static GetServiceA(dwNameSpace, lpGuid, lpServiceName, dwProperties, lpBuffer, lpdwBufferSize, lpServiceAsyncInfo) {
+        lpServiceName := lpServiceName is String? StrPtr(lpServiceName) : lpServiceName
+
         A_LastError := 0
 
         DllCall("MSWSOCK.dll\GetServiceA", "uint", dwNameSpace, "ptr", lpGuid, "ptr", lpServiceName, "uint", dwProperties, "ptr", lpBuffer, "ptr", lpdwBufferSize, "ptr", lpServiceAsyncInfo)
@@ -23105,6 +23268,8 @@ class WinSock {
      * @since windows5.0
      */
     static GetServiceW(dwNameSpace, lpGuid, lpServiceName, dwProperties, lpBuffer, lpdwBufferSize, lpServiceAsyncInfo) {
+        lpServiceName := lpServiceName is String? StrPtr(lpServiceName) : lpServiceName
+
         A_LastError := 0
 
         DllCall("MSWSOCK.dll\GetServiceW", "uint", dwNameSpace, "ptr", lpGuid, "ptr", lpServiceName, "uint", dwProperties, "ptr", lpBuffer, "ptr", lpdwBufferSize, "ptr", lpServiceAsyncInfo)
@@ -23214,6 +23379,9 @@ class WinSock {
      * @since windows8.1
      */
     static getaddrinfo(pNodeName, pServiceName, pHints, ppResult) {
+        pNodeName := pNodeName is String? StrPtr(pNodeName) : pNodeName
+        pServiceName := pServiceName is String? StrPtr(pServiceName) : pServiceName
+
         A_LastError := 0
 
         DllCall("WS2_32.dll\getaddrinfo", "ptr", pNodeName, "ptr", pServiceName, "ptr", pHints, "ptr", ppResult)
@@ -23316,6 +23484,9 @@ class WinSock {
      * @since windows8.1
      */
     static GetAddrInfoW(pNodeName, pServiceName, pHints, ppResult) {
+        pNodeName := pNodeName is String? StrPtr(pNodeName) : pNodeName
+        pServiceName := pServiceName is String? StrPtr(pServiceName) : pServiceName
+
         DllCall("WS2_32.dll\GetAddrInfoW", "ptr", pNodeName, "ptr", pServiceName, "ptr", pHints, "ptr", ppResult)
     }
 
@@ -23600,6 +23771,9 @@ class WinSock {
      * @since windows6.0.6000
      */
     static GetAddrInfoExA(pName, pServiceName, dwNameSpace, lpNspId, hints, ppResult, timeout, lpOverlapped, lpCompletionRoutine, lpNameHandle) {
+        pName := pName is String? StrPtr(pName) : pName
+        pServiceName := pServiceName is String? StrPtr(pServiceName) : pServiceName
+
         DllCall("WS2_32.dll\GetAddrInfoExA", "ptr", pName, "ptr", pServiceName, "uint", dwNameSpace, "ptr", lpNspId, "ptr", hints, "ptr", ppResult, "ptr", timeout, "ptr", lpOverlapped, "ptr", lpCompletionRoutine, "ptr", lpNameHandle)
     }
 
@@ -23878,6 +24052,9 @@ class WinSock {
      * @since windows6.0.6000
      */
     static GetAddrInfoExW(pName, pServiceName, dwNameSpace, lpNspId, hints, ppResult, timeout, lpOverlapped, lpCompletionRoutine, lpHandle) {
+        pName := pName is String? StrPtr(pName) : pName
+        pServiceName := pServiceName is String? StrPtr(pServiceName) : pServiceName
+
         DllCall("WS2_32.dll\GetAddrInfoExW", "ptr", pName, "ptr", pServiceName, "uint", dwNameSpace, "ptr", lpNspId, "ptr", hints, "ptr", ppResult, "ptr", timeout, "ptr", lpOverlapped, "ptr", lpCompletionRoutine, "ptr", lpHandle)
     }
 
@@ -24048,6 +24225,9 @@ class WinSock {
      * @since windows8.1
      */
     static SetAddrInfoExA(pName, pServiceName, pAddresses, dwAddressCount, lpBlob, dwFlags, dwNameSpace, lpNspId, timeout, lpOverlapped, lpCompletionRoutine, lpNameHandle) {
+        pName := pName is String? StrPtr(pName) : pName
+        pServiceName := pServiceName is String? StrPtr(pServiceName) : pServiceName
+
         DllCall("WS2_32.dll\SetAddrInfoExA", "ptr", pName, "ptr", pServiceName, "ptr", pAddresses, "uint", dwAddressCount, "ptr", lpBlob, "uint", dwFlags, "uint", dwNameSpace, "ptr", lpNspId, "ptr", timeout, "ptr", lpOverlapped, "ptr", lpCompletionRoutine, "ptr", lpNameHandle)
     }
 
@@ -24175,6 +24355,9 @@ class WinSock {
      * @since windows8.1
      */
     static SetAddrInfoExW(pName, pServiceName, pAddresses, dwAddressCount, lpBlob, dwFlags, dwNameSpace, lpNspId, timeout, lpOverlapped, lpCompletionRoutine, lpNameHandle) {
+        pName := pName is String? StrPtr(pName) : pName
+        pServiceName := pServiceName is String? StrPtr(pServiceName) : pServiceName
+
         DllCall("WS2_32.dll\SetAddrInfoExW", "ptr", pName, "ptr", pServiceName, "ptr", pAddresses, "uint", dwAddressCount, "ptr", lpBlob, "uint", dwFlags, "uint", dwNameSpace, "ptr", lpNspId, "ptr", timeout, "ptr", lpOverlapped, "ptr", lpCompletionRoutine, "ptr", lpNameHandle)
     }
 
@@ -24333,6 +24516,9 @@ class WinSock {
      * @since windows8.1
      */
     static getnameinfo(pSockaddr, SockaddrLength, pNodeBuffer, NodeBufferSize, pServiceBuffer, ServiceBufferSize, Flags) {
+        pNodeBuffer := pNodeBuffer is String? StrPtr(pNodeBuffer) : pNodeBuffer
+        pServiceBuffer := pServiceBuffer is String? StrPtr(pServiceBuffer) : pServiceBuffer
+
         A_LastError := 0
 
         DllCall("WS2_32.dll\getnameinfo", "ptr", pSockaddr, "int", SockaddrLength, "ptr", pNodeBuffer, "uint", NodeBufferSize, "ptr", pServiceBuffer, "uint", ServiceBufferSize, "int", Flags)
@@ -24370,6 +24556,9 @@ class WinSock {
      * @since windows8.1
      */
     static GetNameInfoW(pSockaddr, SockaddrLength, pNodeBuffer, NodeBufferSize, pServiceBuffer, ServiceBufferSize, Flags) {
+        pNodeBuffer := pNodeBuffer is String? StrPtr(pNodeBuffer) : pNodeBuffer
+        pServiceBuffer := pServiceBuffer is String? StrPtr(pServiceBuffer) : pServiceBuffer
+
         DllCall("WS2_32.dll\GetNameInfoW", "ptr", pSockaddr, "int", SockaddrLength, "ptr", pNodeBuffer, "uint", NodeBufferSize, "ptr", pServiceBuffer, "uint", ServiceBufferSize, "int", Flags)
     }
 
@@ -24452,6 +24641,8 @@ class WinSock {
      * @since windows8.1
      */
     static inet_pton(Family, pszAddrString, pAddrBuf) {
+        pszAddrString := pszAddrString is String? StrPtr(pszAddrString) : pszAddrString
+
         A_LastError := 0
 
         DllCall("WS2_32.dll\inet_pton", "int", Family, "ptr", pszAddrString, "ptr", pAddrBuf)
@@ -24539,6 +24730,8 @@ class WinSock {
      * @since windows8.1
      */
     static InetPtonW(Family, pszAddrString, pAddrBuf) {
+        pszAddrString := pszAddrString is String? StrPtr(pszAddrString) : pszAddrString
+
         DllCall("WS2_32.dll\InetPtonW", "int", Family, "ptr", pszAddrString, "ptr", pAddrBuf)
     }
 
@@ -24659,6 +24852,8 @@ class WinSock {
      * @since windows8.1
      */
     static inet_ntop(Family, pAddr, pStringBuf, StringBufSize) {
+        pStringBuf := pStringBuf is String? StrPtr(pStringBuf) : pStringBuf
+
         A_LastError := 0
 
         result := DllCall("WS2_32.dll\inet_ntop", "int", Family, "ptr", pAddr, "ptr", pStringBuf, "ptr", StringBufSize, "ptr")
@@ -24785,6 +24980,8 @@ class WinSock {
      * @since windows8.1
      */
     static InetNtopW(Family, pAddr, pStringBuf, StringBufSize) {
+        pStringBuf := pStringBuf is String? StrPtr(pStringBuf) : pStringBuf
+
         result := DllCall("WS2_32.dll\InetNtopW", "int", Family, "ptr", pAddr, "ptr", pStringBuf, "ptr", StringBufSize, "ptr")
         return result
     }

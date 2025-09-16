@@ -106,6 +106,8 @@ class Environment {
      * @see https://learn.microsoft.com/windows/win32/api/processenv/nf-processenv-setenvironmentstringsw
      */
     static SetEnvironmentStringsW(NewEnvironment) {
+        NewEnvironment := NewEnvironment is String? StrPtr(NewEnvironment) : NewEnvironment
+
         result := DllCall("KERNEL32.dll\SetEnvironmentStringsW", "ptr", NewEnvironment, "int")
         return result
     }
@@ -246,6 +248,8 @@ class Environment {
      * @since windows5.1.2600
      */
     static FreeEnvironmentStringsA(penv) {
+        penv := penv is String? StrPtr(penv) : penv
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\FreeEnvironmentStringsA", "ptr", penv, "int")
@@ -269,6 +273,8 @@ class Environment {
      * @since windows5.1.2600
      */
     static FreeEnvironmentStringsW(penv) {
+        penv := penv is String? StrPtr(penv) : penv
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\FreeEnvironmentStringsW", "ptr", penv, "int")
@@ -295,6 +301,9 @@ class Environment {
      * @since windows5.1.2600
      */
     static GetEnvironmentVariableA(lpName, lpBuffer, nSize) {
+        lpName := lpName is String? StrPtr(lpName) : lpName
+        lpBuffer := lpBuffer is String? StrPtr(lpBuffer) : lpBuffer
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetEnvironmentVariableA", "ptr", lpName, "ptr", lpBuffer, "uint", nSize, "uint")
@@ -323,6 +332,9 @@ class Environment {
      * @since windows5.1.2600
      */
     static GetEnvironmentVariableW(lpName, lpBuffer, nSize) {
+        lpName := lpName is String? StrPtr(lpName) : lpName
+        lpBuffer := lpBuffer is String? StrPtr(lpBuffer) : lpBuffer
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetEnvironmentVariableW", "ptr", lpName, "ptr", lpBuffer, "uint", nSize, "uint")
@@ -351,6 +363,9 @@ class Environment {
      * @since windows5.1.2600
      */
     static SetEnvironmentVariableA(lpName, lpValue) {
+        lpName := lpName is String? StrPtr(lpName) : lpName
+        lpValue := lpValue is String? StrPtr(lpValue) : lpValue
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SetEnvironmentVariableA", "ptr", lpName, "ptr", lpValue, "int")
@@ -380,6 +395,9 @@ class Environment {
      * @since windows5.1.2600
      */
     static SetEnvironmentVariableW(lpName, lpValue) {
+        lpName := lpName is String? StrPtr(lpName) : lpName
+        lpValue := lpValue is String? StrPtr(lpValue) : lpValue
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SetEnvironmentVariableW", "ptr", lpName, "ptr", lpValue, "int")
@@ -415,6 +433,9 @@ class Environment {
      * @since windows5.0
      */
     static ExpandEnvironmentStringsA(lpSrc, lpDst, nSize) {
+        lpSrc := lpSrc is String? StrPtr(lpSrc) : lpSrc
+        lpDst := lpDst is String? StrPtr(lpDst) : lpDst
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\ExpandEnvironmentStringsA", "ptr", lpSrc, "ptr", lpDst, "uint", nSize, "uint")
@@ -450,6 +471,9 @@ class Environment {
      * @since windows5.0
      */
     static ExpandEnvironmentStringsW(lpSrc, lpDst, nSize) {
+        lpSrc := lpSrc is String? StrPtr(lpSrc) : lpSrc
+        lpDst := lpDst is String? StrPtr(lpDst) : lpDst
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\ExpandEnvironmentStringsW", "ptr", lpSrc, "ptr", lpDst, "uint", nSize, "uint")
@@ -556,6 +580,8 @@ class Environment {
      * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-setcurrentdirectory
      */
     static SetCurrentDirectoryA(lpPathName) {
+        lpPathName := lpPathName is String? StrPtr(lpPathName) : lpPathName
+
         result := DllCall("KERNEL32.dll\SetCurrentDirectoryA", "ptr", lpPathName, "int")
         return result
     }
@@ -657,6 +683,8 @@ class Environment {
      * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-setcurrentdirectory
      */
     static SetCurrentDirectoryW(lpPathName) {
+        lpPathName := lpPathName is String? StrPtr(lpPathName) : lpPathName
+
         result := DllCall("KERNEL32.dll\SetCurrentDirectoryW", "ptr", lpPathName, "int")
         return result
     }
@@ -753,6 +781,8 @@ class Environment {
      * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getcurrentdirectory
      */
     static GetCurrentDirectoryA(nBufferLength, lpBuffer) {
+        lpBuffer := lpBuffer is String? StrPtr(lpBuffer) : lpBuffer
+
         result := DllCall("KERNEL32.dll\GetCurrentDirectoryA", "uint", nBufferLength, "ptr", lpBuffer, "uint")
         return result
     }
@@ -849,6 +879,8 @@ class Environment {
      * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getcurrentdirectory
      */
     static GetCurrentDirectoryW(nBufferLength, lpBuffer) {
+        lpBuffer := lpBuffer is String? StrPtr(lpBuffer) : lpBuffer
+
         result := DllCall("KERNEL32.dll\GetCurrentDirectoryW", "uint", nBufferLength, "ptr", lpBuffer, "uint")
         return result
     }
@@ -878,6 +910,8 @@ class Environment {
      * @since windows6.0.6000
      */
     static NeedCurrentDirectoryForExePathA(ExeName) {
+        ExeName := ExeName is String? StrPtr(ExeName) : ExeName
+
         result := DllCall("KERNEL32.dll\NeedCurrentDirectoryForExePathA", "ptr", ExeName, "int")
         return result
     }
@@ -907,6 +941,8 @@ class Environment {
      * @since windows6.0.6000
      */
     static NeedCurrentDirectoryForExePathW(ExeName) {
+        ExeName := ExeName is String? StrPtr(ExeName) : ExeName
+
         result := DllCall("KERNEL32.dll\NeedCurrentDirectoryForExePathW", "ptr", ExeName, "int")
         return result
     }
@@ -1023,6 +1059,9 @@ class Environment {
      * @since windows5.0
      */
     static ExpandEnvironmentStringsForUserA(hToken, lpSrc, lpDest, dwSize) {
+        lpSrc := lpSrc is String? StrPtr(lpSrc) : lpSrc
+        lpDest := lpDest is String? StrPtr(lpDest) : lpDest
+
         A_LastError := 0
 
         result := DllCall("USERENV.dll\ExpandEnvironmentStringsForUserA", "ptr", hToken, "ptr", lpSrc, "ptr", lpDest, "uint", dwSize, "int")
@@ -1080,6 +1119,9 @@ class Environment {
      * @since windows5.0
      */
     static ExpandEnvironmentStringsForUserW(hToken, lpSrc, lpDest, dwSize) {
+        lpSrc := lpSrc is String? StrPtr(lpSrc) : lpSrc
+        lpDest := lpDest is String? StrPtr(lpDest) : lpDest
+
         A_LastError := 0
 
         result := DllCall("USERENV.dll\ExpandEnvironmentStringsForUserW", "ptr", hToken, "ptr", lpSrc, "ptr", lpDest, "uint", dwSize, "int")
@@ -1429,6 +1471,8 @@ class Environment {
      * @see https://learn.microsoft.com/windows/win32/api/enclaveapi/nf-enclaveapi-loadenclaveimagea
      */
     static LoadEnclaveImageA(lpEnclaveAddress, lpImageName) {
+        lpImageName := lpImageName is String? StrPtr(lpImageName) : lpImageName
+
         result := DllCall("api-ms-win-core-enclave-l1-1-1.dll\LoadEnclaveImageA", "ptr", lpEnclaveAddress, "ptr", lpImageName, "int")
         return result
     }
@@ -1445,6 +1489,8 @@ class Environment {
      * @since windows10.0.16299
      */
     static LoadEnclaveImageW(lpEnclaveAddress, lpImageName) {
+        lpImageName := lpImageName is String? StrPtr(lpImageName) : lpImageName
+
         A_LastError := 0
 
         result := DllCall("api-ms-win-core-enclave-l1-1-1.dll\LoadEnclaveImageW", "ptr", lpEnclaveAddress, "ptr", lpImageName, "int")

@@ -547,6 +547,10 @@ class WNet {
      * @since windows5.0
      */
     static WNetAddConnectionA(lpRemoteName, lpPassword, lpLocalName) {
+        lpRemoteName := lpRemoteName is String? StrPtr(lpRemoteName) : lpRemoteName
+        lpPassword := lpPassword is String? StrPtr(lpPassword) : lpPassword
+        lpLocalName := lpLocalName is String? StrPtr(lpLocalName) : lpLocalName
+
         result := DllCall("MPR.dll\WNetAddConnectionA", "ptr", lpRemoteName, "ptr", lpPassword, "ptr", lpLocalName, "uint")
         return result
     }
@@ -723,6 +727,10 @@ class WNet {
      * @since windows5.0
      */
     static WNetAddConnectionW(lpRemoteName, lpPassword, lpLocalName) {
+        lpRemoteName := lpRemoteName is String? StrPtr(lpRemoteName) : lpRemoteName
+        lpPassword := lpPassword is String? StrPtr(lpPassword) : lpPassword
+        lpLocalName := lpLocalName is String? StrPtr(lpLocalName) : lpLocalName
+
         result := DllCall("MPR.dll\WNetAddConnectionW", "ptr", lpRemoteName, "ptr", lpPassword, "ptr", lpLocalName, "uint")
         return result
     }
@@ -1247,6 +1255,9 @@ class WNet {
      * @since windows5.0
      */
     static WNetAddConnection2A(lpNetResource, lpPassword, lpUserName, dwFlags) {
+        lpPassword := lpPassword is String? StrPtr(lpPassword) : lpPassword
+        lpUserName := lpUserName is String? StrPtr(lpUserName) : lpUserName
+
         result := DllCall("MPR.dll\WNetAddConnection2A", "ptr", lpNetResource, "ptr", lpPassword, "ptr", lpUserName, "uint", dwFlags, "uint")
         return result
     }
@@ -1771,6 +1782,9 @@ class WNet {
      * @since windows5.0
      */
     static WNetAddConnection2W(lpNetResource, lpPassword, lpUserName, dwFlags) {
+        lpPassword := lpPassword is String? StrPtr(lpPassword) : lpPassword
+        lpUserName := lpUserName is String? StrPtr(lpUserName) : lpUserName
+
         result := DllCall("MPR.dll\WNetAddConnection2W", "ptr", lpNetResource, "ptr", lpPassword, "ptr", lpUserName, "uint", dwFlags, "uint")
         return result
     }
@@ -2197,6 +2211,9 @@ class WNet {
      * @since windows5.0
      */
     static WNetAddConnection3A(hwndOwner, lpNetResource, lpPassword, lpUserName, dwFlags) {
+        lpPassword := lpPassword is String? StrPtr(lpPassword) : lpPassword
+        lpUserName := lpUserName is String? StrPtr(lpUserName) : lpUserName
+
         result := DllCall("MPR.dll\WNetAddConnection3A", "ptr", hwndOwner, "ptr", lpNetResource, "ptr", lpPassword, "ptr", lpUserName, "uint", dwFlags, "uint")
         return result
     }
@@ -2623,6 +2640,9 @@ class WNet {
      * @since windows5.0
      */
     static WNetAddConnection3W(hwndOwner, lpNetResource, lpPassword, lpUserName, dwFlags) {
+        lpPassword := lpPassword is String? StrPtr(lpPassword) : lpPassword
+        lpUserName := lpUserName is String? StrPtr(lpUserName) : lpUserName
+
         result := DllCall("MPR.dll\WNetAddConnection3W", "ptr", hwndOwner, "ptr", lpNetResource, "ptr", lpPassword, "ptr", lpUserName, "uint", dwFlags, "uint")
         return result
     }
@@ -2763,6 +2783,8 @@ class WNet {
      * @since windows5.0
      */
     static WNetCancelConnectionA(lpName, fForce) {
+        lpName := lpName is String? StrPtr(lpName) : lpName
+
         result := DllCall("MPR.dll\WNetCancelConnectionA", "ptr", lpName, "int", fForce, "uint")
         return result
     }
@@ -2871,6 +2893,8 @@ class WNet {
      * @since windows5.0
      */
     static WNetCancelConnectionW(lpName, fForce) {
+        lpName := lpName is String? StrPtr(lpName) : lpName
+
         result := DllCall("MPR.dll\WNetCancelConnectionW", "ptr", lpName, "int", fForce, "uint")
         return result
     }
@@ -3012,6 +3036,8 @@ class WNet {
      * @since windows5.0
      */
     static WNetCancelConnection2A(lpName, dwFlags, fForce) {
+        lpName := lpName is String? StrPtr(lpName) : lpName
+
         result := DllCall("MPR.dll\WNetCancelConnection2A", "ptr", lpName, "uint", dwFlags, "int", fForce, "uint")
         return result
     }
@@ -3153,6 +3179,8 @@ class WNet {
      * @since windows5.0
      */
     static WNetCancelConnection2W(lpName, dwFlags, fForce) {
+        lpName := lpName is String? StrPtr(lpName) : lpName
+
         result := DllCall("MPR.dll\WNetCancelConnection2W", "ptr", lpName, "uint", dwFlags, "int", fForce, "uint")
         return result
     }
@@ -3265,6 +3293,9 @@ class WNet {
      * @since windows5.0
      */
     static WNetGetConnectionA(lpLocalName, lpRemoteName, lpnLength) {
+        lpLocalName := lpLocalName is String? StrPtr(lpLocalName) : lpLocalName
+        lpRemoteName := lpRemoteName is String? StrPtr(lpRemoteName) : lpRemoteName
+
         result := DllCall("MPR.dll\WNetGetConnectionA", "ptr", lpLocalName, "ptr", lpRemoteName, "ptr", lpnLength, "uint")
         return result
     }
@@ -3377,6 +3408,9 @@ class WNet {
      * @since windows5.0
      */
     static WNetGetConnectionW(lpLocalName, lpRemoteName, lpnLength) {
+        lpLocalName := lpLocalName is String? StrPtr(lpLocalName) : lpLocalName
+        lpRemoteName := lpRemoteName is String? StrPtr(lpRemoteName) : lpRemoteName
+
         result := DllCall("MPR.dll\WNetGetConnectionW", "ptr", lpLocalName, "ptr", lpRemoteName, "ptr", lpnLength, "uint")
         return result
     }
@@ -3715,6 +3749,10 @@ class WNet {
      * @since windows5.0
      */
     static WNetUseConnectionA(hwndOwner, lpNetResource, lpPassword, lpUserId, dwFlags, lpAccessName, lpBufferSize, lpResult) {
+        lpPassword := lpPassword is String? StrPtr(lpPassword) : lpPassword
+        lpUserId := lpUserId is String? StrPtr(lpUserId) : lpUserId
+        lpAccessName := lpAccessName is String? StrPtr(lpAccessName) : lpAccessName
+
         result := DllCall("MPR.dll\WNetUseConnectionA", "ptr", hwndOwner, "ptr", lpNetResource, "ptr", lpPassword, "ptr", lpUserId, "uint", dwFlags, "ptr", lpAccessName, "ptr", lpBufferSize, "ptr", lpResult, "uint")
         return result
     }
@@ -4053,6 +4091,10 @@ class WNet {
      * @since windows5.0
      */
     static WNetUseConnectionW(hwndOwner, lpNetResource, lpPassword, lpUserId, dwFlags, lpAccessName, lpBufferSize, lpResult) {
+        lpPassword := lpPassword is String? StrPtr(lpPassword) : lpPassword
+        lpUserId := lpUserId is String? StrPtr(lpUserId) : lpUserId
+        lpAccessName := lpAccessName is String? StrPtr(lpAccessName) : lpAccessName
+
         result := DllCall("MPR.dll\WNetUseConnectionW", "ptr", hwndOwner, "ptr", lpNetResource, "ptr", lpPassword, "ptr", lpUserId, "uint", dwFlags, "ptr", lpAccessName, "ptr", lpBufferSize, "ptr", lpResult, "uint")
         return result
     }
@@ -4072,6 +4114,8 @@ class WNet {
      * @returns {Integer} 
      */
     static WNetUseConnection4A(hwndOwner, lpNetResource, pAuthBuffer, cbAuthBuffer, dwFlags, lpUseOptions, cbUseOptions, lpAccessName, lpBufferSize, lpResult) {
+        lpAccessName := lpAccessName is String? StrPtr(lpAccessName) : lpAccessName
+
         result := DllCall("MPR.dll\WNetUseConnection4A", "ptr", hwndOwner, "ptr", lpNetResource, "ptr", pAuthBuffer, "uint", cbAuthBuffer, "uint", dwFlags, "ptr", lpUseOptions, "uint", cbUseOptions, "ptr", lpAccessName, "ptr", lpBufferSize, "ptr", lpResult, "uint")
         return result
     }
@@ -4091,6 +4135,8 @@ class WNet {
      * @returns {Integer} 
      */
     static WNetUseConnection4W(hwndOwner, lpNetResource, pAuthBuffer, cbAuthBuffer, dwFlags, lpUseOptions, cbUseOptions, lpAccessName, lpBufferSize, lpResult) {
+        lpAccessName := lpAccessName is String? StrPtr(lpAccessName) : lpAccessName
+
         result := DllCall("MPR.dll\WNetUseConnection4W", "ptr", hwndOwner, "ptr", lpNetResource, "ptr", pAuthBuffer, "uint", cbAuthBuffer, "uint", dwFlags, "ptr", lpUseOptions, "uint", cbUseOptions, "ptr", lpAccessName, "ptr", lpBufferSize, "ptr", lpResult, "uint")
         return result
     }
@@ -5664,6 +5710,8 @@ class WNet {
      * @since windows5.0
      */
     static WNetGetResourceInformationA(lpNetResource, lpBuffer, lpcbBuffer, lplpSystem) {
+        lplpSystem := lplpSystem is String? StrPtr(lplpSystem) : lplpSystem
+
         result := DllCall("MPR.dll\WNetGetResourceInformationA", "ptr", lpNetResource, "ptr", lpBuffer, "ptr", lpcbBuffer, "ptr", lplpSystem, "uint")
         return result
     }
@@ -5777,6 +5825,8 @@ class WNet {
      * @since windows5.0
      */
     static WNetGetResourceInformationW(lpNetResource, lpBuffer, lpcbBuffer, lplpSystem) {
+        lplpSystem := lplpSystem is String? StrPtr(lplpSystem) : lplpSystem
+
         result := DllCall("MPR.dll\WNetGetResourceInformationW", "ptr", lpNetResource, "ptr", lpBuffer, "ptr", lpcbBuffer, "ptr", lplpSystem, "uint")
         return result
     }
@@ -5936,6 +5986,8 @@ class WNet {
      * @since windows5.0
      */
     static WNetGetUniversalNameA(lpLocalPath, dwInfoLevel, lpBuffer, lpBufferSize) {
+        lpLocalPath := lpLocalPath is String? StrPtr(lpLocalPath) : lpLocalPath
+
         result := DllCall("MPR.dll\WNetGetUniversalNameA", "ptr", lpLocalPath, "uint", dwInfoLevel, "ptr", lpBuffer, "ptr", lpBufferSize, "uint")
         return result
     }
@@ -6095,6 +6147,8 @@ class WNet {
      * @since windows5.0
      */
     static WNetGetUniversalNameW(lpLocalPath, dwInfoLevel, lpBuffer, lpBufferSize) {
+        lpLocalPath := lpLocalPath is String? StrPtr(lpLocalPath) : lpLocalPath
+
         result := DllCall("MPR.dll\WNetGetUniversalNameW", "ptr", lpLocalPath, "uint", dwInfoLevel, "ptr", lpBuffer, "ptr", lpBufferSize, "uint")
         return result
     }
@@ -6179,6 +6233,9 @@ class WNet {
      * @since windows5.0
      */
     static WNetGetUserA(lpName, lpUserName, lpnLength) {
+        lpName := lpName is String? StrPtr(lpName) : lpName
+        lpUserName := lpUserName is String? StrPtr(lpUserName) : lpUserName
+
         result := DllCall("MPR.dll\WNetGetUserA", "ptr", lpName, "ptr", lpUserName, "ptr", lpnLength, "uint")
         return result
     }
@@ -6263,6 +6320,9 @@ class WNet {
      * @since windows5.0
      */
     static WNetGetUserW(lpName, lpUserName, lpnLength) {
+        lpName := lpName is String? StrPtr(lpName) : lpName
+        lpUserName := lpUserName is String? StrPtr(lpUserName) : lpUserName
+
         result := DllCall("MPR.dll\WNetGetUserW", "ptr", lpName, "ptr", lpUserName, "ptr", lpnLength, "uint")
         return result
     }
@@ -6333,6 +6393,8 @@ class WNet {
      * @since windows5.0
      */
     static WNetGetProviderNameA(dwNetType, lpProviderName, lpBufferSize) {
+        lpProviderName := lpProviderName is String? StrPtr(lpProviderName) : lpProviderName
+
         result := DllCall("MPR.dll\WNetGetProviderNameA", "uint", dwNetType, "ptr", lpProviderName, "ptr", lpBufferSize, "uint")
         return result
     }
@@ -6403,6 +6465,8 @@ class WNet {
      * @since windows5.0
      */
     static WNetGetProviderNameW(dwNetType, lpProviderName, lpBufferSize) {
+        lpProviderName := lpProviderName is String? StrPtr(lpProviderName) : lpProviderName
+
         result := DllCall("MPR.dll\WNetGetProviderNameW", "uint", dwNetType, "ptr", lpProviderName, "ptr", lpBufferSize, "uint")
         return result
     }
@@ -6453,6 +6517,8 @@ class WNet {
      * @since windows5.0
      */
     static WNetGetNetworkInformationA(lpProvider, lpNetInfoStruct) {
+        lpProvider := lpProvider is String? StrPtr(lpProvider) : lpProvider
+
         result := DllCall("MPR.dll\WNetGetNetworkInformationA", "ptr", lpProvider, "ptr", lpNetInfoStruct, "uint")
         return result
     }
@@ -6503,6 +6569,8 @@ class WNet {
      * @since windows5.0
      */
     static WNetGetNetworkInformationW(lpProvider, lpNetInfoStruct) {
+        lpProvider := lpProvider is String? StrPtr(lpProvider) : lpProvider
+
         result := DllCall("MPR.dll\WNetGetNetworkInformationW", "ptr", lpProvider, "ptr", lpNetInfoStruct, "uint")
         return result
     }
@@ -6541,6 +6609,9 @@ class WNet {
      * @since windows5.0
      */
     static WNetGetLastErrorA(lpError, lpErrorBuf, nErrorBufSize, lpNameBuf, nNameBufSize) {
+        lpErrorBuf := lpErrorBuf is String? StrPtr(lpErrorBuf) : lpErrorBuf
+        lpNameBuf := lpNameBuf is String? StrPtr(lpNameBuf) : lpNameBuf
+
         A_LastError := 0
 
         result := DllCall("MPR.dll\WNetGetLastErrorA", "ptr", lpError, "ptr", lpErrorBuf, "uint", nErrorBufSize, "ptr", lpNameBuf, "uint", nNameBufSize, "uint")
@@ -6584,6 +6655,9 @@ class WNet {
      * @since windows5.0
      */
     static WNetGetLastErrorW(lpError, lpErrorBuf, nErrorBufSize, lpNameBuf, nNameBufSize) {
+        lpErrorBuf := lpErrorBuf is String? StrPtr(lpErrorBuf) : lpErrorBuf
+        lpNameBuf := lpNameBuf is String? StrPtr(lpNameBuf) : lpNameBuf
+
         A_LastError := 0
 
         result := DllCall("MPR.dll\WNetGetLastErrorW", "ptr", lpError, "ptr", lpErrorBuf, "uint", nErrorBufSize, "ptr", lpNameBuf, "uint", nNameBufSize, "uint")
@@ -7102,6 +7176,9 @@ class WNet {
      * @since windows5.1.2600
      */
     static NPAddConnection(lpNetResource, lpPassword, lpUserName) {
+        lpPassword := lpPassword is String? StrPtr(lpPassword) : lpPassword
+        lpUserName := lpUserName is String? StrPtr(lpUserName) : lpUserName
+
         result := DllCall("davclnt.dll\NPAddConnection", "ptr", lpNetResource, "ptr", lpPassword, "ptr", lpUserName, "uint")
         return result
     }
@@ -7246,6 +7323,9 @@ class WNet {
      * @since windows5.1.2600
      */
     static NPAddConnection3(hwndOwner, lpNetResource, lpPassword, lpUserName, dwFlags) {
+        lpPassword := lpPassword is String? StrPtr(lpPassword) : lpPassword
+        lpUserName := lpUserName is String? StrPtr(lpUserName) : lpUserName
+
         result := DllCall("davclnt.dll\NPAddConnection3", "ptr", hwndOwner, "ptr", lpNetResource, "ptr", lpPassword, "ptr", lpUserName, "uint", dwFlags, "uint")
         return result
     }
@@ -7304,6 +7384,8 @@ class WNet {
      * @since windows5.1.2600
      */
     static NPCancelConnection(lpName, fForce) {
+        lpName := lpName is String? StrPtr(lpName) : lpName
+
         result := DllCall("davclnt.dll\NPCancelConnection", "ptr", lpName, "int", fForce, "uint")
         return result
     }
@@ -7316,6 +7398,8 @@ class WNet {
      * @returns {Integer} 
      */
     static NPCancelConnection2(lpName, fForce, dwFlags) {
+        lpName := lpName is String? StrPtr(lpName) : lpName
+
         result := DllCall("NTLANMAN.dll\NPCancelConnection2", "ptr", lpName, "int", fForce, "uint", dwFlags, "uint")
         return result
     }
@@ -7373,6 +7457,9 @@ class WNet {
      * @since windows5.1.2600
      */
     static NPGetConnection(lpLocalName, lpRemoteName, lpnBufferLen) {
+        lpLocalName := lpLocalName is String? StrPtr(lpLocalName) : lpLocalName
+        lpRemoteName := lpRemoteName is String? StrPtr(lpRemoteName) : lpRemoteName
+
         result := DllCall("davclnt.dll\NPGetConnection", "ptr", lpLocalName, "ptr", lpRemoteName, "ptr", lpnBufferLen, "uint")
         return result
     }
@@ -7460,6 +7547,8 @@ class WNet {
      * @since windows5.1.2600
      */
     static NPGetConnection3(lpLocalName, dwLevel, lpBuffer, lpBufferSize) {
+        lpLocalName := lpLocalName is String? StrPtr(lpLocalName) : lpLocalName
+
         result := DllCall("NTLANMAN.dll\NPGetConnection3", "ptr", lpLocalName, "uint", dwLevel, "ptr", lpBuffer, "ptr", lpBufferSize, "uint")
         return result
     }
@@ -7526,6 +7615,8 @@ class WNet {
      * @since windows5.1.2600
      */
     static NPGetUniversalName(lpLocalPath, dwInfoLevel, lpBuffer, lpBufferSize) {
+        lpLocalPath := lpLocalPath is String? StrPtr(lpLocalPath) : lpLocalPath
+
         result := DllCall("davclnt.dll\NPGetUniversalName", "ptr", lpLocalPath, "uint", dwInfoLevel, "ptr", lpBuffer, "ptr", lpBufferSize, "uint")
         return result
     }
@@ -7571,6 +7662,8 @@ class WNet {
      * @since windows5.1.2600
      */
     static NPGetConnectionPerformance(lpRemoteName, lpNetConnectInfo) {
+        lpRemoteName := lpRemoteName is String? StrPtr(lpRemoteName) : lpRemoteName
+
         result := DllCall("NTLANMAN.dll\NPGetConnectionPerformance", "ptr", lpRemoteName, "ptr", lpNetConnectInfo, "uint")
         return result
     }
@@ -7944,6 +8037,9 @@ class WNet {
      * @since windows5.1.2600
      */
     static NPGetUser(lpName, lpUserName, lpnBufferLen) {
+        lpName := lpName is String? StrPtr(lpName) : lpName
+        lpUserName := lpUserName is String? StrPtr(lpUserName) : lpUserName
+
         result := DllCall("davclnt.dll\NPGetUser", "ptr", lpName, "ptr", lpUserName, "ptr", lpnBufferLen, "uint")
         return result
     }
@@ -7958,6 +8054,8 @@ class WNet {
      * @returns {Integer} 
      */
     static NPGetPersistentUseOptionsForConnection(lpRemotePath, lpReadUseOptions, cbReadUseOptions, lpWriteUseOptions, lpSizeWriteUseOptions) {
+        lpRemotePath := lpRemotePath is String? StrPtr(lpRemotePath) : lpRemotePath
+
         result := DllCall("NTLANMAN.dll\NPGetPersistentUseOptionsForConnection", "ptr", lpRemotePath, "ptr", lpReadUseOptions, "uint", cbReadUseOptions, "ptr", lpWriteUseOptions, "ptr", lpSizeWriteUseOptions, "uint")
         return result
     }
@@ -8166,6 +8264,8 @@ class WNet {
      * @since windows5.1.2600
      */
     static NPGetResourceInformation(lpNetResource, lpBuffer, lpBufferSize, lplpSystem) {
+        lplpSystem := lplpSystem is String? StrPtr(lplpSystem) : lplpSystem
+
         result := DllCall("davclnt.dll\NPGetResourceInformation", "ptr", lpNetResource, "ptr", lpBuffer, "ptr", lpBufferSize, "ptr", lplpSystem, "uint")
         return result
     }
@@ -8321,6 +8421,9 @@ class WNet {
      * @since windows5.1.2600
      */
     static NPFormatNetworkName(lpRemoteName, lpFormattedName, lpnLength, dwFlags, dwAveCharPerLine) {
+        lpRemoteName := lpRemoteName is String? StrPtr(lpRemoteName) : lpRemoteName
+        lpFormattedName := lpFormattedName is String? StrPtr(lpFormattedName) : lpFormattedName
+
         result := DllCall("davclnt.dll\NPFormatNetworkName", "ptr", lpRemoteName, "ptr", lpFormattedName, "ptr", lpnLength, "uint", dwFlags, "uint", dwAveCharPerLine, "uint")
         return result
     }
@@ -8367,6 +8470,9 @@ class WNet {
      * @since windows5.1.2600
      */
     static WNetSetLastErrorA(err, lpError, lpProviders) {
+        lpError := lpError is String? StrPtr(lpError) : lpError
+        lpProviders := lpProviders is String? StrPtr(lpProviders) : lpProviders
+
         DllCall("MPR.dll\WNetSetLastErrorA", "uint", err, "ptr", lpError, "ptr", lpProviders)
     }
 
@@ -8405,6 +8511,9 @@ class WNet {
      * @see https://learn.microsoft.com/windows/win32/api/npapi/nf-npapi-wnetsetlasterrorw
      */
     static WNetSetLastErrorW(err, lpError, lpProviders) {
+        lpError := lpError is String? StrPtr(lpError) : lpError
+        lpProviders := lpProviders is String? StrPtr(lpProviders) : lpProviders
+
         DllCall("MPR.dll\WNetSetLastErrorW", "uint", err, "ptr", lpError, "ptr", lpProviders)
     }
 

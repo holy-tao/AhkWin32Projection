@@ -5825,6 +5825,8 @@ class Jet {
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetcreateindex-function
      */
     static JetCreateIndexA(sesid, tableid, szIndexName, grbit, szKey, cbKey, lDensity) {
+        szKey := szKey is String? StrPtr(szKey) : szKey
+
         result := DllCall("ESENT.dll\JetCreateIndexA", "ptr", sesid, "ptr", tableid, "ptr", szIndexName, "uint", grbit, "ptr", szKey, "uint", cbKey, "uint", lDensity, "int")
         return result
     }
@@ -5842,6 +5844,8 @@ class Jet {
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetcreateindex-function
      */
     static JetCreateIndexW(sesid, tableid, szIndexName, grbit, szKey, cbKey, lDensity) {
+        szKey := szKey is String? StrPtr(szKey) : szKey
+
         result := DllCall("ESENT.dll\JetCreateIndexW", "ptr", sesid, "ptr", tableid, "ptr", szIndexName, "uint", grbit, "ptr", szKey, "uint", cbKey, "uint", lDensity, "int")
         return result
     }
@@ -7734,6 +7738,8 @@ class Jet {
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetfreebuffer-function
      */
     static JetFreeBuffer(pbBuf) {
+        pbBuf := pbBuf is String? StrPtr(pbBuf) : pbBuf
+
         result := DllCall("ESENT.dll\JetFreeBuffer", "ptr", pbBuf, "int")
         return result
     }

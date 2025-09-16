@@ -4908,6 +4908,8 @@ class Certificates {
      * @since windowsserver2003
      */
     static CertSrvIsServerOnlineW(pwszServerName, pfServerOnline) {
+        pwszServerName := pwszServerName is String? StrPtr(pwszServerName) : pwszServerName
+
         result := DllCall("certadm.dll\CertSrvIsServerOnlineW", "ptr", pwszServerName, "ptr", pfServerOnline, "int")
         return result
     }
@@ -4928,6 +4930,8 @@ class Certificates {
      * @since windowsserver2003
      */
     static CertSrvBackupGetDynamicFileListW(hbc, ppwszzFileList, pcbSize) {
+        ppwszzFileList := ppwszzFileList is String? StrPtr(ppwszzFileList) : ppwszzFileList
+
         result := DllCall("certadm.dll\CertSrvBackupGetDynamicFileListW", "ptr", hbc, "ptr", ppwszzFileList, "ptr", pcbSize, "int")
         return result
     }
@@ -4953,6 +4957,8 @@ class Certificates {
      * @since windowsserver2003
      */
     static CertSrvBackupPrepareW(pwszServerName, grbitJet, dwBackupFlags, phbc) {
+        pwszServerName := pwszServerName is String? StrPtr(pwszServerName) : pwszServerName
+
         result := DllCall("certadm.dll\CertSrvBackupPrepareW", "ptr", pwszServerName, "uint", grbitJet, "uint", dwBackupFlags, "ptr", phbc, "int")
         return result
     }
@@ -4994,6 +5000,8 @@ class Certificates {
      * @since windowsserver2003
      */
     static CertSrvBackupGetDatabaseNamesW(hbc, ppwszzAttachmentInformation, pcbSize) {
+        ppwszzAttachmentInformation := ppwszzAttachmentInformation is String? StrPtr(ppwszzAttachmentInformation) : ppwszzAttachmentInformation
+
         result := DllCall("certadm.dll\CertSrvBackupGetDatabaseNamesW", "ptr", hbc, "ptr", ppwszzAttachmentInformation, "ptr", pcbSize, "int")
         return result
     }
@@ -5019,6 +5027,8 @@ class Certificates {
      * @since windowsserver2003
      */
     static CertSrvBackupOpenFileW(hbc, pwszAttachmentName, cbReadHintSize, pliFileSize) {
+        pwszAttachmentName := pwszAttachmentName is String? StrPtr(pwszAttachmentName) : pwszAttachmentName
+
         result := DllCall("certadm.dll\CertSrvBackupOpenFileW", "ptr", hbc, "ptr", pwszAttachmentName, "uint", cbReadHintSize, "ptr", pliFileSize, "int")
         return result
     }
@@ -5071,6 +5081,8 @@ class Certificates {
      * @since windowsserver2003
      */
     static CertSrvBackupGetBackupLogsW(hbc, ppwszzBackupLogFiles, pcbSize) {
+        ppwszzBackupLogFiles := ppwszzBackupLogFiles is String? StrPtr(ppwszzBackupLogFiles) : ppwszzBackupLogFiles
+
         result := DllCall("certadm.dll\CertSrvBackupGetBackupLogsW", "ptr", hbc, "ptr", ppwszzBackupLogFiles, "ptr", pcbSize, "int")
         return result
     }
@@ -5159,6 +5171,8 @@ class Certificates {
      * @since windowsserver2003
      */
     static CertSrvRestoreGetDatabaseLocationsW(hbc, ppwszzDatabaseLocationList, pcbSize) {
+        ppwszzDatabaseLocationList := ppwszzDatabaseLocationList is String? StrPtr(ppwszzDatabaseLocationList) : ppwszzDatabaseLocationList
+
         result := DllCall("certadm.dll\CertSrvRestoreGetDatabaseLocationsW", "ptr", hbc, "ptr", ppwszzDatabaseLocationList, "ptr", pcbSize, "int")
         return result
     }
@@ -5199,6 +5213,8 @@ class Certificates {
      * @since windowsserver2003
      */
     static CertSrvRestorePrepareW(pwszServerName, dwRestoreFlags, phbc) {
+        pwszServerName := pwszServerName is String? StrPtr(pwszServerName) : pwszServerName
+
         result := DllCall("certadm.dll\CertSrvRestorePrepareW", "ptr", pwszServerName, "uint", dwRestoreFlags, "ptr", phbc, "int")
         return result
     }
@@ -5229,6 +5245,10 @@ class Certificates {
      * @since windowsserver2003
      */
     static CertSrvRestoreRegisterW(hbc, pwszCheckPointFilePath, pwszLogPath, rgrstmap, crstmap, pwszBackupLogPath, genLow, genHigh) {
+        pwszCheckPointFilePath := pwszCheckPointFilePath is String? StrPtr(pwszCheckPointFilePath) : pwszCheckPointFilePath
+        pwszLogPath := pwszLogPath is String? StrPtr(pwszLogPath) : pwszLogPath
+        pwszBackupLogPath := pwszBackupLogPath is String? StrPtr(pwszBackupLogPath) : pwszBackupLogPath
+
         result := DllCall("certadm.dll\CertSrvRestoreRegisterW", "ptr", hbc, "ptr", pwszCheckPointFilePath, "ptr", pwszLogPath, "ptr", rgrstmap, "int", crstmap, "ptr", pwszBackupLogPath, "uint", genLow, "uint", genHigh, "int")
         return result
     }
@@ -5254,6 +5274,10 @@ class Certificates {
      * @since windowsserver2003
      */
     static CertSrvRestoreRegisterThroughFile(hbc, pwszCheckPointFilePath, pwszLogPath, rgrstmap, crstmap, pwszBackupLogPath, genLow, genHigh) {
+        pwszCheckPointFilePath := pwszCheckPointFilePath is String? StrPtr(pwszCheckPointFilePath) : pwszCheckPointFilePath
+        pwszLogPath := pwszLogPath is String? StrPtr(pwszLogPath) : pwszLogPath
+        pwszBackupLogPath := pwszBackupLogPath is String? StrPtr(pwszBackupLogPath) : pwszBackupLogPath
+
         result := DllCall("certadm.dll\CertSrvRestoreRegisterThroughFile", "ptr", hbc, "ptr", pwszCheckPointFilePath, "ptr", pwszLogPath, "ptr", rgrstmap, "int", crstmap, "ptr", pwszBackupLogPath, "uint", genLow, "uint", genHigh, "int")
         return result
     }
@@ -5322,6 +5346,8 @@ class Certificates {
      * @since windowsserver2003
      */
     static CertSrvServerControlW(pwszServerName, dwControlFlags, pcbOut, ppbOut) {
+        pwszServerName := pwszServerName is String? StrPtr(pwszServerName) : pwszServerName
+
         result := DllCall("certadm.dll\CertSrvServerControlW", "ptr", pwszServerName, "uint", dwControlFlags, "ptr", pcbOut, "ptr", ppbOut, "int")
         return result
     }

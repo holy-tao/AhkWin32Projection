@@ -1157,6 +1157,8 @@ class TpmBaseServices {
      * @returns {Integer} 
      */
     static GetDeviceIDString(pszWindowsAIK, cchWindowsAIK, pcchResult, pfProtectedByTPM) {
+        pszWindowsAIK := pszWindowsAIK is String? StrPtr(pszWindowsAIK) : pszWindowsAIK
+
         result := DllCall("tbs.dll\GetDeviceIDString", "ptr", pszWindowsAIK, "uint", cchWindowsAIK, "ptr", pcchResult, "ptr", pfProtectedByTPM, "int")
         return result
     }

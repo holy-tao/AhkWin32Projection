@@ -215,6 +215,10 @@ class Printing {
      * @since windows6.1
      */
     static StartXpsPrintJob(printerName, jobName, outputFileName, progressEvent, completionEvent, printablePagesOn, printablePagesOnCount, xpsPrintJob, documentStream, printTicketStream) {
+        printerName := printerName is String? StrPtr(printerName) : printerName
+        jobName := jobName is String? StrPtr(jobName) : jobName
+        outputFileName := outputFileName is String? StrPtr(outputFileName) : outputFileName
+
         result := DllCall("XPSPRINT.dll\StartXpsPrintJob", "ptr", printerName, "ptr", jobName, "ptr", outputFileName, "ptr", progressEvent, "ptr", completionEvent, "ptr", printablePagesOn, "uint", printablePagesOnCount, "ptr", xpsPrintJob, "ptr", documentStream, "ptr", printTicketStream, "int")
         return result
     }
@@ -313,6 +317,10 @@ class Printing {
      * @since windows6.1
      */
     static StartXpsPrintJob1(printerName, jobName, outputFileName, progressEvent, completionEvent, xpsPrintJob, printContentReceiver) {
+        printerName := printerName is String? StrPtr(printerName) : printerName
+        jobName := jobName is String? StrPtr(jobName) : jobName
+        outputFileName := outputFileName is String? StrPtr(outputFileName) : outputFileName
+
         result := DllCall("XPSPRINT.dll\StartXpsPrintJob1", "ptr", printerName, "ptr", jobName, "ptr", outputFileName, "ptr", progressEvent, "ptr", completionEvent, "ptr", xpsPrintJob, "ptr", printContentReceiver, "int")
         return result
     }

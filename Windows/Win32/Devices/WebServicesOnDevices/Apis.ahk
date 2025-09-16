@@ -394,6 +394,9 @@ class WebServicesOnDevices {
      * @since windows6.0.6000
      */
     static WSDXMLGetNameFromBuiltinNamespace(pszNamespace, pszName, ppName) {
+        pszNamespace := pszNamespace is String? StrPtr(pszNamespace) : pszNamespace
+        pszName := pszName is String? StrPtr(pszName) : pszName
+
         result := DllCall("wsdapi.dll\WSDXMLGetNameFromBuiltinNamespace", "ptr", pszNamespace, "ptr", pszName, "ptr", ppName, "int")
         return result
     }
@@ -706,6 +709,9 @@ class WebServicesOnDevices {
      * @since windows6.0.6000
      */
     static WSDCreateDeviceProxy(pszDeviceId, pszLocalId, pContext, ppDeviceProxy) {
+        pszDeviceId := pszDeviceId is String? StrPtr(pszDeviceId) : pszDeviceId
+        pszLocalId := pszLocalId is String? StrPtr(pszLocalId) : pszLocalId
+
         result := DllCall("wsdapi.dll\WSDCreateDeviceProxy", "ptr", pszDeviceId, "ptr", pszLocalId, "ptr", pContext, "ptr", ppDeviceProxy, "int")
         return result
     }
@@ -789,6 +795,9 @@ class WebServicesOnDevices {
      * @since windows6.0.6000
      */
     static WSDCreateDeviceProxyAdvanced(pszDeviceId, pDeviceAddress, pszLocalId, pContext, ppDeviceProxy) {
+        pszDeviceId := pszDeviceId is String? StrPtr(pszDeviceId) : pszDeviceId
+        pszLocalId := pszLocalId is String? StrPtr(pszLocalId) : pszLocalId
+
         result := DllCall("wsdapi.dll\WSDCreateDeviceProxyAdvanced", "ptr", pszDeviceId, "ptr", pDeviceAddress, "ptr", pszLocalId, "ptr", pContext, "ptr", ppDeviceProxy, "int")
         return result
     }
@@ -869,6 +878,9 @@ class WebServicesOnDevices {
      * @since windows6.1
      */
     static WSDCreateDeviceProxy2(pszDeviceId, pszLocalId, pContext, pConfigParams, dwConfigParamCount, ppDeviceProxy) {
+        pszDeviceId := pszDeviceId is String? StrPtr(pszDeviceId) : pszDeviceId
+        pszLocalId := pszLocalId is String? StrPtr(pszLocalId) : pszLocalId
+
         result := DllCall("wsdapi.dll\WSDCreateDeviceProxy2", "ptr", pszDeviceId, "ptr", pszLocalId, "ptr", pContext, "ptr", pConfigParams, "uint", dwConfigParamCount, "ptr", ppDeviceProxy, "int")
         return result
     }
@@ -965,6 +977,8 @@ class WebServicesOnDevices {
      * @since windows6.0.6000
      */
     static WSDCreateDeviceHost(pszLocalId, pContext, ppDeviceHost) {
+        pszLocalId := pszLocalId is String? StrPtr(pszLocalId) : pszLocalId
+
         result := DllCall("wsdapi.dll\WSDCreateDeviceHost", "ptr", pszLocalId, "ptr", pContext, "ptr", ppDeviceHost, "int")
         return result
     }
@@ -1066,6 +1080,8 @@ class WebServicesOnDevices {
      * @since windows6.0.6000
      */
     static WSDCreateDeviceHostAdvanced(pszLocalId, pContext, ppHostAddresses, dwHostAddressCount, ppDeviceHost) {
+        pszLocalId := pszLocalId is String? StrPtr(pszLocalId) : pszLocalId
+
         result := DllCall("wsdapi.dll\WSDCreateDeviceHostAdvanced", "ptr", pszLocalId, "ptr", pContext, "ptr", ppHostAddresses, "uint", dwHostAddressCount, "ptr", ppDeviceHost, "int")
         return result
     }
@@ -1162,6 +1178,8 @@ class WebServicesOnDevices {
      * @since windows6.1
      */
     static WSDCreateDeviceHost2(pszLocalId, pContext, pConfigParams, dwConfigParamCount, ppDeviceHost) {
+        pszLocalId := pszLocalId is String? StrPtr(pszLocalId) : pszLocalId
+
         result := DllCall("wsdapi.dll\WSDCreateDeviceHost2", "ptr", pszLocalId, "ptr", pContext, "ptr", pConfigParams, "uint", dwConfigParamCount, "ptr", ppDeviceHost, "int")
         return result
     }
@@ -1420,6 +1438,8 @@ class WebServicesOnDevices {
      * @since windows6.0.6000
      */
     static WSDXMLBuildAnyForSingleElement(pElementName, pszText, ppAny) {
+        pszText := pszText is String? StrPtr(pszText) : pszText
+
         result := DllCall("wsdapi.dll\WSDXMLBuildAnyForSingleElement", "ptr", pElementName, "ptr", pszText, "ptr", ppAny, "int")
         return result
     }
@@ -1486,6 +1506,10 @@ class WebServicesOnDevices {
      * @since windows6.0.6000
      */
     static WSDXMLGetValueFromAny(pszNamespace, pszName, pAny, ppszValue) {
+        pszNamespace := pszNamespace is String? StrPtr(pszNamespace) : pszNamespace
+        pszName := pszName is String? StrPtr(pszName) : pszName
+        ppszValue := ppszValue is String? StrPtr(ppszValue) : ppszValue
+
         result := DllCall("wsdapi.dll\WSDXMLGetValueFromAny", "ptr", pszNamespace, "ptr", pszName, "ptr", pAny, "ptr", ppszValue, "int")
         return result
     }
@@ -1687,6 +1711,11 @@ class WebServicesOnDevices {
      * @since windows6.0.6000
      */
     static WSDGenerateFault(pszCode, pszSubCode, pszReason, pszDetail, pContext, ppFault) {
+        pszCode := pszCode is String? StrPtr(pszCode) : pszCode
+        pszSubCode := pszSubCode is String? StrPtr(pszSubCode) : pszSubCode
+        pszReason := pszReason is String? StrPtr(pszReason) : pszReason
+        pszDetail := pszDetail is String? StrPtr(pszDetail) : pszDetail
+
         result := DllCall("wsdapi.dll\WSDGenerateFault", "ptr", pszCode, "ptr", pszSubCode, "ptr", pszReason, "ptr", pszDetail, "ptr", pContext, "ptr", ppFault, "int")
         return result
     }
@@ -1764,6 +1793,8 @@ class WebServicesOnDevices {
      * @since windows6.0.6000
      */
     static WSDGenerateFaultEx(pCode, pSubCode, pReasons, pszDetail, ppFault) {
+        pszDetail := pszDetail is String? StrPtr(pszDetail) : pszDetail
+
         result := DllCall("wsdapi.dll\WSDGenerateFaultEx", "ptr", pCode, "ptr", pSubCode, "ptr", pReasons, "ptr", pszDetail, "ptr", ppFault, "int")
         return result
     }
@@ -1834,6 +1865,9 @@ class WebServicesOnDevices {
      * @since windows6.1
      */
     static WSDUriEncode(source, cchSource, destOut, cchDestOut) {
+        source := source is String? StrPtr(source) : source
+        destOut := destOut is String? StrPtr(destOut) : destOut
+
         result := DllCall("wsdapi.dll\WSDUriEncode", "ptr", source, "uint", cchSource, "ptr", destOut, "ptr", cchDestOut, "int")
         return result
     }
@@ -1902,6 +1936,9 @@ class WebServicesOnDevices {
      * @since windows6.1
      */
     static WSDUriDecode(source, cchSource, destOut, cchDestOut) {
+        source := source is String? StrPtr(source) : source
+        destOut := destOut is String? StrPtr(destOut) : destOut
+
         result := DllCall("wsdapi.dll\WSDUriDecode", "ptr", source, "uint", cchSource, "ptr", destOut, "ptr", cchDestOut, "int")
         return result
     }

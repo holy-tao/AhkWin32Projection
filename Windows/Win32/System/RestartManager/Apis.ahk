@@ -131,6 +131,8 @@ class RestartManager {
     static RmStartSession(pSessionHandle, strSessionKey) {
         static dwSessionFlags := 0 ;Reserved parameters must always be NULL
 
+        strSessionKey := strSessionKey is String? StrPtr(strSessionKey) : strSessionKey
+
         result := DllCall("rstrtmgr.dll\RmStartSession", "ptr", pSessionHandle, "uint", dwSessionFlags, "ptr", strSessionKey, "uint")
         return result
     }
@@ -237,6 +239,8 @@ class RestartManager {
      * @since windows6.0.6000
      */
     static RmJoinSession(pSessionHandle, strSessionKey) {
+        strSessionKey := strSessionKey is String? StrPtr(strSessionKey) : strSessionKey
+
         result := DllCall("RstrtMgr.dll\RmJoinSession", "ptr", pSessionHandle, "ptr", strSessionKey, "uint")
         return result
     }
@@ -415,6 +419,9 @@ class RestartManager {
      * @since windows6.0.6000
      */
     static RmRegisterResources(dwSessionHandle, nFiles, rgsFileNames, nApplications, rgApplications, nServices, rgsServiceNames) {
+        rgsFileNames := rgsFileNames is String? StrPtr(rgsFileNames) : rgsFileNames
+        rgsServiceNames := rgsServiceNames is String? StrPtr(rgsServiceNames) : rgsServiceNames
+
         result := DllCall("rstrtmgr.dll\RmRegisterResources", "uint", dwSessionHandle, "uint", nFiles, "ptr", rgsFileNames, "uint", nApplications, "ptr", rgApplications, "uint", nServices, "ptr", rgsServiceNames, "uint")
         return result
     }
@@ -967,6 +974,9 @@ class RestartManager {
      * @since windows6.0.6000
      */
     static RmAddFilter(dwSessionHandle, strModuleName, pProcess, strServiceShortName, FilterAction) {
+        strModuleName := strModuleName is String? StrPtr(strModuleName) : strModuleName
+        strServiceShortName := strServiceShortName is String? StrPtr(strServiceShortName) : strServiceShortName
+
         result := DllCall("RstrtMgr.dll\RmAddFilter", "uint", dwSessionHandle, "ptr", strModuleName, "ptr", pProcess, "ptr", strServiceShortName, "int", FilterAction, "uint")
         return result
     }
@@ -1025,6 +1035,9 @@ class RestartManager {
      * @since windows6.0.6000
      */
     static RmRemoveFilter(dwSessionHandle, strModuleName, pProcess, strServiceShortName) {
+        strModuleName := strModuleName is String? StrPtr(strModuleName) : strModuleName
+        strServiceShortName := strServiceShortName is String? StrPtr(strServiceShortName) : strServiceShortName
+
         result := DllCall("RstrtMgr.dll\RmRemoveFilter", "uint", dwSessionHandle, "ptr", strModuleName, "ptr", pProcess, "ptr", strServiceShortName, "uint")
         return result
     }

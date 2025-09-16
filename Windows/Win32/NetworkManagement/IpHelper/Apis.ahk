@@ -8233,6 +8233,8 @@ class IpHelper {
      * @since windows5.0
      */
     static GetAdapterIndex(AdapterName, IfIndex) {
+        AdapterName := AdapterName is String? StrPtr(AdapterName) : AdapterName
+
         result := DllCall("IPHLPAPI.dll\GetAdapterIndex", "ptr", AdapterName, "ptr", IfIndex, "uint")
         return result
     }
@@ -9642,6 +9644,8 @@ class IpHelper {
      * @since windows5.1.2600
      */
     static GetIpErrorString(ErrorCode, Buffer, Size) {
+        Buffer := Buffer is String? StrPtr(Buffer) : Buffer
+
         result := DllCall("IPHLPAPI.dll\GetIpErrorString", "uint", ErrorCode, "ptr", Buffer, "ptr", Size, "uint")
         return result
     }
@@ -10505,6 +10509,8 @@ class IpHelper {
      * @since windows6.0.6000
      */
     static ParseNetworkString(NetworkString, Types, AddressInfo, PortNumber, PrefixLength) {
+        NetworkString := NetworkString is String? StrPtr(NetworkString) : NetworkString
+
         result := DllCall("IPHLPAPI.dll\ParseNetworkString", "ptr", NetworkString, "uint", Types, "ptr", AddressInfo, "ptr", PortNumber, "ptr", PrefixLength, "uint")
         return result
     }
@@ -15516,6 +15522,8 @@ class IpHelper {
      * @since windows6.0.6000
      */
     static ConvertInterfaceNameToLuidA(InterfaceName, InterfaceLuid) {
+        InterfaceName := InterfaceName is String? StrPtr(InterfaceName) : InterfaceName
+
         result := DllCall("IPHLPAPI.dll\ConvertInterfaceNameToLuidA", "ptr", InterfaceName, "ptr", InterfaceLuid, "uint")
         return result
     }
@@ -15567,6 +15575,8 @@ class IpHelper {
      * @since windows6.0.6000
      */
     static ConvertInterfaceNameToLuidW(InterfaceName, InterfaceLuid) {
+        InterfaceName := InterfaceName is String? StrPtr(InterfaceName) : InterfaceName
+
         result := DllCall("IPHLPAPI.dll\ConvertInterfaceNameToLuidW", "ptr", InterfaceName, "ptr", InterfaceLuid, "uint")
         return result
     }
@@ -15621,6 +15631,8 @@ class IpHelper {
      * @since windows6.0.6000
      */
     static ConvertInterfaceLuidToNameA(InterfaceLuid, InterfaceName, Length) {
+        InterfaceName := InterfaceName is String? StrPtr(InterfaceName) : InterfaceName
+
         result := DllCall("IPHLPAPI.dll\ConvertInterfaceLuidToNameA", "ptr", InterfaceLuid, "ptr", InterfaceName, "ptr", Length, "uint")
         return result
     }
@@ -15675,6 +15687,8 @@ class IpHelper {
      * @since windows6.0.6000
      */
     static ConvertInterfaceLuidToNameW(InterfaceLuid, InterfaceName, Length) {
+        InterfaceName := InterfaceName is String? StrPtr(InterfaceName) : InterfaceName
+
         result := DllCall("IPHLPAPI.dll\ConvertInterfaceLuidToNameW", "ptr", InterfaceLuid, "ptr", InterfaceName, "ptr", Length, "uint")
         return result
     }
@@ -15809,6 +15823,8 @@ class IpHelper {
      * @since windows6.0.6000
      */
     static ConvertInterfaceLuidToAlias(InterfaceLuid, InterfaceAlias, Length) {
+        InterfaceAlias := InterfaceAlias is String? StrPtr(InterfaceAlias) : InterfaceAlias
+
         result := DllCall("IPHLPAPI.dll\ConvertInterfaceLuidToAlias", "ptr", InterfaceLuid, "ptr", InterfaceAlias, "ptr", Length, "uint")
         return result
     }
@@ -15845,6 +15861,8 @@ class IpHelper {
      * @since windows6.0.6000
      */
     static ConvertInterfaceAliasToLuid(InterfaceAlias, InterfaceLuid) {
+        InterfaceAlias := InterfaceAlias is String? StrPtr(InterfaceAlias) : InterfaceAlias
+
         result := DllCall("IPHLPAPI.dll\ConvertInterfaceAliasToLuid", "ptr", InterfaceAlias, "ptr", InterfaceLuid, "uint")
         return result
     }
@@ -15939,6 +15957,8 @@ class IpHelper {
      * @since windows6.0.6000
      */
     static if_nametoindex(InterfaceName) {
+        InterfaceName := InterfaceName is String? StrPtr(InterfaceName) : InterfaceName
+
         result := DllCall("IPHLPAPI.dll\if_nametoindex", "ptr", InterfaceName, "uint")
         return result
     }
@@ -15965,6 +15985,8 @@ class IpHelper {
      * @since windows6.0.6000
      */
     static if_indextoname(InterfaceIndex, InterfaceName) {
+        InterfaceName := InterfaceName is String? StrPtr(InterfaceName) : InterfaceName
+
         result := DllCall("IPHLPAPI.dll\if_indextoname", "uint", InterfaceIndex, "ptr", InterfaceName, "ptr")
         return result
     }
@@ -16096,6 +16118,8 @@ class IpHelper {
      * @see https://learn.microsoft.com/windows/win32/api/netioapi/nf-netioapi-getnetworkinformation
      */
     static GetNetworkInformation(NetworkGuid, CompartmentId, SiteId, NetworkName, Length) {
+        NetworkName := NetworkName is String? StrPtr(NetworkName) : NetworkName
+
         result := DllCall("IPHLPAPI.dll\GetNetworkInformation", "ptr", NetworkGuid, "ptr", CompartmentId, "ptr", SiteId, "ptr", NetworkName, "uint", Length, "uint")
         return result
     }
@@ -16109,6 +16133,8 @@ class IpHelper {
      * @see https://learn.microsoft.com/windows/win32/api/netioapi/nf-netioapi-setnetworkinformation
      */
     static SetNetworkInformation(NetworkGuid, CompartmentId, NetworkName) {
+        NetworkName := NetworkName is String? StrPtr(NetworkName) : NetworkName
+
         result := DllCall("IPHLPAPI.dll\SetNetworkInformation", "ptr", NetworkGuid, "uint", CompartmentId, "ptr", NetworkName, "uint")
         return result
     }

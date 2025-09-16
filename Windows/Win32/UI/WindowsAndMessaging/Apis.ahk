@@ -6979,6 +6979,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static LoadStringA(hInstance, uID, lpBuffer, cchBufferMax) {
+        lpBuffer := lpBuffer is String? StrPtr(lpBuffer) : lpBuffer
+
         A_LastError := 0
 
         DllCall("USER32.dll\LoadStringA", "ptr", hInstance, "uint", uID, "ptr", lpBuffer, "int", cchBufferMax)
@@ -7011,6 +7013,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static LoadStringW(hInstance, uID, lpBuffer, cchBufferMax) {
+        lpBuffer := lpBuffer is String? StrPtr(lpBuffer) : lpBuffer
+
         A_LastError := 0
 
         DllCall("USER32.dll\LoadStringW", "ptr", hInstance, "uint", uID, "ptr", lpBuffer, "int", cchBufferMax)
@@ -7377,6 +7381,9 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static wvsprintfA(param0, param1, arglist) {
+        param0 := param0 is String? StrPtr(param0) : param0
+        param1 := param1 is String? StrPtr(param1) : param1
+
         A_LastError := 0
 
         DllCall("USER32.dll\wvsprintfA", "ptr", param0, "ptr", param1, "ptr", arglist)
@@ -7407,6 +7414,9 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static wvsprintfW(param0, param1, arglist) {
+        param0 := param0 is String? StrPtr(param0) : param0
+        param1 := param1 is String? StrPtr(param1) : param1
+
         A_LastError := 0
 
         DllCall("USER32.dll\wvsprintfW", "ptr", param0, "ptr", param1, "ptr", arglist)
@@ -7603,6 +7613,9 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static wsprintfA(param0, param1) {
+        param0 := param0 is String? StrPtr(param0) : param0
+        param1 := param1 is String? StrPtr(param1) : param1
+
         A_LastError := 0
 
         DllCall("USER32.dll\wsprintfA", "ptr", param0, "ptr", param1, "CDecl ")
@@ -7799,6 +7812,9 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static wsprintfW(param0, param1) {
+        param0 := param0 is String? StrPtr(param0) : param0
+        param1 := param1 is String? StrPtr(param1) : param1
+
         A_LastError := 0
 
         DllCall("USER32.dll\wsprintfW", "ptr", param0, "ptr", param1, "CDecl ")
@@ -7856,6 +7872,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static RegisterWindowMessageA(lpString) {
+        lpString := lpString is String? StrPtr(lpString) : lpString
+
         A_LastError := 0
 
         DllCall("USER32.dll\RegisterWindowMessageA", "ptr", lpString)
@@ -7880,6 +7898,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static RegisterWindowMessageW(lpString) {
+        lpString := lpString is String? StrPtr(lpString) : lpString
+
         A_LastError := 0
 
         DllCall("USER32.dll\RegisterWindowMessageW", "ptr", lpString)
@@ -9729,6 +9749,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static UnregisterClassA(lpClassName, hInstance) {
+        lpClassName := lpClassName is String? StrPtr(lpClassName) : lpClassName
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\UnregisterClassA", "ptr", lpClassName, "ptr", hInstance, "int")
@@ -9770,6 +9792,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static UnregisterClassW(lpClassName, hInstance) {
+        lpClassName := lpClassName is String? StrPtr(lpClassName) : lpClassName
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\UnregisterClassW", "ptr", lpClassName, "ptr", hInstance, "int")
@@ -9805,6 +9829,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static GetClassInfoA(hInstance, lpClassName, lpWndClass) {
+        lpClassName := lpClassName is String? StrPtr(lpClassName) : lpClassName
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\GetClassInfoA", "ptr", hInstance, "ptr", lpClassName, "ptr", lpWndClass, "int")
@@ -9840,6 +9866,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static GetClassInfoW(hInstance, lpClassName, lpWndClass) {
+        lpClassName := lpClassName is String? StrPtr(lpClassName) : lpClassName
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\GetClassInfoW", "ptr", hInstance, "ptr", lpClassName, "ptr", lpWndClass, "int")
@@ -9938,6 +9966,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static GetClassInfoExA(hInstance, lpszClass, lpwcx) {
+        lpszClass := lpszClass is String? StrPtr(lpszClass) : lpszClass
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\GetClassInfoExA", "ptr", hInstance, "ptr", lpszClass, "ptr", lpwcx, "int")
@@ -9978,6 +10008,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static GetClassInfoExW(hInstance, lpszClass, lpwcx) {
+        lpszClass := lpszClass is String? StrPtr(lpszClass) : lpszClass
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\GetClassInfoExW", "ptr", hInstance, "ptr", lpszClass, "ptr", lpwcx, "int")
@@ -10149,6 +10181,9 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static CreateWindowExA(dwExStyle, lpClassName, lpWindowName, dwStyle, X, Y, nWidth, nHeight, hWndParent, hMenu, hInstance, lpParam) {
+        lpClassName := lpClassName is String? StrPtr(lpClassName) : lpClassName
+        lpWindowName := lpWindowName is String? StrPtr(lpWindowName) : lpWindowName
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\CreateWindowExA", "uint", dwExStyle, "ptr", lpClassName, "ptr", lpWindowName, "uint", dwStyle, "int", X, "int", Y, "int", nWidth, "int", nHeight, "ptr", hWndParent, "ptr", hMenu, "ptr", hInstance, "ptr", lpParam, "ptr")
@@ -10320,6 +10355,9 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static CreateWindowExW(dwExStyle, lpClassName, lpWindowName, dwStyle, X, Y, nWidth, nHeight, hWndParent, hMenu, hInstance, lpParam) {
+        lpClassName := lpClassName is String? StrPtr(lpClassName) : lpClassName
+        lpWindowName := lpWindowName is String? StrPtr(lpWindowName) : lpWindowName
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\CreateWindowExW", "uint", dwExStyle, "ptr", lpClassName, "ptr", lpWindowName, "uint", dwStyle, "int", X, "int", Y, "int", nWidth, "int", nHeight, "ptr", hWndParent, "ptr", hMenu, "ptr", hInstance, "ptr", lpParam, "ptr")
@@ -11265,6 +11303,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static CreateDialogParamA(hInstance, lpTemplateName, hWndParent, lpDialogFunc, dwInitParam) {
+        lpTemplateName := lpTemplateName is String? StrPtr(lpTemplateName) : lpTemplateName
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\CreateDialogParamA", "ptr", hInstance, "ptr", lpTemplateName, "ptr", hWndParent, "ptr", lpDialogFunc, "ptr", dwInitParam, "ptr")
@@ -11311,6 +11351,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static CreateDialogParamW(hInstance, lpTemplateName, hWndParent, lpDialogFunc, dwInitParam) {
+        lpTemplateName := lpTemplateName is String? StrPtr(lpTemplateName) : lpTemplateName
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\CreateDialogParamW", "ptr", hInstance, "ptr", lpTemplateName, "ptr", hWndParent, "ptr", lpDialogFunc, "ptr", dwInitParam, "ptr")
@@ -11475,6 +11517,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static DialogBoxParamA(hInstance, lpTemplateName, hWndParent, lpDialogFunc, dwInitParam) {
+        lpTemplateName := lpTemplateName is String? StrPtr(lpTemplateName) : lpTemplateName
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\DialogBoxParamA", "ptr", hInstance, "ptr", lpTemplateName, "ptr", hWndParent, "ptr", lpDialogFunc, "ptr", dwInitParam, "ptr")
@@ -11521,6 +11565,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static DialogBoxParamW(hInstance, lpTemplateName, hWndParent, lpDialogFunc, dwInitParam) {
+        lpTemplateName := lpTemplateName is String? StrPtr(lpTemplateName) : lpTemplateName
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\DialogBoxParamW", "ptr", hInstance, "ptr", lpTemplateName, "ptr", hWndParent, "ptr", lpDialogFunc, "ptr", dwInitParam, "ptr")
@@ -11793,6 +11839,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static SetDlgItemTextA(hDlg, nIDDlgItem, lpString) {
+        lpString := lpString is String? StrPtr(lpString) : lpString
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\SetDlgItemTextA", "ptr", hDlg, "int", nIDDlgItem, "ptr", lpString, "int")
@@ -11824,6 +11872,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static SetDlgItemTextW(hDlg, nIDDlgItem, lpString) {
+        lpString := lpString is String? StrPtr(lpString) : lpString
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\SetDlgItemTextW", "ptr", hDlg, "int", nIDDlgItem, "ptr", lpString, "int")
@@ -11856,6 +11906,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static GetDlgItemTextA(hDlg, nIDDlgItem, lpString, cchMax) {
+        lpString := lpString is String? StrPtr(lpString) : lpString
+
         A_LastError := 0
 
         DllCall("USER32.dll\GetDlgItemTextA", "ptr", hDlg, "int", nIDDlgItem, "ptr", lpString, "int", cchMax)
@@ -11887,6 +11939,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static GetDlgItemTextW(hDlg, nIDDlgItem, lpString, cchMax) {
+        lpString := lpString is String? StrPtr(lpString) : lpString
+
         A_LastError := 0
 
         DllCall("USER32.dll\GetDlgItemTextW", "ptr", hDlg, "int", nIDDlgItem, "ptr", lpString, "int", cchMax)
@@ -12239,6 +12293,9 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static CharToOemA(pSrc, pDst) {
+        pSrc := pSrc is String? StrPtr(pSrc) : pSrc
+        pDst := pDst is String? StrPtr(pDst) : pDst
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\CharToOemA", "ptr", pSrc, "ptr", pDst, "int")
@@ -12271,6 +12328,9 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static CharToOemW(pSrc, pDst) {
+        pSrc := pSrc is String? StrPtr(pSrc) : pSrc
+        pDst := pDst is String? StrPtr(pDst) : pDst
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\CharToOemW", "ptr", pSrc, "ptr", pDst, "int")
@@ -12303,6 +12363,9 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static OemToCharA(pSrc, pDst) {
+        pSrc := pSrc is String? StrPtr(pSrc) : pSrc
+        pDst := pDst is String? StrPtr(pDst) : pDst
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\OemToCharA", "ptr", pSrc, "ptr", pDst, "int")
@@ -12335,6 +12398,9 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static OemToCharW(pSrc, pDst) {
+        pSrc := pSrc is String? StrPtr(pSrc) : pSrc
+        pDst := pDst is String? StrPtr(pDst) : pDst
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\OemToCharW", "ptr", pSrc, "ptr", pDst, "int")
@@ -12371,6 +12437,9 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static CharToOemBuffA(lpszSrc, lpszDst, cchDstLength) {
+        lpszSrc := lpszSrc is String? StrPtr(lpszSrc) : lpszSrc
+        lpszDst := lpszDst is String? StrPtr(lpszDst) : lpszDst
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\CharToOemBuffA", "ptr", lpszSrc, "ptr", lpszDst, "uint", cchDstLength, "int")
@@ -12407,6 +12476,9 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static CharToOemBuffW(lpszSrc, lpszDst, cchDstLength) {
+        lpszSrc := lpszSrc is String? StrPtr(lpszSrc) : lpszSrc
+        lpszDst := lpszDst is String? StrPtr(lpszDst) : lpszDst
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\CharToOemBuffW", "ptr", lpszSrc, "ptr", lpszDst, "uint", cchDstLength, "int")
@@ -12452,6 +12524,9 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static OemToCharBuffA(lpszSrc, lpszDst, cchDstLength) {
+        lpszSrc := lpszSrc is String? StrPtr(lpszSrc) : lpszSrc
+        lpszDst := lpszDst is String? StrPtr(lpszDst) : lpszDst
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\OemToCharBuffA", "ptr", lpszSrc, "ptr", lpszDst, "uint", cchDstLength, "int")
@@ -12497,6 +12572,9 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static OemToCharBuffW(lpszSrc, lpszDst, cchDstLength) {
+        lpszSrc := lpszSrc is String? StrPtr(lpszSrc) : lpszSrc
+        lpszDst := lpszDst is String? StrPtr(lpszDst) : lpszDst
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\OemToCharBuffW", "ptr", lpszSrc, "ptr", lpszDst, "uint", cchDstLength, "int")
@@ -12535,6 +12613,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static CharUpperA(lpsz) {
+        lpsz := lpsz is String? StrPtr(lpsz) : lpsz
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\CharUpperA", "ptr", lpsz, "ptr")
@@ -12573,6 +12653,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static CharUpperW(lpsz) {
+        lpsz := lpsz is String? StrPtr(lpsz) : lpsz
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\CharUpperW", "ptr", lpsz, "ptr")
@@ -12607,6 +12689,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static CharUpperBuffA(lpsz, cchLength) {
+        lpsz := lpsz is String? StrPtr(lpsz) : lpsz
+
         result := DllCall("USER32.dll\CharUpperBuffA", "ptr", lpsz, "uint", cchLength, "uint")
         return result
     }
@@ -12636,6 +12720,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static CharUpperBuffW(lpsz, cchLength) {
+        lpsz := lpsz is String? StrPtr(lpsz) : lpsz
+
         result := DllCall("USER32.dll\CharUpperBuffW", "ptr", lpsz, "uint", cchLength, "uint")
         return result
     }
@@ -12669,6 +12755,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static CharLowerA(lpsz) {
+        lpsz := lpsz is String? StrPtr(lpsz) : lpsz
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\CharLowerA", "ptr", lpsz, "ptr")
@@ -12707,6 +12795,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static CharLowerW(lpsz) {
+        lpsz := lpsz is String? StrPtr(lpsz) : lpsz
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\CharLowerW", "ptr", lpsz, "ptr")
@@ -12740,6 +12830,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static CharLowerBuffA(lpsz, cchLength) {
+        lpsz := lpsz is String? StrPtr(lpsz) : lpsz
+
         result := DllCall("USER32.dll\CharLowerBuffA", "ptr", lpsz, "uint", cchLength, "uint")
         return result
     }
@@ -12768,6 +12860,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static CharLowerBuffW(lpsz, cchLength) {
+        lpsz := lpsz is String? StrPtr(lpsz) : lpsz
+
         result := DllCall("USER32.dll\CharLowerBuffW", "ptr", lpsz, "uint", cchLength, "uint")
         return result
     }
@@ -12803,6 +12897,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static CharNextA(lpsz) {
+        lpsz := lpsz is String? StrPtr(lpsz) : lpsz
+
         result := DllCall("USER32.dll\CharNextA", "ptr", lpsz, "ptr")
         return result
     }
@@ -12838,6 +12934,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static CharNextW(lpsz) {
+        lpsz := lpsz is String? StrPtr(lpsz) : lpsz
+
         result := DllCall("USER32.dll\CharNextW", "ptr", lpsz, "ptr")
         return result
     }
@@ -12874,6 +12972,9 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static CharPrevA(lpszStart, lpszCurrent) {
+        lpszStart := lpszStart is String? StrPtr(lpszStart) : lpszStart
+        lpszCurrent := lpszCurrent is String? StrPtr(lpszCurrent) : lpszCurrent
+
         result := DllCall("USER32.dll\CharPrevA", "ptr", lpszStart, "ptr", lpszCurrent, "ptr")
         return result
     }
@@ -12910,6 +13011,9 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static CharPrevW(lpszStart, lpszCurrent) {
+        lpszStart := lpszStart is String? StrPtr(lpszStart) : lpszStart
+        lpszCurrent := lpszCurrent is String? StrPtr(lpszCurrent) : lpszCurrent
+
         result := DllCall("USER32.dll\CharPrevW", "ptr", lpszStart, "ptr", lpszCurrent, "ptr")
         return result
     }
@@ -12978,6 +13082,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static CharNextExA(CodePage, lpCurrentChar, dwFlags) {
+        lpCurrentChar := lpCurrentChar is String? StrPtr(lpCurrentChar) : lpCurrentChar
+
         result := DllCall("USER32.dll\CharNextExA", "ushort", CodePage, "ptr", lpCurrentChar, "uint", dwFlags, "ptr")
         return result
     }
@@ -13047,6 +13153,9 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static CharPrevExA(CodePage, lpStart, lpCurrentChar, dwFlags) {
+        lpStart := lpStart is String? StrPtr(lpStart) : lpStart
+        lpCurrentChar := lpCurrentChar is String? StrPtr(lpCurrentChar) : lpCurrentChar
+
         result := DllCall("USER32.dll\CharPrevExA", "ushort", CodePage, "ptr", lpStart, "ptr", lpCurrentChar, "uint", dwFlags, "ptr")
         return result
     }
@@ -13744,6 +13853,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static LoadAcceleratorsA(hInstance, lpTableName) {
+        lpTableName := lpTableName is String? StrPtr(lpTableName) : lpTableName
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\LoadAcceleratorsA", "ptr", hInstance, "ptr", lpTableName, "ptr")
@@ -13774,6 +13885,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static LoadAcceleratorsW(hInstance, lpTableName) {
+        lpTableName := lpTableName is String? StrPtr(lpTableName) : lpTableName
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\LoadAcceleratorsW", "ptr", hInstance, "ptr", lpTableName, "ptr")
@@ -14174,6 +14287,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static LoadMenuA(hInstance, lpMenuName) {
+        lpMenuName := lpMenuName is String? StrPtr(lpMenuName) : lpMenuName
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\LoadMenuA", "ptr", hInstance, "ptr", lpMenuName, "ptr")
@@ -14202,6 +14317,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static LoadMenuW(hInstance, lpMenuName) {
+        lpMenuName := lpMenuName is String? StrPtr(lpMenuName) : lpMenuName
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\LoadMenuW", "ptr", hInstance, "ptr", lpMenuName, "ptr")
@@ -14333,6 +14450,8 @@ class WindowsAndMessaging {
      * @returns {Integer} 
      */
     static ChangeMenuA(hMenu, cmd, lpszNewItem, cmdInsert, flags) {
+        lpszNewItem := lpszNewItem is String? StrPtr(lpszNewItem) : lpszNewItem
+
         result := DllCall("USER32.dll\ChangeMenuA", "ptr", hMenu, "uint", cmd, "ptr", lpszNewItem, "uint", cmdInsert, "uint", flags, "int")
         return result
     }
@@ -14347,6 +14466,8 @@ class WindowsAndMessaging {
      * @returns {Integer} 
      */
     static ChangeMenuW(hMenu, cmd, lpszNewItem, cmdInsert, flags) {
+        lpszNewItem := lpszNewItem is String? StrPtr(lpszNewItem) : lpszNewItem
+
         result := DllCall("USER32.dll\ChangeMenuW", "ptr", hMenu, "uint", cmd, "ptr", lpszNewItem, "uint", cmdInsert, "uint", flags, "int")
         return result
     }
@@ -14458,6 +14579,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static GetMenuStringA(hMenu, uIDItem, lpString, cchMax, flags) {
+        lpString := lpString is String? StrPtr(lpString) : lpString
+
         DllCall("USER32.dll\GetMenuStringA", "ptr", hMenu, "uint", uIDItem, "ptr", lpString, "int", cchMax, "uint", flags)
     }
 
@@ -14488,6 +14611,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static GetMenuStringW(hMenu, uIDItem, lpString, cchMax, flags) {
+        lpString := lpString is String? StrPtr(lpString) : lpString
+
         DllCall("USER32.dll\GetMenuStringW", "ptr", hMenu, "uint", uIDItem, "ptr", lpString, "int", cchMax, "uint", flags)
     }
 
@@ -14931,6 +15056,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static InsertMenuA(hMenu, uPosition, uFlags, uIDNewItem, lpNewItem) {
+        lpNewItem := lpNewItem is String? StrPtr(lpNewItem) : lpNewItem
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\InsertMenuA", "ptr", hMenu, "uint", uPosition, "uint", uFlags, "ptr", uIDNewItem, "ptr", lpNewItem, "int")
@@ -15053,6 +15180,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static InsertMenuW(hMenu, uPosition, uFlags, uIDNewItem, lpNewItem) {
+        lpNewItem := lpNewItem is String? StrPtr(lpNewItem) : lpNewItem
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\InsertMenuW", "ptr", hMenu, "uint", uPosition, "uint", uFlags, "ptr", uIDNewItem, "ptr", lpNewItem, "int")
@@ -15134,6 +15263,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static AppendMenuA(hMenu, uFlags, uIDNewItem, lpNewItem) {
+        lpNewItem := lpNewItem is String? StrPtr(lpNewItem) : lpNewItem
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\AppendMenuA", "ptr", hMenu, "uint", uFlags, "ptr", uIDNewItem, "ptr", lpNewItem, "int")
@@ -15215,6 +15346,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static AppendMenuW(hMenu, uFlags, uIDNewItem, lpNewItem) {
+        lpNewItem := lpNewItem is String? StrPtr(lpNewItem) : lpNewItem
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\AppendMenuW", "ptr", hMenu, "uint", uFlags, "ptr", uIDNewItem, "ptr", lpNewItem, "int")
@@ -15338,6 +15471,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static ModifyMenuA(hMnu, uPosition, uFlags, uIDNewItem, lpNewItem) {
+        lpNewItem := lpNewItem is String? StrPtr(lpNewItem) : lpNewItem
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\ModifyMenuA", "ptr", hMnu, "uint", uPosition, "uint", uFlags, "ptr", uIDNewItem, "ptr", lpNewItem, "int")
@@ -15461,6 +15596,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static ModifyMenuW(hMnu, uPosition, uFlags, uIDNewItem, lpNewItem) {
+        lpNewItem := lpNewItem is String? StrPtr(lpNewItem) : lpNewItem
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\ModifyMenuW", "ptr", hMnu, "uint", uPosition, "uint", uFlags, "ptr", uIDNewItem, "ptr", lpNewItem, "int")
@@ -17251,6 +17388,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static SetPropA(hWnd, lpString, hData) {
+        lpString := lpString is String? StrPtr(lpString) : lpString
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\SetPropA", "ptr", hWnd, "ptr", lpString, "ptr", hData, "int")
@@ -17284,6 +17423,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static SetPropW(hWnd, lpString, hData) {
+        lpString := lpString is String? StrPtr(lpString) : lpString
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\SetPropW", "ptr", hWnd, "ptr", lpString, "ptr", hData, "int")
@@ -17311,6 +17452,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static GetPropA(hWnd, lpString) {
+        lpString := lpString is String? StrPtr(lpString) : lpString
+
         result := DllCall("USER32.dll\GetPropA", "ptr", hWnd, "ptr", lpString, "ptr")
         return result
     }
@@ -17333,6 +17476,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static GetPropW(hWnd, lpString) {
+        lpString := lpString is String? StrPtr(lpString) : lpString
+
         result := DllCall("USER32.dll\GetPropW", "ptr", hWnd, "ptr", lpString, "ptr")
         return result
     }
@@ -17358,6 +17503,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static RemovePropA(hWnd, lpString) {
+        lpString := lpString is String? StrPtr(lpString) : lpString
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\RemovePropA", "ptr", hWnd, "ptr", lpString, "ptr")
@@ -17388,6 +17535,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static RemovePropW(hWnd, lpString) {
+        lpString := lpString is String? StrPtr(lpString) : lpString
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\RemovePropW", "ptr", hWnd, "ptr", lpString, "ptr")
@@ -17512,6 +17661,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static SetWindowTextA(hWnd, lpString) {
+        lpString := lpString is String? StrPtr(lpString) : lpString
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\SetWindowTextA", "ptr", hWnd, "ptr", lpString, "int")
@@ -17544,6 +17695,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static SetWindowTextW(hWnd, lpString) {
+        lpString := lpString is String? StrPtr(lpString) : lpString
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\SetWindowTextW", "ptr", hWnd, "ptr", lpString, "int")
@@ -17573,6 +17726,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static GetWindowTextA(hWnd, lpString, nMaxCount) {
+        lpString := lpString is String? StrPtr(lpString) : lpString
+
         A_LastError := 0
 
         DllCall("USER32.dll\GetWindowTextA", "ptr", hWnd, "ptr", lpString, "int", nMaxCount)
@@ -17601,6 +17756,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static GetWindowTextW(hWnd, lpString, nMaxCount) {
+        lpString := lpString is String? StrPtr(lpString) : lpString
+
         A_LastError := 0
 
         DllCall("USER32.dll\GetWindowTextW", "ptr", hWnd, "ptr", lpString, "int", nMaxCount)
@@ -17982,6 +18139,9 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static MessageBoxA(hWnd, lpText, lpCaption, uType) {
+        lpText := lpText is String? StrPtr(lpText) : lpText
+        lpCaption := lpCaption is String? StrPtr(lpCaption) : lpCaption
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\MessageBoxA", "ptr", hWnd, "ptr", lpText, "ptr", lpCaption, "uint", uType, "int")
@@ -18163,6 +18323,9 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static MessageBoxW(hWnd, lpText, lpCaption, uType) {
+        lpText := lpText is String? StrPtr(lpText) : lpText
+        lpCaption := lpCaption is String? StrPtr(lpCaption) : lpCaption
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\MessageBoxW", "ptr", hWnd, "ptr", lpText, "ptr", lpCaption, "uint", uType, "int")
@@ -18329,6 +18492,9 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static MessageBoxExA(hWnd, lpText, lpCaption, uType, wLanguageId) {
+        lpText := lpText is String? StrPtr(lpText) : lpText
+        lpCaption := lpCaption is String? StrPtr(lpCaption) : lpCaption
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\MessageBoxExA", "ptr", hWnd, "ptr", lpText, "ptr", lpCaption, "uint", uType, "ushort", wLanguageId, "int")
@@ -18495,6 +18661,9 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static MessageBoxExW(hWnd, lpText, lpCaption, uType, wLanguageId) {
+        lpText := lpText is String? StrPtr(lpText) : lpText
+        lpCaption := lpCaption is String? StrPtr(lpCaption) : lpCaption
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\MessageBoxExW", "ptr", hWnd, "ptr", lpText, "ptr", lpCaption, "uint", uType, "ushort", wLanguageId, "int")
@@ -20140,6 +20309,9 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static FindWindowA(lpClassName, lpWindowName) {
+        lpClassName := lpClassName is String? StrPtr(lpClassName) : lpClassName
+        lpWindowName := lpWindowName is String? StrPtr(lpWindowName) : lpWindowName
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\FindWindowA", "ptr", lpClassName, "ptr", lpWindowName, "ptr")
@@ -20172,6 +20344,9 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static FindWindowW(lpClassName, lpWindowName) {
+        lpClassName := lpClassName is String? StrPtr(lpClassName) : lpClassName
+        lpWindowName := lpWindowName is String? StrPtr(lpWindowName) : lpWindowName
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\FindWindowW", "ptr", lpClassName, "ptr", lpWindowName, "ptr")
@@ -20231,6 +20406,9 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static FindWindowExA(hWndParent, hWndChildAfter, lpszClass, lpszWindow) {
+        lpszClass := lpszClass is String? StrPtr(lpszClass) : lpszClass
+        lpszWindow := lpszWindow is String? StrPtr(lpszWindow) : lpszWindow
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\FindWindowExA", "ptr", hWndParent, "ptr", hWndChildAfter, "ptr", lpszClass, "ptr", lpszWindow, "ptr")
@@ -20290,6 +20468,9 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static FindWindowExW(hWndParent, hWndChildAfter, lpszClass, lpszWindow) {
+        lpszClass := lpszClass is String? StrPtr(lpszClass) : lpszClass
+        lpszWindow := lpszWindow is String? StrPtr(lpszWindow) : lpszWindow
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\FindWindowExW", "ptr", hWndParent, "ptr", hWndChildAfter, "ptr", lpszClass, "ptr", lpszWindow, "ptr")
@@ -20501,6 +20682,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static GetClassNameA(hWnd, lpClassName, nMaxCount) {
+        lpClassName := lpClassName is String? StrPtr(lpClassName) : lpClassName
+
         A_LastError := 0
 
         DllCall("USER32.dll\GetClassNameA", "ptr", hWnd, "ptr", lpClassName, "int", nMaxCount)
@@ -20528,6 +20711,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static GetClassNameW(hWnd, lpClassName, nMaxCount) {
+        lpClassName := lpClassName is String? StrPtr(lpClassName) : lpClassName
+
         A_LastError := 0
 
         DllCall("USER32.dll\GetClassNameW", "ptr", hWnd, "ptr", lpClassName, "int", nMaxCount)
@@ -21271,6 +21456,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static LoadCursorA(hInstance, lpCursorName) {
+        lpCursorName := lpCursorName is String? StrPtr(lpCursorName) : lpCursorName
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\LoadCursorA", "ptr", hInstance, "ptr", lpCursorName, "ptr")
@@ -21487,6 +21674,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static LoadCursorW(hInstance, lpCursorName) {
+        lpCursorName := lpCursorName is String? StrPtr(lpCursorName) : lpCursorName
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\LoadCursorW", "ptr", hInstance, "ptr", lpCursorName, "ptr")
@@ -21541,6 +21730,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static LoadCursorFromFileA(lpFileName) {
+        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\LoadCursorFromFileA", "ptr", lpFileName, "ptr")
@@ -21595,6 +21786,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static LoadCursorFromFileW(lpFileName) {
+        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\LoadCursorFromFileW", "ptr", lpFileName, "ptr")
@@ -21746,6 +21939,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static LoadIconA(hInstance, lpIconName) {
+        lpIconName := lpIconName is String? StrPtr(lpIconName) : lpIconName
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\LoadIconA", "ptr", hInstance, "ptr", lpIconName, "ptr")
@@ -21783,6 +21978,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static LoadIconW(hInstance, lpIconName) {
+        lpIconName := lpIconName is String? StrPtr(lpIconName) : lpIconName
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\LoadIconW", "ptr", hInstance, "ptr", lpIconName, "ptr")
@@ -21854,6 +22051,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static PrivateExtractIconsA(szFileName, nIconIndex, cxIcon, cyIcon, phicon, piconid, nIcons, flags) {
+        szFileName := szFileName is String? StrPtr(szFileName) : szFileName
+
         DllCall("USER32.dll\PrivateExtractIconsA", "ptr", szFileName, "int", nIconIndex, "int", cxIcon, "int", cyIcon, "ptr", phicon, "ptr", piconid, "uint", nIcons, "uint", flags)
     }
 
@@ -21919,6 +22118,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static PrivateExtractIconsW(szFileName, nIconIndex, cxIcon, cyIcon, phicon, piconid, nIcons, flags) {
+        szFileName := szFileName is String? StrPtr(szFileName) : szFileName
+
         DllCall("USER32.dll\PrivateExtractIconsW", "ptr", szFileName, "int", nIconIndex, "int", cxIcon, "int", cyIcon, "ptr", phicon, "ptr", piconid, "uint", nIcons, "uint", flags)
     }
 
@@ -22275,6 +22476,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static LoadImageA(hInst, name, type, cx, cy, fuLoad) {
+        name := name is String? StrPtr(name) : name
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\LoadImageA", "ptr", hInst, "ptr", name, "uint", type, "int", cx, "int", cy, "uint", fuLoad, "ptr")
@@ -22381,6 +22584,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static LoadImageW(hInst, name, type, cx, cy, fuLoad) {
+        name := name is String? StrPtr(name) : name
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\LoadImageW", "ptr", hInst, "ptr", name, "uint", type, "int", cx, "int", cy, "uint", fuLoad, "ptr")
@@ -23229,6 +23434,9 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static CreateMDIWindowA(lpClassName, lpWindowName, dwStyle, X, Y, nWidth, nHeight, hWndParent, hInstance, lParam) {
+        lpClassName := lpClassName is String? StrPtr(lpClassName) : lpClassName
+        lpWindowName := lpWindowName is String? StrPtr(lpWindowName) : lpWindowName
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\CreateMDIWindowA", "ptr", lpClassName, "ptr", lpWindowName, "uint", dwStyle, "int", X, "int", Y, "int", nWidth, "int", nHeight, "ptr", hWndParent, "ptr", hInstance, "ptr", lParam, "ptr")
@@ -23280,6 +23488,9 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static CreateMDIWindowW(lpClassName, lpWindowName, dwStyle, X, Y, nWidth, nHeight, hWndParent, hInstance, lParam) {
+        lpClassName := lpClassName is String? StrPtr(lpClassName) : lpClassName
+        lpWindowName := lpWindowName is String? StrPtr(lpWindowName) : lpWindowName
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\CreateMDIWindowW", "ptr", lpClassName, "ptr", lpWindowName, "uint", dwStyle, "int", X, "int", Y, "int", nWidth, "int", nHeight, "ptr", hWndParent, "ptr", hInstance, "ptr", lParam, "ptr")
@@ -29164,6 +29375,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static InternalGetWindowText(hWnd, pString, cchMaxCount) {
+        pString := pString is String? StrPtr(pString) : pString
+
         A_LastError := 0
 
         DllCall("USER32.dll\InternalGetWindowText", "ptr", hWnd, "ptr", pString, "int", cchMaxCount)
@@ -29315,6 +29528,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static GetWindowModuleFileNameA(hwnd, pszFileName, cchFileNameMax) {
+        pszFileName := pszFileName is String? StrPtr(pszFileName) : pszFileName
+
         DllCall("USER32.dll\GetWindowModuleFileNameA", "ptr", hwnd, "ptr", pszFileName, "uint", cchFileNameMax)
     }
 
@@ -29337,6 +29552,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static GetWindowModuleFileNameW(hwnd, pszFileName, cchFileNameMax) {
+        pszFileName := pszFileName is String? StrPtr(pszFileName) : pszFileName
+
         DllCall("USER32.dll\GetWindowModuleFileNameW", "ptr", hwnd, "ptr", pszFileName, "uint", cchFileNameMax)
     }
 
@@ -29534,6 +29751,8 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-realgetwindowclassa
      */
     static RealGetWindowClassA(hwnd, ptszClassName, cchClassNameMax) {
+        ptszClassName := ptszClassName is String? StrPtr(ptszClassName) : ptszClassName
+
         DllCall("USER32.dll\RealGetWindowClassA", "ptr", hwnd, "ptr", ptszClassName, "uint", cchClassNameMax)
     }
 
@@ -29553,6 +29772,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static RealGetWindowClassW(hwnd, ptszClassName, cchClassNameMax) {
+        ptszClassName := ptszClassName is String? StrPtr(ptszClassName) : ptszClassName
+
         A_LastError := 0
 
         DllCall("USER32.dll\RealGetWindowClassW", "ptr", hwnd, "ptr", ptszClassName, "uint", cchClassNameMax)
@@ -29596,6 +29817,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static GetAltTabInfoA(hwnd, iItem, pati, pszItemText, cchItemText) {
+        pszItemText := pszItemText is String? StrPtr(pszItemText) : pszItemText
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\GetAltTabInfoA", "ptr", hwnd, "int", iItem, "ptr", pati, "ptr", pszItemText, "uint", cchItemText, "int")
@@ -29640,6 +29863,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static GetAltTabInfoW(hwnd, iItem, pati, pszItemText, cchItemText) {
+        pszItemText := pszItemText is String? StrPtr(pszItemText) : pszItemText
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\GetAltTabInfoW", "ptr", hwnd, "int", iItem, "ptr", pati, "ptr", pszItemText, "uint", cchItemText, "int")
@@ -29805,6 +30030,9 @@ class WindowsAndMessaging {
      * @since windows10.0.10240
      */
     static CreateResourceIndexer(projectRoot, extensionDllPath, ppResourceIndexer) {
+        projectRoot := projectRoot is String? StrPtr(projectRoot) : projectRoot
+        extensionDllPath := extensionDllPath is String? StrPtr(extensionDllPath) : extensionDllPath
+
         result := DllCall("MrmSupport.dll\CreateResourceIndexer", "ptr", projectRoot, "ptr", extensionDllPath, "ptr", ppResourceIndexer, "int")
         return result
     }
@@ -29832,6 +30060,9 @@ class WindowsAndMessaging {
      * @since windows10.0.10240
      */
     static IndexFilePath(resourceIndexer, filePath, ppResourceUri, pQualifierCount, ppQualifiers) {
+        filePath := filePath is String? StrPtr(filePath) : filePath
+        ppResourceUri := ppResourceUri is String? StrPtr(ppResourceUri) : ppResourceUri
+
         result := DllCall("MrmSupport.dll\IndexFilePath", "ptr", resourceIndexer, "ptr", filePath, "ptr", ppResourceUri, "ptr", pQualifierCount, "ptr", ppQualifiers, "int")
         return result
     }
@@ -29846,6 +30077,8 @@ class WindowsAndMessaging {
      * @since windows10.0.10240
      */
     static DestroyIndexedResults(resourceUri, qualifierCount, qualifiers) {
+        resourceUri := resourceUri is String? StrPtr(resourceUri) : resourceUri
+
         DllCall("MrmSupport.dll\DestroyIndexedResults", "ptr", resourceUri, "uint", qualifierCount, "ptr", qualifiers)
     }
 
@@ -29872,6 +30105,10 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/menurc/mrmcreateresourceindexer
      */
     static MrmCreateResourceIndexer(packageFamilyName, projectRoot, platformVersion, defaultQualifiers, indexer) {
+        packageFamilyName := packageFamilyName is String? StrPtr(packageFamilyName) : packageFamilyName
+        projectRoot := projectRoot is String? StrPtr(projectRoot) : projectRoot
+        defaultQualifiers := defaultQualifiers is String? StrPtr(defaultQualifiers) : defaultQualifiers
+
         result := DllCall("MrmSupport.dll\MrmCreateResourceIndexer", "ptr", packageFamilyName, "ptr", projectRoot, "int", platformVersion, "ptr", defaultQualifiers, "ptr", indexer, "int")
         return result
     }
@@ -29899,6 +30136,10 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/menurc/mrmcreateresourceindexerfrompreviousschemafile
      */
     static MrmCreateResourceIndexerFromPreviousSchemaFile(projectRoot, platformVersion, defaultQualifiers, schemaFile, indexer) {
+        projectRoot := projectRoot is String? StrPtr(projectRoot) : projectRoot
+        defaultQualifiers := defaultQualifiers is String? StrPtr(defaultQualifiers) : defaultQualifiers
+        schemaFile := schemaFile is String? StrPtr(schemaFile) : schemaFile
+
         result := DllCall("MrmSupport.dll\MrmCreateResourceIndexerFromPreviousSchemaFile", "ptr", projectRoot, "int", platformVersion, "ptr", defaultQualifiers, "ptr", schemaFile, "ptr", indexer, "int")
         return result
     }
@@ -29926,6 +30167,10 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/menurc/mrmcreateresourceindexerfrompreviousprifile
      */
     static MrmCreateResourceIndexerFromPreviousPriFile(projectRoot, platformVersion, defaultQualifiers, priFile, indexer) {
+        projectRoot := projectRoot is String? StrPtr(projectRoot) : projectRoot
+        defaultQualifiers := defaultQualifiers is String? StrPtr(defaultQualifiers) : defaultQualifiers
+        priFile := priFile is String? StrPtr(priFile) : priFile
+
         result := DllCall("MrmSupport.dll\MrmCreateResourceIndexerFromPreviousPriFile", "ptr", projectRoot, "int", platformVersion, "ptr", defaultQualifiers, "ptr", priFile, "ptr", indexer, "int")
         return result
     }
@@ -29958,6 +30203,9 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/menurc/mrmcreateresourceindexerfrompreviousschemadata
      */
     static MrmCreateResourceIndexerFromPreviousSchemaData(projectRoot, platformVersion, defaultQualifiers, schemaXmlData, schemaXmlSize, indexer) {
+        projectRoot := projectRoot is String? StrPtr(projectRoot) : projectRoot
+        defaultQualifiers := defaultQualifiers is String? StrPtr(defaultQualifiers) : defaultQualifiers
+
         result := DllCall("MrmSupport.dll\MrmCreateResourceIndexerFromPreviousSchemaData", "ptr", projectRoot, "int", platformVersion, "ptr", defaultQualifiers, "ptr", schemaXmlData, "uint", schemaXmlSize, "ptr", indexer, "int")
         return result
     }
@@ -29990,6 +30238,9 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/menurc/mrmcreateresourceindexerfrompreviouspridata-
      */
     static MrmCreateResourceIndexerFromPreviousPriData(projectRoot, platformVersion, defaultQualifiers, priData, priSize, indexer) {
+        projectRoot := projectRoot is String? StrPtr(projectRoot) : projectRoot
+        defaultQualifiers := defaultQualifiers is String? StrPtr(defaultQualifiers) : defaultQualifiers
+
         result := DllCall("MrmSupport.dll\MrmCreateResourceIndexerFromPreviousPriData", "ptr", projectRoot, "int", platformVersion, "ptr", defaultQualifiers, "ptr", priData, "uint", priSize, "ptr", indexer, "int")
         return result
     }
@@ -30005,6 +30256,10 @@ class WindowsAndMessaging {
      * @returns {Integer} 
      */
     static MrmCreateResourceIndexerWithFlags(packageFamilyName, projectRoot, platformVersion, defaultQualifiers, flags, indexer) {
+        packageFamilyName := packageFamilyName is String? StrPtr(packageFamilyName) : packageFamilyName
+        projectRoot := projectRoot is String? StrPtr(projectRoot) : projectRoot
+        defaultQualifiers := defaultQualifiers is String? StrPtr(defaultQualifiers) : defaultQualifiers
+
         result := DllCall("MrmSupport.dll\MrmCreateResourceIndexerWithFlags", "ptr", packageFamilyName, "ptr", projectRoot, "int", platformVersion, "ptr", defaultQualifiers, "int", flags, "ptr", indexer, "int")
         return result
     }
@@ -30033,6 +30288,10 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/menurc/mrmindexstring
      */
     static MrmIndexString(indexer, resourceUri, resourceString, qualifiers) {
+        resourceUri := resourceUri is String? StrPtr(resourceUri) : resourceUri
+        resourceString := resourceString is String? StrPtr(resourceString) : resourceString
+        qualifiers := qualifiers is String? StrPtr(qualifiers) : qualifiers
+
         result := DllCall("MrmSupport.dll\MrmIndexString", "ptr", indexer, "ptr", resourceUri, "ptr", resourceString, "ptr", qualifiers, "int")
         return result
     }
@@ -30064,6 +30323,9 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/menurc/mrmindexembeddeddata
      */
     static MrmIndexEmbeddedData(indexer, resourceUri, embeddedData, embeddedDataSize, qualifiers) {
+        resourceUri := resourceUri is String? StrPtr(resourceUri) : resourceUri
+        qualifiers := qualifiers is String? StrPtr(qualifiers) : qualifiers
+
         result := DllCall("MrmSupport.dll\MrmIndexEmbeddedData", "ptr", indexer, "ptr", resourceUri, "ptr", embeddedData, "uint", embeddedDataSize, "ptr", qualifiers, "int")
         return result
     }
@@ -30092,6 +30354,10 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/menurc/mrmindexfile
      */
     static MrmIndexFile(indexer, resourceUri, filePath, qualifiers) {
+        resourceUri := resourceUri is String? StrPtr(resourceUri) : resourceUri
+        filePath := filePath is String? StrPtr(filePath) : filePath
+        qualifiers := qualifiers is String? StrPtr(qualifiers) : qualifiers
+
         result := DllCall("MrmSupport.dll\MrmIndexFile", "ptr", indexer, "ptr", resourceUri, "ptr", filePath, "ptr", qualifiers, "int")
         return result
     }
@@ -30114,6 +30380,8 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/menurc/mrmindexfileautoqualifiers
      */
     static MrmIndexFileAutoQualifiers(indexer, filePath) {
+        filePath := filePath is String? StrPtr(filePath) : filePath
+
         result := DllCall("MrmSupport.dll\MrmIndexFileAutoQualifiers", "ptr", indexer, "ptr", filePath, "int")
         return result
     }
@@ -30136,6 +30404,8 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/menurc/mrmindexresourcecontainerautoqualifiers
      */
     static MrmIndexResourceContainerAutoQualifiers(indexer, containerPath) {
+        containerPath := containerPath is String? StrPtr(containerPath) : containerPath
+
         result := DllCall("MrmSupport.dll\MrmIndexResourceContainerAutoQualifiers", "ptr", indexer, "ptr", containerPath, "int")
         return result
     }
@@ -30160,6 +30430,8 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/menurc/mrmcreateresourcefile
      */
     static MrmCreateResourceFile(indexer, packagingMode, packagingOptions, outputDirectory) {
+        outputDirectory := outputDirectory is String? StrPtr(outputDirectory) : outputDirectory
+
         result := DllCall("MrmSupport.dll\MrmCreateResourceFile", "ptr", indexer, "int", packagingMode, "int", packagingOptions, "ptr", outputDirectory, "int")
         return result
     }
@@ -30174,6 +30446,8 @@ class WindowsAndMessaging {
      * @returns {Integer} 
      */
     static MrmCreateResourceFileWithChecksum(indexer, packagingMode, packagingOptions, checksum, outputDirectory) {
+        outputDirectory := outputDirectory is String? StrPtr(outputDirectory) : outputDirectory
+
         result := DllCall("MrmSupport.dll\MrmCreateResourceFileWithChecksum", "ptr", indexer, "int", packagingMode, "int", packagingOptions, "uint", checksum, "ptr", outputDirectory, "int")
         return result
     }
@@ -30280,6 +30554,10 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/menurc/mrmdumpprifile
      */
     static MrmDumpPriFile(indexFileName, schemaPriFile, dumpType, outputXmlFile) {
+        indexFileName := indexFileName is String? StrPtr(indexFileName) : indexFileName
+        schemaPriFile := schemaPriFile is String? StrPtr(schemaPriFile) : schemaPriFile
+        outputXmlFile := outputXmlFile is String? StrPtr(outputXmlFile) : outputXmlFile
+
         result := DllCall("MrmSupport.dll\MrmDumpPriFile", "ptr", indexFileName, "ptr", schemaPriFile, "int", dumpType, "ptr", outputXmlFile, "int")
         return result
     }
@@ -30309,6 +30587,9 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/menurc/mrmdumpprifileinmemory
      */
     static MrmDumpPriFileInMemory(indexFileName, schemaPriFile, dumpType, outputXmlData, outputXmlSize) {
+        indexFileName := indexFileName is String? StrPtr(indexFileName) : indexFileName
+        schemaPriFile := schemaPriFile is String? StrPtr(schemaPriFile) : schemaPriFile
+
         result := DllCall("MrmSupport.dll\MrmDumpPriFileInMemory", "ptr", indexFileName, "ptr", schemaPriFile, "int", dumpType, "ptr", outputXmlData, "ptr", outputXmlSize, "int")
         return result
     }
@@ -30365,6 +30646,9 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/menurc/mrmcreateconfig
      */
     static MrmCreateConfig(platformVersion, defaultQualifiers, outputXmlFile) {
+        defaultQualifiers := defaultQualifiers is String? StrPtr(defaultQualifiers) : defaultQualifiers
+        outputXmlFile := outputXmlFile is String? StrPtr(outputXmlFile) : outputXmlFile
+
         result := DllCall("MrmSupport.dll\MrmCreateConfig", "int", platformVersion, "ptr", defaultQualifiers, "ptr", outputXmlFile, "int")
         return result
     }
@@ -30389,6 +30673,8 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/menurc/mrmcreateconfiginmemory
      */
     static MrmCreateConfigInMemory(platformVersion, defaultQualifiers, outputXmlData, outputXmlSize) {
+        defaultQualifiers := defaultQualifiers is String? StrPtr(defaultQualifiers) : defaultQualifiers
+
         result := DllCall("MrmSupport.dll\MrmCreateConfigInMemory", "int", platformVersion, "ptr", defaultQualifiers, "ptr", outputXmlData, "ptr", outputXmlSize, "int")
         return result
     }
@@ -30400,6 +30686,8 @@ class WindowsAndMessaging {
      * @returns {Integer} 
      */
     static MrmGetPriFileContentChecksum(priFile, checksum) {
+        priFile := priFile is String? StrPtr(priFile) : priFile
+
         result := DllCall("MrmSupport.dll\MrmGetPriFileContentChecksum", "ptr", priFile, "ptr", checksum, "int")
         return result
     }

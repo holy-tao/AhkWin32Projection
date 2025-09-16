@@ -5268,6 +5268,9 @@ class WiFi {
     static WlanGetProfile(hClientHandle, pInterfaceGuid, strProfileName, pstrProfileXml, pdwFlags, pdwGrantedAccess) {
         static pReserved := 0 ;Reserved parameters must always be NULL
 
+        strProfileName := strProfileName is String? StrPtr(strProfileName) : strProfileName
+        pstrProfileXml := pstrProfileXml is String? StrPtr(pstrProfileXml) : pstrProfileXml
+
         result := DllCall("wlanapi.dll\WlanGetProfile", "ptr", hClientHandle, "ptr", pInterfaceGuid, "ptr", strProfileName, "ptr", pReserved, "ptr", pstrProfileXml, "ptr", pdwFlags, "ptr", pdwGrantedAccess, "uint")
         return result
     }
@@ -5410,6 +5413,8 @@ class WiFi {
      */
     static WlanSetProfileEapUserData(hClientHandle, pInterfaceGuid, strProfileName, eapType, dwFlags, dwEapUserDataSize, pbEapUserData) {
         static pReserved := 0 ;Reserved parameters must always be NULL
+
+        strProfileName := strProfileName is String? StrPtr(strProfileName) : strProfileName
 
         result := DllCall("wlanapi.dll\WlanSetProfileEapUserData", "ptr", hClientHandle, "ptr", pInterfaceGuid, "ptr", strProfileName, "ptr", eapType, "uint", dwFlags, "uint", dwEapUserDataSize, "ptr", pbEapUserData, "ptr", pReserved, "uint")
         return result
@@ -5558,6 +5563,9 @@ class WiFi {
      */
     static WlanSetProfileEapXmlUserData(hClientHandle, pInterfaceGuid, strProfileName, dwFlags, strEapXmlUserData) {
         static pReserved := 0 ;Reserved parameters must always be NULL
+
+        strProfileName := strProfileName is String? StrPtr(strProfileName) : strProfileName
+        strEapXmlUserData := strEapXmlUserData is String? StrPtr(strEapXmlUserData) : strEapXmlUserData
 
         result := DllCall("wlanapi.dll\WlanSetProfileEapXmlUserData", "ptr", hClientHandle, "ptr", pInterfaceGuid, "ptr", strProfileName, "uint", dwFlags, "ptr", strEapXmlUserData, "ptr", pReserved, "uint")
         return result
@@ -5761,6 +5769,9 @@ class WiFi {
     static WlanSetProfile(hClientHandle, pInterfaceGuid, dwFlags, strProfileXml, strAllUserProfileSecurity, bOverwrite, pdwReasonCode) {
         static pReserved := 0 ;Reserved parameters must always be NULL
 
+        strProfileXml := strProfileXml is String? StrPtr(strProfileXml) : strProfileXml
+        strAllUserProfileSecurity := strAllUserProfileSecurity is String? StrPtr(strAllUserProfileSecurity) : strAllUserProfileSecurity
+
         result := DllCall("wlanapi.dll\WlanSetProfile", "ptr", hClientHandle, "ptr", pInterfaceGuid, "uint", dwFlags, "ptr", strProfileXml, "ptr", strAllUserProfileSecurity, "int", bOverwrite, "ptr", pReserved, "ptr", pdwReasonCode, "uint")
         return result
     }
@@ -5850,6 +5861,8 @@ class WiFi {
      */
     static WlanDeleteProfile(hClientHandle, pInterfaceGuid, strProfileName) {
         static pReserved := 0 ;Reserved parameters must always be NULL
+
+        strProfileName := strProfileName is String? StrPtr(strProfileName) : strProfileName
 
         result := DllCall("wlanapi.dll\WlanDeleteProfile", "ptr", hClientHandle, "ptr", pInterfaceGuid, "ptr", strProfileName, "ptr", pReserved, "uint")
         return result
@@ -5942,6 +5955,9 @@ class WiFi {
      */
     static WlanRenameProfile(hClientHandle, pInterfaceGuid, strOldProfileName, strNewProfileName) {
         static pReserved := 0 ;Reserved parameters must always be NULL
+
+        strOldProfileName := strOldProfileName is String? StrPtr(strOldProfileName) : strOldProfileName
+        strNewProfileName := strNewProfileName is String? StrPtr(strNewProfileName) : strNewProfileName
 
         result := DllCall("wlanapi.dll\WlanRenameProfile", "ptr", hClientHandle, "ptr", pInterfaceGuid, "ptr", strOldProfileName, "ptr", strNewProfileName, "ptr", pReserved, "uint")
         return result
@@ -6129,6 +6145,8 @@ class WiFi {
     static WlanSetProfileList(hClientHandle, pInterfaceGuid, dwItems, strProfileNames) {
         static pReserved := 0 ;Reserved parameters must always be NULL
 
+        strProfileNames := strProfileNames is String? StrPtr(strProfileNames) : strProfileNames
+
         result := DllCall("wlanapi.dll\WlanSetProfileList", "ptr", hClientHandle, "ptr", pInterfaceGuid, "uint", dwItems, "ptr", strProfileNames, "ptr", pReserved, "uint")
         return result
     }
@@ -6217,6 +6235,8 @@ class WiFi {
     static WlanSetProfilePosition(hClientHandle, pInterfaceGuid, strProfileName, dwPosition) {
         static pReserved := 0 ;Reserved parameters must always be NULL
 
+        strProfileName := strProfileName is String? StrPtr(strProfileName) : strProfileName
+
         result := DllCall("wlanapi.dll\WlanSetProfilePosition", "ptr", hClientHandle, "ptr", pInterfaceGuid, "ptr", strProfileName, "uint", dwPosition, "ptr", pReserved, "uint")
         return result
     }
@@ -6302,6 +6322,8 @@ class WiFi {
      */
     static WlanSetProfileCustomUserData(hClientHandle, pInterfaceGuid, strProfileName, dwDataSize, pData) {
         static pReserved := 0 ;Reserved parameters must always be NULL
+
+        strProfileName := strProfileName is String? StrPtr(strProfileName) : strProfileName
 
         result := DllCall("wlanapi.dll\WlanSetProfileCustomUserData", "ptr", hClientHandle, "ptr", pInterfaceGuid, "ptr", strProfileName, "uint", dwDataSize, "ptr", pData, "ptr", pReserved, "uint")
         return result
@@ -6401,6 +6423,8 @@ class WiFi {
      */
     static WlanGetProfileCustomUserData(hClientHandle, pInterfaceGuid, strProfileName, pdwDataSize, ppData) {
         static pReserved := 0 ;Reserved parameters must always be NULL
+
+        strProfileName := strProfileName is String? StrPtr(strProfileName) : strProfileName
 
         result := DllCall("wlanapi.dll\WlanGetProfileCustomUserData", "ptr", hClientHandle, "ptr", pInterfaceGuid, "ptr", strProfileName, "ptr", pReserved, "ptr", pdwDataSize, "ptr", ppData, "uint")
         return result
@@ -6709,6 +6733,8 @@ class WiFi {
     static WlanSetPsdIEDataList(hClientHandle, strFormat, pPsdIEDataList) {
         static pReserved := 0 ;Reserved parameters must always be NULL
 
+        strFormat := strFormat is String? StrPtr(strFormat) : strFormat
+
         result := DllCall("wlanapi.dll\WlanSetPsdIEDataList", "ptr", hClientHandle, "ptr", strFormat, "ptr", pPsdIEDataList, "ptr", pReserved, "uint")
         return result
     }
@@ -6878,6 +6904,9 @@ class WiFi {
      */
     static WlanSaveTemporaryProfile(hClientHandle, pInterfaceGuid, strProfileName, strAllUserProfileSecurity, dwFlags, bOverWrite) {
         static pReserved := 0 ;Reserved parameters must always be NULL
+
+        strProfileName := strProfileName is String? StrPtr(strProfileName) : strProfileName
+        strAllUserProfileSecurity := strAllUserProfileSecurity is String? StrPtr(strAllUserProfileSecurity) : strAllUserProfileSecurity
 
         result := DllCall("wlanapi.dll\WlanSaveTemporaryProfile", "ptr", hClientHandle, "ptr", pInterfaceGuid, "ptr", strProfileName, "ptr", strAllUserProfileSecurity, "uint", dwFlags, "int", bOverWrite, "ptr", pReserved, "uint")
         return result
@@ -7049,6 +7078,8 @@ class WiFi {
     static WlanExtractPsdIEDataList(hClientHandle, dwIeDataSize, pRawIeData, strFormat, ppPsdIEDataList) {
         static pReserved := 0 ;Reserved parameters must always be NULL
 
+        strFormat := strFormat is String? StrPtr(strFormat) : strFormat
+
         result := DllCall("wlanapi.dll\WlanExtractPsdIEDataList", "ptr", hClientHandle, "uint", dwIeDataSize, "ptr", pRawIeData, "ptr", strFormat, "ptr", pReserved, "ptr", ppPsdIEDataList, "uint")
         return result
     }
@@ -7102,6 +7133,8 @@ class WiFi {
      */
     static WlanReasonCodeToString(dwReasonCode, dwBufferSize, pStringBuffer) {
         static pReserved := 0 ;Reserved parameters must always be NULL
+
+        pStringBuffer := pStringBuffer is String? StrPtr(pStringBuffer) : pStringBuffer
 
         result := DllCall("wlanapi.dll\WlanReasonCodeToString", "uint", dwReasonCode, "uint", dwBufferSize, "ptr", pStringBuffer, "ptr", pReserved, "uint")
         return result
@@ -7225,6 +7258,8 @@ class WiFi {
      * @since windows6.0.6000
      */
     static WlanSetSecuritySettings(hClientHandle, SecurableObject, strModifiedSDDL) {
+        strModifiedSDDL := strModifiedSDDL is String? StrPtr(strModifiedSDDL) : strModifiedSDDL
+
         result := DllCall("wlanapi.dll\WlanSetSecuritySettings", "ptr", hClientHandle, "int", SecurableObject, "ptr", strModifiedSDDL, "uint")
         return result
     }
@@ -7371,6 +7406,8 @@ class WiFi {
      * @since windows6.0.6000
      */
     static WlanGetSecuritySettings(hClientHandle, SecurableObject, pValueType, pstrCurrentSDDL, pdwGrantedAccess) {
+        pstrCurrentSDDL := pstrCurrentSDDL is String? StrPtr(pstrCurrentSDDL) : pstrCurrentSDDL
+
         result := DllCall("wlanapi.dll\WlanGetSecuritySettings", "ptr", hClientHandle, "int", SecurableObject, "ptr", pValueType, "ptr", pstrCurrentSDDL, "ptr", pdwGrantedAccess, "uint")
         return result
     }
@@ -7436,6 +7473,8 @@ class WiFi {
      */
     static WlanUIEditProfile(dwClientVersion, wstrProfileName, pInterfaceGuid, hWnd, wlStartPage, pWlanReasonCode) {
         static pReserved := 0 ;Reserved parameters must always be NULL
+
+        wstrProfileName := wstrProfileName is String? StrPtr(wstrProfileName) : wstrProfileName
 
         result := DllCall("wlanui.dll\WlanUIEditProfile", "uint", dwClientVersion, "ptr", wstrProfileName, "ptr", pInterfaceGuid, "ptr", hWnd, "int", wlStartPage, "ptr", pReserved, "ptr", pWlanReasonCode, "uint")
         return result

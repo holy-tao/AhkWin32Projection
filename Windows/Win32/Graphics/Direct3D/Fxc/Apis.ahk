@@ -251,6 +251,8 @@ class Fxc {
      * @see https://learn.microsoft.com/windows/win32/api/d3dcompiler/nf-d3dcompiler-d3dreadfiletoblob
      */
     static D3DReadFileToBlob(pFileName, ppContents) {
+        pFileName := pFileName is String? StrPtr(pFileName) : pFileName
+
         result := DllCall("D3DCOMPILER_47.dll\D3DReadFileToBlob", "ptr", pFileName, "ptr", ppContents, "int")
         return result
     }
@@ -275,6 +277,8 @@ class Fxc {
      * @see https://learn.microsoft.com/windows/win32/api/d3dcompiler/nf-d3dcompiler-d3dwriteblobtofile
      */
     static D3DWriteBlobToFile(pBlob, pFileName, bOverwrite) {
+        pFileName := pFileName is String? StrPtr(pFileName) : pFileName
+
         result := DllCall("D3DCOMPILER_47.dll\D3DWriteBlobToFile", "ptr", pBlob, "ptr", pFileName, "int", bOverwrite, "int")
         return result
     }
@@ -325,6 +329,10 @@ class Fxc {
      * @see https://learn.microsoft.com/windows/win32/api/d3dcompiler/nf-d3dcompiler-d3dcompile
      */
     static D3DCompile(pSrcData, SrcDataSize, pSourceName, pDefines, pInclude, pEntrypoint, pTarget, Flags1, Flags2, ppCode, ppErrorMsgs) {
+        pSourceName := pSourceName is String? StrPtr(pSourceName) : pSourceName
+        pEntrypoint := pEntrypoint is String? StrPtr(pEntrypoint) : pEntrypoint
+        pTarget := pTarget is String? StrPtr(pTarget) : pTarget
+
         result := DllCall("D3DCOMPILER_47.dll\D3DCompile", "ptr", pSrcData, "ptr", SrcDataSize, "ptr", pSourceName, "ptr", pDefines, "ptr", pInclude, "ptr", pEntrypoint, "ptr", pTarget, "uint", Flags1, "uint", Flags2, "ptr", ppCode, "ptr", ppErrorMsgs, "int")
         return result
     }
@@ -404,6 +412,10 @@ class Fxc {
      * @see https://learn.microsoft.com/windows/win32/api/d3dcompiler/nf-d3dcompiler-d3dcompile2
      */
     static D3DCompile2(pSrcData, SrcDataSize, pSourceName, pDefines, pInclude, pEntrypoint, pTarget, Flags1, Flags2, SecondaryDataFlags, pSecondaryData, SecondaryDataSize, ppCode, ppErrorMsgs) {
+        pSourceName := pSourceName is String? StrPtr(pSourceName) : pSourceName
+        pEntrypoint := pEntrypoint is String? StrPtr(pEntrypoint) : pEntrypoint
+        pTarget := pTarget is String? StrPtr(pTarget) : pTarget
+
         result := DllCall("D3DCOMPILER_47.dll\D3DCompile2", "ptr", pSrcData, "ptr", SrcDataSize, "ptr", pSourceName, "ptr", pDefines, "ptr", pInclude, "ptr", pEntrypoint, "ptr", pTarget, "uint", Flags1, "uint", Flags2, "uint", SecondaryDataFlags, "ptr", pSecondaryData, "ptr", SecondaryDataSize, "ptr", ppCode, "ptr", ppErrorMsgs, "int")
         return result
     }
@@ -429,6 +441,10 @@ class Fxc {
      * @see https://learn.microsoft.com/windows/win32/api/d3dcompiler/nf-d3dcompiler-d3dcompilefromfile
      */
     static D3DCompileFromFile(pFileName, pDefines, pInclude, pEntrypoint, pTarget, Flags1, Flags2, ppCode, ppErrorMsgs) {
+        pFileName := pFileName is String? StrPtr(pFileName) : pFileName
+        pEntrypoint := pEntrypoint is String? StrPtr(pEntrypoint) : pEntrypoint
+        pTarget := pTarget is String? StrPtr(pTarget) : pTarget
+
         result := DllCall("D3DCOMPILER_47.dll\D3DCompileFromFile", "ptr", pFileName, "ptr", pDefines, "ptr", pInclude, "ptr", pEntrypoint, "ptr", pTarget, "uint", Flags1, "uint", Flags2, "ptr", ppCode, "ptr", ppErrorMsgs, "int")
         return result
     }
@@ -467,6 +483,8 @@ class Fxc {
      * @see https://learn.microsoft.com/windows/win32/api/d3dcompiler/nf-d3dcompiler-d3dpreprocess
      */
     static D3DPreprocess(pSrcData, SrcDataSize, pSourceName, pDefines, pInclude, ppCodeText, ppErrorMsgs) {
+        pSourceName := pSourceName is String? StrPtr(pSourceName) : pSourceName
+
         result := DllCall("D3DCOMPILER_47.dll\D3DPreprocess", "ptr", pSrcData, "ptr", SrcDataSize, "ptr", pSourceName, "ptr", pDefines, "ptr", pInclude, "ptr", ppCodeText, "ptr", ppErrorMsgs, "int")
         return result
     }
@@ -579,6 +597,8 @@ class Fxc {
      * @see https://learn.microsoft.com/windows/win32/api/d3dcompiler/nf-d3dcompiler-d3ddisassemble
      */
     static D3DDisassemble(pSrcData, SrcDataSize, Flags, szComments, ppDisassembly) {
+        szComments := szComments is String? StrPtr(szComments) : szComments
+
         result := DllCall("D3DCOMPILER_47.dll\D3DDisassemble", "ptr", pSrcData, "ptr", SrcDataSize, "uint", Flags, "ptr", szComments, "ptr", ppDisassembly, "int")
         return result
     }
@@ -635,6 +655,8 @@ class Fxc {
      * @see https://learn.microsoft.com/windows/win32/api/d3dcompiler/nf-d3dcompiler-d3ddisassembleregion
      */
     static D3DDisassembleRegion(pSrcData, SrcDataSize, Flags, szComments, StartByteOffset, NumInsts, pFinishByteOffset, ppDisassembly) {
+        szComments := szComments is String? StrPtr(szComments) : szComments
+
         result := DllCall("D3DCOMPILER_47.dll\D3DDisassembleRegion", "ptr", pSrcData, "ptr", SrcDataSize, "uint", Flags, "ptr", szComments, "ptr", StartByteOffset, "ptr", NumInsts, "ptr", pFinishByteOffset, "ptr", ppDisassembly, "int")
         return result
     }

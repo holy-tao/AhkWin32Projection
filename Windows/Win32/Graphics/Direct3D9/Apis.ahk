@@ -3525,6 +3525,8 @@ class Direct3D9 {
      * @see https://learn.microsoft.com/windows/win32/direct3d9/d3d9/nf-d3d9-d3dperf_beginevent
      */
     static D3DPERF_BeginEvent(col, wszName) {
+        wszName := wszName is String? StrPtr(wszName) : wszName
+
         DllCall("d3d9.dll\D3DPERF_BeginEvent", "uint", col, "ptr", wszName)
     }
 
@@ -3547,6 +3549,8 @@ class Direct3D9 {
      * @see https://learn.microsoft.com/windows/win32/direct3d9/d3d9/nf-d3d9-d3dperf_setmarker
      */
     static D3DPERF_SetMarker(col, wszName) {
+        wszName := wszName is String? StrPtr(wszName) : wszName
+
         DllCall("d3d9.dll\D3DPERF_SetMarker", "uint", col, "ptr", wszName)
     }
 
@@ -3560,6 +3564,8 @@ class Direct3D9 {
      * @see https://learn.microsoft.com/windows/win32/direct3d9/d3d9/nf-d3d9-d3dperf_setregion
      */
     static D3DPERF_SetRegion(col, wszName) {
+        wszName := wszName is String? StrPtr(wszName) : wszName
+
         DllCall("d3d9.dll\D3DPERF_SetRegion", "uint", col, "ptr", wszName)
     }
 

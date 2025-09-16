@@ -4511,6 +4511,9 @@ class Globalization {
      * @since windows5.0
      */
     static GetDateFormatA(Locale, dwFlags, lpDate, lpFormat, lpDateStr, cchDate) {
+        lpFormat := lpFormat is String? StrPtr(lpFormat) : lpFormat
+        lpDateStr := lpDateStr is String? StrPtr(lpDateStr) : lpDateStr
+
         A_LastError := 0
 
         DllCall("KERNEL32.dll\GetDateFormatA", "uint", Locale, "uint", dwFlags, "ptr", lpDate, "ptr", lpFormat, "ptr", lpDateStr, "int", cchDate)
@@ -4571,6 +4574,9 @@ class Globalization {
      * @since windows5.0
      */
     static GetDateFormatW(Locale, dwFlags, lpDate, lpFormat, lpDateStr, cchDate) {
+        lpFormat := lpFormat is String? StrPtr(lpFormat) : lpFormat
+        lpDateStr := lpDateStr is String? StrPtr(lpDateStr) : lpDateStr
+
         A_LastError := 0
 
         DllCall("KERNEL32.dll\GetDateFormatW", "uint", Locale, "uint", dwFlags, "ptr", lpDate, "ptr", lpFormat, "ptr", lpDateStr, "int", cchDate)
@@ -4627,6 +4633,9 @@ class Globalization {
      * @since windows5.0
      */
     static GetTimeFormatA(Locale, dwFlags, lpTime, lpFormat, lpTimeStr, cchTime) {
+        lpFormat := lpFormat is String? StrPtr(lpFormat) : lpFormat
+        lpTimeStr := lpTimeStr is String? StrPtr(lpTimeStr) : lpTimeStr
+
         A_LastError := 0
 
         DllCall("KERNEL32.dll\GetTimeFormatA", "uint", Locale, "uint", dwFlags, "ptr", lpTime, "ptr", lpFormat, "ptr", lpTimeStr, "int", cchTime)
@@ -4683,6 +4692,9 @@ class Globalization {
      * @since windows5.0
      */
     static GetTimeFormatW(Locale, dwFlags, lpTime, lpFormat, lpTimeStr, cchTime) {
+        lpFormat := lpFormat is String? StrPtr(lpFormat) : lpFormat
+        lpTimeStr := lpTimeStr is String? StrPtr(lpTimeStr) : lpTimeStr
+
         A_LastError := 0
 
         DllCall("KERNEL32.dll\GetTimeFormatW", "uint", Locale, "uint", dwFlags, "ptr", lpTime, "ptr", lpFormat, "ptr", lpTimeStr, "int", cchTime)
@@ -4804,6 +4816,10 @@ class Globalization {
      * @since windows6.0.6000
      */
     static GetTimeFormatEx(lpLocaleName, dwFlags, lpTime, lpFormat, lpTimeStr, cchTime) {
+        lpLocaleName := lpLocaleName is String? StrPtr(lpLocaleName) : lpLocaleName
+        lpFormat := lpFormat is String? StrPtr(lpFormat) : lpFormat
+        lpTimeStr := lpTimeStr is String? StrPtr(lpTimeStr) : lpTimeStr
+
         A_LastError := 0
 
         DllCall("KERNEL32.dll\GetTimeFormatEx", "ptr", lpLocaleName, "uint", dwFlags, "ptr", lpTime, "ptr", lpFormat, "ptr", lpTimeStr, "int", cchTime)
@@ -4875,6 +4891,11 @@ class Globalization {
      * @since windows6.0.6000
      */
     static GetDateFormatEx(lpLocaleName, dwFlags, lpDate, lpFormat, lpDateStr, cchDate, lpCalendar) {
+        lpLocaleName := lpLocaleName is String? StrPtr(lpLocaleName) : lpLocaleName
+        lpFormat := lpFormat is String? StrPtr(lpFormat) : lpFormat
+        lpDateStr := lpDateStr is String? StrPtr(lpDateStr) : lpDateStr
+        lpCalendar := lpCalendar is String? StrPtr(lpCalendar) : lpCalendar
+
         A_LastError := 0
 
         DllCall("KERNEL32.dll\GetDateFormatEx", "ptr", lpLocaleName, "uint", dwFlags, "ptr", lpDate, "ptr", lpFormat, "ptr", lpDateStr, "int", cchDate, "ptr", lpCalendar)
@@ -5134,6 +5155,10 @@ class Globalization {
      * @since windows6.0.6000
      */
     static GetDurationFormatEx(lpLocaleName, dwFlags, lpDuration, ullDuration, lpFormat, lpDurationStr, cchDuration) {
+        lpLocaleName := lpLocaleName is String? StrPtr(lpLocaleName) : lpLocaleName
+        lpFormat := lpFormat is String? StrPtr(lpFormat) : lpFormat
+        lpDurationStr := lpDurationStr is String? StrPtr(lpDurationStr) : lpDurationStr
+
         A_LastError := 0
 
         DllCall("KERNEL32.dll\GetDurationFormatEx", "ptr", lpLocaleName, "uint", dwFlags, "ptr", lpDuration, "uint", ullDuration, "ptr", lpFormat, "ptr", lpDurationStr, "int", cchDuration)
@@ -5198,6 +5223,10 @@ class Globalization {
     static CompareStringEx(lpLocaleName, dwCmpFlags, lpString1, cchCount1, lpString2, cchCount2) {
         static lpVersionInformation := 0, lpReserved := 0, lParam := 0 ;Reserved parameters must always be NULL
 
+        lpLocaleName := lpLocaleName is String? StrPtr(lpLocaleName) : lpLocaleName
+        lpString1 := lpString1 is String? StrPtr(lpString1) : lpString1
+        lpString2 := lpString2 is String? StrPtr(lpString2) : lpString2
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\CompareStringEx", "ptr", lpLocaleName, "uint", dwCmpFlags, "ptr", lpString1, "int", cchCount1, "ptr", lpString2, "int", cchCount2, "ptr", lpVersionInformation, "ptr", lpReserved, "ptr", lParam, "int")
@@ -5236,6 +5265,9 @@ class Globalization {
      * @since windows6.0.6000
      */
     static CompareStringOrdinal(lpString1, cchCount1, lpString2, cchCount2, bIgnoreCase) {
+        lpString1 := lpString1 is String? StrPtr(lpString1) : lpString1
+        lpString2 := lpString2 is String? StrPtr(lpString2) : lpString2
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\CompareStringOrdinal", "ptr", lpString1, "int", cchCount1, "ptr", lpString2, "int", cchCount2, "int", bIgnoreCase, "int")
@@ -5287,6 +5319,9 @@ class Globalization {
      * @since windows5.0
      */
     static CompareStringW(Locale, dwCmpFlags, lpString1, cchCount1, lpString2, cchCount2) {
+        lpString1 := lpString1 is String? StrPtr(lpString1) : lpString1
+        lpString2 := lpString2 is String? StrPtr(lpString2) : lpString2
+
         result := DllCall("KERNEL32.dll\CompareStringW", "uint", Locale, "uint", dwCmpFlags, "ptr", lpString1, "int", cchCount1, "ptr", lpString2, "int", cchCount2, "int")
         return result
     }
@@ -5315,6 +5350,9 @@ class Globalization {
      * @since windows5.0
      */
     static FoldStringW(dwMapFlags, lpSrcStr, cchSrc, lpDestStr, cchDest) {
+        lpSrcStr := lpSrcStr is String? StrPtr(lpSrcStr) : lpSrcStr
+        lpDestStr := lpDestStr is String? StrPtr(lpDestStr) : lpDestStr
+
         A_LastError := 0
 
         DllCall("KERNEL32.dll\FoldStringW", "uint", dwMapFlags, "ptr", lpSrcStr, "int", cchSrc, "ptr", lpDestStr, "int", cchDest)
@@ -5380,6 +5418,8 @@ class Globalization {
      * @since windows5.0
      */
     static GetStringTypeExW(Locale, dwInfoType, lpSrcStr, cchSrc, lpCharType) {
+        lpSrcStr := lpSrcStr is String? StrPtr(lpSrcStr) : lpSrcStr
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetStringTypeExW", "uint", Locale, "uint", dwInfoType, "ptr", lpSrcStr, "int", cchSrc, "ptr", lpCharType, "int")
@@ -5736,6 +5776,8 @@ class Globalization {
      * @since windows5.0
      */
     static GetStringTypeW(dwInfoType, lpSrcStr, cchSrc, lpCharType) {
+        lpSrcStr := lpSrcStr is String? StrPtr(lpSrcStr) : lpSrcStr
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetStringTypeW", "uint", dwInfoType, "ptr", lpSrcStr, "int", cchSrc, "ptr", lpCharType, "int")
@@ -5871,6 +5913,9 @@ class Globalization {
      * @since windows5.0
      */
     static MultiByteToWideChar(CodePage, dwFlags, lpMultiByteStr, cbMultiByte, lpWideCharStr, cchWideChar) {
+        lpMultiByteStr := lpMultiByteStr is String? StrPtr(lpMultiByteStr) : lpMultiByteStr
+        lpWideCharStr := lpWideCharStr is String? StrPtr(lpWideCharStr) : lpWideCharStr
+
         A_LastError := 0
 
         DllCall("KERNEL32.dll\MultiByteToWideChar", "uint", CodePage, "uint", dwFlags, "ptr", lpMultiByteStr, "int", cbMultiByte, "ptr", lpWideCharStr, "int", cchWideChar)
@@ -6037,6 +6082,10 @@ class Globalization {
      * @since windows5.0
      */
     static WideCharToMultiByte(CodePage, dwFlags, lpWideCharStr, cchWideChar, lpMultiByteStr, cbMultiByte, lpDefaultChar, lpUsedDefaultChar) {
+        lpWideCharStr := lpWideCharStr is String? StrPtr(lpWideCharStr) : lpWideCharStr
+        lpMultiByteStr := lpMultiByteStr is String? StrPtr(lpMultiByteStr) : lpMultiByteStr
+        lpDefaultChar := lpDefaultChar is String? StrPtr(lpDefaultChar) : lpDefaultChar
+
         A_LastError := 0
 
         DllCall("KERNEL32.dll\WideCharToMultiByte", "uint", CodePage, "uint", dwFlags, "ptr", lpWideCharStr, "int", cchWideChar, "ptr", lpMultiByteStr, "int", cbMultiByte, "ptr", lpDefaultChar, "ptr", lpUsedDefaultChar)
@@ -6364,6 +6413,9 @@ class Globalization {
      * @since windows6.0.6000
      */
     static FindNLSString(Locale, dwFindNLSStringFlags, lpStringSource, cchSource, lpStringValue, cchValue, pcchFound) {
+        lpStringSource := lpStringSource is String? StrPtr(lpStringSource) : lpStringSource
+        lpStringValue := lpStringValue is String? StrPtr(lpStringValue) : lpStringValue
+
         A_LastError := 0
 
         DllCall("KERNEL32.dll\FindNLSString", "uint", Locale, "uint", dwFindNLSStringFlags, "ptr", lpStringSource, "int", cchSource, "ptr", lpStringValue, "int", cchValue, "ptr", pcchFound)
@@ -6441,6 +6493,9 @@ class Globalization {
      * @since windows5.0
      */
     static LCMapStringW(Locale, dwMapFlags, lpSrcStr, cchSrc, lpDestStr, cchDest) {
+        lpSrcStr := lpSrcStr is String? StrPtr(lpSrcStr) : lpSrcStr
+        lpDestStr := lpDestStr is String? StrPtr(lpDestStr) : lpDestStr
+
         A_LastError := 0
 
         DllCall("KERNEL32.dll\LCMapStringW", "uint", Locale, "uint", dwMapFlags, "ptr", lpSrcStr, "int", cchSrc, "ptr", lpDestStr, "int", cchDest)
@@ -6518,6 +6573,9 @@ class Globalization {
      * @since windows5.0
      */
     static LCMapStringA(Locale, dwMapFlags, lpSrcStr, cchSrc, lpDestStr, cchDest) {
+        lpSrcStr := lpSrcStr is String? StrPtr(lpSrcStr) : lpSrcStr
+        lpDestStr := lpDestStr is String? StrPtr(lpDestStr) : lpDestStr
+
         A_LastError := 0
 
         DllCall("KERNEL32.dll\LCMapStringA", "uint", Locale, "uint", dwMapFlags, "ptr", lpSrcStr, "int", cchSrc, "ptr", lpDestStr, "int", cchDest)
@@ -6601,6 +6659,8 @@ class Globalization {
      * @since windows5.0
      */
     static GetLocaleInfoW(Locale, LCType, lpLCData, cchData) {
+        lpLCData := lpLCData is String? StrPtr(lpLCData) : lpLCData
+
         A_LastError := 0
 
         DllCall("KERNEL32.dll\GetLocaleInfoW", "uint", Locale, "uint", LCType, "ptr", lpLCData, "int", cchData)
@@ -6684,6 +6744,8 @@ class Globalization {
      * @since windows5.0
      */
     static GetLocaleInfoA(Locale, LCType, lpLCData, cchData) {
+        lpLCData := lpLCData is String? StrPtr(lpLCData) : lpLCData
+
         A_LastError := 0
 
         DllCall("KERNEL32.dll\GetLocaleInfoA", "uint", Locale, "uint", LCType, "ptr", lpLCData, "int", cchData)
@@ -6751,6 +6813,8 @@ class Globalization {
      * @since windows5.0
      */
     static SetLocaleInfoA(Locale, LCType, lpLCData) {
+        lpLCData := lpLCData is String? StrPtr(lpLCData) : lpLCData
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SetLocaleInfoA", "uint", Locale, "uint", LCType, "ptr", lpLCData, "int")
@@ -6819,6 +6883,8 @@ class Globalization {
      * @since windows5.0
      */
     static SetLocaleInfoW(Locale, LCType, lpLCData) {
+        lpLCData := lpLCData is String? StrPtr(lpLCData) : lpLCData
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SetLocaleInfoW", "uint", Locale, "uint", LCType, "ptr", lpLCData, "int")
@@ -6879,6 +6945,8 @@ class Globalization {
      * @since windows5.0
      */
     static GetCalendarInfoA(Locale, Calendar, CalType, lpCalData, cchData, lpValue) {
+        lpCalData := lpCalData is String? StrPtr(lpCalData) : lpCalData
+
         A_LastError := 0
 
         DllCall("KERNEL32.dll\GetCalendarInfoA", "uint", Locale, "uint", Calendar, "uint", CalType, "ptr", lpCalData, "int", cchData, "ptr", lpValue)
@@ -6938,6 +7006,8 @@ class Globalization {
      * @since windows5.0
      */
     static GetCalendarInfoW(Locale, Calendar, CalType, lpCalData, cchData, lpValue) {
+        lpCalData := lpCalData is String? StrPtr(lpCalData) : lpCalData
+
         A_LastError := 0
 
         DllCall("KERNEL32.dll\GetCalendarInfoW", "uint", Locale, "uint", Calendar, "uint", CalType, "ptr", lpCalData, "int", cchData, "ptr", lpValue)
@@ -7009,6 +7079,8 @@ class Globalization {
      * @since windows5.0
      */
     static SetCalendarInfoA(Locale, Calendar, CalType, lpCalData) {
+        lpCalData := lpCalData is String? StrPtr(lpCalData) : lpCalData
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SetCalendarInfoA", "uint", Locale, "uint", Calendar, "uint", CalType, "ptr", lpCalData, "int")
@@ -7081,6 +7153,8 @@ class Globalization {
      * @since windows5.0
      */
     static SetCalendarInfoW(Locale, Calendar, CalType, lpCalData) {
+        lpCalData := lpCalData is String? StrPtr(lpCalData) : lpCalData
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SetCalendarInfoW", "uint", Locale, "uint", Calendar, "uint", CalType, "ptr", lpCalData, "int")
@@ -7236,6 +7310,8 @@ class Globalization {
      * @since windows6.0.6000
      */
     static LocaleNameToLCID(lpName, dwFlags) {
+        lpName := lpName is String? StrPtr(lpName) : lpName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\LocaleNameToLCID", "ptr", lpName, "uint", dwFlags, "uint")
@@ -7297,6 +7373,8 @@ class Globalization {
      * @since windows6.0.6000
      */
     static LCIDToLocaleName(Locale, lpName, cchName, dwFlags) {
+        lpName := lpName is String? StrPtr(lpName) : lpName
+
         A_LastError := 0
 
         DllCall("KERNEL32.dll\LCIDToLocaleName", "uint", Locale, "ptr", lpName, "int", cchName, "uint", dwFlags)
@@ -7353,6 +7431,9 @@ class Globalization {
      * @since windows6.0.6000
      */
     static GetDurationFormat(Locale, dwFlags, lpDuration, ullDuration, lpFormat, lpDurationStr, cchDuration) {
+        lpFormat := lpFormat is String? StrPtr(lpFormat) : lpFormat
+        lpDurationStr := lpDurationStr is String? StrPtr(lpDurationStr) : lpDurationStr
+
         A_LastError := 0
 
         DllCall("KERNEL32.dll\GetDurationFormat", "uint", Locale, "uint", dwFlags, "ptr", lpDuration, "uint", ullDuration, "ptr", lpFormat, "ptr", lpDurationStr, "int", cchDuration)
@@ -7416,6 +7497,9 @@ class Globalization {
      * @since windows5.0
      */
     static GetNumberFormatA(Locale, dwFlags, lpValue, lpFormat, lpNumberStr, cchNumber) {
+        lpValue := lpValue is String? StrPtr(lpValue) : lpValue
+        lpNumberStr := lpNumberStr is String? StrPtr(lpNumberStr) : lpNumberStr
+
         A_LastError := 0
 
         DllCall("KERNEL32.dll\GetNumberFormatA", "uint", Locale, "uint", dwFlags, "ptr", lpValue, "ptr", lpFormat, "ptr", lpNumberStr, "int", cchNumber)
@@ -7479,6 +7563,9 @@ class Globalization {
      * @since windows5.0
      */
     static GetNumberFormatW(Locale, dwFlags, lpValue, lpFormat, lpNumberStr, cchNumber) {
+        lpValue := lpValue is String? StrPtr(lpValue) : lpValue
+        lpNumberStr := lpNumberStr is String? StrPtr(lpNumberStr) : lpNumberStr
+
         A_LastError := 0
 
         DllCall("KERNEL32.dll\GetNumberFormatW", "uint", Locale, "uint", dwFlags, "ptr", lpValue, "ptr", lpFormat, "ptr", lpNumberStr, "int", cchNumber)
@@ -7536,6 +7623,9 @@ class Globalization {
      * @since windows5.0
      */
     static GetCurrencyFormatA(Locale, dwFlags, lpValue, lpFormat, lpCurrencyStr, cchCurrency) {
+        lpValue := lpValue is String? StrPtr(lpValue) : lpValue
+        lpCurrencyStr := lpCurrencyStr is String? StrPtr(lpCurrencyStr) : lpCurrencyStr
+
         A_LastError := 0
 
         DllCall("KERNEL32.dll\GetCurrencyFormatA", "uint", Locale, "uint", dwFlags, "ptr", lpValue, "ptr", lpFormat, "ptr", lpCurrencyStr, "int", cchCurrency)
@@ -7593,6 +7683,9 @@ class Globalization {
      * @since windows5.0
      */
     static GetCurrencyFormatW(Locale, dwFlags, lpValue, lpFormat, lpCurrencyStr, cchCurrency) {
+        lpValue := lpValue is String? StrPtr(lpValue) : lpValue
+        lpCurrencyStr := lpCurrencyStr is String? StrPtr(lpCurrencyStr) : lpCurrencyStr
+
         A_LastError := 0
 
         DllCall("KERNEL32.dll\GetCurrencyFormatW", "uint", Locale, "uint", dwFlags, "ptr", lpValue, "ptr", lpFormat, "ptr", lpCurrencyStr, "int", cchCurrency)
@@ -8361,6 +8454,8 @@ class Globalization {
      * @since windows5.1.2600
      */
     static GetGeoInfoA(Location, GeoType, lpGeoData, cchData, LangId) {
+        lpGeoData := lpGeoData is String? StrPtr(lpGeoData) : lpGeoData
+
         A_LastError := 0
 
         DllCall("KERNEL32.dll\GetGeoInfoA", "int", Location, "int", GeoType, "ptr", lpGeoData, "int", cchData, "ushort", LangId)
@@ -8403,6 +8498,8 @@ class Globalization {
      * @since windows5.1.2600
      */
     static GetGeoInfoW(Location, GeoType, lpGeoData, cchData, LangId) {
+        lpGeoData := lpGeoData is String? StrPtr(lpGeoData) : lpGeoData
+
         A_LastError := 0
 
         DllCall("KERNEL32.dll\GetGeoInfoW", "int", Location, "int", GeoType, "ptr", lpGeoData, "int", cchData, "ushort", LangId)
@@ -8451,6 +8548,9 @@ class Globalization {
      * @since windows10.0.16299
      */
     static GetGeoInfoEx(location, geoType, geoData, geoDataCount) {
+        location := location is String? StrPtr(location) : location
+        geoData := geoData is String? StrPtr(geoData) : geoData
+
         A_LastError := 0
 
         DllCall("KERNEL32.dll\GetGeoInfoEx", "ptr", location, "int", geoType, "ptr", geoData, "int", geoDataCount)
@@ -8558,6 +8658,8 @@ class Globalization {
      * @since windows10.0.16299
      */
     static GetUserDefaultGeoName(geoName, geoNameCount) {
+        geoName := geoName is String? StrPtr(geoName) : geoName
+
         A_LastError := 0
 
         DllCall("KERNEL32.dll\GetUserDefaultGeoName", "ptr", geoName, "int", geoNameCount)
@@ -8653,6 +8755,8 @@ class Globalization {
      * @since windows10.0.16299
      */
     static SetUserGeoName(geoName) {
+        geoName := geoName is String? StrPtr(geoName) : geoName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SetUserGeoName", "ptr", geoName, "int")
@@ -9007,6 +9111,8 @@ class Globalization {
      * @since windows6.1
      */
     static GetProcessPreferredUILanguages(dwFlags, pulNumLanguages, pwszLanguagesBuffer, pcchLanguagesBuffer) {
+        pwszLanguagesBuffer := pwszLanguagesBuffer is String? StrPtr(pwszLanguagesBuffer) : pwszLanguagesBuffer
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetProcessPreferredUILanguages", "uint", dwFlags, "ptr", pulNumLanguages, "ptr", pwszLanguagesBuffer, "ptr", pcchLanguagesBuffer, "int")
@@ -9086,6 +9192,8 @@ class Globalization {
      * @since windows6.1
      */
     static SetProcessPreferredUILanguages(dwFlags, pwszLanguagesBuffer, pulNumLanguages) {
+        pwszLanguagesBuffer := pwszLanguagesBuffer is String? StrPtr(pwszLanguagesBuffer) : pwszLanguagesBuffer
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SetProcessPreferredUILanguages", "uint", dwFlags, "ptr", pwszLanguagesBuffer, "ptr", pulNumLanguages, "int")
@@ -9130,6 +9238,8 @@ class Globalization {
      * @since windows6.0.6000
      */
     static GetUserPreferredUILanguages(dwFlags, pulNumLanguages, pwszLanguagesBuffer, pcchLanguagesBuffer) {
+        pwszLanguagesBuffer := pwszLanguagesBuffer is String? StrPtr(pwszLanguagesBuffer) : pwszLanguagesBuffer
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetUserPreferredUILanguages", "uint", dwFlags, "ptr", pulNumLanguages, "ptr", pwszLanguagesBuffer, "ptr", pcchLanguagesBuffer, "int")
@@ -9245,6 +9355,8 @@ class Globalization {
      * @since windows6.0.6000
      */
     static GetSystemPreferredUILanguages(dwFlags, pulNumLanguages, pwszLanguagesBuffer, pcchLanguagesBuffer) {
+        pwszLanguagesBuffer := pwszLanguagesBuffer is String? StrPtr(pwszLanguagesBuffer) : pwszLanguagesBuffer
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetSystemPreferredUILanguages", "uint", dwFlags, "ptr", pulNumLanguages, "ptr", pwszLanguagesBuffer, "ptr", pcchLanguagesBuffer, "int")
@@ -9379,6 +9491,8 @@ class Globalization {
      * @since windows6.0.6000
      */
     static GetThreadPreferredUILanguages(dwFlags, pulNumLanguages, pwszLanguagesBuffer, pcchLanguagesBuffer) {
+        pwszLanguagesBuffer := pwszLanguagesBuffer is String? StrPtr(pwszLanguagesBuffer) : pwszLanguagesBuffer
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetThreadPreferredUILanguages", "uint", dwFlags, "ptr", pulNumLanguages, "ptr", pwszLanguagesBuffer, "ptr", pcchLanguagesBuffer, "int")
@@ -9529,6 +9643,8 @@ class Globalization {
      * @since windows6.0.6000
      */
     static SetThreadPreferredUILanguages(dwFlags, pwszLanguagesBuffer, pulNumLanguages) {
+        pwszLanguagesBuffer := pwszLanguagesBuffer is String? StrPtr(pwszLanguagesBuffer) : pwszLanguagesBuffer
+
         result := DllCall("KERNEL32.dll\SetThreadPreferredUILanguages", "uint", dwFlags, "ptr", pwszLanguagesBuffer, "ptr", pulNumLanguages, "int")
         return result
     }
@@ -9645,6 +9761,8 @@ class Globalization {
      * @since windows6.0.6000
      */
     static GetFileMUIInfo(dwFlags, pcwszFilePath, pFileMUIInfo, pcbFileMUIInfo) {
+        pcwszFilePath := pcwszFilePath is String? StrPtr(pcwszFilePath) : pcwszFilePath
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetFileMUIInfo", "uint", dwFlags, "ptr", pcwszFilePath, "ptr", pFileMUIInfo, "ptr", pcbFileMUIInfo, "int")
@@ -9859,6 +9977,10 @@ class Globalization {
      * @since windows6.0.6000
      */
     static GetFileMUIPath(dwFlags, pcwszFilePath, pwszLanguage, pcchLanguage, pwszFileMUIPath, pcchFileMUIPath, pululEnumerator) {
+        pcwszFilePath := pcwszFilePath is String? StrPtr(pcwszFilePath) : pcwszFilePath
+        pwszLanguage := pwszLanguage is String? StrPtr(pwszLanguage) : pwszLanguage
+        pwszFileMUIPath := pwszFileMUIPath is String? StrPtr(pwszFileMUIPath) : pwszFileMUIPath
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetFileMUIPath", "uint", dwFlags, "ptr", pcwszFilePath, "ptr", pwszLanguage, "ptr", pcchLanguage, "ptr", pwszFileMUIPath, "ptr", pcchFileMUIPath, "ptr", pululEnumerator, "int")
@@ -10041,6 +10163,9 @@ class Globalization {
      * @since windows6.0.6000
      */
     static GetUILanguageInfo(dwFlags, pwmszLanguage, pwszFallbackLanguages, pcchFallbackLanguages, pAttributes) {
+        pwmszLanguage := pwmszLanguage is String? StrPtr(pwmszLanguage) : pwmszLanguage
+        pwszFallbackLanguages := pwszFallbackLanguages is String? StrPtr(pwszFallbackLanguages) : pwszFallbackLanguages
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetUILanguageInfo", "uint", dwFlags, "ptr", pwmszLanguage, "ptr", pwszFallbackLanguages, "ptr", pcchFallbackLanguages, "ptr", pAttributes, "int")
@@ -10059,6 +10184,8 @@ class Globalization {
      * @returns {Integer} 
      */
     static SetThreadPreferredUILanguages2(flags, languages, numLanguagesSet, snapshot) {
+        languages := languages is String? StrPtr(languages) : languages
+
         result := DllCall("KERNEL32.dll\SetThreadPreferredUILanguages2", "uint", flags, "ptr", languages, "ptr", numLanguagesSet, "ptr", snapshot, "int")
         return result
     }
@@ -10086,6 +10213,9 @@ class Globalization {
      */
     static NotifyUILanguageChange(dwFlags, pcwstrNewLanguage, pcwstrPreviousLanguage, pdwStatusRtrn) {
         static dwReserved := 0 ;Reserved parameters must always be NULL
+
+        pcwstrNewLanguage := pcwstrNewLanguage is String? StrPtr(pcwstrNewLanguage) : pcwstrNewLanguage
+        pcwstrPreviousLanguage := pcwstrPreviousLanguage is String? StrPtr(pcwstrPreviousLanguage) : pcwstrPreviousLanguage
 
         result := DllCall("KERNEL32.dll\NotifyUILanguageChange", "uint", dwFlags, "ptr", pcwstrNewLanguage, "ptr", pcwstrPreviousLanguage, "uint", dwReserved, "ptr", pdwStatusRtrn, "int")
         return result
@@ -10147,6 +10277,8 @@ class Globalization {
      * @see https://learn.microsoft.com/windows/win32/api/stringapiset/nf-stringapiset-getstringtypeexw
      */
     static GetStringTypeExA(Locale, dwInfoType, lpSrcStr, cchSrc, lpCharType) {
+        lpSrcStr := lpSrcStr is String? StrPtr(lpSrcStr) : lpSrcStr
+
         result := DllCall("KERNEL32.dll\GetStringTypeExA", "uint", Locale, "uint", dwInfoType, "ptr", lpSrcStr, "int", cchSrc, "ptr", lpCharType, "int")
         return result
     }
@@ -10205,6 +10337,8 @@ class Globalization {
      * @since windows5.0
      */
     static GetStringTypeA(Locale, dwInfoType, lpSrcStr, cchSrc, lpCharType) {
+        lpSrcStr := lpSrcStr is String? StrPtr(lpSrcStr) : lpSrcStr
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetStringTypeA", "uint", Locale, "uint", dwInfoType, "ptr", lpSrcStr, "int", cchSrc, "ptr", lpCharType, "int")
@@ -10238,6 +10372,9 @@ class Globalization {
      * @since windows5.0
      */
     static FoldStringA(dwMapFlags, lpSrcStr, cchSrc, lpDestStr, cchDest) {
+        lpSrcStr := lpSrcStr is String? StrPtr(lpSrcStr) : lpSrcStr
+        lpDestStr := lpDestStr is String? StrPtr(lpDestStr) : lpDestStr
+
         A_LastError := 0
 
         DllCall("KERNEL32.dll\FoldStringA", "uint", dwMapFlags, "ptr", lpSrcStr, "int", cchSrc, "ptr", lpDestStr, "int", cchDest)
@@ -10929,6 +11066,9 @@ class Globalization {
      * @since windows6.0.6000
      */
     static IdnToAscii(dwFlags, lpUnicodeCharStr, cchUnicodeChar, lpASCIICharStr, cchASCIIChar) {
+        lpUnicodeCharStr := lpUnicodeCharStr is String? StrPtr(lpUnicodeCharStr) : lpUnicodeCharStr
+        lpASCIICharStr := lpASCIICharStr is String? StrPtr(lpASCIICharStr) : lpASCIICharStr
+
         A_LastError := 0
 
         DllCall("NORMALIZ.dll\IdnToAscii", "uint", dwFlags, "ptr", lpUnicodeCharStr, "int", cchUnicodeChar, "ptr", lpASCIICharStr, "int", cchASCIIChar)
@@ -10951,6 +11091,9 @@ class Globalization {
      * @since windows6.0.6000
      */
     static IdnToUnicode(dwFlags, lpASCIICharStr, cchASCIIChar, lpUnicodeCharStr, cchUnicodeChar) {
+        lpASCIICharStr := lpASCIICharStr is String? StrPtr(lpASCIICharStr) : lpASCIICharStr
+        lpUnicodeCharStr := lpUnicodeCharStr is String? StrPtr(lpUnicodeCharStr) : lpUnicodeCharStr
+
         A_LastError := 0
 
         DllCall("NORMALIZ.dll\IdnToUnicode", "uint", dwFlags, "ptr", lpASCIICharStr, "int", cchASCIIChar, "ptr", lpUnicodeCharStr, "int", cchUnicodeChar)
@@ -10973,6 +11116,9 @@ class Globalization {
      * @since windows6.0.6000
      */
     static IdnToNameprepUnicode(dwFlags, lpUnicodeCharStr, cchUnicodeChar, lpNameprepCharStr, cchNameprepChar) {
+        lpUnicodeCharStr := lpUnicodeCharStr is String? StrPtr(lpUnicodeCharStr) : lpUnicodeCharStr
+        lpNameprepCharStr := lpNameprepCharStr is String? StrPtr(lpNameprepCharStr) : lpNameprepCharStr
+
         A_LastError := 0
 
         DllCall("KERNEL32.dll\IdnToNameprepUnicode", "uint", dwFlags, "ptr", lpUnicodeCharStr, "int", cchUnicodeChar, "ptr", lpNameprepCharStr, "int", cchNameprepChar)
@@ -11035,6 +11181,9 @@ class Globalization {
      * @since windows6.0.6000
      */
     static NormalizeString(NormForm, lpSrcString, cwSrcLength, lpDstString, cwDstLength) {
+        lpSrcString := lpSrcString is String? StrPtr(lpSrcString) : lpSrcString
+        lpDstString := lpDstString is String? StrPtr(lpDstString) : lpDstString
+
         A_LastError := 0
 
         DllCall("KERNEL32.dll\NormalizeString", "int", NormForm, "ptr", lpSrcString, "int", cwSrcLength, "ptr", lpDstString, "int", cwDstLength)
@@ -11066,6 +11215,8 @@ class Globalization {
      * @since windows6.0.6000
      */
     static IsNormalizedString(NormForm, lpString, cwLength) {
+        lpString := lpString is String? StrPtr(lpString) : lpString
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\IsNormalizedString", "int", NormForm, "ptr", lpString, "int", cwLength, "int")
@@ -11180,6 +11331,9 @@ class Globalization {
      * @since windows6.0.6000
      */
     static VerifyScripts(dwFlags, lpLocaleScripts, cchLocaleScripts, lpTestScripts, cchTestScripts) {
+        lpLocaleScripts := lpLocaleScripts is String? StrPtr(lpLocaleScripts) : lpLocaleScripts
+        lpTestScripts := lpTestScripts is String? StrPtr(lpTestScripts) : lpTestScripts
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\VerifyScripts", "uint", dwFlags, "ptr", lpLocaleScripts, "int", cchLocaleScripts, "ptr", lpTestScripts, "int", cchTestScripts, "int")
@@ -11297,6 +11451,9 @@ class Globalization {
      * @since windows6.0.6000
      */
     static GetStringScripts(dwFlags, lpString, cchString, lpScripts, cchScripts) {
+        lpString := lpString is String? StrPtr(lpString) : lpString
+        lpScripts := lpScripts is String? StrPtr(lpScripts) : lpScripts
+
         A_LastError := 0
 
         DllCall("KERNEL32.dll\GetStringScripts", "uint", dwFlags, "ptr", lpString, "int", cchString, "ptr", lpScripts, "int", cchScripts)
@@ -11372,6 +11529,9 @@ class Globalization {
      * @since windows6.0.6000
      */
     static GetLocaleInfoEx(lpLocaleName, LCType, lpLCData, cchData) {
+        lpLocaleName := lpLocaleName is String? StrPtr(lpLocaleName) : lpLocaleName
+        lpLCData := lpLCData is String? StrPtr(lpLCData) : lpLCData
+
         A_LastError := 0
 
         DllCall("KERNEL32.dll\GetLocaleInfoEx", "ptr", lpLocaleName, "uint", LCType, "ptr", lpLCData, "int", cchData)
@@ -11415,6 +11575,9 @@ class Globalization {
      */
     static GetCalendarInfoEx(lpLocaleName, Calendar, CalType, lpCalData, cchData, lpValue) {
         static lpReserved := 0 ;Reserved parameters must always be NULL
+
+        lpLocaleName := lpLocaleName is String? StrPtr(lpLocaleName) : lpLocaleName
+        lpCalData := lpCalData is String? StrPtr(lpCalData) : lpCalData
 
         A_LastError := 0
 
@@ -11460,6 +11623,10 @@ class Globalization {
      * @since windows6.0.6000
      */
     static GetNumberFormatEx(lpLocaleName, dwFlags, lpValue, lpFormat, lpNumberStr, cchNumber) {
+        lpLocaleName := lpLocaleName is String? StrPtr(lpLocaleName) : lpLocaleName
+        lpValue := lpValue is String? StrPtr(lpValue) : lpValue
+        lpNumberStr := lpNumberStr is String? StrPtr(lpNumberStr) : lpNumberStr
+
         A_LastError := 0
 
         DllCall("KERNEL32.dll\GetNumberFormatEx", "ptr", lpLocaleName, "uint", dwFlags, "ptr", lpValue, "ptr", lpFormat, "ptr", lpNumberStr, "int", cchNumber)
@@ -11504,6 +11671,10 @@ class Globalization {
      * @since windows5.0
      */
     static GetCurrencyFormatEx(lpLocaleName, dwFlags, lpValue, lpFormat, lpCurrencyStr, cchCurrency) {
+        lpLocaleName := lpLocaleName is String? StrPtr(lpLocaleName) : lpLocaleName
+        lpValue := lpValue is String? StrPtr(lpValue) : lpValue
+        lpCurrencyStr := lpCurrencyStr is String? StrPtr(lpCurrencyStr) : lpCurrencyStr
+
         A_LastError := 0
 
         DllCall("KERNEL32.dll\GetCurrencyFormatEx", "ptr", lpLocaleName, "uint", dwFlags, "ptr", lpValue, "ptr", lpFormat, "ptr", lpCurrencyStr, "int", cchCurrency)
@@ -11523,6 +11694,8 @@ class Globalization {
      * @since windows6.0.6000
      */
     static GetUserDefaultLocaleName(lpLocaleName, cchLocaleName) {
+        lpLocaleName := lpLocaleName is String? StrPtr(lpLocaleName) : lpLocaleName
+
         A_LastError := 0
 
         DllCall("KERNEL32.dll\GetUserDefaultLocaleName", "ptr", lpLocaleName, "int", cchLocaleName)
@@ -11542,6 +11715,8 @@ class Globalization {
      * @since windows6.0.6000
      */
     static GetSystemDefaultLocaleName(lpLocaleName, cchLocaleName) {
+        lpLocaleName := lpLocaleName is String? StrPtr(lpLocaleName) : lpLocaleName
+
         A_LastError := 0
 
         DllCall("KERNEL32.dll\GetSystemDefaultLocaleName", "ptr", lpLocaleName, "int", cchLocaleName)
@@ -11574,6 +11749,8 @@ class Globalization {
      * @since windows6.0.6000
      */
     static IsNLSDefinedString(Function, dwFlags, lpVersionInformation, lpString, cchStr) {
+        lpString := lpString is String? StrPtr(lpString) : lpString
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\IsNLSDefinedString", "uint", Function, "uint", dwFlags, "ptr", lpVersionInformation, "ptr", lpString, "int", cchStr, "int")
@@ -11634,6 +11811,8 @@ class Globalization {
      * @since windows6.0.6000
      */
     static GetNLSVersionEx(function, lpLocaleName, lpVersionInformation) {
+        lpLocaleName := lpLocaleName is String? StrPtr(lpLocaleName) : lpLocaleName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetNLSVersionEx", "uint", function, "ptr", lpLocaleName, "ptr", lpVersionInformation, "int")
@@ -11669,6 +11848,8 @@ class Globalization {
      * @since windows8.0
      */
     static IsValidNLSVersion(function, lpLocaleName, lpVersionInformation) {
+        lpLocaleName := lpLocaleName is String? StrPtr(lpLocaleName) : lpLocaleName
+
         result := DllCall("KERNEL32.dll\IsValidNLSVersion", "uint", function, "ptr", lpLocaleName, "ptr", lpVersionInformation, "uint")
         return result
     }
@@ -11867,6 +12048,10 @@ class Globalization {
      */
     static FindNLSStringEx(lpLocaleName, dwFindNLSStringFlags, lpStringSource, cchSource, lpStringValue, cchValue, pcchFound, lpVersionInformation, sortHandle) {
         static lpReserved := 0 ;Reserved parameters must always be NULL
+
+        lpLocaleName := lpLocaleName is String? StrPtr(lpLocaleName) : lpLocaleName
+        lpStringSource := lpStringSource is String? StrPtr(lpStringSource) : lpStringSource
+        lpStringValue := lpStringValue is String? StrPtr(lpStringValue) : lpStringValue
 
         A_LastError := 0
 
@@ -12085,6 +12270,10 @@ class Globalization {
     static LCMapStringEx(lpLocaleName, dwMapFlags, lpSrcStr, cchSrc, lpDestStr, cchDest, lpVersionInformation, sortHandle) {
         static lpReserved := 0 ;Reserved parameters must always be NULL
 
+        lpLocaleName := lpLocaleName is String? StrPtr(lpLocaleName) : lpLocaleName
+        lpSrcStr := lpSrcStr is String? StrPtr(lpSrcStr) : lpSrcStr
+        lpDestStr := lpDestStr is String? StrPtr(lpDestStr) : lpDestStr
+
         A_LastError := 0
 
         DllCall("KERNEL32.dll\LCMapStringEx", "ptr", lpLocaleName, "uint", dwMapFlags, "ptr", lpSrcStr, "int", cchSrc, "ptr", lpDestStr, "int", cchDest, "ptr", lpVersionInformation, "ptr", lpReserved, "ptr", sortHandle)
@@ -12107,6 +12296,8 @@ class Globalization {
      * @since windows6.0.6000
      */
     static IsValidLocaleName(lpLocaleName) {
+        lpLocaleName := lpLocaleName is String? StrPtr(lpLocaleName) : lpLocaleName
+
         result := DllCall("KERNEL32.dll\IsValidLocaleName", "ptr", lpLocaleName, "int")
         return result
     }
@@ -12145,6 +12336,8 @@ class Globalization {
      */
     static EnumCalendarInfoExEx(pCalInfoEnumProcExEx, lpLocaleName, Calendar, CalType, lParam) {
         static lpReserved := 0 ;Reserved parameters must always be NULL
+
+        lpLocaleName := lpLocaleName is String? StrPtr(lpLocaleName) : lpLocaleName
 
         A_LastError := 0
 
@@ -12190,6 +12383,8 @@ class Globalization {
      * @since windows6.0.6000
      */
     static EnumDateFormatsExEx(lpDateFmtEnumProcExEx, lpLocaleName, dwFlags, lParam) {
+        lpLocaleName := lpLocaleName is String? StrPtr(lpLocaleName) : lpLocaleName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\EnumDateFormatsExEx", "ptr", lpDateFmtEnumProcExEx, "ptr", lpLocaleName, "uint", dwFlags, "ptr", lParam, "int")
@@ -12231,6 +12426,8 @@ class Globalization {
      * @since windows6.0.6000
      */
     static EnumTimeFormatsEx(lpTimeFmtEnumProcEx, lpLocaleName, dwFlags, lParam) {
+        lpLocaleName := lpLocaleName is String? StrPtr(lpLocaleName) : lpLocaleName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\EnumTimeFormatsEx", "ptr", lpTimeFmtEnumProcEx, "ptr", lpLocaleName, "uint", dwFlags, "ptr", lParam, "int")
@@ -12310,6 +12507,9 @@ class Globalization {
      * @since windows6.1
      */
     static ResolveLocaleName(lpNameToResolve, lpLocaleName, cchLocaleName) {
+        lpNameToResolve := lpNameToResolve is String? StrPtr(lpNameToResolve) : lpNameToResolve
+        lpLocaleName := lpLocaleName is String? StrPtr(lpLocaleName) : lpLocaleName
+
         A_LastError := 0
 
         DllCall("KERNEL32.dll\ResolveLocaleName", "ptr", lpNameToResolve, "ptr", lpLocaleName, "int", cchLocaleName)
@@ -12380,6 +12580,8 @@ class Globalization {
      * @since windows6.1
      */
     static MappingRecognizeText(pServiceInfo, pszText, dwLength, dwIndex, pOptions, pbag) {
+        pszText := pszText is String? StrPtr(pszText) : pszText
+
         result := DllCall("elscore.dll\MappingRecognizeText", "ptr", pServiceInfo, "ptr", pszText, "uint", dwLength, "uint", dwIndex, "ptr", pOptions, "ptr", pbag, "int")
         return result
     }
@@ -12407,6 +12609,8 @@ class Globalization {
      * @since windows6.1
      */
     static MappingDoAction(pBag, dwRangeIndex, pszActionId) {
+        pszActionId := pszActionId is String? StrPtr(pszActionId) : pszActionId
+
         result := DllCall("elscore.dll\MappingDoAction", "ptr", pBag, "uint", dwRangeIndex, "ptr", pszActionId, "int")
         return result
     }
@@ -12571,6 +12775,8 @@ class Globalization {
      * @since windows5.0
      */
     static ScriptItemize(pwcInChars, cInChars, cMaxItems, psControl, psState, pItems, pcItems) {
+        pwcInChars := pwcInChars is String? StrPtr(pwcInChars) : pwcInChars
+
         result := DllCall("USP10.dll\ScriptItemize", "ptr", pwcInChars, "int", cInChars, "int", cMaxItems, "ptr", psControl, "ptr", psState, "ptr", pItems, "ptr", pcItems, "int")
         return result
     }
@@ -12669,6 +12875,8 @@ class Globalization {
      * @since windows5.0
      */
     static ScriptShape(hdc, psc, pwcChars, cChars, cMaxGlyphs, psa, pwOutGlyphs, pwLogClust, psva, pcGlyphs) {
+        pwcChars := pwcChars is String? StrPtr(pwcChars) : pwcChars
+
         result := DllCall("USP10.dll\ScriptShape", "ptr", hdc, "ptr", psc, "ptr", pwcChars, "int", cChars, "int", cMaxGlyphs, "ptr", psa, "ptr", pwOutGlyphs, "ptr", pwLogClust, "ptr", psva, "ptr", pcGlyphs, "int")
         return result
     }
@@ -12806,6 +13014,8 @@ class Globalization {
      * @since windows5.0
      */
     static ScriptBreak(pwcChars, cChars, psa, psla) {
+        pwcChars := pwcChars is String? StrPtr(pwcChars) : pwcChars
+
         result := DllCall("USP10.dll\ScriptBreak", "ptr", pwcChars, "int", cChars, "ptr", psa, "ptr", psla, "int")
         return result
     }
@@ -12999,6 +13209,8 @@ class Globalization {
      * @since windows5.0
      */
     static ScriptGetCMap(hdc, psc, pwcInChars, cChars, dwFlags, pwOutGlyphs) {
+        pwcInChars := pwcInChars is String? StrPtr(pwcInChars) : pwcInChars
+
         result := DllCall("USP10.dll\ScriptGetCMap", "ptr", hdc, "ptr", psc, "ptr", pwcInChars, "int", cChars, "uint", dwFlags, "ptr", pwOutGlyphs, "int")
         return result
     }
@@ -13496,6 +13708,8 @@ class Globalization {
      * @since windows5.0
      */
     static ScriptIsComplex(pwcInChars, cInChars, dwFlags) {
+        pwcInChars := pwcInChars is String? StrPtr(pwcInChars) : pwcInChars
+
         result := DllCall("USP10.dll\ScriptIsComplex", "ptr", pwcInChars, "int", cInChars, "uint", dwFlags, "int")
         return result
     }
@@ -13638,6 +13852,8 @@ class Globalization {
      * @since windows6.0.6000
      */
     static ScriptShapeOpenType(hdc, psc, psa, tagScript, tagLangSys, rcRangeChars, rpRangeProperties, cRanges, pwcChars, cChars, cMaxGlyphs, pwLogClust, pCharProps, pwOutGlyphs, pOutGlyphProps, pcGlyphs) {
+        pwcChars := pwcChars is String? StrPtr(pwcChars) : pwcChars
+
         result := DllCall("USP10.dll\ScriptShapeOpenType", "ptr", hdc, "ptr", psc, "ptr", psa, "uint", tagScript, "uint", tagLangSys, "ptr", rcRangeChars, "ptr", rpRangeProperties, "int", cRanges, "ptr", pwcChars, "int", cChars, "int", cMaxGlyphs, "ptr", pwLogClust, "ptr", pCharProps, "ptr", pwOutGlyphs, "ptr", pOutGlyphProps, "ptr", pcGlyphs, "int")
         return result
     }
@@ -13687,6 +13903,8 @@ class Globalization {
      * @since windows6.0.6000
      */
     static ScriptPlaceOpenType(hdc, psc, psa, tagScript, tagLangSys, rcRangeChars, rpRangeProperties, cRanges, pwcChars, pwLogClust, pCharProps, cChars, pwGlyphs, pGlyphProps, cGlyphs, piAdvance, pGoffset, pABC) {
+        pwcChars := pwcChars is String? StrPtr(pwcChars) : pwcChars
+
         result := DllCall("USP10.dll\ScriptPlaceOpenType", "ptr", hdc, "ptr", psc, "ptr", psa, "uint", tagScript, "uint", tagLangSys, "ptr", rcRangeChars, "ptr", rpRangeProperties, "int", cRanges, "ptr", pwcChars, "ptr", pwLogClust, "ptr", pCharProps, "int", cChars, "ptr", pwGlyphs, "ptr", pGlyphProps, "int", cGlyphs, "ptr", piAdvance, "ptr", pGoffset, "ptr", pABC, "int")
         return result
     }
@@ -13827,6 +14045,8 @@ class Globalization {
      * @since windows6.0.6000
      */
     static ScriptItemizeOpenType(pwcInChars, cInChars, cMaxItems, psControl, psState, pItems, pScriptTags, pcItems) {
+        pwcInChars := pwcInChars is String? StrPtr(pwcInChars) : pwcInChars
+
         result := DllCall("USP10.dll\ScriptItemizeOpenType", "ptr", pwcInChars, "int", cInChars, "int", cMaxItems, "ptr", psControl, "ptr", psState, "ptr", pItems, "ptr", pScriptTags, "ptr", pcItems, "int")
         return result
     }
@@ -14085,6 +14305,8 @@ class Globalization {
      * @returns {String} Nothing - always returns an empty string
      */
     static u_versionFromString(versionArray, versionString) {
+        versionString := versionString is String? StrPtr(versionString) : versionString
+
         DllCall("icuuc.dll\u_versionFromString", "ptr", versionArray, "ptr", versionString, "CDecl ")
     }
 
@@ -14105,6 +14327,8 @@ class Globalization {
      * @returns {String} Nothing - always returns an empty string
      */
     static u_versionToString(versionArray, versionString) {
+        versionString := versionString is String? StrPtr(versionString) : versionString
+
         DllCall("icuuc.dll\u_versionToString", "ptr", versionArray, "ptr", versionString, "CDecl ")
     }
 
@@ -14179,6 +14403,9 @@ class Globalization {
      * @returns {Integer} 
      */
     static utrace_vformat(outBuf, capacity, indent, fmt, args) {
+        outBuf := outBuf is String? StrPtr(outBuf) : outBuf
+        fmt := fmt is String? StrPtr(fmt) : fmt
+
         result := DllCall("icuuc.dll\utrace_vformat", "ptr", outBuf, "int", capacity, "int", indent, "ptr", fmt, "ptr", args, "CDecl int")
         return result
     }
@@ -14192,6 +14419,9 @@ class Globalization {
      * @returns {Integer} 
      */
     static utrace_format(outBuf, capacity, indent, fmt) {
+        outBuf := outBuf is String? StrPtr(outBuf) : outBuf
+        fmt := fmt is String? StrPtr(fmt) : fmt
+
         result := DllCall("icuuc.dll\utrace_format", "ptr", outBuf, "int", capacity, "int", indent, "ptr", fmt, "CDecl int")
         return result
     }
@@ -14230,6 +14460,8 @@ class Globalization {
      * @returns {Integer} 
      */
     static uscript_getCode(nameOrAbbrOrLocale, fillIn, capacity, err) {
+        nameOrAbbrOrLocale := nameOrAbbrOrLocale is String? StrPtr(nameOrAbbrOrLocale) : nameOrAbbrOrLocale
+
         result := DllCall("icuuc.dll\uscript_getCode", "ptr", nameOrAbbrOrLocale, "ptr", fillIn, "int", capacity, "ptr", err, "CDecl int")
         return result
     }
@@ -14410,6 +14642,8 @@ class Globalization {
      * @returns {String} Nothing - always returns an empty string
      */
     static uiter_setUTF16BE(iter, s, length) {
+        s := s is String? StrPtr(s) : s
+
         DllCall("icuuc.dll\uiter_setUTF16BE", "ptr", iter, "ptr", s, "int", length, "CDecl ")
     }
 
@@ -14421,6 +14655,8 @@ class Globalization {
      * @returns {String} Nothing - always returns an empty string
      */
     static uiter_setUTF8(iter, s, length) {
+        s := s is String? StrPtr(s) : s
+
         DllCall("icuuc.dll\uiter_setUTF8", "ptr", iter, "ptr", s, "int", length, "CDecl ")
     }
 
@@ -14516,6 +14752,8 @@ class Globalization {
      * @returns {String} Nothing - always returns an empty string
      */
     static uloc_setDefault(localeID, status) {
+        localeID := localeID is String? StrPtr(localeID) : localeID
+
         DllCall("icuuc.dll\uloc_setDefault", "ptr", localeID, "ptr", status, "CDecl ")
     }
 
@@ -14528,6 +14766,9 @@ class Globalization {
      * @returns {Integer} 
      */
     static uloc_getLanguage(localeID, language, languageCapacity, err) {
+        localeID := localeID is String? StrPtr(localeID) : localeID
+        language := language is String? StrPtr(language) : language
+
         result := DllCall("icuuc.dll\uloc_getLanguage", "ptr", localeID, "ptr", language, "int", languageCapacity, "ptr", err, "CDecl int")
         return result
     }
@@ -14541,6 +14782,9 @@ class Globalization {
      * @returns {Integer} 
      */
     static uloc_getScript(localeID, script, scriptCapacity, err) {
+        localeID := localeID is String? StrPtr(localeID) : localeID
+        script := script is String? StrPtr(script) : script
+
         result := DllCall("icuuc.dll\uloc_getScript", "ptr", localeID, "ptr", script, "int", scriptCapacity, "ptr", err, "CDecl int")
         return result
     }
@@ -14554,6 +14798,9 @@ class Globalization {
      * @returns {Integer} 
      */
     static uloc_getCountry(localeID, country, countryCapacity, err) {
+        localeID := localeID is String? StrPtr(localeID) : localeID
+        country := country is String? StrPtr(country) : country
+
         result := DllCall("icuuc.dll\uloc_getCountry", "ptr", localeID, "ptr", country, "int", countryCapacity, "ptr", err, "CDecl int")
         return result
     }
@@ -14567,6 +14814,9 @@ class Globalization {
      * @returns {Integer} 
      */
     static uloc_getVariant(localeID, variant, variantCapacity, err) {
+        localeID := localeID is String? StrPtr(localeID) : localeID
+        variant := variant is String? StrPtr(variant) : variant
+
         result := DllCall("icuuc.dll\uloc_getVariant", "ptr", localeID, "ptr", variant, "int", variantCapacity, "ptr", err, "CDecl int")
         return result
     }
@@ -14580,6 +14830,9 @@ class Globalization {
      * @returns {Integer} 
      */
     static uloc_getName(localeID, name, nameCapacity, err) {
+        localeID := localeID is String? StrPtr(localeID) : localeID
+        name := name is String? StrPtr(name) : name
+
         result := DllCall("icuuc.dll\uloc_getName", "ptr", localeID, "ptr", name, "int", nameCapacity, "ptr", err, "CDecl int")
         return result
     }
@@ -14593,6 +14846,9 @@ class Globalization {
      * @returns {Integer} 
      */
     static uloc_canonicalize(localeID, name, nameCapacity, err) {
+        localeID := localeID is String? StrPtr(localeID) : localeID
+        name := name is String? StrPtr(name) : name
+
         result := DllCall("icuuc.dll\uloc_canonicalize", "ptr", localeID, "ptr", name, "int", nameCapacity, "ptr", err, "CDecl int")
         return result
     }
@@ -14603,6 +14859,8 @@ class Globalization {
      * @returns {Pointer<PSTR>} 
      */
     static uloc_getISO3Language(localeID) {
+        localeID := localeID is String? StrPtr(localeID) : localeID
+
         result := DllCall("icuuc.dll\uloc_getISO3Language", "ptr", localeID, "CDecl ptr")
         return result
     }
@@ -14613,6 +14871,8 @@ class Globalization {
      * @returns {Pointer<PSTR>} 
      */
     static uloc_getISO3Country(localeID) {
+        localeID := localeID is String? StrPtr(localeID) : localeID
+
         result := DllCall("icuuc.dll\uloc_getISO3Country", "ptr", localeID, "CDecl ptr")
         return result
     }
@@ -14623,6 +14883,8 @@ class Globalization {
      * @returns {Integer} 
      */
     static uloc_getLCID(localeID) {
+        localeID := localeID is String? StrPtr(localeID) : localeID
+
         result := DllCall("icuuc.dll\uloc_getLCID", "ptr", localeID, "CDecl uint")
         return result
     }
@@ -14637,6 +14899,9 @@ class Globalization {
      * @returns {Integer} 
      */
     static uloc_getDisplayLanguage(locale, displayLocale, language, languageCapacity, status) {
+        locale := locale is String? StrPtr(locale) : locale
+        displayLocale := displayLocale is String? StrPtr(displayLocale) : displayLocale
+
         result := DllCall("icuuc.dll\uloc_getDisplayLanguage", "ptr", locale, "ptr", displayLocale, "ptr", language, "int", languageCapacity, "ptr", status, "CDecl int")
         return result
     }
@@ -14651,6 +14916,9 @@ class Globalization {
      * @returns {Integer} 
      */
     static uloc_getDisplayScript(locale, displayLocale, script, scriptCapacity, status) {
+        locale := locale is String? StrPtr(locale) : locale
+        displayLocale := displayLocale is String? StrPtr(displayLocale) : displayLocale
+
         result := DllCall("icuuc.dll\uloc_getDisplayScript", "ptr", locale, "ptr", displayLocale, "ptr", script, "int", scriptCapacity, "ptr", status, "CDecl int")
         return result
     }
@@ -14665,6 +14933,9 @@ class Globalization {
      * @returns {Integer} 
      */
     static uloc_getDisplayCountry(locale, displayLocale, country, countryCapacity, status) {
+        locale := locale is String? StrPtr(locale) : locale
+        displayLocale := displayLocale is String? StrPtr(displayLocale) : displayLocale
+
         result := DllCall("icuuc.dll\uloc_getDisplayCountry", "ptr", locale, "ptr", displayLocale, "ptr", country, "int", countryCapacity, "ptr", status, "CDecl int")
         return result
     }
@@ -14679,6 +14950,9 @@ class Globalization {
      * @returns {Integer} 
      */
     static uloc_getDisplayVariant(locale, displayLocale, variant, variantCapacity, status) {
+        locale := locale is String? StrPtr(locale) : locale
+        displayLocale := displayLocale is String? StrPtr(displayLocale) : displayLocale
+
         result := DllCall("icuuc.dll\uloc_getDisplayVariant", "ptr", locale, "ptr", displayLocale, "ptr", variant, "int", variantCapacity, "ptr", status, "CDecl int")
         return result
     }
@@ -14693,6 +14967,9 @@ class Globalization {
      * @returns {Integer} 
      */
     static uloc_getDisplayKeyword(keyword, displayLocale, dest, destCapacity, status) {
+        keyword := keyword is String? StrPtr(keyword) : keyword
+        displayLocale := displayLocale is String? StrPtr(displayLocale) : displayLocale
+
         result := DllCall("icuuc.dll\uloc_getDisplayKeyword", "ptr", keyword, "ptr", displayLocale, "ptr", dest, "int", destCapacity, "ptr", status, "CDecl int")
         return result
     }
@@ -14708,6 +14985,10 @@ class Globalization {
      * @returns {Integer} 
      */
     static uloc_getDisplayKeywordValue(locale, keyword, displayLocale, dest, destCapacity, status) {
+        locale := locale is String? StrPtr(locale) : locale
+        keyword := keyword is String? StrPtr(keyword) : keyword
+        displayLocale := displayLocale is String? StrPtr(displayLocale) : displayLocale
+
         result := DllCall("icuuc.dll\uloc_getDisplayKeywordValue", "ptr", locale, "ptr", keyword, "ptr", displayLocale, "ptr", dest, "int", destCapacity, "ptr", status, "CDecl int")
         return result
     }
@@ -14722,6 +15003,9 @@ class Globalization {
      * @returns {Integer} 
      */
     static uloc_getDisplayName(localeID, inLocaleID, result, maxResultSize, err) {
+        localeID := localeID is String? StrPtr(localeID) : localeID
+        inLocaleID := inLocaleID is String? StrPtr(inLocaleID) : inLocaleID
+
         result := DllCall("icuuc.dll\uloc_getDisplayName", "ptr", localeID, "ptr", inLocaleID, "ptr", result, "int", maxResultSize, "ptr", err, "CDecl int")
         return result
     }
@@ -14782,6 +15066,9 @@ class Globalization {
      * @returns {Integer} 
      */
     static uloc_getParent(localeID, parent, parentCapacity, err) {
+        localeID := localeID is String? StrPtr(localeID) : localeID
+        parent := parent is String? StrPtr(parent) : parent
+
         result := DllCall("icuuc.dll\uloc_getParent", "ptr", localeID, "ptr", parent, "int", parentCapacity, "ptr", err, "CDecl int")
         return result
     }
@@ -14795,6 +15082,9 @@ class Globalization {
      * @returns {Integer} 
      */
     static uloc_getBaseName(localeID, name, nameCapacity, err) {
+        localeID := localeID is String? StrPtr(localeID) : localeID
+        name := name is String? StrPtr(name) : name
+
         result := DllCall("icuuc.dll\uloc_getBaseName", "ptr", localeID, "ptr", name, "int", nameCapacity, "ptr", err, "CDecl int")
         return result
     }
@@ -14806,6 +15096,8 @@ class Globalization {
      * @returns {String} Nothing - always returns an empty string
      */
     static uloc_openKeywords(localeID, status) {
+        localeID := localeID is String? StrPtr(localeID) : localeID
+
         DllCall("icuuc.dll\uloc_openKeywords", "ptr", localeID, "ptr", status, "CDecl ")
     }
 
@@ -14819,6 +15111,10 @@ class Globalization {
      * @returns {Integer} 
      */
     static uloc_getKeywordValue(localeID, keywordName, buffer, bufferCapacity, status) {
+        localeID := localeID is String? StrPtr(localeID) : localeID
+        keywordName := keywordName is String? StrPtr(keywordName) : keywordName
+        buffer := buffer is String? StrPtr(buffer) : buffer
+
         result := DllCall("icuuc.dll\uloc_getKeywordValue", "ptr", localeID, "ptr", keywordName, "ptr", buffer, "int", bufferCapacity, "ptr", status, "CDecl int")
         return result
     }
@@ -14833,6 +15129,10 @@ class Globalization {
      * @returns {Integer} 
      */
     static uloc_setKeywordValue(keywordName, keywordValue, buffer, bufferCapacity, status) {
+        keywordName := keywordName is String? StrPtr(keywordName) : keywordName
+        keywordValue := keywordValue is String? StrPtr(keywordValue) : keywordValue
+        buffer := buffer is String? StrPtr(buffer) : buffer
+
         result := DllCall("icuuc.dll\uloc_setKeywordValue", "ptr", keywordName, "ptr", keywordValue, "ptr", buffer, "int", bufferCapacity, "ptr", status, "CDecl int")
         return result
     }
@@ -14843,6 +15143,8 @@ class Globalization {
      * @returns {Integer} 
      */
     static uloc_isRightToLeft(locale) {
+        locale := locale is String? StrPtr(locale) : locale
+
         result := DllCall("icuuc.dll\uloc_isRightToLeft", "ptr", locale, "CDecl char")
         return result
     }
@@ -14854,6 +15156,8 @@ class Globalization {
      * @returns {String} Nothing - always returns an empty string
      */
     static uloc_getCharacterOrientation(localeId, status) {
+        localeId := localeId is String? StrPtr(localeId) : localeId
+
         DllCall("icuuc.dll\uloc_getCharacterOrientation", "ptr", localeId, "ptr", status, "CDecl ")
     }
 
@@ -14864,6 +15168,8 @@ class Globalization {
      * @returns {String} Nothing - always returns an empty string
      */
     static uloc_getLineOrientation(localeId, status) {
+        localeId := localeId is String? StrPtr(localeId) : localeId
+
         DllCall("icuuc.dll\uloc_getLineOrientation", "ptr", localeId, "ptr", status, "CDecl ")
     }
 
@@ -14878,6 +15184,9 @@ class Globalization {
      * @returns {Integer} 
      */
     static uloc_acceptLanguageFromHTTP(result, resultAvailable, outResult, httpAcceptLanguage, availableLocales, status) {
+        result := result is String? StrPtr(result) : result
+        httpAcceptLanguage := httpAcceptLanguage is String? StrPtr(httpAcceptLanguage) : httpAcceptLanguage
+
         result := DllCall("icuuc.dll\uloc_acceptLanguageFromHTTP", "ptr", result, "int", resultAvailable, "ptr", outResult, "ptr", httpAcceptLanguage, "ptr", availableLocales, "ptr", status, "CDecl int")
         return result
     }
@@ -14894,6 +15203,8 @@ class Globalization {
      * @returns {Integer} 
      */
     static uloc_acceptLanguage(result, resultAvailable, outResult, acceptList, acceptListCount, availableLocales, status) {
+        result := result is String? StrPtr(result) : result
+
         result := DllCall("icuuc.dll\uloc_acceptLanguage", "ptr", result, "int", resultAvailable, "ptr", outResult, "ptr", acceptList, "int", acceptListCount, "ptr", availableLocales, "ptr", status, "CDecl int")
         return result
     }
@@ -14907,6 +15218,8 @@ class Globalization {
      * @returns {Integer} 
      */
     static uloc_getLocaleForLCID(hostID, locale, localeCapacity, status) {
+        locale := locale is String? StrPtr(locale) : locale
+
         result := DllCall("icuuc.dll\uloc_getLocaleForLCID", "uint", hostID, "ptr", locale, "int", localeCapacity, "ptr", status, "CDecl int")
         return result
     }
@@ -14920,6 +15233,9 @@ class Globalization {
      * @returns {Integer} 
      */
     static uloc_addLikelySubtags(localeID, maximizedLocaleID, maximizedLocaleIDCapacity, err) {
+        localeID := localeID is String? StrPtr(localeID) : localeID
+        maximizedLocaleID := maximizedLocaleID is String? StrPtr(maximizedLocaleID) : maximizedLocaleID
+
         result := DllCall("icuuc.dll\uloc_addLikelySubtags", "ptr", localeID, "ptr", maximizedLocaleID, "int", maximizedLocaleIDCapacity, "ptr", err, "CDecl int")
         return result
     }
@@ -14933,6 +15249,9 @@ class Globalization {
      * @returns {Integer} 
      */
     static uloc_minimizeSubtags(localeID, minimizedLocaleID, minimizedLocaleIDCapacity, err) {
+        localeID := localeID is String? StrPtr(localeID) : localeID
+        minimizedLocaleID := minimizedLocaleID is String? StrPtr(minimizedLocaleID) : minimizedLocaleID
+
         result := DllCall("icuuc.dll\uloc_minimizeSubtags", "ptr", localeID, "ptr", minimizedLocaleID, "int", minimizedLocaleIDCapacity, "ptr", err, "CDecl int")
         return result
     }
@@ -14947,6 +15266,9 @@ class Globalization {
      * @returns {Integer} 
      */
     static uloc_forLanguageTag(langtag, localeID, localeIDCapacity, parsedLength, err) {
+        langtag := langtag is String? StrPtr(langtag) : langtag
+        localeID := localeID is String? StrPtr(localeID) : localeID
+
         result := DllCall("icuuc.dll\uloc_forLanguageTag", "ptr", langtag, "ptr", localeID, "int", localeIDCapacity, "ptr", parsedLength, "ptr", err, "CDecl int")
         return result
     }
@@ -14961,6 +15283,9 @@ class Globalization {
      * @returns {Integer} 
      */
     static uloc_toLanguageTag(localeID, langtag, langtagCapacity, strict, err) {
+        localeID := localeID is String? StrPtr(localeID) : localeID
+        langtag := langtag is String? StrPtr(langtag) : langtag
+
         result := DllCall("icuuc.dll\uloc_toLanguageTag", "ptr", localeID, "ptr", langtag, "int", langtagCapacity, "char", strict, "ptr", err, "CDecl int")
         return result
     }
@@ -14971,6 +15296,8 @@ class Globalization {
      * @returns {Pointer<PSTR>} 
      */
     static uloc_toUnicodeLocaleKey(keyword) {
+        keyword := keyword is String? StrPtr(keyword) : keyword
+
         result := DllCall("icuuc.dll\uloc_toUnicodeLocaleKey", "ptr", keyword, "CDecl ptr")
         return result
     }
@@ -14982,6 +15309,9 @@ class Globalization {
      * @returns {Pointer<PSTR>} 
      */
     static uloc_toUnicodeLocaleType(keyword, value) {
+        keyword := keyword is String? StrPtr(keyword) : keyword
+        value := value is String? StrPtr(value) : value
+
         result := DllCall("icuuc.dll\uloc_toUnicodeLocaleType", "ptr", keyword, "ptr", value, "CDecl ptr")
         return result
     }
@@ -14992,6 +15322,8 @@ class Globalization {
      * @returns {Pointer<PSTR>} 
      */
     static uloc_toLegacyKey(keyword) {
+        keyword := keyword is String? StrPtr(keyword) : keyword
+
         result := DllCall("icuuc.dll\uloc_toLegacyKey", "ptr", keyword, "CDecl ptr")
         return result
     }
@@ -15003,6 +15335,9 @@ class Globalization {
      * @returns {Pointer<PSTR>} 
      */
     static uloc_toLegacyType(keyword, value) {
+        keyword := keyword is String? StrPtr(keyword) : keyword
+        value := value is String? StrPtr(value) : value
+
         result := DllCall("icuuc.dll\uloc_toLegacyType", "ptr", keyword, "ptr", value, "CDecl ptr")
         return result
     }
@@ -15015,6 +15350,9 @@ class Globalization {
      * @returns {String} Nothing - always returns an empty string
      */
     static ures_open(packageName, locale, status) {
+        packageName := packageName is String? StrPtr(packageName) : packageName
+        locale := locale is String? StrPtr(locale) : locale
+
         DllCall("icuuc.dll\ures_open", "ptr", packageName, "ptr", locale, "ptr", status, "CDecl ")
     }
 
@@ -15026,6 +15364,9 @@ class Globalization {
      * @returns {String} Nothing - always returns an empty string
      */
     static ures_openDirect(packageName, locale, status) {
+        packageName := packageName is String? StrPtr(packageName) : packageName
+        locale := locale is String? StrPtr(locale) : locale
+
         DllCall("icuuc.dll\ures_openDirect", "ptr", packageName, "ptr", locale, "ptr", status, "CDecl ")
     }
 
@@ -15037,6 +15378,8 @@ class Globalization {
      * @returns {String} Nothing - always returns an empty string
      */
     static ures_openU(packageName, locale, status) {
+        locale := locale is String? StrPtr(locale) : locale
+
         DllCall("icuuc.dll\ures_openU", "ptr", packageName, "ptr", locale, "ptr", status, "CDecl ")
     }
 
@@ -15093,6 +15436,8 @@ class Globalization {
      * @returns {Pointer<PSTR>} 
      */
     static ures_getUTF8String(resB, dest, length, forceCopy, status) {
+        dest := dest is String? StrPtr(dest) : dest
+
         result := DllCall("icuuc.dll\ures_getUTF8String", "ptr", resB, "ptr", dest, "ptr", length, "char", forceCopy, "ptr", status, "CDecl ptr")
         return result
     }
@@ -15251,6 +15596,8 @@ class Globalization {
      * @returns {Pointer<PSTR>} 
      */
     static ures_getUTF8StringByIndex(resB, stringIndex, dest, pLength, forceCopy, status) {
+        dest := dest is String? StrPtr(dest) : dest
+
         result := DllCall("icuuc.dll\ures_getUTF8StringByIndex", "ptr", resB, "int", stringIndex, "ptr", dest, "ptr", pLength, "char", forceCopy, "ptr", status, "CDecl ptr")
         return result
     }
@@ -15264,6 +15611,8 @@ class Globalization {
      * @returns {String} Nothing - always returns an empty string
      */
     static ures_getByKey(resourceBundle, key, fillIn, status) {
+        key := key is String? StrPtr(key) : key
+
         DllCall("icuuc.dll\ures_getByKey", "ptr", resourceBundle, "ptr", key, "ptr", fillIn, "ptr", status, "CDecl ")
     }
 
@@ -15276,6 +15625,8 @@ class Globalization {
      * @returns {Pointer<UInt16>} 
      */
     static ures_getStringByKey(resB, key, len, status) {
+        key := key is String? StrPtr(key) : key
+
         result := DllCall("icuuc.dll\ures_getStringByKey", "ptr", resB, "ptr", key, "ptr", len, "ptr", status, "CDecl ptr")
         return result
     }
@@ -15291,6 +15642,9 @@ class Globalization {
      * @returns {Pointer<PSTR>} 
      */
     static ures_getUTF8StringByKey(resB, key, dest, pLength, forceCopy, status) {
+        key := key is String? StrPtr(key) : key
+        dest := dest is String? StrPtr(dest) : dest
+
         result := DllCall("icuuc.dll\ures_getUTF8StringByKey", "ptr", resB, "ptr", key, "ptr", dest, "ptr", pLength, "char", forceCopy, "ptr", status, "CDecl ptr")
         return result
     }
@@ -15302,6 +15656,8 @@ class Globalization {
      * @returns {String} Nothing - always returns an empty string
      */
     static ures_openAvailableLocales(packageName, status) {
+        packageName := packageName is String? StrPtr(packageName) : packageName
+
         DllCall("icuuc.dll\ures_openAvailableLocales", "ptr", packageName, "ptr", status, "CDecl ")
     }
 
@@ -15313,6 +15669,8 @@ class Globalization {
      * @returns {String} Nothing - always returns an empty string
      */
     static uldn_open(locale, dialectHandling, pErrorCode) {
+        locale := locale is String? StrPtr(locale) : locale
+
         DllCall("icuuc.dll\uldn_open", "ptr", locale, "int", dialectHandling, "ptr", pErrorCode, "CDecl ")
     }
 
@@ -15354,6 +15712,8 @@ class Globalization {
      * @returns {Integer} 
      */
     static uldn_localeDisplayName(ldn, locale, result, maxResultSize, pErrorCode) {
+        locale := locale is String? StrPtr(locale) : locale
+
         result := DllCall("icuuc.dll\uldn_localeDisplayName", "ptr", ldn, "ptr", locale, "ptr", result, "int", maxResultSize, "ptr", pErrorCode, "CDecl int")
         return result
     }
@@ -15368,6 +15728,8 @@ class Globalization {
      * @returns {Integer} 
      */
     static uldn_languageDisplayName(ldn, lang, result, maxResultSize, pErrorCode) {
+        lang := lang is String? StrPtr(lang) : lang
+
         result := DllCall("icuuc.dll\uldn_languageDisplayName", "ptr", ldn, "ptr", lang, "ptr", result, "int", maxResultSize, "ptr", pErrorCode, "CDecl int")
         return result
     }
@@ -15382,6 +15744,8 @@ class Globalization {
      * @returns {Integer} 
      */
     static uldn_scriptDisplayName(ldn, script, result, maxResultSize, pErrorCode) {
+        script := script is String? StrPtr(script) : script
+
         result := DllCall("icuuc.dll\uldn_scriptDisplayName", "ptr", ldn, "ptr", script, "ptr", result, "int", maxResultSize, "ptr", pErrorCode, "CDecl int")
         return result
     }
@@ -15410,6 +15774,8 @@ class Globalization {
      * @returns {Integer} 
      */
     static uldn_regionDisplayName(ldn, region, result, maxResultSize, pErrorCode) {
+        region := region is String? StrPtr(region) : region
+
         result := DllCall("icuuc.dll\uldn_regionDisplayName", "ptr", ldn, "ptr", region, "ptr", result, "int", maxResultSize, "ptr", pErrorCode, "CDecl int")
         return result
     }
@@ -15424,6 +15790,8 @@ class Globalization {
      * @returns {Integer} 
      */
     static uldn_variantDisplayName(ldn, variant, result, maxResultSize, pErrorCode) {
+        variant := variant is String? StrPtr(variant) : variant
+
         result := DllCall("icuuc.dll\uldn_variantDisplayName", "ptr", ldn, "ptr", variant, "ptr", result, "int", maxResultSize, "ptr", pErrorCode, "CDecl int")
         return result
     }
@@ -15438,6 +15806,8 @@ class Globalization {
      * @returns {Integer} 
      */
     static uldn_keyDisplayName(ldn, key, result, maxResultSize, pErrorCode) {
+        key := key is String? StrPtr(key) : key
+
         result := DllCall("icuuc.dll\uldn_keyDisplayName", "ptr", ldn, "ptr", key, "ptr", result, "int", maxResultSize, "ptr", pErrorCode, "CDecl int")
         return result
     }
@@ -15453,6 +15823,9 @@ class Globalization {
      * @returns {Integer} 
      */
     static uldn_keyValueDisplayName(ldn, key, value, result, maxResultSize, pErrorCode) {
+        key := key is String? StrPtr(key) : key
+        value := value is String? StrPtr(value) : value
+
         result := DllCall("icuuc.dll\uldn_keyValueDisplayName", "ptr", ldn, "ptr", key, "ptr", value, "ptr", result, "int", maxResultSize, "ptr", pErrorCode, "CDecl int")
         return result
     }
@@ -15466,6 +15839,8 @@ class Globalization {
      * @returns {String} Nothing - always returns an empty string
      */
     static uldn_openForContext(locale, contexts, length, pErrorCode) {
+        locale := locale is String? StrPtr(locale) : locale
+
         DllCall("icuuc.dll\uldn_openForContext", "ptr", locale, "ptr", contexts, "int", length, "ptr", pErrorCode, "CDecl ")
     }
 
@@ -15489,6 +15864,8 @@ class Globalization {
      * @returns {Integer} 
      */
     static ucurr_forLocale(locale, buff, buffCapacity, ec) {
+        locale := locale is String? StrPtr(locale) : locale
+
         result := DllCall("icuuc.dll\ucurr_forLocale", "ptr", locale, "ptr", buff, "int", buffCapacity, "ptr", ec, "CDecl int")
         return result
     }
@@ -15501,6 +15878,8 @@ class Globalization {
      * @returns {String} Nothing - always returns an empty string
      */
     static ucurr_register(isoCode, locale, status) {
+        locale := locale is String? StrPtr(locale) : locale
+
         DllCall("icuuc.dll\ucurr_register", "ptr", isoCode, "ptr", locale, "ptr", status, "CDecl ")
     }
 
@@ -15526,6 +15905,8 @@ class Globalization {
      * @returns {Pointer<UInt16>} 
      */
     static ucurr_getName(currency, locale, nameStyle, isChoiceFormat, len, ec) {
+        locale := locale is String? StrPtr(locale) : locale
+
         result := DllCall("icuuc.dll\ucurr_getName", "ptr", currency, "ptr", locale, "int", nameStyle, "ptr", isChoiceFormat, "ptr", len, "ptr", ec, "CDecl ptr")
         return result
     }
@@ -15541,6 +15922,9 @@ class Globalization {
      * @returns {Pointer<UInt16>} 
      */
     static ucurr_getPluralName(currency, locale, isChoiceFormat, pluralCount, len, ec) {
+        locale := locale is String? StrPtr(locale) : locale
+        pluralCount := pluralCount is String? StrPtr(pluralCount) : pluralCount
+
         result := DllCall("icuuc.dll\ucurr_getPluralName", "ptr", currency, "ptr", locale, "ptr", isChoiceFormat, "ptr", pluralCount, "ptr", len, "ptr", ec, "CDecl ptr")
         return result
     }
@@ -15620,6 +16004,8 @@ class Globalization {
      * @returns {Integer} 
      */
     static ucurr_countCurrencies(locale, date, ec) {
+        locale := locale is String? StrPtr(locale) : locale
+
         result := DllCall("icuuc.dll\ucurr_countCurrencies", "ptr", locale, "double", date, "ptr", ec, "CDecl int")
         return result
     }
@@ -15635,6 +16021,8 @@ class Globalization {
      * @returns {Integer} 
      */
     static ucurr_forLocaleAndDate(locale, date, index, buff, buffCapacity, ec) {
+        locale := locale is String? StrPtr(locale) : locale
+
         result := DllCall("icuuc.dll\ucurr_forLocaleAndDate", "ptr", locale, "double", date, "int", index, "ptr", buff, "int", buffCapacity, "ptr", ec, "CDecl int")
         return result
     }
@@ -15648,6 +16036,9 @@ class Globalization {
      * @returns {String} Nothing - always returns an empty string
      */
     static ucurr_getKeywordValuesForLocale(key, locale, commonlyUsed, status) {
+        key := key is String? StrPtr(key) : key
+        locale := locale is String? StrPtr(locale) : locale
+
         DllCall("icuuc.dll\ucurr_getKeywordValuesForLocale", "ptr", key, "ptr", locale, "char", commonlyUsed, "ptr", status, "CDecl ")
     }
 
@@ -15946,6 +16337,8 @@ class Globalization {
      * @returns {String} Nothing - always returns an empty string
      */
     static UCNV_TO_U_CALLBACK_STOP(context, toUArgs, codeUnits, length, reason, err) {
+        codeUnits := codeUnits is String? StrPtr(codeUnits) : codeUnits
+
         DllCall("icuuc.dll\UCNV_TO_U_CALLBACK_STOP", "ptr", context, "ptr", toUArgs, "ptr", codeUnits, "int", length, "int", reason, "ptr", err, "CDecl ")
     }
 
@@ -16005,6 +16398,8 @@ class Globalization {
      * @returns {String} Nothing - always returns an empty string
      */
     static UCNV_TO_U_CALLBACK_SKIP(context, toUArgs, codeUnits, length, reason, err) {
+        codeUnits := codeUnits is String? StrPtr(codeUnits) : codeUnits
+
         DllCall("icuuc.dll\UCNV_TO_U_CALLBACK_SKIP", "ptr", context, "ptr", toUArgs, "ptr", codeUnits, "int", length, "int", reason, "ptr", err, "CDecl ")
     }
 
@@ -16019,6 +16414,8 @@ class Globalization {
      * @returns {String} Nothing - always returns an empty string
      */
     static UCNV_TO_U_CALLBACK_SUBSTITUTE(context, toUArgs, codeUnits, length, reason, err) {
+        codeUnits := codeUnits is String? StrPtr(codeUnits) : codeUnits
+
         DllCall("icuuc.dll\UCNV_TO_U_CALLBACK_SUBSTITUTE", "ptr", context, "ptr", toUArgs, "ptr", codeUnits, "int", length, "int", reason, "ptr", err, "CDecl ")
     }
 
@@ -16033,6 +16430,8 @@ class Globalization {
      * @returns {String} Nothing - always returns an empty string
      */
     static UCNV_TO_U_CALLBACK_ESCAPE(context, toUArgs, codeUnits, length, reason, err) {
+        codeUnits := codeUnits is String? StrPtr(codeUnits) : codeUnits
+
         DllCall("icuuc.dll\UCNV_TO_U_CALLBACK_ESCAPE", "ptr", context, "ptr", toUArgs, "ptr", codeUnits, "int", length, "int", reason, "ptr", err, "CDecl ")
     }
 
@@ -16043,6 +16442,9 @@ class Globalization {
      * @returns {String} Nothing - always returns an empty string
      */
     static ucnv_compareNames(name1, name2) {
+        name1 := name1 is String? StrPtr(name1) : name1
+        name2 := name2 is String? StrPtr(name2) : name2
+
         DllCall("icuuc.dll\ucnv_compareNames", "ptr", name1, "ptr", name2, "CDecl ")
     }
 
@@ -16053,6 +16455,8 @@ class Globalization {
      * @returns {String} Nothing - always returns an empty string
      */
     static ucnv_open(converterName, err) {
+        converterName := converterName is String? StrPtr(converterName) : converterName
+
         DllCall("icuuc.dll\ucnv_open", "ptr", converterName, "ptr", err, "CDecl ")
     }
 
@@ -16085,6 +16489,9 @@ class Globalization {
      * @returns {String} Nothing - always returns an empty string
      */
     static ucnv_openPackage(packageName, converterName, err) {
+        packageName := packageName is String? StrPtr(packageName) : packageName
+        converterName := converterName is String? StrPtr(converterName) : converterName
+
         DllCall("icuuc.dll\ucnv_openPackage", "ptr", packageName, "ptr", converterName, "ptr", err, "CDecl ")
     }
 
@@ -16118,6 +16525,8 @@ class Globalization {
      * @returns {String} Nothing - always returns an empty string
      */
     static ucnv_getSubstChars(converter, subChars, len, err) {
+        subChars := subChars is String? StrPtr(subChars) : subChars
+
         DllCall("icuuc.dll\ucnv_getSubstChars", "ptr", converter, "ptr", subChars, "ptr", len, "ptr", err, "CDecl ")
     }
 
@@ -16130,6 +16539,8 @@ class Globalization {
      * @returns {String} Nothing - always returns an empty string
      */
     static ucnv_setSubstChars(converter, subChars, len, err) {
+        subChars := subChars is String? StrPtr(subChars) : subChars
+
         DllCall("icuuc.dll\ucnv_setSubstChars", "ptr", converter, "ptr", subChars, "char", len, "ptr", err, "CDecl ")
     }
 
@@ -16154,6 +16565,8 @@ class Globalization {
      * @returns {String} Nothing - always returns an empty string
      */
     static ucnv_getInvalidChars(converter, errBytes, len, err) {
+        errBytes := errBytes is String? StrPtr(errBytes) : errBytes
+
         DllCall("icuuc.dll\ucnv_getInvalidChars", "ptr", converter, "ptr", errBytes, "ptr", len, "ptr", err, "CDecl ")
     }
 
@@ -16226,6 +16639,8 @@ class Globalization {
      * @returns {Integer} 
      */
     static ucnv_getDisplayName(converter, displayLocale, displayName, displayNameCapacity, err) {
+        displayLocale := displayLocale is String? StrPtr(displayLocale) : displayLocale
+
         result := DllCall("icuuc.dll\ucnv_getDisplayName", "ptr", converter, "ptr", displayLocale, "ptr", displayName, "int", displayNameCapacity, "ptr", err, "CDecl int")
         return result
     }
@@ -16357,6 +16772,8 @@ class Globalization {
      * @returns {String} Nothing - always returns an empty string
      */
     static ucnv_fromUnicode(converter, target, targetLimit, source, sourceLimit, offsets, flush, err) {
+        targetLimit := targetLimit is String? StrPtr(targetLimit) : targetLimit
+
         DllCall("icuuc.dll\ucnv_fromUnicode", "ptr", converter, "ptr", target, "ptr", targetLimit, "ptr", source, "ptr", sourceLimit, "ptr", offsets, "char", flush, "ptr", err, "CDecl ")
     }
 
@@ -16373,6 +16790,8 @@ class Globalization {
      * @returns {String} Nothing - always returns an empty string
      */
     static ucnv_toUnicode(converter, target, targetLimit, source, sourceLimit, offsets, flush, err) {
+        sourceLimit := sourceLimit is String? StrPtr(sourceLimit) : sourceLimit
+
         DllCall("icuuc.dll\ucnv_toUnicode", "ptr", converter, "ptr", target, "ptr", targetLimit, "ptr", source, "ptr", sourceLimit, "ptr", offsets, "char", flush, "ptr", err, "CDecl ")
     }
 
@@ -16387,6 +16806,8 @@ class Globalization {
      * @returns {Integer} 
      */
     static ucnv_fromUChars(cnv, dest, destCapacity, src, srcLength, pErrorCode) {
+        dest := dest is String? StrPtr(dest) : dest
+
         result := DllCall("icuuc.dll\ucnv_fromUChars", "ptr", cnv, "ptr", dest, "int", destCapacity, "ptr", src, "int", srcLength, "ptr", pErrorCode, "CDecl int")
         return result
     }
@@ -16402,6 +16823,8 @@ class Globalization {
      * @returns {Integer} 
      */
     static ucnv_toUChars(cnv, dest, destCapacity, src, srcLength, pErrorCode) {
+        src := src is String? StrPtr(src) : src
+
         result := DllCall("icuuc.dll\ucnv_toUChars", "ptr", cnv, "ptr", dest, "int", destCapacity, "ptr", src, "int", srcLength, "ptr", pErrorCode, "CDecl int")
         return result
     }
@@ -16415,6 +16838,8 @@ class Globalization {
      * @returns {Integer} 
      */
     static ucnv_getNextUChar(converter, source, sourceLimit, err) {
+        sourceLimit := sourceLimit is String? StrPtr(sourceLimit) : sourceLimit
+
         result := DllCall("icuuc.dll\ucnv_getNextUChar", "ptr", converter, "ptr", source, "ptr", sourceLimit, "ptr", err, "CDecl int")
         return result
     }
@@ -16437,6 +16862,9 @@ class Globalization {
      * @returns {String} Nothing - always returns an empty string
      */
     static ucnv_convertEx(targetCnv, sourceCnv, target, targetLimit, source, sourceLimit, pivotStart, pivotSource, pivotTarget, pivotLimit, reset, flush, pErrorCode) {
+        targetLimit := targetLimit is String? StrPtr(targetLimit) : targetLimit
+        sourceLimit := sourceLimit is String? StrPtr(sourceLimit) : sourceLimit
+
         DllCall("icuuc.dll\ucnv_convertEx", "ptr", targetCnv, "ptr", sourceCnv, "ptr", target, "ptr", targetLimit, "ptr", source, "ptr", sourceLimit, "ptr", pivotStart, "ptr", pivotSource, "ptr", pivotTarget, "ptr", pivotLimit, "char", reset, "char", flush, "ptr", pErrorCode, "CDecl ")
     }
 
@@ -16452,6 +16880,11 @@ class Globalization {
      * @returns {Integer} 
      */
     static ucnv_convert(toConverterName, fromConverterName, target, targetCapacity, source, sourceLength, pErrorCode) {
+        toConverterName := toConverterName is String? StrPtr(toConverterName) : toConverterName
+        fromConverterName := fromConverterName is String? StrPtr(fromConverterName) : fromConverterName
+        target := target is String? StrPtr(target) : target
+        source := source is String? StrPtr(source) : source
+
         result := DllCall("icuuc.dll\ucnv_convert", "ptr", toConverterName, "ptr", fromConverterName, "ptr", target, "int", targetCapacity, "ptr", source, "int", sourceLength, "ptr", pErrorCode, "CDecl int")
         return result
     }
@@ -16468,6 +16901,9 @@ class Globalization {
      * @returns {Integer} 
      */
     static ucnv_toAlgorithmic(algorithmicType, cnv, target, targetCapacity, source, sourceLength, pErrorCode) {
+        target := target is String? StrPtr(target) : target
+        source := source is String? StrPtr(source) : source
+
         result := DllCall("icuuc.dll\ucnv_toAlgorithmic", "int", algorithmicType, "ptr", cnv, "ptr", target, "int", targetCapacity, "ptr", source, "int", sourceLength, "ptr", pErrorCode, "CDecl int")
         return result
     }
@@ -16484,6 +16920,9 @@ class Globalization {
      * @returns {Integer} 
      */
     static ucnv_fromAlgorithmic(cnv, algorithmicType, target, targetCapacity, source, sourceLength, pErrorCode) {
+        target := target is String? StrPtr(target) : target
+        source := source is String? StrPtr(source) : source
+
         result := DllCall("icuuc.dll\ucnv_fromAlgorithmic", "ptr", cnv, "int", algorithmicType, "ptr", target, "int", targetCapacity, "ptr", source, "int", sourceLength, "ptr", pErrorCode, "CDecl int")
         return result
     }
@@ -16532,6 +16971,8 @@ class Globalization {
      * @returns {Integer} 
      */
     static ucnv_countAliases(alias, pErrorCode) {
+        alias := alias is String? StrPtr(alias) : alias
+
         result := DllCall("icuuc.dll\ucnv_countAliases", "ptr", alias, "ptr", pErrorCode, "CDecl ushort")
         return result
     }
@@ -16544,6 +16985,8 @@ class Globalization {
      * @returns {Pointer<PSTR>} 
      */
     static ucnv_getAlias(alias, n, pErrorCode) {
+        alias := alias is String? StrPtr(alias) : alias
+
         result := DllCall("icuuc.dll\ucnv_getAlias", "ptr", alias, "ushort", n, "ptr", pErrorCode, "CDecl ptr")
         return result
     }
@@ -16556,6 +16999,8 @@ class Globalization {
      * @returns {String} Nothing - always returns an empty string
      */
     static ucnv_getAliases(alias, aliases, pErrorCode) {
+        alias := alias is String? StrPtr(alias) : alias
+
         DllCall("icuuc.dll\ucnv_getAliases", "ptr", alias, "ptr", aliases, "ptr", pErrorCode, "CDecl ")
     }
 
@@ -16567,6 +17012,9 @@ class Globalization {
      * @returns {String} Nothing - always returns an empty string
      */
     static ucnv_openStandardNames(convName, standard, pErrorCode) {
+        convName := convName is String? StrPtr(convName) : convName
+        standard := standard is String? StrPtr(standard) : standard
+
         DllCall("icuuc.dll\ucnv_openStandardNames", "ptr", convName, "ptr", standard, "ptr", pErrorCode, "CDecl ")
     }
 
@@ -16598,6 +17046,9 @@ class Globalization {
      * @returns {Pointer<PSTR>} 
      */
     static ucnv_getStandardName(name, standard, pErrorCode) {
+        name := name is String? StrPtr(name) : name
+        standard := standard is String? StrPtr(standard) : standard
+
         result := DllCall("icuuc.dll\ucnv_getStandardName", "ptr", name, "ptr", standard, "ptr", pErrorCode, "CDecl ptr")
         return result
     }
@@ -16610,6 +17061,9 @@ class Globalization {
      * @returns {Pointer<PSTR>} 
      */
     static ucnv_getCanonicalName(alias, standard, pErrorCode) {
+        alias := alias is String? StrPtr(alias) : alias
+        standard := standard is String? StrPtr(standard) : standard
+
         result := DllCall("icuuc.dll\ucnv_getCanonicalName", "ptr", alias, "ptr", standard, "ptr", pErrorCode, "CDecl ptr")
         return result
     }
@@ -16629,6 +17083,8 @@ class Globalization {
      * @returns {String} Nothing - always returns an empty string
      */
     static ucnv_setDefaultName(name) {
+        name := name is String? StrPtr(name) : name
+
         DllCall("icuuc.dll\ucnv_setDefaultName", "ptr", name, "CDecl ")
     }
 
@@ -16682,6 +17138,8 @@ class Globalization {
      * @returns {Pointer<PSTR>} 
      */
     static ucnv_detectUnicodeSignature(source, sourceLength, signatureLength, pErrorCode) {
+        source := source is String? StrPtr(source) : source
+
         result := DllCall("icuuc.dll\ucnv_detectUnicodeSignature", "ptr", source, "int", sourceLength, "ptr", signatureLength, "ptr", pErrorCode, "CDecl ptr")
         return result
     }
@@ -16729,6 +17187,8 @@ class Globalization {
      * @returns {String} Nothing - always returns an empty string
      */
     static ucnv_cbFromUWriteBytes(args, source, length, offsetIndex, err) {
+        source := source is String? StrPtr(source) : source
+
         DllCall("icuuc.dll\ucnv_cbFromUWriteBytes", "ptr", args, "ptr", source, "int", length, "int", offsetIndex, "ptr", err, "CDecl ")
     }
 
@@ -16818,6 +17278,9 @@ class Globalization {
      * @returns {Pointer<IntPtr>} 
      */
     static u_catopen(name, locale, ec) {
+        name := name is String? StrPtr(name) : name
+        locale := locale is String? StrPtr(locale) : locale
+
         result := DllCall("icuuc.dll\u_catopen", "ptr", name, "ptr", locale, "ptr", ec, "CDecl ptr")
         return result
     }
@@ -17237,6 +17700,8 @@ class Globalization {
      * @returns {Integer} 
      */
     static u_charName(code, nameChoice, buffer, bufferLength, pErrorCode) {
+        buffer := buffer is String? StrPtr(buffer) : buffer
+
         result := DllCall("icuuc.dll\u_charName", "int", code, "int", nameChoice, "ptr", buffer, "int", bufferLength, "ptr", pErrorCode, "CDecl int")
         return result
     }
@@ -17249,6 +17714,8 @@ class Globalization {
      * @returns {Integer} 
      */
     static u_charFromName(nameChoice, name, pErrorCode) {
+        name := name is String? StrPtr(name) : name
+
         result := DllCall("icuuc.dll\u_charFromName", "int", nameChoice, "ptr", name, "ptr", pErrorCode, "CDecl int")
         return result
     }
@@ -17284,6 +17751,8 @@ class Globalization {
      * @returns {String} Nothing - always returns an empty string
      */
     static u_getPropertyEnum(alias) {
+        alias := alias is String? StrPtr(alias) : alias
+
         DllCall("icuuc.dll\u_getPropertyEnum", "ptr", alias, "CDecl ")
     }
 
@@ -17306,6 +17775,8 @@ class Globalization {
      * @returns {Integer} 
      */
     static u_getPropertyValueEnum(property, alias) {
+        alias := alias is String? StrPtr(alias) : alias
+
         result := DllCall("icuuc.dll\u_getPropertyValueEnum", "int", property, "ptr", alias, "CDecl int")
         return result
     }
@@ -17968,6 +18439,8 @@ class Globalization {
      * @returns {String} Nothing - always returns an empty string
      */
     static utext_openUTF8(ut, s, length, status) {
+        s := s is String? StrPtr(s) : s
+
         DllCall("icuuc.dll\utext_openUTF8", "ptr", ut, "ptr", s, "int64", length, "ptr", status, "CDecl ")
     }
 
@@ -18734,6 +19207,8 @@ class Globalization {
      * @returns {Integer} 
      */
     static uset_spanUTF8(set, s, length, spanCondition) {
+        s := s is String? StrPtr(s) : s
+
         result := DllCall("icuuc.dll\uset_spanUTF8", "ptr", set, "ptr", s, "int", length, "int", spanCondition, "CDecl int")
         return result
     }
@@ -18747,6 +19222,8 @@ class Globalization {
      * @returns {Integer} 
      */
     static uset_spanBackUTF8(set, s, length, spanCondition) {
+        s := s is String? StrPtr(s) : s
+
         result := DllCall("icuuc.dll\uset_spanBackUTF8", "ptr", set, "ptr", s, "int", length, "int", spanCondition, "CDecl int")
         return result
     }
@@ -18890,6 +19367,9 @@ class Globalization {
      * @returns {Pointer<IntPtr>} 
      */
     static unorm2_getInstance(packageName, name, mode, pErrorCode) {
+        packageName := packageName is String? StrPtr(packageName) : packageName
+        name := name is String? StrPtr(name) : name
+
         result := DllCall("icuuc.dll\unorm2_getInstance", "ptr", packageName, "ptr", name, "int", mode, "ptr", pErrorCode, "CDecl ptr")
         return result
     }
@@ -19165,6 +19645,8 @@ class Globalization {
      * @returns {String} Nothing - always returns an empty string
      */
     static ucnvsel_selectForUTF8(sel, s, length, status) {
+        s := s is String? StrPtr(s) : s
+
         DllCall("icuuc.dll\ucnvsel_selectForUTF8", "ptr", sel, "ptr", s, "int", length, "ptr", status, "CDecl ")
     }
 
@@ -19176,6 +19658,8 @@ class Globalization {
      * @returns {String} Nothing - always returns an empty string
      */
     static u_charsToUChars(cs, us, length) {
+        cs := cs is String? StrPtr(cs) : cs
+
         DllCall("icuuc.dll\u_charsToUChars", "ptr", cs, "ptr", us, "int", length, "CDecl ")
     }
 
@@ -19187,6 +19671,8 @@ class Globalization {
      * @returns {String} Nothing - always returns an empty string
      */
     static u_UCharsToChars(us, cs, length) {
+        cs := cs is String? StrPtr(cs) : cs
+
         DllCall("icuuc.dll\u_UCharsToChars", "ptr", us, "ptr", cs, "int", length, "CDecl ")
     }
 
@@ -19538,6 +20024,8 @@ class Globalization {
      * @returns {Pointer<UInt16>} 
      */
     static u_uastrcpy(dst, src) {
+        src := src is String? StrPtr(src) : src
+
         result := DllCall("icuuc.dll\u_uastrcpy", "ptr", dst, "ptr", src, "CDecl ptr")
         return result
     }
@@ -19550,6 +20038,8 @@ class Globalization {
      * @returns {Pointer<UInt16>} 
      */
     static u_uastrncpy(dst, src, n) {
+        src := src is String? StrPtr(src) : src
+
         result := DllCall("icuuc.dll\u_uastrncpy", "ptr", dst, "ptr", src, "int", n, "CDecl ptr")
         return result
     }
@@ -19561,6 +20051,8 @@ class Globalization {
      * @returns {Pointer<PSTR>} 
      */
     static u_austrcpy(dst, src) {
+        dst := dst is String? StrPtr(dst) : dst
+
         result := DllCall("icuuc.dll\u_austrcpy", "ptr", dst, "ptr", src, "CDecl ptr")
         return result
     }
@@ -19573,6 +20065,8 @@ class Globalization {
      * @returns {Pointer<PSTR>} 
      */
     static u_austrncpy(dst, src, n) {
+        dst := dst is String? StrPtr(dst) : dst
+
         result := DllCall("icuuc.dll\u_austrncpy", "ptr", dst, "ptr", src, "int", n, "CDecl ptr")
         return result
     }
@@ -19693,6 +20187,8 @@ class Globalization {
      * @returns {Integer} 
      */
     static u_unescape(src, dest, destCapacity) {
+        src := src is String? StrPtr(src) : src
+
         result := DllCall("icuuc.dll\u_unescape", "ptr", src, "ptr", dest, "int", destCapacity, "CDecl int")
         return result
     }
@@ -19721,6 +20217,8 @@ class Globalization {
      * @returns {Integer} 
      */
     static u_strToUpper(dest, destCapacity, src, srcLength, locale, pErrorCode) {
+        locale := locale is String? StrPtr(locale) : locale
+
         result := DllCall("icuuc.dll\u_strToUpper", "ptr", dest, "int", destCapacity, "ptr", src, "int", srcLength, "ptr", locale, "ptr", pErrorCode, "CDecl int")
         return result
     }
@@ -19736,6 +20234,8 @@ class Globalization {
      * @returns {Integer} 
      */
     static u_strToLower(dest, destCapacity, src, srcLength, locale, pErrorCode) {
+        locale := locale is String? StrPtr(locale) : locale
+
         result := DllCall("icuuc.dll\u_strToLower", "ptr", dest, "int", destCapacity, "ptr", src, "int", srcLength, "ptr", locale, "ptr", pErrorCode, "CDecl int")
         return result
     }
@@ -19752,6 +20252,8 @@ class Globalization {
      * @returns {Integer} 
      */
     static u_strToTitle(dest, destCapacity, src, srcLength, titleIter, locale, pErrorCode) {
+        locale := locale is String? StrPtr(locale) : locale
+
         result := DllCall("icuuc.dll\u_strToTitle", "ptr", dest, "int", destCapacity, "ptr", src, "int", srcLength, "ptr", titleIter, "ptr", locale, "ptr", pErrorCode, "CDecl int")
         return result
     }
@@ -19782,6 +20284,8 @@ class Globalization {
      * @returns {Pointer<PWSTR>} 
      */
     static u_strToWCS(dest, destCapacity, pDestLength, src, srcLength, pErrorCode) {
+        dest := dest is String? StrPtr(dest) : dest
+
         result := DllCall("icuuc.dll\u_strToWCS", "ptr", dest, "int", destCapacity, "ptr", pDestLength, "ptr", src, "int", srcLength, "ptr", pErrorCode, "CDecl ptr")
         return result
     }
@@ -19797,6 +20301,8 @@ class Globalization {
      * @returns {Pointer<UInt16>} 
      */
     static u_strFromWCS(dest, destCapacity, pDestLength, src, srcLength, pErrorCode) {
+        src := src is String? StrPtr(src) : src
+
         result := DllCall("icuuc.dll\u_strFromWCS", "ptr", dest, "int", destCapacity, "ptr", pDestLength, "ptr", src, "int", srcLength, "ptr", pErrorCode, "CDecl ptr")
         return result
     }
@@ -19812,6 +20318,8 @@ class Globalization {
      * @returns {Pointer<PSTR>} 
      */
     static u_strToUTF8(dest, destCapacity, pDestLength, src, srcLength, pErrorCode) {
+        dest := dest is String? StrPtr(dest) : dest
+
         result := DllCall("icuuc.dll\u_strToUTF8", "ptr", dest, "int", destCapacity, "ptr", pDestLength, "ptr", src, "int", srcLength, "ptr", pErrorCode, "CDecl ptr")
         return result
     }
@@ -19827,6 +20335,8 @@ class Globalization {
      * @returns {Pointer<UInt16>} 
      */
     static u_strFromUTF8(dest, destCapacity, pDestLength, src, srcLength, pErrorCode) {
+        src := src is String? StrPtr(src) : src
+
         result := DllCall("icuuc.dll\u_strFromUTF8", "ptr", dest, "int", destCapacity, "ptr", pDestLength, "ptr", src, "int", srcLength, "ptr", pErrorCode, "CDecl ptr")
         return result
     }
@@ -19844,6 +20354,8 @@ class Globalization {
      * @returns {Pointer<PSTR>} 
      */
     static u_strToUTF8WithSub(dest, destCapacity, pDestLength, src, srcLength, subchar, pNumSubstitutions, pErrorCode) {
+        dest := dest is String? StrPtr(dest) : dest
+
         result := DllCall("icuuc.dll\u_strToUTF8WithSub", "ptr", dest, "int", destCapacity, "ptr", pDestLength, "ptr", src, "int", srcLength, "int", subchar, "ptr", pNumSubstitutions, "ptr", pErrorCode, "CDecl ptr")
         return result
     }
@@ -19861,6 +20373,8 @@ class Globalization {
      * @returns {Pointer<UInt16>} 
      */
     static u_strFromUTF8WithSub(dest, destCapacity, pDestLength, src, srcLength, subchar, pNumSubstitutions, pErrorCode) {
+        src := src is String? StrPtr(src) : src
+
         result := DllCall("icuuc.dll\u_strFromUTF8WithSub", "ptr", dest, "int", destCapacity, "ptr", pDestLength, "ptr", src, "int", srcLength, "int", subchar, "ptr", pNumSubstitutions, "ptr", pErrorCode, "CDecl ptr")
         return result
     }
@@ -19876,6 +20390,8 @@ class Globalization {
      * @returns {Pointer<UInt16>} 
      */
     static u_strFromUTF8Lenient(dest, destCapacity, pDestLength, src, srcLength, pErrorCode) {
+        src := src is String? StrPtr(src) : src
+
         result := DllCall("icuuc.dll\u_strFromUTF8Lenient", "ptr", dest, "int", destCapacity, "ptr", pDestLength, "ptr", src, "int", srcLength, "ptr", pErrorCode, "CDecl ptr")
         return result
     }
@@ -19955,6 +20471,8 @@ class Globalization {
      * @returns {Pointer<PSTR>} 
      */
     static u_strToJavaModifiedUTF8(dest, destCapacity, pDestLength, src, srcLength, pErrorCode) {
+        dest := dest is String? StrPtr(dest) : dest
+
         result := DllCall("icuuc.dll\u_strToJavaModifiedUTF8", "ptr", dest, "int", destCapacity, "ptr", pDestLength, "ptr", src, "int", srcLength, "ptr", pErrorCode, "CDecl ptr")
         return result
     }
@@ -19972,6 +20490,8 @@ class Globalization {
      * @returns {Pointer<UInt16>} 
      */
     static u_strFromJavaModifiedUTF8WithSub(dest, destCapacity, pDestLength, src, srcLength, subchar, pNumSubstitutions, pErrorCode) {
+        src := src is String? StrPtr(src) : src
+
         result := DllCall("icuuc.dll\u_strFromJavaModifiedUTF8WithSub", "ptr", dest, "int", destCapacity, "ptr", pDestLength, "ptr", src, "int", srcLength, "int", subchar, "ptr", pNumSubstitutions, "ptr", pErrorCode, "CDecl ptr")
         return result
     }
@@ -19984,6 +20504,8 @@ class Globalization {
      * @returns {String} Nothing - always returns an empty string
      */
     static ucasemap_open(locale, options, pErrorCode) {
+        locale := locale is String? StrPtr(locale) : locale
+
         DllCall("icuuc.dll\ucasemap_open", "ptr", locale, "uint", options, "ptr", pErrorCode, "CDecl ")
     }
 
@@ -20024,6 +20546,8 @@ class Globalization {
      * @returns {String} Nothing - always returns an empty string
      */
     static ucasemap_setLocale(csm, locale, pErrorCode) {
+        locale := locale is String? StrPtr(locale) : locale
+
         DllCall("icuuc.dll\ucasemap_setLocale", "ptr", csm, "ptr", locale, "ptr", pErrorCode, "CDecl ")
     }
 
@@ -20085,6 +20609,9 @@ class Globalization {
      * @returns {Integer} 
      */
     static ucasemap_utf8ToLower(csm, dest, destCapacity, src, srcLength, pErrorCode) {
+        dest := dest is String? StrPtr(dest) : dest
+        src := src is String? StrPtr(src) : src
+
         result := DllCall("icuuc.dll\ucasemap_utf8ToLower", "ptr", csm, "ptr", dest, "int", destCapacity, "ptr", src, "int", srcLength, "ptr", pErrorCode, "CDecl int")
         return result
     }
@@ -20100,6 +20627,9 @@ class Globalization {
      * @returns {Integer} 
      */
     static ucasemap_utf8ToUpper(csm, dest, destCapacity, src, srcLength, pErrorCode) {
+        dest := dest is String? StrPtr(dest) : dest
+        src := src is String? StrPtr(src) : src
+
         result := DllCall("icuuc.dll\ucasemap_utf8ToUpper", "ptr", csm, "ptr", dest, "int", destCapacity, "ptr", src, "int", srcLength, "ptr", pErrorCode, "CDecl int")
         return result
     }
@@ -20115,6 +20645,9 @@ class Globalization {
      * @returns {Integer} 
      */
     static ucasemap_utf8ToTitle(csm, dest, destCapacity, src, srcLength, pErrorCode) {
+        dest := dest is String? StrPtr(dest) : dest
+        src := src is String? StrPtr(src) : src
+
         result := DllCall("icuuc.dll\ucasemap_utf8ToTitle", "ptr", csm, "ptr", dest, "int", destCapacity, "ptr", src, "int", srcLength, "ptr", pErrorCode, "CDecl int")
         return result
     }
@@ -20130,6 +20663,9 @@ class Globalization {
      * @returns {Integer} 
      */
     static ucasemap_utf8FoldCase(csm, dest, destCapacity, src, srcLength, pErrorCode) {
+        dest := dest is String? StrPtr(dest) : dest
+        src := src is String? StrPtr(src) : src
+
         result := DllCall("icuuc.dll\ucasemap_utf8FoldCase", "ptr", csm, "ptr", dest, "int", destCapacity, "ptr", src, "int", srcLength, "ptr", pErrorCode, "CDecl int")
         return result
     }
@@ -20142,6 +20678,9 @@ class Globalization {
      * @returns {String} Nothing - always returns an empty string
      */
     static usprep_open(path, fileName, status) {
+        path := path is String? StrPtr(path) : path
+        fileName := fileName is String? StrPtr(fileName) : fileName
+
         DllCall("icuuc.dll\usprep_open", "ptr", path, "ptr", fileName, "ptr", status, "CDecl ")
     }
 
@@ -20276,6 +20815,9 @@ class Globalization {
      * @returns {Integer} 
      */
     static uidna_labelToASCII_UTF8(idna, label, length, dest, capacity, pInfo, pErrorCode) {
+        label := label is String? StrPtr(label) : label
+        dest := dest is String? StrPtr(dest) : dest
+
         result := DllCall("icuuc.dll\uidna_labelToASCII_UTF8", "ptr", idna, "ptr", label, "int", length, "ptr", dest, "int", capacity, "ptr", pInfo, "ptr", pErrorCode, "CDecl int")
         return result
     }
@@ -20292,6 +20834,9 @@ class Globalization {
      * @returns {Integer} 
      */
     static uidna_labelToUnicodeUTF8(idna, label, length, dest, capacity, pInfo, pErrorCode) {
+        label := label is String? StrPtr(label) : label
+        dest := dest is String? StrPtr(dest) : dest
+
         result := DllCall("icuuc.dll\uidna_labelToUnicodeUTF8", "ptr", idna, "ptr", label, "int", length, "ptr", dest, "int", capacity, "ptr", pInfo, "ptr", pErrorCode, "CDecl int")
         return result
     }
@@ -20308,6 +20853,9 @@ class Globalization {
      * @returns {Integer} 
      */
     static uidna_nameToASCII_UTF8(idna, name, length, dest, capacity, pInfo, pErrorCode) {
+        name := name is String? StrPtr(name) : name
+        dest := dest is String? StrPtr(dest) : dest
+
         result := DllCall("icuuc.dll\uidna_nameToASCII_UTF8", "ptr", idna, "ptr", name, "int", length, "ptr", dest, "int", capacity, "ptr", pInfo, "ptr", pErrorCode, "CDecl int")
         return result
     }
@@ -20324,6 +20872,9 @@ class Globalization {
      * @returns {Integer} 
      */
     static uidna_nameToUnicodeUTF8(idna, name, length, dest, capacity, pInfo, pErrorCode) {
+        name := name is String? StrPtr(name) : name
+        dest := dest is String? StrPtr(dest) : dest
+
         result := DllCall("icuuc.dll\uidna_nameToUnicodeUTF8", "ptr", idna, "ptr", name, "int", length, "ptr", dest, "int", capacity, "ptr", pInfo, "ptr", pErrorCode, "CDecl int")
         return result
     }
@@ -20338,6 +20889,8 @@ class Globalization {
      * @returns {String} Nothing - always returns an empty string
      */
     static ubrk_open(type, locale, text, textLength, status) {
+        locale := locale is String? StrPtr(locale) : locale
+
         DllCall("icuuc.dll\ubrk_open", "int", type, "ptr", locale, "ptr", text, "int", textLength, "ptr", status, "CDecl ")
     }
 
@@ -20592,6 +21145,8 @@ class Globalization {
      * @returns {String} Nothing - always returns an empty string
      */
     static ucal_openTimeZoneIDEnumeration(zoneType, region, rawOffset, ec) {
+        region := region is String? StrPtr(region) : region
+
         DllCall("icuin.dll\ucal_openTimeZoneIDEnumeration", "int", zoneType, "ptr", region, "ptr", rawOffset, "ptr", ec, "CDecl ")
     }
 
@@ -20611,6 +21166,8 @@ class Globalization {
      * @returns {String} Nothing - always returns an empty string
      */
     static ucal_openCountryTimeZones(country, ec) {
+        country := country is String? StrPtr(country) : country
+
         DllCall("icuin.dll\ucal_openCountryTimeZones", "ptr", country, "ptr", ec, "CDecl ")
     }
 
@@ -20678,6 +21235,8 @@ class Globalization {
      * @returns {String} Nothing - always returns an empty string
      */
     static ucal_open(zoneID, len, locale, type, status) {
+        locale := locale is String? StrPtr(locale) : locale
+
         DllCall("icuin.dll\ucal_open", "ptr", zoneID, "int", len, "ptr", locale, "int", type, "ptr", status, "CDecl ")
     }
 
@@ -20736,6 +21295,8 @@ class Globalization {
      * @returns {Integer} 
      */
     static ucal_getTimeZoneDisplayName(cal, type, locale, result, resultLength, status) {
+        locale := locale is String? StrPtr(locale) : locale
+
         result := DllCall("icuin.dll\ucal_getTimeZoneDisplayName", "ptr", cal, "int", type, "ptr", locale, "ptr", result, "int", resultLength, "ptr", status, "CDecl int")
         return result
     }
@@ -21023,6 +21584,9 @@ class Globalization {
      * @returns {String} Nothing - always returns an empty string
      */
     static ucal_getKeywordValuesForLocale(key, locale, commonlyUsed, status) {
+        key := key is String? StrPtr(key) : key
+        locale := locale is String? StrPtr(locale) : locale
+
         DllCall("icuin.dll\ucal_getKeywordValuesForLocale", "ptr", key, "ptr", locale, "char", commonlyUsed, "ptr", status, "CDecl ")
     }
 
@@ -21112,6 +21676,8 @@ class Globalization {
      * @returns {Integer} 
      */
     static ucal_getTimeZoneIDForWindowsID(winid, len, region, id, idCapacity, status) {
+        region := region is String? StrPtr(region) : region
+
         result := DllCall("icuin.dll\ucal_getTimeZoneIDForWindowsID", "ptr", winid, "int", len, "ptr", region, "ptr", id, "int", idCapacity, "ptr", status, "CDecl int")
         return result
     }
@@ -21123,6 +21689,8 @@ class Globalization {
      * @returns {String} Nothing - always returns an empty string
      */
     static ucol_open(loc, status) {
+        loc := loc is String? StrPtr(loc) : loc
+
         DllCall("icuin.dll\ucol_open", "ptr", loc, "ptr", status, "CDecl ")
     }
 
@@ -21186,6 +21754,9 @@ class Globalization {
      * @returns {String} Nothing - always returns an empty string
      */
     static ucol_strcollUTF8(coll, source, sourceLength, target, targetLength, status) {
+        source := source is String? StrPtr(source) : source
+        target := target is String? StrPtr(target) : target
+
         DllCall("icuin.dll\ucol_strcollUTF8", "ptr", coll, "ptr", source, "int", sourceLength, "ptr", target, "int", targetLength, "ptr", status, "CDecl ")
     }
 
@@ -21311,6 +21882,9 @@ class Globalization {
      * @returns {Integer} 
      */
     static ucol_getDisplayName(objLoc, dispLoc, result, resultLength, status) {
+        objLoc := objLoc is String? StrPtr(objLoc) : objLoc
+        dispLoc := dispLoc is String? StrPtr(dispLoc) : dispLoc
+
         result := DllCall("icuin.dll\ucol_getDisplayName", "ptr", objLoc, "ptr", dispLoc, "ptr", result, "int", resultLength, "ptr", status, "CDecl int")
         return result
     }
@@ -21359,6 +21933,8 @@ class Globalization {
      * @returns {String} Nothing - always returns an empty string
      */
     static ucol_getKeywordValues(keyword, status) {
+        keyword := keyword is String? StrPtr(keyword) : keyword
+
         DllCall("icuin.dll\ucol_getKeywordValues", "ptr", keyword, "ptr", status, "CDecl ")
     }
 
@@ -21371,6 +21947,9 @@ class Globalization {
      * @returns {String} Nothing - always returns an empty string
      */
     static ucol_getKeywordValuesForLocale(key, locale, commonlyUsed, status) {
+        key := key is String? StrPtr(key) : key
+        locale := locale is String? StrPtr(locale) : locale
+
         DllCall("icuin.dll\ucol_getKeywordValuesForLocale", "ptr", key, "ptr", locale, "char", commonlyUsed, "ptr", status, "CDecl ")
     }
 
@@ -21385,6 +21964,10 @@ class Globalization {
      * @returns {Integer} 
      */
     static ucol_getFunctionalEquivalent(result, resultCapacity, keyword, locale, isAvailable, status) {
+        result := result is String? StrPtr(result) : result
+        keyword := keyword is String? StrPtr(keyword) : keyword
+        locale := locale is String? StrPtr(locale) : locale
+
         result := DllCall("icuin.dll\ucol_getFunctionalEquivalent", "ptr", result, "int", resultCapacity, "ptr", keyword, "ptr", locale, "ptr", isAvailable, "ptr", status, "CDecl int")
         return result
     }
@@ -21770,6 +22353,8 @@ class Globalization {
      * @returns {String} Nothing - always returns an empty string
      */
     static ucsdet_setText(ucsd, textIn, len, status) {
+        textIn := textIn is String? StrPtr(textIn) : textIn
+
         DllCall("icuin.dll\ucsdet_setText", "ptr", ucsd, "ptr", textIn, "int", len, "ptr", status, "CDecl ")
     }
 
@@ -21782,6 +22367,8 @@ class Globalization {
      * @returns {String} Nothing - always returns an empty string
      */
     static ucsdet_setDeclaredEncoding(ucsd, encoding, length, status) {
+        encoding := encoding is String? StrPtr(encoding) : encoding
+
         DllCall("icuin.dll\ucsdet_setDeclaredEncoding", "ptr", ucsd, "ptr", encoding, "int", length, "ptr", status, "CDecl ")
     }
 
@@ -22221,6 +22808,8 @@ class Globalization {
      * @returns {String} Nothing - always returns an empty string
      */
     static udtitvfmt_open(locale, skeleton, skeletonLength, tzID, tzIDLength, status) {
+        locale := locale is String? StrPtr(locale) : locale
+
         DllCall("icuin.dll\udtitvfmt_open", "ptr", locale, "ptr", skeleton, "int", skeletonLength, "ptr", tzID, "int", tzIDLength, "ptr", status, "CDecl ")
     }
 
@@ -22285,6 +22874,8 @@ class Globalization {
      * @returns {Pointer<IntPtr>} 
      */
     static ugender_getInstance(locale, status) {
+        locale := locale is String? StrPtr(locale) : locale
+
         result := DllCall("icuin.dll\ugender_getInstance", "ptr", locale, "ptr", status, "CDecl ptr")
         return result
     }
@@ -22308,6 +22899,8 @@ class Globalization {
      * @returns {String} Nothing - always returns an empty string
      */
     static ulistfmt_open(locale, status) {
+        locale := locale is String? StrPtr(locale) : locale
+
         DllCall("icuuc.dll\ulistfmt_open", "ptr", locale, "ptr", status, "CDecl ")
     }
 
@@ -22320,6 +22913,8 @@ class Globalization {
      * @returns {String} Nothing - always returns an empty string
      */
     static ulistfmt_openForType(locale, type, width, status) {
+        locale := locale is String? StrPtr(locale) : locale
+
         DllCall("icu.dll\ulistfmt_openForType", "ptr", locale, "int", type, "int", width, "ptr", status, "CDecl ")
     }
 
@@ -22398,6 +22993,8 @@ class Globalization {
      * @returns {String} Nothing - always returns an empty string
      */
     static ulocdata_open(localeID, status) {
+        localeID := localeID is String? StrPtr(localeID) : localeID
+
         DllCall("icuin.dll\ulocdata_open", "ptr", localeID, "ptr", status, "CDecl ")
     }
 
@@ -22464,6 +23061,8 @@ class Globalization {
      * @returns {String} Nothing - always returns an empty string
      */
     static ulocdata_getMeasurementSystem(localeID, status) {
+        localeID := localeID is String? StrPtr(localeID) : localeID
+
         DllCall("icuin.dll\ulocdata_getMeasurementSystem", "ptr", localeID, "ptr", status, "CDecl ")
     }
 
@@ -22476,6 +23075,8 @@ class Globalization {
      * @returns {String} Nothing - always returns an empty string
      */
     static ulocdata_getPaperSize(localeID, height, width, status) {
+        localeID := localeID is String? StrPtr(localeID) : localeID
+
         DllCall("icuin.dll\ulocdata_getPaperSize", "ptr", localeID, "ptr", height, "ptr", width, "ptr", status, "CDecl ")
     }
 
@@ -22526,6 +23127,8 @@ class Globalization {
      * @returns {Integer} 
      */
     static u_formatMessage(locale, pattern, patternLength, result, resultLength, status) {
+        locale := locale is String? StrPtr(locale) : locale
+
         result := DllCall("icuin.dll\u_formatMessage", "ptr", locale, "ptr", pattern, "int", patternLength, "ptr", result, "int", resultLength, "ptr", status, "CDecl int")
         return result
     }
@@ -22542,6 +23145,8 @@ class Globalization {
      * @returns {Integer} 
      */
     static u_vformatMessage(locale, pattern, patternLength, result, resultLength, ap, status) {
+        locale := locale is String? StrPtr(locale) : locale
+
         result := DllCall("icuin.dll\u_vformatMessage", "ptr", locale, "ptr", pattern, "int", patternLength, "ptr", result, "int", resultLength, "ptr", ap, "ptr", status, "CDecl int")
         return result
     }
@@ -22557,6 +23162,8 @@ class Globalization {
      * @returns {String} Nothing - always returns an empty string
      */
     static u_parseMessage(locale, pattern, patternLength, source, sourceLength, status) {
+        locale := locale is String? StrPtr(locale) : locale
+
         DllCall("icuin.dll\u_parseMessage", "ptr", locale, "ptr", pattern, "int", patternLength, "ptr", source, "int", sourceLength, "ptr", status, "CDecl ")
     }
 
@@ -22572,6 +23179,8 @@ class Globalization {
      * @returns {String} Nothing - always returns an empty string
      */
     static u_vparseMessage(locale, pattern, patternLength, source, sourceLength, ap, status) {
+        locale := locale is String? StrPtr(locale) : locale
+
         DllCall("icuin.dll\u_vparseMessage", "ptr", locale, "ptr", pattern, "int", patternLength, "ptr", source, "int", sourceLength, "ptr", ap, "ptr", status, "CDecl ")
     }
 
@@ -22587,6 +23196,8 @@ class Globalization {
      * @returns {Integer} 
      */
     static u_formatMessageWithError(locale, pattern, patternLength, result, resultLength, parseError, status) {
+        locale := locale is String? StrPtr(locale) : locale
+
         result := DllCall("icuin.dll\u_formatMessageWithError", "ptr", locale, "ptr", pattern, "int", patternLength, "ptr", result, "int", resultLength, "ptr", parseError, "ptr", status, "CDecl int")
         return result
     }
@@ -22604,6 +23215,8 @@ class Globalization {
      * @returns {Integer} 
      */
     static u_vformatMessageWithError(locale, pattern, patternLength, result, resultLength, parseError, ap, status) {
+        locale := locale is String? StrPtr(locale) : locale
+
         result := DllCall("icuin.dll\u_vformatMessageWithError", "ptr", locale, "ptr", pattern, "int", patternLength, "ptr", result, "int", resultLength, "ptr", parseError, "ptr", ap, "ptr", status, "CDecl int")
         return result
     }
@@ -22620,6 +23233,8 @@ class Globalization {
      * @returns {String} Nothing - always returns an empty string
      */
     static u_parseMessageWithError(locale, pattern, patternLength, source, sourceLength, parseError, status) {
+        locale := locale is String? StrPtr(locale) : locale
+
         DllCall("icuin.dll\u_parseMessageWithError", "ptr", locale, "ptr", pattern, "int", patternLength, "ptr", source, "int", sourceLength, "ptr", parseError, "ptr", status, "CDecl ")
     }
 
@@ -22636,6 +23251,8 @@ class Globalization {
      * @returns {String} Nothing - always returns an empty string
      */
     static u_vparseMessageWithError(locale, pattern, patternLength, source, sourceLength, ap, parseError, status) {
+        locale := locale is String? StrPtr(locale) : locale
+
         DllCall("icuin.dll\u_vparseMessageWithError", "ptr", locale, "ptr", pattern, "int", patternLength, "ptr", source, "int", sourceLength, "ptr", ap, "ptr", parseError, "ptr", status, "CDecl ")
     }
 
@@ -22649,6 +23266,8 @@ class Globalization {
      * @returns {String} Nothing - always returns an empty string
      */
     static umsg_open(pattern, patternLength, locale, parseError, status) {
+        locale := locale is String? StrPtr(locale) : locale
+
         DllCall("icuin.dll\umsg_open", "ptr", pattern, "int", patternLength, "ptr", locale, "ptr", parseError, "ptr", status, "CDecl ")
     }
 
@@ -22678,6 +23297,8 @@ class Globalization {
      * @returns {String} Nothing - always returns an empty string
      */
     static umsg_setLocale(fmt, locale) {
+        locale := locale is String? StrPtr(locale) : locale
+
         DllCall("icuin.dll\umsg_setLocale", "ptr", fmt, "ptr", locale, "CDecl ")
     }
 
@@ -22796,6 +23417,8 @@ class Globalization {
      * @returns {String} Nothing - always returns an empty string
      */
     static unum_open(style, pattern, patternLength, locale, parseErr, status) {
+        locale := locale is String? StrPtr(locale) : locale
+
         DllCall("icuin.dll\unum_open", "int", style, "ptr", pattern, "int", patternLength, "ptr", locale, "ptr", parseErr, "ptr", status, "CDecl ")
     }
 
@@ -22890,6 +23513,8 @@ class Globalization {
      * @returns {Integer} 
      */
     static unum_formatDecimal(fmt, number, length, result, resultLength, pos, status) {
+        number := number is String? StrPtr(number) : number
+
         result := DllCall("icuin.dll\unum_formatDecimal", "ptr", fmt, "ptr", number, "int", length, "ptr", result, "int", resultLength, "ptr", pos, "ptr", status, "CDecl int")
         return result
     }
@@ -22978,6 +23603,8 @@ class Globalization {
      * @returns {Integer} 
      */
     static unum_parseDecimal(fmt, text, textLength, parsePos, outBuf, outBufLength, status) {
+        outBuf := outBuf is String? StrPtr(outBuf) : outBuf
+
         result := DllCall("icuin.dll\unum_parseDecimal", "ptr", fmt, "ptr", text, "int", textLength, "ptr", parsePos, "ptr", outBuf, "int", outBufLength, "ptr", status, "CDecl int")
         return result
     }
@@ -23210,6 +23837,8 @@ class Globalization {
      * @returns {String} Nothing - always returns an empty string
      */
     static udat_open(timeStyle, dateStyle, locale, tzID, tzIDLength, pattern, patternLength, status) {
+        locale := locale is String? StrPtr(locale) : locale
+
         DllCall("icuin.dll\udat_open", "int", timeStyle, "int", dateStyle, "ptr", locale, "ptr", tzID, "int", tzIDLength, "ptr", pattern, "int", patternLength, "ptr", status, "CDecl ")
     }
 
@@ -23582,6 +24211,8 @@ class Globalization {
      * @returns {String} Nothing - always returns an empty string
      */
     static udatpg_open(locale, pErrorCode) {
+        locale := locale is String? StrPtr(locale) : locale
+
         DllCall("icuin.dll\udatpg_open", "ptr", locale, "ptr", pErrorCode, "CDecl ")
     }
 
@@ -23874,6 +24505,8 @@ class Globalization {
      * @returns {String} Nothing - always returns an empty string
      */
     static unumf_openForSkeletonAndLocale(skeleton, skeletonLen, locale, ec) {
+        locale := locale is String? StrPtr(locale) : locale
+
         DllCall("icu.dll\unumf_openForSkeletonAndLocale", "ptr", skeleton, "int", skeletonLen, "ptr", locale, "ptr", ec, "CDecl ")
     }
 
@@ -23887,6 +24520,8 @@ class Globalization {
      * @returns {String} Nothing - always returns an empty string
      */
     static unumf_openForSkeletonAndLocaleWithError(skeleton, skeletonLen, locale, perror, ec) {
+        locale := locale is String? StrPtr(locale) : locale
+
         DllCall("icu.dll\unumf_openForSkeletonAndLocaleWithError", "ptr", skeleton, "int", skeletonLen, "ptr", locale, "ptr", perror, "ptr", ec, "CDecl ")
     }
 
@@ -23933,6 +24568,8 @@ class Globalization {
      * @returns {String} Nothing - always returns an empty string
      */
     static unumf_formatDecimal(uformatter, value, valueLen, uresult, ec) {
+        value := value is String? StrPtr(value) : value
+
         DllCall("icu.dll\unumf_formatDecimal", "ptr", uformatter, "ptr", value, "int", valueLen, "ptr", uresult, "ptr", ec, "CDecl ")
     }
 
@@ -24008,6 +24645,8 @@ class Globalization {
      * @returns {String} Nothing - always returns an empty string
      */
     static unumsys_open(locale, status) {
+        locale := locale is String? StrPtr(locale) : locale
+
         DllCall("icuin.dll\unumsys_open", "ptr", locale, "ptr", status, "CDecl ")
     }
 
@@ -24018,6 +24657,8 @@ class Globalization {
      * @returns {String} Nothing - always returns an empty string
      */
     static unumsys_openByName(name, status) {
+        name := name is String? StrPtr(name) : name
+
         DllCall("icuin.dll\unumsys_openByName", "ptr", name, "ptr", status, "CDecl ")
     }
 
@@ -24089,6 +24730,8 @@ class Globalization {
      * @returns {String} Nothing - always returns an empty string
      */
     static uplrules_open(locale, status) {
+        locale := locale is String? StrPtr(locale) : locale
+
         DllCall("icuin.dll\uplrules_open", "ptr", locale, "ptr", status, "CDecl ")
     }
 
@@ -24100,6 +24743,8 @@ class Globalization {
      * @returns {String} Nothing - always returns an empty string
      */
     static uplrules_openForType(locale, type, status) {
+        locale := locale is String? StrPtr(locale) : locale
+
         DllCall("icuin.dll\uplrules_openForType", "ptr", locale, "int", type, "ptr", status, "CDecl ")
     }
 
@@ -24184,6 +24829,8 @@ class Globalization {
      * @returns {String} Nothing - always returns an empty string
      */
     static uregex_openC(pattern, flags, pe, status) {
+        pattern := pattern is String? StrPtr(pattern) : pattern
+
         DllCall("icuin.dll\uregex_openC", "ptr", pattern, "uint", flags, "ptr", pe, "ptr", status, "CDecl ")
     }
 
@@ -24412,6 +25059,8 @@ class Globalization {
      * @returns {Integer} 
      */
     static uregex_groupNumberFromCName(regexp, groupName, nameLength, status) {
+        groupName := groupName is String? StrPtr(groupName) : groupName
+
         result := DllCall("icuin.dll\uregex_groupNumberFromCName", "ptr", regexp, "ptr", groupName, "int", nameLength, "ptr", status, "CDecl int")
         return result
     }
@@ -24893,6 +25542,8 @@ class Globalization {
      * @returns {Pointer<IntPtr>} 
      */
     static uregion_getRegionFromCode(regionCode, status) {
+        regionCode := regionCode is String? StrPtr(regionCode) : regionCode
+
         result := DllCall("icuin.dll\uregion_getRegionFromCode", "ptr", regionCode, "ptr", status, "CDecl ptr")
         return result
     }
@@ -25031,6 +25682,8 @@ class Globalization {
      * @returns {String} Nothing - always returns an empty string
      */
     static ureldatefmt_open(locale, nfToAdopt, width, capitalizationContext, status) {
+        locale := locale is String? StrPtr(locale) : locale
+
         DllCall("icuin.dll\ureldatefmt_open", "ptr", locale, "ptr", nfToAdopt, "int", width, "int", capitalizationContext, "ptr", status, "CDecl ")
     }
 
@@ -25157,6 +25810,8 @@ class Globalization {
      * @returns {String} Nothing - always returns an empty string
      */
     static usearch_open(pattern, patternlength, text, textlength, locale, breakiter, status) {
+        locale := locale is String? StrPtr(locale) : locale
+
         DllCall("icuin.dll\usearch_open", "ptr", pattern, "int", patternlength, "ptr", text, "int", textlength, "ptr", locale, "ptr", breakiter, "ptr", status, "CDecl ")
     }
 
@@ -25457,6 +26112,9 @@ class Globalization {
      * @returns {String} Nothing - always returns an empty string
      */
     static uspoof_openFromSource(confusables, confusablesLen, confusablesWholeScript, confusablesWholeScriptLen, errType, pe, status) {
+        confusables := confusables is String? StrPtr(confusables) : confusables
+        confusablesWholeScript := confusablesWholeScript is String? StrPtr(confusablesWholeScript) : confusablesWholeScript
+
         DllCall("icuin.dll\uspoof_openFromSource", "ptr", confusables, "int", confusablesLen, "ptr", confusablesWholeScript, "int", confusablesWholeScriptLen, "ptr", errType, "ptr", pe, "ptr", status, "CDecl ")
     }
 
@@ -25528,6 +26186,8 @@ class Globalization {
      * @returns {String} Nothing - always returns an empty string
      */
     static uspoof_setAllowedLocales(sc, localesList, status) {
+        localesList := localesList is String? StrPtr(localesList) : localesList
+
         DllCall("icuin.dll\uspoof_setAllowedLocales", "ptr", sc, "ptr", localesList, "ptr", status, "CDecl ")
     }
 
@@ -25588,6 +26248,8 @@ class Globalization {
      * @returns {Integer} 
      */
     static uspoof_checkUTF8(sc, id, length, position, status) {
+        id := id is String? StrPtr(id) : id
+
         result := DllCall("icuin.dll\uspoof_checkUTF8", "ptr", sc, "ptr", id, "int", length, "ptr", position, "ptr", status, "CDecl int")
         return result
     }
@@ -25616,6 +26278,8 @@ class Globalization {
      * @returns {Integer} 
      */
     static uspoof_check2UTF8(sc, id, length, checkResult, status) {
+        id := id is String? StrPtr(id) : id
+
         result := DllCall("icuin.dll\uspoof_check2UTF8", "ptr", sc, "ptr", id, "int", length, "ptr", checkResult, "ptr", status, "CDecl int")
         return result
     }
@@ -25696,6 +26360,9 @@ class Globalization {
      * @returns {Integer} 
      */
     static uspoof_areConfusableUTF8(sc, id1, length1, id2, length2, status) {
+        id1 := id1 is String? StrPtr(id1) : id1
+        id2 := id2 is String? StrPtr(id2) : id2
+
         result := DllCall("icuin.dll\uspoof_areConfusableUTF8", "ptr", sc, "ptr", id1, "int", length1, "ptr", id2, "int", length2, "ptr", status, "CDecl int")
         return result
     }
@@ -25728,6 +26395,9 @@ class Globalization {
      * @returns {Integer} 
      */
     static uspoof_getSkeletonUTF8(sc, type, id, length, dest, destCapacity, status) {
+        id := id is String? StrPtr(id) : id
+        dest := dest is String? StrPtr(dest) : dest
+
         result := DllCall("icuin.dll\uspoof_getSkeletonUTF8", "ptr", sc, "uint", type, "ptr", id, "int", length, "ptr", dest, "int", destCapacity, "ptr", status, "CDecl int")
         return result
     }
@@ -26016,6 +26686,9 @@ class Globalization {
      * @see https://learn.microsoft.com/windows/win32/api/bcp47mrm/nf-bcp47mrm-getdistanceofclosestlanguageinlist
      */
     static GetDistanceOfClosestLanguageInList(pszLanguage, pszLanguagesList, wchListDelimiter, pClosestDistance) {
+        pszLanguage := pszLanguage is String? StrPtr(pszLanguage) : pszLanguage
+        pszLanguagesList := pszLanguagesList is String? StrPtr(pszLanguagesList) : pszLanguagesList
+
         result := DllCall("bcp47mrm.dll\GetDistanceOfClosestLanguageInList", "ptr", pszLanguage, "ptr", pszLanguagesList, "char", wchListDelimiter, "ptr", pClosestDistance, "int")
         return result
     }
@@ -26031,6 +26704,8 @@ class Globalization {
      * @see https://learn.microsoft.com/windows/win32/api/bcp47mrm/nf-bcp47mrm-iswellformedtag
      */
     static IsWellFormedTag(pszTag) {
+        pszTag := pszTag is String? StrPtr(pszTag) : pszTag
+
         result := DllCall("bcp47mrm.dll\IsWellFormedTag", "ptr", pszTag, "char")
         return result
     }
@@ -26093,6 +26768,10 @@ class Globalization {
      * @see https://learn.microsoft.com/windows/win32/Intl/getcalendardateformatex
      */
     static GetCalendarDateFormatEx(lpszLocale, dwFlags, lpCalDateTime, lpFormat, lpDateStr, cchDate) {
+        lpszLocale := lpszLocale is String? StrPtr(lpszLocale) : lpszLocale
+        lpFormat := lpFormat is String? StrPtr(lpFormat) : lpFormat
+        lpDateStr := lpDateStr is String? StrPtr(lpDateStr) : lpDateStr
+
         result := DllCall("KERNEL32.dll\GetCalendarDateFormatEx", "ptr", lpszLocale, "uint", dwFlags, "ptr", lpCalDateTime, "ptr", lpFormat, "ptr", lpDateStr, "int", cchDate, "int")
         return result
     }
@@ -26252,6 +26931,9 @@ class Globalization {
      * @since windows6.1
      */
     static FindStringOrdinal(dwFindStringOrdinalFlags, lpStringSource, cchSource, lpStringValue, cchValue, bIgnoreCase) {
+        lpStringSource := lpStringSource is String? StrPtr(lpStringSource) : lpStringSource
+        lpStringValue := lpStringValue is String? StrPtr(lpStringValue) : lpStringValue
+
         A_LastError := 0
 
         DllCall("KERNEL32.dll\FindStringOrdinal", "uint", dwFindStringOrdinalFlags, "ptr", lpStringSource, "int", cchSource, "ptr", lpStringValue, "int", cchValue, "int", bIgnoreCase)
@@ -26295,6 +26977,9 @@ class Globalization {
      * @since windows5.0
      */
     static lstrcmpA(lpString1, lpString2) {
+        lpString1 := lpString1 is String? StrPtr(lpString1) : lpString1
+        lpString2 := lpString2 is String? StrPtr(lpString2) : lpString2
+
         DllCall("KERNEL32.dll\lstrcmpA", "ptr", lpString1, "ptr", lpString2)
     }
 
@@ -26333,6 +27018,9 @@ class Globalization {
      * @since windows5.0
      */
     static lstrcmpW(lpString1, lpString2) {
+        lpString1 := lpString1 is String? StrPtr(lpString1) : lpString1
+        lpString2 := lpString2 is String? StrPtr(lpString2) : lpString2
+
         DllCall("KERNEL32.dll\lstrcmpW", "ptr", lpString1, "ptr", lpString2)
     }
 
@@ -26371,6 +27059,9 @@ class Globalization {
      * @since windows5.0
      */
     static lstrcmpiA(lpString1, lpString2) {
+        lpString1 := lpString1 is String? StrPtr(lpString1) : lpString1
+        lpString2 := lpString2 is String? StrPtr(lpString2) : lpString2
+
         DllCall("KERNEL32.dll\lstrcmpiA", "ptr", lpString1, "ptr", lpString2)
     }
 
@@ -26409,6 +27100,9 @@ class Globalization {
      * @since windows5.0
      */
     static lstrcmpiW(lpString1, lpString2) {
+        lpString1 := lpString1 is String? StrPtr(lpString1) : lpString1
+        lpString2 := lpString2 is String? StrPtr(lpString2) : lpString2
+
         DllCall("KERNEL32.dll\lstrcmpiW", "ptr", lpString1, "ptr", lpString2)
     }
 
@@ -26491,6 +27185,9 @@ class Globalization {
      * @since windows5.0
      */
     static lstrcpynA(lpString1, lpString2, iMaxLength) {
+        lpString1 := lpString1 is String? StrPtr(lpString1) : lpString1
+        lpString2 := lpString2 is String? StrPtr(lpString2) : lpString2
+
         result := DllCall("KERNEL32.dll\lstrcpynA", "ptr", lpString1, "ptr", lpString2, "int", iMaxLength, "ptr")
         return result
     }
@@ -26574,6 +27271,9 @@ class Globalization {
      * @since windows5.0
      */
     static lstrcpynW(lpString1, lpString2, iMaxLength) {
+        lpString1 := lpString1 is String? StrPtr(lpString1) : lpString1
+        lpString2 := lpString2 is String? StrPtr(lpString2) : lpString2
+
         result := DllCall("KERNEL32.dll\lstrcpynW", "ptr", lpString1, "ptr", lpString2, "int", iMaxLength, "ptr")
         return result
     }
@@ -26635,6 +27335,9 @@ class Globalization {
      * @since windows5.0
      */
     static lstrcpyA(lpString1, lpString2) {
+        lpString1 := lpString1 is String? StrPtr(lpString1) : lpString1
+        lpString2 := lpString2 is String? StrPtr(lpString2) : lpString2
+
         result := DllCall("KERNEL32.dll\lstrcpyA", "ptr", lpString1, "ptr", lpString2, "ptr")
         return result
     }
@@ -26696,6 +27399,9 @@ class Globalization {
      * @since windows5.0
      */
     static lstrcpyW(lpString1, lpString2) {
+        lpString1 := lpString1 is String? StrPtr(lpString1) : lpString1
+        lpString2 := lpString2 is String? StrPtr(lpString2) : lpString2
+
         result := DllCall("KERNEL32.dll\lstrcpyW", "ptr", lpString1, "ptr", lpString2, "ptr")
         return result
     }
@@ -26723,6 +27429,9 @@ class Globalization {
      * @since windows5.0
      */
     static lstrcatA(lpString1, lpString2) {
+        lpString1 := lpString1 is String? StrPtr(lpString1) : lpString1
+        lpString2 := lpString2 is String? StrPtr(lpString2) : lpString2
+
         result := DllCall("KERNEL32.dll\lstrcatA", "ptr", lpString1, "ptr", lpString2, "ptr")
         return result
     }
@@ -26750,6 +27459,9 @@ class Globalization {
      * @since windows5.0
      */
     static lstrcatW(lpString1, lpString2) {
+        lpString1 := lpString1 is String? StrPtr(lpString1) : lpString1
+        lpString2 := lpString2 is String? StrPtr(lpString2) : lpString2
+
         result := DllCall("KERNEL32.dll\lstrcatW", "ptr", lpString1, "ptr", lpString2, "ptr")
         return result
     }
@@ -26767,6 +27479,8 @@ class Globalization {
      * @since windows5.0
      */
     static lstrlenA(lpString) {
+        lpString := lpString is String? StrPtr(lpString) : lpString
+
         DllCall("KERNEL32.dll\lstrlenA", "ptr", lpString)
     }
 
@@ -26783,6 +27497,8 @@ class Globalization {
      * @since windows5.0
      */
     static lstrlenW(lpString) {
+        lpString := lpString is String? StrPtr(lpString) : lpString
+
         DllCall("KERNEL32.dll\lstrlenW", "ptr", lpString)
     }
 

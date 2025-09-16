@@ -4252,6 +4252,8 @@ class DirectShow {
      * @see https://learn.microsoft.com/windows/win32/api/errors/nf-errors-amgeterrortexta
      */
     static AMGetErrorTextA(hr, pbuffer, MaxLen) {
+        pbuffer := pbuffer is String? StrPtr(pbuffer) : pbuffer
+
         result := DllCall("QUARTZ.dll\AMGetErrorTextA", "int", hr, "ptr", pbuffer, "uint", MaxLen, "uint")
         return result
     }
@@ -4268,6 +4270,8 @@ class DirectShow {
      * @see https://learn.microsoft.com/windows/win32/api/errors/nf-errors-amgeterrortextw
      */
     static AMGetErrorTextW(hr, pbuffer, MaxLen) {
+        pbuffer := pbuffer is String? StrPtr(pbuffer) : pbuffer
+
         result := DllCall("QUARTZ.dll\AMGetErrorTextW", "int", hr, "ptr", pbuffer, "uint", MaxLen, "uint")
         return result
     }

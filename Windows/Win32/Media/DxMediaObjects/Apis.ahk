@@ -149,6 +149,8 @@ class DxMediaObjects {
      * @see https://learn.microsoft.com/windows/win32/api/dmoreg/nf-dmoreg-dmoregister
      */
     static DMORegister(szName, clsidDMO, guidCategory, dwFlags, cInTypes, pInTypes, cOutTypes, pOutTypes) {
+        szName := szName is String? StrPtr(szName) : szName
+
         result := DllCall("msdmo.dll\DMORegister", "ptr", szName, "ptr", clsidDMO, "ptr", guidCategory, "uint", dwFlags, "uint", cInTypes, "ptr", pInTypes, "uint", cOutTypes, "ptr", pOutTypes, "int")
         return result
     }
@@ -354,6 +356,8 @@ class DxMediaObjects {
      * @see https://learn.microsoft.com/windows/win32/api/dmoreg/nf-dmoreg-dmogetname
      */
     static DMOGetName(clsidDMO, szName) {
+        szName := szName is String? StrPtr(szName) : szName
+
         result := DllCall("msdmo.dll\DMOGetName", "ptr", clsidDMO, "ptr", szName, "int")
         return result
     }

@@ -135,6 +135,8 @@ class Vhd {
      * @since windows6.1
      */
     static OpenVirtualDisk(VirtualStorageType, Path, VirtualDiskAccessMask, Flags, Parameters, Handle) {
+        Path := Path is String? StrPtr(Path) : Path
+
         result := DllCall("VirtDisk.dll\OpenVirtualDisk", "ptr", VirtualStorageType, "ptr", Path, "int", VirtualDiskAccessMask, "int", Flags, "ptr", Parameters, "ptr", Handle, "uint")
         return result
     }
@@ -228,6 +230,8 @@ class Vhd {
      * @since windows6.1
      */
     static CreateVirtualDisk(VirtualStorageType, Path, VirtualDiskAccessMask, SecurityDescriptor, Flags, ProviderSpecificFlags, Parameters, Overlapped, Handle) {
+        Path := Path is String? StrPtr(Path) : Path
+
         result := DllCall("VirtDisk.dll\CreateVirtualDisk", "ptr", VirtualStorageType, "ptr", Path, "int", VirtualDiskAccessMask, "ptr", SecurityDescriptor, "int", Flags, "uint", ProviderSpecificFlags, "ptr", Parameters, "ptr", Overlapped, "ptr", Handle, "uint")
         return result
     }
@@ -386,6 +390,8 @@ class Vhd {
      * @since windows6.1
      */
     static GetVirtualDiskPhysicalPath(VirtualDiskHandle, DiskPathSizeInBytes, DiskPath) {
+        DiskPath := DiskPath is String? StrPtr(DiskPath) : DiskPath
+
         result := DllCall("VirtDisk.dll\GetVirtualDiskPhysicalPath", "ptr", VirtualDiskHandle, "ptr", DiskPathSizeInBytes, "ptr", DiskPath, "uint")
         return result
     }
@@ -397,6 +403,8 @@ class Vhd {
      * @returns {Integer} 
      */
     static GetAllAttachedVirtualDiskPhysicalPaths(PathsBufferSizeInBytes, PathsBuffer) {
+        PathsBuffer := PathsBuffer is String? StrPtr(PathsBuffer) : PathsBuffer
+
         result := DllCall("VirtDisk.dll\GetAllAttachedVirtualDiskPhysicalPaths", "ptr", PathsBufferSizeInBytes, "ptr", PathsBuffer, "uint")
         return result
     }
@@ -876,6 +884,8 @@ class Vhd {
      * @since windows8.0
      */
     static AddVirtualDiskParent(VirtualDiskHandle, ParentPath) {
+        ParentPath := ParentPath is String? StrPtr(ParentPath) : ParentPath
+
         result := DllCall("VirtDisk.dll\AddVirtualDiskParent", "ptr", VirtualDiskHandle, "ptr", ParentPath, "uint")
         return result
     }
@@ -905,6 +915,8 @@ class Vhd {
      * @since windows10.0.10240
      */
     static QueryChangesVirtualDisk(VirtualDiskHandle, ChangeTrackingId, ByteOffset, ByteLength, Flags, Ranges, RangeCount, ProcessedLength) {
+        ChangeTrackingId := ChangeTrackingId is String? StrPtr(ChangeTrackingId) : ChangeTrackingId
+
         result := DllCall("VirtDisk.dll\QueryChangesVirtualDisk", "ptr", VirtualDiskHandle, "ptr", ChangeTrackingId, "uint", ByteOffset, "uint", ByteLength, "int", Flags, "ptr", Ranges, "ptr", RangeCount, "ptr", ProcessedLength, "uint")
         return result
     }

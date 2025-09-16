@@ -4628,6 +4628,8 @@ class Extensions {
      * @returns {Integer} 
      */
     static DebugConnect(RemoteOptions, InterfaceId, Interface) {
+        RemoteOptions := RemoteOptions is String? StrPtr(RemoteOptions) : RemoteOptions
+
         result := DllCall("dbgeng.dll\DebugConnect", "ptr", RemoteOptions, "ptr", InterfaceId, "ptr", Interface, "int")
         return result
     }
@@ -4640,6 +4642,8 @@ class Extensions {
      * @returns {Integer} 
      */
     static DebugConnectWide(RemoteOptions, InterfaceId, Interface) {
+        RemoteOptions := RemoteOptions is String? StrPtr(RemoteOptions) : RemoteOptions
+
         result := DllCall("dbgeng.dll\DebugConnectWide", "ptr", RemoteOptions, "ptr", InterfaceId, "ptr", Interface, "int")
         return result
     }

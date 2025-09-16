@@ -1333,6 +1333,8 @@ class Memory {
      * @since windows5.1.2600
      */
     static CreateFileMappingW(hFile, lpFileMappingAttributes, flProtect, dwMaximumSizeHigh, dwMaximumSizeLow, lpName) {
+        lpName := lpName is String? StrPtr(lpName) : lpName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\CreateFileMappingW", "ptr", hFile, "ptr", lpFileMappingAttributes, "uint", flProtect, "uint", dwMaximumSizeHigh, "uint", dwMaximumSizeLow, "ptr", lpName, "ptr")
@@ -1438,6 +1440,8 @@ class Memory {
      * @since windows5.1.2600
      */
     static OpenFileMappingW(dwDesiredAccess, bInheritHandle, lpName) {
+        lpName := lpName is String? StrPtr(lpName) : lpName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\OpenFileMappingW", "uint", dwDesiredAccess, "int", bInheritHandle, "ptr", lpName, "ptr")
@@ -2829,6 +2833,8 @@ class Memory {
      * @since windows6.0.6000
      */
     static CreateFileMappingNumaW(hFile, lpFileMappingAttributes, flProtect, dwMaximumSizeHigh, dwMaximumSizeLow, lpName, nndPreferred) {
+        lpName := lpName is String? StrPtr(lpName) : lpName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\CreateFileMappingNumaW", "ptr", hFile, "ptr", lpFileMappingAttributes, "uint", flProtect, "uint", dwMaximumSizeHigh, "uint", dwMaximumSizeLow, "ptr", lpName, "uint", nndPreferred, "ptr")
@@ -3027,6 +3033,8 @@ class Memory {
      * @since windows8.0
      */
     static CreateFileMappingFromApp(hFile, SecurityAttributes, PageProtection, MaximumSize, Name) {
+        Name := Name is String? StrPtr(Name) : Name
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\CreateFileMappingFromApp", "ptr", hFile, "ptr", SecurityAttributes, "uint", PageProtection, "uint", MaximumSize, "ptr", Name, "ptr")
@@ -3838,6 +3846,8 @@ class Memory {
      * @since windows10.0.10240
      */
     static OpenFileMappingFromApp(DesiredAccess, InheritHandle, Name) {
+        Name := Name is String? StrPtr(Name) : Name
+
         A_LastError := 0
 
         result := DllCall("api-ms-win-core-memory-l1-1-3.dll\OpenFileMappingFromApp", "uint", DesiredAccess, "int", InheritHandle, "ptr", Name, "ptr")
@@ -4471,6 +4481,8 @@ class Memory {
      * @see https://learn.microsoft.com/windows/win32/api/memoryapi/nf-memoryapi-createfilemapping2
      */
     static CreateFileMapping2(File, SecurityAttributes, DesiredAccess, PageProtection, AllocationAttributes, MaximumSize, Name, ExtendedParameters, ParameterCount) {
+        Name := Name is String? StrPtr(Name) : Name
+
         A_LastError := 0
 
         result := DllCall("api-ms-win-core-memory-l1-1-7.dll\CreateFileMapping2", "ptr", File, "ptr", SecurityAttributes, "uint", DesiredAccess, "uint", PageProtection, "uint", AllocationAttributes, "uint", MaximumSize, "ptr", Name, "ptr", ExtendedParameters, "uint", ParameterCount, "ptr")
@@ -5292,6 +5304,8 @@ class Memory {
      * @since windows5.1.2600
      */
     static CreateFileMappingA(hFile, lpFileMappingAttributes, flProtect, dwMaximumSizeHigh, dwMaximumSizeLow, lpName) {
+        lpName := lpName is String? StrPtr(lpName) : lpName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\CreateFileMappingA", "ptr", hFile, "ptr", lpFileMappingAttributes, "uint", flProtect, "uint", dwMaximumSizeHigh, "uint", dwMaximumSizeLow, "ptr", lpName, "ptr")
@@ -5526,6 +5540,8 @@ class Memory {
      * @since windows6.0.6000
      */
     static CreateFileMappingNumaA(hFile, lpFileMappingAttributes, flProtect, dwMaximumSizeHigh, dwMaximumSizeLow, lpName, nndPreferred) {
+        lpName := lpName is String? StrPtr(lpName) : lpName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\CreateFileMappingNumaA", "ptr", hFile, "ptr", lpFileMappingAttributes, "uint", flProtect, "uint", dwMaximumSizeHigh, "uint", dwMaximumSizeLow, "ptr", lpName, "uint", nndPreferred, "ptr")
@@ -5631,6 +5647,8 @@ class Memory {
      * @since windows5.1.2600
      */
     static OpenFileMappingA(dwDesiredAccess, bInheritHandle, lpName) {
+        lpName := lpName is String? StrPtr(lpName) : lpName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\OpenFileMappingA", "uint", dwDesiredAccess, "int", bInheritHandle, "ptr", lpName, "ptr")
@@ -5937,6 +5955,8 @@ class Memory {
      * @since windows5.1.2600
      */
     static IsBadStringPtrA(lpsz, ucchMax) {
+        lpsz := lpsz is String? StrPtr(lpsz) : lpsz
+
         result := DllCall("KERNEL32.dll\IsBadStringPtrA", "ptr", lpsz, "ptr", ucchMax, "int")
         return result
     }
@@ -5972,6 +5992,8 @@ class Memory {
      * @since windows5.1.2600
      */
     static IsBadStringPtrW(lpsz, ucchMax) {
+        lpsz := lpsz is String? StrPtr(lpsz) : lpsz
+
         result := DllCall("KERNEL32.dll\IsBadStringPtrW", "ptr", lpsz, "ptr", ucchMax, "int")
         return result
     }

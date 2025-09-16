@@ -115,6 +115,8 @@ class WindowsConnectionManager {
     static WcmQueryProperty(pInterface, strProfileName, Property, pdwDataSize, ppData) {
         static pReserved := 0 ;Reserved parameters must always be NULL
 
+        strProfileName := strProfileName is String? StrPtr(strProfileName) : strProfileName
+
         result := DllCall("wcmapi.dll\WcmQueryProperty", "ptr", pInterface, "ptr", strProfileName, "int", Property, "ptr", pReserved, "ptr", pdwDataSize, "ptr", ppData, "uint")
         return result
     }
@@ -193,6 +195,8 @@ class WindowsConnectionManager {
      */
     static WcmSetProperty(pInterface, strProfileName, Property, dwDataSize, pbData) {
         static pReserved := 0 ;Reserved parameters must always be NULL
+
+        strProfileName := strProfileName is String? StrPtr(strProfileName) : strProfileName
 
         result := DllCall("wcmapi.dll\WcmSetProperty", "ptr", pInterface, "ptr", strProfileName, "int", Property, "ptr", pReserved, "uint", dwDataSize, "ptr", pbData, "uint")
         return result
@@ -289,6 +293,8 @@ class WindowsConnectionManager {
      * @since windows8.1
      */
     static OnDemandGetRoutingHint(destinationHostName, interfaceIndex) {
+        destinationHostName := destinationHostName is String? StrPtr(destinationHostName) : destinationHostName
+
         result := DllCall("OnDemandConnRouteHelper.dll\OnDemandGetRoutingHint", "ptr", destinationHostName, "ptr", interfaceIndex, "int")
         return result
     }
@@ -410,6 +416,9 @@ class WindowsConnectionManager {
      * @since windows10.0.10240
      */
     static GetInterfaceContextTableForHostName(HostName, ProxyName, Flags, ConnectionProfileFilterRawData, ConnectionProfileFilterRawDataSize, InterfaceContextTable) {
+        HostName := HostName is String? StrPtr(HostName) : HostName
+        ProxyName := ProxyName is String? StrPtr(ProxyName) : ProxyName
+
         result := DllCall("OnDemandConnRouteHelper.dll\GetInterfaceContextTableForHostName", "ptr", HostName, "ptr", ProxyName, "uint", Flags, "ptr", ConnectionProfileFilterRawData, "uint", ConnectionProfileFilterRawDataSize, "ptr", InterfaceContextTable, "int")
         return result
     }

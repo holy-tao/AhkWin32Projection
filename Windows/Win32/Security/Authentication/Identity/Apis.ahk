@@ -10277,6 +10277,8 @@ class Identity {
      * @since windows6.0.6000
      */
     static AuditLookupCategoryNameW(pAuditCategoryGuid, ppszCategoryName) {
+        ppszCategoryName := ppszCategoryName is String? StrPtr(ppszCategoryName) : ppszCategoryName
+
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\AuditLookupCategoryNameW", "ptr", pAuditCategoryGuid, "ptr", ppszCategoryName, "char")
@@ -10303,6 +10305,8 @@ class Identity {
      * @since windows6.0.6000
      */
     static AuditLookupCategoryNameA(pAuditCategoryGuid, ppszCategoryName) {
+        ppszCategoryName := ppszCategoryName is String? StrPtr(ppszCategoryName) : ppszCategoryName
+
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\AuditLookupCategoryNameA", "ptr", pAuditCategoryGuid, "ptr", ppszCategoryName, "char")
@@ -10329,6 +10333,8 @@ class Identity {
      * @since windows6.0.6000
      */
     static AuditLookupSubCategoryNameW(pAuditSubCategoryGuid, ppszSubCategoryName) {
+        ppszSubCategoryName := ppszSubCategoryName is String? StrPtr(ppszSubCategoryName) : ppszSubCategoryName
+
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\AuditLookupSubCategoryNameW", "ptr", pAuditSubCategoryGuid, "ptr", ppszSubCategoryName, "char")
@@ -10355,6 +10361,8 @@ class Identity {
      * @since windows6.0.6000
      */
     static AuditLookupSubCategoryNameA(pAuditSubCategoryGuid, ppszSubCategoryName) {
+        ppszSubCategoryName := ppszSubCategoryName is String? StrPtr(ppszSubCategoryName) : ppszSubCategoryName
+
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\AuditLookupSubCategoryNameA", "ptr", pAuditSubCategoryGuid, "ptr", ppszSubCategoryName, "char")
@@ -10565,6 +10573,8 @@ class Identity {
      * @since windows6.1
      */
     static AuditSetGlobalSaclW(ObjectTypeName, Acl) {
+        ObjectTypeName := ObjectTypeName is String? StrPtr(ObjectTypeName) : ObjectTypeName
+
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\AuditSetGlobalSaclW", "ptr", ObjectTypeName, "ptr", Acl, "char")
@@ -10625,6 +10635,8 @@ class Identity {
      * @since windows6.1
      */
     static AuditSetGlobalSaclA(ObjectTypeName, Acl) {
+        ObjectTypeName := ObjectTypeName is String? StrPtr(ObjectTypeName) : ObjectTypeName
+
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\AuditSetGlobalSaclA", "ptr", ObjectTypeName, "ptr", Acl, "char")
@@ -10685,6 +10697,8 @@ class Identity {
      * @since windows6.1
      */
     static AuditQueryGlobalSaclW(ObjectTypeName, Acl) {
+        ObjectTypeName := ObjectTypeName is String? StrPtr(ObjectTypeName) : ObjectTypeName
+
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\AuditQueryGlobalSaclW", "ptr", ObjectTypeName, "ptr", Acl, "char")
@@ -10745,6 +10759,8 @@ class Identity {
      * @since windows6.1
      */
     static AuditQueryGlobalSaclA(ObjectTypeName, Acl) {
+        ObjectTypeName := ObjectTypeName is String? StrPtr(ObjectTypeName) : ObjectTypeName
+
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\AuditQueryGlobalSaclA", "ptr", ObjectTypeName, "ptr", Acl, "char")
@@ -10880,6 +10896,9 @@ class Identity {
      * @since windows6.0.6000
      */
     static AcquireCredentialsHandleW(pszPrincipal, pszPackage, fCredentialUse, pvLogonId, pAuthData, pGetKeyFn, pvGetKeyArgument, phCredential, ptsExpiry) {
+        pszPrincipal := pszPrincipal is String? StrPtr(pszPrincipal) : pszPrincipal
+        pszPackage := pszPackage is String? StrPtr(pszPackage) : pszPackage
+
         result := DllCall("SECUR32.dll\AcquireCredentialsHandleW", "ptr", pszPrincipal, "ptr", pszPackage, "uint", fCredentialUse, "ptr", pvLogonId, "ptr", pAuthData, "ptr", pGetKeyFn, "ptr", pvGetKeyArgument, "ptr", phCredential, "ptr", ptsExpiry, "int")
         return result
     }
@@ -11005,6 +11024,9 @@ class Identity {
      * @since windows6.0.6000
      */
     static AcquireCredentialsHandleA(pszPrincipal, pszPackage, fCredentialUse, pvLogonId, pAuthData, pGetKeyFn, pvGetKeyArgument, phCredential, ptsExpiry) {
+        pszPrincipal := pszPrincipal is String? StrPtr(pszPrincipal) : pszPrincipal
+        pszPackage := pszPackage is String? StrPtr(pszPackage) : pszPackage
+
         result := DllCall("SECUR32.dll\AcquireCredentialsHandleA", "ptr", pszPrincipal, "ptr", pszPackage, "uint", fCredentialUse, "ptr", pvLogonId, "ptr", pAuthData, "ptr", pGetKeyFn, "ptr", pvGetKeyArgument, "ptr", phCredential, "ptr", ptsExpiry, "int")
         return result
     }
@@ -11056,6 +11078,9 @@ class Identity {
      * @see https://learn.microsoft.com/windows/win32/api/sspi/nf-sspi-addcredentialsw
      */
     static AddCredentialsW(hCredentials, pszPrincipal, pszPackage, fCredentialUse, pAuthData, pGetKeyFn, pvGetKeyArgument, ptsExpiry) {
+        pszPrincipal := pszPrincipal is String? StrPtr(pszPrincipal) : pszPrincipal
+        pszPackage := pszPackage is String? StrPtr(pszPackage) : pszPackage
+
         result := DllCall("SECUR32.dll\AddCredentialsW", "ptr", hCredentials, "ptr", pszPrincipal, "ptr", pszPackage, "uint", fCredentialUse, "ptr", pAuthData, "ptr", pGetKeyFn, "ptr", pvGetKeyArgument, "ptr", ptsExpiry, "int")
         return result
     }
@@ -11074,6 +11099,9 @@ class Identity {
      * @see https://learn.microsoft.com/windows/win32/api/sspi/nf-sspi-addcredentialsa
      */
     static AddCredentialsA(hCredentials, pszPrincipal, pszPackage, fCredentialUse, pAuthData, pGetKeyFn, pvGetKeyArgument, ptsExpiry) {
+        pszPrincipal := pszPrincipal is String? StrPtr(pszPrincipal) : pszPrincipal
+        pszPackage := pszPackage is String? StrPtr(pszPackage) : pszPackage
+
         result := DllCall("SECUR32.dll\AddCredentialsA", "ptr", hCredentials, "ptr", pszPrincipal, "ptr", pszPackage, "uint", fCredentialUse, "ptr", pAuthData, "ptr", pGetKeyFn, "ptr", pvGetKeyArgument, "ptr", ptsExpiry, "int")
         return result
     }
@@ -14264,6 +14292,8 @@ class Identity {
      * @since windows5.1.2600
      */
     static QuerySecurityPackageInfoW(pszPackageName, ppPackageInfo) {
+        pszPackageName := pszPackageName is String? StrPtr(pszPackageName) : pszPackageName
+
         result := DllCall("SECUR32.dll\QuerySecurityPackageInfoW", "ptr", pszPackageName, "ptr", ppPackageInfo, "int")
         return result
     }
@@ -14290,6 +14320,8 @@ class Identity {
      * @since windows5.1.2600
      */
     static QuerySecurityPackageInfoA(pszPackageName, ppPackageInfo) {
+        pszPackageName := pszPackageName is String? StrPtr(pszPackageName) : pszPackageName
+
         result := DllCall("SECUR32.dll\QuerySecurityPackageInfoA", "ptr", pszPackageName, "ptr", ppPackageInfo, "int")
         return result
     }
@@ -14432,6 +14464,8 @@ class Identity {
      * @since windows5.1.2600
      */
     static ImportSecurityContextW(pszPackage, pPackedContext, Token, phContext) {
+        pszPackage := pszPackage is String? StrPtr(pszPackage) : pszPackage
+
         result := DllCall("SECUR32.dll\ImportSecurityContextW", "ptr", pszPackage, "ptr", pPackedContext, "ptr", Token, "ptr", phContext, "int")
         return result
     }
@@ -14514,6 +14548,8 @@ class Identity {
      * @since windows5.1.2600
      */
     static ImportSecurityContextA(pszPackage, pPackedContext, Token, phContext) {
+        pszPackage := pszPackage is String? StrPtr(pszPackage) : pszPackage
+
         result := DllCall("SECUR32.dll\ImportSecurityContextA", "ptr", pszPackage, "ptr", pPackedContext, "ptr", Token, "ptr", phContext, "int")
         return result
     }
@@ -14579,6 +14615,8 @@ class Identity {
      * @since windowsserver2003
      */
     static SaslEnumerateProfilesA(ProfileList, ProfileCount) {
+        ProfileList := ProfileList is String? StrPtr(ProfileList) : ProfileList
+
         result := DllCall("SECUR32.dll\SaslEnumerateProfilesA", "ptr", ProfileList, "ptr", ProfileCount, "int")
         return result
     }
@@ -14609,6 +14647,8 @@ class Identity {
      * @since windowsserver2003
      */
     static SaslEnumerateProfilesW(ProfileList, ProfileCount) {
+        ProfileList := ProfileList is String? StrPtr(ProfileList) : ProfileList
+
         result := DllCall("SECUR32.dll\SaslEnumerateProfilesW", "ptr", ProfileList, "ptr", ProfileCount, "int")
         return result
     }
@@ -14654,6 +14694,8 @@ class Identity {
      * @since windowsserver2003
      */
     static SaslGetProfilePackageA(ProfileName, PackageInfo) {
+        ProfileName := ProfileName is String? StrPtr(ProfileName) : ProfileName
+
         result := DllCall("SECUR32.dll\SaslGetProfilePackageA", "ptr", ProfileName, "ptr", PackageInfo, "int")
         return result
     }
@@ -14699,6 +14741,8 @@ class Identity {
      * @since windowsserver2003
      */
     static SaslGetProfilePackageW(ProfileName, PackageInfo) {
+        ProfileName := ProfileName is String? StrPtr(ProfileName) : ProfileName
+
         result := DllCall("SECUR32.dll\SaslGetProfilePackageW", "ptr", ProfileName, "ptr", PackageInfo, "int")
         return result
     }
@@ -14910,6 +14954,8 @@ class Identity {
      * @since windowsserver2003
      */
     static SaslInitializeSecurityContextW(phCredential, phContext, pszTargetName, fContextReq, Reserved1, TargetDataRep, pInput, Reserved2, phNewContext, pOutput, pfContextAttr, ptsExpiry) {
+        pszTargetName := pszTargetName is String? StrPtr(pszTargetName) : pszTargetName
+
         result := DllCall("SECUR32.dll\SaslInitializeSecurityContextW", "ptr", phCredential, "ptr", phContext, "ptr", pszTargetName, "uint", fContextReq, "uint", Reserved1, "uint", TargetDataRep, "ptr", pInput, "uint", Reserved2, "ptr", phNewContext, "ptr", pOutput, "ptr", pfContextAttr, "ptr", ptsExpiry, "int")
         return result
     }
@@ -15085,6 +15131,8 @@ class Identity {
      * @since windowsserver2003
      */
     static SaslInitializeSecurityContextA(phCredential, phContext, pszTargetName, fContextReq, Reserved1, TargetDataRep, pInput, Reserved2, phNewContext, pOutput, pfContextAttr, ptsExpiry) {
+        pszTargetName := pszTargetName is String? StrPtr(pszTargetName) : pszTargetName
+
         result := DllCall("SECUR32.dll\SaslInitializeSecurityContextA", "ptr", phCredential, "ptr", phContext, "ptr", pszTargetName, "uint", fContextReq, "uint", Reserved1, "uint", TargetDataRep, "ptr", pInput, "uint", Reserved2, "ptr", phNewContext, "ptr", pOutput, "ptr", pfContextAttr, "ptr", ptsExpiry, "int")
         return result
     }
@@ -15480,6 +15528,9 @@ class Identity {
      * @since windows6.1
      */
     static SspiPromptForCredentialsW(pszTargetName, pUiInfo, dwAuthError, pszPackage, pInputAuthIdentity, ppAuthIdentity, pfSave, dwFlags) {
+        pszTargetName := pszTargetName is String? StrPtr(pszTargetName) : pszTargetName
+        pszPackage := pszPackage is String? StrPtr(pszPackage) : pszPackage
+
         result := DllCall("credui.dll\SspiPromptForCredentialsW", "ptr", pszTargetName, "ptr", pUiInfo, "uint", dwAuthError, "ptr", pszPackage, "ptr", pInputAuthIdentity, "ptr", ppAuthIdentity, "ptr", pfSave, "uint", dwFlags, "uint")
         return result
     }
@@ -15547,6 +15598,9 @@ class Identity {
      * @since windows6.1
      */
     static SspiPromptForCredentialsA(pszTargetName, pUiInfo, dwAuthError, pszPackage, pInputAuthIdentity, ppAuthIdentity, pfSave, dwFlags) {
+        pszTargetName := pszTargetName is String? StrPtr(pszTargetName) : pszTargetName
+        pszPackage := pszPackage is String? StrPtr(pszPackage) : pszPackage
+
         result := DllCall("credui.dll\SspiPromptForCredentialsA", "ptr", pszTargetName, "ptr", pUiInfo, "uint", dwAuthError, "ptr", pszPackage, "ptr", pInputAuthIdentity, "ptr", ppAuthIdentity, "ptr", pfSave, "uint", dwFlags, "uint")
         return result
     }
@@ -15564,6 +15618,9 @@ class Identity {
      * @since windows6.1
      */
     static SspiPrepareForCredRead(AuthIdentity, pszTargetName, pCredmanCredentialType, ppszCredmanTargetName) {
+        pszTargetName := pszTargetName is String? StrPtr(pszTargetName) : pszTargetName
+        ppszCredmanTargetName := ppszCredmanTargetName is String? StrPtr(ppszCredmanTargetName) : ppszCredmanTargetName
+
         result := DllCall("SECUR32.dll\SspiPrepareForCredRead", "ptr", AuthIdentity, "ptr", pszTargetName, "ptr", pCredmanCredentialType, "ptr", ppszCredmanTargetName, "int")
         return result
     }
@@ -15586,6 +15643,10 @@ class Identity {
      * @since windows6.1
      */
     static SspiPrepareForCredWrite(AuthIdentity, pszTargetName, pCredmanCredentialType, ppszCredmanTargetName, ppszCredmanUserName, ppCredentialBlob, pCredentialBlobSize) {
+        pszTargetName := pszTargetName is String? StrPtr(pszTargetName) : pszTargetName
+        ppszCredmanTargetName := ppszCredmanTargetName is String? StrPtr(ppszCredmanTargetName) : ppszCredmanTargetName
+        ppszCredmanUserName := ppszCredmanUserName is String? StrPtr(ppszCredmanUserName) : ppszCredmanUserName
+
         result := DllCall("SECUR32.dll\SspiPrepareForCredWrite", "ptr", AuthIdentity, "ptr", pszTargetName, "ptr", pCredmanCredentialType, "ptr", ppszCredmanTargetName, "ptr", ppszCredmanUserName, "ptr", ppCredentialBlob, "ptr", pCredentialBlobSize, "int")
         return result
     }
@@ -15701,6 +15762,10 @@ class Identity {
      * @since windows6.1
      */
     static SspiEncodeAuthIdentityAsStrings(pAuthIdentity, ppszUserName, ppszDomainName, ppszPackedCredentialsString) {
+        ppszUserName := ppszUserName is String? StrPtr(ppszUserName) : ppszUserName
+        ppszDomainName := ppszDomainName is String? StrPtr(ppszDomainName) : ppszDomainName
+        ppszPackedCredentialsString := ppszPackedCredentialsString is String? StrPtr(ppszPackedCredentialsString) : ppszPackedCredentialsString
+
         result := DllCall("SECUR32.dll\SspiEncodeAuthIdentityAsStrings", "ptr", pAuthIdentity, "ptr", ppszUserName, "ptr", ppszDomainName, "ptr", ppszPackedCredentialsString, "int")
         return result
     }
@@ -15782,6 +15847,10 @@ class Identity {
      * @since windows6.1
      */
     static SspiEncodeStringsAsAuthIdentity(pszUserName, pszDomainName, pszPackedCredentialsString, ppAuthIdentity) {
+        pszUserName := pszUserName is String? StrPtr(pszUserName) : pszUserName
+        pszDomainName := pszDomainName is String? StrPtr(pszDomainName) : pszDomainName
+        pszPackedCredentialsString := pszPackedCredentialsString is String? StrPtr(pszPackedCredentialsString) : pszPackedCredentialsString
+
         result := DllCall("SECUR32.dll\SspiEncodeStringsAsAuthIdentity", "ptr", pszUserName, "ptr", pszDomainName, "ptr", pszPackedCredentialsString, "ptr", ppAuthIdentity, "int")
         return result
     }
@@ -15831,6 +15900,8 @@ class Identity {
      * @since windows6.1
      */
     static SspiUnmarshalAuthIdentity(AuthIdentityLength, AuthIdentityByteArray, ppAuthIdentity) {
+        AuthIdentityByteArray := AuthIdentityByteArray is String? StrPtr(AuthIdentityByteArray) : AuthIdentityByteArray
+
         result := DllCall("SECUR32.dll\SspiUnmarshalAuthIdentity", "uint", AuthIdentityLength, "ptr", AuthIdentityByteArray, "ptr", ppAuthIdentity, "int")
         return result
     }
@@ -15858,6 +15929,9 @@ class Identity {
      * @since windows6.1
      */
     static SspiGetTargetHostName(pszTargetName, pszHostName) {
+        pszTargetName := pszTargetName is String? StrPtr(pszTargetName) : pszTargetName
+        pszHostName := pszHostName is String? StrPtr(pszHostName) : pszHostName
+
         result := DllCall("SECUR32.dll\SspiGetTargetHostName", "ptr", pszTargetName, "ptr", pszHostName, "int")
         return result
     }
@@ -15874,6 +15948,8 @@ class Identity {
      * @since windows6.1
      */
     static SspiExcludePackage(AuthIdentity, pszPackageName, ppNewAuthIdentity) {
+        pszPackageName := pszPackageName is String? StrPtr(pszPackageName) : pszPackageName
+
         result := DllCall("SECUR32.dll\SspiExcludePackage", "ptr", AuthIdentity, "ptr", pszPackageName, "ptr", ppNewAuthIdentity, "int")
         return result
     }
@@ -15903,6 +15979,8 @@ class Identity {
      * @since windows6.1
      */
     static AddSecurityPackageA(pszPackageName, pOptions) {
+        pszPackageName := pszPackageName is String? StrPtr(pszPackageName) : pszPackageName
+
         result := DllCall("SECUR32.dll\AddSecurityPackageA", "ptr", pszPackageName, "ptr", pOptions, "int")
         return result
     }
@@ -15921,6 +15999,8 @@ class Identity {
      * @since windows6.1
      */
     static AddSecurityPackageW(pszPackageName, pOptions) {
+        pszPackageName := pszPackageName is String? StrPtr(pszPackageName) : pszPackageName
+
         result := DllCall("SECUR32.dll\AddSecurityPackageW", "ptr", pszPackageName, "ptr", pOptions, "int")
         return result
     }
@@ -15938,6 +16018,8 @@ class Identity {
      * @since windows6.1
      */
     static DeleteSecurityPackageA(pszPackageName) {
+        pszPackageName := pszPackageName is String? StrPtr(pszPackageName) : pszPackageName
+
         result := DllCall("SECUR32.dll\DeleteSecurityPackageA", "ptr", pszPackageName, "int")
         return result
     }
@@ -15955,6 +16037,8 @@ class Identity {
      * @since windows6.1
      */
     static DeleteSecurityPackageW(pszPackageName) {
+        pszPackageName := pszPackageName is String? StrPtr(pszPackageName) : pszPackageName
+
         result := DllCall("SECUR32.dll\DeleteSecurityPackageW", "ptr", pszPackageName, "int")
         return result
     }
@@ -16000,6 +16084,8 @@ class Identity {
      * @since windows5.1.2600
      */
     static SslEmptyCacheA(pszTargetName, dwFlags) {
+        pszTargetName := pszTargetName is String? StrPtr(pszTargetName) : pszTargetName
+
         result := DllCall("SCHANNEL.dll\SslEmptyCacheA", "ptr", pszTargetName, "uint", dwFlags, "int")
         return result
     }
@@ -16016,6 +16102,8 @@ class Identity {
      * @since windows5.1.2600
      */
     static SslEmptyCacheW(pszTargetName, dwFlags) {
+        pszTargetName := pszTargetName is String? StrPtr(pszTargetName) : pszTargetName
+
         result := DllCall("SCHANNEL.dll\SslEmptyCacheW", "ptr", pszTargetName, "uint", dwFlags, "int")
         return result
     }
@@ -16169,6 +16257,8 @@ class Identity {
      * @since windows10.0.10240
      */
     static TokenBindingGenerateBinding(keyType, targetURL, bindingType, tlsEKM, tlsEKMSize, extensionFormat, extensionData, tokenBinding, tokenBindingSize, resultData) {
+        targetURL := targetURL is String? StrPtr(targetURL) : targetURL
+
         result := DllCall("TOKENBINDING.dll\TokenBindingGenerateBinding", "int", keyType, "ptr", targetURL, "int", bindingType, "ptr", tlsEKM, "uint", tlsEKMSize, "int", extensionFormat, "ptr", extensionData, "ptr", tokenBinding, "ptr", tokenBindingSize, "ptr", resultData, "int")
         return result
     }
@@ -16252,6 +16342,8 @@ class Identity {
      * @since windows10.0.10240
      */
     static TokenBindingDeleteBinding(targetURL) {
+        targetURL := targetURL is String? StrPtr(targetURL) : targetURL
+
         result := DllCall("TOKENBINDING.dll\TokenBindingDeleteBinding", "ptr", targetURL, "int")
         return result
     }
@@ -16296,6 +16388,8 @@ class Identity {
      * @returns {Integer} 
      */
     static TokenBindingGenerateIDForUri(keyType, targetUri, resultData) {
+        targetUri := targetUri is String? StrPtr(targetUri) : targetUri
+
         result := DllCall("TOKENBINDING.dll\TokenBindingGenerateIDForUri", "int", keyType, "ptr", targetUri, "ptr", resultData, "int")
         return result
     }
@@ -16373,6 +16467,8 @@ class Identity {
      * @since windows5.0
      */
     static GetUserNameExA(NameFormat, lpNameBuffer, nSize) {
+        lpNameBuffer := lpNameBuffer is String? StrPtr(lpNameBuffer) : lpNameBuffer
+
         A_LastError := 0
 
         result := DllCall("SECUR32.dll\GetUserNameExA", "int", NameFormat, "ptr", lpNameBuffer, "ptr", nSize, "char")
@@ -16444,6 +16540,8 @@ class Identity {
      * @since windows5.0
      */
     static GetUserNameExW(NameFormat, lpNameBuffer, nSize) {
+        lpNameBuffer := lpNameBuffer is String? StrPtr(lpNameBuffer) : lpNameBuffer
+
         A_LastError := 0
 
         result := DllCall("SECUR32.dll\GetUserNameExW", "int", NameFormat, "ptr", lpNameBuffer, "ptr", nSize, "char")
@@ -16475,6 +16573,8 @@ class Identity {
      * @since windows5.0
      */
     static GetComputerObjectNameA(NameFormat, lpNameBuffer, nSize) {
+        lpNameBuffer := lpNameBuffer is String? StrPtr(lpNameBuffer) : lpNameBuffer
+
         A_LastError := 0
 
         result := DllCall("SECUR32.dll\GetComputerObjectNameA", "int", NameFormat, "ptr", lpNameBuffer, "ptr", nSize, "char")
@@ -16506,6 +16606,8 @@ class Identity {
      * @since windows5.0
      */
     static GetComputerObjectNameW(NameFormat, lpNameBuffer, nSize) {
+        lpNameBuffer := lpNameBuffer is String? StrPtr(lpNameBuffer) : lpNameBuffer
+
         A_LastError := 0
 
         result := DllCall("SECUR32.dll\GetComputerObjectNameW", "int", NameFormat, "ptr", lpNameBuffer, "ptr", nSize, "char")
@@ -16548,6 +16650,9 @@ class Identity {
      * @since windows5.0
      */
     static TranslateNameA(lpAccountName, AccountNameFormat, DesiredNameFormat, lpTranslatedName, nSize) {
+        lpAccountName := lpAccountName is String? StrPtr(lpAccountName) : lpAccountName
+        lpTranslatedName := lpTranslatedName is String? StrPtr(lpTranslatedName) : lpTranslatedName
+
         A_LastError := 0
 
         result := DllCall("SECUR32.dll\TranslateNameA", "ptr", lpAccountName, "int", AccountNameFormat, "int", DesiredNameFormat, "ptr", lpTranslatedName, "ptr", nSize, "char")
@@ -16590,6 +16695,9 @@ class Identity {
      * @since windows5.0
      */
     static TranslateNameW(lpAccountName, AccountNameFormat, DesiredNameFormat, lpTranslatedName, nSize) {
+        lpAccountName := lpAccountName is String? StrPtr(lpAccountName) : lpAccountName
+        lpTranslatedName := lpTranslatedName is String? StrPtr(lpTranslatedName) : lpTranslatedName
+
         A_LastError := 0
 
         result := DllCall("SECUR32.dll\TranslateNameW", "ptr", lpAccountName, "int", AccountNameFormat, "int", DesiredNameFormat, "ptr", lpTranslatedName, "ptr", nSize, "char")
@@ -16775,6 +16883,9 @@ class Identity {
      * @since windows8.0
      */
     static SLInstallProofOfPurchase(hSLC, pwszPKeyAlgorithm, pwszPKeyString, cbPKeySpecificData, pbPKeySpecificData, pPkeyId) {
+        pwszPKeyAlgorithm := pwszPKeyAlgorithm is String? StrPtr(pwszPKeyAlgorithm) : pwszPKeyAlgorithm
+        pwszPKeyString := pwszPKeyString is String? StrPtr(pwszPKeyString) : pwszPKeyString
+
         result := DllCall("SLC.dll\SLInstallProofOfPurchase", "ptr", hSLC, "ptr", pwszPKeyAlgorithm, "ptr", pwszPKeyString, "uint", cbPKeySpecificData, "ptr", pbPKeySpecificData, "ptr", pPkeyId, "int")
         return result
     }
@@ -17075,6 +17186,8 @@ class Identity {
     static SLConsumeRight(hSLC, pAppId, pProductSkuId, pwszRightName) {
         static pvReserved := 0 ;Reserved parameters must always be NULL
 
+        pwszRightName := pwszRightName is String? StrPtr(pwszRightName) : pwszRightName
+
         result := DllCall("SLC.dll\SLConsumeRight", "ptr", hSLC, "ptr", pAppId, "ptr", pProductSkuId, "ptr", pwszRightName, "ptr", pvReserved, "int")
         return result
     }
@@ -17218,6 +17331,8 @@ class Identity {
      * @since windows8.0
      */
     static SLGetProductSkuInformation(hSLC, pProductSkuId, pwszValueName, peDataType, pcbValue, ppbValue) {
+        pwszValueName := pwszValueName is String? StrPtr(pwszValueName) : pwszValueName
+
         result := DllCall("SLC.dll\SLGetProductSkuInformation", "ptr", hSLC, "ptr", pProductSkuId, "ptr", pwszValueName, "ptr", peDataType, "ptr", pcbValue, "ptr", ppbValue, "int")
         return result
     }
@@ -17395,6 +17510,8 @@ class Identity {
      * @since windows8.0
      */
     static SLGetPKeyInformation(hSLC, pPKeyId, pwszValueName, peDataType, pcbValue, ppbValue) {
+        pwszValueName := pwszValueName is String? StrPtr(pwszValueName) : pwszValueName
+
         result := DllCall("SLC.dll\SLGetPKeyInformation", "ptr", hSLC, "ptr", pPKeyId, "ptr", pwszValueName, "ptr", peDataType, "ptr", pcbValue, "ptr", ppbValue, "int")
         return result
     }
@@ -17538,6 +17655,8 @@ class Identity {
      * @since windows8.0
      */
     static SLGetLicenseInformation(hSLC, pSLLicenseId, pwszValueName, peDataType, pcbValue, ppbValue) {
+        pwszValueName := pwszValueName is String? StrPtr(pwszValueName) : pwszValueName
+
         result := DllCall("SLC.dll\SLGetLicenseInformation", "ptr", hSLC, "ptr", pSLLicenseId, "ptr", pwszValueName, "ptr", peDataType, "ptr", pcbValue, "ptr", ppbValue, "int")
         return result
     }
@@ -17730,6 +17849,8 @@ class Identity {
      * @since windows8.0
      */
     static SLGetLicensingStatusInformation(hSLC, pAppID, pProductSkuId, pwszRightName, pnStatusCount, ppLicensingStatus) {
+        pwszRightName := pwszRightName is String? StrPtr(pwszRightName) : pwszRightName
+
         result := DllCall("SLC.dll\SLGetLicensingStatusInformation", "ptr", hSLC, "ptr", pAppID, "ptr", pProductSkuId, "ptr", pwszRightName, "ptr", pnStatusCount, "ptr", ppLicensingStatus, "int")
         return result
     }
@@ -17842,6 +17963,8 @@ class Identity {
      * @since windows8.0
      */
     static SLGetPolicyInformation(hSLC, pwszValueName, peDataType, pcbValue, ppbValue) {
+        pwszValueName := pwszValueName is String? StrPtr(pwszValueName) : pwszValueName
+
         result := DllCall("SLC.dll\SLGetPolicyInformation", "ptr", hSLC, "ptr", pwszValueName, "ptr", peDataType, "ptr", pcbValue, "ptr", ppbValue, "int")
         return result
     }
@@ -17920,6 +18043,8 @@ class Identity {
      * @since windows8.0
      */
     static SLGetPolicyInformationDWORD(hSLC, pwszValueName, pdwValue) {
+        pwszValueName := pwszValueName is String? StrPtr(pwszValueName) : pwszValueName
+
         result := DllCall("SLC.dll\SLGetPolicyInformationDWORD", "ptr", hSLC, "ptr", pwszValueName, "ptr", pdwValue, "int")
         return result
     }
@@ -18094,6 +18219,8 @@ class Identity {
      * @since windows8.0
      */
     static SLGetServiceInformation(hSLC, pwszValueName, peDataType, pcbValue, ppbValue) {
+        pwszValueName := pwszValueName is String? StrPtr(pwszValueName) : pwszValueName
+
         result := DllCall("SLC.dll\SLGetServiceInformation", "ptr", hSLC, "ptr", pwszValueName, "ptr", peDataType, "ptr", pcbValue, "ptr", ppbValue, "int")
         return result
     }
@@ -18323,6 +18450,8 @@ class Identity {
      * @since windows8.0
      */
     static SLGetApplicationInformation(hSLC, pApplicationId, pwszValueName, peDataType, pcbValue, ppbValue) {
+        pwszValueName := pwszValueName is String? StrPtr(pwszValueName) : pwszValueName
+
         result := DllCall("SLC.dll\SLGetApplicationInformation", "ptr", hSLC, "ptr", pApplicationId, "ptr", pwszValueName, "ptr", peDataType, "ptr", pcbValue, "ptr", ppbValue, "int")
         return result
     }
@@ -18414,6 +18543,8 @@ class Identity {
      * @since windows8.0
      */
     static SLActivateProduct(hSLC, pProductSkuId, cbAppSpecificData, pvAppSpecificData, pActivationInfo, pwszProxyServer, wProxyPort) {
+        pwszProxyServer := pwszProxyServer is String? StrPtr(pwszProxyServer) : pwszProxyServer
+
         result := DllCall("slcext.dll\SLActivateProduct", "ptr", hSLC, "ptr", pProductSkuId, "uint", cbAppSpecificData, "ptr", pvAppSpecificData, "ptr", pActivationInfo, "ptr", pwszProxyServer, "ushort", wProxyPort, "int")
         return result
     }
@@ -18465,6 +18596,10 @@ class Identity {
      * @since windows8.0
      */
     static SLGetServerStatus(pwszServerURL, pwszAcquisitionType, pwszProxyServer, wProxyPort, phrStatus) {
+        pwszServerURL := pwszServerURL is String? StrPtr(pwszServerURL) : pwszServerURL
+        pwszAcquisitionType := pwszAcquisitionType is String? StrPtr(pwszAcquisitionType) : pwszAcquisitionType
+        pwszProxyServer := pwszProxyServer is String? StrPtr(pwszProxyServer) : pwszProxyServer
+
         result := DllCall("slcext.dll\SLGetServerStatus", "ptr", pwszServerURL, "ptr", pwszAcquisitionType, "ptr", pwszProxyServer, "ushort", wProxyPort, "ptr", phrStatus, "int")
         return result
     }
@@ -18519,6 +18654,8 @@ class Identity {
      * @since windows8.0
      */
     static SLGenerateOfflineInstallationId(hSLC, pProductSkuId, ppwszInstallationId) {
+        ppwszInstallationId := ppwszInstallationId is String? StrPtr(ppwszInstallationId) : ppwszInstallationId
+
         result := DllCall("SLC.dll\SLGenerateOfflineInstallationId", "ptr", hSLC, "ptr", pProductSkuId, "ptr", ppwszInstallationId, "int")
         return result
     }
@@ -18576,6 +18713,8 @@ class Identity {
      * @since windows8.0
      */
     static SLGenerateOfflineInstallationIdEx(hSLC, pProductSkuId, pActivationInfo, ppwszInstallationId) {
+        ppwszInstallationId := ppwszInstallationId is String? StrPtr(ppwszInstallationId) : ppwszInstallationId
+
         result := DllCall("SLC.dll\SLGenerateOfflineInstallationIdEx", "ptr", hSLC, "ptr", pProductSkuId, "ptr", pActivationInfo, "ptr", ppwszInstallationId, "int")
         return result
     }
@@ -18644,6 +18783,9 @@ class Identity {
      * @since windows8.0
      */
     static SLDepositOfflineConfirmationId(hSLC, pProductSkuId, pwszInstallationId, pwszConfirmationId) {
+        pwszInstallationId := pwszInstallationId is String? StrPtr(pwszInstallationId) : pwszInstallationId
+        pwszConfirmationId := pwszConfirmationId is String? StrPtr(pwszConfirmationId) : pwszConfirmationId
+
         result := DllCall("SLC.dll\SLDepositOfflineConfirmationId", "ptr", hSLC, "ptr", pProductSkuId, "ptr", pwszInstallationId, "ptr", pwszConfirmationId, "int")
         return result
     }
@@ -18715,6 +18857,9 @@ class Identity {
      * @since windows8.0
      */
     static SLDepositOfflineConfirmationIdEx(hSLC, pProductSkuId, pActivationInfo, pwszInstallationId, pwszConfirmationId) {
+        pwszInstallationId := pwszInstallationId is String? StrPtr(pwszInstallationId) : pwszInstallationId
+        pwszConfirmationId := pwszConfirmationId is String? StrPtr(pwszConfirmationId) : pwszConfirmationId
+
         result := DllCall("SLC.dll\SLDepositOfflineConfirmationIdEx", "ptr", hSLC, "ptr", pProductSkuId, "ptr", pActivationInfo, "ptr", pwszInstallationId, "ptr", pwszConfirmationId, "int")
         return result
     }
@@ -18763,6 +18908,9 @@ class Identity {
      * @since windows8.0
      */
     static SLGetPKeyId(hSLC, pwszPKeyAlgorithm, pwszPKeyString, cbPKeySpecificData, pbPKeySpecificData, pPKeyId) {
+        pwszPKeyAlgorithm := pwszPKeyAlgorithm is String? StrPtr(pwszPKeyAlgorithm) : pwszPKeyAlgorithm
+        pwszPKeyString := pwszPKeyString is String? StrPtr(pwszPKeyString) : pwszPKeyString
+
         result := DllCall("SLC.dll\SLGetPKeyId", "ptr", hSLC, "ptr", pwszPKeyAlgorithm, "ptr", pwszPKeyString, "uint", cbPKeySpecificData, "ptr", pbPKeySpecificData, "ptr", pPKeyId, "int")
         return result
     }
@@ -19323,6 +19471,8 @@ class Identity {
      * @since windows8.0
      */
     static SLFireEvent(hSLC, pwszEventId, pApplicationId) {
+        pwszEventId := pwszEventId is String? StrPtr(pwszEventId) : pwszEventId
+
         result := DllCall("SLC.dll\SLFireEvent", "ptr", hSLC, "ptr", pwszEventId, "ptr", pApplicationId, "int")
         return result
     }
@@ -19367,6 +19517,8 @@ class Identity {
      * @since windows8.0
      */
     static SLRegisterEvent(hSLC, pwszEventId, pApplicationId, hEvent) {
+        pwszEventId := pwszEventId is String? StrPtr(pwszEventId) : pwszEventId
+
         result := DllCall("SLC.dll\SLRegisterEvent", "ptr", hSLC, "ptr", pwszEventId, "ptr", pApplicationId, "ptr", hEvent, "int")
         return result
     }
@@ -19435,6 +19587,8 @@ class Identity {
      * @since windows8.0
      */
     static SLUnregisterEvent(hSLC, pwszEventId, pApplicationId, hEvent) {
+        pwszEventId := pwszEventId is String? StrPtr(pwszEventId) : pwszEventId
+
         result := DllCall("SLC.dll\SLUnregisterEvent", "ptr", hSLC, "ptr", pwszEventId, "ptr", pApplicationId, "ptr", hEvent, "int")
         return result
     }
@@ -19487,6 +19641,8 @@ class Identity {
      * @since windows6.0.6000
      */
     static SLGetWindowsInformation(pwszValueName, peDataType, pcbValue, ppbValue) {
+        pwszValueName := pwszValueName is String? StrPtr(pwszValueName) : pwszValueName
+
         result := DllCall("SLC.dll\SLGetWindowsInformation", "ptr", pwszValueName, "ptr", peDataType, "ptr", pcbValue, "ptr", ppbValue, "int")
         return result
     }
@@ -19535,6 +19691,8 @@ class Identity {
      * @since windows6.0.6000
      */
     static SLGetWindowsInformationDWORD(pwszValueName, pdwValue) {
+        pwszValueName := pwszValueName is String? StrPtr(pwszValueName) : pwszValueName
+
         result := DllCall("SLC.dll\SLGetWindowsInformationDWORD", "ptr", pwszValueName, "ptr", pdwValue, "int")
         return result
     }
@@ -19571,6 +19729,10 @@ class Identity {
      * @since windows6.0.6000
      */
     static SLAcquireGenuineTicket(ppTicketBlob, pcbTicketBlob, pwszTemplateId, pwszServerUrl, pwszClientToken) {
+        pwszTemplateId := pwszTemplateId is String? StrPtr(pwszTemplateId) : pwszTemplateId
+        pwszServerUrl := pwszServerUrl is String? StrPtr(pwszServerUrl) : pwszServerUrl
+        pwszClientToken := pwszClientToken is String? StrPtr(pwszClientToken) : pwszClientToken
+
         result := DllCall("slcext.dll\SLAcquireGenuineTicket", "ptr", ppTicketBlob, "ptr", pcbTicketBlob, "ptr", pwszTemplateId, "ptr", pwszServerUrl, "ptr", pwszClientToken, "int")
         return result
     }
@@ -19701,6 +19863,8 @@ class Identity {
      * @since windows6.0.6000
      */
     static SLSetGenuineInformation(pQueryId, pwszValueName, eDataType, cbValue, pbValue) {
+        pwszValueName := pwszValueName is String? StrPtr(pwszValueName) : pwszValueName
+
         result := DllCall("SLC.dll\SLSetGenuineInformation", "ptr", pQueryId, "ptr", pwszValueName, "uint", eDataType, "uint", cbValue, "ptr", pbValue, "int")
         return result
     }
@@ -19865,6 +20029,9 @@ class Identity {
      * @since windows8.0
      */
     static SLGetReferralInformation(hSLC, eReferralType, pSkuOrAppId, pwszValueName, ppwszValue) {
+        pwszValueName := pwszValueName is String? StrPtr(pwszValueName) : pwszValueName
+        ppwszValue := ppwszValue is String? StrPtr(ppwszValue) : ppwszValue
+
         result := DllCall("slcext.dll\SLGetReferralInformation", "ptr", hSLC, "int", eReferralType, "ptr", pSkuOrAppId, "ptr", pwszValueName, "ptr", ppwszValue, "int")
         return result
     }
@@ -19965,6 +20132,8 @@ class Identity {
      * @since windows6.0.6000
      */
     static SLGetGenuineInformation(pQueryId, pwszValueName, peDataType, pcbValue, ppbValue) {
+        pwszValueName := pwszValueName is String? StrPtr(pwszValueName) : pwszValueName
+
         result := DllCall("SLC.dll\SLGetGenuineInformation", "ptr", pQueryId, "ptr", pwszValueName, "ptr", peDataType, "ptr", pcbValue, "ptr", ppbValue, "int")
         return result
     }
@@ -20036,6 +20205,8 @@ class Identity {
      * @since windows10.0.10240
      */
     static SLQueryLicenseValueFromApp(valueName, valueType, dataBuffer, dataSize, resultDataSize) {
+        valueName := valueName is String? StrPtr(valueName) : valueName
+
         result := DllCall("api-ms-win-core-slapi-l1-1-0.dll\SLQueryLicenseValueFromApp", "ptr", valueName, "ptr", valueType, "ptr", dataBuffer, "uint", dataSize, "ptr", resultDataSize, "int")
         return result
     }

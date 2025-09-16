@@ -3691,6 +3691,8 @@ class Rras {
      * @since windows5.0
      */
     static RasDialA(param0, param1, param2, param3, param4, param5) {
+        param1 := param1 is String? StrPtr(param1) : param1
+
         result := DllCall("RASAPI32.dll\RasDialA", "ptr", param0, "ptr", param1, "ptr", param2, "uint", param3, "ptr", param4, "ptr", param5, "uint")
         return result
     }
@@ -3776,6 +3778,8 @@ class Rras {
      * @since windows5.0
      */
     static RasDialW(param0, param1, param2, param3, param4, param5) {
+        param1 := param1 is String? StrPtr(param1) : param1
+
         result := DllCall("RASAPI32.dll\RasDialW", "ptr", param0, "ptr", param1, "ptr", param2, "uint", param3, "ptr", param4, "ptr", param5, "uint")
         return result
     }
@@ -3929,6 +3933,9 @@ class Rras {
      * @since windows5.0
      */
     static RasEnumEntriesA(param0, param1, param2, param3, param4) {
+        param0 := param0 is String? StrPtr(param0) : param0
+        param1 := param1 is String? StrPtr(param1) : param1
+
         result := DllCall("RASAPI32.dll\RasEnumEntriesA", "ptr", param0, "ptr", param1, "ptr", param2, "ptr", param3, "ptr", param4, "uint")
         return result
     }
@@ -4000,6 +4007,9 @@ class Rras {
      * @since windows5.0
      */
     static RasEnumEntriesW(param0, param1, param2, param3, param4) {
+        param0 := param0 is String? StrPtr(param0) : param0
+        param1 := param1 is String? StrPtr(param1) : param1
+
         result := DllCall("RASAPI32.dll\RasEnumEntriesW", "ptr", param0, "ptr", param1, "ptr", param2, "ptr", param3, "ptr", param4, "uint")
         return result
     }
@@ -4133,6 +4143,8 @@ class Rras {
      * @since windows5.0
      */
     static RasGetErrorStringA(ResourceId, lpszString, InBufSize) {
+        lpszString := lpszString is String? StrPtr(lpszString) : lpszString
+
         result := DllCall("RASAPI32.dll\RasGetErrorStringA", "uint", ResourceId, "ptr", lpszString, "uint", InBufSize, "uint")
         return result
     }
@@ -4172,6 +4184,8 @@ class Rras {
      * @since windows5.0
      */
     static RasGetErrorStringW(ResourceId, lpszString, InBufSize) {
+        lpszString := lpszString is String? StrPtr(lpszString) : lpszString
+
         result := DllCall("RASAPI32.dll\RasGetErrorStringW", "uint", ResourceId, "ptr", lpszString, "uint", InBufSize, "uint")
         return result
     }
@@ -4525,6 +4539,8 @@ class Rras {
      * @since windows5.0
      */
     static RasCreatePhonebookEntryA(param0, param1) {
+        param1 := param1 is String? StrPtr(param1) : param1
+
         result := DllCall("RASAPI32.dll\RasCreatePhonebookEntryA", "ptr", param0, "ptr", param1, "uint")
         return result
     }
@@ -4572,6 +4588,8 @@ class Rras {
      * @since windows5.0
      */
     static RasCreatePhonebookEntryW(param0, param1) {
+        param1 := param1 is String? StrPtr(param1) : param1
+
         result := DllCall("RASAPI32.dll\RasCreatePhonebookEntryW", "ptr", param0, "ptr", param1, "uint")
         return result
     }
@@ -4641,6 +4659,9 @@ class Rras {
      * @since windows5.0
      */
     static RasEditPhonebookEntryA(param0, param1, param2) {
+        param1 := param1 is String? StrPtr(param1) : param1
+        param2 := param2 is String? StrPtr(param2) : param2
+
         result := DllCall("RASAPI32.dll\RasEditPhonebookEntryA", "ptr", param0, "ptr", param1, "ptr", param2, "uint")
         return result
     }
@@ -4710,6 +4731,9 @@ class Rras {
      * @since windows5.0
      */
     static RasEditPhonebookEntryW(param0, param1, param2) {
+        param1 := param1 is String? StrPtr(param1) : param1
+        param2 := param2 is String? StrPtr(param2) : param2
+
         result := DllCall("RASAPI32.dll\RasEditPhonebookEntryW", "ptr", param0, "ptr", param1, "ptr", param2, "uint")
         return result
     }
@@ -4783,6 +4807,8 @@ class Rras {
      * @since windows5.0
      */
     static RasSetEntryDialParamsA(param0, param1, param2) {
+        param0 := param0 is String? StrPtr(param0) : param0
+
         result := DllCall("RASAPI32.dll\RasSetEntryDialParamsA", "ptr", param0, "ptr", param1, "int", param2, "uint")
         return result
     }
@@ -4856,6 +4882,8 @@ class Rras {
      * @since windows5.0
      */
     static RasSetEntryDialParamsW(param0, param1, param2) {
+        param0 := param0 is String? StrPtr(param0) : param0
+
         result := DllCall("RASAPI32.dll\RasSetEntryDialParamsW", "ptr", param0, "ptr", param1, "int", param2, "uint")
         return result
     }
@@ -4915,6 +4943,8 @@ class Rras {
      * @since windows5.0
      */
     static RasGetEntryDialParamsA(param0, param1, param2) {
+        param0 := param0 is String? StrPtr(param0) : param0
+
         result := DllCall("RASAPI32.dll\RasGetEntryDialParamsA", "ptr", param0, "ptr", param1, "ptr", param2, "uint")
         return result
     }
@@ -4974,6 +5004,8 @@ class Rras {
      * @since windows5.0
      */
     static RasGetEntryDialParamsW(param0, param1, param2) {
+        param0 := param0 is String? StrPtr(param0) : param0
+
         result := DllCall("RASAPI32.dll\RasGetEntryDialParamsW", "ptr", param0, "ptr", param1, "ptr", param2, "uint")
         return result
     }
@@ -5364,6 +5396,9 @@ class Rras {
      * @since windows5.0
      */
     static RasGetEntryPropertiesA(param0, param1, param2, param3, param4, param5) {
+        param0 := param0 is String? StrPtr(param0) : param0
+        param1 := param1 is String? StrPtr(param1) : param1
+
         result := DllCall("RASAPI32.dll\RasGetEntryPropertiesA", "ptr", param0, "ptr", param1, "ptr", param2, "ptr", param3, "ptr", param4, "ptr", param5, "uint")
         return result
     }
@@ -5448,6 +5483,9 @@ class Rras {
      * @since windows5.0
      */
     static RasGetEntryPropertiesW(param0, param1, param2, param3, param4, param5) {
+        param0 := param0 is String? StrPtr(param0) : param0
+        param1 := param1 is String? StrPtr(param1) : param1
+
         result := DllCall("RASAPI32.dll\RasGetEntryPropertiesW", "ptr", param0, "ptr", param1, "ptr", param2, "ptr", param3, "ptr", param4, "ptr", param5, "uint")
         return result
     }
@@ -5546,6 +5584,9 @@ class Rras {
      * @since windows5.0
      */
     static RasSetEntryPropertiesA(param0, param1, param2, param3, param4, param5) {
+        param0 := param0 is String? StrPtr(param0) : param0
+        param1 := param1 is String? StrPtr(param1) : param1
+
         result := DllCall("RASAPI32.dll\RasSetEntryPropertiesA", "ptr", param0, "ptr", param1, "ptr", param2, "uint", param3, "ptr", param4, "uint", param5, "uint")
         return result
     }
@@ -5644,6 +5685,9 @@ class Rras {
      * @since windows5.0
      */
     static RasSetEntryPropertiesW(param0, param1, param2, param3, param4, param5) {
+        param0 := param0 is String? StrPtr(param0) : param0
+        param1 := param1 is String? StrPtr(param1) : param1
+
         result := DllCall("RASAPI32.dll\RasSetEntryPropertiesW", "ptr", param0, "ptr", param1, "ptr", param2, "uint", param3, "ptr", param4, "uint", param5, "uint")
         return result
     }
@@ -5725,6 +5769,10 @@ class Rras {
      * @since windows5.0
      */
     static RasRenameEntryA(param0, param1, param2) {
+        param0 := param0 is String? StrPtr(param0) : param0
+        param1 := param1 is String? StrPtr(param1) : param1
+        param2 := param2 is String? StrPtr(param2) : param2
+
         result := DllCall("RASAPI32.dll\RasRenameEntryA", "ptr", param0, "ptr", param1, "ptr", param2, "uint")
         return result
     }
@@ -5806,6 +5854,10 @@ class Rras {
      * @since windows5.0
      */
     static RasRenameEntryW(param0, param1, param2) {
+        param0 := param0 is String? StrPtr(param0) : param0
+        param1 := param1 is String? StrPtr(param1) : param1
+        param2 := param2 is String? StrPtr(param2) : param2
+
         result := DllCall("RASAPI32.dll\RasRenameEntryW", "ptr", param0, "ptr", param1, "ptr", param2, "uint")
         return result
     }
@@ -5856,6 +5908,9 @@ class Rras {
      * @since windows5.0
      */
     static RasDeleteEntryA(param0, param1) {
+        param0 := param0 is String? StrPtr(param0) : param0
+        param1 := param1 is String? StrPtr(param1) : param1
+
         result := DllCall("RASAPI32.dll\RasDeleteEntryA", "ptr", param0, "ptr", param1, "uint")
         return result
     }
@@ -5906,6 +5961,9 @@ class Rras {
      * @since windows5.0
      */
     static RasDeleteEntryW(param0, param1) {
+        param0 := param0 is String? StrPtr(param0) : param0
+        param1 := param1 is String? StrPtr(param1) : param1
+
         result := DllCall("RASAPI32.dll\RasDeleteEntryW", "ptr", param0, "ptr", param1, "uint")
         return result
     }
@@ -5966,6 +6024,9 @@ class Rras {
      * @since windows5.0
      */
     static RasValidateEntryNameA(param0, param1) {
+        param0 := param0 is String? StrPtr(param0) : param0
+        param1 := param1 is String? StrPtr(param1) : param1
+
         result := DllCall("RASAPI32.dll\RasValidateEntryNameA", "ptr", param0, "ptr", param1, "uint")
         return result
     }
@@ -6026,6 +6087,9 @@ class Rras {
      * @since windows5.0
      */
     static RasValidateEntryNameW(param0, param1) {
+        param0 := param0 is String? StrPtr(param0) : param0
+        param1 := param1 is String? StrPtr(param1) : param1
+
         result := DllCall("RASAPI32.dll\RasValidateEntryNameW", "ptr", param0, "ptr", param1, "uint")
         return result
     }
@@ -6333,6 +6397,9 @@ class Rras {
      * @since windows5.0
      */
     static RasGetCredentialsA(param0, param1, param2) {
+        param0 := param0 is String? StrPtr(param0) : param0
+        param1 := param1 is String? StrPtr(param1) : param1
+
         result := DllCall("RASAPI32.dll\RasGetCredentialsA", "ptr", param0, "ptr", param1, "ptr", param2, "uint")
         return result
     }
@@ -6432,6 +6499,9 @@ class Rras {
      * @since windows5.0
      */
     static RasGetCredentialsW(param0, param1, param2) {
+        param0 := param0 is String? StrPtr(param0) : param0
+        param1 := param1 is String? StrPtr(param1) : param1
+
         result := DllCall("RASAPI32.dll\RasGetCredentialsW", "ptr", param0, "ptr", param1, "ptr", param2, "uint")
         return result
     }
@@ -6557,6 +6627,9 @@ class Rras {
      * @since windows5.0
      */
     static RasSetCredentialsA(param0, param1, param2, param3) {
+        param0 := param0 is String? StrPtr(param0) : param0
+        param1 := param1 is String? StrPtr(param1) : param1
+
         result := DllCall("RASAPI32.dll\RasSetCredentialsA", "ptr", param0, "ptr", param1, "ptr", param2, "int", param3, "uint")
         return result
     }
@@ -6682,6 +6755,9 @@ class Rras {
      * @since windows5.0
      */
     static RasSetCredentialsW(param0, param1, param2, param3) {
+        param0 := param0 is String? StrPtr(param0) : param0
+        param1 := param1 is String? StrPtr(param1) : param1
+
         result := DllCall("RASAPI32.dll\RasSetCredentialsW", "ptr", param0, "ptr", param1, "ptr", param2, "int", param3, "uint")
         return result
     }
@@ -6777,6 +6853,9 @@ class Rras {
      * @since windows5.0
      */
     static RasGetSubEntryPropertiesA(param0, param1, param2, param3, param4, param5, param6) {
+        param0 := param0 is String? StrPtr(param0) : param0
+        param1 := param1 is String? StrPtr(param1) : param1
+
         result := DllCall("RASAPI32.dll\RasGetSubEntryPropertiesA", "ptr", param0, "ptr", param1, "uint", param2, "ptr", param3, "ptr", param4, "ptr", param5, "ptr", param6, "uint")
         return result
     }
@@ -6872,6 +6951,9 @@ class Rras {
      * @since windows5.0
      */
     static RasGetSubEntryPropertiesW(param0, param1, param2, param3, param4, param5, param6) {
+        param0 := param0 is String? StrPtr(param0) : param0
+        param1 := param1 is String? StrPtr(param1) : param1
+
         result := DllCall("RASAPI32.dll\RasGetSubEntryPropertiesW", "ptr", param0, "ptr", param1, "uint", param2, "ptr", param3, "ptr", param4, "ptr", param5, "ptr", param6, "uint")
         return result
     }
@@ -6956,6 +7038,9 @@ class Rras {
      * @since windows5.0
      */
     static RasSetSubEntryPropertiesA(param0, param1, param2, param3, param4, param5, param6) {
+        param0 := param0 is String? StrPtr(param0) : param0
+        param1 := param1 is String? StrPtr(param1) : param1
+
         result := DllCall("RASAPI32.dll\RasSetSubEntryPropertiesA", "ptr", param0, "ptr", param1, "uint", param2, "ptr", param3, "uint", param4, "ptr", param5, "uint", param6, "uint")
         return result
     }
@@ -7040,6 +7125,9 @@ class Rras {
      * @since windows5.0
      */
     static RasSetSubEntryPropertiesW(param0, param1, param2, param3, param4, param5, param6) {
+        param0 := param0 is String? StrPtr(param0) : param0
+        param1 := param1 is String? StrPtr(param1) : param1
+
         result := DllCall("RASAPI32.dll\RasSetSubEntryPropertiesW", "ptr", param0, "ptr", param1, "uint", param2, "ptr", param3, "uint", param4, "ptr", param5, "uint", param6, "uint")
         return result
     }
@@ -7131,6 +7219,8 @@ class Rras {
      * @since windows5.0
      */
     static RasGetAutodialAddressA(param0, param1, param2, param3, param4) {
+        param0 := param0 is String? StrPtr(param0) : param0
+
         result := DllCall("RASAPI32.dll\RasGetAutodialAddressA", "ptr", param0, "ptr", param1, "ptr", param2, "ptr", param3, "ptr", param4, "uint")
         return result
     }
@@ -7222,6 +7312,8 @@ class Rras {
      * @since windows5.0
      */
     static RasGetAutodialAddressW(param0, param1, param2, param3, param4) {
+        param0 := param0 is String? StrPtr(param0) : param0
+
         result := DllCall("RASAPI32.dll\RasGetAutodialAddressW", "ptr", param0, "ptr", param1, "ptr", param2, "ptr", param3, "ptr", param4, "uint")
         return result
     }
@@ -7310,6 +7402,8 @@ class Rras {
      * @since windows5.0
      */
     static RasSetAutodialAddressA(param0, param1, param2, param3, param4) {
+        param0 := param0 is String? StrPtr(param0) : param0
+
         result := DllCall("RASAPI32.dll\RasSetAutodialAddressA", "ptr", param0, "uint", param1, "ptr", param2, "uint", param3, "uint", param4, "uint")
         return result
     }
@@ -7398,6 +7492,8 @@ class Rras {
      * @since windows5.0
      */
     static RasSetAutodialAddressW(param0, param1, param2, param3, param4) {
+        param0 := param0 is String? StrPtr(param0) : param0
+
         result := DllCall("RASAPI32.dll\RasSetAutodialAddressW", "ptr", param0, "uint", param1, "ptr", param2, "uint", param3, "uint", param4, "uint")
         return result
     }
@@ -7465,6 +7561,8 @@ class Rras {
      * @since windows5.0
      */
     static RasEnumAutodialAddressesA(lppRasAutodialAddresses, lpdwcbRasAutodialAddresses, lpdwcRasAutodialAddresses) {
+        lppRasAutodialAddresses := lppRasAutodialAddresses is String? StrPtr(lppRasAutodialAddresses) : lppRasAutodialAddresses
+
         result := DllCall("RASAPI32.dll\RasEnumAutodialAddressesA", "ptr", lppRasAutodialAddresses, "ptr", lpdwcbRasAutodialAddresses, "ptr", lpdwcRasAutodialAddresses, "uint")
         return result
     }
@@ -7532,6 +7630,8 @@ class Rras {
      * @since windows5.0
      */
     static RasEnumAutodialAddressesW(lppRasAutodialAddresses, lpdwcbRasAutodialAddresses, lpdwcRasAutodialAddresses) {
+        lppRasAutodialAddresses := lppRasAutodialAddresses is String? StrPtr(lppRasAutodialAddresses) : lppRasAutodialAddresses
+
         result := DllCall("RASAPI32.dll\RasEnumAutodialAddressesW", "ptr", lppRasAutodialAddresses, "ptr", lpdwcbRasAutodialAddresses, "ptr", lpdwcRasAutodialAddresses, "uint")
         return result
     }
@@ -7806,6 +7906,8 @@ class Rras {
      * @returns {Integer} 
      */
     static RasGetPCscf(lpszPCscf) {
+        lpszPCscf := lpszPCscf is String? StrPtr(lpszPCscf) : lpszPCscf
+
         result := DllCall("RASAPI32.dll\RasGetPCscf", "ptr", lpszPCscf, "uint")
         return result
     }
@@ -8228,6 +8330,9 @@ class Rras {
      * @since windows5.0
      */
     static RasGetEapUserDataA(hToken, pszPhonebook, pszEntry, pbEapData, pdwSizeofEapData) {
+        pszPhonebook := pszPhonebook is String? StrPtr(pszPhonebook) : pszPhonebook
+        pszEntry := pszEntry is String? StrPtr(pszEntry) : pszEntry
+
         result := DllCall("RASAPI32.dll\RasGetEapUserDataA", "ptr", hToken, "ptr", pszPhonebook, "ptr", pszEntry, "ptr", pbEapData, "ptr", pdwSizeofEapData, "uint")
         return result
     }
@@ -8320,6 +8425,9 @@ class Rras {
      * @since windows5.0
      */
     static RasGetEapUserDataW(hToken, pszPhonebook, pszEntry, pbEapData, pdwSizeofEapData) {
+        pszPhonebook := pszPhonebook is String? StrPtr(pszPhonebook) : pszPhonebook
+        pszEntry := pszEntry is String? StrPtr(pszEntry) : pszEntry
+
         result := DllCall("RASAPI32.dll\RasGetEapUserDataW", "ptr", hToken, "ptr", pszPhonebook, "ptr", pszEntry, "ptr", pbEapData, "ptr", pdwSizeofEapData, "uint")
         return result
     }
@@ -8393,6 +8501,9 @@ class Rras {
      * @since windows5.0
      */
     static RasSetEapUserDataA(hToken, pszPhonebook, pszEntry, pbEapData, dwSizeofEapData) {
+        pszPhonebook := pszPhonebook is String? StrPtr(pszPhonebook) : pszPhonebook
+        pszEntry := pszEntry is String? StrPtr(pszEntry) : pszEntry
+
         result := DllCall("RASAPI32.dll\RasSetEapUserDataA", "ptr", hToken, "ptr", pszPhonebook, "ptr", pszEntry, "ptr", pbEapData, "uint", dwSizeofEapData, "uint")
         return result
     }
@@ -8466,6 +8577,9 @@ class Rras {
      * @since windows5.0
      */
     static RasSetEapUserDataW(hToken, pszPhonebook, pszEntry, pbEapData, dwSizeofEapData) {
+        pszPhonebook := pszPhonebook is String? StrPtr(pszPhonebook) : pszPhonebook
+        pszEntry := pszEntry is String? StrPtr(pszEntry) : pszEntry
+
         result := DllCall("RASAPI32.dll\RasSetEapUserDataW", "ptr", hToken, "ptr", pszPhonebook, "ptr", pszEntry, "ptr", pbEapData, "uint", dwSizeofEapData, "uint")
         return result
     }
@@ -8557,6 +8671,9 @@ class Rras {
      * @since windows5.0
      */
     static RasGetCustomAuthDataA(pszPhonebook, pszEntry, pbCustomAuthData, pdwSizeofCustomAuthData) {
+        pszPhonebook := pszPhonebook is String? StrPtr(pszPhonebook) : pszPhonebook
+        pszEntry := pszEntry is String? StrPtr(pszEntry) : pszEntry
+
         result := DllCall("RASAPI32.dll\RasGetCustomAuthDataA", "ptr", pszPhonebook, "ptr", pszEntry, "ptr", pbCustomAuthData, "ptr", pdwSizeofCustomAuthData, "uint")
         return result
     }
@@ -8648,6 +8765,9 @@ class Rras {
      * @since windows5.0
      */
     static RasGetCustomAuthDataW(pszPhonebook, pszEntry, pbCustomAuthData, pdwSizeofCustomAuthData) {
+        pszPhonebook := pszPhonebook is String? StrPtr(pszPhonebook) : pszPhonebook
+        pszEntry := pszEntry is String? StrPtr(pszEntry) : pszEntry
+
         result := DllCall("RASAPI32.dll\RasGetCustomAuthDataW", "ptr", pszPhonebook, "ptr", pszEntry, "ptr", pbCustomAuthData, "ptr", pdwSizeofCustomAuthData, "uint")
         return result
     }
@@ -8722,6 +8842,9 @@ class Rras {
      * @since windows5.0
      */
     static RasSetCustomAuthDataA(pszPhonebook, pszEntry, pbCustomAuthData, dwSizeofCustomAuthData) {
+        pszPhonebook := pszPhonebook is String? StrPtr(pszPhonebook) : pszPhonebook
+        pszEntry := pszEntry is String? StrPtr(pszEntry) : pszEntry
+
         result := DllCall("RASAPI32.dll\RasSetCustomAuthDataA", "ptr", pszPhonebook, "ptr", pszEntry, "ptr", pbCustomAuthData, "uint", dwSizeofCustomAuthData, "uint")
         return result
     }
@@ -8796,6 +8919,9 @@ class Rras {
      * @since windows5.0
      */
     static RasSetCustomAuthDataW(pszPhonebook, pszEntry, pbCustomAuthData, dwSizeofCustomAuthData) {
+        pszPhonebook := pszPhonebook is String? StrPtr(pszPhonebook) : pszPhonebook
+        pszEntry := pszEntry is String? StrPtr(pszEntry) : pszEntry
+
         result := DllCall("RASAPI32.dll\RasSetCustomAuthDataW", "ptr", pszPhonebook, "ptr", pszEntry, "ptr", pbCustomAuthData, "uint", dwSizeofCustomAuthData, "uint")
         return result
     }
@@ -8939,6 +9065,9 @@ class Rras {
      * @since windows5.0
      */
     static RasGetEapUserIdentityW(pszPhonebook, pszEntry, dwFlags, hwnd, ppRasEapUserIdentity) {
+        pszPhonebook := pszPhonebook is String? StrPtr(pszPhonebook) : pszPhonebook
+        pszEntry := pszEntry is String? StrPtr(pszEntry) : pszEntry
+
         result := DllCall("RASAPI32.dll\RasGetEapUserIdentityW", "ptr", pszPhonebook, "ptr", pszEntry, "uint", dwFlags, "ptr", hwnd, "ptr", ppRasEapUserIdentity, "uint")
         return result
     }
@@ -9082,6 +9211,9 @@ class Rras {
      * @since windows5.0
      */
     static RasGetEapUserIdentityA(pszPhonebook, pszEntry, dwFlags, hwnd, ppRasEapUserIdentity) {
+        pszPhonebook := pszPhonebook is String? StrPtr(pszPhonebook) : pszPhonebook
+        pszEntry := pszEntry is String? StrPtr(pszEntry) : pszEntry
+
         result := DllCall("RASAPI32.dll\RasGetEapUserIdentityA", "ptr", pszPhonebook, "ptr", pszEntry, "uint", dwFlags, "ptr", hwnd, "ptr", ppRasEapUserIdentity, "uint")
         return result
     }
@@ -9147,6 +9279,9 @@ class Rras {
      * @since windows5.1.2600
      */
     static RasDeleteSubEntryA(pszPhonebook, pszEntry, dwSubentryId) {
+        pszPhonebook := pszPhonebook is String? StrPtr(pszPhonebook) : pszPhonebook
+        pszEntry := pszEntry is String? StrPtr(pszEntry) : pszEntry
+
         result := DllCall("RASAPI32.dll\RasDeleteSubEntryA", "ptr", pszPhonebook, "ptr", pszEntry, "uint", dwSubentryId, "uint")
         return result
     }
@@ -9166,6 +9301,9 @@ class Rras {
      * @since windows5.1.2600
      */
     static RasDeleteSubEntryW(pszPhonebook, pszEntry, dwSubEntryId) {
+        pszPhonebook := pszPhonebook is String? StrPtr(pszPhonebook) : pszPhonebook
+        pszEntry := pszEntry is String? StrPtr(pszEntry) : pszEntry
+
         result := DllCall("RASAPI32.dll\RasDeleteSubEntryW", "ptr", pszPhonebook, "ptr", pszEntry, "uint", dwSubEntryId, "uint")
         return result
     }
@@ -9305,6 +9443,9 @@ class Rras {
      * @since windows5.0
      */
     static RasPhonebookDlgA(lpszPhonebook, lpszEntry, lpInfo) {
+        lpszPhonebook := lpszPhonebook is String? StrPtr(lpszPhonebook) : lpszPhonebook
+        lpszEntry := lpszEntry is String? StrPtr(lpszEntry) : lpszEntry
+
         result := DllCall("RASDLG.dll\RasPhonebookDlgA", "ptr", lpszPhonebook, "ptr", lpszEntry, "ptr", lpInfo, "int")
         return result
     }
@@ -9339,6 +9480,9 @@ class Rras {
      * @since windows5.0
      */
     static RasPhonebookDlgW(lpszPhonebook, lpszEntry, lpInfo) {
+        lpszPhonebook := lpszPhonebook is String? StrPtr(lpszPhonebook) : lpszPhonebook
+        lpszEntry := lpszEntry is String? StrPtr(lpszEntry) : lpszEntry
+
         result := DllCall("RASDLG.dll\RasPhonebookDlgW", "ptr", lpszPhonebook, "ptr", lpszEntry, "ptr", lpInfo, "int")
         return result
     }
@@ -9379,6 +9523,9 @@ class Rras {
      * @since windows5.0
      */
     static RasEntryDlgA(lpszPhonebook, lpszEntry, lpInfo) {
+        lpszPhonebook := lpszPhonebook is String? StrPtr(lpszPhonebook) : lpszPhonebook
+        lpszEntry := lpszEntry is String? StrPtr(lpszEntry) : lpszEntry
+
         result := DllCall("RASDLG.dll\RasEntryDlgA", "ptr", lpszPhonebook, "ptr", lpszEntry, "ptr", lpInfo, "int")
         return result
     }
@@ -9419,6 +9566,9 @@ class Rras {
      * @since windows5.0
      */
     static RasEntryDlgW(lpszPhonebook, lpszEntry, lpInfo) {
+        lpszPhonebook := lpszPhonebook is String? StrPtr(lpszPhonebook) : lpszPhonebook
+        lpszEntry := lpszEntry is String? StrPtr(lpszEntry) : lpszEntry
+
         result := DllCall("RASDLG.dll\RasEntryDlgW", "ptr", lpszPhonebook, "ptr", lpszEntry, "ptr", lpInfo, "int")
         return result
     }
@@ -9455,6 +9605,10 @@ class Rras {
      * @since windows5.0
      */
     static RasDialDlgA(lpszPhonebook, lpszEntry, lpszPhoneNumber, lpInfo) {
+        lpszPhonebook := lpszPhonebook is String? StrPtr(lpszPhonebook) : lpszPhonebook
+        lpszEntry := lpszEntry is String? StrPtr(lpszEntry) : lpszEntry
+        lpszPhoneNumber := lpszPhoneNumber is String? StrPtr(lpszPhoneNumber) : lpszPhoneNumber
+
         result := DllCall("RASDLG.dll\RasDialDlgA", "ptr", lpszPhonebook, "ptr", lpszEntry, "ptr", lpszPhoneNumber, "ptr", lpInfo, "int")
         return result
     }
@@ -9491,6 +9645,10 @@ class Rras {
      * @since windows5.0
      */
     static RasDialDlgW(lpszPhonebook, lpszEntry, lpszPhoneNumber, lpInfo) {
+        lpszPhonebook := lpszPhonebook is String? StrPtr(lpszPhonebook) : lpszPhonebook
+        lpszEntry := lpszEntry is String? StrPtr(lpszEntry) : lpszEntry
+        lpszPhoneNumber := lpszPhoneNumber is String? StrPtr(lpszPhoneNumber) : lpszPhoneNumber
+
         result := DllCall("RASDLG.dll\RasDialDlgW", "ptr", lpszPhonebook, "ptr", lpszEntry, "ptr", lpszPhoneNumber, "ptr", lpInfo, "int")
         return result
     }
@@ -9994,6 +10152,8 @@ class Rras {
      * @since windowsserver2008
      */
     static MprAdminIsServiceInitialized(lpwsServerName, fIsServiceInitialized) {
+        lpwsServerName := lpwsServerName is String? StrPtr(lpwsServerName) : lpwsServerName
+
         result := DllCall("MPRAPI.dll\MprAdminIsServiceInitialized", "ptr", lpwsServerName, "ptr", fIsServiceInitialized, "uint")
         return result
     }
@@ -11197,6 +11357,9 @@ class Rras {
      * @since windows5.0
      */
     static MprAdminUserGetInfo(lpszServer, lpszUser, dwLevel, lpbBuffer) {
+        lpszServer := lpszServer is String? StrPtr(lpszServer) : lpszServer
+        lpszUser := lpszUser is String? StrPtr(lpszUser) : lpszUser
+
         result := DllCall("MPRAPI.dll\MprAdminUserGetInfo", "ptr", lpszServer, "ptr", lpszUser, "uint", dwLevel, "ptr", lpbBuffer, "uint")
         return result
     }
@@ -11286,6 +11449,9 @@ class Rras {
      * @since windows5.0
      */
     static MprAdminUserSetInfo(lpszServer, lpszUser, dwLevel, lpbBuffer) {
+        lpszServer := lpszServer is String? StrPtr(lpszServer) : lpszServer
+        lpszUser := lpszUser is String? StrPtr(lpszUser) : lpszUser
+
         result := DllCall("MPRAPI.dll\MprAdminUserSetInfo", "ptr", lpszServer, "ptr", lpszUser, "uint", dwLevel, "ptr", lpbBuffer, "uint")
         return result
     }
@@ -11355,6 +11521,8 @@ class Rras {
      * @since windows5.0
      */
     static MprAdminSendUserMessage(hMprServer, hConnection, lpwszMessage) {
+        lpwszMessage := lpwszMessage is String? StrPtr(lpwszMessage) : lpwszMessage
+
         result := DllCall("MPRAPI.dll\MprAdminSendUserMessage", "ptr", hMprServer, "ptr", hConnection, "ptr", lpwszMessage, "uint")
         return result
     }
@@ -11418,6 +11586,10 @@ class Rras {
      * @since windows5.0
      */
     static MprAdminGetPDCServer(lpszDomain, lpszServer, lpszPDCServer) {
+        lpszDomain := lpszDomain is String? StrPtr(lpszDomain) : lpszDomain
+        lpszServer := lpszServer is String? StrPtr(lpszServer) : lpszServer
+        lpszPDCServer := lpszPDCServer is String? StrPtr(lpszPDCServer) : lpszPDCServer
+
         result := DllCall("MPRAPI.dll\MprAdminGetPDCServer", "ptr", lpszDomain, "ptr", lpszServer, "ptr", lpszPDCServer, "uint")
         return result
     }
@@ -11461,6 +11633,8 @@ class Rras {
      * @since windowsserver2000
      */
     static MprAdminIsServiceRunning(lpwsServerName) {
+        lpwsServerName := lpwsServerName is String? StrPtr(lpwsServerName) : lpwsServerName
+
         result := DllCall("MPRAPI.dll\MprAdminIsServiceRunning", "ptr", lpwsServerName, "int")
         return result
     }
@@ -11518,6 +11692,8 @@ class Rras {
      * @since windowsserver2000
      */
     static MprAdminServerConnect(lpwsServerName, phMprServer) {
+        lpwsServerName := lpwsServerName is String? StrPtr(lpwsServerName) : lpwsServerName
+
         result := DllCall("MPRAPI.dll\MprAdminServerConnect", "ptr", lpwsServerName, "ptr", phMprServer, "uint")
         return result
     }
@@ -11757,6 +11933,8 @@ class Rras {
      * @since windowsserver2000
      */
     static MprAdminGetErrorString(dwError, lplpwsErrorString) {
+        lplpwsErrorString := lplpwsErrorString is String? StrPtr(lplpwsErrorString) : lplpwsErrorString
+
         result := DllCall("MPRAPI.dll\MprAdminGetErrorString", "uint", dwError, "ptr", lplpwsErrorString, "uint")
         return result
     }
@@ -12034,6 +12212,9 @@ class Rras {
      * @since windowsserver2003
      */
     static MprAdminEstablishDomainRasServer(pszDomain, pszMachine, bEnable) {
+        pszDomain := pszDomain is String? StrPtr(pszDomain) : pszDomain
+        pszMachine := pszMachine is String? StrPtr(pszMachine) : pszMachine
+
         result := DllCall("MPRAPI.dll\MprAdminEstablishDomainRasServer", "ptr", pszDomain, "ptr", pszMachine, "int", bEnable, "uint")
         return result
     }
@@ -12103,6 +12284,9 @@ class Rras {
      * @since windowsserver2003
      */
     static MprAdminIsDomainRasServer(pszDomain, pszMachine, pbIsRasServer) {
+        pszDomain := pszDomain is String? StrPtr(pszDomain) : pszDomain
+        pszMachine := pszMachine is String? StrPtr(pszMachine) : pszMachine
+
         result := DllCall("MPRAPI.dll\MprAdminIsDomainRasServer", "ptr", pszDomain, "ptr", pszMachine, "ptr", pbIsRasServer, "uint")
         return result
     }
@@ -12220,6 +12404,9 @@ class Rras {
      * @since windowsserver2000
      */
     static MprAdminTransportCreate(hMprServer, dwTransportId, lpwsTransportName, pGlobalInfo, dwGlobalInfoSize, pClientInterfaceInfo, dwClientInterfaceInfoSize, lpwsDLLPath) {
+        lpwsTransportName := lpwsTransportName is String? StrPtr(lpwsTransportName) : lpwsTransportName
+        lpwsDLLPath := lpwsDLLPath is String? StrPtr(lpwsDLLPath) : lpwsDLLPath
+
         result := DllCall("MPRAPI.dll\MprAdminTransportCreate", "ptr", hMprServer, "uint", dwTransportId, "ptr", lpwsTransportName, "ptr", pGlobalInfo, "uint", dwGlobalInfoSize, "ptr", pClientInterfaceInfo, "uint", dwClientInterfaceInfoSize, "ptr", lpwsDLLPath, "uint")
         return result
     }
@@ -12574,6 +12761,8 @@ class Rras {
      * @since windowsserver2000
      */
     static MprAdminInterfaceGetHandle(hMprServer, lpwsInterfaceName, phInterface, fIncludeClientInterfaces) {
+        lpwsInterfaceName := lpwsInterfaceName is String? StrPtr(lpwsInterfaceName) : lpwsInterfaceName
+
         result := DllCall("MPRAPI.dll\MprAdminInterfaceGetHandle", "ptr", hMprServer, "ptr", lpwsInterfaceName, "ptr", phInterface, "int", fIncludeClientInterfaces, "uint")
         return result
     }
@@ -13834,6 +14023,12 @@ class Rras {
      * @since windowsserver2000
      */
     static MprAdminInterfaceSetCredentials(lpwsServer, lpwsInterfaceName, lpwsUserName, lpwsDomainName, lpwsPassword) {
+        lpwsServer := lpwsServer is String? StrPtr(lpwsServer) : lpwsServer
+        lpwsInterfaceName := lpwsInterfaceName is String? StrPtr(lpwsInterfaceName) : lpwsInterfaceName
+        lpwsUserName := lpwsUserName is String? StrPtr(lpwsUserName) : lpwsUserName
+        lpwsDomainName := lpwsDomainName is String? StrPtr(lpwsDomainName) : lpwsDomainName
+        lpwsPassword := lpwsPassword is String? StrPtr(lpwsPassword) : lpwsPassword
+
         result := DllCall("MPRAPI.dll\MprAdminInterfaceSetCredentials", "ptr", lpwsServer, "ptr", lpwsInterfaceName, "ptr", lpwsUserName, "ptr", lpwsDomainName, "ptr", lpwsPassword, "uint")
         return result
     }
@@ -13935,6 +14130,12 @@ class Rras {
      * @since windowsserver2000
      */
     static MprAdminInterfaceGetCredentials(lpwsServer, lpwsInterfaceName, lpwsUserName, lpwsPassword, lpwsDomainName) {
+        lpwsServer := lpwsServer is String? StrPtr(lpwsServer) : lpwsServer
+        lpwsInterfaceName := lpwsInterfaceName is String? StrPtr(lpwsInterfaceName) : lpwsInterfaceName
+        lpwsUserName := lpwsUserName is String? StrPtr(lpwsUserName) : lpwsUserName
+        lpwsPassword := lpwsPassword is String? StrPtr(lpwsPassword) : lpwsPassword
+        lpwsDomainName := lpwsDomainName is String? StrPtr(lpwsDomainName) : lpwsDomainName
+
         result := DllCall("MPRAPI.dll\MprAdminInterfaceGetCredentials", "ptr", lpwsServer, "ptr", lpwsInterfaceName, "ptr", lpwsUserName, "ptr", lpwsPassword, "ptr", lpwsDomainName, "uint")
         return result
     }
@@ -14918,6 +15119,8 @@ class Rras {
      * @since windowsserver2000
      */
     static MprAdminMIBServerConnect(lpwsServerName, phMibServer) {
+        lpwsServerName := lpwsServerName is String? StrPtr(lpwsServerName) : lpwsServerName
+
         result := DllCall("MPRAPI.dll\MprAdminMIBServerConnect", "ptr", lpwsServerName, "ptr", phMibServer, "uint")
         return result
     }
@@ -15528,6 +15731,8 @@ class Rras {
      * @since windowsserver2000
      */
     static MprConfigServerConnect(lpwsServerName, phMprConfig) {
+        lpwsServerName := lpwsServerName is String? StrPtr(lpwsServerName) : lpwsServerName
+
         result := DllCall("MPRAPI.dll\MprConfigServerConnect", "ptr", lpwsServerName, "ptr", phMprConfig, "uint")
         return result
     }
@@ -15844,6 +16049,8 @@ class Rras {
      * @since windowsserver2000
      */
     static MprConfigServerBackup(hMprConfig, lpwsPath) {
+        lpwsPath := lpwsPath is String? StrPtr(lpwsPath) : lpwsPath
+
         result := DllCall("MPRAPI.dll\MprConfigServerBackup", "ptr", hMprConfig, "ptr", lpwsPath, "uint")
         return result
     }
@@ -15905,6 +16112,8 @@ class Rras {
      * @since windowsserver2000
      */
     static MprConfigServerRestore(hMprConfig, lpwsPath) {
+        lpwsPath := lpwsPath is String? StrPtr(lpwsPath) : lpwsPath
+
         result := DllCall("MPRAPI.dll\MprConfigServerRestore", "ptr", hMprConfig, "ptr", lpwsPath, "uint")
         return result
     }
@@ -16013,6 +16222,9 @@ class Rras {
      * @since windowsserver2000
      */
     static MprConfigTransportCreate(hMprConfig, dwTransportId, lpwsTransportName, pGlobalInfo, dwGlobalInfoSize, pClientInterfaceInfo, dwClientInterfaceInfoSize, lpwsDLLPath, phRouterTransport) {
+        lpwsTransportName := lpwsTransportName is String? StrPtr(lpwsTransportName) : lpwsTransportName
+        lpwsDLLPath := lpwsDLLPath is String? StrPtr(lpwsDLLPath) : lpwsDLLPath
+
         result := DllCall("MPRAPI.dll\MprConfigTransportCreate", "ptr", hMprConfig, "uint", dwTransportId, "ptr", lpwsTransportName, "ptr", pGlobalInfo, "uint", dwGlobalInfoSize, "ptr", pClientInterfaceInfo, "uint", dwClientInterfaceInfoSize, "ptr", lpwsDLLPath, "ptr", phRouterTransport, "uint")
         return result
     }
@@ -16274,6 +16486,8 @@ class Rras {
      * @since windowsserver2000
      */
     static MprConfigTransportSetInfo(hMprConfig, hRouterTransport, pGlobalInfo, dwGlobalInfoSize, pClientInterfaceInfo, dwClientInterfaceInfoSize, lpwsDLLPath) {
+        lpwsDLLPath := lpwsDLLPath is String? StrPtr(lpwsDLLPath) : lpwsDLLPath
+
         result := DllCall("MPRAPI.dll\MprConfigTransportSetInfo", "ptr", hMprConfig, "ptr", hRouterTransport, "ptr", pGlobalInfo, "uint", dwGlobalInfoSize, "ptr", pClientInterfaceInfo, "uint", dwClientInterfaceInfoSize, "ptr", lpwsDLLPath, "uint")
         return result
     }
@@ -16396,6 +16610,8 @@ class Rras {
      * @since windowsserver2000
      */
     static MprConfigTransportGetInfo(hMprConfig, hRouterTransport, ppGlobalInfo, lpdwGlobalInfoSize, ppClientInterfaceInfo, lpdwClientInterfaceInfoSize, lplpwsDLLPath) {
+        lplpwsDLLPath := lplpwsDLLPath is String? StrPtr(lplpwsDLLPath) : lplpwsDLLPath
+
         result := DllCall("MPRAPI.dll\MprConfigTransportGetInfo", "ptr", hMprConfig, "ptr", hRouterTransport, "ptr", ppGlobalInfo, "ptr", lpdwGlobalInfoSize, "ptr", ppClientInterfaceInfo, "ptr", lpdwClientInterfaceInfoSize, "ptr", lplpwsDLLPath, "uint")
         return result
     }
@@ -16747,6 +16963,8 @@ class Rras {
      * @since windowsserver2000
      */
     static MprConfigInterfaceGetHandle(hMprConfig, lpwsInterfaceName, phRouterInterface) {
+        lpwsInterfaceName := lpwsInterfaceName is String? StrPtr(lpwsInterfaceName) : lpwsInterfaceName
+
         result := DllCall("MPRAPI.dll\MprConfigInterfaceGetHandle", "ptr", hMprConfig, "ptr", lpwsInterfaceName, "ptr", phRouterInterface, "uint")
         return result
     }
@@ -17182,6 +17400,8 @@ class Rras {
      * @since windowsserver2000
      */
     static MprConfigInterfaceTransportAdd(hMprConfig, hRouterInterface, dwTransportId, lpwsTransportName, pInterfaceInfo, dwInterfaceInfoSize, phRouterIfTransport) {
+        lpwsTransportName := lpwsTransportName is String? StrPtr(lpwsTransportName) : lpwsTransportName
+
         result := DllCall("MPRAPI.dll\MprConfigInterfaceTransportAdd", "ptr", hMprConfig, "ptr", hRouterInterface, "uint", dwTransportId, "ptr", lpwsTransportName, "ptr", pInterfaceInfo, "uint", dwInterfaceInfoSize, "ptr", phRouterIfTransport, "uint")
         return result
     }
@@ -17721,6 +17941,9 @@ class Rras {
      * @since windowsserver2000
      */
     static MprConfigGetFriendlyName(hMprConfig, pszGuidName, pszBuffer, dwBufferSize) {
+        pszGuidName := pszGuidName is String? StrPtr(pszGuidName) : pszGuidName
+        pszBuffer := pszBuffer is String? StrPtr(pszBuffer) : pszBuffer
+
         result := DllCall("MPRAPI.dll\MprConfigGetFriendlyName", "ptr", hMprConfig, "ptr", pszGuidName, "ptr", pszBuffer, "uint", dwBufferSize, "uint")
         return result
     }
@@ -17783,6 +18006,9 @@ class Rras {
      * @since windowsserver2000
      */
     static MprConfigGetGuidName(hMprConfig, pszFriendlyName, pszBuffer, dwBufferSize) {
+        pszFriendlyName := pszFriendlyName is String? StrPtr(pszFriendlyName) : pszFriendlyName
+        pszBuffer := pszBuffer is String? StrPtr(pszBuffer) : pszBuffer
+
         result := DllCall("MPRAPI.dll\MprConfigGetGuidName", "ptr", hMprConfig, "ptr", pszFriendlyName, "ptr", pszBuffer, "uint", dwBufferSize, "uint")
         return result
     }

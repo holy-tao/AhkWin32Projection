@@ -1676,6 +1676,8 @@ class Authorization {
      * @since windows5.1.2600
      */
     static AuthzInitializeResourceManager(Flags, pfnDynamicAccessCheck, pfnComputeDynamicGroups, pfnFreeDynamicGroups, szResourceManagerName, phAuthzResourceManager) {
+        szResourceManagerName := szResourceManagerName is String? StrPtr(szResourceManagerName) : szResourceManagerName
+
         A_LastError := 0
 
         result := DllCall("AUTHZ.dll\AuthzInitializeResourceManager", "uint", Flags, "ptr", pfnDynamicAccessCheck, "ptr", pfnComputeDynamicGroups, "ptr", pfnFreeDynamicGroups, "ptr", szResourceManagerName, "ptr", phAuthzResourceManager, "int")
@@ -2128,6 +2130,11 @@ class Authorization {
      * @since windows5.1.2600
      */
     static AuthzInitializeObjectAccessAuditEvent(Flags, hAuditEventType, szOperationType, szObjectType, szObjectName, szAdditionalInfo, phAuditEvent, dwAdditionalParameterCount) {
+        szOperationType := szOperationType is String? StrPtr(szOperationType) : szOperationType
+        szObjectType := szObjectType is String? StrPtr(szObjectType) : szObjectType
+        szObjectName := szObjectName is String? StrPtr(szObjectName) : szObjectName
+        szAdditionalInfo := szAdditionalInfo is String? StrPtr(szAdditionalInfo) : szAdditionalInfo
+
         A_LastError := 0
 
         result := DllCall("AUTHZ.dll\AuthzInitializeObjectAccessAuditEvent", "uint", Flags, "ptr", hAuditEventType, "ptr", szOperationType, "ptr", szObjectType, "ptr", szObjectName, "ptr", szAdditionalInfo, "ptr", phAuditEvent, "uint", dwAdditionalParameterCount, "CDecl int")
@@ -2192,6 +2199,12 @@ class Authorization {
      * @since windowsserver2003
      */
     static AuthzInitializeObjectAccessAuditEvent2(Flags, hAuditEventType, szOperationType, szObjectType, szObjectName, szAdditionalInfo, szAdditionalInfo2, phAuditEvent, dwAdditionalParameterCount) {
+        szOperationType := szOperationType is String? StrPtr(szOperationType) : szOperationType
+        szObjectType := szObjectType is String? StrPtr(szObjectType) : szObjectType
+        szObjectName := szObjectName is String? StrPtr(szObjectName) : szObjectName
+        szAdditionalInfo := szAdditionalInfo is String? StrPtr(szAdditionalInfo) : szAdditionalInfo
+        szAdditionalInfo2 := szAdditionalInfo2 is String? StrPtr(szAdditionalInfo2) : szAdditionalInfo2
+
         A_LastError := 0
 
         result := DllCall("AUTHZ.dll\AuthzInitializeObjectAccessAuditEvent2", "uint", Flags, "ptr", hAuditEventType, "ptr", szOperationType, "ptr", szObjectType, "ptr", szObjectName, "ptr", szAdditionalInfo, "ptr", szAdditionalInfo2, "ptr", phAuditEvent, "uint", dwAdditionalParameterCount, "CDecl int")
@@ -2288,6 +2301,8 @@ class Authorization {
      * @since windowsserver2003
      */
     static AuthzUninstallSecurityEventSource(dwFlags, szEventSourceName) {
+        szEventSourceName := szEventSourceName is String? StrPtr(szEventSourceName) : szEventSourceName
+
         A_LastError := 0
 
         result := DllCall("AUTHZ.dll\AuthzUninstallSecurityEventSource", "uint", dwFlags, "ptr", szEventSourceName, "int")
@@ -2342,6 +2357,8 @@ class Authorization {
      * @since windowsserver2003
      */
     static AuthzRegisterSecurityEventSource(dwFlags, szEventSourceName, phEventProvider) {
+        szEventSourceName := szEventSourceName is String? StrPtr(szEventSourceName) : szEventSourceName
+
         A_LastError := 0
 
         result := DllCall("AUTHZ.dll\AuthzRegisterSecurityEventSource", "uint", dwFlags, "ptr", szEventSourceName, "ptr", phEventProvider, "int")
@@ -2858,6 +2875,8 @@ class Authorization {
      * @since windows5.1.2600
      */
     static GetNamedSecurityInfoA(pObjectName, ObjectType, SecurityInfo, ppsidOwner, ppsidGroup, ppDacl, ppSacl, ppSecurityDescriptor) {
+        pObjectName := pObjectName is String? StrPtr(pObjectName) : pObjectName
+
         result := DllCall("ADVAPI32.dll\GetNamedSecurityInfoA", "ptr", pObjectName, "int", ObjectType, "uint", SecurityInfo, "ptr", ppsidOwner, "ptr", ppsidGroup, "ptr", ppDacl, "ptr", ppSacl, "ptr", ppSecurityDescriptor, "uint")
         return result
     }
@@ -2909,6 +2928,8 @@ class Authorization {
      * @since windows5.1.2600
      */
     static GetNamedSecurityInfoW(pObjectName, ObjectType, SecurityInfo, ppsidOwner, ppsidGroup, ppDacl, ppSacl, ppSecurityDescriptor) {
+        pObjectName := pObjectName is String? StrPtr(pObjectName) : pObjectName
+
         result := DllCall("ADVAPI32.dll\GetNamedSecurityInfoW", "ptr", pObjectName, "int", ObjectType, "uint", SecurityInfo, "ptr", ppsidOwner, "ptr", ppsidGroup, "ptr", ppDacl, "ptr", ppSacl, "ptr", ppSecurityDescriptor, "uint")
         return result
     }
@@ -3009,6 +3030,8 @@ class Authorization {
      * @since windows5.1.2600
      */
     static SetNamedSecurityInfoA(pObjectName, ObjectType, SecurityInfo, psidOwner, psidGroup, pDacl, pSacl) {
+        pObjectName := pObjectName is String? StrPtr(pObjectName) : pObjectName
+
         result := DllCall("ADVAPI32.dll\SetNamedSecurityInfoA", "ptr", pObjectName, "int", ObjectType, "uint", SecurityInfo, "ptr", psidOwner, "ptr", psidGroup, "ptr", pDacl, "ptr", pSacl, "uint")
         return result
     }
@@ -3061,6 +3084,8 @@ class Authorization {
      * @since windows5.1.2600
      */
     static SetNamedSecurityInfoW(pObjectName, ObjectType, SecurityInfo, psidOwner, psidGroup, pDacl, pSacl) {
+        pObjectName := pObjectName is String? StrPtr(pObjectName) : pObjectName
+
         result := DllCall("ADVAPI32.dll\SetNamedSecurityInfoW", "ptr", pObjectName, "int", ObjectType, "uint", SecurityInfo, "ptr", psidOwner, "ptr", psidGroup, "ptr", pDacl, "ptr", pSacl, "uint")
         return result
     }
@@ -3146,6 +3171,8 @@ class Authorization {
      * @since windows5.1.2600
      */
     static GetInheritanceSourceA(pObjectName, ObjectType, SecurityInfo, Container, pObjectClassGuids, GuidCount, pAcl, pfnArray, pGenericMapping, pInheritArray) {
+        pObjectName := pObjectName is String? StrPtr(pObjectName) : pObjectName
+
         result := DllCall("ADVAPI32.dll\GetInheritanceSourceA", "ptr", pObjectName, "int", ObjectType, "uint", SecurityInfo, "int", Container, "ptr", pObjectClassGuids, "uint", GuidCount, "ptr", pAcl, "ptr", pfnArray, "ptr", pGenericMapping, "ptr", pInheritArray, "uint")
         return result
     }
@@ -3181,6 +3208,8 @@ class Authorization {
      * @since windows5.1.2600
      */
     static GetInheritanceSourceW(pObjectName, ObjectType, SecurityInfo, Container, pObjectClassGuids, GuidCount, pAcl, pfnArray, pGenericMapping, pInheritArray) {
+        pObjectName := pObjectName is String? StrPtr(pObjectName) : pObjectName
+
         result := DllCall("ADVAPI32.dll\GetInheritanceSourceW", "ptr", pObjectName, "int", ObjectType, "uint", SecurityInfo, "int", Container, "ptr", pObjectClassGuids, "uint", GuidCount, "ptr", pAcl, "ptr", pfnArray, "ptr", pGenericMapping, "ptr", pInheritArray, "uint")
         return result
     }
@@ -3243,6 +3272,8 @@ class Authorization {
      * @since windows5.1.2600
      */
     static TreeResetNamedSecurityInfoA(pObjectName, ObjectType, SecurityInfo, pOwner, pGroup, pDacl, pSacl, KeepExplicit, fnProgress, ProgressInvokeSetting, Args) {
+        pObjectName := pObjectName is String? StrPtr(pObjectName) : pObjectName
+
         result := DllCall("ADVAPI32.dll\TreeResetNamedSecurityInfoA", "ptr", pObjectName, "int", ObjectType, "uint", SecurityInfo, "ptr", pOwner, "ptr", pGroup, "ptr", pDacl, "ptr", pSacl, "int", KeepExplicit, "ptr", fnProgress, "int", ProgressInvokeSetting, "ptr", Args, "uint")
         return result
     }
@@ -3289,6 +3320,8 @@ class Authorization {
      * @since windows5.1.2600
      */
     static TreeResetNamedSecurityInfoW(pObjectName, ObjectType, SecurityInfo, pOwner, pGroup, pDacl, pSacl, KeepExplicit, fnProgress, ProgressInvokeSetting, Args) {
+        pObjectName := pObjectName is String? StrPtr(pObjectName) : pObjectName
+
         result := DllCall("ADVAPI32.dll\TreeResetNamedSecurityInfoW", "ptr", pObjectName, "int", ObjectType, "uint", SecurityInfo, "ptr", pOwner, "ptr", pGroup, "ptr", pDacl, "ptr", pSacl, "int", KeepExplicit, "ptr", fnProgress, "int", ProgressInvokeSetting, "ptr", Args, "uint")
         return result
     }
@@ -3337,6 +3370,8 @@ class Authorization {
      * @since windows6.0.6000
      */
     static TreeSetNamedSecurityInfoA(pObjectName, ObjectType, SecurityInfo, pOwner, pGroup, pDacl, pSacl, dwAction, fnProgress, ProgressInvokeSetting, Args) {
+        pObjectName := pObjectName is String? StrPtr(pObjectName) : pObjectName
+
         result := DllCall("ADVAPI32.dll\TreeSetNamedSecurityInfoA", "ptr", pObjectName, "int", ObjectType, "uint", SecurityInfo, "ptr", pOwner, "ptr", pGroup, "ptr", pDacl, "ptr", pSacl, "uint", dwAction, "ptr", fnProgress, "int", ProgressInvokeSetting, "ptr", Args, "uint")
         return result
     }
@@ -3385,6 +3420,8 @@ class Authorization {
      * @since windows6.0.6000
      */
     static TreeSetNamedSecurityInfoW(pObjectName, ObjectType, SecurityInfo, pOwner, pGroup, pDacl, pSacl, dwAction, fnProgress, ProgressInvokeSetting, Args) {
+        pObjectName := pObjectName is String? StrPtr(pObjectName) : pObjectName
+
         result := DllCall("ADVAPI32.dll\TreeSetNamedSecurityInfoW", "ptr", pObjectName, "int", ObjectType, "uint", SecurityInfo, "ptr", pOwner, "ptr", pGroup, "ptr", pDacl, "ptr", pSacl, "uint", dwAction, "ptr", fnProgress, "int", ProgressInvokeSetting, "ptr", Args, "uint")
         return result
     }
@@ -3683,6 +3720,8 @@ class Authorization {
      * @since windows5.1.2600
      */
     static BuildExplicitAccessWithNameA(pExplicitAccess, pTrusteeName, AccessPermissions, AccessMode, Inheritance) {
+        pTrusteeName := pTrusteeName is String? StrPtr(pTrusteeName) : pTrusteeName
+
         DllCall("ADVAPI32.dll\BuildExplicitAccessWithNameA", "ptr", pExplicitAccess, "ptr", pTrusteeName, "uint", AccessPermissions, "int", AccessMode, "uint", Inheritance)
     }
 
@@ -3758,6 +3797,8 @@ class Authorization {
      * @since windows5.1.2600
      */
     static BuildExplicitAccessWithNameW(pExplicitAccess, pTrusteeName, AccessPermissions, AccessMode, Inheritance) {
+        pTrusteeName := pTrusteeName is String? StrPtr(pTrusteeName) : pTrusteeName
+
         DllCall("ADVAPI32.dll\BuildExplicitAccessWithNameW", "ptr", pExplicitAccess, "ptr", pTrusteeName, "uint", AccessPermissions, "int", AccessMode, "uint", Inheritance)
     }
 
@@ -3772,6 +3813,8 @@ class Authorization {
      * @returns {String} Nothing - always returns an empty string
      */
     static BuildImpersonateExplicitAccessWithNameA(pExplicitAccess, pTrusteeName, pTrustee, AccessPermissions, AccessMode, Inheritance) {
+        pTrusteeName := pTrusteeName is String? StrPtr(pTrusteeName) : pTrusteeName
+
         DllCall("ADVAPI32.dll\BuildImpersonateExplicitAccessWithNameA", "ptr", pExplicitAccess, "ptr", pTrusteeName, "ptr", pTrustee, "uint", AccessPermissions, "int", AccessMode, "uint", Inheritance)
     }
 
@@ -3786,6 +3829,8 @@ class Authorization {
      * @returns {String} Nothing - always returns an empty string
      */
     static BuildImpersonateExplicitAccessWithNameW(pExplicitAccess, pTrusteeName, pTrustee, AccessPermissions, AccessMode, Inheritance) {
+        pTrusteeName := pTrusteeName is String? StrPtr(pTrusteeName) : pTrusteeName
+
         DllCall("ADVAPI32.dll\BuildImpersonateExplicitAccessWithNameW", "ptr", pExplicitAccess, "ptr", pTrusteeName, "ptr", pTrustee, "uint", AccessPermissions, "int", AccessMode, "uint", Inheritance)
     }
 
@@ -3853,6 +3898,8 @@ class Authorization {
      * @since windows5.1.2600
      */
     static BuildTrusteeWithNameA(pTrustee, pName) {
+        pName := pName is String? StrPtr(pName) : pName
+
         DllCall("ADVAPI32.dll\BuildTrusteeWithNameA", "ptr", pTrustee, "ptr", pName)
     }
 
@@ -3920,6 +3967,8 @@ class Authorization {
      * @since windows5.1.2600
      */
     static BuildTrusteeWithNameW(pTrustee, pName) {
+        pName := pName is String? StrPtr(pName) : pName
+
         DllCall("ADVAPI32.dll\BuildTrusteeWithNameW", "ptr", pTrustee, "ptr", pName)
     }
 
@@ -4175,6 +4224,10 @@ class Authorization {
      * @since windows5.1.2600
      */
     static BuildTrusteeWithObjectsAndNameA(pTrustee, pObjName, ObjectType, ObjectTypeName, InheritedObjectTypeName, Name) {
+        ObjectTypeName := ObjectTypeName is String? StrPtr(ObjectTypeName) : ObjectTypeName
+        InheritedObjectTypeName := InheritedObjectTypeName is String? StrPtr(InheritedObjectTypeName) : InheritedObjectTypeName
+        Name := Name is String? StrPtr(Name) : Name
+
         DllCall("ADVAPI32.dll\BuildTrusteeWithObjectsAndNameA", "ptr", pTrustee, "ptr", pObjName, "int", ObjectType, "ptr", ObjectTypeName, "ptr", InheritedObjectTypeName, "ptr", Name)
     }
 
@@ -4208,6 +4261,10 @@ class Authorization {
      * @since windows5.1.2600
      */
     static BuildTrusteeWithObjectsAndNameW(pTrustee, pObjName, ObjectType, ObjectTypeName, InheritedObjectTypeName, Name) {
+        ObjectTypeName := ObjectTypeName is String? StrPtr(ObjectTypeName) : ObjectTypeName
+        InheritedObjectTypeName := InheritedObjectTypeName is String? StrPtr(InheritedObjectTypeName) : InheritedObjectTypeName
+        Name := Name is String? StrPtr(Name) : Name
+
         DllCall("ADVAPI32.dll\BuildTrusteeWithObjectsAndNameW", "ptr", pTrustee, "ptr", pObjName, "int", ObjectType, "ptr", ObjectTypeName, "ptr", InheritedObjectTypeName, "ptr", Name)
     }
 
@@ -4420,6 +4477,8 @@ class Authorization {
      * @since windows5.1.2600
      */
     static ConvertSidToStringSidA(Sid, StringSid) {
+        StringSid := StringSid is String? StrPtr(StringSid) : StringSid
+
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\ConvertSidToStringSidA", "ptr", Sid, "ptr", StringSid, "int")
@@ -4492,6 +4551,8 @@ class Authorization {
      * @since windows5.1.2600
      */
     static ConvertSidToStringSidW(Sid, StringSid) {
+        StringSid := StringSid is String? StrPtr(StringSid) : StringSid
+
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\ConvertSidToStringSidW", "ptr", Sid, "ptr", StringSid, "int")
@@ -4551,6 +4612,8 @@ class Authorization {
      * @since windows5.1.2600
      */
     static ConvertStringSidToSidA(StringSid, Sid) {
+        StringSid := StringSid is String? StrPtr(StringSid) : StringSid
+
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\ConvertStringSidToSidA", "ptr", StringSid, "ptr", Sid, "int")
@@ -4610,6 +4673,8 @@ class Authorization {
      * @since windows5.1.2600
      */
     static ConvertStringSidToSidW(StringSid, Sid) {
+        StringSid := StringSid is String? StrPtr(StringSid) : StringSid
+
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\ConvertStringSidToSidW", "ptr", StringSid, "ptr", Sid, "int")
@@ -4686,6 +4751,8 @@ class Authorization {
      * @since windows5.1.2600
      */
     static ConvertStringSecurityDescriptorToSecurityDescriptorA(StringSecurityDescriptor, StringSDRevision, SecurityDescriptor, SecurityDescriptorSize) {
+        StringSecurityDescriptor := StringSecurityDescriptor is String? StrPtr(StringSecurityDescriptor) : StringSecurityDescriptor
+
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\ConvertStringSecurityDescriptorToSecurityDescriptorA", "ptr", StringSecurityDescriptor, "uint", StringSDRevision, "ptr", SecurityDescriptor, "ptr", SecurityDescriptorSize, "int")
@@ -4762,6 +4829,8 @@ class Authorization {
      * @since windows5.1.2600
      */
     static ConvertStringSecurityDescriptorToSecurityDescriptorW(StringSecurityDescriptor, StringSDRevision, SecurityDescriptor, SecurityDescriptorSize) {
+        StringSecurityDescriptor := StringSecurityDescriptor is String? StrPtr(StringSecurityDescriptor) : StringSecurityDescriptor
+
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\ConvertStringSecurityDescriptorToSecurityDescriptorW", "ptr", StringSecurityDescriptor, "uint", StringSDRevision, "ptr", SecurityDescriptor, "ptr", SecurityDescriptorSize, "int")
@@ -4855,6 +4924,8 @@ class Authorization {
      * @since windows5.1.2600
      */
     static ConvertSecurityDescriptorToStringSecurityDescriptorA(SecurityDescriptor, RequestedStringSDRevision, SecurityInformation, StringSecurityDescriptor, StringSecurityDescriptorLen) {
+        StringSecurityDescriptor := StringSecurityDescriptor is String? StrPtr(StringSecurityDescriptor) : StringSecurityDescriptor
+
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\ConvertSecurityDescriptorToStringSecurityDescriptorA", "ptr", SecurityDescriptor, "uint", RequestedStringSDRevision, "uint", SecurityInformation, "ptr", StringSecurityDescriptor, "ptr", StringSecurityDescriptorLen, "int")
@@ -4948,6 +5019,8 @@ class Authorization {
      * @since windows5.1.2600
      */
     static ConvertSecurityDescriptorToStringSecurityDescriptorW(SecurityDescriptor, RequestedStringSDRevision, SecurityInformation, StringSecurityDescriptor, StringSecurityDescriptorLen) {
+        StringSecurityDescriptor := StringSecurityDescriptor is String? StrPtr(StringSecurityDescriptor) : StringSecurityDescriptor
+
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\ConvertSecurityDescriptorToStringSecurityDescriptorW", "ptr", SecurityDescriptor, "uint", RequestedStringSDRevision, "uint", SecurityInformation, "ptr", StringSecurityDescriptor, "ptr", StringSecurityDescriptorLen, "int")

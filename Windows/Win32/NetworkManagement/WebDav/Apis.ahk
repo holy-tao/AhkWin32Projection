@@ -64,6 +64,10 @@ class WebDav {
      * @since windows6.0.6000
      */
     static DavAddConnection(ConnectionHandle, RemoteName, UserName, Password, ClientCert, CertSize) {
+        RemoteName := RemoteName is String? StrPtr(RemoteName) : RemoteName
+        UserName := UserName is String? StrPtr(UserName) : UserName
+        Password := Password is String? StrPtr(Password) : Password
+
         result := DllCall("NETAPI32.dll\DavAddConnection", "ptr", ConnectionHandle, "ptr", RemoteName, "ptr", UserName, "ptr", Password, "ptr", ClientCert, "uint", CertSize, "uint")
         return result
     }
@@ -125,6 +129,9 @@ class WebDav {
      * @since windows6.0.6000
      */
     static DavGetUNCFromHTTPPath(Url, UncPath, lpSize) {
+        Url := Url is String? StrPtr(Url) : Url
+        UncPath := UncPath is String? StrPtr(UncPath) : UncPath
+
         result := DllCall("NETAPI32.dll\DavGetUNCFromHTTPPath", "ptr", Url, "ptr", UncPath, "ptr", lpSize, "uint")
         return result
     }
@@ -168,6 +175,9 @@ class WebDav {
      * @since windows6.0.6000
      */
     static DavGetHTTPFromUNCPath(UncPath, Url, lpSize) {
+        UncPath := UncPath is String? StrPtr(UncPath) : UncPath
+        Url := Url is String? StrPtr(Url) : Url
+
         result := DllCall("NETAPI32.dll\DavGetHTTPFromUNCPath", "ptr", UncPath, "ptr", Url, "ptr", lpSize, "uint")
         return result
     }
@@ -223,6 +233,9 @@ class WebDav {
      * @since windows6.0.6000
      */
     static DavGetTheLockOwnerOfTheFile(FileName, LockOwnerName, LockOwnerNameLengthInBytes) {
+        FileName := FileName is String? StrPtr(FileName) : FileName
+        LockOwnerName := LockOwnerName is String? StrPtr(LockOwnerName) : LockOwnerName
+
         result := DllCall("davclnt.dll\DavGetTheLockOwnerOfTheFile", "ptr", FileName, "ptr", LockOwnerName, "ptr", LockOwnerNameLengthInBytes, "uint")
         return result
     }
@@ -273,6 +286,8 @@ class WebDav {
      * @since windows6.0.6000
      */
     static DavGetExtendedError(hFile, ExtError, ExtErrorString, cChSize) {
+        ExtErrorString := ExtErrorString is String? StrPtr(ExtErrorString) : ExtErrorString
+
         result := DllCall("NETAPI32.dll\DavGetExtendedError", "ptr", hFile, "ptr", ExtError, "ptr", ExtErrorString, "ptr", cChSize, "uint")
         return result
     }
@@ -314,6 +329,8 @@ class WebDav {
      * @since windows6.0.6000
      */
     static DavInvalidateCache(URLName) {
+        URLName := URLName is String? StrPtr(URLName) : URLName
+
         result := DllCall("davclnt.dll\DavInvalidateCache", "ptr", URLName, "uint")
         return result
     }
@@ -387,6 +404,8 @@ class WebDav {
      * @since windows6.0.6000
      */
     static DavCancelConnectionsToServer(lpName, fForce) {
+        lpName := lpName is String? StrPtr(lpName) : lpName
+
         result := DllCall("davclnt.dll\DavCancelConnectionsToServer", "ptr", lpName, "int", fForce, "uint")
         return result
     }

@@ -1030,6 +1030,8 @@ class DeploymentServices {
      * @since windows6.1
      */
     static WdsCliFreeStringArray(ppwszArray, ulCount) {
+        ppwszArray := ppwszArray is String? StrPtr(ppwszArray) : ppwszArray
+
         result := DllCall("WDSCLIENTAPI.dll\WdsCliFreeStringArray", "ptr", ppwszArray, "uint", ulCount, "int")
         return result
     }
@@ -1158,6 +1160,8 @@ class DeploymentServices {
      * @since windows6.0.6000
      */
     static WdsCliCreateSession(pwszServer, pCred, phSession) {
+        pwszServer := pwszServer is String? StrPtr(pwszServer) : pwszServer
+
         A_LastError := 0
 
         result := DllCall("WDSCLIENTAPI.dll\WdsCliCreateSession", "ptr", pwszServer, "ptr", pCred, "ptr", phSession, "int")
@@ -1198,6 +1202,9 @@ class DeploymentServices {
      * @since windows6.0.6000
      */
     static WdsCliInitializeLog(hSession, ulClientArchitecture, pwszClientId, pwszClientAddress) {
+        pwszClientId := pwszClientId is String? StrPtr(pwszClientId) : pwszClientId
+        pwszClientAddress := pwszClientAddress is String? StrPtr(pwszClientAddress) : pwszClientAddress
+
         result := DllCall("WDSCLIENTAPI.dll\WdsCliInitializeLog", "ptr", hSession, "uint", ulClientArchitecture, "ptr", pwszClientId, "ptr", pwszClientAddress, "int")
         return result
     }
@@ -1333,6 +1340,8 @@ class DeploymentServices {
      * @since windows6.0.6000
      */
     static WdsCliGetImageName(hIfh, ppwszValue) {
+        ppwszValue := ppwszValue is String? StrPtr(ppwszValue) : ppwszValue
+
         result := DllCall("WDSCLIENTAPI.dll\WdsCliGetImageName", "ptr", hIfh, "ptr", ppwszValue, "int")
         return result
     }
@@ -1353,6 +1362,8 @@ class DeploymentServices {
      * @since windows6.0.6000
      */
     static WdsCliGetImageDescription(hIfh, ppwszValue) {
+        ppwszValue := ppwszValue is String? StrPtr(ppwszValue) : ppwszValue
+
         result := DllCall("WDSCLIENTAPI.dll\WdsCliGetImageDescription", "ptr", hIfh, "ptr", ppwszValue, "int")
         return result
     }
@@ -1376,6 +1387,8 @@ class DeploymentServices {
      * @returns {Integer} 
      */
     static WdsCliGetImageFiles(hIfh, pppwszFiles, pdwCount) {
+        pppwszFiles := pppwszFiles is String? StrPtr(pppwszFiles) : pppwszFiles
+
         result := DllCall("WDSCLIENTAPI.dll\WdsCliGetImageFiles", "ptr", hIfh, "ptr", pppwszFiles, "ptr", pdwCount, "int")
         return result
     }
@@ -1396,6 +1409,8 @@ class DeploymentServices {
      * @since windows6.0.6000
      */
     static WdsCliGetImageLanguage(hIfh, ppwszValue) {
+        ppwszValue := ppwszValue is String? StrPtr(ppwszValue) : ppwszValue
+
         result := DllCall("WDSCLIENTAPI.dll\WdsCliGetImageLanguage", "ptr", hIfh, "ptr", ppwszValue, "int")
         return result
     }
@@ -1437,6 +1452,8 @@ class DeploymentServices {
      * @since windows6.0.6000
      */
     static WdsCliGetImageVersion(hIfh, ppwszValue) {
+        ppwszValue := ppwszValue is String? StrPtr(ppwszValue) : ppwszValue
+
         result := DllCall("WDSCLIENTAPI.dll\WdsCliGetImageVersion", "ptr", hIfh, "ptr", ppwszValue, "int")
         return result
     }
@@ -1459,6 +1476,8 @@ class DeploymentServices {
      * @since windows6.0.6000
      */
     static WdsCliGetImagePath(hIfh, ppwszValue) {
+        ppwszValue := ppwszValue is String? StrPtr(ppwszValue) : ppwszValue
+
         result := DllCall("WDSCLIENTAPI.dll\WdsCliGetImagePath", "ptr", hIfh, "ptr", ppwszValue, "int")
         return result
     }
@@ -1556,6 +1575,8 @@ class DeploymentServices {
      * @since windows6.0.6000
      */
     static WdsCliGetImageHalName(hIfh, ppwszValue) {
+        ppwszValue := ppwszValue is String? StrPtr(ppwszValue) : ppwszValue
+
         result := DllCall("WDSCLIENTAPI.dll\WdsCliGetImageHalName", "ptr", hIfh, "ptr", ppwszValue, "int")
         return result
     }
@@ -1576,6 +1597,8 @@ class DeploymentServices {
      * @since windows6.0.6000
      */
     static WdsCliGetImageGroup(hIfh, ppwszValue) {
+        ppwszValue := ppwszValue is String? StrPtr(ppwszValue) : ppwszValue
+
         result := DllCall("WDSCLIENTAPI.dll\WdsCliGetImageGroup", "ptr", hIfh, "ptr", ppwszValue, "int")
         return result
     }
@@ -1596,6 +1619,8 @@ class DeploymentServices {
      * @since windows6.0.6000
      */
     static WdsCliGetImageNamespace(hIfh, ppwszValue) {
+        ppwszValue := ppwszValue is String? StrPtr(ppwszValue) : ppwszValue
+
         result := DllCall("WDSCLIENTAPI.dll\WdsCliGetImageNamespace", "ptr", hIfh, "ptr", ppwszValue, "int")
         return result
     }
@@ -1674,6 +1699,8 @@ class DeploymentServices {
      * @since windows6.0.6000
      */
     static WdsCliTransferImage(hImage, pwszLocalPath, dwFlags, dwReserved, pfnWdsCliCallback, pvUserData, phTransfer) {
+        pwszLocalPath := pwszLocalPath is String? StrPtr(pwszLocalPath) : pwszLocalPath
+
         result := DllCall("WDSCLIENTAPI.dll\WdsCliTransferImage", "ptr", hImage, "ptr", pwszLocalPath, "uint", dwFlags, "uint", dwReserved, "ptr", pfnWdsCliCallback, "ptr", pvUserData, "ptr", phTransfer, "int")
         return result
     }
@@ -1713,6 +1740,11 @@ class DeploymentServices {
      * @since windows6.0.6000
      */
     static WdsCliTransferFile(pwszServer, pwszNamespace, pwszRemoteFilePath, pwszLocalFilePath, dwFlags, dwReserved, pfnWdsCliCallback, pvUserData, phTransfer) {
+        pwszServer := pwszServer is String? StrPtr(pwszServer) : pwszServer
+        pwszNamespace := pwszNamespace is String? StrPtr(pwszNamespace) : pwszNamespace
+        pwszRemoteFilePath := pwszRemoteFilePath is String? StrPtr(pwszRemoteFilePath) : pwszRemoteFilePath
+        pwszLocalFilePath := pwszLocalFilePath is String? StrPtr(pwszLocalFilePath) : pwszLocalFilePath
+
         result := DllCall("WDSCLIENTAPI.dll\WdsCliTransferFile", "ptr", pwszServer, "ptr", pwszNamespace, "ptr", pwszRemoteFilePath, "ptr", pwszLocalFilePath, "uint", dwFlags, "uint", dwReserved, "ptr", pfnWdsCliCallback, "ptr", pvUserData, "ptr", phTransfer, "int")
         return result
     }
@@ -1758,6 +1790,9 @@ class DeploymentServices {
      * @since windows6.1
      */
     static WdsCliObtainDriverPackages(hImage, ppwszServerName, pppwszDriverPackages, pulCount) {
+        ppwszServerName := ppwszServerName is String? StrPtr(ppwszServerName) : ppwszServerName
+        pppwszDriverPackages := pppwszDriverPackages is String? StrPtr(pppwszDriverPackages) : pppwszDriverPackages
+
         result := DllCall("WDSCLIENTAPI.dll\WdsCliObtainDriverPackages", "ptr", hImage, "ptr", ppwszServerName, "ptr", pppwszDriverPackages, "ptr", pulCount, "int")
         return result
     }
@@ -1774,6 +1809,10 @@ class DeploymentServices {
      * @since windows8.0
      */
     static WdsCliObtainDriverPackagesEx(hSession, pwszMachineInfo, ppwszServerName, pppwszDriverPackages, pulCount) {
+        pwszMachineInfo := pwszMachineInfo is String? StrPtr(pwszMachineInfo) : pwszMachineInfo
+        ppwszServerName := ppwszServerName is String? StrPtr(ppwszServerName) : ppwszServerName
+        pppwszDriverPackages := pppwszDriverPackages is String? StrPtr(pppwszDriverPackages) : pppwszDriverPackages
+
         result := DllCall("WDSCLIENTAPI.dll\WdsCliObtainDriverPackagesEx", "ptr", hSession, "ptr", pwszMachineInfo, "ptr", ppwszServerName, "ptr", pppwszDriverPackages, "ptr", pulCount, "int")
         return result
     }
@@ -1787,6 +1826,9 @@ class DeploymentServices {
      * @since windows8.0
      */
     static WdsCliGetDriverQueryXml(pwszWinDirPath, ppwszDriverQuery) {
+        pwszWinDirPath := pwszWinDirPath is String? StrPtr(pwszWinDirPath) : pwszWinDirPath
+        ppwszDriverQuery := ppwszDriverQuery is String? StrPtr(ppwszDriverQuery) : ppwszDriverQuery
+
         result := DllCall("WDSCLIENTAPI.dll\WdsCliGetDriverQueryXml", "ptr", pwszWinDirPath, "ptr", ppwszDriverQuery, "int")
         return result
     }
@@ -1837,6 +1879,9 @@ class DeploymentServices {
      * @since windowsserver2008
      */
     static PxeProviderRegister(pszProviderName, pszModulePath, Index, bIsCritical, phProviderKey) {
+        pszProviderName := pszProviderName is String? StrPtr(pszProviderName) : pszProviderName
+        pszModulePath := pszModulePath is String? StrPtr(pszModulePath) : pszModulePath
+
         result := DllCall("WDSPXE.dll\PxeProviderRegister", "ptr", pszProviderName, "ptr", pszModulePath, "uint", Index, "int", bIsCritical, "ptr", phProviderKey, "uint")
         return result
     }
@@ -1850,6 +1895,8 @@ class DeploymentServices {
      * @since windowsserver2008
      */
     static PxeProviderUnRegister(pszProviderName) {
+        pszProviderName := pszProviderName is String? StrPtr(pszProviderName) : pszProviderName
+
         result := DllCall("WDSPXE.dll\PxeProviderUnRegister", "ptr", pszProviderName, "uint")
         return result
     }
@@ -1868,6 +1915,8 @@ class DeploymentServices {
      * @since windowsserver2008
      */
     static PxeProviderQueryIndex(pszProviderName, puIndex) {
+        pszProviderName := pszProviderName is String? StrPtr(pszProviderName) : pszProviderName
+
         result := DllCall("WDSPXE.dll\PxeProviderQueryIndex", "ptr", pszProviderName, "ptr", puIndex, "uint")
         return result
     }
@@ -2173,6 +2222,8 @@ class DeploymentServices {
      * @since windowsserver2008
      */
     static PxeTrace(hProvider, Severity, pszFormat) {
+        pszFormat := pszFormat is String? StrPtr(pszFormat) : pszFormat
+
         result := DllCall("WDSPXE.dll\PxeTrace", "ptr", hProvider, "uint", Severity, "ptr", pszFormat, "CDecl uint")
         return result
     }
@@ -2186,6 +2237,8 @@ class DeploymentServices {
      * @returns {Integer} 
      */
     static PxeTraceV(hProvider, Severity, pszFormat, Params) {
+        pszFormat := pszFormat is String? StrPtr(pszFormat) : pszFormat
+
         result := DllCall("WDSPXE.dll\PxeTraceV", "ptr", hProvider, "uint", Severity, "ptr", pszFormat, "ptr", Params, "uint")
         return result
     }
@@ -3023,6 +3076,8 @@ class DeploymentServices {
      * @since windowsserver2008
      */
     static WdsTransportServerTrace(hProvider, Severity, pwszFormat) {
+        pwszFormat := pwszFormat is String? StrPtr(pwszFormat) : pwszFormat
+
         result := DllCall("WDSMC.dll\WdsTransportServerTrace", "ptr", hProvider, "uint", Severity, "ptr", pwszFormat, "CDecl int")
         return result
     }
@@ -3038,6 +3093,8 @@ class DeploymentServices {
      * @since windowsserver2008
      */
     static WdsTransportServerTraceV(hProvider, Severity, pwszFormat, Params) {
+        pwszFormat := pwszFormat is String? StrPtr(pwszFormat) : pwszFormat
+
         result := DllCall("WDSMC.dll\WdsTransportServerTraceV", "ptr", hProvider, "uint", Severity, "ptr", pwszFormat, "ptr", Params, "int")
         return result
     }

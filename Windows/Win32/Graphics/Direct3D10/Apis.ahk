@@ -1679,6 +1679,11 @@ class Direct3D10 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10shader/nf-d3d10shader-d3d10compileshader
      */
     static D3D10CompileShader(pSrcData, SrcDataSize, pFileName, pDefines, pInclude, pFunctionName, pProfile, Flags, ppShader, ppErrorMsgs) {
+        pSrcData := pSrcData is String? StrPtr(pSrcData) : pSrcData
+        pFileName := pFileName is String? StrPtr(pFileName) : pFileName
+        pFunctionName := pFunctionName is String? StrPtr(pFunctionName) : pFunctionName
+        pProfile := pProfile is String? StrPtr(pProfile) : pProfile
+
         result := DllCall("d3d10.dll\D3D10CompileShader", "ptr", pSrcData, "ptr", SrcDataSize, "ptr", pFileName, "ptr", pDefines, "ptr", pInclude, "ptr", pFunctionName, "ptr", pProfile, "uint", Flags, "ptr", ppShader, "ptr", ppErrorMsgs, "int")
         return result
     }
@@ -1706,6 +1711,8 @@ class Direct3D10 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10shader/nf-d3d10shader-d3d10disassembleshader
      */
     static D3D10DisassembleShader(pShader, BytecodeLength, EnableColorCode, pComments, ppDisassembly) {
+        pComments := pComments is String? StrPtr(pComments) : pComments
+
         result := DllCall("d3d10.dll\D3D10DisassembleShader", "ptr", pShader, "ptr", BytecodeLength, "int", EnableColorCode, "ptr", pComments, "ptr", ppDisassembly, "int")
         return result
     }
@@ -1809,6 +1816,9 @@ class Direct3D10 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10shader/nf-d3d10shader-d3d10preprocessshader
      */
     static D3D10PreprocessShader(pSrcData, SrcDataSize, pFileName, pDefines, pInclude, ppShaderText, ppErrorMsgs) {
+        pSrcData := pSrcData is String? StrPtr(pSrcData) : pSrcData
+        pFileName := pFileName is String? StrPtr(pFileName) : pFileName
+
         result := DllCall("d3d10.dll\D3D10PreprocessShader", "ptr", pSrcData, "ptr", SrcDataSize, "ptr", pFileName, "ptr", pDefines, "ptr", pInclude, "ptr", ppShaderText, "ptr", ppErrorMsgs, "int")
         return result
     }
@@ -2158,6 +2168,8 @@ class Direct3D10 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-d3d10compileeffectfrommemory
      */
     static D3D10CompileEffectFromMemory(pData, DataLength, pSrcFileName, pDefines, pInclude, HLSLFlags, FXFlags, ppCompiledEffect, ppErrors) {
+        pSrcFileName := pSrcFileName is String? StrPtr(pSrcFileName) : pSrcFileName
+
         result := DllCall("d3d10.dll\D3D10CompileEffectFromMemory", "ptr", pData, "ptr", DataLength, "ptr", pSrcFileName, "ptr", pDefines, "ptr", pInclude, "uint", HLSLFlags, "uint", FXFlags, "ptr", ppCompiledEffect, "ptr", ppErrors, "int")
         return result
     }

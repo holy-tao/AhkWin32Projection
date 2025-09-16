@@ -232,6 +232,8 @@ class NetworkDiagnosticsFramework {
      * @since windows6.0.6000
      */
     static NdfCreateIncident(helperClassName, celt, attributes, handle) {
+        helperClassName := helperClassName is String? StrPtr(helperClassName) : helperClassName
+
         result := DllCall("NDFAPI.dll\NdfCreateIncident", "ptr", helperClassName, "uint", celt, "ptr", attributes, "ptr", handle, "int")
         return result
     }
@@ -314,6 +316,9 @@ class NetworkDiagnosticsFramework {
      * @since windows6.0.6000
      */
     static NdfCreateWinSockIncident(sock, host, port, appId, userId, handle) {
+        host := host is String? StrPtr(host) : host
+        appId := appId is String? StrPtr(appId) : appId
+
         result := DllCall("NDFAPI.dll\NdfCreateWinSockIncident", "ptr", sock, "ptr", host, "ushort", port, "ptr", appId, "ptr", userId, "ptr", handle, "int")
         return result
     }
@@ -384,6 +389,8 @@ class NetworkDiagnosticsFramework {
      * @since windows6.0.6000
      */
     static NdfCreateWebIncident(url, handle) {
+        url := url is String? StrPtr(url) : url
+
         result := DllCall("NDFAPI.dll\NdfCreateWebIncident", "ptr", url, "ptr", handle, "int")
         return result
     }
@@ -460,6 +467,9 @@ class NetworkDiagnosticsFramework {
      * @since windows6.0.6000
      */
     static NdfCreateWebIncidentEx(url, useWinHTTP, moduleName, handle) {
+        url := url is String? StrPtr(url) : url
+        moduleName := moduleName is String? StrPtr(moduleName) : moduleName
+
         result := DllCall("NDFAPI.dll\NdfCreateWebIncidentEx", "ptr", url, "int", useWinHTTP, "ptr", moduleName, "ptr", handle, "int")
         return result
     }
@@ -530,6 +540,8 @@ class NetworkDiagnosticsFramework {
      * @since windows6.0.6000
      */
     static NdfCreateSharingIncident(UNCPath, handle) {
+        UNCPath := UNCPath is String? StrPtr(UNCPath) : UNCPath
+
         result := DllCall("NDFAPI.dll\NdfCreateSharingIncident", "ptr", UNCPath, "ptr", handle, "int")
         return result
     }
@@ -605,6 +617,8 @@ class NetworkDiagnosticsFramework {
      * @since windows6.0.6000
      */
     static NdfCreateDNSIncident(hostname, queryType, handle) {
+        hostname := hostname is String? StrPtr(hostname) : hostname
+
         result := DllCall("NDFAPI.dll\NdfCreateDNSIncident", "ptr", hostname, "ushort", queryType, "ptr", handle, "int")
         return result
     }
@@ -807,6 +821,10 @@ class NetworkDiagnosticsFramework {
      * @since windows6.1
      */
     static NdfCreatePnrpIncident(cloudname, peername, diagnosePublish, appId, handle) {
+        cloudname := cloudname is String? StrPtr(cloudname) : cloudname
+        peername := peername is String? StrPtr(peername) : peername
+        appId := appId is String? StrPtr(appId) : appId
+
         result := DllCall("NDFAPI.dll\NdfCreatePnrpIncident", "ptr", cloudname, "ptr", peername, "int", diagnosePublish, "ptr", appId, "ptr", handle, "int")
         return result
     }
@@ -880,6 +898,12 @@ class NetworkDiagnosticsFramework {
      * @since windows6.1
      */
     static NdfCreateGroupingIncident(CloudName, GroupName, Identity, Invitation, Addresses, appId, handle) {
+        CloudName := CloudName is String? StrPtr(CloudName) : CloudName
+        GroupName := GroupName is String? StrPtr(GroupName) : GroupName
+        Identity := Identity is String? StrPtr(Identity) : Identity
+        Invitation := Invitation is String? StrPtr(Invitation) : Invitation
+        appId := appId is String? StrPtr(appId) : appId
+
         result := DllCall("NDFAPI.dll\NdfCreateGroupingIncident", "ptr", CloudName, "ptr", GroupName, "ptr", Identity, "ptr", Invitation, "ptr", Addresses, "ptr", appId, "ptr", handle, "int")
         return result
     }
@@ -1262,6 +1286,8 @@ class NetworkDiagnosticsFramework {
      * @since windows6.1
      */
     static NdfGetTraceFile(Handle, TraceFileLocation) {
+        TraceFileLocation := TraceFileLocation is String? StrPtr(TraceFileLocation) : TraceFileLocation
+
         result := DllCall("NDFAPI.dll\NdfGetTraceFile", "ptr", Handle, "ptr", TraceFileLocation, "int")
         return result
     }

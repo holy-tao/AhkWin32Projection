@@ -1398,6 +1398,8 @@ class DataExchange {
      * @since windows5.0
      */
     static DdeCreateStringHandleA(idInst, psz, iCodePage) {
+        psz := psz is String? StrPtr(psz) : psz
+
         result := DllCall("USER32.dll\DdeCreateStringHandleA", "uint", idInst, "ptr", psz, "int", iCodePage, "ptr")
         return result
     }
@@ -1450,6 +1452,8 @@ class DataExchange {
      * @since windows5.0
      */
     static DdeCreateStringHandleW(idInst, psz, iCodePage) {
+        psz := psz is String? StrPtr(psz) : psz
+
         result := DllCall("USER32.dll\DdeCreateStringHandleW", "uint", idInst, "ptr", psz, "int", iCodePage, "ptr")
         return result
     }
@@ -1500,6 +1504,8 @@ class DataExchange {
      * @since windows5.0
      */
     static DdeQueryStringA(idInst, hsz, psz, cchMax, iCodePage) {
+        psz := psz is String? StrPtr(psz) : psz
+
         result := DllCall("USER32.dll\DdeQueryStringA", "uint", idInst, "ptr", hsz, "ptr", psz, "uint", cchMax, "int", iCodePage, "uint")
         return result
     }
@@ -1550,6 +1556,8 @@ class DataExchange {
      * @since windows5.0
      */
     static DdeQueryStringW(idInst, hsz, psz, cchMax, iCodePage) {
+        psz := psz is String? StrPtr(psz) : psz
+
         result := DllCall("USER32.dll\DdeQueryStringW", "uint", idInst, "ptr", hsz, "ptr", psz, "uint", cchMax, "int", iCodePage, "uint")
         return result
     }
@@ -1895,6 +1903,8 @@ class DataExchange {
      * @since windows5.0
      */
     static RegisterClipboardFormatA(lpszFormat) {
+        lpszFormat := lpszFormat is String? StrPtr(lpszFormat) : lpszFormat
+
         A_LastError := 0
 
         DllCall("USER32.dll\RegisterClipboardFormatA", "ptr", lpszFormat)
@@ -1920,6 +1930,8 @@ class DataExchange {
      * @since windows5.0
      */
     static RegisterClipboardFormatW(lpszFormat) {
+        lpszFormat := lpszFormat is String? StrPtr(lpszFormat) : lpszFormat
+
         A_LastError := 0
 
         DllCall("USER32.dll\RegisterClipboardFormatW", "ptr", lpszFormat)
@@ -1994,6 +2006,8 @@ class DataExchange {
      * @since windows5.0
      */
     static GetClipboardFormatNameA(format, lpszFormatName, cchMaxCount) {
+        lpszFormatName := lpszFormatName is String? StrPtr(lpszFormatName) : lpszFormatName
+
         A_LastError := 0
 
         DllCall("USER32.dll\GetClipboardFormatNameA", "uint", format, "ptr", lpszFormatName, "int", cchMaxCount)
@@ -2022,6 +2036,8 @@ class DataExchange {
      * @since windows5.0
      */
     static GetClipboardFormatNameW(format, lpszFormatName, cchMaxCount) {
+        lpszFormatName := lpszFormatName is String? StrPtr(lpszFormatName) : lpszFormatName
+
         A_LastError := 0
 
         DllCall("USER32.dll\GetClipboardFormatNameW", "uint", format, "ptr", lpszFormatName, "int", cchMaxCount)
@@ -2314,6 +2330,8 @@ class DataExchange {
      * @since windows5.0
      */
     static GlobalAddAtomA(lpString) {
+        lpString := lpString is String? StrPtr(lpString) : lpString
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GlobalAddAtomA", "ptr", lpString, "ushort")
@@ -2359,6 +2377,8 @@ class DataExchange {
      * @since windows5.0
      */
     static GlobalAddAtomW(lpString) {
+        lpString := lpString is String? StrPtr(lpString) : lpString
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GlobalAddAtomW", "ptr", lpString, "ushort")
@@ -2383,6 +2403,8 @@ class DataExchange {
      * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-globaladdatomexa
      */
     static GlobalAddAtomExA(lpString, Flags) {
+        lpString := lpString is String? StrPtr(lpString) : lpString
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GlobalAddAtomExA", "ptr", lpString, "uint", Flags, "ushort")
@@ -2407,6 +2429,8 @@ class DataExchange {
      * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-globaladdatomexw
      */
     static GlobalAddAtomExW(lpString, Flags) {
+        lpString := lpString is String? StrPtr(lpString) : lpString
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GlobalAddAtomExW", "ptr", lpString, "uint", Flags, "ushort")
@@ -2444,6 +2468,8 @@ class DataExchange {
      * @since windows5.0
      */
     static GlobalFindAtomA(lpString) {
+        lpString := lpString is String? StrPtr(lpString) : lpString
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GlobalFindAtomA", "ptr", lpString, "ushort")
@@ -2481,6 +2507,8 @@ class DataExchange {
      * @since windows5.0
      */
     static GlobalFindAtomW(lpString) {
+        lpString := lpString is String? StrPtr(lpString) : lpString
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GlobalFindAtomW", "ptr", lpString, "ushort")
@@ -2519,6 +2547,8 @@ class DataExchange {
      * @since windows5.0
      */
     static GlobalGetAtomNameA(nAtom, lpBuffer, nSize) {
+        lpBuffer := lpBuffer is String? StrPtr(lpBuffer) : lpBuffer
+
         A_LastError := 0
 
         DllCall("KERNEL32.dll\GlobalGetAtomNameA", "ushort", nAtom, "ptr", lpBuffer, "int", nSize)
@@ -2556,6 +2586,8 @@ class DataExchange {
      * @since windows5.0
      */
     static GlobalGetAtomNameW(nAtom, lpBuffer, nSize) {
+        lpBuffer := lpBuffer is String? StrPtr(lpBuffer) : lpBuffer
+
         A_LastError := 0
 
         DllCall("KERNEL32.dll\GlobalGetAtomNameW", "ushort", nAtom, "ptr", lpBuffer, "int", nSize)
@@ -2596,6 +2628,8 @@ class DataExchange {
      * @since windows5.0
      */
     static AddAtomA(lpString) {
+        lpString := lpString is String? StrPtr(lpString) : lpString
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\AddAtomA", "ptr", lpString, "ushort")
@@ -2637,6 +2671,8 @@ class DataExchange {
      * @since windows5.0
      */
     static AddAtomW(lpString) {
+        lpString := lpString is String? StrPtr(lpString) : lpString
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\AddAtomW", "ptr", lpString, "ushort")
@@ -2674,6 +2710,8 @@ class DataExchange {
      * @since windows5.0
      */
     static FindAtomA(lpString) {
+        lpString := lpString is String? StrPtr(lpString) : lpString
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\FindAtomA", "ptr", lpString, "ushort")
@@ -2711,6 +2749,8 @@ class DataExchange {
      * @since windows5.0
      */
     static FindAtomW(lpString) {
+        lpString := lpString is String? StrPtr(lpString) : lpString
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\FindAtomW", "ptr", lpString, "ushort")
@@ -2749,6 +2789,8 @@ class DataExchange {
      * @since windows5.0
      */
     static GetAtomNameA(nAtom, lpBuffer, nSize) {
+        lpBuffer := lpBuffer is String? StrPtr(lpBuffer) : lpBuffer
+
         A_LastError := 0
 
         DllCall("KERNEL32.dll\GetAtomNameA", "ushort", nAtom, "ptr", lpBuffer, "int", nSize)
@@ -2786,6 +2828,8 @@ class DataExchange {
      * @since windows5.0
      */
     static GetAtomNameW(nAtom, lpBuffer, nSize) {
+        lpBuffer := lpBuffer is String? StrPtr(lpBuffer) : lpBuffer
+
         A_LastError := 0
 
         DllCall("KERNEL32.dll\GetAtomNameW", "ushort", nAtom, "ptr", lpBuffer, "int", nSize)

@@ -528,6 +528,8 @@ class InstallableFileSystems {
      * @see https://learn.microsoft.com/windows/win32/api/fltuser/nf-fltuser-filterload
      */
     static FilterLoad(lpFilterName) {
+        lpFilterName := lpFilterName is String? StrPtr(lpFilterName) : lpFilterName
+
         result := DllCall("FLTLIB.dll\FilterLoad", "ptr", lpFilterName, "int")
         return result
     }
@@ -547,6 +549,8 @@ class InstallableFileSystems {
      * @see https://learn.microsoft.com/windows/win32/api/fltuser/nf-fltuser-filterunload
      */
     static FilterUnload(lpFilterName) {
+        lpFilterName := lpFilterName is String? StrPtr(lpFilterName) : lpFilterName
+
         result := DllCall("FLTLIB.dll\FilterUnload", "ptr", lpFilterName, "int")
         return result
     }
@@ -563,6 +567,8 @@ class InstallableFileSystems {
      * @see https://learn.microsoft.com/windows/win32/api/fltuser/nf-fltuser-filtercreate
      */
     static FilterCreate(lpFilterName, hFilter) {
+        lpFilterName := lpFilterName is String? StrPtr(lpFilterName) : lpFilterName
+
         result := DllCall("FLTLIB.dll\FilterCreate", "ptr", lpFilterName, "ptr", hFilter, "int")
         return result
     }
@@ -619,6 +625,10 @@ class InstallableFileSystems {
      * @see https://learn.microsoft.com/windows/win32/api/fltuser/nf-fltuser-filterinstancecreate
      */
     static FilterInstanceCreate(lpFilterName, lpVolumeName, lpInstanceName, hInstance) {
+        lpFilterName := lpFilterName is String? StrPtr(lpFilterName) : lpFilterName
+        lpVolumeName := lpVolumeName is String? StrPtr(lpVolumeName) : lpVolumeName
+        lpInstanceName := lpInstanceName is String? StrPtr(lpInstanceName) : lpInstanceName
+
         result := DllCall("FLTLIB.dll\FilterInstanceCreate", "ptr", lpFilterName, "ptr", lpVolumeName, "ptr", lpInstanceName, "ptr", hInstance, "int")
         return result
     }
@@ -719,6 +729,11 @@ class InstallableFileSystems {
      * @see https://learn.microsoft.com/windows/win32/api/fltuser/nf-fltuser-filterattach
      */
     static FilterAttach(lpFilterName, lpVolumeName, lpInstanceName, dwCreatedInstanceNameLength, lpCreatedInstanceName) {
+        lpFilterName := lpFilterName is String? StrPtr(lpFilterName) : lpFilterName
+        lpVolumeName := lpVolumeName is String? StrPtr(lpVolumeName) : lpVolumeName
+        lpInstanceName := lpInstanceName is String? StrPtr(lpInstanceName) : lpInstanceName
+        lpCreatedInstanceName := lpCreatedInstanceName is String? StrPtr(lpCreatedInstanceName) : lpCreatedInstanceName
+
         result := DllCall("FLTLIB.dll\FilterAttach", "ptr", lpFilterName, "ptr", lpVolumeName, "ptr", lpInstanceName, "uint", dwCreatedInstanceNameLength, "ptr", lpCreatedInstanceName, "int")
         return result
     }
@@ -800,6 +815,12 @@ class InstallableFileSystems {
      * @see https://learn.microsoft.com/windows/win32/api/fltuser/nf-fltuser-filterattachataltitude
      */
     static FilterAttachAtAltitude(lpFilterName, lpVolumeName, lpAltitude, lpInstanceName, dwCreatedInstanceNameLength, lpCreatedInstanceName) {
+        lpFilterName := lpFilterName is String? StrPtr(lpFilterName) : lpFilterName
+        lpVolumeName := lpVolumeName is String? StrPtr(lpVolumeName) : lpVolumeName
+        lpAltitude := lpAltitude is String? StrPtr(lpAltitude) : lpAltitude
+        lpInstanceName := lpInstanceName is String? StrPtr(lpInstanceName) : lpInstanceName
+        lpCreatedInstanceName := lpCreatedInstanceName is String? StrPtr(lpCreatedInstanceName) : lpCreatedInstanceName
+
         result := DllCall("FLTLIB.dll\FilterAttachAtAltitude", "ptr", lpFilterName, "ptr", lpVolumeName, "ptr", lpAltitude, "ptr", lpInstanceName, "uint", dwCreatedInstanceNameLength, "ptr", lpCreatedInstanceName, "int")
         return result
     }
@@ -841,6 +862,10 @@ class InstallableFileSystems {
      * @see https://learn.microsoft.com/windows/win32/api/fltuser/nf-fltuser-filterdetach
      */
     static FilterDetach(lpFilterName, lpVolumeName, lpInstanceName) {
+        lpFilterName := lpFilterName is String? StrPtr(lpFilterName) : lpFilterName
+        lpVolumeName := lpVolumeName is String? StrPtr(lpVolumeName) : lpVolumeName
+        lpInstanceName := lpInstanceName is String? StrPtr(lpInstanceName) : lpInstanceName
+
         result := DllCall("FLTLIB.dll\FilterDetach", "ptr", lpFilterName, "ptr", lpVolumeName, "ptr", lpInstanceName, "int")
         return result
     }
@@ -1176,6 +1201,8 @@ class InstallableFileSystems {
      * @see https://learn.microsoft.com/windows/win32/api/fltuser/nf-fltuser-filterinstancefindfirst
      */
     static FilterInstanceFindFirst(lpFilterName, dwInformationClass, lpBuffer, dwBufferSize, lpBytesReturned, lpFilterInstanceFind) {
+        lpFilterName := lpFilterName is String? StrPtr(lpFilterName) : lpFilterName
+
         result := DllCall("FLTLIB.dll\FilterInstanceFindFirst", "ptr", lpFilterName, "int", dwInformationClass, "ptr", lpBuffer, "uint", dwBufferSize, "ptr", lpBytesReturned, "ptr", lpFilterInstanceFind, "int")
         return result
     }
@@ -1331,6 +1358,8 @@ class InstallableFileSystems {
      * @see https://learn.microsoft.com/windows/win32/api/fltuser/nf-fltuser-filtervolumeinstancefindfirst
      */
     static FilterVolumeInstanceFindFirst(lpVolumeName, dwInformationClass, lpBuffer, dwBufferSize, lpBytesReturned, lpVolumeInstanceFind) {
+        lpVolumeName := lpVolumeName is String? StrPtr(lpVolumeName) : lpVolumeName
+
         result := DllCall("FLTLIB.dll\FilterVolumeInstanceFindFirst", "ptr", lpVolumeName, "int", dwInformationClass, "ptr", lpBuffer, "uint", dwBufferSize, "ptr", lpBytesReturned, "ptr", lpVolumeInstanceFind, "int")
         return result
     }
@@ -1539,6 +1568,8 @@ class InstallableFileSystems {
      * @see https://learn.microsoft.com/windows/win32/api/fltuser/nf-fltuser-filterconnectcommunicationport
      */
     static FilterConnectCommunicationPort(lpPortName, dwOptions, lpContext, wSizeOfContext, lpSecurityAttributes, hPort) {
+        lpPortName := lpPortName is String? StrPtr(lpPortName) : lpPortName
+
         result := DllCall("FLTLIB.dll\FilterConnectCommunicationPort", "ptr", lpPortName, "uint", dwOptions, "ptr", lpContext, "ushort", wSizeOfContext, "ptr", lpSecurityAttributes, "ptr", hPort, "int")
         return result
     }
@@ -1669,6 +1700,9 @@ class InstallableFileSystems {
      * @see https://learn.microsoft.com/windows/win32/api/fltuser/nf-fltuser-filtergetdosname
      */
     static FilterGetDosName(lpVolumeName, lpDosName, dwDosNameBufferSize) {
+        lpVolumeName := lpVolumeName is String? StrPtr(lpVolumeName) : lpVolumeName
+        lpDosName := lpDosName is String? StrPtr(lpDosName) : lpDosName
+
         result := DllCall("FLTLIB.dll\FilterGetDosName", "ptr", lpVolumeName, "ptr", lpDosName, "uint", dwDosNameBufferSize, "int")
         return result
     }

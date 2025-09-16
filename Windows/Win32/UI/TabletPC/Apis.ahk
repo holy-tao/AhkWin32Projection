@@ -2394,6 +2394,8 @@ class TabletPC {
      * @since windows5.1.2600
      */
     static GetBestResultString(hrc, pcSize, pwcBestResult) {
+        pwcBestResult := pwcBestResult is String? StrPtr(pwcBestResult) : pwcBestResult
+
         result := DllCall("inkobjcore.dll\GetBestResultString", "ptr", hrc, "ptr", pcSize, "ptr", pwcBestResult, "int")
         return result
     }
@@ -2825,6 +2827,8 @@ class TabletPC {
      * @since windows5.1.2600
      */
     static SetFactoid(hrc, cwcFactoid, pwcFactoid) {
+        pwcFactoid := pwcFactoid is String? StrPtr(pwcFactoid) : pwcFactoid
+
         result := DllCall("inkobjcore.dll\SetFactoid", "ptr", hrc, "uint", cwcFactoid, "ptr", pwcFactoid, "int")
         return result
     }
@@ -3191,6 +3195,9 @@ class TabletPC {
      * @since windows5.1.2600
      */
     static SetTextContext(hrc, cwcBefore, pwcBefore, cwcAfter, pwcAfter) {
+        pwcBefore := pwcBefore is String? StrPtr(pwcBefore) : pwcBefore
+        pwcAfter := pwcAfter is String? StrPtr(pwcAfter) : pwcAfter
+
         result := DllCall("inkobjcore.dll\SetTextContext", "ptr", hrc, "uint", cwcBefore, "ptr", pwcBefore, "uint", cwcAfter, "ptr", pwcAfter, "int")
         return result
     }
@@ -3372,6 +3379,8 @@ class TabletPC {
      * @since windows5.1.2600
      */
     static IsStringSupported(hrc, wcString, pwcString) {
+        pwcString := pwcString is String? StrPtr(pwcString) : pwcString
+
         result := DllCall("inkobjcore.dll\IsStringSupported", "ptr", hrc, "uint", wcString, "ptr", pwcString, "int")
         return result
     }
@@ -3478,6 +3487,8 @@ class TabletPC {
      * @since windows5.1.2600
      */
     static GetRightSeparator(hrc, pcSize, pwcRightSeparator) {
+        pwcRightSeparator := pwcRightSeparator is String? StrPtr(pwcRightSeparator) : pwcRightSeparator
+
         result := DllCall("inkobjcore.dll\GetRightSeparator", "ptr", hrc, "ptr", pcSize, "ptr", pwcRightSeparator, "int")
         return result
     }
@@ -3492,6 +3503,8 @@ class TabletPC {
      * @since windows5.1.2600
      */
     static GetLeftSeparator(hrc, pcSize, pwcLeftSeparator) {
+        pwcLeftSeparator := pwcLeftSeparator is String? StrPtr(pwcLeftSeparator) : pwcLeftSeparator
+
         result := DllCall("inkobjcore.dll\GetLeftSeparator", "ptr", hrc, "ptr", pcSize, "ptr", pwcLeftSeparator, "int")
         return result
     }
@@ -3619,6 +3632,8 @@ class TabletPC {
      * @since windows5.1.2600
      */
     static AddWordsToWordList(hwl, pwcWords) {
+        pwcWords := pwcWords is String? StrPtr(pwcWords) : pwcWords
+
         result := DllCall("inkobjcore.dll\AddWordsToWordList", "ptr", hwl, "ptr", pwcWords, "int")
         return result
     }
@@ -3706,6 +3721,8 @@ class TabletPC {
      * @since windows5.1.2600
      */
     static MakeWordList(hrec, pBuffer, phwl) {
+        pBuffer := pBuffer is String? StrPtr(pBuffer) : pBuffer
+
         result := DllCall("inkobjcore.dll\MakeWordList", "ptr", hrec, "ptr", pBuffer, "ptr", phwl, "int")
         return result
     }

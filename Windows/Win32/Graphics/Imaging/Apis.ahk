@@ -1640,6 +1640,8 @@ class Imaging {
      * @since windows5.1.2600
      */
     static WICMapGuidToShortName(guid, cchName, wzName, pcchActual) {
+        wzName := wzName is String? StrPtr(wzName) : wzName
+
         result := DllCall("WindowsCodecs.dll\WICMapGuidToShortName", "ptr", guid, "uint", cchName, "ptr", wzName, "ptr", pcchActual, "int")
         return result
     }
@@ -1671,6 +1673,8 @@ class Imaging {
      * @since windows5.1.2600
      */
     static WICMapShortNameToGuid(wzName, pguid) {
+        wzName := wzName is String? StrPtr(wzName) : wzName
+
         result := DllCall("WindowsCodecs.dll\WICMapShortNameToGuid", "ptr", wzName, "ptr", pguid, "int")
         return result
     }
@@ -1714,6 +1718,9 @@ class Imaging {
      * @since windows5.1.2600
      */
     static WICMapSchemaToName(guidMetadataFormat, pwzSchema, cchName, wzName, pcchActual) {
+        pwzSchema := pwzSchema is String? StrPtr(pwzSchema) : pwzSchema
+        wzName := wzName is String? StrPtr(wzName) : wzName
+
         result := DllCall("WindowsCodecs.dll\WICMapSchemaToName", "ptr", guidMetadataFormat, "ptr", pwzSchema, "uint", cchName, "ptr", wzName, "ptr", pcchActual, "int")
         return result
     }

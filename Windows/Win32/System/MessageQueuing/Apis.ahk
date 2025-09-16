@@ -1069,6 +1069,8 @@ class MessageQueuing {
      * @returns {Integer} 
      */
     static MQCreateQueue(pSecurityDescriptor, pQueueProps, lpwcsFormatName, lpdwFormatNameLength) {
+        lpwcsFormatName := lpwcsFormatName is String? StrPtr(lpwcsFormatName) : lpwcsFormatName
+
         result := DllCall("mqrt.dll\MQCreateQueue", "ptr", pSecurityDescriptor, "ptr", pQueueProps, "ptr", lpwcsFormatName, "ptr", lpdwFormatNameLength, "int")
         return result
     }
@@ -1079,6 +1081,8 @@ class MessageQueuing {
      * @returns {Integer} 
      */
     static MQDeleteQueue(lpwcsFormatName) {
+        lpwcsFormatName := lpwcsFormatName is String? StrPtr(lpwcsFormatName) : lpwcsFormatName
+
         result := DllCall("mqrt.dll\MQDeleteQueue", "ptr", lpwcsFormatName, "int")
         return result
     }
@@ -1093,6 +1097,8 @@ class MessageQueuing {
      * @returns {Integer} 
      */
     static MQLocateBegin(lpwcsContext, pRestriction, pColumns, pSort, phEnum) {
+        lpwcsContext := lpwcsContext is String? StrPtr(lpwcsContext) : lpwcsContext
+
         result := DllCall("mqrt.dll\MQLocateBegin", "ptr", lpwcsContext, "ptr", pRestriction, "ptr", pColumns, "ptr", pSort, "ptr", phEnum, "int")
         return result
     }
@@ -1128,6 +1134,8 @@ class MessageQueuing {
      * @returns {Integer} 
      */
     static MQOpenQueue(lpwcsFormatName, dwAccess, dwShareMode, phQueue) {
+        lpwcsFormatName := lpwcsFormatName is String? StrPtr(lpwcsFormatName) : lpwcsFormatName
+
         result := DllCall("mqrt.dll\MQOpenQueue", "ptr", lpwcsFormatName, "uint", dwAccess, "uint", dwShareMode, "ptr", phQueue, "int")
         return result
     }
@@ -1215,6 +1223,8 @@ class MessageQueuing {
      * @returns {Integer} 
      */
     static MQSetQueueProperties(lpwcsFormatName, pQueueProps) {
+        lpwcsFormatName := lpwcsFormatName is String? StrPtr(lpwcsFormatName) : lpwcsFormatName
+
         result := DllCall("mqrt.dll\MQSetQueueProperties", "ptr", lpwcsFormatName, "ptr", pQueueProps, "int")
         return result
     }
@@ -1226,6 +1236,8 @@ class MessageQueuing {
      * @returns {Integer} 
      */
     static MQGetQueueProperties(lpwcsFormatName, pQueueProps) {
+        lpwcsFormatName := lpwcsFormatName is String? StrPtr(lpwcsFormatName) : lpwcsFormatName
+
         result := DllCall("mqrt.dll\MQGetQueueProperties", "ptr", lpwcsFormatName, "ptr", pQueueProps, "int")
         return result
     }
@@ -1240,6 +1252,8 @@ class MessageQueuing {
      * @returns {Integer} 
      */
     static MQGetQueueSecurity(lpwcsFormatName, RequestedInformation, pSecurityDescriptor, nLength, lpnLengthNeeded) {
+        lpwcsFormatName := lpwcsFormatName is String? StrPtr(lpwcsFormatName) : lpwcsFormatName
+
         result := DllCall("mqrt.dll\MQGetQueueSecurity", "ptr", lpwcsFormatName, "uint", RequestedInformation, "ptr", pSecurityDescriptor, "uint", nLength, "ptr", lpnLengthNeeded, "int")
         return result
     }
@@ -1252,6 +1266,8 @@ class MessageQueuing {
      * @returns {Integer} 
      */
     static MQSetQueueSecurity(lpwcsFormatName, SecurityInformation, pSecurityDescriptor) {
+        lpwcsFormatName := lpwcsFormatName is String? StrPtr(lpwcsFormatName) : lpwcsFormatName
+
         result := DllCall("mqrt.dll\MQSetQueueSecurity", "ptr", lpwcsFormatName, "uint", SecurityInformation, "ptr", pSecurityDescriptor, "int")
         return result
     }
@@ -1264,6 +1280,9 @@ class MessageQueuing {
      * @returns {Integer} 
      */
     static MQPathNameToFormatName(lpwcsPathName, lpwcsFormatName, lpdwFormatNameLength) {
+        lpwcsPathName := lpwcsPathName is String? StrPtr(lpwcsPathName) : lpwcsPathName
+        lpwcsFormatName := lpwcsFormatName is String? StrPtr(lpwcsFormatName) : lpwcsFormatName
+
         result := DllCall("mqrt.dll\MQPathNameToFormatName", "ptr", lpwcsPathName, "ptr", lpwcsFormatName, "ptr", lpdwFormatNameLength, "int")
         return result
     }
@@ -1276,6 +1295,8 @@ class MessageQueuing {
      * @returns {Integer} 
      */
     static MQHandleToFormatName(hQueue, lpwcsFormatName, lpdwFormatNameLength) {
+        lpwcsFormatName := lpwcsFormatName is String? StrPtr(lpwcsFormatName) : lpwcsFormatName
+
         result := DllCall("mqrt.dll\MQHandleToFormatName", "ptr", hQueue, "ptr", lpwcsFormatName, "ptr", lpdwFormatNameLength, "int")
         return result
     }
@@ -1288,6 +1309,8 @@ class MessageQueuing {
      * @returns {Integer} 
      */
     static MQInstanceToFormatName(pGuid, lpwcsFormatName, lpdwFormatNameLength) {
+        lpwcsFormatName := lpwcsFormatName is String? StrPtr(lpwcsFormatName) : lpwcsFormatName
+
         result := DllCall("mqrt.dll\MQInstanceToFormatName", "ptr", pGuid, "ptr", lpwcsFormatName, "ptr", lpdwFormatNameLength, "int")
         return result
     }
@@ -1300,6 +1323,9 @@ class MessageQueuing {
      * @returns {Integer} 
      */
     static MQADsPathToFormatName(lpwcsADsPath, lpwcsFormatName, lpdwFormatNameLength) {
+        lpwcsADsPath := lpwcsADsPath is String? StrPtr(lpwcsADsPath) : lpwcsADsPath
+        lpwcsFormatName := lpwcsFormatName is String? StrPtr(lpwcsFormatName) : lpwcsFormatName
+
         result := DllCall("mqrt.dll\MQADsPathToFormatName", "ptr", lpwcsADsPath, "ptr", lpwcsFormatName, "ptr", lpdwFormatNameLength, "int")
         return result
     }
@@ -1321,6 +1347,8 @@ class MessageQueuing {
      * @returns {Integer} 
      */
     static MQGetMachineProperties(lpwcsMachineName, pguidMachineId, pQMProps) {
+        lpwcsMachineName := lpwcsMachineName is String? StrPtr(lpwcsMachineName) : lpwcsMachineName
+
         result := DllCall("mqrt.dll\MQGetMachineProperties", "ptr", lpwcsMachineName, "ptr", pguidMachineId, "ptr", pQMProps, "int")
         return result
     }
@@ -1397,6 +1425,8 @@ class MessageQueuing {
      * @returns {Integer} 
      */
     static MQGetPrivateComputerInformation(lpwcsComputerName, pPrivateProps) {
+        lpwcsComputerName := lpwcsComputerName is String? StrPtr(lpwcsComputerName) : lpwcsComputerName
+
         result := DllCall("mqrt.dll\MQGetPrivateComputerInformation", "ptr", lpwcsComputerName, "ptr", pPrivateProps, "int")
         return result
     }
@@ -1419,6 +1449,9 @@ class MessageQueuing {
      * @returns {Integer} 
      */
     static MQMgmtGetInfo(pComputerName, pObjectName, pMgmtProps) {
+        pComputerName := pComputerName is String? StrPtr(pComputerName) : pComputerName
+        pObjectName := pObjectName is String? StrPtr(pObjectName) : pObjectName
+
         result := DllCall("mqrt.dll\MQMgmtGetInfo", "ptr", pComputerName, "ptr", pObjectName, "ptr", pMgmtProps, "int")
         return result
     }
@@ -1431,6 +1464,10 @@ class MessageQueuing {
      * @returns {Integer} 
      */
     static MQMgmtAction(pComputerName, pObjectName, pAction) {
+        pComputerName := pComputerName is String? StrPtr(pComputerName) : pComputerName
+        pObjectName := pObjectName is String? StrPtr(pObjectName) : pObjectName
+        pAction := pAction is String? StrPtr(pAction) : pAction
+
         result := DllCall("mqrt.dll\MQMgmtAction", "ptr", pComputerName, "ptr", pObjectName, "ptr", pAction, "int")
         return result
     }

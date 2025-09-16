@@ -1540,6 +1540,8 @@ class Metadata {
      * @since windows10.0.10240
      */
     static RoIsApiContractPresent(name, majorVersion, minorVersion, present) {
+        name := name is String? StrPtr(name) : name
+
         result := DllCall("api-ms-win-ro-typeresolution-l1-1-1.dll\RoIsApiContractPresent", "ptr", name, "ushort", majorVersion, "ushort", minorVersion, "ptr", present, "int")
         return result
     }
@@ -1601,6 +1603,8 @@ class Metadata {
      * @since windows10.0.10240
      */
     static RoIsApiContractMajorVersionPresent(name, majorVersion, present) {
+        name := name is String? StrPtr(name) : name
+
         result := DllCall("api-ms-win-ro-typeresolution-l1-1-1.dll\RoIsApiContractMajorVersionPresent", "ptr", name, "ushort", majorVersion, "ptr", present, "int")
         return result
     }
@@ -1707,6 +1711,8 @@ class Metadata {
      * @since windows8.0
      */
     static RoGetParameterizedTypeInstanceIID(nameElementCount, nameElements, metaDataLocator, iid, pExtra) {
+        nameElements := nameElements is String? StrPtr(nameElements) : nameElements
+
         result := DllCall("api-ms-win-core-winrt-roparameterizediid-l1-1-0.dll\RoGetParameterizedTypeInstanceIID", "uint", nameElementCount, "ptr", nameElements, "ptr", metaDataLocator, "ptr", iid, "ptr", pExtra, "int")
         return result
     }

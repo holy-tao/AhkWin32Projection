@@ -4648,6 +4648,8 @@ class WinInet {
      * @since windows5.0
      */
     static InternetTimeFromSystemTimeA(pst, dwRFC, lpszTime, cbTime) {
+        lpszTime := lpszTime is String? StrPtr(lpszTime) : lpszTime
+
         A_LastError := 0
 
         result := DllCall("WININET.dll\InternetTimeFromSystemTimeA", "ptr", pst, "uint", dwRFC, "ptr", lpszTime, "uint", cbTime, "int")
@@ -4680,6 +4682,8 @@ class WinInet {
      * @since windows5.0
      */
     static InternetTimeFromSystemTimeW(pst, dwRFC, lpszTime, cbTime) {
+        lpszTime := lpszTime is String? StrPtr(lpszTime) : lpszTime
+
         A_LastError := 0
 
         result := DllCall("WININET.dll\InternetTimeFromSystemTimeW", "ptr", pst, "uint", dwRFC, "ptr", lpszTime, "uint", cbTime, "int")
@@ -4706,6 +4710,8 @@ class WinInet {
      * @since windows5.0
      */
     static InternetTimeFromSystemTime(pst, dwRFC, lpszTime, cbTime) {
+        lpszTime := lpszTime is String? StrPtr(lpszTime) : lpszTime
+
         A_LastError := 0
 
         result := DllCall("WININET.dll\InternetTimeFromSystemTime", "ptr", pst, "uint", dwRFC, "ptr", lpszTime, "uint", cbTime, "int")
@@ -4736,6 +4742,8 @@ class WinInet {
      */
     static InternetTimeToSystemTimeA(lpszTime, pst) {
         static dwReserved := 0 ;Reserved parameters must always be NULL
+
+        lpszTime := lpszTime is String? StrPtr(lpszTime) : lpszTime
 
         A_LastError := 0
 
@@ -4768,6 +4776,8 @@ class WinInet {
     static InternetTimeToSystemTimeW(lpszTime, pst) {
         static dwReserved := 0 ;Reserved parameters must always be NULL
 
+        lpszTime := lpszTime is String? StrPtr(lpszTime) : lpszTime
+
         A_LastError := 0
 
         result := DllCall("WININET.dll\InternetTimeToSystemTimeW", "ptr", lpszTime, "ptr", pst, "uint", dwReserved, "int")
@@ -4792,6 +4802,8 @@ class WinInet {
      */
     static InternetTimeToSystemTime(lpszTime, pst) {
         static dwReserved := 0 ;Reserved parameters must always be NULL
+
+        lpszTime := lpszTime is String? StrPtr(lpszTime) : lpszTime
 
         A_LastError := 0
 
@@ -4844,6 +4856,8 @@ class WinInet {
      * @since windows5.0
      */
     static InternetCrackUrlA(lpszUrl, dwUrlLength, dwFlags, lpUrlComponents) {
+        lpszUrl := lpszUrl is String? StrPtr(lpszUrl) : lpszUrl
+
         A_LastError := 0
 
         result := DllCall("WININET.dll\InternetCrackUrlA", "ptr", lpszUrl, "uint", dwUrlLength, "uint", dwFlags, "ptr", lpUrlComponents, "int")
@@ -4895,6 +4909,8 @@ class WinInet {
      * @since windows5.0
      */
     static InternetCrackUrlW(lpszUrl, dwUrlLength, dwFlags, lpUrlComponents) {
+        lpszUrl := lpszUrl is String? StrPtr(lpszUrl) : lpszUrl
+
         A_LastError := 0
 
         result := DllCall("WININET.dll\InternetCrackUrlW", "ptr", lpszUrl, "uint", dwUrlLength, "uint", dwFlags, "ptr", lpUrlComponents, "int")
@@ -4930,6 +4946,8 @@ class WinInet {
      * @since windows5.0
      */
     static InternetCreateUrlA(lpUrlComponents, dwFlags, lpszUrl, lpdwUrlLength) {
+        lpszUrl := lpszUrl is String? StrPtr(lpszUrl) : lpszUrl
+
         A_LastError := 0
 
         result := DllCall("WININET.dll\InternetCreateUrlA", "ptr", lpUrlComponents, "uint", dwFlags, "ptr", lpszUrl, "ptr", lpdwUrlLength, "int")
@@ -4965,6 +4983,8 @@ class WinInet {
      * @since windows5.0
      */
     static InternetCreateUrlW(lpUrlComponents, dwFlags, lpszUrl, lpdwUrlLength) {
+        lpszUrl := lpszUrl is String? StrPtr(lpszUrl) : lpszUrl
+
         A_LastError := 0
 
         result := DllCall("WININET.dll\InternetCreateUrlW", "ptr", lpUrlComponents, "uint", dwFlags, "ptr", lpszUrl, "ptr", lpdwUrlLength, "int")
@@ -5064,6 +5084,9 @@ class WinInet {
      * @since windows5.0
      */
     static InternetCanonicalizeUrlA(lpszUrl, lpszBuffer, lpdwBufferLength, dwFlags) {
+        lpszUrl := lpszUrl is String? StrPtr(lpszUrl) : lpszUrl
+        lpszBuffer := lpszBuffer is String? StrPtr(lpszBuffer) : lpszBuffer
+
         A_LastError := 0
 
         result := DllCall("WININET.dll\InternetCanonicalizeUrlA", "ptr", lpszUrl, "ptr", lpszBuffer, "ptr", lpdwBufferLength, "uint", dwFlags, "int")
@@ -5163,6 +5186,9 @@ class WinInet {
      * @since windows5.0
      */
     static InternetCanonicalizeUrlW(lpszUrl, lpszBuffer, lpdwBufferLength, dwFlags) {
+        lpszUrl := lpszUrl is String? StrPtr(lpszUrl) : lpszUrl
+        lpszBuffer := lpszBuffer is String? StrPtr(lpszBuffer) : lpszBuffer
+
         A_LastError := 0
 
         result := DllCall("WININET.dll\InternetCanonicalizeUrlW", "ptr", lpszUrl, "ptr", lpszBuffer, "ptr", lpdwBufferLength, "uint", dwFlags, "int")
@@ -5247,6 +5273,10 @@ class WinInet {
      * @since windows5.0
      */
     static InternetCombineUrlA(lpszBaseUrl, lpszRelativeUrl, lpszBuffer, lpdwBufferLength, dwFlags) {
+        lpszBaseUrl := lpszBaseUrl is String? StrPtr(lpszBaseUrl) : lpszBaseUrl
+        lpszRelativeUrl := lpszRelativeUrl is String? StrPtr(lpszRelativeUrl) : lpszRelativeUrl
+        lpszBuffer := lpszBuffer is String? StrPtr(lpszBuffer) : lpszBuffer
+
         A_LastError := 0
 
         result := DllCall("WININET.dll\InternetCombineUrlA", "ptr", lpszBaseUrl, "ptr", lpszRelativeUrl, "ptr", lpszBuffer, "ptr", lpdwBufferLength, "uint", dwFlags, "int")
@@ -5331,6 +5361,10 @@ class WinInet {
      * @since windows5.0
      */
     static InternetCombineUrlW(lpszBaseUrl, lpszRelativeUrl, lpszBuffer, lpdwBufferLength, dwFlags) {
+        lpszBaseUrl := lpszBaseUrl is String? StrPtr(lpszBaseUrl) : lpszBaseUrl
+        lpszRelativeUrl := lpszRelativeUrl is String? StrPtr(lpszRelativeUrl) : lpszRelativeUrl
+        lpszBuffer := lpszBuffer is String? StrPtr(lpszBuffer) : lpszBuffer
+
         A_LastError := 0
 
         result := DllCall("WININET.dll\InternetCombineUrlW", "ptr", lpszBaseUrl, "ptr", lpszRelativeUrl, "ptr", lpszBuffer, "ptr", lpdwBufferLength, "uint", dwFlags, "int")
@@ -5394,6 +5428,10 @@ class WinInet {
      * @since windows5.0
      */
     static InternetOpenA(lpszAgent, dwAccessType, lpszProxy, lpszProxyBypass, dwFlags) {
+        lpszAgent := lpszAgent is String? StrPtr(lpszAgent) : lpszAgent
+        lpszProxy := lpszProxy is String? StrPtr(lpszProxy) : lpszProxy
+        lpszProxyBypass := lpszProxyBypass is String? StrPtr(lpszProxyBypass) : lpszProxyBypass
+
         A_LastError := 0
 
         DllCall("WININET.dll\InternetOpenA", "ptr", lpszAgent, "uint", dwAccessType, "ptr", lpszProxy, "ptr", lpszProxyBypass, "uint", dwFlags)
@@ -5456,6 +5494,10 @@ class WinInet {
      * @since windows5.0
      */
     static InternetOpenW(lpszAgent, dwAccessType, lpszProxy, lpszProxyBypass, dwFlags) {
+        lpszAgent := lpszAgent is String? StrPtr(lpszAgent) : lpszAgent
+        lpszProxy := lpszProxy is String? StrPtr(lpszProxy) : lpszProxy
+        lpszProxyBypass := lpszProxyBypass is String? StrPtr(lpszProxyBypass) : lpszProxyBypass
+
         A_LastError := 0
 
         DllCall("WININET.dll\InternetOpenW", "ptr", lpszAgent, "uint", dwAccessType, "ptr", lpszProxy, "ptr", lpszProxyBypass, "uint", dwFlags)
@@ -5604,6 +5646,10 @@ class WinInet {
      * @since windows5.0
      */
     static InternetConnectA(hInternet, lpszServerName, nServerPort, lpszUserName, lpszPassword, dwService, dwFlags, dwContext) {
+        lpszServerName := lpszServerName is String? StrPtr(lpszServerName) : lpszServerName
+        lpszUserName := lpszUserName is String? StrPtr(lpszUserName) : lpszUserName
+        lpszPassword := lpszPassword is String? StrPtr(lpszPassword) : lpszPassword
+
         A_LastError := 0
 
         DllCall("WININET.dll\InternetConnectA", "ptr", hInternet, "ptr", lpszServerName, "ushort", nServerPort, "ptr", lpszUserName, "ptr", lpszPassword, "uint", dwService, "uint", dwFlags, "ptr", dwContext)
@@ -5715,6 +5761,10 @@ class WinInet {
      * @since windows5.0
      */
     static InternetConnectW(hInternet, lpszServerName, nServerPort, lpszUserName, lpszPassword, dwService, dwFlags, dwContext) {
+        lpszServerName := lpszServerName is String? StrPtr(lpszServerName) : lpszServerName
+        lpszUserName := lpszUserName is String? StrPtr(lpszUserName) : lpszUserName
+        lpszPassword := lpszPassword is String? StrPtr(lpszPassword) : lpszPassword
+
         A_LastError := 0
 
         DllCall("WININET.dll\InternetConnectW", "ptr", hInternet, "ptr", lpszServerName, "ushort", nServerPort, "ptr", lpszUserName, "ptr", lpszPassword, "uint", dwService, "uint", dwFlags, "ptr", dwContext)
@@ -5771,6 +5821,9 @@ class WinInet {
      * @since windows5.0
      */
     static InternetOpenUrlA(hInternet, lpszUrl, lpszHeaders, dwHeadersLength, dwFlags, dwContext) {
+        lpszUrl := lpszUrl is String? StrPtr(lpszUrl) : lpszUrl
+        lpszHeaders := lpszHeaders is String? StrPtr(lpszHeaders) : lpszHeaders
+
         A_LastError := 0
 
         DllCall("WININET.dll\InternetOpenUrlA", "ptr", hInternet, "ptr", lpszUrl, "ptr", lpszHeaders, "uint", dwHeadersLength, "uint", dwFlags, "ptr", dwContext)
@@ -5827,6 +5880,9 @@ class WinInet {
      * @since windows5.0
      */
     static InternetOpenUrlW(hInternet, lpszUrl, lpszHeaders, dwHeadersLength, dwFlags, dwContext) {
+        lpszUrl := lpszUrl is String? StrPtr(lpszUrl) : lpszUrl
+        lpszHeaders := lpszHeaders is String? StrPtr(lpszHeaders) : lpszHeaders
+
         A_LastError := 0
 
         DllCall("WININET.dll\InternetOpenUrlW", "ptr", hInternet, "ptr", lpszUrl, "ptr", lpszHeaders, "uint", dwHeadersLength, "uint", dwFlags, "ptr", dwContext)
@@ -6489,6 +6545,8 @@ class WinInet {
      * @since windows5.0
      */
     static InternetGetLastResponseInfoA(lpdwError, lpszBuffer, lpdwBufferLength) {
+        lpszBuffer := lpszBuffer is String? StrPtr(lpszBuffer) : lpszBuffer
+
         A_LastError := 0
 
         result := DllCall("WININET.dll\InternetGetLastResponseInfoA", "ptr", lpdwError, "ptr", lpszBuffer, "ptr", lpdwBufferLength, "int")
@@ -6534,6 +6592,8 @@ class WinInet {
      * @since windows5.0
      */
     static InternetGetLastResponseInfoW(lpdwError, lpszBuffer, lpdwBufferLength) {
+        lpszBuffer := lpszBuffer is String? StrPtr(lpszBuffer) : lpszBuffer
+
         A_LastError := 0
 
         result := DllCall("WININET.dll\InternetGetLastResponseInfoW", "ptr", lpdwError, "ptr", lpszBuffer, "ptr", lpdwBufferLength, "int")
@@ -6712,6 +6772,8 @@ class WinInet {
      * @since windows5.0
      */
     static FtpFindFirstFileA(hConnect, lpszSearchFile, lpFindFileData, dwFlags, dwContext) {
+        lpszSearchFile := lpszSearchFile is String? StrPtr(lpszSearchFile) : lpszSearchFile
+
         A_LastError := 0
 
         DllCall("WININET.dll\FtpFindFirstFileA", "ptr", hConnect, "ptr", lpszSearchFile, "ptr", lpFindFileData, "uint", dwFlags, "ptr", dwContext)
@@ -6777,6 +6839,8 @@ class WinInet {
      * @since windows5.0
      */
     static FtpFindFirstFileW(hConnect, lpszSearchFile, lpFindFileData, dwFlags, dwContext) {
+        lpszSearchFile := lpszSearchFile is String? StrPtr(lpszSearchFile) : lpszSearchFile
+
         A_LastError := 0
 
         DllCall("WININET.dll\FtpFindFirstFileW", "ptr", hConnect, "ptr", lpszSearchFile, "ptr", lpFindFileData, "uint", dwFlags, "ptr", dwContext)
@@ -6943,6 +7007,9 @@ class WinInet {
      * @since windows5.0
      */
     static FtpGetFileA(hConnect, lpszRemoteFile, lpszNewFile, fFailIfExists, dwFlagsAndAttributes, dwFlags, dwContext) {
+        lpszRemoteFile := lpszRemoteFile is String? StrPtr(lpszRemoteFile) : lpszRemoteFile
+        lpszNewFile := lpszNewFile is String? StrPtr(lpszNewFile) : lpszNewFile
+
         A_LastError := 0
 
         result := DllCall("WININET.dll\FtpGetFileA", "ptr", hConnect, "ptr", lpszRemoteFile, "ptr", lpszNewFile, "int", fFailIfExists, "uint", dwFlagsAndAttributes, "uint", dwFlags, "ptr", dwContext, "int")
@@ -7110,6 +7177,9 @@ class WinInet {
      * @since windows5.0
      */
     static FtpGetFileW(hConnect, lpszRemoteFile, lpszNewFile, fFailIfExists, dwFlagsAndAttributes, dwFlags, dwContext) {
+        lpszRemoteFile := lpszRemoteFile is String? StrPtr(lpszRemoteFile) : lpszRemoteFile
+        lpszNewFile := lpszNewFile is String? StrPtr(lpszNewFile) : lpszNewFile
+
         A_LastError := 0
 
         result := DllCall("WININET.dll\FtpGetFileW", "ptr", hConnect, "ptr", lpszRemoteFile, "ptr", lpszNewFile, "int", fFailIfExists, "uint", dwFlagsAndAttributes, "uint", dwFlags, "ptr", dwContext, "int")
@@ -7155,6 +7225,9 @@ class WinInet {
      * @since windows5.0
      */
     static FtpPutFileA(hConnect, lpszLocalFile, lpszNewRemoteFile, dwFlags, dwContext) {
+        lpszLocalFile := lpszLocalFile is String? StrPtr(lpszLocalFile) : lpszLocalFile
+        lpszNewRemoteFile := lpszNewRemoteFile is String? StrPtr(lpszNewRemoteFile) : lpszNewRemoteFile
+
         A_LastError := 0
 
         result := DllCall("WININET.dll\FtpPutFileA", "ptr", hConnect, "ptr", lpszLocalFile, "ptr", lpszNewRemoteFile, "uint", dwFlags, "ptr", dwContext, "int")
@@ -7200,6 +7273,9 @@ class WinInet {
      * @since windows5.0
      */
     static FtpPutFileW(hConnect, lpszLocalFile, lpszNewRemoteFile, dwFlags, dwContext) {
+        lpszLocalFile := lpszLocalFile is String? StrPtr(lpszLocalFile) : lpszLocalFile
+        lpszNewRemoteFile := lpszNewRemoteFile is String? StrPtr(lpszNewRemoteFile) : lpszNewRemoteFile
+
         A_LastError := 0
 
         result := DllCall("WININET.dll\FtpPutFileW", "ptr", hConnect, "ptr", lpszLocalFile, "ptr", lpszNewRemoteFile, "uint", dwFlags, "ptr", dwContext, "int")
@@ -7221,6 +7297,9 @@ class WinInet {
      * @returns {Integer} 
      */
     static FtpGetFileEx(hFtpSession, lpszRemoteFile, lpszNewFile, fFailIfExists, dwFlagsAndAttributes, dwFlags, dwContext) {
+        lpszRemoteFile := lpszRemoteFile is String? StrPtr(lpszRemoteFile) : lpszRemoteFile
+        lpszNewFile := lpszNewFile is String? StrPtr(lpszNewFile) : lpszNewFile
+
         result := DllCall("WININET.dll\FtpGetFileEx", "ptr", hFtpSession, "ptr", lpszRemoteFile, "ptr", lpszNewFile, "int", fFailIfExists, "uint", dwFlagsAndAttributes, "uint", dwFlags, "ptr", dwContext, "int")
         return result
     }
@@ -7235,6 +7314,9 @@ class WinInet {
      * @returns {Integer} 
      */
     static FtpPutFileEx(hFtpSession, lpszLocalFile, lpszNewRemoteFile, dwFlags, dwContext) {
+        lpszLocalFile := lpszLocalFile is String? StrPtr(lpszLocalFile) : lpszLocalFile
+        lpszNewRemoteFile := lpszNewRemoteFile is String? StrPtr(lpszNewRemoteFile) : lpszNewRemoteFile
+
         result := DllCall("WININET.dll\FtpPutFileEx", "ptr", hFtpSession, "ptr", lpszLocalFile, "ptr", lpszNewRemoteFile, "uint", dwFlags, "ptr", dwContext, "int")
         return result
     }
@@ -7264,6 +7346,8 @@ class WinInet {
      * @since windows5.0
      */
     static FtpDeleteFileA(hConnect, lpszFileName) {
+        lpszFileName := lpszFileName is String? StrPtr(lpszFileName) : lpszFileName
+
         A_LastError := 0
 
         result := DllCall("WININET.dll\FtpDeleteFileA", "ptr", hConnect, "ptr", lpszFileName, "int")
@@ -7298,6 +7382,8 @@ class WinInet {
      * @since windows5.0
      */
     static FtpDeleteFileW(hConnect, lpszFileName) {
+        lpszFileName := lpszFileName is String? StrPtr(lpszFileName) : lpszFileName
+
         A_LastError := 0
 
         result := DllCall("WININET.dll\FtpDeleteFileW", "ptr", hConnect, "ptr", lpszFileName, "int")
@@ -7333,6 +7419,9 @@ class WinInet {
      * @since windows5.0
      */
     static FtpRenameFileA(hConnect, lpszExisting, lpszNew) {
+        lpszExisting := lpszExisting is String? StrPtr(lpszExisting) : lpszExisting
+        lpszNew := lpszNew is String? StrPtr(lpszNew) : lpszNew
+
         A_LastError := 0
 
         result := DllCall("WININET.dll\FtpRenameFileA", "ptr", hConnect, "ptr", lpszExisting, "ptr", lpszNew, "int")
@@ -7368,6 +7457,9 @@ class WinInet {
      * @since windows5.0
      */
     static FtpRenameFileW(hConnect, lpszExisting, lpszNew) {
+        lpszExisting := lpszExisting is String? StrPtr(lpszExisting) : lpszExisting
+        lpszNew := lpszNew is String? StrPtr(lpszNew) : lpszNew
+
         A_LastError := 0
 
         result := DllCall("WININET.dll\FtpRenameFileW", "ptr", hConnect, "ptr", lpszExisting, "ptr", lpszNew, "int")
@@ -7414,6 +7506,8 @@ class WinInet {
      * @since windows5.0
      */
     static FtpOpenFileA(hConnect, lpszFileName, dwAccess, dwFlags, dwContext) {
+        lpszFileName := lpszFileName is String? StrPtr(lpszFileName) : lpszFileName
+
         A_LastError := 0
 
         DllCall("WININET.dll\FtpOpenFileA", "ptr", hConnect, "ptr", lpszFileName, "uint", dwAccess, "uint", dwFlags, "ptr", dwContext)
@@ -7459,6 +7553,8 @@ class WinInet {
      * @since windows5.0
      */
     static FtpOpenFileW(hConnect, lpszFileName, dwAccess, dwFlags, dwContext) {
+        lpszFileName := lpszFileName is String? StrPtr(lpszFileName) : lpszFileName
+
         A_LastError := 0
 
         DllCall("WININET.dll\FtpOpenFileW", "ptr", hConnect, "ptr", lpszFileName, "uint", dwAccess, "uint", dwFlags, "ptr", dwContext)
@@ -7496,6 +7592,8 @@ class WinInet {
      * @since windows5.0
      */
     static FtpCreateDirectoryA(hConnect, lpszDirectory) {
+        lpszDirectory := lpszDirectory is String? StrPtr(lpszDirectory) : lpszDirectory
+
         A_LastError := 0
 
         result := DllCall("WININET.dll\FtpCreateDirectoryA", "ptr", hConnect, "ptr", lpszDirectory, "int")
@@ -7534,6 +7632,8 @@ class WinInet {
      * @since windows5.0
      */
     static FtpCreateDirectoryW(hConnect, lpszDirectory) {
+        lpszDirectory := lpszDirectory is String? StrPtr(lpszDirectory) : lpszDirectory
+
         A_LastError := 0
 
         result := DllCall("WININET.dll\FtpCreateDirectoryW", "ptr", hConnect, "ptr", lpszDirectory, "int")
@@ -7571,6 +7671,8 @@ class WinInet {
      * @since windows5.0
      */
     static FtpRemoveDirectoryA(hConnect, lpszDirectory) {
+        lpszDirectory := lpszDirectory is String? StrPtr(lpszDirectory) : lpszDirectory
+
         A_LastError := 0
 
         result := DllCall("WININET.dll\FtpRemoveDirectoryA", "ptr", hConnect, "ptr", lpszDirectory, "int")
@@ -7608,6 +7710,8 @@ class WinInet {
      * @since windows5.0
      */
     static FtpRemoveDirectoryW(hConnect, lpszDirectory) {
+        lpszDirectory := lpszDirectory is String? StrPtr(lpszDirectory) : lpszDirectory
+
         A_LastError := 0
 
         result := DllCall("WININET.dll\FtpRemoveDirectoryW", "ptr", hConnect, "ptr", lpszDirectory, "int")
@@ -7645,6 +7749,8 @@ class WinInet {
      * @since windows5.0
      */
     static FtpSetCurrentDirectoryA(hConnect, lpszDirectory) {
+        lpszDirectory := lpszDirectory is String? StrPtr(lpszDirectory) : lpszDirectory
+
         A_LastError := 0
 
         result := DllCall("WININET.dll\FtpSetCurrentDirectoryA", "ptr", hConnect, "ptr", lpszDirectory, "int")
@@ -7682,6 +7788,8 @@ class WinInet {
      * @since windows5.0
      */
     static FtpSetCurrentDirectoryW(hConnect, lpszDirectory) {
+        lpszDirectory := lpszDirectory is String? StrPtr(lpszDirectory) : lpszDirectory
+
         A_LastError := 0
 
         result := DllCall("WININET.dll\FtpSetCurrentDirectoryW", "ptr", hConnect, "ptr", lpszDirectory, "int")
@@ -7717,6 +7825,8 @@ class WinInet {
      * @since windows5.0
      */
     static FtpGetCurrentDirectoryA(hConnect, lpszCurrentDirectory, lpdwCurrentDirectory) {
+        lpszCurrentDirectory := lpszCurrentDirectory is String? StrPtr(lpszCurrentDirectory) : lpszCurrentDirectory
+
         A_LastError := 0
 
         result := DllCall("WININET.dll\FtpGetCurrentDirectoryA", "ptr", hConnect, "ptr", lpszCurrentDirectory, "ptr", lpdwCurrentDirectory, "int")
@@ -7752,6 +7862,8 @@ class WinInet {
      * @since windows5.0
      */
     static FtpGetCurrentDirectoryW(hConnect, lpszCurrentDirectory, lpdwCurrentDirectory) {
+        lpszCurrentDirectory := lpszCurrentDirectory is String? StrPtr(lpszCurrentDirectory) : lpszCurrentDirectory
+
         A_LastError := 0
 
         result := DllCall("WININET.dll\FtpGetCurrentDirectoryW", "ptr", hConnect, "ptr", lpszCurrentDirectory, "ptr", lpdwCurrentDirectory, "int")
@@ -7793,6 +7905,8 @@ class WinInet {
      * @since windows5.0
      */
     static FtpCommandA(hConnect, fExpectResponse, dwFlags, lpszCommand, dwContext, phFtpCommand) {
+        lpszCommand := lpszCommand is String? StrPtr(lpszCommand) : lpszCommand
+
         A_LastError := 0
 
         result := DllCall("WININET.dll\FtpCommandA", "ptr", hConnect, "int", fExpectResponse, "uint", dwFlags, "ptr", lpszCommand, "ptr", dwContext, "ptr", phFtpCommand, "int")
@@ -7834,6 +7948,8 @@ class WinInet {
      * @since windows5.0
      */
     static FtpCommandW(hConnect, fExpectResponse, dwFlags, lpszCommand, dwContext, phFtpCommand) {
+        lpszCommand := lpszCommand is String? StrPtr(lpszCommand) : lpszCommand
+
         A_LastError := 0
 
         result := DllCall("WININET.dll\FtpCommandW", "ptr", hConnect, "int", fExpectResponse, "uint", dwFlags, "ptr", lpszCommand, "ptr", dwContext, "ptr", phFtpCommand, "int")
@@ -7902,6 +8018,11 @@ class WinInet {
      * @since windows5.0
      */
     static GopherCreateLocatorA(lpszHost, nServerPort, lpszDisplayString, lpszSelectorString, dwGopherType, lpszLocator, lpdwBufferLength) {
+        lpszHost := lpszHost is String? StrPtr(lpszHost) : lpszHost
+        lpszDisplayString := lpszDisplayString is String? StrPtr(lpszDisplayString) : lpszDisplayString
+        lpszSelectorString := lpszSelectorString is String? StrPtr(lpszSelectorString) : lpszSelectorString
+        lpszLocator := lpszLocator is String? StrPtr(lpszLocator) : lpszLocator
+
         A_LastError := 0
 
         result := DllCall("WININET.dll\GopherCreateLocatorA", "ptr", lpszHost, "ushort", nServerPort, "ptr", lpszDisplayString, "ptr", lpszSelectorString, "uint", dwGopherType, "ptr", lpszLocator, "ptr", lpdwBufferLength, "int")
@@ -7953,6 +8074,11 @@ class WinInet {
      * @since windows5.0
      */
     static GopherCreateLocatorW(lpszHost, nServerPort, lpszDisplayString, lpszSelectorString, dwGopherType, lpszLocator, lpdwBufferLength) {
+        lpszHost := lpszHost is String? StrPtr(lpszHost) : lpszHost
+        lpszDisplayString := lpszDisplayString is String? StrPtr(lpszDisplayString) : lpszDisplayString
+        lpszSelectorString := lpszSelectorString is String? StrPtr(lpszSelectorString) : lpszSelectorString
+        lpszLocator := lpszLocator is String? StrPtr(lpszLocator) : lpszLocator
+
         A_LastError := 0
 
         result := DllCall("WININET.dll\GopherCreateLocatorW", "ptr", lpszHost, "ushort", nServerPort, "ptr", lpszDisplayString, "ptr", lpszSelectorString, "uint", dwGopherType, "ptr", lpszLocator, "ptr", lpdwBufferLength, "int")
@@ -7986,6 +8112,8 @@ class WinInet {
      * @since windows5.0
      */
     static GopherGetLocatorTypeA(lpszLocator, lpdwGopherType) {
+        lpszLocator := lpszLocator is String? StrPtr(lpszLocator) : lpszLocator
+
         A_LastError := 0
 
         result := DllCall("WININET.dll\GopherGetLocatorTypeA", "ptr", lpszLocator, "ptr", lpdwGopherType, "int")
@@ -8019,6 +8147,8 @@ class WinInet {
      * @since windows5.0
      */
     static GopherGetLocatorTypeW(lpszLocator, lpdwGopherType) {
+        lpszLocator := lpszLocator is String? StrPtr(lpszLocator) : lpszLocator
+
         A_LastError := 0
 
         result := DllCall("WININET.dll\GopherGetLocatorTypeW", "ptr", lpszLocator, "ptr", lpdwGopherType, "int")
@@ -8074,6 +8204,9 @@ class WinInet {
      * @since windows5.0
      */
     static GopherFindFirstFileA(hConnect, lpszLocator, lpszSearchString, lpFindData, dwFlags, dwContext) {
+        lpszLocator := lpszLocator is String? StrPtr(lpszLocator) : lpszLocator
+        lpszSearchString := lpszSearchString is String? StrPtr(lpszSearchString) : lpszSearchString
+
         A_LastError := 0
 
         DllCall("WININET.dll\GopherFindFirstFileA", "ptr", hConnect, "ptr", lpszLocator, "ptr", lpszSearchString, "ptr", lpFindData, "uint", dwFlags, "ptr", dwContext)
@@ -8128,6 +8261,9 @@ class WinInet {
      * @since windows5.0
      */
     static GopherFindFirstFileW(hConnect, lpszLocator, lpszSearchString, lpFindData, dwFlags, dwContext) {
+        lpszLocator := lpszLocator is String? StrPtr(lpszLocator) : lpszLocator
+        lpszSearchString := lpszSearchString is String? StrPtr(lpszSearchString) : lpszSearchString
+
         A_LastError := 0
 
         DllCall("WININET.dll\GopherFindFirstFileW", "ptr", hConnect, "ptr", lpszLocator, "ptr", lpszSearchString, "ptr", lpFindData, "uint", dwFlags, "ptr", dwContext)
@@ -8172,6 +8308,9 @@ class WinInet {
      * @since windows5.0
      */
     static GopherOpenFileA(hConnect, lpszLocator, lpszView, dwFlags, dwContext) {
+        lpszLocator := lpszLocator is String? StrPtr(lpszLocator) : lpszLocator
+        lpszView := lpszView is String? StrPtr(lpszView) : lpszView
+
         A_LastError := 0
 
         DllCall("WININET.dll\GopherOpenFileA", "ptr", hConnect, "ptr", lpszLocator, "ptr", lpszView, "uint", dwFlags, "ptr", dwContext)
@@ -8216,6 +8355,9 @@ class WinInet {
      * @since windows5.0
      */
     static GopherOpenFileW(hConnect, lpszLocator, lpszView, dwFlags, dwContext) {
+        lpszLocator := lpszLocator is String? StrPtr(lpszLocator) : lpszLocator
+        lpszView := lpszView is String? StrPtr(lpszView) : lpszView
+
         A_LastError := 0
 
         DllCall("WININET.dll\GopherOpenFileW", "ptr", hConnect, "ptr", lpszLocator, "ptr", lpszView, "uint", dwFlags, "ptr", dwContext)
@@ -8271,6 +8413,9 @@ class WinInet {
      * @since windows5.0
      */
     static GopherGetAttributeA(hConnect, lpszLocator, lpszAttributeName, lpBuffer, dwBufferLength, lpdwCharactersReturned, lpfnEnumerator, dwContext) {
+        lpszLocator := lpszLocator is String? StrPtr(lpszLocator) : lpszLocator
+        lpszAttributeName := lpszAttributeName is String? StrPtr(lpszAttributeName) : lpszAttributeName
+
         A_LastError := 0
 
         result := DllCall("WININET.dll\GopherGetAttributeA", "ptr", hConnect, "ptr", lpszLocator, "ptr", lpszAttributeName, "ptr", lpBuffer, "uint", dwBufferLength, "ptr", lpdwCharactersReturned, "ptr", lpfnEnumerator, "ptr", dwContext, "int")
@@ -8327,6 +8472,9 @@ class WinInet {
      * @since windows5.0
      */
     static GopherGetAttributeW(hConnect, lpszLocator, lpszAttributeName, lpBuffer, dwBufferLength, lpdwCharactersReturned, lpfnEnumerator, dwContext) {
+        lpszLocator := lpszLocator is String? StrPtr(lpszLocator) : lpszLocator
+        lpszAttributeName := lpszAttributeName is String? StrPtr(lpszAttributeName) : lpszAttributeName
+
         A_LastError := 0
 
         result := DllCall("WININET.dll\GopherGetAttributeW", "ptr", hConnect, "ptr", lpszLocator, "ptr", lpszAttributeName, "ptr", lpBuffer, "uint", dwBufferLength, "ptr", lpdwCharactersReturned, "ptr", lpfnEnumerator, "ptr", dwContext, "int")
@@ -8412,6 +8560,12 @@ class WinInet {
      * @since windows5.0
      */
     static HttpOpenRequestA(hConnect, lpszVerb, lpszObjectName, lpszVersion, lpszReferrer, lplpszAcceptTypes, dwFlags, dwContext) {
+        lpszVerb := lpszVerb is String? StrPtr(lpszVerb) : lpszVerb
+        lpszObjectName := lpszObjectName is String? StrPtr(lpszObjectName) : lpszObjectName
+        lpszVersion := lpszVersion is String? StrPtr(lpszVersion) : lpszVersion
+        lpszReferrer := lpszReferrer is String? StrPtr(lpszReferrer) : lpszReferrer
+        lplpszAcceptTypes := lplpszAcceptTypes is String? StrPtr(lplpszAcceptTypes) : lplpszAcceptTypes
+
         A_LastError := 0
 
         DllCall("WININET.dll\HttpOpenRequestA", "ptr", hConnect, "ptr", lpszVerb, "ptr", lpszObjectName, "ptr", lpszVersion, "ptr", lpszReferrer, "ptr", lplpszAcceptTypes, "uint", dwFlags, "ptr", dwContext)
@@ -8497,6 +8651,12 @@ class WinInet {
      * @since windows5.0
      */
     static HttpOpenRequestW(hConnect, lpszVerb, lpszObjectName, lpszVersion, lpszReferrer, lplpszAcceptTypes, dwFlags, dwContext) {
+        lpszVerb := lpszVerb is String? StrPtr(lpszVerb) : lpszVerb
+        lpszObjectName := lpszObjectName is String? StrPtr(lpszObjectName) : lpszObjectName
+        lpszVersion := lpszVersion is String? StrPtr(lpszVersion) : lpszVersion
+        lpszReferrer := lpszReferrer is String? StrPtr(lpszReferrer) : lpszReferrer
+        lplpszAcceptTypes := lplpszAcceptTypes is String? StrPtr(lplpszAcceptTypes) : lplpszAcceptTypes
+
         A_LastError := 0
 
         DllCall("WININET.dll\HttpOpenRequestW", "ptr", hConnect, "ptr", lpszVerb, "ptr", lpszObjectName, "ptr", lpszVersion, "ptr", lpszReferrer, "ptr", lplpszAcceptTypes, "uint", dwFlags, "ptr", dwContext)
@@ -8541,6 +8701,8 @@ class WinInet {
      * @since windows5.0
      */
     static HttpAddRequestHeadersA(hRequest, lpszHeaders, dwHeadersLength, dwModifiers) {
+        lpszHeaders := lpszHeaders is String? StrPtr(lpszHeaders) : lpszHeaders
+
         A_LastError := 0
 
         result := DllCall("WININET.dll\HttpAddRequestHeadersA", "ptr", hRequest, "ptr", lpszHeaders, "uint", dwHeadersLength, "uint", dwModifiers, "int")
@@ -8586,6 +8748,8 @@ class WinInet {
      * @since windows5.0
      */
     static HttpAddRequestHeadersW(hRequest, lpszHeaders, dwHeadersLength, dwModifiers) {
+        lpszHeaders := lpszHeaders is String? StrPtr(lpszHeaders) : lpszHeaders
+
         A_LastError := 0
 
         result := DllCall("WININET.dll\HttpAddRequestHeadersW", "ptr", hRequest, "ptr", lpszHeaders, "uint", dwHeadersLength, "uint", dwModifiers, "int")
@@ -8645,6 +8809,8 @@ class WinInet {
      * @since windows5.0
      */
     static HttpSendRequestA(hRequest, lpszHeaders, dwHeadersLength, lpOptional, dwOptionalLength) {
+        lpszHeaders := lpszHeaders is String? StrPtr(lpszHeaders) : lpszHeaders
+
         A_LastError := 0
 
         result := DllCall("WININET.dll\HttpSendRequestA", "ptr", hRequest, "ptr", lpszHeaders, "uint", dwHeadersLength, "ptr", lpOptional, "uint", dwOptionalLength, "int")
@@ -8704,6 +8870,8 @@ class WinInet {
      * @since windows5.0
      */
     static HttpSendRequestW(hRequest, lpszHeaders, dwHeadersLength, lpOptional, dwOptionalLength) {
+        lpszHeaders := lpszHeaders is String? StrPtr(lpszHeaders) : lpszHeaders
+
         A_LastError := 0
 
         result := DllCall("WININET.dll\HttpSendRequestW", "ptr", hRequest, "ptr", lpszHeaders, "uint", dwHeadersLength, "ptr", lpOptional, "uint", dwOptionalLength, "int")
@@ -9041,6 +9209,10 @@ class WinInet {
      * @since windows5.0
      */
     static InternetSetCookieA(lpszUrl, lpszCookieName, lpszCookieData) {
+        lpszUrl := lpszUrl is String? StrPtr(lpszUrl) : lpszUrl
+        lpszCookieName := lpszCookieName is String? StrPtr(lpszCookieName) : lpszCookieName
+        lpszCookieData := lpszCookieData is String? StrPtr(lpszCookieData) : lpszCookieData
+
         A_LastError := 0
 
         result := DllCall("WININET.dll\InternetSetCookieA", "ptr", lpszUrl, "ptr", lpszCookieName, "ptr", lpszCookieData, "int")
@@ -9086,6 +9258,10 @@ class WinInet {
      * @since windows5.0
      */
     static InternetSetCookieW(lpszUrl, lpszCookieName, lpszCookieData) {
+        lpszUrl := lpszUrl is String? StrPtr(lpszUrl) : lpszUrl
+        lpszCookieName := lpszCookieName is String? StrPtr(lpszCookieName) : lpszCookieName
+        lpszCookieData := lpszCookieData is String? StrPtr(lpszCookieData) : lpszCookieData
+
         A_LastError := 0
 
         result := DllCall("WININET.dll\InternetSetCookieW", "ptr", lpszUrl, "ptr", lpszCookieName, "ptr", lpszCookieData, "int")
@@ -9179,6 +9355,10 @@ class WinInet {
      * @since windows5.0
      */
     static InternetGetCookieA(lpszUrl, lpszCookieName, lpszCookieData, lpdwSize) {
+        lpszUrl := lpszUrl is String? StrPtr(lpszUrl) : lpszUrl
+        lpszCookieName := lpszCookieName is String? StrPtr(lpszCookieName) : lpszCookieName
+        lpszCookieData := lpszCookieData is String? StrPtr(lpszCookieData) : lpszCookieData
+
         A_LastError := 0
 
         result := DllCall("WININET.dll\InternetGetCookieA", "ptr", lpszUrl, "ptr", lpszCookieName, "ptr", lpszCookieData, "ptr", lpdwSize, "int")
@@ -9272,6 +9452,10 @@ class WinInet {
      * @since windows5.0
      */
     static InternetGetCookieW(lpszUrl, lpszCookieName, lpszCookieData, lpdwSize) {
+        lpszUrl := lpszUrl is String? StrPtr(lpszUrl) : lpszUrl
+        lpszCookieName := lpszCookieName is String? StrPtr(lpszCookieName) : lpszCookieName
+        lpszCookieData := lpszCookieData is String? StrPtr(lpszCookieData) : lpszCookieData
+
         A_LastError := 0
 
         result := DllCall("WININET.dll\InternetGetCookieW", "ptr", lpszUrl, "ptr", lpszCookieName, "ptr", lpszCookieData, "ptr", lpdwSize, "int")
@@ -9363,6 +9547,10 @@ class WinInet {
      * @since windows5.1.2600
      */
     static InternetSetCookieExA(lpszUrl, lpszCookieName, lpszCookieData, dwFlags, dwReserved) {
+        lpszUrl := lpszUrl is String? StrPtr(lpszUrl) : lpszUrl
+        lpszCookieName := lpszCookieName is String? StrPtr(lpszCookieName) : lpszCookieName
+        lpszCookieData := lpszCookieData is String? StrPtr(lpszCookieData) : lpszCookieData
+
         A_LastError := 0
 
         result := DllCall("WININET.dll\InternetSetCookieExA", "ptr", lpszUrl, "ptr", lpszCookieName, "ptr", lpszCookieData, "uint", dwFlags, "ptr", dwReserved, "uint")
@@ -9454,6 +9642,10 @@ class WinInet {
      * @since windows5.1.2600
      */
     static InternetSetCookieExW(lpszUrl, lpszCookieName, lpszCookieData, dwFlags, dwReserved) {
+        lpszUrl := lpszUrl is String? StrPtr(lpszUrl) : lpszUrl
+        lpszCookieName := lpszCookieName is String? StrPtr(lpszCookieName) : lpszCookieName
+        lpszCookieData := lpszCookieData is String? StrPtr(lpszCookieData) : lpszCookieData
+
         A_LastError := 0
 
         result := DllCall("WININET.dll\InternetSetCookieExW", "ptr", lpszUrl, "ptr", lpszCookieName, "ptr", lpszCookieData, "uint", dwFlags, "ptr", dwReserved, "uint")
@@ -9540,6 +9732,10 @@ class WinInet {
      */
     static InternetGetCookieExA(lpszUrl, lpszCookieName, lpszCookieData, lpdwSize, dwFlags) {
         static lpReserved := 0 ;Reserved parameters must always be NULL
+
+        lpszUrl := lpszUrl is String? StrPtr(lpszUrl) : lpszUrl
+        lpszCookieName := lpszCookieName is String? StrPtr(lpszCookieName) : lpszCookieName
+        lpszCookieData := lpszCookieData is String? StrPtr(lpszCookieData) : lpszCookieData
 
         A_LastError := 0
 
@@ -9628,6 +9824,10 @@ class WinInet {
     static InternetGetCookieExW(lpszUrl, lpszCookieName, lpszCookieData, lpdwSize, dwFlags) {
         static lpReserved := 0 ;Reserved parameters must always be NULL
 
+        lpszUrl := lpszUrl is String? StrPtr(lpszUrl) : lpszUrl
+        lpszCookieName := lpszCookieName is String? StrPtr(lpszCookieName) : lpszCookieName
+        lpszCookieData := lpszCookieData is String? StrPtr(lpszCookieData) : lpszCookieData
+
         A_LastError := 0
 
         result := DllCall("WININET.dll\InternetGetCookieExW", "ptr", lpszUrl, "ptr", lpszCookieName, "ptr", lpszCookieData, "ptr", lpdwSize, "uint", dwFlags, "ptr", lpReserved, "int")
@@ -9672,6 +9872,9 @@ class WinInet {
      * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetgetcookieex2
      */
     static InternetGetCookieEx2(pcwszUrl, pcwszCookieName, dwFlags, ppCookies, pdwCookieCount) {
+        pcwszUrl := pcwszUrl is String? StrPtr(pcwszUrl) : pcwszUrl
+        pcwszCookieName := pcwszCookieName is String? StrPtr(pcwszCookieName) : pcwszCookieName
+
         result := DllCall("WININET.dll\InternetGetCookieEx2", "ptr", pcwszUrl, "ptr", pcwszCookieName, "uint", dwFlags, "ptr", ppCookies, "ptr", pdwCookieCount, "uint")
         return result
     }
@@ -9698,6 +9901,9 @@ class WinInet {
      * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetsetcookieex2
      */
     static InternetSetCookieEx2(pcwszUrl, pCookie, pcwszP3PPolicy, dwFlags, pdwCookieState) {
+        pcwszUrl := pcwszUrl is String? StrPtr(pcwszUrl) : pcwszUrl
+        pcwszP3PPolicy := pcwszP3PPolicy is String? StrPtr(pcwszP3PPolicy) : pcwszP3PPolicy
+
         result := DllCall("WININET.dll\InternetSetCookieEx2", "ptr", pcwszUrl, "ptr", pCookie, "ptr", pcwszP3PPolicy, "uint", dwFlags, "ptr", pdwCookieState, "uint")
         return result
     }
@@ -9751,6 +9957,8 @@ class WinInet {
      * @since windows5.0
      */
     static InternetCheckConnectionA(lpszUrl, dwFlags, dwReserved) {
+        lpszUrl := lpszUrl is String? StrPtr(lpszUrl) : lpszUrl
+
         A_LastError := 0
 
         result := DllCall("WININET.dll\InternetCheckConnectionA", "ptr", lpszUrl, "uint", dwFlags, "uint", dwReserved, "int")
@@ -9790,6 +9998,8 @@ class WinInet {
      * @since windows5.0
      */
     static InternetCheckConnectionW(lpszUrl, dwFlags, dwReserved) {
+        lpszUrl := lpszUrl is String? StrPtr(lpszUrl) : lpszUrl
+
         A_LastError := 0
 
         result := DllCall("WININET.dll\InternetCheckConnectionW", "ptr", lpszUrl, "uint", dwFlags, "uint", dwReserved, "int")
@@ -9974,6 +10184,9 @@ class WinInet {
      * @since windows5.0
      */
     static InternetConfirmZoneCrossingA(hWnd, szUrlPrev, szUrlNew, bPost) {
+        szUrlPrev := szUrlPrev is String? StrPtr(szUrlPrev) : szUrlPrev
+        szUrlNew := szUrlNew is String? StrPtr(szUrlNew) : szUrlNew
+
         result := DllCall("WININET.dll\InternetConfirmZoneCrossingA", "ptr", hWnd, "ptr", szUrlPrev, "ptr", szUrlNew, "int", bPost, "uint")
         return result
     }
@@ -10042,6 +10255,9 @@ class WinInet {
      * @since windows5.0
      */
     static InternetConfirmZoneCrossingW(hWnd, szUrlPrev, szUrlNew, bPost) {
+        szUrlPrev := szUrlPrev is String? StrPtr(szUrlPrev) : szUrlPrev
+        szUrlNew := szUrlNew is String? StrPtr(szUrlNew) : szUrlNew
+
         result := DllCall("WININET.dll\InternetConfirmZoneCrossingW", "ptr", hWnd, "ptr", szUrlPrev, "ptr", szUrlNew, "int", bPost, "uint")
         return result
     }
@@ -10104,6 +10320,9 @@ class WinInet {
      * @since windows5.0
      */
     static InternetConfirmZoneCrossing(hWnd, szUrlPrev, szUrlNew, bPost) {
+        szUrlPrev := szUrlPrev is String? StrPtr(szUrlPrev) : szUrlPrev
+        szUrlNew := szUrlNew is String? StrPtr(szUrlNew) : szUrlNew
+
         result := DllCall("WININET.dll\InternetConfirmZoneCrossing", "ptr", hWnd, "ptr", szUrlPrev, "ptr", szUrlNew, "int", bPost, "uint")
         return result
     }
@@ -10154,6 +10373,10 @@ class WinInet {
      * @since windows5.0
      */
     static CreateUrlCacheEntryA(lpszUrlName, dwExpectedFileSize, lpszFileExtension, lpszFileName, dwReserved) {
+        lpszUrlName := lpszUrlName is String? StrPtr(lpszUrlName) : lpszUrlName
+        lpszFileExtension := lpszFileExtension is String? StrPtr(lpszFileExtension) : lpszFileExtension
+        lpszFileName := lpszFileName is String? StrPtr(lpszFileName) : lpszFileName
+
         A_LastError := 0
 
         result := DllCall("WININET.dll\CreateUrlCacheEntryA", "ptr", lpszUrlName, "uint", dwExpectedFileSize, "ptr", lpszFileExtension, "ptr", lpszFileName, "uint", dwReserved, "int")
@@ -10209,6 +10432,10 @@ class WinInet {
      * @since windows5.0
      */
     static CreateUrlCacheEntryW(lpszUrlName, dwExpectedFileSize, lpszFileExtension, lpszFileName, dwReserved) {
+        lpszUrlName := lpszUrlName is String? StrPtr(lpszUrlName) : lpszUrlName
+        lpszFileExtension := lpszFileExtension is String? StrPtr(lpszFileExtension) : lpszFileExtension
+        lpszFileName := lpszFileName is String? StrPtr(lpszFileName) : lpszFileName
+
         A_LastError := 0
 
         result := DllCall("WININET.dll\CreateUrlCacheEntryW", "ptr", lpszUrlName, "uint", dwExpectedFileSize, "ptr", lpszFileExtension, "ptr", lpszFileName, "uint", dwReserved, "int")
@@ -10390,6 +10617,10 @@ class WinInet {
      */
     static CommitUrlCacheEntryA(lpszUrlName, lpszLocalFileName, ExpireTime, LastModifiedTime, CacheEntryType, lpHeaderInfo, cchHeaderInfo, lpszOriginalUrl) {
         static lpszFileExtension := 0 ;Reserved parameters must always be NULL
+
+        lpszUrlName := lpszUrlName is String? StrPtr(lpszUrlName) : lpszUrlName
+        lpszLocalFileName := lpszLocalFileName is String? StrPtr(lpszLocalFileName) : lpszLocalFileName
+        lpszOriginalUrl := lpszOriginalUrl is String? StrPtr(lpszOriginalUrl) : lpszOriginalUrl
 
         A_LastError := 0
 
@@ -10574,6 +10805,11 @@ class WinInet {
     static CommitUrlCacheEntryW(lpszUrlName, lpszLocalFileName, ExpireTime, LastModifiedTime, CacheEntryType, lpszHeaderInfo, cchHeaderInfo, lpszOriginalUrl) {
         static lpszFileExtension := 0 ;Reserved parameters must always be NULL
 
+        lpszUrlName := lpszUrlName is String? StrPtr(lpszUrlName) : lpszUrlName
+        lpszLocalFileName := lpszLocalFileName is String? StrPtr(lpszLocalFileName) : lpszLocalFileName
+        lpszHeaderInfo := lpszHeaderInfo is String? StrPtr(lpszHeaderInfo) : lpszHeaderInfo
+        lpszOriginalUrl := lpszOriginalUrl is String? StrPtr(lpszOriginalUrl) : lpszOriginalUrl
+
         A_LastError := 0
 
         result := DllCall("WININET.dll\CommitUrlCacheEntryW", "ptr", lpszUrlName, "ptr", lpszLocalFileName, "ptr", ExpireTime, "ptr", LastModifiedTime, "uint", CacheEntryType, "ptr", lpszHeaderInfo, "uint", cchHeaderInfo, "ptr", lpszFileExtension, "ptr", lpszOriginalUrl, "int")
@@ -10645,6 +10881,8 @@ class WinInet {
      */
     static RetrieveUrlCacheEntryFileA(lpszUrlName, lpCacheEntryInfo, lpcbCacheEntryInfo) {
         static dwReserved := 0 ;Reserved parameters must always be NULL
+
+        lpszUrlName := lpszUrlName is String? StrPtr(lpszUrlName) : lpszUrlName
 
         A_LastError := 0
 
@@ -10718,6 +10956,8 @@ class WinInet {
     static RetrieveUrlCacheEntryFileW(lpszUrlName, lpCacheEntryInfo, lpcbCacheEntryInfo) {
         static dwReserved := 0 ;Reserved parameters must always be NULL
 
+        lpszUrlName := lpszUrlName is String? StrPtr(lpszUrlName) : lpszUrlName
+
         A_LastError := 0
 
         result := DllCall("WININET.dll\RetrieveUrlCacheEntryFileW", "ptr", lpszUrlName, "ptr", lpCacheEntryInfo, "ptr", lpcbCacheEntryInfo, "uint", dwReserved, "int")
@@ -10752,6 +10992,8 @@ class WinInet {
      */
     static UnlockUrlCacheEntryFileA(lpszUrlName) {
         static dwReserved := 0 ;Reserved parameters must always be NULL
+
+        lpszUrlName := lpszUrlName is String? StrPtr(lpszUrlName) : lpszUrlName
 
         A_LastError := 0
 
@@ -10788,6 +11030,8 @@ class WinInet {
     static UnlockUrlCacheEntryFileW(lpszUrlName) {
         static dwReserved := 0 ;Reserved parameters must always be NULL
 
+        lpszUrlName := lpszUrlName is String? StrPtr(lpszUrlName) : lpszUrlName
+
         A_LastError := 0
 
         result := DllCall("WININET.dll\UnlockUrlCacheEntryFileW", "ptr", lpszUrlName, "uint", dwReserved, "int")
@@ -10816,6 +11060,8 @@ class WinInet {
      */
     static UnlockUrlCacheEntryFile(lpszUrlName) {
         static dwReserved := 0 ;Reserved parameters must always be NULL
+
+        lpszUrlName := lpszUrlName is String? StrPtr(lpszUrlName) : lpszUrlName
 
         A_LastError := 0
 
@@ -10895,6 +11141,8 @@ class WinInet {
     static RetrieveUrlCacheEntryStreamA(lpszUrlName, lpCacheEntryInfo, lpcbCacheEntryInfo, fRandomRead) {
         static dwReserved := 0 ;Reserved parameters must always be NULL
 
+        lpszUrlName := lpszUrlName is String? StrPtr(lpszUrlName) : lpszUrlName
+
         A_LastError := 0
 
         result := DllCall("WININET.dll\RetrieveUrlCacheEntryStreamA", "ptr", lpszUrlName, "ptr", lpCacheEntryInfo, "ptr", lpcbCacheEntryInfo, "int", fRandomRead, "uint", dwReserved, "ptr")
@@ -10972,6 +11220,8 @@ class WinInet {
      */
     static RetrieveUrlCacheEntryStreamW(lpszUrlName, lpCacheEntryInfo, lpcbCacheEntryInfo, fRandomRead) {
         static dwReserved := 0 ;Reserved parameters must always be NULL
+
+        lpszUrlName := lpszUrlName is String? StrPtr(lpszUrlName) : lpszUrlName
 
         A_LastError := 0
 
@@ -11113,6 +11363,8 @@ class WinInet {
      * @since windows5.0
      */
     static GetUrlCacheEntryInfoA(lpszUrlName, lpCacheEntryInfo, lpcbCacheEntryInfo) {
+        lpszUrlName := lpszUrlName is String? StrPtr(lpszUrlName) : lpszUrlName
+
         A_LastError := 0
 
         result := DllCall("WININET.dll\GetUrlCacheEntryInfoA", "ptr", lpszUrlName, "ptr", lpCacheEntryInfo, "ptr", lpcbCacheEntryInfo, "int")
@@ -11182,6 +11434,8 @@ class WinInet {
      * @since windows5.0
      */
     static GetUrlCacheEntryInfoW(lpszUrlName, lpCacheEntryInfo, lpcbCacheEntryInfo) {
+        lpszUrlName := lpszUrlName is String? StrPtr(lpszUrlName) : lpszUrlName
+
         A_LastError := 0
 
         result := DllCall("WININET.dll\GetUrlCacheEntryInfoW", "ptr", lpszUrlName, "ptr", lpCacheEntryInfo, "ptr", lpcbCacheEntryInfo, "int")
@@ -11445,6 +11699,8 @@ class WinInet {
     static GetUrlCacheEntryInfoExA(lpszUrl, lpCacheEntryInfo, lpcbCacheEntryInfo, dwFlags) {
         static lpszRedirectUrl := 0, lpcbRedirectUrl := 0, lpReserved := 0 ;Reserved parameters must always be NULL
 
+        lpszUrl := lpszUrl is String? StrPtr(lpszUrl) : lpszUrl
+
         A_LastError := 0
 
         result := DllCall("WININET.dll\GetUrlCacheEntryInfoExA", "ptr", lpszUrl, "ptr", lpCacheEntryInfo, "ptr", lpcbCacheEntryInfo, "ptr", lpszRedirectUrl, "ptr", lpcbRedirectUrl, "ptr", lpReserved, "uint", dwFlags, "int")
@@ -11516,6 +11772,8 @@ class WinInet {
     static GetUrlCacheEntryInfoExW(lpszUrl, lpCacheEntryInfo, lpcbCacheEntryInfo, dwFlags) {
         static lpszRedirectUrl := 0, lpcbRedirectUrl := 0, lpReserved := 0 ;Reserved parameters must always be NULL
 
+        lpszUrl := lpszUrl is String? StrPtr(lpszUrl) : lpszUrl
+
         A_LastError := 0
 
         result := DllCall("WININET.dll\GetUrlCacheEntryInfoExW", "ptr", lpszUrl, "ptr", lpCacheEntryInfo, "ptr", lpcbCacheEntryInfo, "ptr", lpszRedirectUrl, "ptr", lpcbRedirectUrl, "ptr", lpReserved, "uint", dwFlags, "int")
@@ -11576,6 +11834,8 @@ class WinInet {
      * @since windows5.0
      */
     static SetUrlCacheEntryInfoA(lpszUrlName, lpCacheEntryInfo, dwFieldControl) {
+        lpszUrlName := lpszUrlName is String? StrPtr(lpszUrlName) : lpszUrlName
+
         A_LastError := 0
 
         result := DllCall("WININET.dll\SetUrlCacheEntryInfoA", "ptr", lpszUrlName, "ptr", lpCacheEntryInfo, "uint", dwFieldControl, "int")
@@ -11636,6 +11896,8 @@ class WinInet {
      * @since windows5.0
      */
     static SetUrlCacheEntryInfoW(lpszUrlName, lpCacheEntryInfo, dwFieldControl) {
+        lpszUrlName := lpszUrlName is String? StrPtr(lpszUrlName) : lpszUrlName
+
         A_LastError := 0
 
         result := DllCall("WININET.dll\SetUrlCacheEntryInfoW", "ptr", lpszUrlName, "ptr", lpCacheEntryInfo, "uint", dwFieldControl, "int")
@@ -11721,6 +11983,8 @@ class WinInet {
     static SetUrlCacheEntryGroupA(lpszUrlName, dwFlags, GroupId) {
         static pbGroupAttributes := 0, cbGroupAttributes := 0, lpReserved := 0 ;Reserved parameters must always be NULL
 
+        lpszUrlName := lpszUrlName is String? StrPtr(lpszUrlName) : lpszUrlName
+
         result := DllCall("WININET.dll\SetUrlCacheEntryGroupA", "ptr", lpszUrlName, "uint", dwFlags, "int64", GroupId, "ptr", pbGroupAttributes, "uint", cbGroupAttributes, "ptr", lpReserved, "int")
         return result
     }
@@ -11750,6 +12014,8 @@ class WinInet {
     static SetUrlCacheEntryGroupW(lpszUrlName, dwFlags, GroupId) {
         static pbGroupAttributes := 0, cbGroupAttributes := 0, lpReserved := 0 ;Reserved parameters must always be NULL
 
+        lpszUrlName := lpszUrlName is String? StrPtr(lpszUrlName) : lpszUrlName
+
         result := DllCall("WININET.dll\SetUrlCacheEntryGroupW", "ptr", lpszUrlName, "uint", dwFlags, "int64", GroupId, "ptr", pbGroupAttributes, "uint", cbGroupAttributes, "ptr", lpReserved, "int")
         return result
     }
@@ -11772,6 +12038,8 @@ class WinInet {
      */
     static SetUrlCacheEntryGroup(lpszUrlName, dwFlags, GroupId) {
         static pbGroupAttributes := 0, cbGroupAttributes := 0, lpReserved := 0 ;Reserved parameters must always be NULL
+
+        lpszUrlName := lpszUrlName is String? StrPtr(lpszUrlName) : lpszUrlName
 
         result := DllCall("WININET.dll\SetUrlCacheEntryGroup", "ptr", lpszUrlName, "uint", dwFlags, "int64", GroupId, "ptr", pbGroupAttributes, "uint", cbGroupAttributes, "ptr", lpReserved, "int")
         return result
@@ -11906,6 +12174,8 @@ class WinInet {
      */
     static FindFirstUrlCacheEntryExA(lpszUrlSearchPattern, dwFlags, dwFilter, GroupId, lpFirstCacheEntryInfo, lpcbCacheEntryInfo) {
         static lpGroupAttributes := 0, lpcbGroupAttributes := 0, lpReserved := 0 ;Reserved parameters must always be NULL
+
+        lpszUrlSearchPattern := lpszUrlSearchPattern is String? StrPtr(lpszUrlSearchPattern) : lpszUrlSearchPattern
 
         A_LastError := 0
 
@@ -12046,6 +12316,8 @@ class WinInet {
     static FindFirstUrlCacheEntryExW(lpszUrlSearchPattern, dwFlags, dwFilter, GroupId, lpFirstCacheEntryInfo, lpcbCacheEntryInfo) {
         static lpGroupAttributes := 0, lpcbGroupAttributes := 0, lpReserved := 0 ;Reserved parameters must always be NULL
 
+        lpszUrlSearchPattern := lpszUrlSearchPattern is String? StrPtr(lpszUrlSearchPattern) : lpszUrlSearchPattern
+
         A_LastError := 0
 
         result := DllCall("WININET.dll\FindFirstUrlCacheEntryExW", "ptr", lpszUrlSearchPattern, "uint", dwFlags, "uint", dwFilter, "int64", GroupId, "ptr", lpFirstCacheEntryInfo, "ptr", lpcbCacheEntryInfo, "ptr", lpGroupAttributes, "ptr", lpcbGroupAttributes, "ptr", lpReserved, "ptr")
@@ -12167,6 +12439,8 @@ class WinInet {
      * @since windows5.0
      */
     static FindFirstUrlCacheEntryA(lpszUrlSearchPattern, lpFirstCacheEntryInfo, lpcbCacheEntryInfo) {
+        lpszUrlSearchPattern := lpszUrlSearchPattern is String? StrPtr(lpszUrlSearchPattern) : lpszUrlSearchPattern
+
         A_LastError := 0
 
         result := DllCall("WININET.dll\FindFirstUrlCacheEntryA", "ptr", lpszUrlSearchPattern, "ptr", lpFirstCacheEntryInfo, "ptr", lpcbCacheEntryInfo, "ptr")
@@ -12214,6 +12488,8 @@ class WinInet {
      * @since windows5.0
      */
     static FindFirstUrlCacheEntryW(lpszUrlSearchPattern, lpFirstCacheEntryInfo, lpcbCacheEntryInfo) {
+        lpszUrlSearchPattern := lpszUrlSearchPattern is String? StrPtr(lpszUrlSearchPattern) : lpszUrlSearchPattern
+
         A_LastError := 0
 
         result := DllCall("WININET.dll\FindFirstUrlCacheEntryW", "ptr", lpszUrlSearchPattern, "ptr", lpFirstCacheEntryInfo, "ptr", lpcbCacheEntryInfo, "ptr")
@@ -12428,6 +12704,8 @@ class WinInet {
      * @since windows5.0
      */
     static DeleteUrlCacheEntryA(lpszUrlName) {
+        lpszUrlName := lpszUrlName is String? StrPtr(lpszUrlName) : lpszUrlName
+
         A_LastError := 0
 
         result := DllCall("WININET.dll\DeleteUrlCacheEntryA", "ptr", lpszUrlName, "int")
@@ -12484,6 +12762,8 @@ class WinInet {
      * @since windows5.0
      */
     static DeleteUrlCacheEntryW(lpszUrlName) {
+        lpszUrlName := lpszUrlName is String? StrPtr(lpszUrlName) : lpszUrlName
+
         A_LastError := 0
 
         result := DllCall("WININET.dll\DeleteUrlCacheEntryW", "ptr", lpszUrlName, "int")
@@ -12534,6 +12814,8 @@ class WinInet {
      * @since windows5.0
      */
     static DeleteUrlCacheEntry(lpszUrlName) {
+        lpszUrlName := lpszUrlName is String? StrPtr(lpszUrlName) : lpszUrlName
+
         A_LastError := 0
 
         result := DllCall("WININET.dll\DeleteUrlCacheEntry", "ptr", lpszUrlName, "int")
@@ -12611,6 +12893,8 @@ class WinInet {
     static InternetDialA(hwndParent, lpszConnectoid, dwFlags, lpdwConnection) {
         static dwReserved := 0 ;Reserved parameters must always be NULL
 
+        lpszConnectoid := lpszConnectoid is String? StrPtr(lpszConnectoid) : lpszConnectoid
+
         result := DllCall("WININET.dll\InternetDialA", "ptr", hwndParent, "ptr", lpszConnectoid, "uint", dwFlags, "ptr", lpdwConnection, "uint", dwReserved, "uint")
         return result
     }
@@ -12683,6 +12967,8 @@ class WinInet {
     static InternetDialW(hwndParent, lpszConnectoid, dwFlags, lpdwConnection) {
         static dwReserved := 0 ;Reserved parameters must always be NULL
 
+        lpszConnectoid := lpszConnectoid is String? StrPtr(lpszConnectoid) : lpszConnectoid
+
         result := DllCall("WININET.dll\InternetDialW", "ptr", hwndParent, "ptr", lpszConnectoid, "uint", dwFlags, "ptr", lpdwConnection, "uint", dwReserved, "uint")
         return result
     }
@@ -12748,6 +13034,8 @@ class WinInet {
      * @since windows5.0
      */
     static InternetDial(hwndParent, lpszConnectoid, dwFlags, lpdwConnection, dwReserved) {
+        lpszConnectoid := lpszConnectoid is String? StrPtr(lpszConnectoid) : lpszConnectoid
+
         result := DllCall("WININET.dll\InternetDial", "ptr", hwndParent, "ptr", lpszConnectoid, "uint", dwFlags, "ptr", lpdwConnection, "uint", dwReserved, "uint")
         return result
     }
@@ -12830,6 +13118,8 @@ class WinInet {
      * @since windows5.0
      */
     static InternetGoOnlineA(lpszURL, hwndParent, dwFlags) {
+        lpszURL := lpszURL is String? StrPtr(lpszURL) : lpszURL
+
         A_LastError := 0
 
         result := DllCall("WININET.dll\InternetGoOnlineA", "ptr", lpszURL, "ptr", hwndParent, "uint", dwFlags, "int")
@@ -12900,6 +13190,8 @@ class WinInet {
      * @since windows5.0
      */
     static InternetGoOnlineW(lpszURL, hwndParent, dwFlags) {
+        lpszURL := lpszURL is String? StrPtr(lpszURL) : lpszURL
+
         A_LastError := 0
 
         result := DllCall("WININET.dll\InternetGoOnlineW", "ptr", lpszURL, "ptr", hwndParent, "uint", dwFlags, "int")
@@ -12964,6 +13256,8 @@ class WinInet {
      * @since windows5.0
      */
     static InternetGoOnline(lpszURL, hwndParent, dwFlags) {
+        lpszURL := lpszURL is String? StrPtr(lpszURL) : lpszURL
+
         A_LastError := 0
 
         result := DllCall("WININET.dll\InternetGoOnline", "ptr", lpszURL, "ptr", hwndParent, "uint", dwFlags, "int")
@@ -13092,6 +13386,8 @@ class WinInet {
     static InternetGetConnectedStateExA(lpdwFlags, lpszConnectionName, cchNameLen) {
         static dwReserved := 0 ;Reserved parameters must always be NULL
 
+        lpszConnectionName := lpszConnectionName is String? StrPtr(lpszConnectionName) : lpszConnectionName
+
         A_LastError := 0
 
         result := DllCall("WININET.dll\InternetGetConnectedStateExA", "ptr", lpdwFlags, "ptr", lpszConnectionName, "uint", cchNameLen, "uint", dwReserved, "int")
@@ -13129,6 +13425,8 @@ class WinInet {
      */
     static InternetGetConnectedStateExW(lpdwFlags, lpszConnectionName, cchNameLen) {
         static dwReserved := 0 ;Reserved parameters must always be NULL
+
+        lpszConnectionName := lpszConnectionName is String? StrPtr(lpszConnectionName) : lpszConnectionName
 
         A_LastError := 0
 
@@ -13189,6 +13487,8 @@ class WinInet {
      * @since windows5.0
      */
     static DetectAutoProxyUrl(pszAutoProxyUrl, cchAutoProxyUrl, dwDetectFlags) {
+        pszAutoProxyUrl := pszAutoProxyUrl is String? StrPtr(pszAutoProxyUrl) : pszAutoProxyUrl
+
         A_LastError := 0
 
         result := DllCall("WININET.dll\DetectAutoProxyUrl", "ptr", pszAutoProxyUrl, "uint", cchAutoProxyUrl, "uint", dwDetectFlags, "int")
@@ -13218,6 +13518,10 @@ class WinInet {
      * @since windows5.0
      */
     static CreateMD5SSOHash(pszChallengeInfo, pwszRealm, pwszTarget, pbHexHash) {
+        pszChallengeInfo := pszChallengeInfo is String? StrPtr(pszChallengeInfo) : pszChallengeInfo
+        pwszRealm := pwszRealm is String? StrPtr(pwszRealm) : pwszRealm
+        pwszTarget := pwszTarget is String? StrPtr(pwszTarget) : pwszTarget
+
         result := DllCall("WININET.dll\CreateMD5SSOHash", "ptr", pszChallengeInfo, "ptr", pwszRealm, "ptr", pwszTarget, "ptr", pbHexHash, "int")
         return result
     }
@@ -13245,6 +13549,8 @@ class WinInet {
      * @since windows5.0
      */
     static InternetGetConnectedStateEx(lpdwFlags, lpszConnectionName, dwNameLen, dwReserved) {
+        lpszConnectionName := lpszConnectionName is String? StrPtr(lpszConnectionName) : lpszConnectionName
+
         A_LastError := 0
 
         result := DllCall("WININET.dll\InternetGetConnectedStateEx", "ptr", lpdwFlags, "ptr", lpszConnectionName, "uint", dwNameLen, "uint", dwReserved, "int")
@@ -13272,6 +13578,8 @@ class WinInet {
     static InternetSetDialStateA(lpszConnectoid, dwState) {
         static dwReserved := 0 ;Reserved parameters must always be NULL
 
+        lpszConnectoid := lpszConnectoid is String? StrPtr(lpszConnectoid) : lpszConnectoid
+
         result := DllCall("WININET.dll\InternetSetDialStateA", "ptr", lpszConnectoid, "uint", dwState, "uint", dwReserved, "int")
         return result
     }
@@ -13294,6 +13602,8 @@ class WinInet {
     static InternetSetDialStateW(lpszConnectoid, dwState) {
         static dwReserved := 0 ;Reserved parameters must always be NULL
 
+        lpszConnectoid := lpszConnectoid is String? StrPtr(lpszConnectoid) : lpszConnectoid
+
         result := DllCall("WININET.dll\InternetSetDialStateW", "ptr", lpszConnectoid, "uint", dwState, "uint", dwReserved, "int")
         return result
     }
@@ -13310,6 +13620,8 @@ class WinInet {
      * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetsetdialstate
      */
     static InternetSetDialState(lpszConnectoid, dwState, dwReserved) {
+        lpszConnectoid := lpszConnectoid is String? StrPtr(lpszConnectoid) : lpszConnectoid
+
         result := DllCall("WININET.dll\InternetSetDialState", "ptr", lpszConnectoid, "uint", dwState, "uint", dwReserved, "int")
         return result
     }
@@ -13336,6 +13648,8 @@ class WinInet {
      * @since windows5.0
      */
     static InternetSetPerSiteCookieDecisionA(pchHostName, dwDecision) {
+        pchHostName := pchHostName is String? StrPtr(pchHostName) : pchHostName
+
         result := DllCall("WININET.dll\InternetSetPerSiteCookieDecisionA", "ptr", pchHostName, "uint", dwDecision, "int")
         return result
     }
@@ -13362,6 +13676,8 @@ class WinInet {
      * @since windows5.0
      */
     static InternetSetPerSiteCookieDecisionW(pchHostName, dwDecision) {
+        pchHostName := pchHostName is String? StrPtr(pchHostName) : pchHostName
+
         result := DllCall("WININET.dll\InternetSetPerSiteCookieDecisionW", "ptr", pchHostName, "uint", dwDecision, "int")
         return result
     }
@@ -13392,6 +13708,8 @@ class WinInet {
      * @since windows5.0
      */
     static InternetGetPerSiteCookieDecisionA(pchHostName, pResult) {
+        pchHostName := pchHostName is String? StrPtr(pchHostName) : pchHostName
+
         result := DllCall("WININET.dll\InternetGetPerSiteCookieDecisionA", "ptr", pchHostName, "ptr", pResult, "int")
         return result
     }
@@ -13422,6 +13740,8 @@ class WinInet {
      * @since windows5.0
      */
     static InternetGetPerSiteCookieDecisionW(pchHostName, pResult) {
+        pchHostName := pchHostName is String? StrPtr(pchHostName) : pchHostName
+
         result := DllCall("WININET.dll\InternetGetPerSiteCookieDecisionW", "ptr", pchHostName, "ptr", pResult, "int")
         return result
     }
@@ -13464,6 +13784,8 @@ class WinInet {
      * @since windows5.0
      */
     static InternetEnumPerSiteCookieDecisionA(pszSiteName, pcSiteNameSize, pdwDecision, dwIndex) {
+        pszSiteName := pszSiteName is String? StrPtr(pszSiteName) : pszSiteName
+
         result := DllCall("WININET.dll\InternetEnumPerSiteCookieDecisionA", "ptr", pszSiteName, "ptr", pcSiteNameSize, "ptr", pdwDecision, "uint", dwIndex, "int")
         return result
     }
@@ -13492,6 +13814,8 @@ class WinInet {
      * @since windows5.0
      */
     static InternetEnumPerSiteCookieDecisionW(pszSiteName, pcSiteNameSize, pdwDecision, dwIndex) {
+        pszSiteName := pszSiteName is String? StrPtr(pszSiteName) : pszSiteName
+
         result := DllCall("WININET.dll\InternetEnumPerSiteCookieDecisionW", "ptr", pszSiteName, "ptr", pcSiteNameSize, "ptr", pdwDecision, "uint", dwIndex, "int")
         return result
     }
@@ -13579,6 +13903,8 @@ class WinInet {
      * @since windows5.0
      */
     static PrivacySetZonePreferenceW(dwZone, dwType, dwTemplate, pszPreference) {
+        pszPreference := pszPreference is String? StrPtr(pszPreference) : pszPreference
+
         result := DllCall("WININET.dll\PrivacySetZonePreferenceW", "uint", dwZone, "uint", dwType, "uint", dwTemplate, "ptr", pszPreference, "uint")
         return result
     }
@@ -13602,6 +13928,8 @@ class WinInet {
      * @since windows5.0
      */
     static PrivacyGetZonePreferenceW(dwZone, dwType, pdwTemplate, pszBuffer, pdwBufferLength) {
+        pszBuffer := pszBuffer is String? StrPtr(pszBuffer) : pszBuffer
+
         result := DllCall("WININET.dll\PrivacyGetZonePreferenceW", "uint", dwZone, "uint", dwType, "ptr", pdwTemplate, "ptr", pszBuffer, "ptr", pdwBufferLength, "uint")
         return result
     }
@@ -13613,6 +13941,8 @@ class WinInet {
      * @returns {Integer} 
      */
     static HttpIsHostHstsEnabled(pcwszUrl, pfIsHsts) {
+        pcwszUrl := pcwszUrl is String? StrPtr(pcwszUrl) : pcwszUrl
+
         result := DllCall("WININET.dll\HttpIsHostHstsEnabled", "ptr", pcwszUrl, "ptr", pfIsHsts, "uint")
         return result
     }
@@ -13626,6 +13956,8 @@ class WinInet {
      */
     static InternetAlgIdToStringA(ai, lpstr, lpdwstrLength) {
         static dwReserved := 0 ;Reserved parameters must always be NULL
+
+        lpstr := lpstr is String? StrPtr(lpstr) : lpstr
 
         result := DllCall("WININET.dll\InternetAlgIdToStringA", "uint", ai, "ptr", lpstr, "ptr", lpdwstrLength, "uint", dwReserved, "int")
         return result
@@ -13641,6 +13973,8 @@ class WinInet {
     static InternetAlgIdToStringW(ai, lpstr, lpdwstrLength) {
         static dwReserved := 0 ;Reserved parameters must always be NULL
 
+        lpstr := lpstr is String? StrPtr(lpstr) : lpstr
+
         result := DllCall("WININET.dll\InternetAlgIdToStringW", "uint", ai, "ptr", lpstr, "ptr", lpdwstrLength, "uint", dwReserved, "int")
         return result
     }
@@ -13654,6 +13988,8 @@ class WinInet {
      */
     static InternetSecurityProtocolToStringA(dwProtocol, lpstr, lpdwstrLength) {
         static dwReserved := 0 ;Reserved parameters must always be NULL
+
+        lpstr := lpstr is String? StrPtr(lpstr) : lpstr
 
         result := DllCall("WININET.dll\InternetSecurityProtocolToStringA", "uint", dwProtocol, "ptr", lpstr, "ptr", lpdwstrLength, "uint", dwReserved, "int")
         return result
@@ -13669,6 +14005,8 @@ class WinInet {
     static InternetSecurityProtocolToStringW(dwProtocol, lpstr, lpdwstrLength) {
         static dwReserved := 0 ;Reserved parameters must always be NULL
 
+        lpstr := lpstr is String? StrPtr(lpstr) : lpstr
+
         result := DllCall("WININET.dll\InternetSecurityProtocolToStringW", "uint", dwProtocol, "ptr", lpstr, "ptr", lpdwstrLength, "uint", dwReserved, "int")
         return result
     }
@@ -13681,6 +14019,8 @@ class WinInet {
      * @returns {Integer} 
      */
     static InternetGetSecurityInfoByURLA(lpszURL, ppCertChain, pdwSecureFlags) {
+        lpszURL := lpszURL is String? StrPtr(lpszURL) : lpszURL
+
         result := DllCall("WININET.dll\InternetGetSecurityInfoByURLA", "ptr", lpszURL, "ptr", ppCertChain, "ptr", pdwSecureFlags, "int")
         return result
     }
@@ -13693,6 +14033,8 @@ class WinInet {
      * @returns {Integer} 
      */
     static InternetGetSecurityInfoByURLW(lpszURL, ppCertChain, pdwSecureFlags) {
+        lpszURL := lpszURL is String? StrPtr(lpszURL) : lpszURL
+
         result := DllCall("WININET.dll\InternetGetSecurityInfoByURLW", "ptr", lpszURL, "ptr", ppCertChain, "ptr", pdwSecureFlags, "int")
         return result
     }
@@ -13705,6 +14047,8 @@ class WinInet {
      * @returns {Integer} 
      */
     static InternetGetSecurityInfoByURL(lpszURL, ppCertChain, pdwSecureFlags) {
+        lpszURL := lpszURL is String? StrPtr(lpszURL) : lpszURL
+
         result := DllCall("WININET.dll\InternetGetSecurityInfoByURL", "ptr", lpszURL, "ptr", ppCertChain, "ptr", pdwSecureFlags, "int")
         return result
     }
@@ -13751,6 +14095,8 @@ class WinInet {
      * @returns {Integer} 
      */
     static ParseX509EncodedCertificateForListBoxEntry(lpCert, cbCert, lpszListBoxEntry, lpdwListBoxEntry) {
+        lpszListBoxEntry := lpszListBoxEntry is String? StrPtr(lpszListBoxEntry) : lpszListBoxEntry
+
         result := DllCall("WININET.dll\ParseX509EncodedCertificateForListBoxEntry", "ptr", lpCert, "uint", cbCert, "ptr", lpszListBoxEntry, "ptr", lpdwListBoxEntry, "uint")
         return result
     }
@@ -13762,6 +14108,8 @@ class WinInet {
      * @returns {Integer} 
      */
     static InternetShowSecurityInfoByURLA(lpszURL, hwndParent) {
+        lpszURL := lpszURL is String? StrPtr(lpszURL) : lpszURL
+
         result := DllCall("WININET.dll\InternetShowSecurityInfoByURLA", "ptr", lpszURL, "ptr", hwndParent, "int")
         return result
     }
@@ -13773,6 +14121,8 @@ class WinInet {
      * @returns {Integer} 
      */
     static InternetShowSecurityInfoByURLW(lpszURL, hwndParent) {
+        lpszURL := lpszURL is String? StrPtr(lpszURL) : lpszURL
+
         result := DllCall("WININET.dll\InternetShowSecurityInfoByURLW", "ptr", lpszURL, "ptr", hwndParent, "int")
         return result
     }
@@ -13784,6 +14134,8 @@ class WinInet {
      * @returns {Integer} 
      */
     static InternetShowSecurityInfoByURL(lpszURL, hwndParent) {
+        lpszURL := lpszURL is String? StrPtr(lpszURL) : lpszURL
+
         result := DllCall("WININET.dll\InternetShowSecurityInfoByURL", "ptr", lpszURL, "ptr", hwndParent, "int")
         return result
     }
@@ -13845,6 +14197,8 @@ class WinInet {
      * @returns {String} Nothing - always returns an empty string
      */
     static FindP3PPolicySymbol(pszSymbol) {
+        pszSymbol := pszSymbol is String? StrPtr(pszSymbol) : pszSymbol
+
         DllCall("WININET.dll\FindP3PPolicySymbol", "ptr", pszSymbol)
     }
 
@@ -13856,6 +14210,10 @@ class WinInet {
      * @returns {Integer} 
      */
     static HttpGetServerCredentials(pwszUrl, ppwszUserName, ppwszPassword) {
+        pwszUrl := pwszUrl is String? StrPtr(pwszUrl) : pwszUrl
+        ppwszUserName := ppwszUserName is String? StrPtr(ppwszUserName) : ppwszUserName
+        ppwszPassword := ppwszPassword is String? StrPtr(ppwszPassword) : ppwszPassword
+
         result := DllCall("WININET.dll\HttpGetServerCredentials", "ptr", pwszUrl, "ptr", ppwszUserName, "ptr", ppwszPassword, "uint")
         return result
     }
@@ -13903,6 +14261,9 @@ class WinInet {
      * @returns {Integer} 
      */
     static HttpCheckDavComplianceA(lpszUrl, lpszComplianceToken, lpfFound, hWnd, lpvReserved) {
+        lpszUrl := lpszUrl is String? StrPtr(lpszUrl) : lpszUrl
+        lpszComplianceToken := lpszComplianceToken is String? StrPtr(lpszComplianceToken) : lpszComplianceToken
+
         result := DllCall("WININET.dll\HttpCheckDavComplianceA", "ptr", lpszUrl, "ptr", lpszComplianceToken, "ptr", lpfFound, "ptr", hWnd, "ptr", lpvReserved, "int")
         return result
     }
@@ -13917,6 +14278,9 @@ class WinInet {
      * @returns {Integer} 
      */
     static HttpCheckDavComplianceW(lpszUrl, lpszComplianceToken, lpfFound, hWnd, lpvReserved) {
+        lpszUrl := lpszUrl is String? StrPtr(lpszUrl) : lpszUrl
+        lpszComplianceToken := lpszComplianceToken is String? StrPtr(lpszComplianceToken) : lpszComplianceToken
+
         result := DllCall("WININET.dll\HttpCheckDavComplianceW", "ptr", lpszUrl, "ptr", lpszComplianceToken, "ptr", lpfFound, "ptr", hWnd, "ptr", lpvReserved, "int")
         return result
     }
@@ -13929,6 +14293,8 @@ class WinInet {
      * @returns {Integer} 
      */
     static IsUrlCacheEntryExpiredA(lpszUrlName, dwFlags, pftLastModified) {
+        lpszUrlName := lpszUrlName is String? StrPtr(lpszUrlName) : lpszUrlName
+
         result := DllCall("WININET.dll\IsUrlCacheEntryExpiredA", "ptr", lpszUrlName, "uint", dwFlags, "ptr", pftLastModified, "int")
         return result
     }
@@ -13941,6 +14307,8 @@ class WinInet {
      * @returns {Integer} 
      */
     static IsUrlCacheEntryExpiredW(lpszUrlName, dwFlags, pftLastModified) {
+        lpszUrlName := lpszUrlName is String? StrPtr(lpszUrlName) : lpszUrlName
+
         result := DllCall("WININET.dll\IsUrlCacheEntryExpiredW", "ptr", lpszUrlName, "uint", dwFlags, "ptr", pftLastModified, "int")
         return result
     }
@@ -13956,6 +14324,10 @@ class WinInet {
      * @returns {Integer} 
      */
     static CreateUrlCacheEntryExW(lpszUrlName, dwExpectedFileSize, lpszFileExtension, lpszFileName, dwReserved, fPreserveIncomingFileName) {
+        lpszUrlName := lpszUrlName is String? StrPtr(lpszUrlName) : lpszUrlName
+        lpszFileExtension := lpszFileExtension is String? StrPtr(lpszFileExtension) : lpszFileExtension
+        lpszFileName := lpszFileName is String? StrPtr(lpszFileName) : lpszFileName
+
         result := DllCall("WININET.dll\CreateUrlCacheEntryExW", "ptr", lpszUrlName, "uint", dwExpectedFileSize, "ptr", lpszFileExtension, "ptr", lpszFileName, "uint", dwReserved, "int", fPreserveIncomingFileName, "int")
         return result
     }
@@ -13972,6 +14344,8 @@ class WinInet {
      * @returns {Integer} 
      */
     static GetUrlCacheEntryBinaryBlob(pwszUrlName, dwType, pftExpireTime, pftAccessTime, pftModifiedTime, ppbBlob, pcbBlob) {
+        pwszUrlName := pwszUrlName is String? StrPtr(pwszUrlName) : pwszUrlName
+
         result := DllCall("WININET.dll\GetUrlCacheEntryBinaryBlob", "ptr", pwszUrlName, "ptr", dwType, "ptr", pftExpireTime, "ptr", pftAccessTime, "ptr", pftModifiedTime, "ptr", ppbBlob, "ptr", pcbBlob, "uint")
         return result
     }
@@ -13987,6 +14361,8 @@ class WinInet {
      * @returns {Integer} 
      */
     static CommitUrlCacheEntryBinaryBlob(pwszUrlName, dwType, ftExpireTime, ftModifiedTime, pbBlob, cbBlob) {
+        pwszUrlName := pwszUrlName is String? StrPtr(pwszUrlName) : pwszUrlName
+
         result := DllCall("WININET.dll\CommitUrlCacheEntryBinaryBlob", "ptr", pwszUrlName, "uint", dwType, "ptr", ftExpireTime, "ptr", ftModifiedTime, "ptr", pbBlob, "uint", cbBlob, "uint")
         return result
     }
@@ -14009,6 +14385,10 @@ class WinInet {
      */
     static CreateUrlCacheContainerA(Name, lpCachePrefix, lpszCachePath, KBCacheLimit, dwContainerType, dwOptions) {
         static pvBuffer := 0, cbBuffer := 0 ;Reserved parameters must always be NULL
+
+        Name := Name is String? StrPtr(Name) : Name
+        lpCachePrefix := lpCachePrefix is String? StrPtr(lpCachePrefix) : lpCachePrefix
+        lpszCachePath := lpszCachePath is String? StrPtr(lpszCachePath) : lpszCachePath
 
         A_LastError := 0
 
@@ -14038,6 +14418,10 @@ class WinInet {
     static CreateUrlCacheContainerW(Name, lpCachePrefix, lpszCachePath, KBCacheLimit, dwContainerType, dwOptions) {
         static pvBuffer := 0, cbBuffer := 0 ;Reserved parameters must always be NULL
 
+        Name := Name is String? StrPtr(Name) : Name
+        lpCachePrefix := lpCachePrefix is String? StrPtr(lpCachePrefix) : lpCachePrefix
+        lpszCachePath := lpszCachePath is String? StrPtr(lpszCachePath) : lpszCachePath
+
         A_LastError := 0
 
         result := DllCall("WININET.dll\CreateUrlCacheContainerW", "ptr", Name, "ptr", lpCachePrefix, "ptr", lpszCachePath, "uint", KBCacheLimit, "uint", dwContainerType, "uint", dwOptions, "ptr", pvBuffer, "ptr", cbBuffer, "int")
@@ -14065,6 +14449,8 @@ class WinInet {
      * @since windows5.0
      */
     static DeleteUrlCacheContainerA(Name, dwOptions) {
+        Name := Name is String? StrPtr(Name) : Name
+
         A_LastError := 0
 
         result := DllCall("WININET.dll\DeleteUrlCacheContainerA", "ptr", Name, "uint", dwOptions, "int")
@@ -14092,6 +14478,8 @@ class WinInet {
      * @since windows5.0
      */
     static DeleteUrlCacheContainerW(Name, dwOptions) {
+        Name := Name is String? StrPtr(Name) : Name
+
         A_LastError := 0
 
         result := DllCall("WININET.dll\DeleteUrlCacheContainerW", "ptr", Name, "uint", dwOptions, "int")
@@ -14170,6 +14558,8 @@ class WinInet {
      * @since windows5.0
      */
     static FreeUrlCacheSpaceA(lpszCachePath, dwSize, dwFilter) {
+        lpszCachePath := lpszCachePath is String? StrPtr(lpszCachePath) : lpszCachePath
+
         A_LastError := 0
 
         result := DllCall("WININET.dll\FreeUrlCacheSpaceA", "ptr", lpszCachePath, "uint", dwSize, "uint", dwFilter, "int")
@@ -14198,6 +14588,8 @@ class WinInet {
      * @since windows5.0
      */
     static FreeUrlCacheSpaceW(lpszCachePath, dwSize, dwFilter) {
+        lpszCachePath := lpszCachePath is String? StrPtr(lpszCachePath) : lpszCachePath
+
         A_LastError := 0
 
         result := DllCall("WININET.dll\FreeUrlCacheSpaceW", "ptr", lpszCachePath, "uint", dwSize, "uint", dwFilter, "int")
@@ -14329,6 +14721,8 @@ class WinInet {
      * @returns {Integer} 
      */
     static RunOnceUrlCache(hwnd, hinst, lpszCmd, nCmdShow) {
+        lpszCmd := lpszCmd is String? StrPtr(lpszCmd) : lpszCmd
+
         result := DllCall("WININET.dll\RunOnceUrlCache", "ptr", hwnd, "ptr", hinst, "ptr", lpszCmd, "int", nCmdShow, "uint")
         return result
     }
@@ -14342,6 +14736,8 @@ class WinInet {
      * @returns {Integer} 
      */
     static DeleteIE3Cache(hwnd, hinst, lpszCmd, nCmdShow) {
+        lpszCmd := lpszCmd is String? StrPtr(lpszCmd) : lpszCmd
+
         result := DllCall("WININET.dll\DeleteIE3Cache", "ptr", hwnd, "ptr", hinst, "ptr", lpszCmd, "int", nCmdShow, "uint")
         return result
     }
@@ -14352,6 +14748,8 @@ class WinInet {
      * @returns {Integer} 
      */
     static UpdateUrlCacheContentPath(szNewPath) {
+        szNewPath := szNewPath is String? StrPtr(szNewPath) : szNewPath
+
         result := DllCall("WININET.dll\UpdateUrlCacheContentPath", "ptr", szNewPath, "int")
         return result
     }
@@ -14420,6 +14818,8 @@ class WinInet {
      * @returns {Integer} 
      */
     static AppCacheLookup(pwszUrl, dwFlags, phAppCache) {
+        pwszUrl := pwszUrl is String? StrPtr(pwszUrl) : pwszUrl
+
         result := DllCall("WININET.dll\AppCacheLookup", "ptr", pwszUrl, "uint", dwFlags, "ptr", phAppCache, "uint")
         return result
     }
@@ -14437,6 +14837,9 @@ class WinInet {
      * @returns {Integer} 
      */
     static AppCacheCheckManifest(pwszMasterUrl, pwszManifestUrl, pbManifestData, dwManifestDataSize, pbManifestResponseHeaders, dwManifestResponseHeadersSize, peState, phNewAppCache) {
+        pwszMasterUrl := pwszMasterUrl is String? StrPtr(pwszMasterUrl) : pwszMasterUrl
+        pwszManifestUrl := pwszManifestUrl is String? StrPtr(pwszManifestUrl) : pwszManifestUrl
+
         result := DllCall("WININET.dll\AppCacheCheckManifest", "ptr", pwszMasterUrl, "ptr", pwszManifestUrl, "ptr", pbManifestData, "uint", dwManifestDataSize, "ptr", pbManifestResponseHeaders, "uint", dwManifestResponseHeadersSize, "ptr", peState, "ptr", phNewAppCache, "uint")
         return result
     }
@@ -14482,6 +14885,9 @@ class WinInet {
      * @returns {Integer} 
      */
     static AppCacheGetFallbackUrl(hAppCache, pwszUrl, ppwszFallbackUrl) {
+        pwszUrl := pwszUrl is String? StrPtr(pwszUrl) : pwszUrl
+        ppwszFallbackUrl := ppwszFallbackUrl is String? StrPtr(ppwszFallbackUrl) : ppwszFallbackUrl
+
         result := DllCall("WININET.dll\AppCacheGetFallbackUrl", "ptr", hAppCache, "ptr", pwszUrl, "ptr", ppwszFallbackUrl, "uint")
         return result
     }
@@ -14493,6 +14899,8 @@ class WinInet {
      * @returns {Integer} 
      */
     static AppCacheGetManifestUrl(hAppCache, ppwszManifestUrl) {
+        ppwszManifestUrl := ppwszManifestUrl is String? StrPtr(ppwszManifestUrl) : ppwszManifestUrl
+
         result := DllCall("WININET.dll\AppCacheGetManifestUrl", "ptr", hAppCache, "ptr", ppwszManifestUrl, "uint")
         return result
     }
@@ -14553,6 +14961,8 @@ class WinInet {
      * @returns {Integer} 
      */
     static AppCacheDeleteGroup(pwszManifestUrl) {
+        pwszManifestUrl := pwszManifestUrl is String? StrPtr(pwszManifestUrl) : pwszManifestUrl
+
         result := DllCall("WININET.dll\AppCacheDeleteGroup", "ptr", pwszManifestUrl, "uint")
         return result
     }
@@ -14583,6 +14993,8 @@ class WinInet {
      * @returns {Integer} 
      */
     static AppCacheDeleteIEGroup(pwszManifestUrl) {
+        pwszManifestUrl := pwszManifestUrl is String? StrPtr(pwszManifestUrl) : pwszManifestUrl
+
         result := DllCall("WININET.dll\AppCacheDeleteIEGroup", "ptr", pwszManifestUrl, "uint")
         return result
     }
@@ -14607,6 +15019,9 @@ class WinInet {
      * @returns {Integer} 
      */
     static AppCacheCreateAndCommitFile(hAppCache, pwszSourceFilePath, pwszUrl, pbResponseHeaders, dwResponseHeadersSize) {
+        pwszSourceFilePath := pwszSourceFilePath is String? StrPtr(pwszSourceFilePath) : pwszSourceFilePath
+        pwszUrl := pwszUrl is String? StrPtr(pwszUrl) : pwszUrl
+
         result := DllCall("WININET.dll\AppCacheCreateAndCommitFile", "ptr", hAppCache, "ptr", pwszSourceFilePath, "ptr", pwszUrl, "ptr", pbResponseHeaders, "uint", dwResponseHeadersSize, "uint")
         return result
     }
@@ -14670,6 +15085,8 @@ class WinInet {
      * @returns {Integer} 
      */
     static UrlCacheGetEntryInfo(hAppCache, pcwszUrl, pCacheEntryInfo) {
+        pcwszUrl := pcwszUrl is String? StrPtr(pcwszUrl) : pcwszUrl
+
         result := DllCall("WININET.dll\UrlCacheGetEntryInfo", "ptr", hAppCache, "ptr", pcwszUrl, "ptr", pCacheEntryInfo, "uint")
         return result
     }
@@ -14692,6 +15109,8 @@ class WinInet {
      * @returns {Integer} 
      */
     static UrlCacheRetrieveEntryFile(hAppCache, pcwszUrl, pCacheEntryInfo, phEntryFile) {
+        pcwszUrl := pcwszUrl is String? StrPtr(pcwszUrl) : pcwszUrl
+
         result := DllCall("WININET.dll\UrlCacheRetrieveEntryFile", "ptr", hAppCache, "ptr", pcwszUrl, "ptr", pCacheEntryInfo, "ptr", phEntryFile, "uint")
         return result
     }
@@ -14720,6 +15139,8 @@ class WinInet {
      * @returns {Integer} 
      */
     static UrlCacheRetrieveEntryStream(hAppCache, pcwszUrl, fRandomRead, pCacheEntryInfo, phEntryStream) {
+        pcwszUrl := pcwszUrl is String? StrPtr(pcwszUrl) : pcwszUrl
+
         result := DllCall("WININET.dll\UrlCacheRetrieveEntryStream", "ptr", hAppCache, "ptr", pcwszUrl, "int", fRandomRead, "ptr", pCacheEntryInfo, "ptr", phEntryStream, "uint")
         return result
     }
@@ -14733,6 +15154,8 @@ class WinInet {
      * @returns {Integer} 
      */
     static UrlCacheUpdateEntryExtraData(hAppCache, pcwszUrl, pbExtraData, cbExtraData) {
+        pcwszUrl := pcwszUrl is String? StrPtr(pcwszUrl) : pcwszUrl
+
         result := DllCall("WININET.dll\UrlCacheUpdateEntryExtraData", "ptr", hAppCache, "ptr", pcwszUrl, "ptr", pbExtraData, "uint", cbExtraData, "uint")
         return result
     }
@@ -14747,6 +15170,10 @@ class WinInet {
      * @returns {Integer} 
      */
     static UrlCacheCreateContainer(pwszName, pwszPrefix, pwszDirectory, ullLimit, dwOptions) {
+        pwszName := pwszName is String? StrPtr(pwszName) : pwszName
+        pwszPrefix := pwszPrefix is String? StrPtr(pwszPrefix) : pwszPrefix
+        pwszDirectory := pwszDirectory is String? StrPtr(pwszDirectory) : pwszDirectory
+
         result := DllCall("WININET.dll\UrlCacheCreateContainer", "ptr", pwszName, "ptr", pwszPrefix, "ptr", pwszDirectory, "uint", ullLimit, "uint", dwOptions, "uint")
         return result
     }
@@ -14759,6 +15186,8 @@ class WinInet {
      * @returns {Integer} 
      */
     static UrlCacheCheckEntriesExist(rgpwszUrls, cEntries, rgfExist) {
+        rgpwszUrls := rgpwszUrls is String? StrPtr(rgpwszUrls) : rgpwszUrls
+
         result := DllCall("WININET.dll\UrlCacheCheckEntriesExist", "ptr", rgpwszUrls, "uint", cEntries, "ptr", rgfExist, "uint")
         return result
     }
@@ -14770,6 +15199,8 @@ class WinInet {
      * @returns {Integer} 
      */
     static UrlCacheGetContentPaths(pppwszDirectories, pcDirectories) {
+        pppwszDirectories := pppwszDirectories is String? StrPtr(pppwszDirectories) : pppwszDirectories
+
         result := DllCall("WININET.dll\UrlCacheGetContentPaths", "ptr", pppwszDirectories, "ptr", pcDirectories, "uint")
         return result
     }
@@ -14812,6 +15243,8 @@ class WinInet {
      * @returns {Integer} 
      */
     static UrlCacheContainerSetEntryMaximumAge(pwszPrefix, dwEntryMaxAge) {
+        pwszPrefix := pwszPrefix is String? StrPtr(pwszPrefix) : pwszPrefix
+
         result := DllCall("WININET.dll\UrlCacheContainerSetEntryMaximumAge", "ptr", pwszPrefix, "uint", dwEntryMaxAge, "uint")
         return result
     }
@@ -14827,6 +15260,8 @@ class WinInet {
      * @returns {Integer} 
      */
     static UrlCacheFindFirstEntry(pwszPrefix, dwFlags, dwFilter, GroupId, pCacheEntryInfo, phFind) {
+        pwszPrefix := pwszPrefix is String? StrPtr(pwszPrefix) : pwszPrefix
+
         result := DllCall("WININET.dll\UrlCacheFindFirstEntry", "ptr", pwszPrefix, "uint", dwFlags, "uint", dwFilter, "int64", GroupId, "ptr", pCacheEntryInfo, "ptr", phFind, "uint")
         return result
     }
@@ -14862,6 +15297,9 @@ class WinInet {
      * @returns {Integer} 
      */
     static ReadGuidsForConnectedNetworks(pcNetworks, pppwszNetworkGuids, pppbstrNetworkNames, pppwszGWMacs, pcGatewayMacs, pdwFlags) {
+        pppwszNetworkGuids := pppwszNetworkGuids is String? StrPtr(pppwszNetworkGuids) : pppwszNetworkGuids
+        pppwszGWMacs := pppwszGWMacs is String? StrPtr(pppwszGWMacs) : pppwszGWMacs
+
         result := DllCall("WININET.dll\ReadGuidsForConnectedNetworks", "ptr", pcNetworks, "ptr", pppwszNetworkGuids, "ptr", pppbstrNetworkNames, "ptr", pppwszGWMacs, "ptr", pcGatewayMacs, "ptr", pdwFlags, "int")
         return result
     }
@@ -14874,6 +15312,8 @@ class WinInet {
      * @returns {Integer} 
      */
     static IsHostInProxyBypassList(tScheme, lpszHost, cchHost) {
+        lpszHost := lpszHost is String? StrPtr(lpszHost) : lpszHost
+
         result := DllCall("WININET.dll\IsHostInProxyBypassList", "int", tScheme, "ptr", lpszHost, "uint", cchHost, "int")
         return result
     }
@@ -14895,6 +15335,8 @@ class WinInet {
      * @returns {Integer} 
      */
     static InternetGetProxyForUrl(hInternet, pcwszUrl, pProxyInfoList) {
+        pcwszUrl := pcwszUrl is String? StrPtr(pcwszUrl) : pcwszUrl
+
         result := DllCall("WININET.dll\InternetGetProxyForUrl", "ptr", hInternet, "ptr", pcwszUrl, "ptr", pProxyInfoList, "uint")
         return result
     }
@@ -14917,6 +15359,8 @@ class WinInet {
      * @returns {Integer} 
      */
     static GetDiskInfoA(pszPath, pdwClusterSize, pdlAvail, pdlTotal) {
+        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
+
         result := DllCall("WININET.dll\GetDiskInfoA", "ptr", pszPath, "ptr", pdwClusterSize, "ptr", pdlAvail, "ptr", pdlTotal, "int")
         return result
     }
@@ -14933,6 +15377,8 @@ class WinInet {
      */
     static PerformOperationOverUrlCacheA(pszUrlSearchPattern, dwFlags, dwFilter, GroupId, op, pOperatorData) {
         static pReserved1 := 0, pdwReserved2 := 0, pReserved3 := 0 ;Reserved parameters must always be NULL
+
+        pszUrlSearchPattern := pszUrlSearchPattern is String? StrPtr(pszUrlSearchPattern) : pszUrlSearchPattern
 
         result := DllCall("WININET.dll\PerformOperationOverUrlCacheA", "ptr", pszUrlSearchPattern, "uint", dwFlags, "uint", dwFilter, "int64", GroupId, "ptr", pReserved1, "ptr", pdwReserved2, "ptr", pReserved3, "ptr", op, "ptr", pOperatorData, "int")
         return result
@@ -14955,6 +15401,9 @@ class WinInet {
      * @returns {Integer} 
      */
     static InternalInternetGetCookie(lpszUrl, lpszCookieData, lpdwDataSize) {
+        lpszUrl := lpszUrl is String? StrPtr(lpszUrl) : lpszUrl
+        lpszCookieData := lpszCookieData is String? StrPtr(lpszCookieData) : lpszCookieData
+
         result := DllCall("WININET.dll\InternalInternetGetCookie", "ptr", lpszUrl, "ptr", lpszCookieData, "ptr", lpdwDataSize, "uint")
         return result
     }
@@ -14965,6 +15414,8 @@ class WinInet {
      * @returns {Integer} 
      */
     static ImportCookieFileA(szFilename) {
+        szFilename := szFilename is String? StrPtr(szFilename) : szFilename
+
         result := DllCall("WININET.dll\ImportCookieFileA", "ptr", szFilename, "int")
         return result
     }
@@ -14975,6 +15426,8 @@ class WinInet {
      * @returns {Integer} 
      */
     static ImportCookieFileW(szFilename) {
+        szFilename := szFilename is String? StrPtr(szFilename) : szFilename
+
         result := DllCall("WININET.dll\ImportCookieFileW", "ptr", szFilename, "int")
         return result
     }
@@ -14986,6 +15439,8 @@ class WinInet {
      * @returns {Integer} 
      */
     static ExportCookieFileA(szFilename, fAppend) {
+        szFilename := szFilename is String? StrPtr(szFilename) : szFilename
+
         result := DllCall("WININET.dll\ExportCookieFileA", "ptr", szFilename, "int", fAppend, "int")
         return result
     }
@@ -14997,6 +15452,8 @@ class WinInet {
      * @returns {Integer} 
      */
     static ExportCookieFileW(szFilename, fAppend) {
+        szFilename := szFilename is String? StrPtr(szFilename) : szFilename
+
         result := DllCall("WININET.dll\ExportCookieFileW", "ptr", szFilename, "int", fAppend, "int")
         return result
     }
@@ -15008,6 +15465,9 @@ class WinInet {
      * @returns {Integer} 
      */
     static IsDomainLegalCookieDomainA(pchDomain, pchFullDomain) {
+        pchDomain := pchDomain is String? StrPtr(pchDomain) : pchDomain
+        pchFullDomain := pchFullDomain is String? StrPtr(pchFullDomain) : pchFullDomain
+
         result := DllCall("WININET.dll\IsDomainLegalCookieDomainA", "ptr", pchDomain, "ptr", pchFullDomain, "int")
         return result
     }
@@ -15019,6 +15479,9 @@ class WinInet {
      * @returns {Integer} 
      */
     static IsDomainLegalCookieDomainW(pchDomain, pchFullDomain) {
+        pchDomain := pchDomain is String? StrPtr(pchDomain) : pchDomain
+        pchFullDomain := pchFullDomain is String? StrPtr(pchFullDomain) : pchFullDomain
+
         result := DllCall("WININET.dll\IsDomainLegalCookieDomainW", "ptr", pchDomain, "ptr", pchFullDomain, "int")
         return result
     }
@@ -15113,6 +15576,10 @@ class WinInet {
      * @returns {Integer} 
      */
     static InternetConvertUrlFromWireToWideChar(pcszUrl, cchUrl, pcwszBaseUrl, dwCodePageHost, dwCodePagePath, fEncodePathExtra, dwCodePageExtra, ppwszConvertedUrl) {
+        pcszUrl := pcszUrl is String? StrPtr(pcszUrl) : pcszUrl
+        pcwszBaseUrl := pcwszBaseUrl is String? StrPtr(pcwszBaseUrl) : pcwszBaseUrl
+        ppwszConvertedUrl := ppwszConvertedUrl is String? StrPtr(ppwszConvertedUrl) : ppwszConvertedUrl
+
         result := DllCall("WININET.dll\InternetConvertUrlFromWireToWideChar", "ptr", pcszUrl, "uint", cchUrl, "ptr", pcwszBaseUrl, "uint", dwCodePageHost, "uint", dwCodePagePath, "int", fEncodePathExtra, "uint", dwCodePageExtra, "ptr", ppwszConvertedUrl, "uint")
         return result
     }

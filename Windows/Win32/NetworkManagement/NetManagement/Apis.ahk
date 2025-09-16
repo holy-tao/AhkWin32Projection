@@ -10599,6 +10599,8 @@ class NetManagement {
      * @since windows5.0
      */
     static NetUserAdd(servername, level, buf, parm_err) {
+        servername := servername is String? StrPtr(servername) : servername
+
         result := DllCall("NETAPI32.dll\NetUserAdd", "ptr", servername, "uint", level, "ptr", buf, "ptr", parm_err, "uint")
         return result
     }
@@ -10723,6 +10725,8 @@ class NetManagement {
      * @since windows5.0
      */
     static NetUserEnum(servername, level, filter, bufptr, prefmaxlen, entriesread, totalentries, resume_handle) {
+        servername := servername is String? StrPtr(servername) : servername
+
         result := DllCall("NETAPI32.dll\NetUserEnum", "ptr", servername, "uint", level, "uint", filter, "ptr", bufptr, "uint", prefmaxlen, "ptr", entriesread, "ptr", totalentries, "ptr", resume_handle, "uint")
         return result
     }
@@ -10819,6 +10823,9 @@ class NetManagement {
      * @since windows5.1.2600
      */
     static NetUserGetInfo(servername, username, level, bufptr) {
+        servername := servername is String? StrPtr(servername) : servername
+        username := username is String? StrPtr(username) : username
+
         result := DllCall("NETAPI32.dll\NetUserGetInfo", "ptr", servername, "ptr", username, "uint", level, "ptr", bufptr, "uint")
         return result
     }
@@ -11134,6 +11141,9 @@ class NetManagement {
      * @since windows5.0
      */
     static NetUserSetInfo(servername, username, level, buf, parm_err) {
+        servername := servername is String? StrPtr(servername) : servername
+        username := username is String? StrPtr(username) : username
+
         result := DllCall("NETAPI32.dll\NetUserSetInfo", "ptr", servername, "ptr", username, "uint", level, "ptr", buf, "ptr", parm_err, "uint")
         return result
     }
@@ -11215,6 +11225,9 @@ class NetManagement {
      * @since windows5.0
      */
     static NetUserDel(servername, username) {
+        servername := servername is String? StrPtr(servername) : servername
+        username := username is String? StrPtr(username) : username
+
         result := DllCall("NETAPI32.dll\NetUserDel", "ptr", servername, "ptr", username, "uint")
         return result
     }
@@ -11348,6 +11361,9 @@ class NetManagement {
      * @since windows5.0
      */
     static NetUserGetGroups(servername, username, level, bufptr, prefmaxlen, entriesread, totalentries) {
+        servername := servername is String? StrPtr(servername) : servername
+        username := username is String? StrPtr(username) : username
+
         result := DllCall("NETAPI32.dll\NetUserGetGroups", "ptr", servername, "ptr", username, "uint", level, "ptr", bufptr, "uint", prefmaxlen, "ptr", entriesread, "ptr", totalentries, "uint")
         return result
     }
@@ -11488,6 +11504,9 @@ class NetManagement {
      * @since windows5.0
      */
     static NetUserSetGroups(servername, username, level, buf, num_entries) {
+        servername := servername is String? StrPtr(servername) : servername
+        username := username is String? StrPtr(username) : username
+
         result := DllCall("NETAPI32.dll\NetUserSetGroups", "ptr", servername, "ptr", username, "uint", level, "ptr", buf, "uint", num_entries, "uint")
         return result
     }
@@ -11642,6 +11661,9 @@ class NetManagement {
      * @since windows5.0
      */
     static NetUserGetLocalGroups(servername, username, level, flags, bufptr, prefmaxlen, entriesread, totalentries) {
+        servername := servername is String? StrPtr(servername) : servername
+        username := username is String? StrPtr(username) : username
+
         result := DllCall("NETAPI32.dll\NetUserGetLocalGroups", "ptr", servername, "ptr", username, "uint", level, "uint", flags, "ptr", bufptr, "uint", prefmaxlen, "ptr", entriesread, "ptr", totalentries, "uint")
         return result
     }
@@ -11749,6 +11771,8 @@ class NetManagement {
      * @since windows5.0
      */
     static NetUserModalsGet(servername, level, bufptr) {
+        servername := servername is String? StrPtr(servername) : servername
+
         result := DllCall("NETAPI32.dll\NetUserModalsGet", "ptr", servername, "uint", level, "ptr", bufptr, "uint")
         return result
     }
@@ -11885,6 +11909,8 @@ class NetManagement {
      * @since windows5.0
      */
     static NetUserModalsSet(servername, level, buf, parm_err) {
+        servername := servername is String? StrPtr(servername) : servername
+
         result := DllCall("NETAPI32.dll\NetUserModalsSet", "ptr", servername, "uint", level, "ptr", buf, "ptr", parm_err, "uint")
         return result
     }
@@ -12008,6 +12034,11 @@ class NetManagement {
      * @since windows5.0
      */
     static NetUserChangePassword(domainname, username, oldpassword, newpassword) {
+        domainname := domainname is String? StrPtr(domainname) : domainname
+        username := username is String? StrPtr(username) : username
+        oldpassword := oldpassword is String? StrPtr(oldpassword) : oldpassword
+        newpassword := newpassword is String? StrPtr(newpassword) : newpassword
+
         A_LastError := 0
 
         result := DllCall("NETAPI32.dll\NetUserChangePassword", "ptr", domainname, "ptr", username, "ptr", oldpassword, "ptr", newpassword, "uint")
@@ -12116,6 +12147,8 @@ class NetManagement {
      * @since windows5.0
      */
     static NetGroupAdd(servername, level, buf, parm_err) {
+        servername := servername is String? StrPtr(servername) : servername
+
         result := DllCall("NETAPI32.dll\NetGroupAdd", "ptr", servername, "uint", level, "ptr", buf, "ptr", parm_err, "uint")
         return result
     }
@@ -12216,6 +12249,10 @@ class NetManagement {
      * @since windows5.0
      */
     static NetGroupAddUser(servername, GroupName, username) {
+        servername := servername is String? StrPtr(servername) : servername
+        GroupName := GroupName is String? StrPtr(GroupName) : GroupName
+        username := username is String? StrPtr(username) : username
+
         result := DllCall("NETAPI32.dll\NetGroupAddUser", "ptr", servername, "ptr", GroupName, "ptr", username, "uint")
         return result
     }
@@ -12299,6 +12336,8 @@ class NetManagement {
      * @since windows5.0
      */
     static NetGroupEnum(servername, level, bufptr, prefmaxlen, entriesread, totalentries, resume_handle) {
+        servername := servername is String? StrPtr(servername) : servername
+
         result := DllCall("NETAPI32.dll\NetGroupEnum", "ptr", servername, "uint", level, "ptr", bufptr, "uint", prefmaxlen, "ptr", entriesread, "ptr", totalentries, "ptr", resume_handle, "uint")
         return result
     }
@@ -12370,6 +12409,9 @@ class NetManagement {
      * @since windows5.0
      */
     static NetGroupGetInfo(servername, groupname, level, bufptr) {
+        servername := servername is String? StrPtr(servername) : servername
+        groupname := groupname is String? StrPtr(groupname) : groupname
+
         result := DllCall("NETAPI32.dll\NetGroupGetInfo", "ptr", servername, "ptr", groupname, "uint", level, "ptr", bufptr, "uint")
         return result
     }
@@ -12501,6 +12543,9 @@ class NetManagement {
      * @since windows5.0
      */
     static NetGroupSetInfo(servername, groupname, level, buf, parm_err) {
+        servername := servername is String? StrPtr(servername) : servername
+        groupname := groupname is String? StrPtr(groupname) : groupname
+
         result := DllCall("NETAPI32.dll\NetGroupSetInfo", "ptr", servername, "ptr", groupname, "uint", level, "ptr", buf, "ptr", parm_err, "uint")
         return result
     }
@@ -12589,6 +12634,9 @@ class NetManagement {
      * @since windows5.0
      */
     static NetGroupDel(servername, groupname) {
+        servername := servername is String? StrPtr(servername) : servername
+        groupname := groupname is String? StrPtr(groupname) : groupname
+
         result := DllCall("NETAPI32.dll\NetGroupDel", "ptr", servername, "ptr", groupname, "uint")
         return result
     }
@@ -12700,6 +12748,10 @@ class NetManagement {
      * @since windows5.0
      */
     static NetGroupDelUser(servername, GroupName, Username) {
+        servername := servername is String? StrPtr(servername) : servername
+        GroupName := GroupName is String? StrPtr(GroupName) : GroupName
+        Username := Username is String? StrPtr(Username) : Username
+
         result := DllCall("NETAPI32.dll\NetGroupDelUser", "ptr", servername, "ptr", GroupName, "ptr", Username, "uint")
         return result
     }
@@ -12824,6 +12876,9 @@ class NetManagement {
      * @since windows5.0
      */
     static NetGroupGetUsers(servername, groupname, level, bufptr, prefmaxlen, entriesread, totalentries, ResumeHandle) {
+        servername := servername is String? StrPtr(servername) : servername
+        groupname := groupname is String? StrPtr(groupname) : groupname
+
         result := DllCall("NETAPI32.dll\NetGroupGetUsers", "ptr", servername, "ptr", groupname, "uint", level, "ptr", bufptr, "uint", prefmaxlen, "ptr", entriesread, "ptr", totalentries, "ptr", ResumeHandle, "uint")
         return result
     }
@@ -12987,6 +13042,9 @@ class NetManagement {
      * @since windows5.0
      */
     static NetGroupSetUsers(servername, groupname, level, buf, totalentries) {
+        servername := servername is String? StrPtr(servername) : servername
+        groupname := groupname is String? StrPtr(groupname) : groupname
+
         result := DllCall("NETAPI32.dll\NetGroupSetUsers", "ptr", servername, "ptr", groupname, "uint", level, "ptr", buf, "uint", totalentries, "uint")
         return result
     }
@@ -13143,6 +13201,8 @@ class NetManagement {
      * @since windows5.0
      */
     static NetLocalGroupAdd(servername, level, buf, parm_err) {
+        servername := servername is String? StrPtr(servername) : servername
+
         result := DllCall("NETAPI32.dll\NetLocalGroupAdd", "ptr", servername, "uint", level, "ptr", buf, "ptr", parm_err, "uint")
         return result
     }
@@ -13156,6 +13216,9 @@ class NetManagement {
      * @see https://learn.microsoft.com/windows/win32/api/lmaccess/nf-lmaccess-netlocalgroupaddmember
      */
     static NetLocalGroupAddMember(servername, groupname, membersid) {
+        servername := servername is String? StrPtr(servername) : servername
+        groupname := groupname is String? StrPtr(groupname) : groupname
+
         result := DllCall("NETAPI32.dll\NetLocalGroupAddMember", "ptr", servername, "ptr", groupname, "ptr", membersid, "uint")
         return result
     }
@@ -13245,6 +13308,8 @@ class NetManagement {
      * @since windows5.0
      */
     static NetLocalGroupEnum(servername, level, bufptr, prefmaxlen, entriesread, totalentries, resumehandle) {
+        servername := servername is String? StrPtr(servername) : servername
+
         result := DllCall("NETAPI32.dll\NetLocalGroupEnum", "ptr", servername, "uint", level, "ptr", bufptr, "uint", prefmaxlen, "ptr", entriesread, "ptr", totalentries, "ptr", resumehandle, "uint")
         return result
     }
@@ -13336,6 +13401,9 @@ class NetManagement {
      * @since windows5.0
      */
     static NetLocalGroupGetInfo(servername, groupname, level, bufptr) {
+        servername := servername is String? StrPtr(servername) : servername
+        groupname := groupname is String? StrPtr(groupname) : groupname
+
         result := DllCall("NETAPI32.dll\NetLocalGroupGetInfo", "ptr", servername, "ptr", groupname, "uint", level, "ptr", bufptr, "uint")
         return result
     }
@@ -13453,6 +13521,9 @@ class NetManagement {
      * @since windows5.0
      */
     static NetLocalGroupSetInfo(servername, groupname, level, buf, parm_err) {
+        servername := servername is String? StrPtr(servername) : servername
+        groupname := groupname is String? StrPtr(groupname) : groupname
+
         result := DllCall("NETAPI32.dll\NetLocalGroupSetInfo", "ptr", servername, "ptr", groupname, "uint", level, "ptr", buf, "ptr", parm_err, "uint")
         return result
     }
@@ -13541,6 +13612,9 @@ class NetManagement {
      * @since windows5.0
      */
     static NetLocalGroupDel(servername, groupname) {
+        servername := servername is String? StrPtr(servername) : servername
+        groupname := groupname is String? StrPtr(groupname) : groupname
+
         result := DllCall("NETAPI32.dll\NetLocalGroupDel", "ptr", servername, "ptr", groupname, "uint")
         return result
     }
@@ -13554,6 +13628,9 @@ class NetManagement {
      * @see https://learn.microsoft.com/windows/win32/api/lmaccess/nf-lmaccess-netlocalgroupdelmember
      */
     static NetLocalGroupDelMember(servername, groupname, membersid) {
+        servername := servername is String? StrPtr(servername) : servername
+        groupname := groupname is String? StrPtr(groupname) : groupname
+
         result := DllCall("NETAPI32.dll\NetLocalGroupDelMember", "ptr", servername, "ptr", groupname, "ptr", membersid, "uint")
         return result
     }
@@ -13642,6 +13719,9 @@ class NetManagement {
      * @since windows5.0
      */
     static NetLocalGroupGetMembers(servername, localgroupname, level, bufptr, prefmaxlen, entriesread, totalentries, resumehandle) {
+        servername := servername is String? StrPtr(servername) : servername
+        localgroupname := localgroupname is String? StrPtr(localgroupname) : localgroupname
+
         result := DllCall("NETAPI32.dll\NetLocalGroupGetMembers", "ptr", servername, "ptr", localgroupname, "uint", level, "ptr", bufptr, "uint", prefmaxlen, "ptr", entriesread, "ptr", totalentries, "ptr", resumehandle, "uint")
         return result
     }
@@ -13739,6 +13819,9 @@ class NetManagement {
      * @since windows5.0
      */
     static NetLocalGroupSetMembers(servername, groupname, level, buf, totalentries) {
+        servername := servername is String? StrPtr(servername) : servername
+        groupname := groupname is String? StrPtr(groupname) : groupname
+
         result := DllCall("NETAPI32.dll\NetLocalGroupSetMembers", "ptr", servername, "ptr", groupname, "uint", level, "ptr", buf, "uint", totalentries, "uint")
         return result
     }
@@ -13831,6 +13914,9 @@ class NetManagement {
      * @since windows5.0
      */
     static NetLocalGroupAddMembers(servername, groupname, level, buf, totalentries) {
+        servername := servername is String? StrPtr(servername) : servername
+        groupname := groupname is String? StrPtr(groupname) : groupname
+
         result := DllCall("NETAPI32.dll\NetLocalGroupAddMembers", "ptr", servername, "ptr", groupname, "uint", level, "ptr", buf, "uint", totalentries, "uint")
         return result
     }
@@ -13912,6 +13998,9 @@ class NetManagement {
      * @since windows5.0
      */
     static NetLocalGroupDelMembers(servername, groupname, level, buf, totalentries) {
+        servername := servername is String? StrPtr(servername) : servername
+        groupname := groupname is String? StrPtr(groupname) : groupname
+
         result := DllCall("NETAPI32.dll\NetLocalGroupDelMembers", "ptr", servername, "ptr", groupname, "uint", level, "ptr", buf, "uint", totalentries, "uint")
         return result
     }
@@ -14004,6 +14093,8 @@ class NetManagement {
      * @since windows5.0
      */
     static NetQueryDisplayInformation(ServerName, Level, Index, EntriesRequested, PreferredMaximumLength, ReturnedEntryCount, SortedBuffer) {
+        ServerName := ServerName is String? StrPtr(ServerName) : ServerName
+
         result := DllCall("NETAPI32.dll\NetQueryDisplayInformation", "ptr", ServerName, "uint", Level, "uint", Index, "uint", EntriesRequested, "uint", PreferredMaximumLength, "ptr", ReturnedEntryCount, "ptr", SortedBuffer, "uint")
         return result
     }
@@ -14078,6 +14169,9 @@ class NetManagement {
      * @since windows5.0
      */
     static NetGetDisplayInformationIndex(ServerName, Level, Prefix, Index) {
+        ServerName := ServerName is String? StrPtr(ServerName) : ServerName
+        Prefix := Prefix is String? StrPtr(Prefix) : Prefix
+
         result := DllCall("NETAPI32.dll\NetGetDisplayInformationIndex", "ptr", ServerName, "uint", Level, "ptr", Prefix, "ptr", Index, "uint")
         return result
     }
@@ -14116,6 +14210,8 @@ class NetManagement {
      * @since windows5.0
      */
     static NetAccessAdd(servername, level, buf, parm_err) {
+        servername := servername is String? StrPtr(servername) : servername
+
         result := DllCall("NETAPI32.dll\NetAccessAdd", "ptr", servername, "uint", level, "ptr", buf, "ptr", parm_err, "uint")
         return result
     }
@@ -14147,6 +14243,9 @@ class NetManagement {
      * @since windows5.0
      */
     static NetAccessEnum(servername, BasePath, Recursive, level, bufptr, prefmaxlen, entriesread, totalentries, resume_handle) {
+        servername := servername is String? StrPtr(servername) : servername
+        BasePath := BasePath is String? StrPtr(BasePath) : BasePath
+
         result := DllCall("NETAPI32.dll\NetAccessEnum", "ptr", servername, "ptr", BasePath, "uint", Recursive, "uint", level, "ptr", bufptr, "uint", prefmaxlen, "ptr", entriesread, "ptr", totalentries, "ptr", resume_handle, "uint")
         return result
     }
@@ -14167,6 +14266,9 @@ class NetManagement {
      * @since windows5.0
      */
     static NetAccessGetInfo(servername, resource, level, bufptr) {
+        servername := servername is String? StrPtr(servername) : servername
+        resource := resource is String? StrPtr(resource) : resource
+
         result := DllCall("NETAPI32.dll\NetAccessGetInfo", "ptr", servername, "ptr", resource, "uint", level, "ptr", bufptr, "uint")
         return result
     }
@@ -14206,6 +14308,9 @@ class NetManagement {
      * @since windows5.0
      */
     static NetAccessSetInfo(servername, resource, level, buf, parm_err) {
+        servername := servername is String? StrPtr(servername) : servername
+        resource := resource is String? StrPtr(resource) : resource
+
         result := DllCall("NETAPI32.dll\NetAccessSetInfo", "ptr", servername, "ptr", resource, "uint", level, "ptr", buf, "ptr", parm_err, "uint")
         return result
     }
@@ -14224,6 +14329,9 @@ class NetManagement {
      * @since windows5.0
      */
     static NetAccessDel(servername, resource) {
+        servername := servername is String? StrPtr(servername) : servername
+        resource := resource is String? StrPtr(resource) : resource
+
         result := DllCall("NETAPI32.dll\NetAccessDel", "ptr", servername, "ptr", resource, "uint")
         return result
     }
@@ -14244,6 +14352,10 @@ class NetManagement {
      * @since windows5.0
      */
     static NetAccessGetUserPerms(servername, UGname, resource, Perms) {
+        servername := servername is String? StrPtr(servername) : servername
+        UGname := UGname is String? StrPtr(UGname) : UGname
+        resource := resource is String? StrPtr(resource) : resource
+
         result := DllCall("NETAPI32.dll\NetAccessGetUserPerms", "ptr", servername, "ptr", UGname, "ptr", resource, "ptr", Perms, "uint")
         return result
     }
@@ -14387,6 +14499,8 @@ class NetManagement {
      * @since windowsserver2003
      */
     static NetValidatePasswordPolicy(ServerName, Qualifier, ValidationType, InputArg, OutputArg) {
+        ServerName := ServerName is String? StrPtr(ServerName) : ServerName
+
         result := DllCall("NETAPI32.dll\NetValidatePasswordPolicy", "ptr", ServerName, "ptr", Qualifier, "int", ValidationType, "ptr", InputArg, "ptr", OutputArg, "uint")
         return result
     }
@@ -14473,6 +14587,9 @@ class NetManagement {
      * @since windows5.0
      */
     static NetGetDCName(ServerName, DomainName, Buffer) {
+        ServerName := ServerName is String? StrPtr(ServerName) : ServerName
+        DomainName := DomainName is String? StrPtr(DomainName) : DomainName
+
         result := DllCall("NETAPI32.dll\NetGetDCName", "ptr", ServerName, "ptr", DomainName, "ptr", Buffer, "uint")
         return result
     }
@@ -14560,6 +14677,9 @@ class NetManagement {
      * @since windows5.0
      */
     static NetGetAnyDCName(ServerName, DomainName, Buffer) {
+        ServerName := ServerName is String? StrPtr(ServerName) : ServerName
+        DomainName := DomainName is String? StrPtr(DomainName) : DomainName
+
         result := DllCall("NETAPI32.dll\NetGetAnyDCName", "ptr", ServerName, "ptr", DomainName, "ptr", Buffer, "uint")
         return result
     }
@@ -14848,6 +14968,8 @@ class NetManagement {
      * @see https://learn.microsoft.com/windows/win32/api/lmaccess/nf-lmaccess-i_netlogoncontrol2
      */
     static I_NetLogonControl2(ServerName, FunctionCode, QueryLevel, Data, Buffer) {
+        ServerName := ServerName is String? StrPtr(ServerName) : ServerName
+
         result := DllCall("NETAPI32.dll\I_NetLogonControl2", "ptr", ServerName, "uint", FunctionCode, "uint", QueryLevel, "ptr", Data, "ptr", Buffer, "uint")
         return result
     }
@@ -14883,6 +15005,10 @@ class NetManagement {
      * @since windows6.1
      */
     static NetAddServiceAccount(ServerName, AccountName, Password, Flags) {
+        ServerName := ServerName is String? StrPtr(ServerName) : ServerName
+        AccountName := AccountName is String? StrPtr(AccountName) : AccountName
+        Password := Password is String? StrPtr(Password) : Password
+
         result := DllCall("NETAPI32.dll\NetAddServiceAccount", "ptr", ServerName, "ptr", AccountName, "ptr", Password, "uint", Flags, "int")
         return result
     }
@@ -14917,6 +15043,9 @@ class NetManagement {
      * @since windows6.1
      */
     static NetRemoveServiceAccount(ServerName, AccountName, Flags) {
+        ServerName := ServerName is String? StrPtr(ServerName) : ServerName
+        AccountName := AccountName is String? StrPtr(AccountName) : AccountName
+
         result := DllCall("NETAPI32.dll\NetRemoveServiceAccount", "ptr", ServerName, "ptr", AccountName, "uint", Flags, "int")
         return result
     }
@@ -14936,6 +15065,8 @@ class NetManagement {
      * @since windows6.1
      */
     static NetEnumerateServiceAccounts(ServerName, Flags, AccountsCount, Accounts) {
+        ServerName := ServerName is String? StrPtr(ServerName) : ServerName
+
         result := DllCall("NETAPI32.dll\NetEnumerateServiceAccounts", "ptr", ServerName, "uint", Flags, "ptr", AccountsCount, "ptr", Accounts, "int")
         return result
     }
@@ -14952,6 +15083,9 @@ class NetManagement {
      * @since windows6.1
      */
     static NetIsServiceAccount(ServerName, AccountName, IsService) {
+        ServerName := ServerName is String? StrPtr(ServerName) : ServerName
+        AccountName := AccountName is String? StrPtr(AccountName) : AccountName
+
         result := DllCall("NETAPI32.dll\NetIsServiceAccount", "ptr", ServerName, "ptr", AccountName, "ptr", IsService, "int")
         return result
     }
@@ -14989,6 +15123,9 @@ class NetManagement {
      * @since windows6.1
      */
     static NetQueryServiceAccount(ServerName, AccountName, InfoLevel, Buffer) {
+        ServerName := ServerName is String? StrPtr(ServerName) : ServerName
+        AccountName := AccountName is String? StrPtr(AccountName) : AccountName
+
         result := DllCall("NETAPI32.dll\NetQueryServiceAccount", "ptr", ServerName, "ptr", AccountName, "uint", InfoLevel, "ptr", Buffer, "int")
         return result
     }
@@ -15111,6 +15248,8 @@ class NetManagement {
      * @since windows5.0
      */
     static NetAlertRaise(AlertType, Buffer, BufferSize) {
+        AlertType := AlertType is String? StrPtr(AlertType) : AlertType
+
         result := DllCall("NETAPI32.dll\NetAlertRaise", "ptr", AlertType, "ptr", Buffer, "uint", BufferSize, "uint")
         return result
     }
@@ -15233,6 +15372,9 @@ class NetManagement {
      * @since windows5.0
      */
     static NetAlertRaiseEx(AlertType, VariableInfo, VariableInfoSize, ServiceName) {
+        AlertType := AlertType is String? StrPtr(AlertType) : AlertType
+        ServiceName := ServiceName is String? StrPtr(ServiceName) : ServiceName
+
         result := DllCall("NETAPI32.dll\NetAlertRaiseEx", "ptr", AlertType, "ptr", VariableInfo, "uint", VariableInfoSize, "ptr", ServiceName, "uint")
         return result
     }
@@ -15339,6 +15481,9 @@ class NetManagement {
      * @since windows5.0
      */
     static NetMessageNameAdd(servername, msgname) {
+        servername := servername is String? StrPtr(servername) : servername
+        msgname := msgname is String? StrPtr(msgname) : msgname
+
         result := DllCall("NETAPI32.dll\NetMessageNameAdd", "ptr", servername, "ptr", msgname, "uint")
         return result
     }
@@ -15453,6 +15598,8 @@ class NetManagement {
      * @since windows5.0
      */
     static NetMessageNameEnum(servername, level, bufptr, prefmaxlen, entriesread, totalentries, resume_handle) {
+        servername := servername is String? StrPtr(servername) : servername
+
         result := DllCall("NETAPI32.dll\NetMessageNameEnum", "ptr", servername, "uint", level, "ptr", bufptr, "uint", prefmaxlen, "ptr", entriesread, "ptr", totalentries, "ptr", resume_handle, "uint")
         return result
     }
@@ -15553,6 +15700,9 @@ class NetManagement {
      * @since windows5.0
      */
     static NetMessageNameGetInfo(servername, msgname, level, bufptr) {
+        servername := servername is String? StrPtr(servername) : servername
+        msgname := msgname is String? StrPtr(msgname) : msgname
+
         result := DllCall("NETAPI32.dll\NetMessageNameGetInfo", "ptr", servername, "ptr", msgname, "uint", level, "ptr", bufptr, "uint")
         return result
     }
@@ -15656,6 +15806,9 @@ class NetManagement {
      * @since windows5.0
      */
     static NetMessageNameDel(servername, msgname) {
+        servername := servername is String? StrPtr(servername) : servername
+        msgname := msgname is String? StrPtr(msgname) : msgname
+
         result := DllCall("NETAPI32.dll\NetMessageNameDel", "ptr", servername, "ptr", msgname, "uint")
         return result
     }
@@ -15742,6 +15895,10 @@ class NetManagement {
      * @since windows5.0
      */
     static NetMessageBufferSend(servername, msgname, fromname, buf, buflen) {
+        servername := servername is String? StrPtr(servername) : servername
+        msgname := msgname is String? StrPtr(msgname) : msgname
+        fromname := fromname is String? StrPtr(fromname) : fromname
+
         result := DllCall("NETAPI32.dll\NetMessageBufferSend", "ptr", servername, "ptr", msgname, "ptr", fromname, "ptr", buf, "uint", buflen, "uint")
         return result
     }
@@ -15763,6 +15920,8 @@ class NetManagement {
      * @since windows5.0
      */
     static NetRemoteTOD(UncServerName, BufferPtr) {
+        UncServerName := UncServerName is String? StrPtr(UncServerName) : UncServerName
+
         result := DllCall("NETAPI32.dll\NetRemoteTOD", "ptr", UncServerName, "ptr", BufferPtr, "uint")
         return result
     }
@@ -15817,6 +15976,8 @@ class NetManagement {
      * @since windows5.0
      */
     static NetRemoteComputerSupports(UncServerName, OptionsWanted, OptionsSupported) {
+        UncServerName := UncServerName is String? StrPtr(UncServerName) : UncServerName
+
         result := DllCall("NETAPI32.dll\NetRemoteComputerSupports", "ptr", UncServerName, "uint", OptionsWanted, "ptr", OptionsSupported, "uint")
         return result
     }
@@ -15829,6 +15990,8 @@ class NetManagement {
      * @returns {Integer} 
      */
     static NetReplGetInfo(servername, level, bufptr) {
+        servername := servername is String? StrPtr(servername) : servername
+
         result := DllCall("NETAPI32.dll\NetReplGetInfo", "ptr", servername, "uint", level, "ptr", bufptr, "uint")
         return result
     }
@@ -15842,6 +16005,8 @@ class NetManagement {
      * @returns {Integer} 
      */
     static NetReplSetInfo(servername, level, buf, parm_err) {
+        servername := servername is String? StrPtr(servername) : servername
+
         result := DllCall("NETAPI32.dll\NetReplSetInfo", "ptr", servername, "uint", level, "ptr", buf, "ptr", parm_err, "uint")
         return result
     }
@@ -15855,6 +16020,8 @@ class NetManagement {
      * @returns {Integer} 
      */
     static NetReplExportDirAdd(servername, level, buf, parm_err) {
+        servername := servername is String? StrPtr(servername) : servername
+
         result := DllCall("NETAPI32.dll\NetReplExportDirAdd", "ptr", servername, "uint", level, "ptr", buf, "ptr", parm_err, "uint")
         return result
     }
@@ -15866,6 +16033,9 @@ class NetManagement {
      * @returns {Integer} 
      */
     static NetReplExportDirDel(servername, dirname) {
+        servername := servername is String? StrPtr(servername) : servername
+        dirname := dirname is String? StrPtr(dirname) : dirname
+
         result := DllCall("NETAPI32.dll\NetReplExportDirDel", "ptr", servername, "ptr", dirname, "uint")
         return result
     }
@@ -15882,6 +16052,8 @@ class NetManagement {
      * @returns {Integer} 
      */
     static NetReplExportDirEnum(servername, level, bufptr, prefmaxlen, entriesread, totalentries, resumehandle) {
+        servername := servername is String? StrPtr(servername) : servername
+
         result := DllCall("NETAPI32.dll\NetReplExportDirEnum", "ptr", servername, "uint", level, "ptr", bufptr, "uint", prefmaxlen, "ptr", entriesread, "ptr", totalentries, "ptr", resumehandle, "uint")
         return result
     }
@@ -15895,6 +16067,9 @@ class NetManagement {
      * @returns {Integer} 
      */
     static NetReplExportDirGetInfo(servername, dirname, level, bufptr) {
+        servername := servername is String? StrPtr(servername) : servername
+        dirname := dirname is String? StrPtr(dirname) : dirname
+
         result := DllCall("NETAPI32.dll\NetReplExportDirGetInfo", "ptr", servername, "ptr", dirname, "uint", level, "ptr", bufptr, "uint")
         return result
     }
@@ -15909,6 +16084,9 @@ class NetManagement {
      * @returns {Integer} 
      */
     static NetReplExportDirSetInfo(servername, dirname, level, buf, parm_err) {
+        servername := servername is String? StrPtr(servername) : servername
+        dirname := dirname is String? StrPtr(dirname) : dirname
+
         result := DllCall("NETAPI32.dll\NetReplExportDirSetInfo", "ptr", servername, "ptr", dirname, "uint", level, "ptr", buf, "ptr", parm_err, "uint")
         return result
     }
@@ -15920,6 +16098,9 @@ class NetManagement {
      * @returns {Integer} 
      */
     static NetReplExportDirLock(servername, dirname) {
+        servername := servername is String? StrPtr(servername) : servername
+        dirname := dirname is String? StrPtr(dirname) : dirname
+
         result := DllCall("NETAPI32.dll\NetReplExportDirLock", "ptr", servername, "ptr", dirname, "uint")
         return result
     }
@@ -15932,6 +16113,9 @@ class NetManagement {
      * @returns {Integer} 
      */
     static NetReplExportDirUnlock(servername, dirname, unlockforce) {
+        servername := servername is String? StrPtr(servername) : servername
+        dirname := dirname is String? StrPtr(dirname) : dirname
+
         result := DllCall("NETAPI32.dll\NetReplExportDirUnlock", "ptr", servername, "ptr", dirname, "uint", unlockforce, "uint")
         return result
     }
@@ -15945,6 +16129,8 @@ class NetManagement {
      * @returns {Integer} 
      */
     static NetReplImportDirAdd(servername, level, buf, parm_err) {
+        servername := servername is String? StrPtr(servername) : servername
+
         result := DllCall("NETAPI32.dll\NetReplImportDirAdd", "ptr", servername, "uint", level, "ptr", buf, "ptr", parm_err, "uint")
         return result
     }
@@ -15956,6 +16142,9 @@ class NetManagement {
      * @returns {Integer} 
      */
     static NetReplImportDirDel(servername, dirname) {
+        servername := servername is String? StrPtr(servername) : servername
+        dirname := dirname is String? StrPtr(dirname) : dirname
+
         result := DllCall("NETAPI32.dll\NetReplImportDirDel", "ptr", servername, "ptr", dirname, "uint")
         return result
     }
@@ -15972,6 +16161,8 @@ class NetManagement {
      * @returns {Integer} 
      */
     static NetReplImportDirEnum(servername, level, bufptr, prefmaxlen, entriesread, totalentries, resumehandle) {
+        servername := servername is String? StrPtr(servername) : servername
+
         result := DllCall("NETAPI32.dll\NetReplImportDirEnum", "ptr", servername, "uint", level, "ptr", bufptr, "uint", prefmaxlen, "ptr", entriesread, "ptr", totalentries, "ptr", resumehandle, "uint")
         return result
     }
@@ -15985,6 +16176,9 @@ class NetManagement {
      * @returns {Integer} 
      */
     static NetReplImportDirGetInfo(servername, dirname, level, bufptr) {
+        servername := servername is String? StrPtr(servername) : servername
+        dirname := dirname is String? StrPtr(dirname) : dirname
+
         result := DllCall("NETAPI32.dll\NetReplImportDirGetInfo", "ptr", servername, "ptr", dirname, "uint", level, "ptr", bufptr, "uint")
         return result
     }
@@ -15996,6 +16190,9 @@ class NetManagement {
      * @returns {Integer} 
      */
     static NetReplImportDirLock(servername, dirname) {
+        servername := servername is String? StrPtr(servername) : servername
+        dirname := dirname is String? StrPtr(dirname) : dirname
+
         result := DllCall("NETAPI32.dll\NetReplImportDirLock", "ptr", servername, "ptr", dirname, "uint")
         return result
     }
@@ -16008,6 +16205,9 @@ class NetManagement {
      * @returns {Integer} 
      */
     static NetReplImportDirUnlock(servername, dirname, unlockforce) {
+        servername := servername is String? StrPtr(servername) : servername
+        dirname := dirname is String? StrPtr(dirname) : dirname
+
         result := DllCall("NETAPI32.dll\NetReplImportDirUnlock", "ptr", servername, "ptr", dirname, "uint", unlockforce, "uint")
         return result
     }
@@ -16175,6 +16375,9 @@ class NetManagement {
      * @since windows5.0
      */
     static NetServerEnum(servername, level, bufptr, prefmaxlen, entriesread, totalentries, servertype, domain, resume_handle) {
+        servername := servername is String? StrPtr(servername) : servername
+        domain := domain is String? StrPtr(domain) : domain
+
         result := DllCall("NETAPI32.dll\NetServerEnum", "ptr", servername, "uint", level, "ptr", bufptr, "uint", prefmaxlen, "ptr", entriesread, "ptr", totalentries, "uint", servertype, "ptr", domain, "ptr", resume_handle, "uint")
         return result
     }
@@ -16270,6 +16473,8 @@ class NetManagement {
      * @since windows5.0
      */
     static NetServerGetInfo(servername, level, bufptr) {
+        servername := servername is String? StrPtr(servername) : servername
+
         result := DllCall("NETAPI32.dll\NetServerGetInfo", "ptr", servername, "uint", level, "ptr", bufptr, "uint")
         return result
     }
@@ -16527,6 +16732,8 @@ class NetManagement {
      * @since windows5.0
      */
     static NetServerSetInfo(servername, level, buf, ParmError) {
+        servername := servername is String? StrPtr(servername) : servername
+
         result := DllCall("NETAPI32.dll\NetServerSetInfo", "ptr", servername, "uint", level, "ptr", buf, "ptr", ParmError, "uint")
         return result
     }
@@ -16621,6 +16828,8 @@ class NetManagement {
      * @since windows5.0
      */
     static NetServerDiskEnum(servername, level, bufptr, prefmaxlen, entriesread, totalentries, resume_handle) {
+        servername := servername is String? StrPtr(servername) : servername
+
         result := DllCall("NETAPI32.dll\NetServerDiskEnum", "ptr", servername, "uint", level, "ptr", bufptr, "uint", prefmaxlen, "ptr", entriesread, "ptr", totalentries, "ptr", resume_handle, "uint")
         return result
     }
@@ -16714,6 +16923,10 @@ class NetManagement {
      * @since windows5.0
      */
     static NetServerComputerNameAdd(ServerName, EmulatedDomainName, EmulatedServerName) {
+        ServerName := ServerName is String? StrPtr(ServerName) : ServerName
+        EmulatedDomainName := EmulatedDomainName is String? StrPtr(EmulatedDomainName) : EmulatedDomainName
+        EmulatedServerName := EmulatedServerName is String? StrPtr(EmulatedServerName) : EmulatedServerName
+
         result := DllCall("NETAPI32.dll\NetServerComputerNameAdd", "ptr", ServerName, "ptr", EmulatedDomainName, "ptr", EmulatedServerName, "uint")
         return result
     }
@@ -16783,6 +16996,9 @@ class NetManagement {
      * @since windows5.0
      */
     static NetServerComputerNameDel(ServerName, EmulatedServerName) {
+        ServerName := ServerName is String? StrPtr(ServerName) : ServerName
+        EmulatedServerName := EmulatedServerName is String? StrPtr(EmulatedServerName) : EmulatedServerName
+
         result := DllCall("NETAPI32.dll\NetServerComputerNameDel", "ptr", ServerName, "ptr", EmulatedServerName, "uint")
         return result
     }
@@ -16905,6 +17121,8 @@ class NetManagement {
      * @since windows5.0
      */
     static NetServerTransportAdd(servername, level, bufptr) {
+        servername := servername is String? StrPtr(servername) : servername
+
         result := DllCall("NETAPI32.dll\NetServerTransportAdd", "ptr", servername, "uint", level, "ptr", bufptr, "uint")
         return result
     }
@@ -17028,6 +17246,8 @@ class NetManagement {
      * @since windows5.0
      */
     static NetServerTransportAddEx(servername, level, bufptr) {
+        servername := servername is String? StrPtr(servername) : servername
+
         result := DllCall("NETAPI32.dll\NetServerTransportAddEx", "ptr", servername, "uint", level, "ptr", bufptr, "uint")
         return result
     }
@@ -17110,6 +17330,8 @@ class NetManagement {
      * @since windows5.0
      */
     static NetServerTransportDel(servername, level, bufptr) {
+        servername := servername is String? StrPtr(servername) : servername
+
         result := DllCall("NETAPI32.dll\NetServerTransportDel", "ptr", servername, "uint", level, "ptr", bufptr, "uint")
         return result
     }
@@ -17186,6 +17408,8 @@ class NetManagement {
      * @since windows5.0
      */
     static NetServerTransportEnum(servername, level, bufptr, prefmaxlen, entriesread, totalentries, resume_handle) {
+        servername := servername is String? StrPtr(servername) : servername
+
         result := DllCall("NETAPI32.dll\NetServerTransportEnum", "ptr", servername, "uint", level, "ptr", bufptr, "uint", prefmaxlen, "ptr", entriesread, "ptr", totalentries, "ptr", resume_handle, "uint")
         return result
     }
@@ -17201,6 +17425,9 @@ class NetManagement {
      * @see https://learn.microsoft.com/windows/win32/NetMgmt/netservicecontrol
      */
     static NetServiceControl(servername, service, opcode, arg, bufptr) {
+        servername := servername is String? StrPtr(servername) : servername
+        service := service is String? StrPtr(service) : service
+
         result := DllCall("NETAPI32.dll\NetServiceControl", "ptr", servername, "ptr", service, "uint", opcode, "uint", arg, "ptr", bufptr, "uint")
         return result
     }
@@ -17218,6 +17445,8 @@ class NetManagement {
      * @see https://learn.microsoft.com/windows/win32/NetMgmt/netserviceenum
      */
     static NetServiceEnum(servername, level, bufptr, prefmaxlen, entriesread, totalentries, resume_handle) {
+        servername := servername is String? StrPtr(servername) : servername
+
         result := DllCall("NETAPI32.dll\NetServiceEnum", "ptr", servername, "uint", level, "ptr", bufptr, "uint", prefmaxlen, "ptr", entriesread, "ptr", totalentries, "ptr", resume_handle, "uint")
         return result
     }
@@ -17232,6 +17461,9 @@ class NetManagement {
      * @see https://learn.microsoft.com/windows/win32/NetMgmt/netservicegetinfo
      */
     static NetServiceGetInfo(servername, service, level, bufptr) {
+        servername := servername is String? StrPtr(servername) : servername
+        service := service is String? StrPtr(service) : service
+
         result := DllCall("NETAPI32.dll\NetServiceGetInfo", "ptr", servername, "ptr", service, "uint", level, "ptr", bufptr, "uint")
         return result
     }
@@ -17247,6 +17479,10 @@ class NetManagement {
      * @see https://learn.microsoft.com/windows/win32/NetMgmt/netserviceinstall
      */
     static NetServiceInstall(servername, service, argc, argv, bufptr) {
+        servername := servername is String? StrPtr(servername) : servername
+        service := service is String? StrPtr(service) : service
+        argv := argv is String? StrPtr(argv) : argv
+
         result := DllCall("NETAPI32.dll\NetServiceInstall", "ptr", servername, "ptr", service, "uint", argc, "ptr", argv, "ptr", bufptr, "uint")
         return result
     }
@@ -17347,6 +17583,9 @@ class NetManagement {
      * @since windows5.0
      */
     static NetUseDel(UncServerName, UseName, ForceLevelFlags) {
+        UncServerName := UncServerName is String? StrPtr(UncServerName) : UncServerName
+        UseName := UseName is String? StrPtr(UseName) : UseName
+
         result := DllCall("NETAPI32.dll\NetUseDel", "ptr", UncServerName, "ptr", UseName, "uint", ForceLevelFlags, "uint")
         return result
     }
@@ -17433,6 +17672,8 @@ class NetManagement {
      * @since windows5.0
      */
     static NetUseEnum(UncServerName, LevelFlags, BufPtr, PreferedMaximumSize, EntriesRead, TotalEntries, ResumeHandle) {
+        UncServerName := UncServerName is String? StrPtr(UncServerName) : UncServerName
+
         result := DllCall("NETAPI32.dll\NetUseEnum", "ptr", UncServerName, "uint", LevelFlags, "ptr", BufPtr, "uint", PreferedMaximumSize, "ptr", EntriesRead, "ptr", TotalEntries, "ptr", ResumeHandle, "uint")
         return result
     }
@@ -17466,6 +17707,9 @@ class NetManagement {
      * @since windows5.0
      */
     static NetUseGetInfo(UncServerName, UseName, LevelFlags, bufptr) {
+        UncServerName := UncServerName is String? StrPtr(UncServerName) : UncServerName
+        UseName := UseName is String? StrPtr(UseName) : UseName
+
         result := DllCall("NETAPI32.dll\NetUseGetInfo", "ptr", UncServerName, "ptr", UseName, "uint", LevelFlags, "ptr", bufptr, "uint")
         return result
     }
@@ -17524,6 +17768,8 @@ class NetManagement {
      * @since windows5.0
      */
     static NetWkstaGetInfo(servername, level, bufptr) {
+        servername := servername is String? StrPtr(servername) : servername
+
         result := DllCall("NETAPI32.dll\NetWkstaGetInfo", "ptr", servername, "uint", level, "ptr", bufptr, "uint")
         return result
     }
@@ -17714,6 +17960,8 @@ class NetManagement {
      * @since windows5.0
      */
     static NetWkstaSetInfo(servername, level, buffer, parm_err) {
+        servername := servername is String? StrPtr(servername) : servername
+
         result := DllCall("NETAPI32.dll\NetWkstaSetInfo", "ptr", servername, "uint", level, "ptr", buffer, "ptr", parm_err, "uint")
         return result
     }
@@ -17776,6 +18024,8 @@ class NetManagement {
      * @since windows5.0
      */
     static NetWkstaUserGetInfo(reserved, level, bufptr) {
+        reserved := reserved is String? StrPtr(reserved) : reserved
+
         result := DllCall("NETAPI32.dll\NetWkstaUserGetInfo", "ptr", reserved, "uint", level, "ptr", bufptr, "uint")
         return result
     }
@@ -17844,6 +18094,8 @@ class NetManagement {
      * @since windows5.0
      */
     static NetWkstaUserSetInfo(reserved, level, buf, parm_err) {
+        reserved := reserved is String? StrPtr(reserved) : reserved
+
         result := DllCall("NETAPI32.dll\NetWkstaUserSetInfo", "ptr", reserved, "uint", level, "ptr", buf, "ptr", parm_err, "uint")
         return result
     }
@@ -17921,6 +18173,8 @@ class NetManagement {
      * @since windows5.0
      */
     static NetWkstaUserEnum(servername, level, bufptr, prefmaxlen, entriesread, totalentries, resumehandle) {
+        servername := servername is String? StrPtr(servername) : servername
+
         result := DllCall("NETAPI32.dll\NetWkstaUserEnum", "ptr", servername, "uint", level, "ptr", bufptr, "uint", prefmaxlen, "ptr", entriesread, "ptr", totalentries, "ptr", resumehandle, "uint")
         return result
     }
@@ -18084,6 +18338,9 @@ class NetManagement {
      * @see https://learn.microsoft.com/windows/win32/api/lmwksta/nf-lmwksta-netwkstatransportdel
      */
     static NetWkstaTransportDel(servername, transportname, ucond) {
+        servername := servername is String? StrPtr(servername) : servername
+        transportname := transportname is String? StrPtr(transportname) : transportname
+
         result := DllCall("NETAPI32.dll\NetWkstaTransportDel", "ptr", servername, "ptr", transportname, "uint", ucond, "uint")
         return result
     }
@@ -18318,6 +18575,9 @@ class NetManagement {
      * @see https://learn.microsoft.com/windows/win32/api/lmerrlog/nf-lmerrlog-neterrorlogclear
      */
     static NetErrorLogClear(UncServerName, BackupFile, Reserved) {
+        UncServerName := UncServerName is String? StrPtr(UncServerName) : UncServerName
+        BackupFile := BackupFile is String? StrPtr(BackupFile) : BackupFile
+
         result := DllCall("NETAPI32.dll\NetErrorLogClear", "ptr", UncServerName, "ptr", BackupFile, "ptr", Reserved, "uint")
         return result
     }
@@ -18339,6 +18599,9 @@ class NetManagement {
      * @see https://learn.microsoft.com/windows/win32/api/lmerrlog/nf-lmerrlog-neterrorlogread
      */
     static NetErrorLogRead(UncServerName, Reserved1, ErrorLogHandle, Offset, Reserved2, Reserved3, OffsetFlag, BufPtr, PrefMaxSize, BytesRead, TotalAvailable) {
+        UncServerName := UncServerName is String? StrPtr(UncServerName) : UncServerName
+        Reserved1 := Reserved1 is String? StrPtr(Reserved1) : Reserved1
+
         result := DllCall("NETAPI32.dll\NetErrorLogRead", "ptr", UncServerName, "ptr", Reserved1, "ptr", ErrorLogHandle, "uint", Offset, "ptr", Reserved2, "uint", Reserved3, "uint", OffsetFlag, "ptr", BufPtr, "uint", PrefMaxSize, "ptr", BytesRead, "ptr", TotalAvailable, "uint")
         return result
     }
@@ -18357,6 +18620,8 @@ class NetManagement {
      * @see https://learn.microsoft.com/windows/win32/api/lmerrlog/nf-lmerrlog-neterrorlogwrite
      */
     static NetErrorLogWrite(Reserved1, Code, Component, Buffer, NumBytes, MsgBuf, StrCount, Reserved2) {
+        Component := Component is String? StrPtr(Component) : Component
+
         result := DllCall("NETAPI32.dll\NetErrorLogWrite", "ptr", Reserved1, "uint", Code, "ptr", Component, "ptr", Buffer, "uint", NumBytes, "ptr", MsgBuf, "uint", StrCount, "ptr", Reserved2, "uint")
         return result
     }
@@ -18371,6 +18636,10 @@ class NetManagement {
      * @see https://learn.microsoft.com/windows/win32/api/lmconfig/nf-lmconfig-netconfigget
      */
     static NetConfigGet(server, component, parameter, bufptr) {
+        server := server is String? StrPtr(server) : server
+        component := component is String? StrPtr(component) : component
+        parameter := parameter is String? StrPtr(parameter) : parameter
+
         result := DllCall("NETAPI32.dll\NetConfigGet", "ptr", server, "ptr", component, "ptr", parameter, "ptr", bufptr, "uint")
         return result
     }
@@ -18384,6 +18653,9 @@ class NetManagement {
      * @see https://learn.microsoft.com/windows/win32/api/lmconfig/nf-lmconfig-netconfiggetall
      */
     static NetConfigGetAll(server, component, bufptr) {
+        server := server is String? StrPtr(server) : server
+        component := component is String? StrPtr(component) : component
+
         result := DllCall("NETAPI32.dll\NetConfigGetAll", "ptr", server, "ptr", component, "ptr", bufptr, "uint")
         return result
     }
@@ -18401,6 +18673,10 @@ class NetManagement {
      * @see https://learn.microsoft.com/windows/win32/api/lmconfig/nf-lmconfig-netconfigset
      */
     static NetConfigSet(server, reserved1, component, level, reserved2, buf, reserved3) {
+        server := server is String? StrPtr(server) : server
+        reserved1 := reserved1 is String? StrPtr(reserved1) : reserved1
+        component := component is String? StrPtr(component) : component
+
         result := DllCall("NETAPI32.dll\NetConfigSet", "ptr", server, "ptr", reserved1, "ptr", component, "uint", level, "uint", reserved2, "ptr", buf, "uint", reserved3, "uint")
         return result
     }
@@ -18414,6 +18690,10 @@ class NetManagement {
      * @see https://learn.microsoft.com/windows/win32/NetMgmt/netauditclear
      */
     static NetAuditClear(server, backupfile, service) {
+        server := server is String? StrPtr(server) : server
+        backupfile := backupfile is String? StrPtr(backupfile) : backupfile
+        service := service is String? StrPtr(service) : service
+
         result := DllCall("NETAPI32.dll\NetAuditClear", "ptr", server, "ptr", backupfile, "ptr", service, "uint")
         return result
     }
@@ -18435,6 +18715,9 @@ class NetManagement {
      * @see https://learn.microsoft.com/windows/win32/NetMgmt/netauditread
      */
     static NetAuditRead(server, service, auditloghandle, offset, reserved1, reserved2, offsetflag, bufptr, prefmaxlen, bytesread, totalavailable) {
+        server := server is String? StrPtr(server) : server
+        service := service is String? StrPtr(service) : service
+
         result := DllCall("NETAPI32.dll\NetAuditRead", "ptr", server, "ptr", service, "ptr", auditloghandle, "uint", offset, "ptr", reserved1, "uint", reserved2, "uint", offsetflag, "ptr", bufptr, "uint", prefmaxlen, "ptr", bytesread, "ptr", totalavailable, "uint")
         return result
     }
@@ -18450,6 +18733,8 @@ class NetManagement {
      * @see https://learn.microsoft.com/windows/win32/NetMgmt/netauditwrite
      */
     static NetAuditWrite(type, buf, numbytes, service, reserved) {
+        service := service is String? StrPtr(service) : service
+
         result := DllCall("NETAPI32.dll\NetAuditWrite", "uint", type, "ptr", buf, "uint", numbytes, "ptr", service, "ptr", reserved, "uint")
         return result
     }
@@ -18604,6 +18889,12 @@ class NetManagement {
      * @since windows5.0
      */
     static NetJoinDomain(lpServer, lpDomain, lpMachineAccountOU, lpAccount, lpPassword, fJoinOptions) {
+        lpServer := lpServer is String? StrPtr(lpServer) : lpServer
+        lpDomain := lpDomain is String? StrPtr(lpDomain) : lpDomain
+        lpMachineAccountOU := lpMachineAccountOU is String? StrPtr(lpMachineAccountOU) : lpMachineAccountOU
+        lpAccount := lpAccount is String? StrPtr(lpAccount) : lpAccount
+        lpPassword := lpPassword is String? StrPtr(lpPassword) : lpPassword
+
         result := DllCall("NETAPI32.dll\NetJoinDomain", "ptr", lpServer, "ptr", lpDomain, "ptr", lpMachineAccountOU, "ptr", lpAccount, "ptr", lpPassword, "uint", fJoinOptions, "uint")
         return result
     }
@@ -18670,6 +18961,10 @@ class NetManagement {
      * @since windows5.0
      */
     static NetUnjoinDomain(lpServer, lpAccount, lpPassword, fUnjoinOptions) {
+        lpServer := lpServer is String? StrPtr(lpServer) : lpServer
+        lpAccount := lpAccount is String? StrPtr(lpAccount) : lpAccount
+        lpPassword := lpPassword is String? StrPtr(lpPassword) : lpPassword
+
         result := DllCall("NETAPI32.dll\NetUnjoinDomain", "ptr", lpServer, "ptr", lpAccount, "ptr", lpPassword, "uint", fUnjoinOptions, "uint")
         return result
     }
@@ -18751,6 +19046,11 @@ class NetManagement {
      * @since windows5.0
      */
     static NetRenameMachineInDomain(lpServer, lpNewMachineName, lpAccount, lpPassword, fRenameOptions) {
+        lpServer := lpServer is String? StrPtr(lpServer) : lpServer
+        lpNewMachineName := lpNewMachineName is String? StrPtr(lpNewMachineName) : lpNewMachineName
+        lpAccount := lpAccount is String? StrPtr(lpAccount) : lpAccount
+        lpPassword := lpPassword is String? StrPtr(lpPassword) : lpPassword
+
         result := DllCall("NETAPI32.dll\NetRenameMachineInDomain", "ptr", lpServer, "ptr", lpNewMachineName, "ptr", lpAccount, "ptr", lpPassword, "uint", fRenameOptions, "uint")
         return result
     }
@@ -18998,6 +19298,11 @@ class NetManagement {
      * @since windows5.0
      */
     static NetValidateName(lpServer, lpName, lpAccount, lpPassword, NameType) {
+        lpServer := lpServer is String? StrPtr(lpServer) : lpServer
+        lpName := lpName is String? StrPtr(lpName) : lpName
+        lpAccount := lpAccount is String? StrPtr(lpAccount) : lpAccount
+        lpPassword := lpPassword is String? StrPtr(lpPassword) : lpPassword
+
         result := DllCall("NETAPI32.dll\NetValidateName", "ptr", lpServer, "ptr", lpName, "ptr", lpAccount, "ptr", lpPassword, "int", NameType, "uint")
         return result
     }
@@ -19056,6 +19361,12 @@ class NetManagement {
      * @since windows5.0
      */
     static NetGetJoinableOUs(lpServer, lpDomain, lpAccount, lpPassword, OUCount, OUs) {
+        lpServer := lpServer is String? StrPtr(lpServer) : lpServer
+        lpDomain := lpDomain is String? StrPtr(lpDomain) : lpDomain
+        lpAccount := lpAccount is String? StrPtr(lpAccount) : lpAccount
+        lpPassword := lpPassword is String? StrPtr(lpPassword) : lpPassword
+        OUs := OUs is String? StrPtr(OUs) : OUs
+
         result := DllCall("NETAPI32.dll\NetGetJoinableOUs", "ptr", lpServer, "ptr", lpDomain, "ptr", lpAccount, "ptr", lpPassword, "ptr", OUCount, "ptr", OUs, "uint")
         return result
     }
@@ -19184,6 +19495,11 @@ class NetManagement {
      * @since windows5.1.2600
      */
     static NetAddAlternateComputerName(Server, AlternateName, DomainAccount, DomainAccountPassword, Reserved) {
+        Server := Server is String? StrPtr(Server) : Server
+        AlternateName := AlternateName is String? StrPtr(AlternateName) : AlternateName
+        DomainAccount := DomainAccount is String? StrPtr(DomainAccount) : DomainAccount
+        DomainAccountPassword := DomainAccountPassword is String? StrPtr(DomainAccountPassword) : DomainAccountPassword
+
         result := DllCall("NETAPI32.dll\NetAddAlternateComputerName", "ptr", Server, "ptr", AlternateName, "ptr", DomainAccount, "ptr", DomainAccountPassword, "uint", Reserved, "uint")
         return result
     }
@@ -19312,6 +19628,11 @@ class NetManagement {
      * @since windows5.1.2600
      */
     static NetRemoveAlternateComputerName(Server, AlternateName, DomainAccount, DomainAccountPassword, Reserved) {
+        Server := Server is String? StrPtr(Server) : Server
+        AlternateName := AlternateName is String? StrPtr(AlternateName) : AlternateName
+        DomainAccount := DomainAccount is String? StrPtr(DomainAccount) : DomainAccount
+        DomainAccountPassword := DomainAccountPassword is String? StrPtr(DomainAccountPassword) : DomainAccountPassword
+
         result := DllCall("NETAPI32.dll\NetRemoveAlternateComputerName", "ptr", Server, "ptr", AlternateName, "ptr", DomainAccount, "ptr", DomainAccountPassword, "uint", Reserved, "uint")
         return result
     }
@@ -19440,6 +19761,11 @@ class NetManagement {
      * @since windows5.1.2600
      */
     static NetSetPrimaryComputerName(Server, PrimaryName, DomainAccount, DomainAccountPassword, Reserved) {
+        Server := Server is String? StrPtr(Server) : Server
+        PrimaryName := PrimaryName is String? StrPtr(PrimaryName) : PrimaryName
+        DomainAccount := DomainAccount is String? StrPtr(DomainAccount) : DomainAccount
+        DomainAccountPassword := DomainAccountPassword is String? StrPtr(DomainAccountPassword) : DomainAccountPassword
+
         result := DllCall("NETAPI32.dll\NetSetPrimaryComputerName", "ptr", Server, "ptr", PrimaryName, "ptr", DomainAccount, "ptr", DomainAccountPassword, "uint", Reserved, "uint")
         return result
     }
@@ -19553,6 +19879,9 @@ class NetManagement {
      * @since windows5.1.2600
      */
     static NetEnumerateComputerNames(Server, NameType, Reserved, EntryCount, ComputerNames) {
+        Server := Server is String? StrPtr(Server) : Server
+        ComputerNames := ComputerNames is String? StrPtr(ComputerNames) : ComputerNames
+
         result := DllCall("NETAPI32.dll\NetEnumerateComputerNames", "ptr", Server, "int", NameType, "uint", Reserved, "ptr", EntryCount, "ptr", ComputerNames, "uint")
         return result
     }
@@ -19741,6 +20070,12 @@ class NetManagement {
      * @since windows6.1
      */
     static NetProvisionComputerAccount(lpDomain, lpMachineName, lpMachineAccountOU, lpDcName, dwOptions, pProvisionBinData, pdwProvisionBinDataSize, pProvisionTextData) {
+        lpDomain := lpDomain is String? StrPtr(lpDomain) : lpDomain
+        lpMachineName := lpMachineName is String? StrPtr(lpMachineName) : lpMachineName
+        lpMachineAccountOU := lpMachineAccountOU is String? StrPtr(lpMachineAccountOU) : lpMachineAccountOU
+        lpDcName := lpDcName is String? StrPtr(lpDcName) : lpDcName
+        pProvisionTextData := pProvisionTextData is String? StrPtr(pProvisionTextData) : pProvisionTextData
+
         result := DllCall("NETAPI32.dll\NetProvisionComputerAccount", "ptr", lpDomain, "ptr", lpMachineName, "ptr", lpMachineAccountOU, "ptr", lpDcName, "uint", dwOptions, "ptr", pProvisionBinData, "ptr", pdwProvisionBinDataSize, "ptr", pProvisionTextData, "uint")
         return result
     }
@@ -19845,6 +20180,8 @@ class NetManagement {
      * @since windows6.1
      */
     static NetRequestOfflineDomainJoin(pProvisionBinData, cbProvisionBinDataSize, dwOptions, lpWindowsPath) {
+        lpWindowsPath := lpWindowsPath is String? StrPtr(lpWindowsPath) : lpWindowsPath
+
         result := DllCall("NETAPI32.dll\NetRequestOfflineDomainJoin", "ptr", pProvisionBinData, "uint", cbProvisionBinDataSize, "uint", dwOptions, "ptr", lpWindowsPath, "uint")
         return result
     }
@@ -20185,6 +20522,8 @@ class NetManagement {
      * @since windows8.0
      */
     static NetCreateProvisioningPackage(pProvisioningParams, ppPackageBinData, pdwPackageBinDataSize, ppPackageTextData) {
+        ppPackageTextData := ppPackageTextData is String? StrPtr(ppPackageTextData) : ppPackageTextData
+
         result := DllCall("NETAPI32.dll\NetCreateProvisioningPackage", "ptr", pProvisioningParams, "ptr", ppPackageBinData, "ptr", pdwPackageBinDataSize, "ptr", ppPackageTextData, "uint")
         return result
     }
@@ -20356,6 +20695,8 @@ class NetManagement {
     static NetRequestProvisioningPackageInstall(pPackageBinData, dwPackageBinDataSize, dwProvisionOptions, lpWindowsPath) {
         static pvReserved := 0 ;Reserved parameters must always be NULL
 
+        lpWindowsPath := lpWindowsPath is String? StrPtr(lpWindowsPath) : lpWindowsPath
+
         result := DllCall("NETAPI32.dll\NetRequestProvisioningPackageInstall", "ptr", pPackageBinData, "uint", dwPackageBinDataSize, "uint", dwProvisionOptions, "ptr", lpWindowsPath, "ptr", pvReserved, "uint")
         return result
     }
@@ -20388,6 +20729,8 @@ class NetManagement {
      * @since windows10.0.10240
      */
     static NetGetAadJoinInformation(pcszTenantId, ppJoinInfo) {
+        pcszTenantId := pcszTenantId is String? StrPtr(pcszTenantId) : pcszTenantId
+
         result := DllCall("NETAPI32.dll\NetGetAadJoinInformation", "ptr", pcszTenantId, "ptr", ppJoinInfo, "int")
         return result
     }
@@ -20440,6 +20783,9 @@ class NetManagement {
      * @since windows5.0
      */
     static NetGetJoinInformation(lpServer, lpNameBuffer, BufferType) {
+        lpServer := lpServer is String? StrPtr(lpServer) : lpServer
+        lpNameBuffer := lpNameBuffer is String? StrPtr(lpNameBuffer) : lpNameBuffer
+
         result := DllCall("NETAPI32.dll\NetGetJoinInformation", "ptr", lpServer, "ptr", lpNameBuffer, "ptr", BufferType, "uint")
         return result
     }
@@ -20459,6 +20805,9 @@ class NetManagement {
      * @since windows6.0.6000
      */
     static GetNetScheduleAccountInformation(pwszServerName, ccAccount, wszAccount) {
+        pwszServerName := pwszServerName is String? StrPtr(pwszServerName) : pwszServerName
+        wszAccount := wszAccount is String? StrPtr(wszAccount) : wszAccount
+
         result := DllCall("mstask.dll\GetNetScheduleAccountInformation", "ptr", pwszServerName, "uint", ccAccount, "ptr", wszAccount, "int")
         return result
     }
@@ -20520,6 +20869,10 @@ class NetManagement {
      * @since windows6.0.6000
      */
     static SetNetScheduleAccountInformation(pwszServerName, pwszAccount, pwszPassword) {
+        pwszServerName := pwszServerName is String? StrPtr(pwszServerName) : pwszServerName
+        pwszAccount := pwszAccount is String? StrPtr(pwszAccount) : pwszAccount
+        pwszPassword := pwszPassword is String? StrPtr(pwszPassword) : pwszPassword
+
         result := DllCall("mstask.dll\SetNetScheduleAccountInformation", "ptr", pwszServerName, "ptr", pwszAccount, "ptr", pwszPassword, "int")
         return result
     }
@@ -20606,6 +20959,8 @@ class NetManagement {
      * @since windows5.0
      */
     static NetScheduleJobAdd(Servername, Buffer, JobId) {
+        Servername := Servername is String? StrPtr(Servername) : Servername
+
         result := DllCall("NETAPI32.dll\NetScheduleJobAdd", "ptr", Servername, "ptr", Buffer, "ptr", JobId, "uint")
         return result
     }
@@ -20639,6 +20994,8 @@ class NetManagement {
      * @since windows5.0
      */
     static NetScheduleJobDel(Servername, MinJobId, MaxJobId) {
+        Servername := Servername is String? StrPtr(Servername) : Servername
+
         result := DllCall("NETAPI32.dll\NetScheduleJobDel", "ptr", Servername, "uint", MinJobId, "uint", MaxJobId, "uint")
         return result
     }
@@ -20674,6 +21031,8 @@ class NetManagement {
      * @since windows5.0
      */
     static NetScheduleJobEnum(Servername, PointerToBuffer, PrefferedMaximumLength, EntriesRead, TotalEntries, ResumeHandle) {
+        Servername := Servername is String? StrPtr(Servername) : Servername
+
         result := DllCall("NETAPI32.dll\NetScheduleJobEnum", "ptr", Servername, "ptr", PointerToBuffer, "uint", PrefferedMaximumLength, "ptr", EntriesRead, "ptr", TotalEntries, "ptr", ResumeHandle, "uint")
         return result
     }
@@ -20702,6 +21061,8 @@ class NetManagement {
      * @since windows5.0
      */
     static NetScheduleJobGetInfo(Servername, JobId, PointerToBuffer) {
+        Servername := Servername is String? StrPtr(Servername) : Servername
+
         result := DllCall("NETAPI32.dll\NetScheduleJobGetInfo", "ptr", Servername, "uint", JobId, "ptr", PointerToBuffer, "uint")
         return result
     }
@@ -20713,6 +21074,8 @@ class NetManagement {
      * @returns {Integer} 
      */
     static TraceRegisterExA(lpszCallerName, dwFlags) {
+        lpszCallerName := lpszCallerName is String? StrPtr(lpszCallerName) : lpszCallerName
+
         result := DllCall("rtutils.dll\TraceRegisterExA", "ptr", lpszCallerName, "uint", dwFlags, "uint")
         return result
     }
@@ -20756,6 +21119,8 @@ class NetManagement {
      * @returns {Integer} 
      */
     static TracePrintfA(dwTraceID, lpszFormat) {
+        lpszFormat := lpszFormat is String? StrPtr(lpszFormat) : lpszFormat
+
         result := DllCall("rtutils.dll\TracePrintfA", "uint", dwTraceID, "ptr", lpszFormat, "CDecl uint")
         return result
     }
@@ -20768,6 +21133,8 @@ class NetManagement {
      * @returns {Integer} 
      */
     static TracePrintfExA(dwTraceID, dwFlags, lpszFormat) {
+        lpszFormat := lpszFormat is String? StrPtr(lpszFormat) : lpszFormat
+
         result := DllCall("rtutils.dll\TracePrintfExA", "uint", dwTraceID, "uint", dwFlags, "ptr", lpszFormat, "CDecl uint")
         return result
     }
@@ -20781,6 +21148,8 @@ class NetManagement {
      * @returns {Integer} 
      */
     static TraceVprintfExA(dwTraceID, dwFlags, lpszFormat, arglist) {
+        lpszFormat := lpszFormat is String? StrPtr(lpszFormat) : lpszFormat
+
         result := DllCall("rtutils.dll\TraceVprintfExA", "uint", dwTraceID, "uint", dwFlags, "ptr", lpszFormat, "ptr", arglist, "uint")
         return result
     }
@@ -20793,6 +21162,8 @@ class NetManagement {
      * @returns {Integer} 
      */
     static TracePutsExA(dwTraceID, dwFlags, lpszString) {
+        lpszString := lpszString is String? StrPtr(lpszString) : lpszString
+
         result := DllCall("rtutils.dll\TracePutsExA", "uint", dwTraceID, "uint", dwFlags, "ptr", lpszString, "uint")
         return result
     }
@@ -20809,6 +21180,8 @@ class NetManagement {
      * @returns {Integer} 
      */
     static TraceDumpExA(dwTraceID, dwFlags, lpbBytes, dwByteCount, dwGroupSize, bAddressPrefix, lpszPrefix) {
+        lpszPrefix := lpszPrefix is String? StrPtr(lpszPrefix) : lpszPrefix
+
         result := DllCall("rtutils.dll\TraceDumpExA", "uint", dwTraceID, "uint", dwFlags, "ptr", lpbBytes, "uint", dwByteCount, "uint", dwGroupSize, "int", bAddressPrefix, "ptr", lpszPrefix, "uint")
         return result
     }
@@ -20820,6 +21193,8 @@ class NetManagement {
      * @returns {Integer} 
      */
     static TraceRegisterExW(lpszCallerName, dwFlags) {
+        lpszCallerName := lpszCallerName is String? StrPtr(lpszCallerName) : lpszCallerName
+
         result := DllCall("rtutils.dll\TraceRegisterExW", "ptr", lpszCallerName, "uint", dwFlags, "uint")
         return result
     }
@@ -20863,6 +21238,8 @@ class NetManagement {
      * @returns {Integer} 
      */
     static TracePrintfW(dwTraceID, lpszFormat) {
+        lpszFormat := lpszFormat is String? StrPtr(lpszFormat) : lpszFormat
+
         result := DllCall("rtutils.dll\TracePrintfW", "uint", dwTraceID, "ptr", lpszFormat, "CDecl uint")
         return result
     }
@@ -20875,6 +21252,8 @@ class NetManagement {
      * @returns {Integer} 
      */
     static TracePrintfExW(dwTraceID, dwFlags, lpszFormat) {
+        lpszFormat := lpszFormat is String? StrPtr(lpszFormat) : lpszFormat
+
         result := DllCall("rtutils.dll\TracePrintfExW", "uint", dwTraceID, "uint", dwFlags, "ptr", lpszFormat, "CDecl uint")
         return result
     }
@@ -20888,6 +21267,8 @@ class NetManagement {
      * @returns {Integer} 
      */
     static TraceVprintfExW(dwTraceID, dwFlags, lpszFormat, arglist) {
+        lpszFormat := lpszFormat is String? StrPtr(lpszFormat) : lpszFormat
+
         result := DllCall("rtutils.dll\TraceVprintfExW", "uint", dwTraceID, "uint", dwFlags, "ptr", lpszFormat, "ptr", arglist, "uint")
         return result
     }
@@ -20900,6 +21281,8 @@ class NetManagement {
      * @returns {Integer} 
      */
     static TracePutsExW(dwTraceID, dwFlags, lpszString) {
+        lpszString := lpszString is String? StrPtr(lpszString) : lpszString
+
         result := DllCall("rtutils.dll\TracePutsExW", "uint", dwTraceID, "uint", dwFlags, "ptr", lpszString, "uint")
         return result
     }
@@ -20916,6 +21299,8 @@ class NetManagement {
      * @returns {Integer} 
      */
     static TraceDumpExW(dwTraceID, dwFlags, lpbBytes, dwByteCount, dwGroupSize, bAddressPrefix, lpszPrefix) {
+        lpszPrefix := lpszPrefix is String? StrPtr(lpszPrefix) : lpszPrefix
+
         result := DllCall("rtutils.dll\TraceDumpExW", "uint", dwTraceID, "uint", dwFlags, "ptr", lpbBytes, "uint", dwByteCount, "uint", dwGroupSize, "int", bAddressPrefix, "ptr", lpszPrefix, "uint")
         return result
     }
@@ -20929,6 +21314,8 @@ class NetManagement {
      * @returns {String} Nothing - always returns an empty string
      */
     static LogErrorA(dwMessageId, cNumberOfSubStrings, plpwsSubStrings, dwErrorCode) {
+        plpwsSubStrings := plpwsSubStrings is String? StrPtr(plpwsSubStrings) : plpwsSubStrings
+
         DllCall("rtutils.dll\LogErrorA", "uint", dwMessageId, "uint", cNumberOfSubStrings, "ptr", plpwsSubStrings, "uint", dwErrorCode)
     }
 
@@ -20941,6 +21328,8 @@ class NetManagement {
      * @returns {String} Nothing - always returns an empty string
      */
     static LogEventA(wEventType, dwMessageId, cNumberOfSubStrings, plpwsSubStrings) {
+        plpwsSubStrings := plpwsSubStrings is String? StrPtr(plpwsSubStrings) : plpwsSubStrings
+
         DllCall("rtutils.dll\LogEventA", "uint", wEventType, "uint", dwMessageId, "uint", cNumberOfSubStrings, "ptr", plpwsSubStrings)
     }
 
@@ -20953,6 +21342,8 @@ class NetManagement {
      * @returns {String} Nothing - always returns an empty string
      */
     static LogErrorW(dwMessageId, cNumberOfSubStrings, plpwsSubStrings, dwErrorCode) {
+        plpwsSubStrings := plpwsSubStrings is String? StrPtr(plpwsSubStrings) : plpwsSubStrings
+
         DllCall("rtutils.dll\LogErrorW", "uint", dwMessageId, "uint", cNumberOfSubStrings, "ptr", plpwsSubStrings, "uint", dwErrorCode)
     }
 
@@ -20965,6 +21356,8 @@ class NetManagement {
      * @returns {String} Nothing - always returns an empty string
      */
     static LogEventW(wEventType, dwMessageId, cNumberOfSubStrings, plpwsSubStrings) {
+        plpwsSubStrings := plpwsSubStrings is String? StrPtr(plpwsSubStrings) : plpwsSubStrings
+
         DllCall("rtutils.dll\LogEventW", "uint", wEventType, "uint", dwMessageId, "uint", cNumberOfSubStrings, "ptr", plpwsSubStrings)
     }
 
@@ -20974,6 +21367,8 @@ class NetManagement {
      * @returns {Pointer<HANDLE>} 
      */
     static RouterLogRegisterA(lpszSource) {
+        lpszSource := lpszSource is String? StrPtr(lpszSource) : lpszSource
+
         result := DllCall("rtutils.dll\RouterLogRegisterA", "ptr", lpszSource, "ptr")
         return result
     }
@@ -20998,6 +21393,8 @@ class NetManagement {
      * @returns {String} Nothing - always returns an empty string
      */
     static RouterLogEventA(hLogHandle, dwEventType, dwMessageId, dwSubStringCount, plpszSubStringArray, dwErrorCode) {
+        plpszSubStringArray := plpszSubStringArray is String? StrPtr(plpszSubStringArray) : plpszSubStringArray
+
         DllCall("rtutils.dll\RouterLogEventA", "ptr", hLogHandle, "uint", dwEventType, "uint", dwMessageId, "uint", dwSubStringCount, "ptr", plpszSubStringArray, "uint", dwErrorCode)
     }
 
@@ -21013,6 +21410,8 @@ class NetManagement {
      * @returns {String} Nothing - always returns an empty string
      */
     static RouterLogEventDataA(hLogHandle, dwEventType, dwMessageId, dwSubStringCount, plpszSubStringArray, dwDataBytes, lpDataBytes) {
+        plpszSubStringArray := plpszSubStringArray is String? StrPtr(plpszSubStringArray) : plpszSubStringArray
+
         DllCall("rtutils.dll\RouterLogEventDataA", "ptr", hLogHandle, "uint", dwEventType, "uint", dwMessageId, "uint", dwSubStringCount, "ptr", plpszSubStringArray, "uint", dwDataBytes, "ptr", lpDataBytes)
     }
 
@@ -21028,6 +21427,8 @@ class NetManagement {
      * @returns {String} Nothing - always returns an empty string
      */
     static RouterLogEventStringA(hLogHandle, dwEventType, dwMessageId, dwSubStringCount, plpszSubStringArray, dwErrorCode, dwErrorIndex) {
+        plpszSubStringArray := plpszSubStringArray is String? StrPtr(plpszSubStringArray) : plpszSubStringArray
+
         DllCall("rtutils.dll\RouterLogEventStringA", "ptr", hLogHandle, "uint", dwEventType, "uint", dwMessageId, "uint", dwSubStringCount, "ptr", plpszSubStringArray, "uint", dwErrorCode, "uint", dwErrorIndex)
     }
 
@@ -21041,6 +21442,8 @@ class NetManagement {
      * @returns {String} Nothing - always returns an empty string
      */
     static RouterLogEventExA(hLogHandle, dwEventType, dwErrorCode, dwMessageId, ptszFormat) {
+        ptszFormat := ptszFormat is String? StrPtr(ptszFormat) : ptszFormat
+
         DllCall("rtutils.dll\RouterLogEventExA", "ptr", hLogHandle, "uint", dwEventType, "uint", dwErrorCode, "uint", dwMessageId, "ptr", ptszFormat, "CDecl ")
     }
 
@@ -21055,6 +21458,8 @@ class NetManagement {
      * @returns {String} Nothing - always returns an empty string
      */
     static RouterLogEventValistExA(hLogHandle, dwEventType, dwErrorCode, dwMessageId, ptszFormat, arglist) {
+        ptszFormat := ptszFormat is String? StrPtr(ptszFormat) : ptszFormat
+
         DllCall("rtutils.dll\RouterLogEventValistExA", "ptr", hLogHandle, "uint", dwEventType, "uint", dwErrorCode, "uint", dwMessageId, "ptr", ptszFormat, "ptr", arglist)
     }
 
@@ -21065,6 +21470,8 @@ class NetManagement {
      * @returns {Integer} 
      */
     static RouterGetErrorStringA(dwErrorCode, lplpszErrorString) {
+        lplpszErrorString := lplpszErrorString is String? StrPtr(lplpszErrorString) : lplpszErrorString
+
         result := DllCall("rtutils.dll\RouterGetErrorStringA", "uint", dwErrorCode, "ptr", lplpszErrorString, "uint")
         return result
     }
@@ -21075,6 +21482,8 @@ class NetManagement {
      * @returns {Pointer<HANDLE>} 
      */
     static RouterLogRegisterW(lpszSource) {
+        lpszSource := lpszSource is String? StrPtr(lpszSource) : lpszSource
+
         result := DllCall("rtutils.dll\RouterLogRegisterW", "ptr", lpszSource, "ptr")
         return result
     }
@@ -21099,6 +21508,8 @@ class NetManagement {
      * @returns {String} Nothing - always returns an empty string
      */
     static RouterLogEventW(hLogHandle, dwEventType, dwMessageId, dwSubStringCount, plpszSubStringArray, dwErrorCode) {
+        plpszSubStringArray := plpszSubStringArray is String? StrPtr(plpszSubStringArray) : plpszSubStringArray
+
         DllCall("rtutils.dll\RouterLogEventW", "ptr", hLogHandle, "uint", dwEventType, "uint", dwMessageId, "uint", dwSubStringCount, "ptr", plpszSubStringArray, "uint", dwErrorCode)
     }
 
@@ -21114,6 +21525,8 @@ class NetManagement {
      * @returns {String} Nothing - always returns an empty string
      */
     static RouterLogEventDataW(hLogHandle, dwEventType, dwMessageId, dwSubStringCount, plpszSubStringArray, dwDataBytes, lpDataBytes) {
+        plpszSubStringArray := plpszSubStringArray is String? StrPtr(plpszSubStringArray) : plpszSubStringArray
+
         DllCall("rtutils.dll\RouterLogEventDataW", "ptr", hLogHandle, "uint", dwEventType, "uint", dwMessageId, "uint", dwSubStringCount, "ptr", plpszSubStringArray, "uint", dwDataBytes, "ptr", lpDataBytes)
     }
 
@@ -21129,6 +21542,8 @@ class NetManagement {
      * @returns {String} Nothing - always returns an empty string
      */
     static RouterLogEventStringW(hLogHandle, dwEventType, dwMessageId, dwSubStringCount, plpszSubStringArray, dwErrorCode, dwErrorIndex) {
+        plpszSubStringArray := plpszSubStringArray is String? StrPtr(plpszSubStringArray) : plpszSubStringArray
+
         DllCall("rtutils.dll\RouterLogEventStringW", "ptr", hLogHandle, "uint", dwEventType, "uint", dwMessageId, "uint", dwSubStringCount, "ptr", plpszSubStringArray, "uint", dwErrorCode, "uint", dwErrorIndex)
     }
 
@@ -21142,6 +21557,8 @@ class NetManagement {
      * @returns {String} Nothing - always returns an empty string
      */
     static RouterLogEventExW(hLogHandle, dwEventType, dwErrorCode, dwMessageId, ptszFormat) {
+        ptszFormat := ptszFormat is String? StrPtr(ptszFormat) : ptszFormat
+
         DllCall("rtutils.dll\RouterLogEventExW", "ptr", hLogHandle, "uint", dwEventType, "uint", dwErrorCode, "uint", dwMessageId, "ptr", ptszFormat, "CDecl ")
     }
 
@@ -21156,6 +21573,8 @@ class NetManagement {
      * @returns {String} Nothing - always returns an empty string
      */
     static RouterLogEventValistExW(hLogHandle, dwEventType, dwErrorCode, dwMessageId, ptszFormat, arglist) {
+        ptszFormat := ptszFormat is String? StrPtr(ptszFormat) : ptszFormat
+
         DllCall("rtutils.dll\RouterLogEventValistExW", "ptr", hLogHandle, "uint", dwEventType, "uint", dwErrorCode, "uint", dwMessageId, "ptr", ptszFormat, "ptr", arglist)
     }
 
@@ -21166,6 +21585,8 @@ class NetManagement {
      * @returns {Integer} 
      */
     static RouterGetErrorStringW(dwErrorCode, lplpwszErrorString) {
+        lplpwszErrorString := lplpwszErrorString is String? StrPtr(lplpwszErrorString) : lplpwszErrorString
+
         result := DllCall("rtutils.dll\RouterGetErrorStringW", "uint", dwErrorCode, "ptr", lplpwszErrorString, "uint")
         return result
     }
@@ -21179,6 +21600,10 @@ class NetManagement {
      * @returns {String} Nothing - always returns an empty string
      */
     static RouterAssert(pszFailedAssertion, pszFileName, dwLineNumber, pszMessage) {
+        pszFailedAssertion := pszFailedAssertion is String? StrPtr(pszFailedAssertion) : pszFailedAssertion
+        pszFileName := pszFileName is String? StrPtr(pszFileName) : pszFileName
+        pszMessage := pszMessage is String? StrPtr(pszMessage) : pszMessage
+
         DllCall("rtutils.dll\RouterAssert", "ptr", pszFailedAssertion, "ptr", pszFileName, "uint", dwLineNumber, "ptr", pszMessage)
     }
 

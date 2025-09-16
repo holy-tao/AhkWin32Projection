@@ -823,6 +823,8 @@ class IndexServer {
      * @since windows5.0
      */
     static LoadIFilter(pwcsPath, pUnkOuter, ppIUnk) {
+        pwcsPath := pwcsPath is String? StrPtr(pwcsPath) : pwcsPath
+
         result := DllCall("query.dll\LoadIFilter", "ptr", pwcsPath, "ptr", pUnkOuter, "ptr", ppIUnk, "int")
         return result
     }
@@ -836,6 +838,8 @@ class IndexServer {
      * @returns {Integer} 
      */
     static LoadIFilterEx(pwcsPath, dwFlags, riid, ppIUnk) {
+        pwcsPath := pwcsPath is String? StrPtr(pwcsPath) : pwcsPath
+
         result := DllCall("query.dll\LoadIFilterEx", "ptr", pwcsPath, "uint", dwFlags, "ptr", riid, "ptr", ppIUnk, "int")
         return result
     }

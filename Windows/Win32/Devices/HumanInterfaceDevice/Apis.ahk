@@ -12521,6 +12521,8 @@ class HumanInterfaceDevice {
      * @returns {Integer} 
      */
     static HidP_InitializeReportForID(ReportType, ReportID, PreparsedData, Report, ReportLength) {
+        Report := Report is String? StrPtr(Report) : Report
+
         result := DllCall("HID.dll\HidP_InitializeReportForID", "int", ReportType, "char", ReportID, "ptr", PreparsedData, "ptr", Report, "uint", ReportLength, "int")
         return result
     }
@@ -12536,6 +12538,8 @@ class HumanInterfaceDevice {
      * @returns {Integer} 
      */
     static HidP_SetData(ReportType, DataList, DataLength, PreparsedData, Report, ReportLength) {
+        Report := Report is String? StrPtr(Report) : Report
+
         result := DllCall("HID.dll\HidP_SetData", "int", ReportType, "ptr", DataList, "ptr", DataLength, "ptr", PreparsedData, "ptr", Report, "uint", ReportLength, "int")
         return result
     }
@@ -12551,6 +12555,8 @@ class HumanInterfaceDevice {
      * @returns {Integer} 
      */
     static HidP_GetData(ReportType, DataList, DataLength, PreparsedData, Report, ReportLength) {
+        Report := Report is String? StrPtr(Report) : Report
+
         result := DllCall("HID.dll\HidP_GetData", "int", ReportType, "ptr", DataList, "ptr", DataLength, "ptr", PreparsedData, "ptr", Report, "uint", ReportLength, "int")
         return result
     }
@@ -12579,6 +12585,8 @@ class HumanInterfaceDevice {
      * @returns {Integer} 
      */
     static HidP_SetUsages(ReportType, UsagePage, LinkCollection, UsageList, UsageLength, PreparsedData, Report, ReportLength) {
+        Report := Report is String? StrPtr(Report) : Report
+
         result := DllCall("HID.dll\HidP_SetUsages", "int", ReportType, "ushort", UsagePage, "ushort", LinkCollection, "ptr", UsageList, "ptr", UsageLength, "ptr", PreparsedData, "ptr", Report, "uint", ReportLength, "int")
         return result
     }
@@ -12596,6 +12604,8 @@ class HumanInterfaceDevice {
      * @returns {Integer} 
      */
     static HidP_UnsetUsages(ReportType, UsagePage, LinkCollection, UsageList, UsageLength, PreparsedData, Report, ReportLength) {
+        Report := Report is String? StrPtr(Report) : Report
+
         result := DllCall("HID.dll\HidP_UnsetUsages", "int", ReportType, "ushort", UsagePage, "ushort", LinkCollection, "ptr", UsageList, "ptr", UsageLength, "ptr", PreparsedData, "ptr", Report, "uint", ReportLength, "int")
         return result
     }
@@ -12613,6 +12623,8 @@ class HumanInterfaceDevice {
      * @returns {Integer} 
      */
     static HidP_GetUsages(ReportType, UsagePage, LinkCollection, UsageList, UsageLength, PreparsedData, Report, ReportLength) {
+        Report := Report is String? StrPtr(Report) : Report
+
         result := DllCall("HID.dll\HidP_GetUsages", "int", ReportType, "ushort", UsagePage, "ushort", LinkCollection, "ptr", UsageList, "ptr", UsageLength, "ptr", PreparsedData, "ptr", Report, "uint", ReportLength, "int")
         return result
     }
@@ -12629,6 +12641,8 @@ class HumanInterfaceDevice {
      * @returns {Integer} 
      */
     static HidP_GetUsagesEx(ReportType, LinkCollection, ButtonList, UsageLength, PreparsedData, Report, ReportLength) {
+        Report := Report is String? StrPtr(Report) : Report
+
         result := DllCall("HID.dll\HidP_GetUsagesEx", "int", ReportType, "ushort", LinkCollection, "ptr", ButtonList, "ptr", UsageLength, "ptr", PreparsedData, "ptr", Report, "uint", ReportLength, "int")
         return result
     }
@@ -12658,6 +12672,8 @@ class HumanInterfaceDevice {
      * @returns {Integer} 
      */
     static HidP_SetUsageValue(ReportType, UsagePage, LinkCollection, Usage, UsageValue, PreparsedData, Report, ReportLength) {
+        Report := Report is String? StrPtr(Report) : Report
+
         result := DllCall("HID.dll\HidP_SetUsageValue", "int", ReportType, "ushort", UsagePage, "ushort", LinkCollection, "ushort", Usage, "uint", UsageValue, "ptr", PreparsedData, "ptr", Report, "uint", ReportLength, "int")
         return result
     }
@@ -12675,6 +12691,8 @@ class HumanInterfaceDevice {
      * @returns {Integer} 
      */
     static HidP_SetScaledUsageValue(ReportType, UsagePage, LinkCollection, Usage, UsageValue, PreparsedData, Report, ReportLength) {
+        Report := Report is String? StrPtr(Report) : Report
+
         result := DllCall("HID.dll\HidP_SetScaledUsageValue", "int", ReportType, "ushort", UsagePage, "ushort", LinkCollection, "ushort", Usage, "int", UsageValue, "ptr", PreparsedData, "ptr", Report, "uint", ReportLength, "int")
         return result
     }
@@ -12693,6 +12711,9 @@ class HumanInterfaceDevice {
      * @returns {Integer} 
      */
     static HidP_SetUsageValueArray(ReportType, UsagePage, LinkCollection, Usage, UsageValue, UsageValueByteLength, PreparsedData, Report, ReportLength) {
+        UsageValue := UsageValue is String? StrPtr(UsageValue) : UsageValue
+        Report := Report is String? StrPtr(Report) : Report
+
         result := DllCall("HID.dll\HidP_SetUsageValueArray", "int", ReportType, "ushort", UsagePage, "ushort", LinkCollection, "ushort", Usage, "ptr", UsageValue, "ushort", UsageValueByteLength, "ptr", PreparsedData, "ptr", Report, "uint", ReportLength, "int")
         return result
     }
@@ -12710,6 +12731,8 @@ class HumanInterfaceDevice {
      * @returns {Integer} 
      */
     static HidP_GetUsageValue(ReportType, UsagePage, LinkCollection, Usage, UsageValue, PreparsedData, Report, ReportLength) {
+        Report := Report is String? StrPtr(Report) : Report
+
         result := DllCall("HID.dll\HidP_GetUsageValue", "int", ReportType, "ushort", UsagePage, "ushort", LinkCollection, "ushort", Usage, "ptr", UsageValue, "ptr", PreparsedData, "ptr", Report, "uint", ReportLength, "int")
         return result
     }
@@ -12727,6 +12750,8 @@ class HumanInterfaceDevice {
      * @returns {Integer} 
      */
     static HidP_GetScaledUsageValue(ReportType, UsagePage, LinkCollection, Usage, UsageValue, PreparsedData, Report, ReportLength) {
+        Report := Report is String? StrPtr(Report) : Report
+
         result := DllCall("HID.dll\HidP_GetScaledUsageValue", "int", ReportType, "ushort", UsagePage, "ushort", LinkCollection, "ushort", Usage, "ptr", UsageValue, "ptr", PreparsedData, "ptr", Report, "uint", ReportLength, "int")
         return result
     }
@@ -12745,6 +12770,9 @@ class HumanInterfaceDevice {
      * @returns {Integer} 
      */
     static HidP_GetUsageValueArray(ReportType, UsagePage, LinkCollection, Usage, UsageValue, UsageValueByteLength, PreparsedData, Report, ReportLength) {
+        UsageValue := UsageValue is String? StrPtr(UsageValue) : UsageValue
+        Report := Report is String? StrPtr(Report) : Report
+
         result := DllCall("HID.dll\HidP_GetUsageValueArray", "int", ReportType, "ushort", UsagePage, "ushort", LinkCollection, "ushort", Usage, "ptr", UsageValue, "ushort", UsageValueByteLength, "ptr", PreparsedData, "ptr", Report, "uint", ReportLength, "int")
         return result
     }
@@ -12777,6 +12805,8 @@ class HumanInterfaceDevice {
      * @returns {Integer} 
      */
     static HidP_GetButtonArray(ReportType, UsagePage, LinkCollection, Usage, ButtonData, ButtonDataLength, PreparsedData, Report, ReportLength) {
+        Report := Report is String? StrPtr(Report) : Report
+
         result := DllCall("HID.dll\HidP_GetButtonArray", "int", ReportType, "ushort", UsagePage, "ushort", LinkCollection, "ushort", Usage, "ptr", ButtonData, "ptr", ButtonDataLength, "ptr", PreparsedData, "ptr", Report, "uint", ReportLength, "int")
         return result
     }
@@ -12795,6 +12825,8 @@ class HumanInterfaceDevice {
      * @returns {Integer} 
      */
     static HidP_SetButtonArray(ReportType, UsagePage, LinkCollection, Usage, ButtonData, ButtonDataLength, PreparsedData, Report, ReportLength) {
+        Report := Report is String? StrPtr(Report) : Report
+
         result := DllCall("HID.dll\HidP_SetButtonArray", "int", ReportType, "ushort", UsagePage, "ushort", LinkCollection, "ushort", Usage, "ptr", ButtonData, "ushort", ButtonDataLength, "ptr", PreparsedData, "ptr", Report, "uint", ReportLength, "int")
         return result
     }

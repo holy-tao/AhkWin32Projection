@@ -3899,6 +3899,8 @@ class OpenGL {
      * @since windows5.0
      */
     static wglGetProcAddress(param0) {
+        param0 := param0 is String? StrPtr(param0) : param0
+
         A_LastError := 0
 
         result := DllCall("OPENGL32.dll\wglGetProcAddress", "ptr", param0, "ptr")

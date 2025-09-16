@@ -99,6 +99,8 @@ class ClrHosting {
      * @deprecated
      */
     static GetCORSystemDirectory(pbuffer, cchBuffer, dwLength) {
+        pbuffer := pbuffer is String? StrPtr(pbuffer) : pbuffer
+
         result := DllCall("MSCorEE.dll\GetCORSystemDirectory", "ptr", pbuffer, "uint", cchBuffer, "ptr", dwLength, "int")
         return result
     }
@@ -112,6 +114,8 @@ class ClrHosting {
      * @deprecated
      */
     static GetCORVersion(pbBuffer, cchBuffer, dwLength) {
+        pbBuffer := pbBuffer is String? StrPtr(pbBuffer) : pbBuffer
+
         result := DllCall("MSCorEE.dll\GetCORVersion", "ptr", pbBuffer, "uint", cchBuffer, "ptr", dwLength, "int")
         return result
     }
@@ -126,6 +130,9 @@ class ClrHosting {
      * @deprecated
      */
     static GetFileVersion(szFilename, szBuffer, cchBuffer, dwLength) {
+        szFilename := szFilename is String? StrPtr(szFilename) : szFilename
+        szBuffer := szBuffer is String? StrPtr(szBuffer) : szBuffer
+
         result := DllCall("MSCorEE.dll\GetFileVersion", "ptr", szFilename, "ptr", szBuffer, "uint", cchBuffer, "ptr", dwLength, "int")
         return result
     }
@@ -139,6 +146,8 @@ class ClrHosting {
      * @deprecated
      */
     static GetCORRequiredVersion(pbuffer, cchBuffer, dwLength) {
+        pbuffer := pbuffer is String? StrPtr(pbuffer) : pbuffer
+
         result := DllCall("MSCorEE.dll\GetCORRequiredVersion", "ptr", pbuffer, "uint", cchBuffer, "ptr", dwLength, "int")
         return result
     }
@@ -160,6 +169,12 @@ class ClrHosting {
      * @deprecated
      */
     static GetRequestedRuntimeInfo(pExe, pwszVersion, pConfigurationFile, startupFlags, runtimeInfoFlags, pDirectory, dwDirectory, dwDirectoryLength, pVersion, cchBuffer, dwlength) {
+        pExe := pExe is String? StrPtr(pExe) : pExe
+        pwszVersion := pwszVersion is String? StrPtr(pwszVersion) : pwszVersion
+        pConfigurationFile := pConfigurationFile is String? StrPtr(pConfigurationFile) : pConfigurationFile
+        pDirectory := pDirectory is String? StrPtr(pDirectory) : pDirectory
+        pVersion := pVersion is String? StrPtr(pVersion) : pVersion
+
         result := DllCall("MSCorEE.dll\GetRequestedRuntimeInfo", "ptr", pExe, "ptr", pwszVersion, "ptr", pConfigurationFile, "uint", startupFlags, "uint", runtimeInfoFlags, "ptr", pDirectory, "uint", dwDirectory, "ptr", dwDirectoryLength, "ptr", pVersion, "uint", cchBuffer, "ptr", dwlength, "int")
         return result
     }
@@ -174,6 +189,9 @@ class ClrHosting {
      * @deprecated
      */
     static GetRequestedRuntimeVersion(pExe, pVersion, cchBuffer, dwLength) {
+        pExe := pExe is String? StrPtr(pExe) : pExe
+        pVersion := pVersion is String? StrPtr(pVersion) : pVersion
+
         result := DllCall("MSCorEE.dll\GetRequestedRuntimeVersion", "ptr", pExe, "ptr", pVersion, "uint", cchBuffer, "ptr", dwLength, "int")
         return result
     }
@@ -192,6 +210,10 @@ class ClrHosting {
      * @deprecated
      */
     static CorBindToRuntimeHost(pwszVersion, pwszBuildFlavor, pwszHostConfigFile, pReserved, startupFlags, rclsid, riid, ppv) {
+        pwszVersion := pwszVersion is String? StrPtr(pwszVersion) : pwszVersion
+        pwszBuildFlavor := pwszBuildFlavor is String? StrPtr(pwszBuildFlavor) : pwszBuildFlavor
+        pwszHostConfigFile := pwszHostConfigFile is String? StrPtr(pwszHostConfigFile) : pwszHostConfigFile
+
         result := DllCall("MSCorEE.dll\CorBindToRuntimeHost", "ptr", pwszVersion, "ptr", pwszBuildFlavor, "ptr", pwszHostConfigFile, "ptr", pReserved, "uint", startupFlags, "ptr", rclsid, "ptr", riid, "ptr", ppv, "int")
         return result
     }
@@ -208,6 +230,9 @@ class ClrHosting {
      * @deprecated
      */
     static CorBindToRuntimeEx(pwszVersion, pwszBuildFlavor, startupFlags, rclsid, riid, ppv) {
+        pwszVersion := pwszVersion is String? StrPtr(pwszVersion) : pwszVersion
+        pwszBuildFlavor := pwszBuildFlavor is String? StrPtr(pwszBuildFlavor) : pwszBuildFlavor
+
         result := DllCall("MSCorEE.dll\CorBindToRuntimeEx", "ptr", pwszVersion, "ptr", pwszBuildFlavor, "uint", startupFlags, "ptr", rclsid, "ptr", riid, "ptr", ppv, "int")
         return result
     }
@@ -239,6 +264,9 @@ class ClrHosting {
      * @deprecated
      */
     static CorBindToRuntime(pwszVersion, pwszBuildFlavor, rclsid, riid, ppv) {
+        pwszVersion := pwszVersion is String? StrPtr(pwszVersion) : pwszVersion
+        pwszBuildFlavor := pwszBuildFlavor is String? StrPtr(pwszBuildFlavor) : pwszBuildFlavor
+
         result := DllCall("MSCorEE.dll\CorBindToRuntime", "ptr", pwszVersion, "ptr", pwszBuildFlavor, "ptr", rclsid, "ptr", riid, "ptr", ppv, "int")
         return result
     }
@@ -253,6 +281,8 @@ class ClrHosting {
      * @deprecated
      */
     static CorBindToCurrentRuntime(pwszFileName, rclsid, riid, ppv) {
+        pwszFileName := pwszFileName is String? StrPtr(pwszFileName) : pwszFileName
+
         result := DllCall("MSCorEE.dll\CorBindToCurrentRuntime", "ptr", pwszFileName, "ptr", rclsid, "ptr", riid, "ptr", ppv, "int")
         return result
     }
@@ -266,6 +296,8 @@ class ClrHosting {
      * @deprecated
      */
     static ClrCreateManagedInstance(pTypeName, riid, ppObject) {
+        pTypeName := pTypeName is String? StrPtr(pTypeName) : pTypeName
+
         result := DllCall("MSCorEE.dll\ClrCreateManagedInstance", "ptr", pTypeName, "ptr", riid, "ptr", ppObject, "int")
         return result
     }
@@ -289,6 +321,8 @@ class ClrHosting {
      * @deprecated
      */
     static RunDll32ShimW(hwnd, hinst, lpszCmdLine, nCmdShow) {
+        lpszCmdLine := lpszCmdLine is String? StrPtr(lpszCmdLine) : lpszCmdLine
+
         result := DllCall("MSCorEE.dll\RunDll32ShimW", "ptr", hwnd, "ptr", hinst, "ptr", lpszCmdLine, "int", nCmdShow, "int")
         return result
     }
@@ -308,6 +342,9 @@ class ClrHosting {
      * @deprecated
      */
     static LoadLibraryShim(szDllName, szVersion, pvReserved, phModDll) {
+        szDllName := szDllName is String? StrPtr(szDllName) : szDllName
+        szVersion := szVersion is String? StrPtr(szVersion) : szVersion
+
         result := DllCall("MSCorEE.dll\LoadLibraryShim", "ptr", szDllName, "ptr", szVersion, "ptr", pvReserved, "ptr", phModDll, "int")
         return result
     }
@@ -324,6 +361,10 @@ class ClrHosting {
      * @deprecated
      */
     static CallFunctionShim(szDllName, szFunctionName, lpvArgument1, lpvArgument2, szVersion, pvReserved) {
+        szDllName := szDllName is String? StrPtr(szDllName) : szDllName
+        szFunctionName := szFunctionName is String? StrPtr(szFunctionName) : szFunctionName
+        szVersion := szVersion is String? StrPtr(szVersion) : szVersion
+
         result := DllCall("MSCorEE.dll\CallFunctionShim", "ptr", szDllName, "ptr", szFunctionName, "ptr", lpvArgument1, "ptr", lpvArgument2, "ptr", szVersion, "ptr", pvReserved, "int")
         return result
     }
@@ -336,6 +377,8 @@ class ClrHosting {
      * @deprecated
      */
     static GetRealProcAddress(pwszProcName, ppv) {
+        pwszProcName := pwszProcName is String? StrPtr(pwszProcName) : pwszProcName
+
         result := DllCall("MSCorEE.dll\GetRealProcAddress", "ptr", pwszProcName, "ptr", ppv, "int")
         return result
     }
@@ -360,6 +403,8 @@ class ClrHosting {
      * @deprecated
      */
     static LoadStringRC(iResouceID, szBuffer, iMax, bQuiet) {
+        szBuffer := szBuffer is String? StrPtr(szBuffer) : szBuffer
+
         result := DllCall("MSCorEE.dll\LoadStringRC", "uint", iResouceID, "ptr", szBuffer, "int", iMax, "int", bQuiet, "int")
         return result
     }
@@ -376,6 +421,8 @@ class ClrHosting {
      * @deprecated
      */
     static LoadStringRCEx(lcid, iResouceID, szBuffer, iMax, bQuiet, pcwchUsed) {
+        szBuffer := szBuffer is String? StrPtr(szBuffer) : szBuffer
+
         result := DllCall("MSCorEE.dll\LoadStringRCEx", "uint", lcid, "uint", iResouceID, "ptr", szBuffer, "int", iMax, "int", bQuiet, "ptr", pcwchUsed, "int")
         return result
     }
@@ -402,6 +449,8 @@ class ClrHosting {
      * @deprecated
      */
     static CreateDebuggingInterfaceFromVersion(iDebuggerVersion, szDebuggeeVersion, ppCordb) {
+        szDebuggeeVersion := szDebuggeeVersion is String? StrPtr(szDebuggeeVersion) : szDebuggeeVersion
+
         result := DllCall("MSCorEE.dll\CreateDebuggingInterfaceFromVersion", "int", iDebuggerVersion, "ptr", szDebuggeeVersion, "ptr", ppCordb, "int")
         return result
     }
@@ -416,6 +465,8 @@ class ClrHosting {
      * @deprecated
      */
     static GetVersionFromProcess(hProcess, pVersion, cchBuffer, dwLength) {
+        pVersion := pVersion is String? StrPtr(pVersion) : pVersion
+
         result := DllCall("MSCorEE.dll\GetVersionFromProcess", "ptr", hProcess, "ptr", pVersion, "uint", cchBuffer, "ptr", dwLength, "int")
         return result
     }
@@ -432,6 +483,10 @@ class ClrHosting {
      * @returns {Integer} 
      */
     static CorLaunchApplication(dwClickOnceHost, pwzAppFullName, dwManifestPaths, ppwzManifestPaths, dwActivationData, ppwzActivationData, lpProcessInformation) {
+        pwzAppFullName := pwzAppFullName is String? StrPtr(pwzAppFullName) : pwzAppFullName
+        ppwzManifestPaths := ppwzManifestPaths is String? StrPtr(ppwzManifestPaths) : ppwzManifestPaths
+        ppwzActivationData := ppwzActivationData is String? StrPtr(ppwzActivationData) : ppwzActivationData
+
         result := DllCall("MSCorEE.dll\CorLaunchApplication", "int", dwClickOnceHost, "ptr", pwzAppFullName, "uint", dwManifestPaths, "ptr", ppwzManifestPaths, "uint", dwActivationData, "ptr", ppwzActivationData, "ptr", lpProcessInformation, "int")
         return result
     }
@@ -446,6 +501,8 @@ class ClrHosting {
      * @returns {Integer} 
      */
     static GetRequestedRuntimeVersionForCLSID(rclsid, pVersion, cchBuffer, dwLength, dwResolutionFlags) {
+        pVersion := pVersion is String? StrPtr(pVersion) : pVersion
+
         result := DllCall("MSCorEE.dll\GetRequestedRuntimeVersionForCLSID", "ptr", rclsid, "ptr", pVersion, "uint", cchBuffer, "ptr", dwLength, "int", dwResolutionFlags, "int")
         return result
     }

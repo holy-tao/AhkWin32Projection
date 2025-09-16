@@ -120,6 +120,9 @@ class Shutdown {
      * @since windows5.1.2600
      */
     static InitiateSystemShutdownA(lpMachineName, lpMessage, dwTimeout, bForceAppsClosed, bRebootAfterShutdown) {
+        lpMachineName := lpMachineName is String? StrPtr(lpMachineName) : lpMachineName
+        lpMessage := lpMessage is String? StrPtr(lpMessage) : lpMessage
+
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\InitiateSystemShutdownA", "ptr", lpMachineName, "ptr", lpMessage, "uint", dwTimeout, "int", bForceAppsClosed, "int", bRebootAfterShutdown, "int")
@@ -174,6 +177,9 @@ class Shutdown {
      * @since windows5.1.2600
      */
     static InitiateSystemShutdownW(lpMachineName, lpMessage, dwTimeout, bForceAppsClosed, bRebootAfterShutdown) {
+        lpMachineName := lpMachineName is String? StrPtr(lpMachineName) : lpMachineName
+        lpMessage := lpMessage is String? StrPtr(lpMessage) : lpMessage
+
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\InitiateSystemShutdownW", "ptr", lpMachineName, "ptr", lpMessage, "uint", dwTimeout, "int", bForceAppsClosed, "int", bRebootAfterShutdown, "int")
@@ -207,6 +213,8 @@ class Shutdown {
      * @since windows5.1.2600
      */
     static AbortSystemShutdownA(lpMachineName) {
+        lpMachineName := lpMachineName is String? StrPtr(lpMachineName) : lpMachineName
+
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\AbortSystemShutdownA", "ptr", lpMachineName, "int")
@@ -240,6 +248,8 @@ class Shutdown {
      * @since windows5.1.2600
      */
     static AbortSystemShutdownW(lpMachineName) {
+        lpMachineName := lpMachineName is String? StrPtr(lpMachineName) : lpMachineName
+
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\AbortSystemShutdownW", "ptr", lpMachineName, "int")
@@ -314,6 +324,9 @@ class Shutdown {
      * @since windows5.1.2600
      */
     static InitiateSystemShutdownExA(lpMachineName, lpMessage, dwTimeout, bForceAppsClosed, bRebootAfterShutdown, dwReason) {
+        lpMachineName := lpMachineName is String? StrPtr(lpMachineName) : lpMachineName
+        lpMessage := lpMessage is String? StrPtr(lpMessage) : lpMessage
+
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\InitiateSystemShutdownExA", "ptr", lpMachineName, "ptr", lpMessage, "uint", dwTimeout, "int", bForceAppsClosed, "int", bRebootAfterShutdown, "uint", dwReason, "int")
@@ -388,6 +401,9 @@ class Shutdown {
      * @since windows5.1.2600
      */
     static InitiateSystemShutdownExW(lpMachineName, lpMessage, dwTimeout, bForceAppsClosed, bRebootAfterShutdown, dwReason) {
+        lpMachineName := lpMachineName is String? StrPtr(lpMachineName) : lpMachineName
+        lpMessage := lpMessage is String? StrPtr(lpMessage) : lpMessage
+
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\InitiateSystemShutdownExW", "ptr", lpMachineName, "ptr", lpMessage, "uint", dwTimeout, "int", bForceAppsClosed, "int", bRebootAfterShutdown, "uint", dwReason, "int")
@@ -636,6 +652,9 @@ class Shutdown {
      * @since windows6.0.6000
      */
     static InitiateShutdownA(lpMachineName, lpMessage, dwGracePeriod, dwShutdownFlags, dwReason) {
+        lpMachineName := lpMachineName is String? StrPtr(lpMachineName) : lpMachineName
+        lpMessage := lpMessage is String? StrPtr(lpMessage) : lpMessage
+
         result := DllCall("ADVAPI32.dll\InitiateShutdownA", "ptr", lpMachineName, "ptr", lpMessage, "uint", dwGracePeriod, "uint", dwShutdownFlags, "uint", dwReason, "uint")
         return result
     }
@@ -879,6 +898,9 @@ class Shutdown {
      * @since windows6.0.6000
      */
     static InitiateShutdownW(lpMachineName, lpMessage, dwGracePeriod, dwShutdownFlags, dwReason) {
+        lpMachineName := lpMachineName is String? StrPtr(lpMachineName) : lpMachineName
+        lpMessage := lpMessage is String? StrPtr(lpMessage) : lpMessage
+
         result := DllCall("ADVAPI32.dll\InitiateShutdownW", "ptr", lpMachineName, "ptr", lpMessage, "uint", dwGracePeriod, "uint", dwShutdownFlags, "uint", dwReason, "uint")
         return result
     }
@@ -989,6 +1011,8 @@ class Shutdown {
      * @since windows6.0.6000
      */
     static ShutdownBlockReasonCreate(hWnd, pwszReason) {
+        pwszReason := pwszReason is String? StrPtr(pwszReason) : pwszReason
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\ShutdownBlockReasonCreate", "ptr", hWnd, "ptr", pwszReason, "int")
@@ -1013,6 +1037,8 @@ class Shutdown {
      * @since windows6.0.6000
      */
     static ShutdownBlockReasonQuery(hWnd, pwszBuff, pcchBuff) {
+        pwszBuff := pwszBuff is String? StrPtr(pwszBuff) : pwszBuff
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\ShutdownBlockReasonQuery", "ptr", hWnd, "ptr", pwszBuff, "ptr", pcchBuff, "int")

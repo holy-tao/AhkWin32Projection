@@ -2311,6 +2311,8 @@ class InternetExplorer {
      * @returns {Integer} 
      */
     static IESaveFile(hState, lpwstrSourceFile) {
+        lpwstrSourceFile := lpwstrSourceFile is String? StrPtr(lpwstrSourceFile) : lpwstrSourceFile
+
         result := DllCall("Ieframe.dll\IESaveFile", "ptr", hState, "ptr", lpwstrSourceFile, "int")
         return result
     }
@@ -2339,6 +2341,12 @@ class InternetExplorer {
      * @returns {Integer} 
      */
     static IEShowSaveFileDialog(hwnd, lpwstrInitialFileName, lpwstrInitialDir, lpwstrFilter, lpwstrDefExt, dwFilterIndex, dwFlags, lppwstrDestinationFilePath, phState) {
+        lpwstrInitialFileName := lpwstrInitialFileName is String? StrPtr(lpwstrInitialFileName) : lpwstrInitialFileName
+        lpwstrInitialDir := lpwstrInitialDir is String? StrPtr(lpwstrInitialDir) : lpwstrInitialDir
+        lpwstrFilter := lpwstrFilter is String? StrPtr(lpwstrFilter) : lpwstrFilter
+        lpwstrDefExt := lpwstrDefExt is String? StrPtr(lpwstrDefExt) : lpwstrDefExt
+        lppwstrDestinationFilePath := lppwstrDestinationFilePath is String? StrPtr(lppwstrDestinationFilePath) : lppwstrDestinationFilePath
+
         result := DllCall("Ieframe.dll\IEShowSaveFileDialog", "ptr", hwnd, "ptr", lpwstrInitialFileName, "ptr", lpwstrInitialDir, "ptr", lpwstrFilter, "ptr", lpwstrDefExt, "uint", dwFilterIndex, "uint", dwFlags, "ptr", lppwstrDestinationFilePath, "ptr", phState, "int")
         return result
     }
@@ -2357,6 +2365,11 @@ class InternetExplorer {
      * @returns {Integer} 
      */
     static IEShowOpenFileDialog(hwnd, lpwstrFileName, cchMaxFileName, lpwstrInitialDir, lpwstrFilter, lpwstrDefExt, dwFilterIndex, dwFlags, phFile) {
+        lpwstrFileName := lpwstrFileName is String? StrPtr(lpwstrFileName) : lpwstrFileName
+        lpwstrInitialDir := lpwstrInitialDir is String? StrPtr(lpwstrInitialDir) : lpwstrInitialDir
+        lpwstrFilter := lpwstrFilter is String? StrPtr(lpwstrFilter) : lpwstrFilter
+        lpwstrDefExt := lpwstrDefExt is String? StrPtr(lpwstrDefExt) : lpwstrDefExt
+
         result := DllCall("Ieframe.dll\IEShowOpenFileDialog", "ptr", hwnd, "ptr", lpwstrFileName, "uint", cchMaxFileName, "ptr", lpwstrInitialDir, "ptr", lpwstrFilter, "ptr", lpwstrDefExt, "uint", dwFilterIndex, "uint", dwFlags, "ptr", phFile, "int")
         return result
     }
@@ -2378,6 +2391,8 @@ class InternetExplorer {
      * @returns {Integer} 
      */
     static IEGetWriteableFolderPath(clsidFolderID, lppwstrPath) {
+        lppwstrPath := lppwstrPath is String? StrPtr(lppwstrPath) : lppwstrPath
+
         result := DllCall("Ieframe.dll\IEGetWriteableFolderPath", "ptr", clsidFolderID, "ptr", lppwstrPath, "int")
         return result
     }
@@ -2398,6 +2413,8 @@ class InternetExplorer {
      * @returns {Integer} 
      */
     static IEIsProtectedModeURL(lpwstrUrl) {
+        lpwstrUrl := lpwstrUrl is String? StrPtr(lpwstrUrl) : lpwstrUrl
+
         result := DllCall("Ieframe.dll\IEIsProtectedModeURL", "ptr", lpwstrUrl, "int")
         return result
     }
@@ -2410,6 +2427,8 @@ class InternetExplorer {
      * @returns {Integer} 
      */
     static IELaunchURL(lpwstrUrl, lpProcInfo, lpInfo) {
+        lpwstrUrl := lpwstrUrl is String? StrPtr(lpwstrUrl) : lpwstrUrl
+
         result := DllCall("Ieframe.dll\IELaunchURL", "ptr", lpwstrUrl, "ptr", lpProcInfo, "ptr", lpInfo, "int")
         return result
     }
@@ -2433,6 +2452,10 @@ class InternetExplorer {
      * @returns {Integer} 
      */
     static IEGetProtectedModeCookie(lpszURL, lpszCookieName, lpszCookieData, pcchCookieData, dwFlags) {
+        lpszURL := lpszURL is String? StrPtr(lpszURL) : lpszURL
+        lpszCookieName := lpszCookieName is String? StrPtr(lpszCookieName) : lpszCookieName
+        lpszCookieData := lpszCookieData is String? StrPtr(lpszCookieData) : lpszCookieData
+
         result := DllCall("Ieframe.dll\IEGetProtectedModeCookie", "ptr", lpszURL, "ptr", lpszCookieName, "ptr", lpszCookieData, "ptr", pcchCookieData, "uint", dwFlags, "int")
         return result
     }
@@ -2446,6 +2469,10 @@ class InternetExplorer {
      * @returns {Integer} 
      */
     static IESetProtectedModeCookie(lpszURL, lpszCookieName, lpszCookieData, dwFlags) {
+        lpszURL := lpszURL is String? StrPtr(lpszURL) : lpszURL
+        lpszCookieName := lpszCookieName is String? StrPtr(lpszCookieName) : lpszCookieName
+        lpszCookieData := lpszCookieData is String? StrPtr(lpszCookieData) : lpszCookieData
+
         result := DllCall("Ieframe.dll\IESetProtectedModeCookie", "ptr", lpszURL, "ptr", lpszCookieName, "ptr", lpszCookieData, "uint", dwFlags, "int")
         return result
     }
@@ -2458,6 +2485,8 @@ class InternetExplorer {
      * @returns {Integer} 
      */
     static IERegisterWritableRegistryKey(guid, lpSubkey, fSubkeyAllowed) {
+        lpSubkey := lpSubkey is String? StrPtr(lpSubkey) : lpSubkey
+
         result := DllCall("Ieframe.dll\IERegisterWritableRegistryKey", "ptr", guid, "ptr", lpSubkey, "int", fSubkeyAllowed, "int")
         return result
     }
@@ -2473,6 +2502,9 @@ class InternetExplorer {
      * @returns {Integer} 
      */
     static IERegisterWritableRegistryValue(guid, lpPath, lpValueName, dwType, lpData, cbMaxData) {
+        lpPath := lpPath is String? StrPtr(lpPath) : lpPath
+        lpValueName := lpValueName is String? StrPtr(lpValueName) : lpValueName
+
         result := DllCall("Ieframe.dll\IERegisterWritableRegistryValue", "ptr", guid, "ptr", lpPath, "ptr", lpValueName, "uint", dwType, "ptr", lpData, "uint", cbMaxData, "int")
         return result
     }
@@ -2500,6 +2532,9 @@ class InternetExplorer {
      * @returns {Integer} 
      */
     static IERegCreateKeyEx(lpSubKey, Reserved, lpClass, dwOptions, samDesired, lpSecurityAttributes, phkResult, lpdwDisposition) {
+        lpSubKey := lpSubKey is String? StrPtr(lpSubKey) : lpSubKey
+        lpClass := lpClass is String? StrPtr(lpClass) : lpClass
+
         result := DllCall("Ieframe.dll\IERegCreateKeyEx", "ptr", lpSubKey, "uint", Reserved, "ptr", lpClass, "uint", dwOptions, "uint", samDesired, "ptr", lpSecurityAttributes, "ptr", phkResult, "ptr", lpdwDisposition, "int")
         return result
     }
@@ -2515,6 +2550,9 @@ class InternetExplorer {
      * @returns {Integer} 
      */
     static IERegSetValueEx(lpSubKey, lpValueName, Reserved, dwType, lpData, cbData) {
+        lpSubKey := lpSubKey is String? StrPtr(lpSubKey) : lpSubKey
+        lpValueName := lpValueName is String? StrPtr(lpValueName) : lpValueName
+
         result := DllCall("Ieframe.dll\IERegSetValueEx", "ptr", lpSubKey, "ptr", lpValueName, "uint", Reserved, "uint", dwType, "ptr", lpData, "uint", cbData, "int")
         return result
     }
@@ -2531,6 +2569,8 @@ class InternetExplorer {
      * @returns {Pointer<HANDLE>} 
      */
     static IECreateFile(lpFileName, dwDesiredAccess, dwShareMode, lpSecurityAttributes, dwCreationDisposition, dwFlagsAndAttributes, hTemplateFile) {
+        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+
         result := DllCall("Ieframe.dll\IECreateFile", "ptr", lpFileName, "uint", dwDesiredAccess, "uint", dwShareMode, "ptr", lpSecurityAttributes, "uint", dwCreationDisposition, "uint", dwFlagsAndAttributes, "ptr", hTemplateFile, "ptr")
         return result
     }
@@ -2541,6 +2581,8 @@ class InternetExplorer {
      * @returns {Integer} 
      */
     static IEDeleteFile(lpFileName) {
+        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+
         result := DllCall("Ieframe.dll\IEDeleteFile", "ptr", lpFileName, "int")
         return result
     }
@@ -2551,6 +2593,8 @@ class InternetExplorer {
      * @returns {Integer} 
      */
     static IERemoveDirectory(lpPathName) {
+        lpPathName := lpPathName is String? StrPtr(lpPathName) : lpPathName
+
         result := DllCall("Ieframe.dll\IERemoveDirectory", "ptr", lpPathName, "int")
         return result
     }
@@ -2563,6 +2607,9 @@ class InternetExplorer {
      * @returns {Integer} 
      */
     static IEMoveFileEx(lpExistingFileName, lpNewFileName, dwFlags) {
+        lpExistingFileName := lpExistingFileName is String? StrPtr(lpExistingFileName) : lpExistingFileName
+        lpNewFileName := lpNewFileName is String? StrPtr(lpNewFileName) : lpNewFileName
+
         result := DllCall("Ieframe.dll\IEMoveFileEx", "ptr", lpExistingFileName, "ptr", lpNewFileName, "uint", dwFlags, "int")
         return result
     }
@@ -2574,6 +2621,8 @@ class InternetExplorer {
      * @returns {Integer} 
      */
     static IECreateDirectory(lpPathName, lpSecurityAttributes) {
+        lpPathName := lpPathName is String? StrPtr(lpPathName) : lpPathName
+
         result := DllCall("Ieframe.dll\IECreateDirectory", "ptr", lpPathName, "ptr", lpSecurityAttributes, "int")
         return result
     }
@@ -2586,6 +2635,8 @@ class InternetExplorer {
      * @returns {Integer} 
      */
     static IEGetFileAttributesEx(lpFileName, fInfoLevelId, lpFileInformation) {
+        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+
         result := DllCall("Ieframe.dll\IEGetFileAttributesEx", "ptr", lpFileName, "int", fInfoLevelId, "ptr", lpFileInformation, "int")
         return result
     }
@@ -2597,6 +2648,8 @@ class InternetExplorer {
      * @returns {Pointer<HANDLE>} 
      */
     static IEFindFirstFile(lpFileName, lpFindFileData) {
+        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+
         result := DllCall("Ieframe.dll\IEFindFirstFile", "ptr", lpFileName, "ptr", lpFindFileData, "ptr")
         return result
     }
@@ -2609,6 +2662,8 @@ class InternetExplorer {
      * @returns {Integer} 
      */
     static RatingEnable(hwndParent, pszUsername, fEnable) {
+        pszUsername := pszUsername is String? StrPtr(pszUsername) : pszUsername
+
         result := DllCall("MSRATING.dll\RatingEnable", "ptr", hwndParent, "ptr", pszUsername, "int", fEnable, "int")
         return result
     }
@@ -2621,6 +2676,8 @@ class InternetExplorer {
      * @returns {Integer} 
      */
     static RatingEnableW(hwndParent, pszUsername, fEnable) {
+        pszUsername := pszUsername is String? StrPtr(pszUsername) : pszUsername
+
         result := DllCall("MSRATING.dll\RatingEnableW", "ptr", hwndParent, "ptr", pszUsername, "int", fEnable, "int")
         return result
     }
@@ -2636,6 +2693,10 @@ class InternetExplorer {
      * @returns {Integer} 
      */
     static RatingCheckUserAccess(pszUsername, pszURL, pszRatingInfo, pData, cbData, ppRatingDetails) {
+        pszUsername := pszUsername is String? StrPtr(pszUsername) : pszUsername
+        pszURL := pszURL is String? StrPtr(pszURL) : pszURL
+        pszRatingInfo := pszRatingInfo is String? StrPtr(pszRatingInfo) : pszRatingInfo
+
         result := DllCall("MSRATING.dll\RatingCheckUserAccess", "ptr", pszUsername, "ptr", pszURL, "ptr", pszRatingInfo, "ptr", pData, "uint", cbData, "ptr", ppRatingDetails, "int")
         return result
     }
@@ -2651,6 +2712,10 @@ class InternetExplorer {
      * @returns {Integer} 
      */
     static RatingCheckUserAccessW(pszUsername, pszURL, pszRatingInfo, pData, cbData, ppRatingDetails) {
+        pszUsername := pszUsername is String? StrPtr(pszUsername) : pszUsername
+        pszURL := pszURL is String? StrPtr(pszURL) : pszURL
+        pszRatingInfo := pszRatingInfo is String? StrPtr(pszRatingInfo) : pszRatingInfo
+
         result := DllCall("MSRATING.dll\RatingCheckUserAccessW", "ptr", pszUsername, "ptr", pszURL, "ptr", pszRatingInfo, "ptr", pData, "uint", cbData, "ptr", ppRatingDetails, "int")
         return result
     }
@@ -2664,6 +2729,9 @@ class InternetExplorer {
      * @returns {Integer} 
      */
     static RatingAccessDeniedDialog(hDlg, pszUsername, pszContentDescription, pRatingDetails) {
+        pszUsername := pszUsername is String? StrPtr(pszUsername) : pszUsername
+        pszContentDescription := pszContentDescription is String? StrPtr(pszContentDescription) : pszContentDescription
+
         result := DllCall("MSRATING.dll\RatingAccessDeniedDialog", "ptr", hDlg, "ptr", pszUsername, "ptr", pszContentDescription, "ptr", pRatingDetails, "int")
         return result
     }
@@ -2677,6 +2745,9 @@ class InternetExplorer {
      * @returns {Integer} 
      */
     static RatingAccessDeniedDialogW(hDlg, pszUsername, pszContentDescription, pRatingDetails) {
+        pszUsername := pszUsername is String? StrPtr(pszUsername) : pszUsername
+        pszContentDescription := pszContentDescription is String? StrPtr(pszContentDescription) : pszContentDescription
+
         result := DllCall("MSRATING.dll\RatingAccessDeniedDialogW", "ptr", hDlg, "ptr", pszUsername, "ptr", pszContentDescription, "ptr", pRatingDetails, "int")
         return result
     }
@@ -2689,6 +2760,8 @@ class InternetExplorer {
      * @returns {Integer} 
      */
     static RatingAccessDeniedDialog2(hDlg, pszUsername, pRatingDetails) {
+        pszUsername := pszUsername is String? StrPtr(pszUsername) : pszUsername
+
         result := DllCall("MSRATING.dll\RatingAccessDeniedDialog2", "ptr", hDlg, "ptr", pszUsername, "ptr", pRatingDetails, "int")
         return result
     }
@@ -2701,6 +2774,8 @@ class InternetExplorer {
      * @returns {Integer} 
      */
     static RatingAccessDeniedDialog2W(hDlg, pszUsername, pRatingDetails) {
+        pszUsername := pszUsername is String? StrPtr(pszUsername) : pszUsername
+
         result := DllCall("MSRATING.dll\RatingAccessDeniedDialog2W", "ptr", hDlg, "ptr", pszUsername, "ptr", pRatingDetails, "int")
         return result
     }
@@ -2734,6 +2809,8 @@ class InternetExplorer {
      * @returns {Integer} 
      */
     static RatingObtainQuery(pszTargetUrl, dwUserData, fCallback, phRatingObtainQuery) {
+        pszTargetUrl := pszTargetUrl is String? StrPtr(pszTargetUrl) : pszTargetUrl
+
         result := DllCall("MSRATING.dll\RatingObtainQuery", "ptr", pszTargetUrl, "uint", dwUserData, "ptr", fCallback, "ptr", phRatingObtainQuery, "int")
         return result
     }
@@ -2747,6 +2824,8 @@ class InternetExplorer {
      * @returns {Integer} 
      */
     static RatingObtainQueryW(pszTargetUrl, dwUserData, fCallback, phRatingObtainQuery) {
+        pszTargetUrl := pszTargetUrl is String? StrPtr(pszTargetUrl) : pszTargetUrl
+
         result := DllCall("MSRATING.dll\RatingObtainQueryW", "ptr", pszTargetUrl, "uint", dwUserData, "ptr", fCallback, "ptr", phRatingObtainQuery, "int")
         return result
     }
@@ -2758,6 +2837,8 @@ class InternetExplorer {
      * @returns {Integer} 
      */
     static RatingSetupUI(hDlg, pszUsername) {
+        pszUsername := pszUsername is String? StrPtr(pszUsername) : pszUsername
+
         result := DllCall("MSRATING.dll\RatingSetupUI", "ptr", hDlg, "ptr", pszUsername, "int")
         return result
     }
@@ -2769,6 +2850,8 @@ class InternetExplorer {
      * @returns {Integer} 
      */
     static RatingSetupUIW(hDlg, pszUsername) {
+        pszUsername := pszUsername is String? StrPtr(pszUsername) : pszUsername
+
         result := DllCall("MSRATING.dll\RatingSetupUIW", "ptr", hDlg, "ptr", pszUsername, "int")
         return result
     }
@@ -2785,6 +2868,8 @@ class InternetExplorer {
      * @returns {Integer} 
      */
     static RatingAddToApprovedSites(hDlg, cbPasswordBlob, pbPasswordBlob, lpszUrl, fAlwaysNever, fSitePage, fApprovedSitesEnforced) {
+        lpszUrl := lpszUrl is String? StrPtr(lpszUrl) : lpszUrl
+
         result := DllCall("MSRATING.dll\RatingAddToApprovedSites", "ptr", hDlg, "uint", cbPasswordBlob, "ptr", pbPasswordBlob, "ptr", lpszUrl, "int", fAlwaysNever, "int", fSitePage, "int", fApprovedSitesEnforced, "int")
         return result
     }
@@ -2798,6 +2883,8 @@ class InternetExplorer {
      * @returns {Integer} 
      */
     static RatingClickedOnPRFInternal(hWndOwner, param1, lpszFileName, nShow) {
+        lpszFileName := lpszFileName is String? StrPtr(lpszFileName) : lpszFileName
+
         result := DllCall("MSRATING.dll\RatingClickedOnPRFInternal", "ptr", hWndOwner, "ptr", param1, "ptr", lpszFileName, "int", nShow, "int")
         return result
     }
@@ -2811,6 +2898,8 @@ class InternetExplorer {
      * @returns {Integer} 
      */
     static RatingClickedOnRATInternal(hWndOwner, param1, lpszFileName, nShow) {
+        lpszFileName := lpszFileName is String? StrPtr(lpszFileName) : lpszFileName
+
         result := DllCall("MSRATING.dll\RatingClickedOnRATInternal", "ptr", hWndOwner, "ptr", param1, "ptr", lpszFileName, "int", nShow, "int")
         return result
     }
@@ -2945,6 +3034,8 @@ class InternetExplorer {
      * @returns {Integer} 
      */
     static DecodeImageEx(pStream, pMap, pEventSink, pszMIMETypeParam) {
+        pszMIMETypeParam := pszMIMETypeParam is String? StrPtr(pszMIMETypeParam) : pszMIMETypeParam
+
         result := DllCall("ImgUtil.dll\DecodeImageEx", "ptr", pStream, "ptr", pMap, "ptr", pEventSink, "ptr", pszMIMETypeParam, "int")
         return result
     }

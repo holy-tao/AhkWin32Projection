@@ -135,6 +135,8 @@ class EventNotificationService {
      * @since windows5.1.2600
      */
     static IsDestinationReachableA(lpszDestination, lpQOCInfo) {
+        lpszDestination := lpszDestination is String? StrPtr(lpszDestination) : lpszDestination
+
         A_LastError := 0
 
         result := DllCall("SensApi.dll\IsDestinationReachableA", "ptr", lpszDestination, "ptr", lpQOCInfo, "int")
@@ -209,6 +211,8 @@ class EventNotificationService {
      * @since windows5.1.2600
      */
     static IsDestinationReachableW(lpszDestination, lpQOCInfo) {
+        lpszDestination := lpszDestination is String? StrPtr(lpszDestination) : lpszDestination
+
         A_LastError := 0
 
         result := DllCall("SensApi.dll\IsDestinationReachableW", "ptr", lpszDestination, "ptr", lpQOCInfo, "int")

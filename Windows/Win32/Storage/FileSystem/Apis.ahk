@@ -1593,6 +1593,12 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static SearchPathW(lpPath, lpFileName, lpExtension, nBufferLength, lpBuffer, lpFilePart) {
+        lpPath := lpPath is String? StrPtr(lpPath) : lpPath
+        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+        lpExtension := lpExtension is String? StrPtr(lpExtension) : lpExtension
+        lpBuffer := lpBuffer is String? StrPtr(lpBuffer) : lpBuffer
+        lpFilePart := lpFilePart is String? StrPtr(lpFilePart) : lpFilePart
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SearchPathW", "ptr", lpPath, "ptr", lpFileName, "ptr", lpExtension, "uint", nBufferLength, "ptr", lpBuffer, "ptr", lpFilePart, "uint")
@@ -1730,6 +1736,12 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static SearchPathA(lpPath, lpFileName, lpExtension, nBufferLength, lpBuffer, lpFilePart) {
+        lpPath := lpPath is String? StrPtr(lpPath) : lpPath
+        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+        lpExtension := lpExtension is String? StrPtr(lpExtension) : lpExtension
+        lpBuffer := lpBuffer is String? StrPtr(lpBuffer) : lpBuffer
+        lpFilePart := lpFilePart is String? StrPtr(lpFilePart) : lpFilePart
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SearchPathA", "ptr", lpPath, "ptr", lpFileName, "ptr", lpExtension, "uint", nBufferLength, "ptr", lpBuffer, "ptr", lpFilePart, "uint")
@@ -1926,6 +1938,8 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static CreateDirectoryA(lpPathName, lpSecurityAttributes) {
+        lpPathName := lpPathName is String? StrPtr(lpPathName) : lpPathName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\CreateDirectoryA", "ptr", lpPathName, "ptr", lpSecurityAttributes, "int")
@@ -2067,6 +2081,8 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static CreateDirectoryW(lpPathName, lpSecurityAttributes) {
+        lpPathName := lpPathName is String? StrPtr(lpPathName) : lpPathName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\CreateDirectoryW", "ptr", lpPathName, "ptr", lpSecurityAttributes, "int")
@@ -3092,6 +3108,8 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static CreateFileA(lpFileName, dwDesiredAccess, dwShareMode, lpSecurityAttributes, dwCreationDisposition, dwFlagsAndAttributes, hTemplateFile) {
+        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\CreateFileA", "ptr", lpFileName, "uint", dwDesiredAccess, "uint", dwShareMode, "ptr", lpSecurityAttributes, "uint", dwCreationDisposition, "uint", dwFlagsAndAttributes, "ptr", hTemplateFile, "ptr")
@@ -4115,6 +4133,8 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static CreateFileW(lpFileName, dwDesiredAccess, dwShareMode, lpSecurityAttributes, dwCreationDisposition, dwFlagsAndAttributes, hTemplateFile) {
+        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\CreateFileW", "ptr", lpFileName, "uint", dwDesiredAccess, "uint", dwShareMode, "ptr", lpSecurityAttributes, "uint", dwCreationDisposition, "uint", dwFlagsAndAttributes, "ptr", hTemplateFile, "ptr")
@@ -4229,6 +4249,9 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static DefineDosDeviceW(dwFlags, lpDeviceName, lpTargetPath) {
+        lpDeviceName := lpDeviceName is String? StrPtr(lpDeviceName) : lpDeviceName
+        lpTargetPath := lpTargetPath is String? StrPtr(lpTargetPath) : lpTargetPath
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\DefineDosDeviceW", "uint", dwFlags, "ptr", lpDeviceName, "ptr", lpTargetPath, "int")
@@ -4359,6 +4382,8 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static DeleteFileA(lpFileName) {
+        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\DeleteFileA", "ptr", lpFileName, "int")
@@ -4489,6 +4514,8 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static DeleteFileW(lpFileName) {
+        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\DeleteFileW", "ptr", lpFileName, "int")
@@ -4577,6 +4604,8 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static DeleteVolumeMountPointW(lpszVolumeMountPoint) {
+        lpszVolumeMountPoint := lpszVolumeMountPoint is String? StrPtr(lpszVolumeMountPoint) : lpszVolumeMountPoint
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\DeleteVolumeMountPointW", "ptr", lpszVolumeMountPoint, "int")
@@ -4894,6 +4923,8 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static FindFirstChangeNotificationA(lpPathName, bWatchSubtree, dwNotifyFilter) {
+        lpPathName := lpPathName is String? StrPtr(lpPathName) : lpPathName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\FindFirstChangeNotificationA", "ptr", lpPathName, "int", bWatchSubtree, "uint", dwNotifyFilter, "ptr")
@@ -4998,6 +5029,8 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static FindFirstChangeNotificationW(lpPathName, bWatchSubtree, dwNotifyFilter) {
+        lpPathName := lpPathName is String? StrPtr(lpPathName) : lpPathName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\FindFirstChangeNotificationW", "ptr", lpPathName, "int", bWatchSubtree, "uint", dwNotifyFilter, "ptr")
@@ -5179,6 +5212,8 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static FindFirstFileA(lpFileName, lpFindFileData) {
+        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\FindFirstFileA", "ptr", lpFileName, "ptr", lpFindFileData, "ptr")
@@ -5360,6 +5395,8 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static FindFirstFileW(lpFileName, lpFindFileData) {
+        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\FindFirstFileW", "ptr", lpFileName, "ptr", lpFindFileData, "ptr")
@@ -5619,6 +5656,8 @@ class FileSystem {
      */
     static FindFirstFileExA(lpFileName, fInfoLevelId, lpFindFileData, fSearchOp, dwAdditionalFlags) {
         static lpSearchFilter := 0 ;Reserved parameters must always be NULL
+
+        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
 
         A_LastError := 0
 
@@ -5880,6 +5919,8 @@ class FileSystem {
     static FindFirstFileExW(lpFileName, fInfoLevelId, lpFindFileData, fSearchOp, dwAdditionalFlags) {
         static lpSearchFilter := 0 ;Reserved parameters must always be NULL
 
+        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\FindFirstFileExW", "ptr", lpFileName, "int", fInfoLevelId, "ptr", lpFindFileData, "int", fSearchOp, "ptr", lpSearchFilter, "uint", dwAdditionalFlags, "ptr")
@@ -5978,6 +6019,8 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static FindFirstVolumeW(lpszVolumeName, cchBufferLength) {
+        lpszVolumeName := lpszVolumeName is String? StrPtr(lpszVolumeName) : lpszVolumeName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\FindFirstVolumeW", "ptr", lpszVolumeName, "uint", cchBufferLength, "ptr")
@@ -6406,6 +6449,8 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static FindNextVolumeW(hFindVolume, lpszVolumeName, cchBufferLength) {
+        lpszVolumeName := lpszVolumeName is String? StrPtr(lpszVolumeName) : lpszVolumeName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\FindNextVolumeW", "ptr", hFindVolume, "ptr", lpszVolumeName, "uint", cchBufferLength, "int")
@@ -6645,6 +6690,8 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static GetDiskFreeSpaceA(lpRootPathName, lpSectorsPerCluster, lpBytesPerSector, lpNumberOfFreeClusters, lpTotalNumberOfClusters) {
+        lpRootPathName := lpRootPathName is String? StrPtr(lpRootPathName) : lpRootPathName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetDiskFreeSpaceA", "ptr", lpRootPathName, "ptr", lpSectorsPerCluster, "ptr", lpBytesPerSector, "ptr", lpNumberOfFreeClusters, "ptr", lpTotalNumberOfClusters, "int")
@@ -6694,6 +6741,8 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static GetDiskFreeSpaceW(lpRootPathName, lpSectorsPerCluster, lpBytesPerSector, lpNumberOfFreeClusters, lpTotalNumberOfClusters) {
+        lpRootPathName := lpRootPathName is String? StrPtr(lpRootPathName) : lpRootPathName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetDiskFreeSpaceW", "ptr", lpRootPathName, "ptr", lpSectorsPerCluster, "ptr", lpBytesPerSector, "ptr", lpNumberOfFreeClusters, "ptr", lpTotalNumberOfClusters, "int")
@@ -6761,6 +6810,8 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static GetDiskFreeSpaceExA(lpDirectoryName, lpFreeBytesAvailableToCaller, lpTotalNumberOfBytes, lpTotalNumberOfFreeBytes) {
+        lpDirectoryName := lpDirectoryName is String? StrPtr(lpDirectoryName) : lpDirectoryName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetDiskFreeSpaceExA", "ptr", lpDirectoryName, "ptr", lpFreeBytesAvailableToCaller, "ptr", lpTotalNumberOfBytes, "ptr", lpTotalNumberOfFreeBytes, "int")
@@ -6828,6 +6879,8 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static GetDiskFreeSpaceExW(lpDirectoryName, lpFreeBytesAvailableToCaller, lpTotalNumberOfBytes, lpTotalNumberOfFreeBytes) {
+        lpDirectoryName := lpDirectoryName is String? StrPtr(lpDirectoryName) : lpDirectoryName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetDiskFreeSpaceExW", "ptr", lpDirectoryName, "ptr", lpFreeBytesAvailableToCaller, "ptr", lpTotalNumberOfBytes, "ptr", lpTotalNumberOfFreeBytes, "int")
@@ -6849,6 +6902,8 @@ class FileSystem {
      * @see https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-getdiskspaceinformationa
      */
     static GetDiskSpaceInformationA(rootPath, diskSpaceInfo) {
+        rootPath := rootPath is String? StrPtr(rootPath) : rootPath
+
         result := DllCall("KERNEL32.dll\GetDiskSpaceInformationA", "ptr", rootPath, "ptr", diskSpaceInfo, "int")
         return result
     }
@@ -6865,6 +6920,8 @@ class FileSystem {
      * @see https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-getdiskspaceinformationw
      */
     static GetDiskSpaceInformationW(rootPath, diskSpaceInfo) {
+        rootPath := rootPath is String? StrPtr(rootPath) : rootPath
+
         result := DllCall("KERNEL32.dll\GetDiskSpaceInformationW", "ptr", rootPath, "ptr", diskSpaceInfo, "int")
         return result
     }
@@ -6950,6 +7007,8 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static GetDriveTypeA(lpRootPathName) {
+        lpRootPathName := lpRootPathName is String? StrPtr(lpRootPathName) : lpRootPathName
+
         DllCall("KERNEL32.dll\GetDriveTypeA", "ptr", lpRootPathName)
     }
 
@@ -7034,6 +7093,8 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static GetDriveTypeW(lpRootPathName) {
+        lpRootPathName := lpRootPathName is String? StrPtr(lpRootPathName) : lpRootPathName
+
         DllCall("KERNEL32.dll\GetDriveTypeW", "ptr", lpRootPathName)
     }
 
@@ -7142,6 +7203,8 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static GetFileAttributesA(lpFileName) {
+        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetFileAttributesA", "ptr", lpFileName, "uint")
@@ -7256,6 +7319,8 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static GetFileAttributesW(lpFileName) {
+        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetFileAttributesW", "ptr", lpFileName, "uint")
@@ -7403,6 +7468,8 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static GetFileAttributesExA(lpFileName, fInfoLevelId, lpFileInformation) {
+        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetFileAttributesExA", "ptr", lpFileName, "int", fInfoLevelId, "ptr", lpFileInformation, "int")
@@ -7550,6 +7617,8 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static GetFileAttributesExW(lpFileName, fInfoLevelId, lpFileInformation) {
+        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetFileAttributesExW", "ptr", lpFileName, "int", fInfoLevelId, "ptr", lpFileInformation, "int")
@@ -8155,6 +8224,8 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static GetFinalPathNameByHandleA(hFile, lpszFilePath, cchFilePath, dwFlags) {
+        lpszFilePath := lpszFilePath is String? StrPtr(lpszFilePath) : lpszFilePath
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetFinalPathNameByHandleA", "ptr", hFile, "ptr", lpszFilePath, "uint", cchFilePath, "uint", dwFlags, "uint")
@@ -8309,6 +8380,8 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static GetFinalPathNameByHandleW(hFile, lpszFilePath, cchFilePath, dwFlags) {
+        lpszFilePath := lpszFilePath is String? StrPtr(lpszFilePath) : lpszFilePath
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetFinalPathNameByHandleW", "ptr", hFile, "ptr", lpszFilePath, "uint", cchFilePath, "uint", dwFlags, "uint")
@@ -8514,6 +8587,10 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static GetFullPathNameW(lpFileName, nBufferLength, lpBuffer, lpFilePart) {
+        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+        lpBuffer := lpBuffer is String? StrPtr(lpBuffer) : lpBuffer
+        lpFilePart := lpFilePart is String? StrPtr(lpFilePart) : lpFilePart
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetFullPathNameW", "ptr", lpFileName, "uint", nBufferLength, "ptr", lpBuffer, "ptr", lpFilePart, "uint")
@@ -8667,6 +8744,10 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static GetFullPathNameA(lpFileName, nBufferLength, lpBuffer, lpFilePart) {
+        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+        lpBuffer := lpBuffer is String? StrPtr(lpBuffer) : lpBuffer
+        lpFilePart := lpFilePart is String? StrPtr(lpFilePart) : lpFilePart
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetFullPathNameA", "ptr", lpFileName, "uint", nBufferLength, "ptr", lpBuffer, "ptr", lpFilePart, "uint")
@@ -8848,6 +8929,8 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static GetLogicalDriveStringsW(nBufferLength, lpBuffer) {
+        lpBuffer := lpBuffer is String? StrPtr(lpBuffer) : lpBuffer
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetLogicalDriveStringsW", "uint", nBufferLength, "ptr", lpBuffer, "uint")
@@ -8973,6 +9056,9 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static GetLongPathNameA(lpszShortPath, lpszLongPath, cchBuffer) {
+        lpszShortPath := lpszShortPath is String? StrPtr(lpszShortPath) : lpszShortPath
+        lpszLongPath := lpszLongPath is String? StrPtr(lpszLongPath) : lpszLongPath
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetLongPathNameA", "ptr", lpszShortPath, "ptr", lpszLongPath, "uint", cchBuffer, "uint")
@@ -9098,6 +9184,9 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static GetLongPathNameW(lpszShortPath, lpszLongPath, cchBuffer) {
+        lpszShortPath := lpszShortPath is String? StrPtr(lpszShortPath) : lpszShortPath
+        lpszLongPath := lpszLongPath is String? StrPtr(lpszLongPath) : lpszLongPath
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetLongPathNameW", "ptr", lpszShortPath, "ptr", lpszLongPath, "uint", cchBuffer, "uint")
@@ -9246,6 +9335,9 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static GetShortPathNameW(lpszLongPath, lpszShortPath, cchBuffer) {
+        lpszLongPath := lpszLongPath is String? StrPtr(lpszLongPath) : lpszLongPath
+        lpszShortPath := lpszShortPath is String? StrPtr(lpszShortPath) : lpszShortPath
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetShortPathNameW", "ptr", lpszLongPath, "ptr", lpszShortPath, "uint", cchBuffer, "uint")
@@ -9386,6 +9478,10 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static GetTempFileNameW(lpPathName, lpPrefixString, uUnique, lpTempFileName) {
+        lpPathName := lpPathName is String? StrPtr(lpPathName) : lpPathName
+        lpPrefixString := lpPrefixString is String? StrPtr(lpPrefixString) : lpPrefixString
+        lpTempFileName := lpTempFileName is String? StrPtr(lpTempFileName) : lpTempFileName
+
         A_LastError := 0
 
         DllCall("KERNEL32.dll\GetTempFileNameW", "ptr", lpPathName, "ptr", lpPrefixString, "uint", uUnique, "ptr", lpTempFileName)
@@ -9672,6 +9768,9 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static GetVolumeInformationByHandleW(hFile, lpVolumeNameBuffer, nVolumeNameSize, lpVolumeSerialNumber, lpMaximumComponentLength, lpFileSystemFlags, lpFileSystemNameBuffer, nFileSystemNameSize) {
+        lpVolumeNameBuffer := lpVolumeNameBuffer is String? StrPtr(lpVolumeNameBuffer) : lpVolumeNameBuffer
+        lpFileSystemNameBuffer := lpFileSystemNameBuffer is String? StrPtr(lpFileSystemNameBuffer) : lpFileSystemNameBuffer
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetVolumeInformationByHandleW", "ptr", hFile, "ptr", lpVolumeNameBuffer, "uint", nVolumeNameSize, "ptr", lpVolumeSerialNumber, "ptr", lpMaximumComponentLength, "ptr", lpFileSystemFlags, "ptr", lpFileSystemNameBuffer, "uint", nFileSystemNameSize, "int")
@@ -10103,6 +10202,10 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static GetVolumeInformationW(lpRootPathName, lpVolumeNameBuffer, nVolumeNameSize, lpVolumeSerialNumber, lpMaximumComponentLength, lpFileSystemFlags, lpFileSystemNameBuffer, nFileSystemNameSize) {
+        lpRootPathName := lpRootPathName is String? StrPtr(lpRootPathName) : lpRootPathName
+        lpVolumeNameBuffer := lpVolumeNameBuffer is String? StrPtr(lpVolumeNameBuffer) : lpVolumeNameBuffer
+        lpFileSystemNameBuffer := lpFileSystemNameBuffer is String? StrPtr(lpFileSystemNameBuffer) : lpFileSystemNameBuffer
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetVolumeInformationW", "ptr", lpRootPathName, "ptr", lpVolumeNameBuffer, "uint", nVolumeNameSize, "ptr", lpVolumeSerialNumber, "ptr", lpMaximumComponentLength, "ptr", lpFileSystemFlags, "ptr", lpFileSystemNameBuffer, "uint", nFileSystemNameSize, "int")
@@ -10156,6 +10259,9 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static GetVolumePathNameW(lpszFileName, lpszVolumePathName, cchBufferLength) {
+        lpszFileName := lpszFileName is String? StrPtr(lpszFileName) : lpszFileName
+        lpszVolumePathName := lpszVolumePathName is String? StrPtr(lpszVolumePathName) : lpszVolumePathName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetVolumePathNameW", "ptr", lpszFileName, "ptr", lpszVolumePathName, "uint", cchBufferLength, "int")
@@ -10520,6 +10626,9 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static QueryDosDeviceW(lpDeviceName, lpTargetPath, ucchMax) {
+        lpDeviceName := lpDeviceName is String? StrPtr(lpDeviceName) : lpDeviceName
+        lpTargetPath := lpTargetPath is String? StrPtr(lpTargetPath) : lpTargetPath
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\QueryDosDeviceW", "ptr", lpDeviceName, "ptr", lpTargetPath, "uint", ucchMax, "uint")
@@ -11268,6 +11377,8 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static RemoveDirectoryA(lpPathName) {
+        lpPathName := lpPathName is String? StrPtr(lpPathName) : lpPathName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\RemoveDirectoryA", "ptr", lpPathName, "int")
@@ -11375,6 +11486,8 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static RemoveDirectoryW(lpPathName) {
+        lpPathName := lpPathName is String? StrPtr(lpPathName) : lpPathName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\RemoveDirectoryW", "ptr", lpPathName, "int")
@@ -11779,6 +11892,8 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static SetFileAttributesA(lpFileName, dwFileAttributes) {
+        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SetFileAttributesA", "ptr", lpFileName, "uint", dwFileAttributes, "int")
@@ -12082,6 +12197,8 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static SetFileAttributesW(lpFileName, dwFileAttributes) {
+        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SetFileAttributesW", "ptr", lpFileName, "uint", dwFileAttributes, "int")
@@ -13745,6 +13862,8 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static GetTempPathW(nBufferLength, lpBuffer) {
+        lpBuffer := lpBuffer is String? StrPtr(lpBuffer) : lpBuffer
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetTempPathW", "uint", nBufferLength, "ptr", lpBuffer, "uint")
@@ -13835,6 +13954,9 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static GetVolumeNameForVolumeMountPointW(lpszVolumeMountPoint, lpszVolumeName, cchBufferLength) {
+        lpszVolumeMountPoint := lpszVolumeMountPoint is String? StrPtr(lpszVolumeMountPoint) : lpszVolumeMountPoint
+        lpszVolumeName := lpszVolumeName is String? StrPtr(lpszVolumeName) : lpszVolumeName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetVolumeNameForVolumeMountPointW", "ptr", lpszVolumeMountPoint, "ptr", lpszVolumeName, "uint", cchBufferLength, "int")
@@ -13929,6 +14051,9 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static GetVolumePathNamesForVolumeNameW(lpszVolumeName, lpszVolumePathNames, cchBufferLength, lpcchReturnLength) {
+        lpszVolumeName := lpszVolumeName is String? StrPtr(lpszVolumeName) : lpszVolumeName
+        lpszVolumePathNames := lpszVolumePathNames is String? StrPtr(lpszVolumePathNames) : lpszVolumePathNames
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetVolumePathNamesForVolumeNameW", "ptr", lpszVolumeName, "ptr", lpszVolumePathNames, "uint", cchBufferLength, "ptr", lpcchReturnLength, "int")
@@ -14496,6 +14621,8 @@ class FileSystem {
      * @since windows8.0
      */
     static CreateFile2(lpFileName, dwDesiredAccess, dwShareMode, dwCreationDisposition, pCreateExParams) {
+        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\CreateFile2", "ptr", lpFileName, "uint", dwDesiredAccess, "uint", dwShareMode, "uint", dwCreationDisposition, "ptr", pCreateExParams, "ptr")
@@ -14706,6 +14833,8 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static GetCompressedFileSizeA(lpFileName, lpFileSizeHigh) {
+        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetCompressedFileSizeA", "ptr", lpFileName, "ptr", lpFileSizeHigh, "uint")
@@ -14822,6 +14951,8 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static GetCompressedFileSizeW(lpFileName, lpFileSizeHigh) {
+        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetCompressedFileSizeW", "ptr", lpFileName, "ptr", lpFileSizeHigh, "uint")
@@ -14946,6 +15077,8 @@ class FileSystem {
      */
     static FindFirstStreamW(lpFileName, InfoLevel, lpFindStreamData) {
         static dwFlags := 0 ;Reserved parameters must always be NULL
+
+        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
 
         A_LastError := 0
 
@@ -15229,6 +15362,8 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static GetTempPathA(nBufferLength, lpBuffer) {
+        lpBuffer := lpBuffer is String? StrPtr(lpBuffer) : lpBuffer
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetTempPathA", "uint", nBufferLength, "ptr", lpBuffer, "uint")
@@ -15321,6 +15456,9 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static FindFirstFileNameW(lpFileName, dwFlags, StringLength, LinkName) {
+        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+        LinkName := LinkName is String? StrPtr(LinkName) : LinkName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\FindFirstFileNameW", "ptr", lpFileName, "uint", dwFlags, "ptr", StringLength, "ptr", LinkName, "ptr")
@@ -15410,6 +15548,8 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static FindNextFileNameW(hFindStream, StringLength, LinkName) {
+        LinkName := LinkName is String? StrPtr(LinkName) : LinkName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\FindNextFileNameW", "ptr", hFindStream, "ptr", StringLength, "ptr", LinkName, "int")
@@ -15841,6 +15981,10 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static GetVolumeInformationA(lpRootPathName, lpVolumeNameBuffer, nVolumeNameSize, lpVolumeSerialNumber, lpMaximumComponentLength, lpFileSystemFlags, lpFileSystemNameBuffer, nFileSystemNameSize) {
+        lpRootPathName := lpRootPathName is String? StrPtr(lpRootPathName) : lpRootPathName
+        lpVolumeNameBuffer := lpVolumeNameBuffer is String? StrPtr(lpVolumeNameBuffer) : lpVolumeNameBuffer
+        lpFileSystemNameBuffer := lpFileSystemNameBuffer is String? StrPtr(lpFileSystemNameBuffer) : lpFileSystemNameBuffer
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetVolumeInformationA", "ptr", lpRootPathName, "ptr", lpVolumeNameBuffer, "uint", nVolumeNameSize, "ptr", lpVolumeSerialNumber, "ptr", lpMaximumComponentLength, "ptr", lpFileSystemFlags, "ptr", lpFileSystemNameBuffer, "uint", nFileSystemNameSize, "int")
@@ -15981,6 +16125,10 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static GetTempFileNameA(lpPathName, lpPrefixString, uUnique, lpTempFileName) {
+        lpPathName := lpPathName is String? StrPtr(lpPathName) : lpPathName
+        lpPrefixString := lpPrefixString is String? StrPtr(lpPrefixString) : lpPrefixString
+        lpTempFileName := lpTempFileName is String? StrPtr(lpTempFileName) : lpTempFileName
+
         A_LastError := 0
 
         DllCall("KERNEL32.dll\GetTempFileNameA", "ptr", lpPathName, "ptr", lpPrefixString, "uint", uUnique, "ptr", lpTempFileName)
@@ -16295,6 +16443,8 @@ class FileSystem {
      * @see https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-gettemppath2w
      */
     static GetTempPath2W(BufferLength, Buffer) {
+        Buffer := Buffer is String? StrPtr(Buffer) : Buffer
+
         result := DllCall("KERNEL32.dll\GetTempPath2W", "uint", BufferLength, "ptr", Buffer, "uint")
         return result
     }
@@ -16396,6 +16546,8 @@ class FileSystem {
      * @see https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-gettemppath2a
      */
     static GetTempPath2A(BufferLength, Buffer) {
+        Buffer := Buffer is String? StrPtr(Buffer) : Buffer
+
         result := DllCall("KERNEL32.dll\GetTempPath2A", "uint", BufferLength, "ptr", Buffer, "uint")
         return result
     }
@@ -16419,6 +16571,9 @@ class FileSystem {
      * @see https://learn.microsoft.com/windows/win32/api/fileapifromapp/nf-fileapifromapp-copyfilefromappw
      */
     static CopyFileFromAppW(lpExistingFileName, lpNewFileName, bFailIfExists) {
+        lpExistingFileName := lpExistingFileName is String? StrPtr(lpExistingFileName) : lpExistingFileName
+        lpNewFileName := lpNewFileName is String? StrPtr(lpNewFileName) : lpNewFileName
+
         result := DllCall("api-ms-win-core-file-fromapp-l1-1-0.dll\CopyFileFromAppW", "ptr", lpExistingFileName, "ptr", lpNewFileName, "int", bFailIfExists, "int")
         return result
     }
@@ -16460,6 +16615,8 @@ class FileSystem {
      * @see https://learn.microsoft.com/windows/win32/api/fileapifromapp/nf-fileapifromapp-createdirectoryfromappw
      */
     static CreateDirectoryFromAppW(lpPathName, lpSecurityAttributes) {
+        lpPathName := lpPathName is String? StrPtr(lpPathName) : lpPathName
+
         result := DllCall("api-ms-win-core-file-fromapp-l1-1-0.dll\CreateDirectoryFromAppW", "ptr", lpPathName, "ptr", lpSecurityAttributes, "int")
         return result
     }
@@ -16734,6 +16891,8 @@ class FileSystem {
      * @see https://learn.microsoft.com/windows/win32/api/fileapifromapp/nf-fileapifromapp-createfilefromappw
      */
     static CreateFileFromAppW(lpFileName, dwDesiredAccess, dwShareMode, lpSecurityAttributes, dwCreationDisposition, dwFlagsAndAttributes, hTemplateFile) {
+        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+
         result := DllCall("api-ms-win-core-file-fromapp-l1-1-0.dll\CreateFileFromAppW", "ptr", lpFileName, "uint", dwDesiredAccess, "uint", dwShareMode, "ptr", lpSecurityAttributes, "uint", dwCreationDisposition, "uint", dwFlagsAndAttributes, "ptr", hTemplateFile, "ptr")
         return result
     }
@@ -16769,6 +16928,8 @@ class FileSystem {
      * @see https://learn.microsoft.com/windows/win32/api/fileapifromapp/nf-fileapifromapp-createfile2fromappw
      */
     static CreateFile2FromAppW(lpFileName, dwDesiredAccess, dwShareMode, dwCreationDisposition, pCreateExParams) {
+        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+
         result := DllCall("api-ms-win-core-file-fromapp-l1-1-0.dll\CreateFile2FromAppW", "ptr", lpFileName, "uint", dwDesiredAccess, "uint", dwShareMode, "uint", dwCreationDisposition, "ptr", pCreateExParams, "ptr")
         return result
     }
@@ -16786,6 +16947,8 @@ class FileSystem {
      * @see https://learn.microsoft.com/windows/win32/api/fileapifromapp/nf-fileapifromapp-deletefilefromappw
      */
     static DeleteFileFromAppW(lpFileName) {
+        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+
         result := DllCall("api-ms-win-core-file-fromapp-l1-1-0.dll\DeleteFileFromAppW", "ptr", lpFileName, "int")
         return result
     }
@@ -16850,6 +17013,8 @@ class FileSystem {
     static FindFirstFileExFromAppW(lpFileName, fInfoLevelId, lpFindFileData, fSearchOp, dwAdditionalFlags) {
         static lpSearchFilter := 0 ;Reserved parameters must always be NULL
 
+        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+
         result := DllCall("api-ms-win-core-file-fromapp-l1-1-0.dll\FindFirstFileExFromAppW", "ptr", lpFileName, "int", fInfoLevelId, "ptr", lpFindFileData, "int", fSearchOp, "ptr", lpSearchFilter, "uint", dwAdditionalFlags, "ptr")
         return result
     }
@@ -16875,6 +17040,8 @@ class FileSystem {
      * @see https://learn.microsoft.com/windows/win32/api/fileapifromapp/nf-fileapifromapp-getfileattributesexfromappw
      */
     static GetFileAttributesExFromAppW(lpFileName, fInfoLevelId, lpFileInformation) {
+        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+
         result := DllCall("api-ms-win-core-file-fromapp-l1-1-0.dll\GetFileAttributesExFromAppW", "ptr", lpFileName, "int", fInfoLevelId, "ptr", lpFileInformation, "int")
         return result
     }
@@ -16893,6 +17060,9 @@ class FileSystem {
      * @see https://learn.microsoft.com/windows/win32/api/fileapifromapp/nf-fileapifromapp-movefilefromappw
      */
     static MoveFileFromAppW(lpExistingFileName, lpNewFileName) {
+        lpExistingFileName := lpExistingFileName is String? StrPtr(lpExistingFileName) : lpExistingFileName
+        lpNewFileName := lpNewFileName is String? StrPtr(lpNewFileName) : lpNewFileName
+
         result := DllCall("api-ms-win-core-file-fromapp-l1-1-0.dll\MoveFileFromAppW", "ptr", lpExistingFileName, "ptr", lpNewFileName, "int")
         return result
     }
@@ -16908,6 +17078,8 @@ class FileSystem {
      * @see https://learn.microsoft.com/windows/win32/api/fileapifromapp/nf-fileapifromapp-removedirectoryfromappw
      */
     static RemoveDirectoryFromAppW(lpPathName) {
+        lpPathName := lpPathName is String? StrPtr(lpPathName) : lpPathName
+
         result := DllCall("api-ms-win-core-file-fromapp-l1-1-0.dll\RemoveDirectoryFromAppW", "ptr", lpPathName, "int")
         return result
     }
@@ -16970,6 +17142,10 @@ class FileSystem {
      */
     static ReplaceFileFromAppW(lpReplacedFileName, lpReplacementFileName, lpBackupFileName, dwReplaceFlags) {
         static lpExclude := 0, lpReserved := 0 ;Reserved parameters must always be NULL
+
+        lpReplacedFileName := lpReplacedFileName is String? StrPtr(lpReplacedFileName) : lpReplacedFileName
+        lpReplacementFileName := lpReplacementFileName is String? StrPtr(lpReplacementFileName) : lpReplacementFileName
+        lpBackupFileName := lpBackupFileName is String? StrPtr(lpBackupFileName) : lpBackupFileName
 
         result := DllCall("api-ms-win-core-file-fromapp-l1-1-0.dll\ReplaceFileFromAppW", "ptr", lpReplacedFileName, "ptr", lpReplacementFileName, "ptr", lpBackupFileName, "uint", dwReplaceFlags, "ptr", lpExclude, "ptr", lpReserved, "int")
         return result
@@ -17056,6 +17232,8 @@ class FileSystem {
      * @see https://learn.microsoft.com/windows/win32/api/fileapifromapp/nf-fileapifromapp-setfileattributesfromappw
      */
     static SetFileAttributesFromAppW(lpFileName, dwFileAttributes) {
+        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+
         result := DllCall("api-ms-win-core-file-fromapp-l1-1-0.dll\SetFileAttributesFromAppW", "ptr", lpFileName, "uint", dwFileAttributes, "int")
         return result
     }
@@ -17180,6 +17358,12 @@ class FileSystem {
      * @since windows5.0
      */
     static VerFindFileA(uFlags, szFileName, szWinDir, szAppDir, szCurDir, puCurDirLen, szDestDir, puDestDirLen) {
+        szFileName := szFileName is String? StrPtr(szFileName) : szFileName
+        szWinDir := szWinDir is String? StrPtr(szWinDir) : szWinDir
+        szAppDir := szAppDir is String? StrPtr(szAppDir) : szAppDir
+        szCurDir := szCurDir is String? StrPtr(szCurDir) : szCurDir
+        szDestDir := szDestDir is String? StrPtr(szDestDir) : szDestDir
+
         result := DllCall("VERSION.dll\VerFindFileA", "uint", uFlags, "ptr", szFileName, "ptr", szWinDir, "ptr", szAppDir, "ptr", szCurDir, "ptr", puCurDirLen, "ptr", szDestDir, "ptr", puDestDirLen, "uint")
         return result
     }
@@ -17304,6 +17488,12 @@ class FileSystem {
      * @since windows5.0
      */
     static VerFindFileW(uFlags, szFileName, szWinDir, szAppDir, szCurDir, puCurDirLen, szDestDir, puDestDirLen) {
+        szFileName := szFileName is String? StrPtr(szFileName) : szFileName
+        szWinDir := szWinDir is String? StrPtr(szWinDir) : szWinDir
+        szAppDir := szAppDir is String? StrPtr(szAppDir) : szAppDir
+        szCurDir := szCurDir is String? StrPtr(szCurDir) : szCurDir
+        szDestDir := szDestDir is String? StrPtr(szDestDir) : szDestDir
+
         result := DllCall("VERSION.dll\VerFindFileW", "uint", uFlags, "ptr", szFileName, "ptr", szWinDir, "ptr", szAppDir, "ptr", szCurDir, "ptr", puCurDirLen, "ptr", szDestDir, "ptr", puDestDirLen, "uint")
         return result
     }
@@ -17622,6 +17812,13 @@ class FileSystem {
      * @since windows5.0
      */
     static VerInstallFileA(uFlags, szSrcFileName, szDestFileName, szSrcDir, szDestDir, szCurDir, szTmpFile, puTmpFileLen) {
+        szSrcFileName := szSrcFileName is String? StrPtr(szSrcFileName) : szSrcFileName
+        szDestFileName := szDestFileName is String? StrPtr(szDestFileName) : szDestFileName
+        szSrcDir := szSrcDir is String? StrPtr(szSrcDir) : szSrcDir
+        szDestDir := szDestDir is String? StrPtr(szDestDir) : szDestDir
+        szCurDir := szCurDir is String? StrPtr(szCurDir) : szCurDir
+        szTmpFile := szTmpFile is String? StrPtr(szTmpFile) : szTmpFile
+
         result := DllCall("VERSION.dll\VerInstallFileA", "uint", uFlags, "ptr", szSrcFileName, "ptr", szDestFileName, "ptr", szSrcDir, "ptr", szDestDir, "ptr", szCurDir, "ptr", szTmpFile, "ptr", puTmpFileLen, "uint")
         return result
     }
@@ -17940,6 +18137,13 @@ class FileSystem {
      * @since windows5.0
      */
     static VerInstallFileW(uFlags, szSrcFileName, szDestFileName, szSrcDir, szDestDir, szCurDir, szTmpFile, puTmpFileLen) {
+        szSrcFileName := szSrcFileName is String? StrPtr(szSrcFileName) : szSrcFileName
+        szDestFileName := szDestFileName is String? StrPtr(szDestFileName) : szDestFileName
+        szSrcDir := szSrcDir is String? StrPtr(szSrcDir) : szSrcDir
+        szDestDir := szDestDir is String? StrPtr(szDestDir) : szDestDir
+        szCurDir := szCurDir is String? StrPtr(szCurDir) : szCurDir
+        szTmpFile := szTmpFile is String? StrPtr(szTmpFile) : szTmpFile
+
         result := DllCall("VERSION.dll\VerInstallFileW", "uint", uFlags, "ptr", szSrcFileName, "ptr", szDestFileName, "ptr", szSrcDir, "ptr", szDestDir, "ptr", szCurDir, "ptr", szTmpFile, "ptr", puTmpFileLen, "uint")
         return result
     }
@@ -17971,6 +18175,8 @@ class FileSystem {
      * @since windows5.0
      */
     static GetFileVersionInfoSizeA(lptstrFilename, lpdwHandle) {
+        lptstrFilename := lptstrFilename is String? StrPtr(lptstrFilename) : lptstrFilename
+
         A_LastError := 0
 
         result := DllCall("VERSION.dll\GetFileVersionInfoSizeA", "ptr", lptstrFilename, "ptr", lpdwHandle, "uint")
@@ -18007,6 +18213,8 @@ class FileSystem {
      * @since windows5.0
      */
     static GetFileVersionInfoSizeW(lptstrFilename, lpdwHandle) {
+        lptstrFilename := lptstrFilename is String? StrPtr(lptstrFilename) : lptstrFilename
+
         A_LastError := 0
 
         result := DllCall("VERSION.dll\GetFileVersionInfoSizeW", "ptr", lptstrFilename, "ptr", lpdwHandle, "uint")
@@ -18059,6 +18267,8 @@ class FileSystem {
     static GetFileVersionInfoA(lptstrFilename, dwLen, lpData) {
         static dwHandle := 0 ;Reserved parameters must always be NULL
 
+        lptstrFilename := lptstrFilename is String? StrPtr(lptstrFilename) : lptstrFilename
+
         A_LastError := 0
 
         result := DllCall("VERSION.dll\GetFileVersionInfoA", "ptr", lptstrFilename, "uint", dwHandle, "uint", dwLen, "ptr", lpData, "int")
@@ -18110,6 +18320,8 @@ class FileSystem {
      */
     static GetFileVersionInfoW(lptstrFilename, dwLen, lpData) {
         static dwHandle := 0 ;Reserved parameters must always be NULL
+
+        lptstrFilename := lptstrFilename is String? StrPtr(lptstrFilename) : lptstrFilename
 
         A_LastError := 0
 
@@ -18180,6 +18392,8 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static GetFileVersionInfoSizeExA(dwFlags, lpwstrFilename, lpdwHandle) {
+        lpwstrFilename := lpwstrFilename is String? StrPtr(lpwstrFilename) : lpwstrFilename
+
         A_LastError := 0
 
         result := DllCall("VERSION.dll\GetFileVersionInfoSizeExA", "uint", dwFlags, "ptr", lpwstrFilename, "ptr", lpdwHandle, "uint")
@@ -18249,6 +18463,8 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static GetFileVersionInfoSizeExW(dwFlags, lpwstrFilename, lpdwHandle) {
+        lpwstrFilename := lpwstrFilename is String? StrPtr(lpwstrFilename) : lpwstrFilename
+
         A_LastError := 0
 
         result := DllCall("VERSION.dll\GetFileVersionInfoSizeExW", "uint", dwFlags, "ptr", lpwstrFilename, "ptr", lpdwHandle, "uint")
@@ -18340,6 +18556,8 @@ class FileSystem {
      */
     static GetFileVersionInfoExA(dwFlags, lpwstrFilename, dwLen, lpData) {
         static dwHandle := 0 ;Reserved parameters must always be NULL
+
+        lpwstrFilename := lpwstrFilename is String? StrPtr(lpwstrFilename) : lpwstrFilename
 
         A_LastError := 0
 
@@ -18433,6 +18651,8 @@ class FileSystem {
     static GetFileVersionInfoExW(dwFlags, lpwstrFilename, dwLen, lpData) {
         static dwHandle := 0 ;Reserved parameters must always be NULL
 
+        lpwstrFilename := lpwstrFilename is String? StrPtr(lpwstrFilename) : lpwstrFilename
+
         A_LastError := 0
 
         result := DllCall("VERSION.dll\GetFileVersionInfoExW", "uint", dwFlags, "ptr", lpwstrFilename, "uint", dwHandle, "uint", dwLen, "ptr", lpData, "int")
@@ -18475,6 +18695,8 @@ class FileSystem {
      * @since windows5.0
      */
     static VerLanguageNameA(wLang, szLang, cchLang) {
+        szLang := szLang is String? StrPtr(szLang) : szLang
+
         result := DllCall("KERNEL32.dll\VerLanguageNameA", "uint", wLang, "ptr", szLang, "uint", cchLang, "uint")
         return result
     }
@@ -18512,6 +18734,8 @@ class FileSystem {
      * @since windows5.0
      */
     static VerLanguageNameW(wLang, szLang, cchLang) {
+        szLang := szLang is String? StrPtr(szLang) : szLang
+
         result := DllCall("KERNEL32.dll\VerLanguageNameW", "uint", wLang, "ptr", szLang, "uint", cchLang, "uint")
         return result
     }
@@ -18566,6 +18790,8 @@ class FileSystem {
      * @since windows5.0
      */
     static VerQueryValueA(pBlock, lpSubBlock, lplpBuffer, puLen) {
+        lpSubBlock := lpSubBlock is String? StrPtr(lpSubBlock) : lpSubBlock
+
         result := DllCall("VERSION.dll\VerQueryValueA", "ptr", pBlock, "ptr", lpSubBlock, "ptr", lplpBuffer, "ptr", puLen, "int")
         return result
     }
@@ -18620,6 +18846,8 @@ class FileSystem {
      * @since windows5.0
      */
     static VerQueryValueW(pBlock, lpSubBlock, lplpBuffer, puLen) {
+        lpSubBlock := lpSubBlock is String? StrPtr(lpSubBlock) : lpSubBlock
+
         result := DllCall("VERSION.dll\VerQueryValueW", "ptr", pBlock, "ptr", lpSubBlock, "ptr", lplpBuffer, "ptr", puLen, "int")
         return result
     }
@@ -18870,6 +19098,8 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static CreateLogFile(pszLogFileName, fDesiredAccess, dwShareMode, psaLogFile, fCreateDisposition, fFlagsAndAttributes) {
+        pszLogFileName := pszLogFileName is String? StrPtr(pszLogFileName) : pszLogFileName
+
         A_LastError := 0
 
         result := DllCall("clfsw32.dll\CreateLogFile", "ptr", pszLogFileName, "uint", fDesiredAccess, "uint", dwShareMode, "ptr", psaLogFile, "uint", fCreateDisposition, "uint", fFlagsAndAttributes, "ptr")
@@ -18923,6 +19153,8 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static DeleteLogFile(pszLogFileName, pvReserved) {
+        pszLogFileName := pszLogFileName is String? StrPtr(pszLogFileName) : pszLogFileName
+
         A_LastError := 0
 
         result := DllCall("clfsw32.dll\DeleteLogFile", "ptr", pszLogFileName, "ptr", pvReserved, "int")
@@ -18960,6 +19192,8 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static AddLogContainer(hLog, pcbContainer, pwszContainerPath, pReserved) {
+        pwszContainerPath := pwszContainerPath is String? StrPtr(pwszContainerPath) : pwszContainerPath
+
         A_LastError := 0
 
         result := DllCall("clfsw32.dll\AddLogContainer", "ptr", hLog, "ptr", pcbContainer, "ptr", pwszContainerPath, "ptr", pReserved, "int")
@@ -19010,6 +19244,8 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static AddLogContainerSet(hLog, cContainer, pcbContainer, rgwszContainerPath, pReserved) {
+        rgwszContainerPath := rgwszContainerPath is String? StrPtr(rgwszContainerPath) : rgwszContainerPath
+
         A_LastError := 0
 
         result := DllCall("clfsw32.dll\AddLogContainerSet", "ptr", hLog, "ushort", cContainer, "ptr", pcbContainer, "ptr", rgwszContainerPath, "ptr", pReserved, "int")
@@ -19044,6 +19280,8 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static RemoveLogContainer(hLog, pwszContainerPath, fForce, pReserved) {
+        pwszContainerPath := pwszContainerPath is String? StrPtr(pwszContainerPath) : pwszContainerPath
+
         A_LastError := 0
 
         result := DllCall("clfsw32.dll\RemoveLogContainer", "ptr", hLog, "ptr", pwszContainerPath, "int", fForce, "ptr", pReserved, "int")
@@ -19086,6 +19324,8 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static RemoveLogContainerSet(hLog, cContainer, rgwszContainerPath, fForce, pReserved) {
+        rgwszContainerPath := rgwszContainerPath is String? StrPtr(rgwszContainerPath) : rgwszContainerPath
+
         A_LastError := 0
 
         result := DllCall("clfsw32.dll\RemoveLogContainerSet", "ptr", hLog, "ushort", cContainer, "ptr", rgwszContainerPath, "int", fForce, "ptr", pReserved, "int")
@@ -20210,6 +20450,8 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static PrepareLogArchive(hLog, pszBaseLogFileName, cLen, plsnLow, plsnHigh, pcActualLength, poffBaseLogFileData, pcbBaseLogFileLength, plsnBase, plsnLast, plsnCurrentArchiveTail, ppvArchiveContext) {
+        pszBaseLogFileName := pszBaseLogFileName is String? StrPtr(pszBaseLogFileName) : pszBaseLogFileName
+
         A_LastError := 0
 
         result := DllCall("clfsw32.dll\PrepareLogArchive", "ptr", hLog, "ptr", pszBaseLogFileName, "uint", cLen, "ptr", plsnLow, "ptr", plsnHigh, "ptr", pcActualLength, "ptr", poffBaseLogFileData, "ptr", pcbBaseLogFileLength, "ptr", plsnBase, "ptr", plsnLast, "ptr", plsnCurrentArchiveTail, "ptr", ppvArchiveContext, "int")
@@ -20336,6 +20578,8 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static ValidateLog(pszLogFileName, psaLogFile, pinfoBuffer, pcbBuffer) {
+        pszLogFileName := pszLogFileName is String? StrPtr(pszLogFileName) : pszLogFileName
+
         A_LastError := 0
 
         result := DllCall("clfsw32.dll\ValidateLog", "ptr", pszLogFileName, "ptr", psaLogFile, "ptr", pinfoBuffer, "ptr", pcbBuffer, "int")
@@ -20371,6 +20615,8 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static GetLogContainerName(hLog, cidLogicalContainer, pwstrContainerName, cLenContainerName, pcActualLenContainerName) {
+        pwstrContainerName := pwstrContainerName is String? StrPtr(pwstrContainerName) : pwstrContainerName
+
         A_LastError := 0
 
         result := DllCall("clfsw32.dll\GetLogContainerName", "ptr", hLog, "uint", cidLogicalContainer, "ptr", pwstrContainerName, "uint", cLenContainerName, "ptr", pcActualLenContainerName, "int")
@@ -20720,6 +20966,8 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static QueryUsersOnEncryptedFile(lpFileName, pUsers) {
+        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+
         result := DllCall("ADVAPI32.dll\QueryUsersOnEncryptedFile", "ptr", lpFileName, "ptr", pUsers, "uint")
         return result
     }
@@ -20802,6 +21050,8 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static QueryRecoveryAgentsOnEncryptedFile(lpFileName, pRecoveryAgents) {
+        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+
         result := DllCall("ADVAPI32.dll\QueryRecoveryAgentsOnEncryptedFile", "ptr", lpFileName, "ptr", pRecoveryAgents, "uint")
         return result
     }
@@ -20884,6 +21134,8 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static RemoveUsersFromEncryptedFile(lpFileName, pHashes) {
+        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+
         result := DllCall("ADVAPI32.dll\RemoveUsersFromEncryptedFile", "ptr", lpFileName, "ptr", pHashes, "uint")
         return result
     }
@@ -20963,6 +21215,8 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static AddUsersToEncryptedFile(lpFileName, pEncryptionCertificates) {
+        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+
         result := DllCall("ADVAPI32.dll\AddUsersToEncryptedFile", "ptr", lpFileName, "ptr", pEncryptionCertificates, "uint")
         return result
     }
@@ -21205,6 +21459,8 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static EncryptionDisable(DirPath, Disable) {
+        DirPath := DirPath is String? StrPtr(DirPath) : DirPath
+
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\EncryptionDisable", "ptr", DirPath, "int", Disable, "int")
@@ -21336,6 +21592,9 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static DuplicateEncryptionInfoFile(SrcFileName, DstFileName, dwCreationDistribution, dwAttributes, lpSecurityAttributes) {
+        SrcFileName := SrcFileName is String? StrPtr(SrcFileName) : SrcFileName
+        DstFileName := DstFileName is String? StrPtr(DstFileName) : DstFileName
+
         result := DllCall("ADVAPI32.dll\DuplicateEncryptionInfoFile", "ptr", SrcFileName, "ptr", DstFileName, "uint", dwCreationDistribution, "uint", dwAttributes, "ptr", lpSecurityAttributes, "uint")
         return result
     }
@@ -21349,6 +21608,8 @@ class FileSystem {
      * @deprecated
      */
     static GetEncryptedFileMetadata(lpFileName, pcbMetadata, ppbMetadata) {
+        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+
         result := DllCall("ADVAPI32.dll\GetEncryptedFileMetadata", "ptr", lpFileName, "ptr", pcbMetadata, "ptr", ppbMetadata, "uint")
         return result
     }
@@ -21365,6 +21626,8 @@ class FileSystem {
      * @deprecated
      */
     static SetEncryptedFileMetadata(lpFileName, pbOldMetadata, pbNewMetadata, pOwnerHash, dwOperation, pCertificatesAdded) {
+        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+
         result := DllCall("ADVAPI32.dll\SetEncryptedFileMetadata", "ptr", lpFileName, "ptr", pbOldMetadata, "ptr", pbNewMetadata, "ptr", pOwnerHash, "uint", dwOperation, "ptr", pCertificatesAdded, "uint")
         return result
     }
@@ -21716,6 +21979,9 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static GetExpandedNameA(lpszSource, lpszBuffer) {
+        lpszSource := lpszSource is String? StrPtr(lpszSource) : lpszSource
+        lpszBuffer := lpszBuffer is String? StrPtr(lpszBuffer) : lpszBuffer
+
         A_LastError := 0
 
         DllCall("KERNEL32.dll\GetExpandedNameA", "ptr", lpszSource, "ptr", lpszBuffer)
@@ -21802,6 +22068,9 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static GetExpandedNameW(lpszSource, lpszBuffer) {
+        lpszSource := lpszSource is String? StrPtr(lpszSource) : lpszSource
+        lpszBuffer := lpszBuffer is String? StrPtr(lpszBuffer) : lpszBuffer
+
         A_LastError := 0
 
         DllCall("KERNEL32.dll\GetExpandedNameW", "ptr", lpszSource, "ptr", lpszBuffer)
@@ -21915,6 +22184,8 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static LZOpenFileA(lpFileName, lpReOpenBuf, wStyle) {
+        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+
         DllCall("KERNEL32.dll\LZOpenFileA", "ptr", lpFileName, "ptr", lpReOpenBuf, "ushort", wStyle)
     }
 
@@ -22023,6 +22294,8 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static LZOpenFileW(lpFileName, lpReOpenBuf, wStyle) {
+        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+
         DllCall("KERNEL32.dll\LZOpenFileW", "ptr", lpFileName, "ptr", lpReOpenBuf, "ushort", wStyle)
     }
 
@@ -22234,6 +22507,8 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static LZRead(hFile, lpBuffer, cbRead) {
+        lpBuffer := lpBuffer is String? StrPtr(lpBuffer) : lpBuffer
+
         DllCall("KERNEL32.dll\LZRead", "int", hFile, "ptr", lpBuffer, "int", cbRead)
     }
 
@@ -22327,6 +22602,8 @@ class FileSystem {
      * @see https://learn.microsoft.com/windows/win32/api/wofapi/nf-wofapi-wofshouldcompressbinaries
      */
     static WofShouldCompressBinaries(Volume, Algorithm) {
+        Volume := Volume is String? StrPtr(Volume) : Volume
+
         result := DllCall("WOFUTIL.dll\WofShouldCompressBinaries", "ptr", Volume, "ptr", Algorithm, "int")
         return result
     }
@@ -22454,6 +22731,8 @@ class FileSystem {
      * @see https://learn.microsoft.com/windows/win32/api/wofapi/nf-wofapi-wofisexternalfile
      */
     static WofIsExternalFile(FilePath, IsExternalFile, Provider, ExternalFileInfo, BufferLength) {
+        FilePath := FilePath is String? StrPtr(FilePath) : FilePath
+
         result := DllCall("WOFUTIL.dll\WofIsExternalFile", "ptr", FilePath, "ptr", IsExternalFile, "ptr", Provider, "ptr", ExternalFileInfo, "ptr", BufferLength, "int")
         return result
     }
@@ -22476,6 +22755,8 @@ class FileSystem {
      * @see https://learn.microsoft.com/windows/win32/api/wofapi/nf-wofapi-wofenumentries
      */
     static WofEnumEntries(VolumeName, Provider, EnumProc, UserData) {
+        VolumeName := VolumeName is String? StrPtr(VolumeName) : VolumeName
+
         result := DllCall("WOFUTIL.dll\WofEnumEntries", "ptr", VolumeName, "uint", Provider, "ptr", EnumProc, "ptr", UserData, "int")
         return result
     }
@@ -22491,6 +22772,9 @@ class FileSystem {
      * @see https://learn.microsoft.com/windows/win32/api/wofapi/nf-wofapi-wofwimaddentry
      */
     static WofWimAddEntry(VolumeName, WimPath, WimType, WimIndex, DataSourceId) {
+        VolumeName := VolumeName is String? StrPtr(VolumeName) : VolumeName
+        WimPath := WimPath is String? StrPtr(WimPath) : WimPath
+
         result := DllCall("WOFUTIL.dll\WofWimAddEntry", "ptr", VolumeName, "ptr", WimPath, "uint", WimType, "uint", WimIndex, "ptr", DataSourceId, "int")
         return result
     }
@@ -22505,6 +22789,8 @@ class FileSystem {
      * @see https://learn.microsoft.com/windows/win32/api/wofapi/nf-wofapi-wofwimenumfiles
      */
     static WofWimEnumFiles(VolumeName, DataSourceId, EnumProc, UserData) {
+        VolumeName := VolumeName is String? StrPtr(VolumeName) : VolumeName
+
         result := DllCall("WOFUTIL.dll\WofWimEnumFiles", "ptr", VolumeName, "int64", DataSourceId, "ptr", EnumProc, "ptr", UserData, "int")
         return result
     }
@@ -22519,6 +22805,8 @@ class FileSystem {
      * @see https://learn.microsoft.com/windows/win32/api/wofapi/nf-wofapi-wofwimsuspendentry
      */
     static WofWimSuspendEntry(VolumeName, DataSourceId) {
+        VolumeName := VolumeName is String? StrPtr(VolumeName) : VolumeName
+
         result := DllCall("WOFUTIL.dll\WofWimSuspendEntry", "ptr", VolumeName, "int64", DataSourceId, "int")
         return result
     }
@@ -22533,6 +22821,8 @@ class FileSystem {
      * @see https://learn.microsoft.com/windows/win32/api/wofapi/nf-wofapi-wofwimremoveentry
      */
     static WofWimRemoveEntry(VolumeName, DataSourceId) {
+        VolumeName := VolumeName is String? StrPtr(VolumeName) : VolumeName
+
         result := DllCall("WOFUTIL.dll\WofWimRemoveEntry", "ptr", VolumeName, "int64", DataSourceId, "int")
         return result
     }
@@ -22546,6 +22836,9 @@ class FileSystem {
      * @see https://learn.microsoft.com/windows/win32/api/wofapi/nf-wofapi-wofwimupdateentry
      */
     static WofWimUpdateEntry(VolumeName, DataSourceId, NewWimPath) {
+        VolumeName := VolumeName is String? StrPtr(VolumeName) : VolumeName
+        NewWimPath := NewWimPath is String? StrPtr(NewWimPath) : NewWimPath
+
         result := DllCall("WOFUTIL.dll\WofWimUpdateEntry", "ptr", VolumeName, "int64", DataSourceId, "ptr", NewWimPath, "int")
         return result
     }
@@ -22560,6 +22853,8 @@ class FileSystem {
      * @see https://learn.microsoft.com/windows/win32/api/wofapi/nf-wofapi-woffileenumfiles
      */
     static WofFileEnumFiles(VolumeName, Algorithm, EnumProc, UserData) {
+        VolumeName := VolumeName is String? StrPtr(VolumeName) : VolumeName
+
         result := DllCall("WOFUTIL.dll\WofFileEnumFiles", "ptr", VolumeName, "uint", Algorithm, "ptr", EnumProc, "ptr", UserData, "int")
         return result
     }
@@ -22579,6 +22874,8 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static TxfLogCreateFileReadContext(LogPath, BeginningLsn, EndingLsn, TxfFileId, TxfLogContext) {
+        LogPath := LogPath is String? StrPtr(LogPath) : LogPath
+
         A_LastError := 0
 
         result := DllCall("txfw32.dll\TxfLogCreateFileReadContext", "ptr", LogPath, "uint", BeginningLsn, "uint", EndingLsn, "ptr", TxfFileId, "ptr", TxfLogContext, "int")
@@ -22601,6 +22898,8 @@ class FileSystem {
      * @see https://learn.microsoft.com/windows/win32/api/txfw32/nf-txfw32-txflogcreaterangereadcontext
      */
     static TxfLogCreateRangeReadContext(LogPath, BeginningLsn, EndingLsn, BeginningVirtualClock, EndingVirtualClock, RecordTypeMask, TxfLogContext) {
+        LogPath := LogPath is String? StrPtr(LogPath) : LogPath
+
         result := DllCall("txfw32.dll\TxfLogCreateRangeReadContext", "ptr", LogPath, "uint", BeginningLsn, "uint", EndingLsn, "ptr", BeginningVirtualClock, "ptr", EndingVirtualClock, "uint", RecordTypeMask, "ptr", TxfLogContext, "int")
         return result
     }
@@ -22729,6 +23028,8 @@ class FileSystem {
      * @returns {Integer} 
      */
     static TxfLogRecordGetFileName(RecordBuffer, RecordBufferLengthInBytes, NameBuffer, NameBufferLengthInBytes, TxfId) {
+        NameBuffer := NameBuffer is String? StrPtr(NameBuffer) : NameBuffer
+
         result := DllCall("txfw32.dll\TxfLogRecordGetFileName", "ptr", RecordBuffer, "uint", RecordBufferLengthInBytes, "ptr", NameBuffer, "ptr", NameBufferLengthInBytes, "ptr", TxfId, "int")
         return result
     }
@@ -22821,6 +23122,8 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static CreateTransaction(lpTransactionAttributes, UOW, CreateOptions, IsolationLevel, IsolationFlags, Timeout, Description) {
+        Description := Description is String? StrPtr(Description) : Description
+
         A_LastError := 0
 
         result := DllCall("ktmw32.dll\CreateTransaction", "ptr", lpTransactionAttributes, "ptr", UOW, "uint", CreateOptions, "uint", IsolationLevel, "uint", IsolationFlags, "uint", Timeout, "ptr", Description, "ptr")
@@ -22985,6 +23288,8 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static GetTransactionInformation(TransactionHandle, Outcome, IsolationLevel, IsolationFlags, Timeout, BufferLength, Description) {
+        Description := Description is String? StrPtr(Description) : Description
+
         A_LastError := 0
 
         result := DllCall("ktmw32.dll\GetTransactionInformation", "ptr", TransactionHandle, "ptr", Outcome, "ptr", IsolationLevel, "ptr", IsolationFlags, "ptr", Timeout, "uint", BufferLength, "ptr", Description, "int")
@@ -23011,6 +23316,8 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static SetTransactionInformation(TransactionHandle, IsolationLevel, IsolationFlags, Timeout, Description) {
+        Description := Description is String? StrPtr(Description) : Description
+
         A_LastError := 0
 
         result := DllCall("ktmw32.dll\SetTransactionInformation", "ptr", TransactionHandle, "uint", IsolationLevel, "uint", IsolationFlags, "uint", Timeout, "ptr", Description, "int")
@@ -23058,6 +23365,8 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static CreateTransactionManager(lpTransactionAttributes, LogFileName, CreateOptions, CommitStrength) {
+        LogFileName := LogFileName is String? StrPtr(LogFileName) : LogFileName
+
         A_LastError := 0
 
         result := DllCall("ktmw32.dll\CreateTransactionManager", "ptr", lpTransactionAttributes, "ptr", LogFileName, "uint", CreateOptions, "uint", CommitStrength, "ptr")
@@ -23085,6 +23394,8 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static OpenTransactionManager(LogFileName, DesiredAccess, OpenOptions) {
+        LogFileName := LogFileName is String? StrPtr(LogFileName) : LogFileName
+
         A_LastError := 0
 
         result := DllCall("ktmw32.dll\OpenTransactionManager", "ptr", LogFileName, "uint", DesiredAccess, "uint", OpenOptions, "ptr")
@@ -23134,6 +23445,8 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static RenameTransactionManager(LogFileName, ExistingTransactionManagerGuid) {
+        LogFileName := LogFileName is String? StrPtr(LogFileName) : LogFileName
+
         A_LastError := 0
 
         result := DllCall("ktmw32.dll\RenameTransactionManager", "ptr", LogFileName, "ptr", ExistingTransactionManagerGuid, "int")
@@ -23281,6 +23594,8 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static CreateResourceManager(lpResourceManagerAttributes, ResourceManagerId, CreateOptions, TmHandle, Description) {
+        Description := Description is String? StrPtr(Description) : Description
+
         A_LastError := 0
 
         result := DllCall("ktmw32.dll\CreateResourceManager", "ptr", lpResourceManagerAttributes, "ptr", ResourceManagerId, "uint", CreateOptions, "ptr", TmHandle, "ptr", Description, "ptr")
@@ -24023,6 +24338,8 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static NetShareAdd(servername, level, buf, parm_err) {
+        servername := servername is String? StrPtr(servername) : servername
+
         result := DllCall("NETAPI32.dll\NetShareAdd", "ptr", servername, "uint", level, "ptr", buf, "ptr", parm_err, "uint")
         return result
     }
@@ -24069,6 +24386,8 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static NetShareEnum(servername, level, bufptr, prefmaxlen, entriesread, totalentries, resume_handle) {
+        servername := servername is String? StrPtr(servername) : servername
+
         result := DllCall("NETAPI32.dll\NetShareEnum", "ptr", servername, "uint", level, "ptr", bufptr, "uint", prefmaxlen, "ptr", entriesread, "ptr", totalentries, "ptr", resume_handle, "uint")
         return result
     }
@@ -24085,6 +24404,8 @@ class FileSystem {
      * @returns {Integer} 
      */
     static NetShareEnumSticky(servername, level, bufptr, prefmaxlen, entriesread, totalentries, resume_handle) {
+        servername := servername is String? StrPtr(servername) : servername
+
         result := DllCall("NETAPI32.dll\NetShareEnumSticky", "ptr", servername, "uint", level, "ptr", bufptr, "uint", prefmaxlen, "ptr", entriesread, "ptr", totalentries, "ptr", resume_handle, "uint")
         return result
     }
@@ -24184,6 +24505,9 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static NetShareGetInfo(servername, netname, level, bufptr) {
+        servername := servername is String? StrPtr(servername) : servername
+        netname := netname is String? StrPtr(netname) : netname
+
         result := DllCall("NETAPI32.dll\NetShareGetInfo", "ptr", servername, "ptr", netname, "uint", level, "ptr", bufptr, "uint")
         return result
     }
@@ -24311,6 +24635,9 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static NetShareSetInfo(servername, netname, level, buf, parm_err) {
+        servername := servername is String? StrPtr(servername) : servername
+        netname := netname is String? StrPtr(netname) : netname
+
         result := DllCall("NETAPI32.dll\NetShareSetInfo", "ptr", servername, "ptr", netname, "uint", level, "ptr", buf, "ptr", parm_err, "uint")
         return result
     }
@@ -24394,6 +24721,9 @@ class FileSystem {
     static NetShareDel(servername, netname) {
         static reserved := 0 ;Reserved parameters must always be NULL
 
+        servername := servername is String? StrPtr(servername) : servername
+        netname := netname is String? StrPtr(netname) : netname
+
         result := DllCall("NETAPI32.dll\NetShareDel", "ptr", servername, "ptr", netname, "uint", reserved, "uint")
         return result
     }
@@ -24406,6 +24736,9 @@ class FileSystem {
      */
     static NetShareDelSticky(servername, netname) {
         static reserved := 0 ;Reserved parameters must always be NULL
+
+        servername := servername is String? StrPtr(servername) : servername
+        netname := netname is String? StrPtr(netname) : netname
 
         result := DllCall("NETAPI32.dll\NetShareDelSticky", "ptr", servername, "ptr", netname, "uint", reserved, "uint")
         return result
@@ -24539,6 +24872,9 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static NetShareCheck(servername, device, type) {
+        servername := servername is String? StrPtr(servername) : servername
+        device := device is String? StrPtr(device) : device
+
         result := DllCall("NETAPI32.dll\NetShareCheck", "ptr", servername, "ptr", device, "ptr", type, "uint")
         return result
     }
@@ -24605,6 +24941,8 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static NetShareDelEx(servername, level, buf) {
+        servername := servername is String? StrPtr(servername) : servername
+
         result := DllCall("NETAPI32.dll\NetShareDelEx", "ptr", servername, "uint", level, "ptr", buf, "uint")
         return result
     }
@@ -24617,6 +24955,8 @@ class FileSystem {
      * @returns {Integer} 
      */
     static NetServerAliasAdd(servername, level, buf) {
+        servername := servername is String? StrPtr(servername) : servername
+
         result := DllCall("NETAPI32.dll\NetServerAliasAdd", "ptr", servername, "uint", level, "ptr", buf, "uint")
         return result
     }
@@ -24629,6 +24969,8 @@ class FileSystem {
      * @returns {Integer} 
      */
     static NetServerAliasDel(servername, level, buf) {
+        servername := servername is String? StrPtr(servername) : servername
+
         result := DllCall("NETAPI32.dll\NetServerAliasDel", "ptr", servername, "uint", level, "ptr", buf, "uint")
         return result
     }
@@ -24645,6 +24987,8 @@ class FileSystem {
      * @returns {Integer} 
      */
     static NetServerAliasEnum(servername, level, bufptr, prefmaxlen, entriesread, totalentries, resumehandle) {
+        servername := servername is String? StrPtr(servername) : servername
+
         result := DllCall("NETAPI32.dll\NetServerAliasEnum", "ptr", servername, "uint", level, "ptr", bufptr, "uint", prefmaxlen, "ptr", entriesread, "ptr", totalentries, "ptr", resumehandle, "uint")
         return result
     }
@@ -24776,6 +25120,10 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static NetSessionEnum(servername, UncClientName, username, level, bufptr, prefmaxlen, entriesread, totalentries, resume_handle) {
+        servername := servername is String? StrPtr(servername) : servername
+        UncClientName := UncClientName is String? StrPtr(UncClientName) : UncClientName
+        username := username is String? StrPtr(username) : username
+
         result := DllCall("NETAPI32.dll\NetSessionEnum", "ptr", servername, "ptr", UncClientName, "ptr", username, "uint", level, "ptr", bufptr, "uint", prefmaxlen, "ptr", entriesread, "ptr", totalentries, "ptr", resume_handle, "uint")
         return result
     }
@@ -24851,6 +25199,10 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static NetSessionDel(servername, UncClientName, username) {
+        servername := servername is String? StrPtr(servername) : servername
+        UncClientName := UncClientName is String? StrPtr(UncClientName) : UncClientName
+        username := username is String? StrPtr(username) : username
+
         result := DllCall("NETAPI32.dll\NetSessionDel", "ptr", servername, "ptr", UncClientName, "ptr", username, "uint")
         return result
     }
@@ -24971,6 +25323,10 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static NetSessionGetInfo(servername, UncClientName, username, level, bufptr) {
+        servername := servername is String? StrPtr(servername) : servername
+        UncClientName := UncClientName is String? StrPtr(UncClientName) : UncClientName
+        username := username is String? StrPtr(username) : username
+
         result := DllCall("NETAPI32.dll\NetSessionGetInfo", "ptr", servername, "ptr", UncClientName, "ptr", username, "uint", level, "ptr", bufptr, "uint")
         return result
     }
@@ -25012,6 +25368,9 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static NetConnectionEnum(servername, qualifier, level, bufptr, prefmaxlen, entriesread, totalentries, resume_handle) {
+        servername := servername is String? StrPtr(servername) : servername
+        qualifier := qualifier is String? StrPtr(qualifier) : qualifier
+
         result := DllCall("NETAPI32.dll\NetConnectionEnum", "ptr", servername, "ptr", qualifier, "uint", level, "ptr", bufptr, "uint", prefmaxlen, "ptr", entriesread, "ptr", totalentries, "ptr", resume_handle, "uint")
         return result
     }
@@ -25064,6 +25423,8 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static NetFileClose(servername, fileid) {
+        servername := servername is String? StrPtr(servername) : servername
+
         result := DllCall("NETAPI32.dll\NetFileClose", "ptr", servername, "uint", fileid, "uint")
         return result
     }
@@ -25178,6 +25539,10 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static NetFileEnum(servername, basepath, username, level, bufptr, prefmaxlen, entriesread, totalentries, resume_handle) {
+        servername := servername is String? StrPtr(servername) : servername
+        basepath := basepath is String? StrPtr(basepath) : basepath
+        username := username is String? StrPtr(username) : username
+
         result := DllCall("NETAPI32.dll\NetFileEnum", "ptr", servername, "ptr", basepath, "ptr", username, "uint", level, "ptr", bufptr, "uint", prefmaxlen, "ptr", entriesread, "ptr", totalentries, "ptr", resume_handle, "uint")
         return result
     }
@@ -25276,6 +25641,8 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static NetFileGetInfo(servername, fileid, level, bufptr) {
+        servername := servername is String? StrPtr(servername) : servername
+
         result := DllCall("NETAPI32.dll\NetFileGetInfo", "ptr", servername, "uint", fileid, "uint", level, "ptr", bufptr, "uint")
         return result
     }
@@ -26058,6 +26425,8 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static GetBinaryTypeA(lpApplicationName, lpBinaryType) {
+        lpApplicationName := lpApplicationName is String? StrPtr(lpApplicationName) : lpApplicationName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetBinaryTypeA", "ptr", lpApplicationName, "ptr", lpBinaryType, "int")
@@ -26245,6 +26614,8 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static GetBinaryTypeW(lpApplicationName, lpBinaryType) {
+        lpApplicationName := lpApplicationName is String? StrPtr(lpApplicationName) : lpApplicationName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetBinaryTypeW", "ptr", lpApplicationName, "ptr", lpBinaryType, "int")
@@ -26381,6 +26752,9 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static GetShortPathNameA(lpszLongPath, lpszShortPath, cchBuffer) {
+        lpszLongPath := lpszLongPath is String? StrPtr(lpszLongPath) : lpszLongPath
+        lpszShortPath := lpszShortPath is String? StrPtr(lpszShortPath) : lpszShortPath
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetShortPathNameA", "ptr", lpszLongPath, "ptr", lpszShortPath, "uint", cchBuffer, "uint")
@@ -26515,6 +26889,9 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static GetLongPathNameTransactedA(lpszShortPath, lpszLongPath, cchBuffer, hTransaction) {
+        lpszShortPath := lpszShortPath is String? StrPtr(lpszShortPath) : lpszShortPath
+        lpszLongPath := lpszLongPath is String? StrPtr(lpszLongPath) : lpszLongPath
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetLongPathNameTransactedA", "ptr", lpszShortPath, "ptr", lpszLongPath, "uint", cchBuffer, "ptr", hTransaction, "uint")
@@ -26649,6 +27026,9 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static GetLongPathNameTransactedW(lpszShortPath, lpszLongPath, cchBuffer, hTransaction) {
+        lpszShortPath := lpszShortPath is String? StrPtr(lpszShortPath) : lpszShortPath
+        lpszLongPath := lpszLongPath is String? StrPtr(lpszLongPath) : lpszLongPath
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetLongPathNameTransactedW", "ptr", lpszShortPath, "ptr", lpszLongPath, "uint", cchBuffer, "ptr", hTransaction, "uint")
@@ -26918,6 +27298,8 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static SetFileShortNameA(hFile, lpShortName) {
+        lpShortName := lpShortName is String? StrPtr(lpShortName) : lpShortName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SetFileShortNameA", "ptr", hFile, "ptr", lpShortName, "int")
@@ -27050,6 +27432,8 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static SetFileShortNameW(hFile, lpShortName) {
+        lpShortName := lpShortName is String? StrPtr(lpShortName) : lpShortName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SetFileShortNameW", "ptr", hFile, "ptr", lpShortName, "int")
@@ -29053,6 +29437,8 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static EncryptFileA(lpFileName) {
+        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\EncryptFileA", "ptr", lpFileName, "int")
@@ -29163,6 +29549,8 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static EncryptFileW(lpFileName) {
+        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\EncryptFileW", "ptr", lpFileName, "int")
@@ -29263,6 +29651,8 @@ class FileSystem {
     static DecryptFileA(lpFileName) {
         static dwReserved := 0 ;Reserved parameters must always be NULL
 
+        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\DecryptFileA", "ptr", lpFileName, "uint", dwReserved, "int")
@@ -29362,6 +29752,8 @@ class FileSystem {
      */
     static DecryptFileW(lpFileName) {
         static dwReserved := 0 ;Reserved parameters must always be NULL
+
+        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
 
         A_LastError := 0
 
@@ -29565,6 +29957,8 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static FileEncryptionStatusA(lpFileName, lpStatus) {
+        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\FileEncryptionStatusA", "ptr", lpFileName, "ptr", lpStatus, "int")
@@ -29767,6 +30161,8 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static FileEncryptionStatusW(lpFileName, lpStatus) {
+        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\FileEncryptionStatusW", "ptr", lpFileName, "ptr", lpStatus, "int")
@@ -29935,6 +30331,8 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static OpenEncryptedFileRawA(lpFileName, ulFlags, pvContext) {
+        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+
         result := DllCall("ADVAPI32.dll\OpenEncryptedFileRawA", "ptr", lpFileName, "uint", ulFlags, "ptr", pvContext, "uint")
         return result
     }
@@ -30098,6 +30496,8 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static OpenEncryptedFileRawW(lpFileName, ulFlags, pvContext) {
+        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+
         result := DllCall("ADVAPI32.dll\OpenEncryptedFileRawW", "ptr", lpFileName, "uint", ulFlags, "ptr", pvContext, "uint")
         return result
     }
@@ -30554,6 +30954,8 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static OpenFile(lpFileName, lpReOpenBuff, uStyle) {
+        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\OpenFile", "ptr", lpFileName, "ptr", lpReOpenBuff, "uint", uStyle, "int")
@@ -30821,6 +31223,8 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static GetLogicalDriveStringsA(nBufferLength, lpBuffer) {
+        lpBuffer := lpBuffer is String? StrPtr(lpBuffer) : lpBuffer
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetLogicalDriveStringsA", "uint", nBufferLength, "ptr", lpBuffer, "uint")
@@ -31150,6 +31554,9 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static CreateDirectoryExA(lpTemplateDirectory, lpNewDirectory, lpSecurityAttributes) {
+        lpTemplateDirectory := lpTemplateDirectory is String? StrPtr(lpTemplateDirectory) : lpTemplateDirectory
+        lpNewDirectory := lpNewDirectory is String? StrPtr(lpNewDirectory) : lpNewDirectory
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\CreateDirectoryExA", "ptr", lpTemplateDirectory, "ptr", lpNewDirectory, "ptr", lpSecurityAttributes, "int")
@@ -31315,6 +31722,9 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static CreateDirectoryExW(lpTemplateDirectory, lpNewDirectory, lpSecurityAttributes) {
+        lpTemplateDirectory := lpTemplateDirectory is String? StrPtr(lpTemplateDirectory) : lpTemplateDirectory
+        lpNewDirectory := lpNewDirectory is String? StrPtr(lpNewDirectory) : lpNewDirectory
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\CreateDirectoryExW", "ptr", lpTemplateDirectory, "ptr", lpNewDirectory, "ptr", lpSecurityAttributes, "int")
@@ -31490,6 +31900,9 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static CreateDirectoryTransactedA(lpTemplateDirectory, lpNewDirectory, lpSecurityAttributes, hTransaction) {
+        lpTemplateDirectory := lpTemplateDirectory is String? StrPtr(lpTemplateDirectory) : lpTemplateDirectory
+        lpNewDirectory := lpNewDirectory is String? StrPtr(lpNewDirectory) : lpNewDirectory
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\CreateDirectoryTransactedA", "ptr", lpTemplateDirectory, "ptr", lpNewDirectory, "ptr", lpSecurityAttributes, "ptr", hTransaction, "int")
@@ -31665,6 +32078,9 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static CreateDirectoryTransactedW(lpTemplateDirectory, lpNewDirectory, lpSecurityAttributes, hTransaction) {
+        lpTemplateDirectory := lpTemplateDirectory is String? StrPtr(lpTemplateDirectory) : lpTemplateDirectory
+        lpNewDirectory := lpNewDirectory is String? StrPtr(lpNewDirectory) : lpNewDirectory
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\CreateDirectoryTransactedW", "ptr", lpTemplateDirectory, "ptr", lpNewDirectory, "ptr", lpSecurityAttributes, "ptr", hTransaction, "int")
@@ -31775,6 +32191,8 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static RemoveDirectoryTransactedA(lpPathName, hTransaction) {
+        lpPathName := lpPathName is String? StrPtr(lpPathName) : lpPathName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\RemoveDirectoryTransactedA", "ptr", lpPathName, "ptr", hTransaction, "int")
@@ -31885,6 +32303,8 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static RemoveDirectoryTransactedW(lpPathName, hTransaction) {
+        lpPathName := lpPathName is String? StrPtr(lpPathName) : lpPathName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\RemoveDirectoryTransactedW", "ptr", lpPathName, "ptr", hTransaction, "int")
@@ -32025,6 +32445,10 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static GetFullPathNameTransactedA(lpFileName, nBufferLength, lpBuffer, lpFilePart, hTransaction) {
+        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+        lpBuffer := lpBuffer is String? StrPtr(lpBuffer) : lpBuffer
+        lpFilePart := lpFilePart is String? StrPtr(lpFilePart) : lpFilePart
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetFullPathNameTransactedA", "ptr", lpFileName, "uint", nBufferLength, "ptr", lpBuffer, "ptr", lpFilePart, "ptr", hTransaction, "uint")
@@ -32165,6 +32589,10 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static GetFullPathNameTransactedW(lpFileName, nBufferLength, lpBuffer, lpFilePart, hTransaction) {
+        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+        lpBuffer := lpBuffer is String? StrPtr(lpBuffer) : lpBuffer
+        lpFilePart := lpFilePart is String? StrPtr(lpFilePart) : lpFilePart
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetFullPathNameTransactedW", "ptr", lpFileName, "uint", nBufferLength, "ptr", lpBuffer, "ptr", lpFilePart, "ptr", hTransaction, "uint")
@@ -32279,6 +32707,9 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static DefineDosDeviceA(dwFlags, lpDeviceName, lpTargetPath) {
+        lpDeviceName := lpDeviceName is String? StrPtr(lpDeviceName) : lpDeviceName
+        lpTargetPath := lpTargetPath is String? StrPtr(lpTargetPath) : lpTargetPath
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\DefineDosDeviceA", "uint", dwFlags, "ptr", lpDeviceName, "ptr", lpTargetPath, "int")
@@ -32402,6 +32833,9 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static QueryDosDeviceA(lpDeviceName, lpTargetPath, ucchMax) {
+        lpDeviceName := lpDeviceName is String? StrPtr(lpDeviceName) : lpDeviceName
+        lpTargetPath := lpTargetPath is String? StrPtr(lpTargetPath) : lpTargetPath
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\QueryDosDeviceA", "ptr", lpDeviceName, "ptr", lpTargetPath, "uint", ucchMax, "uint")
@@ -33076,6 +33510,8 @@ class FileSystem {
      */
     static CreateFileTransactedA(lpFileName, dwDesiredAccess, dwShareMode, lpSecurityAttributes, dwCreationDisposition, dwFlagsAndAttributes, hTemplateFile, hTransaction, pusMiniVersion) {
         static lpExtendedParameter := 0 ;Reserved parameters must always be NULL
+
+        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
 
         A_LastError := 0
 
@@ -33752,6 +34188,8 @@ class FileSystem {
     static CreateFileTransactedW(lpFileName, dwDesiredAccess, dwShareMode, lpSecurityAttributes, dwCreationDisposition, dwFlagsAndAttributes, hTemplateFile, hTransaction, pusMiniVersion) {
         static lpExtendedParameter := 0 ;Reserved parameters must always be NULL
 
+        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\CreateFileTransactedW", "ptr", lpFileName, "uint", dwDesiredAccess, "uint", dwShareMode, "ptr", lpSecurityAttributes, "uint", dwCreationDisposition, "uint", dwFlagsAndAttributes, "ptr", hTemplateFile, "ptr", hTransaction, "ptr", pusMiniVersion, "ptr", lpExtendedParameter, "ptr")
@@ -34055,6 +34493,8 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static SetFileAttributesTransactedA(lpFileName, dwFileAttributes, hTransaction) {
+        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SetFileAttributesTransactedA", "ptr", lpFileName, "uint", dwFileAttributes, "ptr", hTransaction, "int")
@@ -34259,6 +34699,8 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static SetFileAttributesTransactedW(lpFileName, dwFileAttributes, hTransaction) {
+        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SetFileAttributesTransactedW", "ptr", lpFileName, "uint", dwFileAttributes, "ptr", hTransaction, "int")
@@ -34407,6 +34849,8 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static GetFileAttributesTransactedA(lpFileName, fInfoLevelId, lpFileInformation, hTransaction) {
+        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetFileAttributesTransactedA", "ptr", lpFileName, "int", fInfoLevelId, "ptr", lpFileInformation, "ptr", hTransaction, "int")
@@ -34555,6 +34999,8 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static GetFileAttributesTransactedW(lpFileName, fInfoLevelId, lpFileInformation, hTransaction) {
+        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetFileAttributesTransactedW", "ptr", lpFileName, "int", fInfoLevelId, "ptr", lpFileInformation, "ptr", hTransaction, "int")
@@ -34668,6 +35114,8 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static GetCompressedFileSizeTransactedA(lpFileName, lpFileSizeHigh, hTransaction) {
+        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetCompressedFileSizeTransactedA", "ptr", lpFileName, "ptr", lpFileSizeHigh, "ptr", hTransaction, "uint")
@@ -34781,6 +35229,8 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static GetCompressedFileSizeTransactedW(lpFileName, lpFileSizeHigh, hTransaction) {
+        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetCompressedFileSizeTransactedW", "ptr", lpFileName, "ptr", lpFileSizeHigh, "ptr", hTransaction, "uint")
@@ -34920,6 +35370,8 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static DeleteFileTransactedA(lpFileName, hTransaction) {
+        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\DeleteFileTransactedA", "ptr", lpFileName, "ptr", hTransaction, "int")
@@ -35059,6 +35511,8 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static DeleteFileTransactedW(lpFileName, hTransaction) {
+        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\DeleteFileTransactedW", "ptr", lpFileName, "ptr", hTransaction, "int")
@@ -35160,6 +35614,9 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static CheckNameLegalDOS8Dot3A(lpName, lpOemName, OemNameSize, pbNameContainsSpaces, pbNameLegal) {
+        lpName := lpName is String? StrPtr(lpName) : lpName
+        lpOemName := lpOemName is String? StrPtr(lpOemName) : lpOemName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\CheckNameLegalDOS8Dot3A", "ptr", lpName, "ptr", lpOemName, "uint", OemNameSize, "ptr", pbNameContainsSpaces, "ptr", pbNameLegal, "int")
@@ -35261,6 +35718,9 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static CheckNameLegalDOS8Dot3W(lpName, lpOemName, OemNameSize, pbNameContainsSpaces, pbNameLegal) {
+        lpName := lpName is String? StrPtr(lpName) : lpName
+        lpOemName := lpOemName is String? StrPtr(lpOemName) : lpOemName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\CheckNameLegalDOS8Dot3W", "ptr", lpName, "ptr", lpOemName, "uint", OemNameSize, "ptr", pbNameContainsSpaces, "ptr", pbNameLegal, "int")
@@ -35463,6 +35923,8 @@ class FileSystem {
      */
     static FindFirstFileTransactedA(lpFileName, fInfoLevelId, lpFindFileData, fSearchOp, dwAdditionalFlags, hTransaction) {
         static lpSearchFilter := 0 ;Reserved parameters must always be NULL
+
+        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
 
         A_LastError := 0
 
@@ -35667,6 +36129,8 @@ class FileSystem {
     static FindFirstFileTransactedW(lpFileName, fInfoLevelId, lpFindFileData, fSearchOp, dwAdditionalFlags, hTransaction) {
         static lpSearchFilter := 0 ;Reserved parameters must always be NULL
 
+        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\FindFirstFileTransactedW", "ptr", lpFileName, "int", fInfoLevelId, "ptr", lpFindFileData, "int", fSearchOp, "ptr", lpSearchFilter, "uint", dwAdditionalFlags, "ptr", hTransaction, "ptr")
@@ -35799,6 +36263,9 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static CopyFileA(lpExistingFileName, lpNewFileName, bFailIfExists) {
+        lpExistingFileName := lpExistingFileName is String? StrPtr(lpExistingFileName) : lpExistingFileName
+        lpNewFileName := lpNewFileName is String? StrPtr(lpNewFileName) : lpNewFileName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\CopyFileA", "ptr", lpExistingFileName, "ptr", lpNewFileName, "int", bFailIfExists, "int")
@@ -35931,6 +36398,9 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static CopyFileW(lpExistingFileName, lpNewFileName, bFailIfExists) {
+        lpExistingFileName := lpExistingFileName is String? StrPtr(lpExistingFileName) : lpExistingFileName
+        lpNewFileName := lpNewFileName is String? StrPtr(lpNewFileName) : lpNewFileName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\CopyFileW", "ptr", lpExistingFileName, "ptr", lpNewFileName, "int", bFailIfExists, "int")
@@ -36214,6 +36684,9 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static CopyFileExA(lpExistingFileName, lpNewFileName, lpProgressRoutine, lpData, pbCancel, dwCopyFlags) {
+        lpExistingFileName := lpExistingFileName is String? StrPtr(lpExistingFileName) : lpExistingFileName
+        lpNewFileName := lpNewFileName is String? StrPtr(lpNewFileName) : lpNewFileName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\CopyFileExA", "ptr", lpExistingFileName, "ptr", lpNewFileName, "ptr", lpProgressRoutine, "ptr", lpData, "ptr", pbCancel, "uint", dwCopyFlags, "int")
@@ -36496,6 +36969,9 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static CopyFileExW(lpExistingFileName, lpNewFileName, lpProgressRoutine, lpData, pbCancel, dwCopyFlags) {
+        lpExistingFileName := lpExistingFileName is String? StrPtr(lpExistingFileName) : lpExistingFileName
+        lpNewFileName := lpNewFileName is String? StrPtr(lpNewFileName) : lpNewFileName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\CopyFileExW", "ptr", lpExistingFileName, "ptr", lpNewFileName, "ptr", lpProgressRoutine, "ptr", lpData, "ptr", pbCancel, "uint", dwCopyFlags, "int")
@@ -36723,6 +37199,9 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static CopyFileTransactedA(lpExistingFileName, lpNewFileName, lpProgressRoutine, lpData, pbCancel, dwCopyFlags, hTransaction) {
+        lpExistingFileName := lpExistingFileName is String? StrPtr(lpExistingFileName) : lpExistingFileName
+        lpNewFileName := lpNewFileName is String? StrPtr(lpNewFileName) : lpNewFileName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\CopyFileTransactedA", "ptr", lpExistingFileName, "ptr", lpNewFileName, "ptr", lpProgressRoutine, "ptr", lpData, "ptr", pbCancel, "uint", dwCopyFlags, "ptr", hTransaction, "int")
@@ -36950,6 +37429,9 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static CopyFileTransactedW(lpExistingFileName, lpNewFileName, lpProgressRoutine, lpData, pbCancel, dwCopyFlags, hTransaction) {
+        lpExistingFileName := lpExistingFileName is String? StrPtr(lpExistingFileName) : lpExistingFileName
+        lpNewFileName := lpNewFileName is String? StrPtr(lpNewFileName) : lpNewFileName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\CopyFileTransactedW", "ptr", lpExistingFileName, "ptr", lpNewFileName, "ptr", lpProgressRoutine, "ptr", lpData, "ptr", pbCancel, "uint", dwCopyFlags, "ptr", hTransaction, "int")
@@ -37135,6 +37617,9 @@ class FileSystem {
      * @since windows8.0
      */
     static CopyFile2(pwszExistingFileName, pwszNewFileName, pExtendedParameters) {
+        pwszExistingFileName := pwszExistingFileName is String? StrPtr(pwszExistingFileName) : pwszExistingFileName
+        pwszNewFileName := pwszNewFileName is String? StrPtr(pwszNewFileName) : pwszNewFileName
+
         result := DllCall("KERNEL32.dll\CopyFile2", "ptr", pwszExistingFileName, "ptr", pwszNewFileName, "ptr", pExtendedParameters, "int")
         return result
     }
@@ -37249,6 +37734,9 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static MoveFileA(lpExistingFileName, lpNewFileName) {
+        lpExistingFileName := lpExistingFileName is String? StrPtr(lpExistingFileName) : lpExistingFileName
+        lpNewFileName := lpNewFileName is String? StrPtr(lpNewFileName) : lpNewFileName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\MoveFileA", "ptr", lpExistingFileName, "ptr", lpNewFileName, "int")
@@ -37368,6 +37856,9 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static MoveFileW(lpExistingFileName, lpNewFileName) {
+        lpExistingFileName := lpExistingFileName is String? StrPtr(lpExistingFileName) : lpExistingFileName
+        lpNewFileName := lpNewFileName is String? StrPtr(lpNewFileName) : lpNewFileName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\MoveFileW", "ptr", lpExistingFileName, "ptr", lpNewFileName, "int")
@@ -37555,6 +38046,9 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static MoveFileExA(lpExistingFileName, lpNewFileName, dwFlags) {
+        lpExistingFileName := lpExistingFileName is String? StrPtr(lpExistingFileName) : lpExistingFileName
+        lpNewFileName := lpNewFileName is String? StrPtr(lpNewFileName) : lpNewFileName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\MoveFileExA", "ptr", lpExistingFileName, "ptr", lpNewFileName, "uint", dwFlags, "int")
@@ -37742,6 +38236,9 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static MoveFileExW(lpExistingFileName, lpNewFileName, dwFlags) {
+        lpExistingFileName := lpExistingFileName is String? StrPtr(lpExistingFileName) : lpExistingFileName
+        lpNewFileName := lpNewFileName is String? StrPtr(lpNewFileName) : lpNewFileName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\MoveFileExW", "ptr", lpExistingFileName, "ptr", lpNewFileName, "uint", dwFlags, "int")
@@ -37898,6 +38395,9 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static MoveFileWithProgressA(lpExistingFileName, lpNewFileName, lpProgressRoutine, lpData, dwFlags) {
+        lpExistingFileName := lpExistingFileName is String? StrPtr(lpExistingFileName) : lpExistingFileName
+        lpNewFileName := lpNewFileName is String? StrPtr(lpNewFileName) : lpNewFileName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\MoveFileWithProgressA", "ptr", lpExistingFileName, "ptr", lpNewFileName, "ptr", lpProgressRoutine, "ptr", lpData, "uint", dwFlags, "int")
@@ -38054,6 +38554,9 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static MoveFileWithProgressW(lpExistingFileName, lpNewFileName, lpProgressRoutine, lpData, dwFlags) {
+        lpExistingFileName := lpExistingFileName is String? StrPtr(lpExistingFileName) : lpExistingFileName
+        lpNewFileName := lpNewFileName is String? StrPtr(lpNewFileName) : lpNewFileName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\MoveFileWithProgressW", "ptr", lpExistingFileName, "ptr", lpNewFileName, "ptr", lpProgressRoutine, "ptr", lpData, "uint", dwFlags, "int")
@@ -38207,6 +38710,9 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static MoveFileTransactedA(lpExistingFileName, lpNewFileName, lpProgressRoutine, lpData, dwFlags, hTransaction) {
+        lpExistingFileName := lpExistingFileName is String? StrPtr(lpExistingFileName) : lpExistingFileName
+        lpNewFileName := lpNewFileName is String? StrPtr(lpNewFileName) : lpNewFileName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\MoveFileTransactedA", "ptr", lpExistingFileName, "ptr", lpNewFileName, "ptr", lpProgressRoutine, "ptr", lpData, "uint", dwFlags, "ptr", hTransaction, "int")
@@ -38360,6 +38866,9 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static MoveFileTransactedW(lpExistingFileName, lpNewFileName, lpProgressRoutine, lpData, dwFlags, hTransaction) {
+        lpExistingFileName := lpExistingFileName is String? StrPtr(lpExistingFileName) : lpExistingFileName
+        lpNewFileName := lpNewFileName is String? StrPtr(lpNewFileName) : lpNewFileName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\MoveFileTransactedW", "ptr", lpExistingFileName, "ptr", lpNewFileName, "ptr", lpProgressRoutine, "ptr", lpData, "uint", dwFlags, "ptr", hTransaction, "int")
@@ -38526,6 +39035,10 @@ class FileSystem {
      */
     static ReplaceFileA(lpReplacedFileName, lpReplacementFileName, lpBackupFileName, dwReplaceFlags) {
         static lpExclude := 0, lpReserved := 0 ;Reserved parameters must always be NULL
+
+        lpReplacedFileName := lpReplacedFileName is String? StrPtr(lpReplacedFileName) : lpReplacedFileName
+        lpReplacementFileName := lpReplacementFileName is String? StrPtr(lpReplacementFileName) : lpReplacementFileName
+        lpBackupFileName := lpBackupFileName is String? StrPtr(lpBackupFileName) : lpBackupFileName
 
         A_LastError := 0
 
@@ -38694,6 +39207,10 @@ class FileSystem {
     static ReplaceFileW(lpReplacedFileName, lpReplacementFileName, lpBackupFileName, dwReplaceFlags) {
         static lpExclude := 0, lpReserved := 0 ;Reserved parameters must always be NULL
 
+        lpReplacedFileName := lpReplacedFileName is String? StrPtr(lpReplacedFileName) : lpReplacedFileName
+        lpReplacementFileName := lpReplacementFileName is String? StrPtr(lpReplacementFileName) : lpReplacementFileName
+        lpBackupFileName := lpBackupFileName is String? StrPtr(lpBackupFileName) : lpBackupFileName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\ReplaceFileW", "ptr", lpReplacedFileName, "ptr", lpReplacementFileName, "ptr", lpBackupFileName, "uint", dwReplaceFlags, "ptr", lpExclude, "ptr", lpReserved, "int")
@@ -38835,6 +39352,9 @@ class FileSystem {
     static CreateHardLinkA(lpFileName, lpExistingFileName) {
         static lpSecurityAttributes := 0 ;Reserved parameters must always be NULL
 
+        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+        lpExistingFileName := lpExistingFileName is String? StrPtr(lpExistingFileName) : lpExistingFileName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\CreateHardLinkA", "ptr", lpFileName, "ptr", lpExistingFileName, "ptr", lpSecurityAttributes, "int")
@@ -38975,6 +39495,9 @@ class FileSystem {
      */
     static CreateHardLinkW(lpFileName, lpExistingFileName) {
         static lpSecurityAttributes := 0 ;Reserved parameters must always be NULL
+
+        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+        lpExistingFileName := lpExistingFileName is String? StrPtr(lpExistingFileName) : lpExistingFileName
 
         A_LastError := 0
 
@@ -39118,6 +39641,9 @@ class FileSystem {
     static CreateHardLinkTransactedA(lpFileName, lpExistingFileName, hTransaction) {
         static lpSecurityAttributes := 0 ;Reserved parameters must always be NULL
 
+        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+        lpExistingFileName := lpExistingFileName is String? StrPtr(lpExistingFileName) : lpExistingFileName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\CreateHardLinkTransactedA", "ptr", lpFileName, "ptr", lpExistingFileName, "ptr", lpSecurityAttributes, "ptr", hTransaction, "int")
@@ -39260,6 +39786,9 @@ class FileSystem {
     static CreateHardLinkTransactedW(lpFileName, lpExistingFileName, hTransaction) {
         static lpSecurityAttributes := 0 ;Reserved parameters must always be NULL
 
+        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+        lpExistingFileName := lpExistingFileName is String? StrPtr(lpExistingFileName) : lpExistingFileName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\CreateHardLinkTransactedW", "ptr", lpFileName, "ptr", lpExistingFileName, "ptr", lpSecurityAttributes, "ptr", hTransaction, "int")
@@ -39385,6 +39914,8 @@ class FileSystem {
     static FindFirstStreamTransactedW(lpFileName, InfoLevel, lpFindStreamData, hTransaction) {
         static dwFlags := 0 ;Reserved parameters must always be NULL
 
+        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\FindFirstStreamTransactedW", "ptr", lpFileName, "int", InfoLevel, "ptr", lpFindStreamData, "uint", dwFlags, "ptr", hTransaction, "ptr")
@@ -39481,6 +40012,9 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static FindFirstFileNameTransactedW(lpFileName, dwFlags, StringLength, LinkName, hTransaction) {
+        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+        LinkName := LinkName is String? StrPtr(LinkName) : LinkName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\FindFirstFileNameTransactedW", "ptr", lpFileName, "uint", dwFlags, "ptr", StringLength, "ptr", LinkName, "ptr", hTransaction, "ptr")
@@ -39584,6 +40118,9 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static SetVolumeLabelA(lpRootPathName, lpVolumeName) {
+        lpRootPathName := lpRootPathName is String? StrPtr(lpRootPathName) : lpRootPathName
+        lpVolumeName := lpVolumeName is String? StrPtr(lpVolumeName) : lpVolumeName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SetVolumeLabelA", "ptr", lpRootPathName, "ptr", lpVolumeName, "int")
@@ -39687,6 +40224,9 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static SetVolumeLabelW(lpRootPathName, lpVolumeName) {
+        lpRootPathName := lpRootPathName is String? StrPtr(lpRootPathName) : lpRootPathName
+        lpVolumeName := lpVolumeName is String? StrPtr(lpVolumeName) : lpVolumeName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SetVolumeLabelW", "ptr", lpRootPathName, "ptr", lpVolumeName, "int")
@@ -40284,6 +40824,8 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static FindFirstVolumeA(lpszVolumeName, cchBufferLength) {
+        lpszVolumeName := lpszVolumeName is String? StrPtr(lpszVolumeName) : lpszVolumeName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\FindFirstVolumeA", "ptr", lpszVolumeName, "uint", cchBufferLength, "ptr")
@@ -40381,6 +40923,8 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static FindNextVolumeA(hFindVolume, lpszVolumeName, cchBufferLength) {
+        lpszVolumeName := lpszVolumeName is String? StrPtr(lpszVolumeName) : lpszVolumeName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\FindNextVolumeA", "ptr", hFindVolume, "ptr", lpszVolumeName, "uint", cchBufferLength, "int")
@@ -40495,6 +41039,9 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static FindFirstVolumeMountPointA(lpszRootPathName, lpszVolumeMountPoint, cchBufferLength) {
+        lpszRootPathName := lpszRootPathName is String? StrPtr(lpszRootPathName) : lpszRootPathName
+        lpszVolumeMountPoint := lpszVolumeMountPoint is String? StrPtr(lpszVolumeMountPoint) : lpszVolumeMountPoint
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\FindFirstVolumeMountPointA", "ptr", lpszRootPathName, "ptr", lpszVolumeMountPoint, "uint", cchBufferLength, "ptr")
@@ -40609,6 +41156,9 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static FindFirstVolumeMountPointW(lpszRootPathName, lpszVolumeMountPoint, cchBufferLength) {
+        lpszRootPathName := lpszRootPathName is String? StrPtr(lpszRootPathName) : lpszRootPathName
+        lpszVolumeMountPoint := lpszVolumeMountPoint is String? StrPtr(lpszVolumeMountPoint) : lpszVolumeMountPoint
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\FindFirstVolumeMountPointW", "ptr", lpszRootPathName, "ptr", lpszVolumeMountPoint, "uint", cchBufferLength, "ptr")
@@ -40721,6 +41271,8 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static FindNextVolumeMountPointA(hFindVolumeMountPoint, lpszVolumeMountPoint, cchBufferLength) {
+        lpszVolumeMountPoint := lpszVolumeMountPoint is String? StrPtr(lpszVolumeMountPoint) : lpszVolumeMountPoint
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\FindNextVolumeMountPointA", "ptr", hFindVolumeMountPoint, "ptr", lpszVolumeMountPoint, "uint", cchBufferLength, "int")
@@ -40833,6 +41385,8 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static FindNextVolumeMountPointW(hFindVolumeMountPoint, lpszVolumeMountPoint, cchBufferLength) {
+        lpszVolumeMountPoint := lpszVolumeMountPoint is String? StrPtr(lpszVolumeMountPoint) : lpszVolumeMountPoint
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\FindNextVolumeMountPointW", "ptr", hFindVolumeMountPoint, "ptr", lpszVolumeMountPoint, "uint", cchBufferLength, "int")
@@ -41022,6 +41576,9 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static SetVolumeMountPointA(lpszVolumeMountPoint, lpszVolumeName) {
+        lpszVolumeMountPoint := lpszVolumeMountPoint is String? StrPtr(lpszVolumeMountPoint) : lpszVolumeMountPoint
+        lpszVolumeName := lpszVolumeName is String? StrPtr(lpszVolumeName) : lpszVolumeName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SetVolumeMountPointA", "ptr", lpszVolumeMountPoint, "ptr", lpszVolumeName, "int")
@@ -41121,6 +41678,9 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static SetVolumeMountPointW(lpszVolumeMountPoint, lpszVolumeName) {
+        lpszVolumeMountPoint := lpszVolumeMountPoint is String? StrPtr(lpszVolumeMountPoint) : lpszVolumeMountPoint
+        lpszVolumeName := lpszVolumeName is String? StrPtr(lpszVolumeName) : lpszVolumeName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SetVolumeMountPointW", "ptr", lpszVolumeMountPoint, "ptr", lpszVolumeName, "int")
@@ -41209,6 +41769,8 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static DeleteVolumeMountPointA(lpszVolumeMountPoint) {
+        lpszVolumeMountPoint := lpszVolumeMountPoint is String? StrPtr(lpszVolumeMountPoint) : lpszVolumeMountPoint
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\DeleteVolumeMountPointA", "ptr", lpszVolumeMountPoint, "int")
@@ -41299,6 +41861,9 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static GetVolumeNameForVolumeMountPointA(lpszVolumeMountPoint, lpszVolumeName, cchBufferLength) {
+        lpszVolumeMountPoint := lpszVolumeMountPoint is String? StrPtr(lpszVolumeMountPoint) : lpszVolumeMountPoint
+        lpszVolumeName := lpszVolumeName is String? StrPtr(lpszVolumeName) : lpszVolumeName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetVolumeNameForVolumeMountPointA", "ptr", lpszVolumeMountPoint, "ptr", lpszVolumeName, "uint", cchBufferLength, "int")
@@ -41467,6 +42032,9 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static GetVolumePathNameA(lpszFileName, lpszVolumePathName, cchBufferLength) {
+        lpszFileName := lpszFileName is String? StrPtr(lpszFileName) : lpszFileName
+        lpszVolumePathName := lpszVolumePathName is String? StrPtr(lpszVolumePathName) : lpszVolumePathName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetVolumePathNameA", "ptr", lpszFileName, "ptr", lpszVolumePathName, "uint", cchBufferLength, "int")
@@ -41561,6 +42129,9 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static GetVolumePathNamesForVolumeNameA(lpszVolumeName, lpszVolumePathNames, cchBufferLength, lpcchReturnLength) {
+        lpszVolumeName := lpszVolumeName is String? StrPtr(lpszVolumeName) : lpszVolumeName
+        lpszVolumePathNames := lpszVolumePathNames is String? StrPtr(lpszVolumePathNames) : lpszVolumePathNames
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetVolumePathNamesForVolumeNameA", "ptr", lpszVolumeName, "ptr", lpszVolumePathNames, "uint", cchBufferLength, "ptr", lpcchReturnLength, "int")
@@ -42230,6 +42801,9 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static CreateSymbolicLinkA(lpSymlinkFileName, lpTargetFileName, dwFlags) {
+        lpSymlinkFileName := lpSymlinkFileName is String? StrPtr(lpSymlinkFileName) : lpSymlinkFileName
+        lpTargetFileName := lpTargetFileName is String? StrPtr(lpTargetFileName) : lpTargetFileName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\CreateSymbolicLinkA", "ptr", lpSymlinkFileName, "ptr", lpTargetFileName, "uint", dwFlags, "char")
@@ -42406,6 +42980,9 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static CreateSymbolicLinkW(lpSymlinkFileName, lpTargetFileName, dwFlags) {
+        lpSymlinkFileName := lpSymlinkFileName is String? StrPtr(lpSymlinkFileName) : lpSymlinkFileName
+        lpTargetFileName := lpTargetFileName is String? StrPtr(lpTargetFileName) : lpTargetFileName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\CreateSymbolicLinkW", "ptr", lpSymlinkFileName, "ptr", lpTargetFileName, "uint", dwFlags, "char")
@@ -42551,6 +43128,9 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static CreateSymbolicLinkTransactedA(lpSymlinkFileName, lpTargetFileName, dwFlags, hTransaction) {
+        lpSymlinkFileName := lpSymlinkFileName is String? StrPtr(lpSymlinkFileName) : lpSymlinkFileName
+        lpTargetFileName := lpTargetFileName is String? StrPtr(lpTargetFileName) : lpTargetFileName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\CreateSymbolicLinkTransactedA", "ptr", lpSymlinkFileName, "ptr", lpTargetFileName, "uint", dwFlags, "ptr", hTransaction, "char")
@@ -42696,6 +43276,9 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static CreateSymbolicLinkTransactedW(lpSymlinkFileName, lpTargetFileName, dwFlags, hTransaction) {
+        lpSymlinkFileName := lpSymlinkFileName is String? StrPtr(lpSymlinkFileName) : lpSymlinkFileName
+        lpTargetFileName := lpTargetFileName is String? StrPtr(lpTargetFileName) : lpTargetFileName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\CreateSymbolicLinkTransactedW", "ptr", lpSymlinkFileName, "ptr", lpTargetFileName, "uint", dwFlags, "ptr", hTransaction, "char")

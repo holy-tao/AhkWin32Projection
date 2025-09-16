@@ -950,6 +950,13 @@ class Services {
      * @since windows5.1.2600
      */
     static ChangeServiceConfigA(hService, dwServiceType, dwStartType, dwErrorControl, lpBinaryPathName, lpLoadOrderGroup, lpdwTagId, lpDependencies, lpServiceStartName, lpPassword, lpDisplayName) {
+        lpBinaryPathName := lpBinaryPathName is String? StrPtr(lpBinaryPathName) : lpBinaryPathName
+        lpLoadOrderGroup := lpLoadOrderGroup is String? StrPtr(lpLoadOrderGroup) : lpLoadOrderGroup
+        lpDependencies := lpDependencies is String? StrPtr(lpDependencies) : lpDependencies
+        lpServiceStartName := lpServiceStartName is String? StrPtr(lpServiceStartName) : lpServiceStartName
+        lpPassword := lpPassword is String? StrPtr(lpPassword) : lpPassword
+        lpDisplayName := lpDisplayName is String? StrPtr(lpDisplayName) : lpDisplayName
+
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\ChangeServiceConfigA", "ptr", hService, "uint", dwServiceType, "uint", dwStartType, "uint", dwErrorControl, "ptr", lpBinaryPathName, "ptr", lpLoadOrderGroup, "ptr", lpdwTagId, "ptr", lpDependencies, "ptr", lpServiceStartName, "ptr", lpPassword, "ptr", lpDisplayName, "int")
@@ -1214,6 +1221,13 @@ class Services {
      * @since windows5.1.2600
      */
     static ChangeServiceConfigW(hService, dwServiceType, dwStartType, dwErrorControl, lpBinaryPathName, lpLoadOrderGroup, lpdwTagId, lpDependencies, lpServiceStartName, lpPassword, lpDisplayName) {
+        lpBinaryPathName := lpBinaryPathName is String? StrPtr(lpBinaryPathName) : lpBinaryPathName
+        lpLoadOrderGroup := lpLoadOrderGroup is String? StrPtr(lpLoadOrderGroup) : lpLoadOrderGroup
+        lpDependencies := lpDependencies is String? StrPtr(lpDependencies) : lpDependencies
+        lpServiceStartName := lpServiceStartName is String? StrPtr(lpServiceStartName) : lpServiceStartName
+        lpPassword := lpPassword is String? StrPtr(lpPassword) : lpPassword
+        lpDisplayName := lpDisplayName is String? StrPtr(lpDisplayName) : lpDisplayName
+
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\ChangeServiceConfigW", "ptr", hService, "uint", dwServiceType, "uint", dwStartType, "uint", dwErrorControl, "ptr", lpBinaryPathName, "ptr", lpLoadOrderGroup, "ptr", lpdwTagId, "ptr", lpDependencies, "ptr", lpServiceStartName, "ptr", lpPassword, "ptr", lpDisplayName, "int")
@@ -2071,6 +2085,14 @@ class Services {
      * @since windows5.1.2600
      */
     static CreateServiceA(hSCManager, lpServiceName, lpDisplayName, dwDesiredAccess, dwServiceType, dwStartType, dwErrorControl, lpBinaryPathName, lpLoadOrderGroup, lpdwTagId, lpDependencies, lpServiceStartName, lpPassword) {
+        lpServiceName := lpServiceName is String? StrPtr(lpServiceName) : lpServiceName
+        lpDisplayName := lpDisplayName is String? StrPtr(lpDisplayName) : lpDisplayName
+        lpBinaryPathName := lpBinaryPathName is String? StrPtr(lpBinaryPathName) : lpBinaryPathName
+        lpLoadOrderGroup := lpLoadOrderGroup is String? StrPtr(lpLoadOrderGroup) : lpLoadOrderGroup
+        lpDependencies := lpDependencies is String? StrPtr(lpDependencies) : lpDependencies
+        lpServiceStartName := lpServiceStartName is String? StrPtr(lpServiceStartName) : lpServiceStartName
+        lpPassword := lpPassword is String? StrPtr(lpPassword) : lpPassword
+
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\CreateServiceA", "ptr", hSCManager, "ptr", lpServiceName, "ptr", lpDisplayName, "uint", dwDesiredAccess, "uint", dwServiceType, "uint", dwStartType, "uint", dwErrorControl, "ptr", lpBinaryPathName, "ptr", lpLoadOrderGroup, "ptr", lpdwTagId, "ptr", lpDependencies, "ptr", lpServiceStartName, "ptr", lpPassword, "ptr")
@@ -2346,6 +2368,14 @@ class Services {
      * @since windows5.1.2600
      */
     static CreateServiceW(hSCManager, lpServiceName, lpDisplayName, dwDesiredAccess, dwServiceType, dwStartType, dwErrorControl, lpBinaryPathName, lpLoadOrderGroup, lpdwTagId, lpDependencies, lpServiceStartName, lpPassword) {
+        lpServiceName := lpServiceName is String? StrPtr(lpServiceName) : lpServiceName
+        lpDisplayName := lpDisplayName is String? StrPtr(lpDisplayName) : lpDisplayName
+        lpBinaryPathName := lpBinaryPathName is String? StrPtr(lpBinaryPathName) : lpBinaryPathName
+        lpLoadOrderGroup := lpLoadOrderGroup is String? StrPtr(lpLoadOrderGroup) : lpLoadOrderGroup
+        lpDependencies := lpDependencies is String? StrPtr(lpDependencies) : lpDependencies
+        lpServiceStartName := lpServiceStartName is String? StrPtr(lpServiceStartName) : lpServiceStartName
+        lpPassword := lpPassword is String? StrPtr(lpPassword) : lpPassword
+
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\CreateServiceW", "ptr", hSCManager, "ptr", lpServiceName, "ptr", lpDisplayName, "uint", dwDesiredAccess, "uint", dwServiceType, "uint", dwStartType, "uint", dwErrorControl, "ptr", lpBinaryPathName, "ptr", lpLoadOrderGroup, "ptr", lpdwTagId, "ptr", lpDependencies, "ptr", lpServiceStartName, "ptr", lpPassword, "ptr")
@@ -2903,6 +2933,8 @@ class Services {
      * @since windows5.1.2600
      */
     static EnumServicesStatusExA(hSCManager, InfoLevel, dwServiceType, dwServiceState, lpServices, cbBufSize, pcbBytesNeeded, lpServicesReturned, lpResumeHandle, pszGroupName) {
+        pszGroupName := pszGroupName is String? StrPtr(pszGroupName) : pszGroupName
+
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\EnumServicesStatusExA", "ptr", hSCManager, "int", InfoLevel, "uint", dwServiceType, "uint", dwServiceState, "ptr", lpServices, "uint", cbBufSize, "ptr", pcbBytesNeeded, "ptr", lpServicesReturned, "ptr", lpResumeHandle, "ptr", pszGroupName, "int")
@@ -3026,6 +3058,8 @@ class Services {
      * @since windows5.1.2600
      */
     static EnumServicesStatusExW(hSCManager, InfoLevel, dwServiceType, dwServiceState, lpServices, cbBufSize, pcbBytesNeeded, lpServicesReturned, lpResumeHandle, pszGroupName) {
+        pszGroupName := pszGroupName is String? StrPtr(pszGroupName) : pszGroupName
+
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\EnumServicesStatusExW", "ptr", hSCManager, "int", InfoLevel, "uint", dwServiceType, "uint", dwServiceState, "ptr", lpServices, "uint", cbBufSize, "ptr", pcbBytesNeeded, "ptr", lpServicesReturned, "ptr", lpResumeHandle, "ptr", pszGroupName, "int")
@@ -3067,6 +3101,9 @@ class Services {
      * @since windows5.1.2600
      */
     static GetServiceKeyNameA(hSCManager, lpDisplayName, lpServiceName, lpcchBuffer) {
+        lpDisplayName := lpDisplayName is String? StrPtr(lpDisplayName) : lpDisplayName
+        lpServiceName := lpServiceName is String? StrPtr(lpServiceName) : lpServiceName
+
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\GetServiceKeyNameA", "ptr", hSCManager, "ptr", lpDisplayName, "ptr", lpServiceName, "ptr", lpcchBuffer, "int")
@@ -3108,6 +3145,9 @@ class Services {
      * @since windows5.1.2600
      */
     static GetServiceKeyNameW(hSCManager, lpDisplayName, lpServiceName, lpcchBuffer) {
+        lpDisplayName := lpDisplayName is String? StrPtr(lpDisplayName) : lpDisplayName
+        lpServiceName := lpServiceName is String? StrPtr(lpServiceName) : lpServiceName
+
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\GetServiceKeyNameW", "ptr", hSCManager, "ptr", lpDisplayName, "ptr", lpServiceName, "ptr", lpcchBuffer, "int")
@@ -3153,6 +3193,9 @@ class Services {
      * @since windows5.1.2600
      */
     static GetServiceDisplayNameA(hSCManager, lpServiceName, lpDisplayName, lpcchBuffer) {
+        lpServiceName := lpServiceName is String? StrPtr(lpServiceName) : lpServiceName
+        lpDisplayName := lpDisplayName is String? StrPtr(lpDisplayName) : lpDisplayName
+
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\GetServiceDisplayNameA", "ptr", hSCManager, "ptr", lpServiceName, "ptr", lpDisplayName, "ptr", lpcchBuffer, "int")
@@ -3203,6 +3246,9 @@ class Services {
      * @since windows5.1.2600
      */
     static GetServiceDisplayNameW(hSCManager, lpServiceName, lpDisplayName, lpcchBuffer) {
+        lpServiceName := lpServiceName is String? StrPtr(lpServiceName) : lpServiceName
+        lpDisplayName := lpDisplayName is String? StrPtr(lpDisplayName) : lpDisplayName
+
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\GetServiceDisplayNameW", "ptr", hSCManager, "ptr", lpServiceName, "ptr", lpDisplayName, "ptr", lpcchBuffer, "int")
@@ -3357,6 +3403,9 @@ class Services {
      * @since windows5.1.2600
      */
     static OpenSCManagerA(lpMachineName, lpDatabaseName, dwDesiredAccess) {
+        lpMachineName := lpMachineName is String? StrPtr(lpMachineName) : lpMachineName
+        lpDatabaseName := lpDatabaseName is String? StrPtr(lpDatabaseName) : lpDatabaseName
+
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\OpenSCManagerA", "ptr", lpMachineName, "ptr", lpDatabaseName, "uint", dwDesiredAccess, "ptr")
@@ -3431,6 +3480,9 @@ class Services {
      * @since windows5.1.2600
      */
     static OpenSCManagerW(lpMachineName, lpDatabaseName, dwDesiredAccess) {
+        lpMachineName := lpMachineName is String? StrPtr(lpMachineName) : lpMachineName
+        lpDatabaseName := lpDatabaseName is String? StrPtr(lpDatabaseName) : lpDatabaseName
+
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\OpenSCManagerW", "ptr", lpMachineName, "ptr", lpDatabaseName, "uint", dwDesiredAccess, "ptr")
@@ -3521,6 +3573,8 @@ class Services {
      * @since windows5.1.2600
      */
     static OpenServiceA(hSCManager, lpServiceName, dwDesiredAccess) {
+        lpServiceName := lpServiceName is String? StrPtr(lpServiceName) : lpServiceName
+
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\OpenServiceA", "ptr", hSCManager, "ptr", lpServiceName, "uint", dwDesiredAccess, "ptr")
@@ -3611,6 +3665,8 @@ class Services {
      * @since windows5.1.2600
      */
     static OpenServiceW(hSCManager, lpServiceName, dwDesiredAccess) {
+        lpServiceName := lpServiceName is String? StrPtr(lpServiceName) : lpServiceName
+
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\OpenServiceW", "ptr", hSCManager, "ptr", lpServiceName, "uint", dwDesiredAccess, "ptr")
@@ -4436,6 +4492,8 @@ class Services {
      * @since windows5.1.2600
      */
     static RegisterServiceCtrlHandlerA(lpServiceName, lpHandlerProc) {
+        lpServiceName := lpServiceName is String? StrPtr(lpServiceName) : lpServiceName
+
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\RegisterServiceCtrlHandlerA", "ptr", lpServiceName, "ptr", lpHandlerProc, "ptr")
@@ -4511,6 +4569,8 @@ class Services {
      * @since windows5.1.2600
      */
     static RegisterServiceCtrlHandlerW(lpServiceName, lpHandlerProc) {
+        lpServiceName := lpServiceName is String? StrPtr(lpServiceName) : lpServiceName
+
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\RegisterServiceCtrlHandlerW", "ptr", lpServiceName, "ptr", lpHandlerProc, "ptr")
@@ -4589,6 +4649,8 @@ class Services {
      * @since windows5.1.2600
      */
     static RegisterServiceCtrlHandlerExA(lpServiceName, lpHandlerProc, lpContext) {
+        lpServiceName := lpServiceName is String? StrPtr(lpServiceName) : lpServiceName
+
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\RegisterServiceCtrlHandlerExA", "ptr", lpServiceName, "ptr", lpHandlerProc, "ptr", lpContext, "ptr")
@@ -4667,6 +4729,8 @@ class Services {
      * @since windows5.1.2600
      */
     static RegisterServiceCtrlHandlerExW(lpServiceName, lpHandlerProc, lpContext) {
+        lpServiceName := lpServiceName is String? StrPtr(lpServiceName) : lpServiceName
+
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\RegisterServiceCtrlHandlerExW", "ptr", lpServiceName, "ptr", lpHandlerProc, "ptr", lpContext, "ptr")
@@ -5217,6 +5281,8 @@ class Services {
      * @since windows5.1.2600
      */
     static StartServiceA(hService, dwNumServiceArgs, lpServiceArgVectors) {
+        lpServiceArgVectors := lpServiceArgVectors is String? StrPtr(lpServiceArgVectors) : lpServiceArgVectors
+
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\StartServiceA", "ptr", hService, "uint", dwNumServiceArgs, "ptr", lpServiceArgVectors, "int")
@@ -5413,6 +5479,8 @@ class Services {
      * @since windows5.1.2600
      */
     static StartServiceW(hService, dwNumServiceArgs, lpServiceArgVectors) {
+        lpServiceArgVectors := lpServiceArgVectors is String? StrPtr(lpServiceArgVectors) : lpServiceArgVectors
+
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\StartServiceW", "ptr", hService, "uint", dwNumServiceArgs, "ptr", lpServiceArgVectors, "int")
@@ -6410,6 +6478,8 @@ class Services {
      * @since windows10.0.19041
      */
     static GetServiceDirectory(hServiceStatus, eDirectoryType, lpPathBuffer, cchPathBufferLength, lpcchRequiredBufferLength) {
+        lpPathBuffer := lpPathBuffer is String? StrPtr(lpPathBuffer) : lpPathBuffer
+
         result := DllCall("api-ms-win-service-core-l1-1-4.dll\GetServiceDirectory", "ptr", hServiceStatus, "int", eDirectoryType, "ptr", lpPathBuffer, "uint", cchPathBufferLength, "ptr", lpcchRequiredBufferLength, "uint")
         return result
     }
@@ -6452,6 +6522,8 @@ class Services {
      * @see https://learn.microsoft.com/windows/win32/api/winsvc/nf-winsvc-getsharedservicedirectory
      */
     static GetSharedServiceDirectory(ServiceHandle, DirectoryType, PathBuffer, PathBufferLength, RequiredBufferLength) {
+        PathBuffer := PathBuffer is String? StrPtr(PathBuffer) : PathBuffer
+
         result := DllCall("api-ms-win-service-core-l1-1-5.dll\GetSharedServiceDirectory", "ptr", ServiceHandle, "int", DirectoryType, "ptr", PathBuffer, "uint", PathBufferLength, "ptr", RequiredBufferLength, "uint")
         return result
     }

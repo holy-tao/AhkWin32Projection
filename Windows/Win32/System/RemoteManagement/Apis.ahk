@@ -2788,6 +2788,9 @@ class RemoteManagement {
     static WSManGetErrorMessage(apiHandle, languageCode, errorCode, messageLength, message, messageLengthUsed) {
         static flags := 0 ;Reserved parameters must always be NULL
 
+        languageCode := languageCode is String? StrPtr(languageCode) : languageCode
+        message := message is String? StrPtr(message) : message
+
         result := DllCall("WsmSvc.dll\WSManGetErrorMessage", "ptr", apiHandle, "uint", flags, "ptr", languageCode, "uint", errorCode, "uint", messageLength, "ptr", message, "ptr", messageLengthUsed, "uint")
         return result
     }
@@ -2858,6 +2861,8 @@ class RemoteManagement {
      * @since windows6.1
      */
     static WSManCreateSession(apiHandle, connection, flags, serverAuthenticationCredentials, proxyInfo, session) {
+        connection := connection is String? StrPtr(connection) : connection
+
         result := DllCall("WsmSvc.dll\WSManCreateSession", "ptr", apiHandle, "ptr", connection, "uint", flags, "ptr", serverAuthenticationCredentials, "ptr", proxyInfo, "ptr", session, "uint")
         return result
     }
@@ -2927,6 +2932,8 @@ class RemoteManagement {
      * @since windows6.1
      */
     static WSManGetSessionOptionAsString(session, option, stringLength, string, stringLengthUsed) {
+        string := string is String? StrPtr(string) : string
+
         result := DllCall("WsmSvc.dll\WSManGetSessionOptionAsString", "ptr", session, "int", option, "uint", stringLength, "ptr", string, "ptr", stringLengthUsed, "uint")
         return result
     }
@@ -2963,6 +2970,8 @@ class RemoteManagement {
      * @since windows6.1
      */
     static WSManCreateShell(session, flags, resourceUri, startupInfo, options, createXml, async, shell) {
+        resourceUri := resourceUri is String? StrPtr(resourceUri) : resourceUri
+
         DllCall("WsmSvc.dll\WSManCreateShell", "ptr", session, "uint", flags, "ptr", resourceUri, "ptr", startupInfo, "ptr", options, "ptr", createXml, "ptr", async, "ptr", shell)
     }
 
@@ -2980,6 +2989,8 @@ class RemoteManagement {
      * @since windows6.1
      */
     static WSManRunShellCommand(shell, flags, commandLine, args, options, async, command) {
+        commandLine := commandLine is String? StrPtr(commandLine) : commandLine
+
         DllCall("WsmSvc.dll\WSManRunShellCommand", "ptr", shell, "uint", flags, "ptr", commandLine, "ptr", args, "ptr", options, "ptr", async, "ptr", command)
     }
 
@@ -2997,6 +3008,8 @@ class RemoteManagement {
      * @since windows6.1
      */
     static WSManSignalShell(shell, command, flags, code, async, signalOperation) {
+        code := code is String? StrPtr(code) : code
+
         DllCall("WsmSvc.dll\WSManSignalShell", "ptr", shell, "ptr", command, "uint", flags, "ptr", code, "ptr", async, "ptr", signalOperation)
     }
 
@@ -3031,6 +3044,8 @@ class RemoteManagement {
      * @since windows6.1
      */
     static WSManSendShellInput(shell, command, flags, streamId, streamData, endOfStream, async, sendOperation) {
+        streamId := streamId is String? StrPtr(streamId) : streamId
+
         DllCall("WsmSvc.dll\WSManSendShellInput", "ptr", shell, "ptr", command, "uint", flags, "ptr", streamId, "ptr", streamData, "int", endOfStream, "ptr", async, "ptr", sendOperation)
     }
 
@@ -3077,6 +3092,9 @@ class RemoteManagement {
      * @since windows8.0
      */
     static WSManCreateShellEx(session, flags, resourceUri, shellId, startupInfo, options, createXml, async, shell) {
+        resourceUri := resourceUri is String? StrPtr(resourceUri) : resourceUri
+        shellId := shellId is String? StrPtr(shellId) : shellId
+
         DllCall("WsmSvc.dll\WSManCreateShellEx", "ptr", session, "uint", flags, "ptr", resourceUri, "ptr", shellId, "ptr", startupInfo, "ptr", options, "ptr", createXml, "ptr", async, "ptr", shell)
     }
 
@@ -3095,6 +3113,9 @@ class RemoteManagement {
      * @since windows8.0
      */
     static WSManRunShellCommandEx(shell, flags, commandId, commandLine, args, options, async, command) {
+        commandId := commandId is String? StrPtr(commandId) : commandId
+        commandLine := commandLine is String? StrPtr(commandLine) : commandLine
+
         DllCall("WsmSvc.dll\WSManRunShellCommandEx", "ptr", shell, "uint", flags, "ptr", commandId, "ptr", commandLine, "ptr", args, "ptr", options, "ptr", async, "ptr", command)
     }
 
@@ -3194,6 +3215,9 @@ class RemoteManagement {
      * @since windows8.0
      */
     static WSManConnectShell(session, flags, resourceUri, shellID, options, connectXml, async, shell) {
+        resourceUri := resourceUri is String? StrPtr(resourceUri) : resourceUri
+        shellID := shellID is String? StrPtr(shellID) : shellID
+
         DllCall("WsmSvc.dll\WSManConnectShell", "ptr", session, "uint", flags, "ptr", resourceUri, "ptr", shellID, "ptr", options, "ptr", connectXml, "ptr", async, "ptr", shell)
     }
 
@@ -3211,6 +3235,8 @@ class RemoteManagement {
      * @since windows8.0
      */
     static WSManConnectShellCommand(shell, flags, commandID, options, connectXml, async, command) {
+        commandID := commandID is String? StrPtr(commandID) : commandID
+
         DllCall("WsmSvc.dll\WSManConnectShellCommand", "ptr", shell, "uint", flags, "ptr", commandID, "ptr", options, "ptr", connectXml, "ptr", async, "ptr", command)
     }
 
@@ -3241,6 +3267,9 @@ class RemoteManagement {
      * @since windows6.1
      */
     static WSManPluginReceiveResult(requestDetails, flags, stream, streamResult, commandState, exitCode) {
+        stream := stream is String? StrPtr(stream) : stream
+        commandState := commandState is String? StrPtr(commandState) : commandState
+
         result := DllCall("WsmSvc.dll\WSManPluginReceiveResult", "ptr", requestDetails, "uint", flags, "ptr", stream, "ptr", streamResult, "ptr", commandState, "uint", exitCode, "uint")
         return result
     }
@@ -3259,6 +3288,8 @@ class RemoteManagement {
      * @since windows6.1
      */
     static WSManPluginOperationComplete(requestDetails, flags, errorCode, extendedInformation) {
+        extendedInformation := extendedInformation is String? StrPtr(extendedInformation) : extendedInformation
+
         result := DllCall("WsmSvc.dll\WSManPluginOperationComplete", "ptr", requestDetails, "uint", flags, "uint", errorCode, "ptr", extendedInformation, "uint")
         return result
     }
@@ -3333,6 +3364,8 @@ class RemoteManagement {
      * @since windows6.1
      */
     static WSManPluginAuthzUserComplete(senderDetails, flags, userAuthorizationContext, impersonationToken, userIsAdministrator, errorCode, extendedErrorInformation) {
+        extendedErrorInformation := extendedErrorInformation is String? StrPtr(extendedErrorInformation) : extendedErrorInformation
+
         result := DllCall("WsmSvc.dll\WSManPluginAuthzUserComplete", "ptr", senderDetails, "uint", flags, "ptr", userAuthorizationContext, "ptr", impersonationToken, "int", userIsAdministrator, "uint", errorCode, "ptr", extendedErrorInformation, "uint")
         return result
     }
@@ -3349,6 +3382,8 @@ class RemoteManagement {
      * @since windows6.1
      */
     static WSManPluginAuthzOperationComplete(senderDetails, flags, userAuthorizationContext, errorCode, extendedErrorInformation) {
+        extendedErrorInformation := extendedErrorInformation is String? StrPtr(extendedErrorInformation) : extendedErrorInformation
+
         result := DllCall("WsmSvc.dll\WSManPluginAuthzOperationComplete", "ptr", senderDetails, "uint", flags, "ptr", userAuthorizationContext, "uint", errorCode, "ptr", extendedErrorInformation, "uint")
         return result
     }
@@ -3367,6 +3402,8 @@ class RemoteManagement {
      * @since windows6.1
      */
     static WSManPluginAuthzQueryQuotaComplete(senderDetails, flags, quota, errorCode, extendedErrorInformation) {
+        extendedErrorInformation := extendedErrorInformation is String? StrPtr(extendedErrorInformation) : extendedErrorInformation
+
         result := DllCall("WsmSvc.dll\WSManPluginAuthzQueryQuotaComplete", "ptr", senderDetails, "uint", flags, "ptr", quota, "uint", errorCode, "ptr", extendedErrorInformation, "uint")
         return result
     }

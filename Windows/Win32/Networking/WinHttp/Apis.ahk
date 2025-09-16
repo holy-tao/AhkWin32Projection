@@ -3141,6 +3141,8 @@ class WinHttp {
      * @since windows5.1.2600
      */
     static WinHttpTimeFromSystemTime(pst, pwszTime) {
+        pwszTime := pwszTime is String? StrPtr(pwszTime) : pwszTime
+
         A_LastError := 0
 
         result := DllCall("WINHTTP.dll\WinHttpTimeFromSystemTime", "ptr", pst, "ptr", pwszTime, "int")
@@ -3185,6 +3187,8 @@ class WinHttp {
      * @since windows5.1.2600
      */
     static WinHttpTimeToSystemTime(pwszTime, pst) {
+        pwszTime := pwszTime is String? StrPtr(pwszTime) : pwszTime
+
         A_LastError := 0
 
         result := DllCall("WINHTTP.dll\WinHttpTimeToSystemTime", "ptr", pwszTime, "ptr", pst, "int")
@@ -3328,6 +3332,8 @@ class WinHttp {
      * @since windows5.1.2600
      */
     static WinHttpCrackUrl(pwszUrl, dwUrlLength, dwFlags, lpUrlComponents) {
+        pwszUrl := pwszUrl is String? StrPtr(pwszUrl) : pwszUrl
+
         A_LastError := 0
 
         result := DllCall("WINHTTP.dll\WinHttpCrackUrl", "ptr", pwszUrl, "uint", dwUrlLength, "uint", dwFlags, "ptr", lpUrlComponents, "int")
@@ -3387,6 +3393,8 @@ class WinHttp {
      * @since windows5.1.2600
      */
     static WinHttpCreateUrl(lpUrlComponents, dwFlags, pwszUrl, pdwUrlLength) {
+        pwszUrl := pwszUrl is String? StrPtr(pwszUrl) : pwszUrl
+
         A_LastError := 0
 
         result := DllCall("WINHTTP.dll\WinHttpCreateUrl", "ptr", lpUrlComponents, "uint", dwFlags, "ptr", pwszUrl, "ptr", pdwUrlLength, "int")
@@ -3628,6 +3636,10 @@ class WinHttp {
      * @since windows5.1.2600
      */
     static WinHttpOpen(pszAgentW, dwAccessType, pszProxyW, pszProxyBypassW, dwFlags) {
+        pszAgentW := pszAgentW is String? StrPtr(pszAgentW) : pszAgentW
+        pszProxyW := pszProxyW is String? StrPtr(pszProxyW) : pszProxyW
+        pszProxyBypassW := pszProxyBypassW is String? StrPtr(pszProxyBypassW) : pszProxyBypassW
+
         A_LastError := 0
 
         DllCall("WINHTTP.dll\WinHttpOpen", "ptr", pszAgentW, "uint", dwAccessType, "ptr", pszProxyW, "ptr", pszProxyBypassW, "uint", dwFlags)
@@ -3756,6 +3768,8 @@ class WinHttp {
      * @since windows5.1.2600
      */
     static WinHttpConnect(hSession, pswzServerName, nServerPort, dwReserved) {
+        pswzServerName := pswzServerName is String? StrPtr(pswzServerName) : pswzServerName
+
         A_LastError := 0
 
         DllCall("WINHTTP.dll\WinHttpConnect", "ptr", hSession, "ptr", pswzServerName, "ushort", nServerPort, "uint", dwReserved)
@@ -4707,6 +4721,12 @@ class WinHttp {
      * @since windows5.1.2600
      */
     static WinHttpOpenRequest(hConnect, pwszVerb, pwszObjectName, pwszVersion, pwszReferrer, ppwszAcceptTypes, dwFlags) {
+        pwszVerb := pwszVerb is String? StrPtr(pwszVerb) : pwszVerb
+        pwszObjectName := pwszObjectName is String? StrPtr(pwszObjectName) : pwszObjectName
+        pwszVersion := pwszVersion is String? StrPtr(pwszVersion) : pwszVersion
+        pwszReferrer := pwszReferrer is String? StrPtr(pwszReferrer) : pwszReferrer
+        ppwszAcceptTypes := ppwszAcceptTypes is String? StrPtr(ppwszAcceptTypes) : ppwszAcceptTypes
+
         A_LastError := 0
 
         DllCall("WINHTTP.dll\WinHttpOpenRequest", "ptr", hConnect, "ptr", pwszVerb, "ptr", pwszObjectName, "ptr", pwszVersion, "ptr", pwszReferrer, "ptr", ppwszAcceptTypes, "uint", dwFlags)
@@ -4873,6 +4893,8 @@ class WinHttp {
      * @since windows5.1.2600
      */
     static WinHttpAddRequestHeaders(hRequest, lpszHeaders, dwHeadersLength, dwModifiers) {
+        lpszHeaders := lpszHeaders is String? StrPtr(lpszHeaders) : lpszHeaders
+
         A_LastError := 0
 
         result := DllCall("WINHTTP.dll\WinHttpAddRequestHeaders", "ptr", hRequest, "ptr", lpszHeaders, "uint", dwHeadersLength, "uint", dwModifiers, "int")
@@ -5351,6 +5373,8 @@ class WinHttp {
      * @since windows5.1.2600
      */
     static WinHttpSendRequest(hRequest, lpszHeaders, dwHeadersLength, lpOptional, dwOptionalLength, dwTotalLength, dwContext) {
+        lpszHeaders := lpszHeaders is String? StrPtr(lpszHeaders) : lpszHeaders
+
         A_LastError := 0
 
         result := DllCall("WINHTTP.dll\WinHttpSendRequest", "ptr", hRequest, "ptr", lpszHeaders, "uint", dwHeadersLength, "ptr", lpOptional, "uint", dwOptionalLength, "uint", dwTotalLength, "ptr", dwContext, "int")
@@ -5524,6 +5548,9 @@ class WinHttp {
      * @since windows5.1.2600
      */
     static WinHttpSetCredentials(hRequest, AuthTargets, AuthScheme, pwszUserName, pwszPassword, pAuthParams) {
+        pwszUserName := pwszUserName is String? StrPtr(pwszUserName) : pwszUserName
+        pwszPassword := pwszPassword is String? StrPtr(pwszPassword) : pwszPassword
+
         A_LastError := 0
 
         result := DllCall("WINHTTP.dll\WinHttpSetCredentials", "ptr", hRequest, "uint", AuthTargets, "uint", AuthScheme, "ptr", pwszUserName, "ptr", pwszPassword, "ptr", pAuthParams, "int")
@@ -6159,6 +6186,8 @@ class WinHttp {
      * @since windows5.1.2600
      */
     static WinHttpQueryHeaders(hRequest, dwInfoLevel, pwszName, lpBuffer, lpdwBufferLength, lpdwIndex) {
+        pwszName := pwszName is String? StrPtr(pwszName) : pwszName
+
         A_LastError := 0
 
         result := DllCall("WINHTTP.dll\WinHttpQueryHeaders", "ptr", hRequest, "uint", dwInfoLevel, "ptr", pwszName, "ptr", lpBuffer, "ptr", lpdwBufferLength, "ptr", lpdwIndex, "int")
@@ -6405,6 +6434,8 @@ class WinHttp {
      * @since windows5.1.2600
      */
     static WinHttpDetectAutoProxyConfigUrl(dwAutoDetectFlags, ppwstrAutoConfigUrl) {
+        ppwstrAutoConfigUrl := ppwstrAutoConfigUrl is String? StrPtr(ppwstrAutoConfigUrl) : ppwstrAutoConfigUrl
+
         A_LastError := 0
 
         result := DllCall("WINHTTP.dll\WinHttpDetectAutoProxyConfigUrl", "uint", dwAutoDetectFlags, "ptr", ppwstrAutoConfigUrl, "int")
@@ -6557,6 +6588,8 @@ class WinHttp {
      * @since windows5.1.2600
      */
     static WinHttpGetProxyForUrl(hSession, lpcwszUrl, pAutoProxyOptions, pProxyInfo) {
+        lpcwszUrl := lpcwszUrl is String? StrPtr(lpcwszUrl) : lpcwszUrl
+
         A_LastError := 0
 
         result := DllCall("WINHTTP.dll\WinHttpGetProxyForUrl", "ptr", hSession, "ptr", lpcwszUrl, "ptr", pAutoProxyOptions, "ptr", pProxyInfo, "int")
@@ -6759,6 +6792,8 @@ class WinHttp {
      * @since windows8.0
      */
     static WinHttpGetProxyForUrlEx(hResolver, pcwszUrl, pAutoProxyOptions, pContext) {
+        pcwszUrl := pcwszUrl is String? StrPtr(pcwszUrl) : pcwszUrl
+
         result := DllCall("WINHTTP.dll\WinHttpGetProxyForUrlEx", "ptr", hResolver, "ptr", pcwszUrl, "ptr", pAutoProxyOptions, "ptr", pContext, "uint")
         return result
     }
@@ -6774,6 +6809,8 @@ class WinHttp {
      * @returns {Integer} 
      */
     static WinHttpGetProxyForUrlEx2(hResolver, pcwszUrl, pAutoProxyOptions, cbInterfaceSelectionContext, pInterfaceSelectionContext, pContext) {
+        pcwszUrl := pcwszUrl is String? StrPtr(pcwszUrl) : pcwszUrl
+
         result := DllCall("WINHTTP.dll\WinHttpGetProxyForUrlEx2", "ptr", hResolver, "ptr", pcwszUrl, "ptr", pAutoProxyOptions, "uint", cbInterfaceSelectionContext, "ptr", pInterfaceSelectionContext, "ptr", pContext, "uint")
         return result
     }
@@ -7101,6 +7138,8 @@ class WinHttp {
      * @returns {Integer} 
      */
     static WinHttpReadProxySettings(hSession, pcwszConnectionName, fFallBackToDefaultSettings, fSetAutoDiscoverForDefaultSettings, pdwSettingsVersion, pfDefaultSettingsAreReturned, pWinHttpProxySettings) {
+        pcwszConnectionName := pcwszConnectionName is String? StrPtr(pcwszConnectionName) : pcwszConnectionName
+
         result := DllCall("WINHTTP.dll\WinHttpReadProxySettings", "ptr", hSession, "ptr", pcwszConnectionName, "int", fFallBackToDefaultSettings, "int", fSetAutoDiscoverForDefaultSettings, "ptr", pdwSettingsVersion, "ptr", pfDefaultSettingsAreReturned, "ptr", pWinHttpProxySettings, "uint")
         return result
     }

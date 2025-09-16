@@ -1662,6 +1662,8 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_openW(HostName, PortNumber) {
+        HostName := HostName is String? StrPtr(HostName) : HostName
+
         DllCall("WLDAP32.dll\ldap_openW", "ptr", HostName, "uint", PortNumber, "CDecl ")
     }
 
@@ -1691,6 +1693,8 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_openA(HostName, PortNumber) {
+        HostName := HostName is String? StrPtr(HostName) : HostName
+
         DllCall("WLDAP32.dll\ldap_openA", "ptr", HostName, "uint", PortNumber, "CDecl ")
     }
 
@@ -1738,6 +1742,8 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_initW(HostName, PortNumber) {
+        HostName := HostName is String? StrPtr(HostName) : HostName
+
         DllCall("WLDAP32.dll\ldap_initW", "ptr", HostName, "uint", PortNumber, "CDecl ")
     }
 
@@ -1779,6 +1785,8 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_initA(HostName, PortNumber) {
+        HostName := HostName is String? StrPtr(HostName) : HostName
+
         DllCall("WLDAP32.dll\ldap_initA", "ptr", HostName, "uint", PortNumber, "CDecl ")
     }
 
@@ -1811,6 +1819,8 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_sslinitW(HostName, PortNumber, secure) {
+        HostName := HostName is String? StrPtr(HostName) : HostName
+
         DllCall("WLDAP32.dll\ldap_sslinitW", "ptr", HostName, "uint", PortNumber, "int", secure, "CDecl ")
     }
 
@@ -1836,6 +1846,8 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_sslinitA(HostName, PortNumber, secure) {
+        HostName := HostName is String? StrPtr(HostName) : HostName
+
         DllCall("WLDAP32.dll\ldap_sslinitA", "ptr", HostName, "uint", PortNumber, "int", secure, "CDecl ")
     }
 
@@ -1888,6 +1900,8 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_open(HostName, PortNumber) {
+        HostName := HostName is String? StrPtr(HostName) : HostName
+
         DllCall("WLDAP32.dll\ldap_open", "ptr", HostName, "uint", PortNumber, "CDecl ")
     }
 
@@ -1929,6 +1943,8 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_init(HostName, PortNumber) {
+        HostName := HostName is String? StrPtr(HostName) : HostName
+
         DllCall("WLDAP32.dll\ldap_init", "ptr", HostName, "uint", PortNumber, "CDecl ")
     }
 
@@ -1954,6 +1970,8 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_sslinit(HostName, PortNumber, secure) {
+        HostName := HostName is String? StrPtr(HostName) : HostName
+
         DllCall("WLDAP32.dll\ldap_sslinit", "ptr", HostName, "uint", PortNumber, "int", secure, "CDecl ")
     }
 
@@ -1982,6 +2000,8 @@ class Ldap {
      * @since windows6.0.6000
      */
     static cldap_openW(HostName, PortNumber) {
+        HostName := HostName is String? StrPtr(HostName) : HostName
+
         A_LastError := 0
 
         DllCall("WLDAP32.dll\cldap_openW", "ptr", HostName, "uint", PortNumber, "CDecl ")
@@ -2009,6 +2029,8 @@ class Ldap {
      * @since windows6.0.6000
      */
     static cldap_openA(HostName, PortNumber) {
+        HostName := HostName is String? StrPtr(HostName) : HostName
+
         A_LastError := 0
 
         DllCall("WLDAP32.dll\cldap_openA", "ptr", HostName, "uint", PortNumber, "CDecl ")
@@ -2036,6 +2058,8 @@ class Ldap {
      * @since windows6.0.6000
      */
     static cldap_open(HostName, PortNumber) {
+        HostName := HostName is String? StrPtr(HostName) : HostName
+
         A_LastError := 0
 
         DllCall("WLDAP32.dll\cldap_open", "ptr", HostName, "uint", PortNumber, "CDecl ")
@@ -2247,6 +2271,9 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_simple_bindW(ld, dn, passwd) {
+        dn := dn is String? StrPtr(dn) : dn
+        passwd := passwd is String? StrPtr(passwd) : passwd
+
         result := DllCall("WLDAP32.dll\ldap_simple_bindW", "ptr", ld, "ptr", dn, "ptr", passwd, "CDecl uint")
         return result
     }
@@ -2283,6 +2310,9 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_simple_bindA(ld, dn, passwd) {
+        dn := dn is String? StrPtr(dn) : dn
+        passwd := passwd is String? StrPtr(passwd) : passwd
+
         result := DllCall("WLDAP32.dll\ldap_simple_bindA", "ptr", ld, "ptr", dn, "ptr", passwd, "CDecl uint")
         return result
     }
@@ -2319,6 +2349,9 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_simple_bind_sW(ld, dn, passwd) {
+        dn := dn is String? StrPtr(dn) : dn
+        passwd := passwd is String? StrPtr(passwd) : passwd
+
         result := DllCall("WLDAP32.dll\ldap_simple_bind_sW", "ptr", ld, "ptr", dn, "ptr", passwd, "CDecl uint")
         return result
     }
@@ -2348,6 +2381,9 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_simple_bind_sA(ld, dn, passwd) {
+        dn := dn is String? StrPtr(dn) : dn
+        passwd := passwd is String? StrPtr(passwd) : passwd
+
         result := DllCall("WLDAP32.dll\ldap_simple_bind_sA", "ptr", ld, "ptr", dn, "ptr", passwd, "CDecl uint")
         return result
     }
@@ -2399,6 +2435,9 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_bindW(ld, dn, cred, method) {
+        dn := dn is String? StrPtr(dn) : dn
+        cred := cred is String? StrPtr(cred) : cred
+
         result := DllCall("WLDAP32.dll\ldap_bindW", "ptr", ld, "ptr", dn, "ptr", cred, "uint", method, "CDecl uint")
         return result
     }
@@ -2443,6 +2482,9 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_bindA(ld, dn, cred, method) {
+        dn := dn is String? StrPtr(dn) : dn
+        cred := cred is String? StrPtr(cred) : cred
+
         result := DllCall("WLDAP32.dll\ldap_bindA", "ptr", ld, "ptr", dn, "ptr", cred, "uint", method, "CDecl uint")
         return result
     }
@@ -2595,6 +2637,9 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_bind_sW(ld, dn, cred, method) {
+        dn := dn is String? StrPtr(dn) : dn
+        cred := cred is String? StrPtr(cred) : cred
+
         result := DllCall("WLDAP32.dll\ldap_bind_sW", "ptr", ld, "ptr", dn, "ptr", cred, "uint", method, "CDecl uint")
         return result
     }
@@ -2740,6 +2785,9 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_bind_sA(ld, dn, cred, method) {
+        dn := dn is String? StrPtr(dn) : dn
+        cred := cred is String? StrPtr(cred) : cred
+
         result := DllCall("WLDAP32.dll\ldap_bind_sA", "ptr", ld, "ptr", dn, "ptr", cred, "uint", method, "CDecl uint")
         return result
     }
@@ -2770,6 +2818,9 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_sasl_bindA(ExternalHandle, DistName, AuthMechanism, cred, ServerCtrls, ClientCtrls, MessageNumber) {
+        DistName := DistName is String? StrPtr(DistName) : DistName
+        AuthMechanism := AuthMechanism is String? StrPtr(AuthMechanism) : AuthMechanism
+
         DllCall("WLDAP32.dll\ldap_sasl_bindA", "ptr", ExternalHandle, "ptr", DistName, "ptr", AuthMechanism, "ptr", cred, "ptr", ServerCtrls, "ptr", ClientCtrls, "ptr", MessageNumber, "CDecl ")
     }
 
@@ -2799,6 +2850,9 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_sasl_bindW(ExternalHandle, DistName, AuthMechanism, cred, ServerCtrls, ClientCtrls, MessageNumber) {
+        DistName := DistName is String? StrPtr(DistName) : DistName
+        AuthMechanism := AuthMechanism is String? StrPtr(AuthMechanism) : AuthMechanism
+
         DllCall("WLDAP32.dll\ldap_sasl_bindW", "ptr", ExternalHandle, "ptr", DistName, "ptr", AuthMechanism, "ptr", cred, "ptr", ServerCtrls, "ptr", ClientCtrls, "ptr", MessageNumber, "CDecl ")
     }
 
@@ -2828,6 +2882,9 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_sasl_bind_sA(ExternalHandle, DistName, AuthMechanism, cred, ServerCtrls, ClientCtrls, ServerData) {
+        DistName := DistName is String? StrPtr(DistName) : DistName
+        AuthMechanism := AuthMechanism is String? StrPtr(AuthMechanism) : AuthMechanism
+
         DllCall("WLDAP32.dll\ldap_sasl_bind_sA", "ptr", ExternalHandle, "ptr", DistName, "ptr", AuthMechanism, "ptr", cred, "ptr", ServerCtrls, "ptr", ClientCtrls, "ptr", ServerData, "CDecl ")
     }
 
@@ -2857,6 +2914,9 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_sasl_bind_sW(ExternalHandle, DistName, AuthMechanism, cred, ServerCtrls, ClientCtrls, ServerData) {
+        DistName := DistName is String? StrPtr(DistName) : DistName
+        AuthMechanism := AuthMechanism is String? StrPtr(AuthMechanism) : AuthMechanism
+
         DllCall("WLDAP32.dll\ldap_sasl_bind_sW", "ptr", ExternalHandle, "ptr", DistName, "ptr", AuthMechanism, "ptr", cred, "ptr", ServerCtrls, "ptr", ClientCtrls, "ptr", ServerData, "CDecl ")
     }
 
@@ -2892,6 +2952,9 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_simple_bind(ld, dn, passwd) {
+        dn := dn is String? StrPtr(dn) : dn
+        passwd := passwd is String? StrPtr(passwd) : passwd
+
         result := DllCall("WLDAP32.dll\ldap_simple_bind", "ptr", ld, "ptr", dn, "ptr", passwd, "CDecl uint")
         return result
     }
@@ -2921,6 +2984,9 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_simple_bind_s(ld, dn, passwd) {
+        dn := dn is String? StrPtr(dn) : dn
+        passwd := passwd is String? StrPtr(passwd) : passwd
+
         result := DllCall("WLDAP32.dll\ldap_simple_bind_s", "ptr", ld, "ptr", dn, "ptr", passwd, "CDecl uint")
         return result
     }
@@ -2965,6 +3031,9 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_bind(ld, dn, cred, method) {
+        dn := dn is String? StrPtr(dn) : dn
+        cred := cred is String? StrPtr(cred) : cred
+
         result := DllCall("WLDAP32.dll\ldap_bind", "ptr", ld, "ptr", dn, "ptr", cred, "uint", method, "CDecl uint")
         return result
     }
@@ -3110,6 +3179,9 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_bind_s(ld, dn, cred, method) {
+        dn := dn is String? StrPtr(dn) : dn
+        cred := cred is String? StrPtr(cred) : cred
+
         result := DllCall("WLDAP32.dll\ldap_bind_s", "ptr", ld, "ptr", dn, "ptr", cred, "uint", method, "CDecl uint")
         return result
     }
@@ -3159,6 +3231,9 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_searchW(ld, base, scope, filter, attrs, attrsonly) {
+        base := base is String? StrPtr(base) : base
+        filter := filter is String? StrPtr(filter) : filter
+
         result := DllCall("WLDAP32.dll\ldap_searchW", "ptr", ld, "ptr", base, "uint", scope, "ptr", filter, "ptr", attrs, "uint", attrsonly, "CDecl uint")
         return result
     }
@@ -3202,6 +3277,9 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_searchA(ld, base, scope, filter, attrs, attrsonly) {
+        base := base is String? StrPtr(base) : base
+        filter := filter is String? StrPtr(filter) : filter
+
         result := DllCall("WLDAP32.dll\ldap_searchA", "ptr", ld, "ptr", base, "uint", scope, "ptr", filter, "ptr", attrs, "uint", attrsonly, "CDecl uint")
         return result
     }
@@ -3292,6 +3370,9 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_search_sW(ld, base, scope, filter, attrs, attrsonly, res) {
+        base := base is String? StrPtr(base) : base
+        filter := filter is String? StrPtr(filter) : filter
+
         result := DllCall("WLDAP32.dll\ldap_search_sW", "ptr", ld, "ptr", base, "uint", scope, "ptr", filter, "ptr", attrs, "uint", attrsonly, "ptr", res, "CDecl uint")
         return result
     }
@@ -3374,6 +3455,9 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_search_sA(ld, base, scope, filter, attrs, attrsonly, res) {
+        base := base is String? StrPtr(base) : base
+        filter := filter is String? StrPtr(filter) : filter
+
         result := DllCall("WLDAP32.dll\ldap_search_sA", "ptr", ld, "ptr", base, "uint", scope, "ptr", filter, "ptr", attrs, "uint", attrsonly, "ptr", res, "CDecl uint")
         return result
     }
@@ -3467,6 +3551,9 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_search_stW(ld, base, scope, filter, attrs, attrsonly, timeout, res) {
+        base := base is String? StrPtr(base) : base
+        filter := filter is String? StrPtr(filter) : filter
+
         result := DllCall("WLDAP32.dll\ldap_search_stW", "ptr", ld, "ptr", base, "uint", scope, "ptr", filter, "ptr", attrs, "uint", attrsonly, "ptr", timeout, "ptr", res, "CDecl uint")
         return result
     }
@@ -3552,6 +3639,9 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_search_stA(ld, base, scope, filter, attrs, attrsonly, timeout, res) {
+        base := base is String? StrPtr(base) : base
+        filter := filter is String? StrPtr(filter) : filter
+
         result := DllCall("WLDAP32.dll\ldap_search_stA", "ptr", ld, "ptr", base, "uint", scope, "ptr", filter, "ptr", attrs, "uint", attrsonly, "ptr", timeout, "ptr", res, "CDecl uint")
         return result
     }
@@ -3605,6 +3695,9 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_search_extW(ld, base, scope, filter, attrs, attrsonly, ServerControls, ClientControls, TimeLimit, SizeLimit, MessageNumber) {
+        base := base is String? StrPtr(base) : base
+        filter := filter is String? StrPtr(filter) : filter
+
         result := DllCall("WLDAP32.dll\ldap_search_extW", "ptr", ld, "ptr", base, "uint", scope, "ptr", filter, "ptr", attrs, "uint", attrsonly, "ptr", ServerControls, "ptr", ClientControls, "uint", TimeLimit, "uint", SizeLimit, "ptr", MessageNumber, "CDecl uint")
         return result
     }
@@ -3651,6 +3744,9 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_search_extA(ld, base, scope, filter, attrs, attrsonly, ServerControls, ClientControls, TimeLimit, SizeLimit, MessageNumber) {
+        base := base is String? StrPtr(base) : base
+        filter := filter is String? StrPtr(filter) : filter
+
         result := DllCall("WLDAP32.dll\ldap_search_extA", "ptr", ld, "ptr", base, "uint", scope, "ptr", filter, "ptr", attrs, "uint", attrsonly, "ptr", ServerControls, "ptr", ClientControls, "uint", TimeLimit, "uint", SizeLimit, "ptr", MessageNumber, "CDecl uint")
         return result
     }
@@ -3751,6 +3847,9 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_search_ext_sW(ld, base, scope, filter, attrs, attrsonly, ServerControls, ClientControls, timeout, SizeLimit, res) {
+        base := base is String? StrPtr(base) : base
+        filter := filter is String? StrPtr(filter) : filter
+
         result := DllCall("WLDAP32.dll\ldap_search_ext_sW", "ptr", ld, "ptr", base, "uint", scope, "ptr", filter, "ptr", attrs, "uint", attrsonly, "ptr", ServerControls, "ptr", ClientControls, "ptr", timeout, "uint", SizeLimit, "ptr", res, "CDecl uint")
         return result
     }
@@ -3843,6 +3942,9 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_search_ext_sA(ld, base, scope, filter, attrs, attrsonly, ServerControls, ClientControls, timeout, SizeLimit, res) {
+        base := base is String? StrPtr(base) : base
+        filter := filter is String? StrPtr(filter) : filter
+
         result := DllCall("WLDAP32.dll\ldap_search_ext_sA", "ptr", ld, "ptr", base, "uint", scope, "ptr", filter, "ptr", attrs, "uint", attrsonly, "ptr", ServerControls, "ptr", ClientControls, "ptr", timeout, "uint", SizeLimit, "ptr", res, "CDecl uint")
         return result
     }
@@ -3886,6 +3988,9 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_search(ld, base, scope, filter, attrs, attrsonly) {
+        base := base is String? StrPtr(base) : base
+        filter := filter is String? StrPtr(filter) : filter
+
         result := DllCall("WLDAP32.dll\ldap_search", "ptr", ld, "ptr", base, "uint", scope, "ptr", filter, "ptr", attrs, "uint", attrsonly, "CDecl uint")
         return result
     }
@@ -3968,6 +4073,9 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_search_s(ld, base, scope, filter, attrs, attrsonly, res) {
+        base := base is String? StrPtr(base) : base
+        filter := filter is String? StrPtr(filter) : filter
+
         result := DllCall("WLDAP32.dll\ldap_search_s", "ptr", ld, "ptr", base, "uint", scope, "ptr", filter, "ptr", attrs, "uint", attrsonly, "ptr", res, "CDecl uint")
         return result
     }
@@ -4053,6 +4161,9 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_search_st(ld, base, scope, filter, attrs, attrsonly, timeout, res) {
+        base := base is String? StrPtr(base) : base
+        filter := filter is String? StrPtr(filter) : filter
+
         result := DllCall("WLDAP32.dll\ldap_search_st", "ptr", ld, "ptr", base, "uint", scope, "ptr", filter, "ptr", attrs, "uint", attrsonly, "ptr", timeout, "ptr", res, "CDecl uint")
         return result
     }
@@ -4099,6 +4210,9 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_search_ext(ld, base, scope, filter, attrs, attrsonly, ServerControls, ClientControls, TimeLimit, SizeLimit, MessageNumber) {
+        base := base is String? StrPtr(base) : base
+        filter := filter is String? StrPtr(filter) : filter
+
         result := DllCall("WLDAP32.dll\ldap_search_ext", "ptr", ld, "ptr", base, "uint", scope, "ptr", filter, "ptr", attrs, "uint", attrsonly, "ptr", ServerControls, "ptr", ClientControls, "uint", TimeLimit, "uint", SizeLimit, "ptr", MessageNumber, "CDecl uint")
         return result
     }
@@ -4191,6 +4305,9 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_search_ext_s(ld, base, scope, filter, attrs, attrsonly, ServerControls, ClientControls, timeout, SizeLimit, res) {
+        base := base is String? StrPtr(base) : base
+        filter := filter is String? StrPtr(filter) : filter
+
         result := DllCall("WLDAP32.dll\ldap_search_ext_s", "ptr", ld, "ptr", base, "uint", scope, "ptr", filter, "ptr", attrs, "uint", attrsonly, "ptr", ServerControls, "ptr", ClientControls, "ptr", timeout, "uint", SizeLimit, "ptr", res, "CDecl uint")
         return result
     }
@@ -4216,6 +4333,8 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_check_filterW(ld, SearchFilter) {
+        SearchFilter := SearchFilter is String? StrPtr(SearchFilter) : SearchFilter
+
         result := DllCall("WLDAP32.dll\ldap_check_filterW", "ptr", ld, "ptr", SearchFilter, "CDecl uint")
         return result
     }
@@ -4241,6 +4360,8 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_check_filterA(ld, SearchFilter) {
+        SearchFilter := SearchFilter is String? StrPtr(SearchFilter) : SearchFilter
+
         result := DllCall("WLDAP32.dll\ldap_check_filterA", "ptr", ld, "ptr", SearchFilter, "CDecl uint")
         return result
     }
@@ -4283,6 +4404,8 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_modifyW(ld, dn, mods) {
+        dn := dn is String? StrPtr(dn) : dn
+
         result := DllCall("WLDAP32.dll\ldap_modifyW", "ptr", ld, "ptr", dn, "ptr", mods, "CDecl uint")
         return result
     }
@@ -4319,6 +4442,8 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_modifyA(ld, dn, mods) {
+        dn := dn is String? StrPtr(dn) : dn
+
         result := DllCall("WLDAP32.dll\ldap_modifyA", "ptr", ld, "ptr", dn, "ptr", mods, "CDecl uint")
         return result
     }
@@ -4351,6 +4476,8 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_modify_sW(ld, dn, mods) {
+        dn := dn is String? StrPtr(dn) : dn
+
         result := DllCall("WLDAP32.dll\ldap_modify_sW", "ptr", ld, "ptr", dn, "ptr", mods, "CDecl uint")
         return result
     }
@@ -4377,6 +4504,8 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_modify_sA(ld, dn, mods) {
+        dn := dn is String? StrPtr(dn) : dn
+
         result := DllCall("WLDAP32.dll\ldap_modify_sA", "ptr", ld, "ptr", dn, "ptr", mods, "CDecl uint")
         return result
     }
@@ -4415,6 +4544,8 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_modify_extW(ld, dn, mods, ServerControls, ClientControls, MessageNumber) {
+        dn := dn is String? StrPtr(dn) : dn
+
         result := DllCall("WLDAP32.dll\ldap_modify_extW", "ptr", ld, "ptr", dn, "ptr", mods, "ptr", ServerControls, "ptr", ClientControls, "ptr", MessageNumber, "CDecl uint")
         return result
     }
@@ -4446,6 +4577,8 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_modify_extA(ld, dn, mods, ServerControls, ClientControls, MessageNumber) {
+        dn := dn is String? StrPtr(dn) : dn
+
         result := DllCall("WLDAP32.dll\ldap_modify_extA", "ptr", ld, "ptr", dn, "ptr", mods, "ptr", ServerControls, "ptr", ClientControls, "ptr", MessageNumber, "CDecl uint")
         return result
     }
@@ -4479,6 +4612,8 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_modify_ext_sW(ld, dn, mods, ServerControls, ClientControls) {
+        dn := dn is String? StrPtr(dn) : dn
+
         result := DllCall("WLDAP32.dll\ldap_modify_ext_sW", "ptr", ld, "ptr", dn, "ptr", mods, "ptr", ServerControls, "ptr", ClientControls, "CDecl uint")
         return result
     }
@@ -4505,6 +4640,8 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_modify_ext_sA(ld, dn, mods, ServerControls, ClientControls) {
+        dn := dn is String? StrPtr(dn) : dn
+
         result := DllCall("WLDAP32.dll\ldap_modify_ext_sA", "ptr", ld, "ptr", dn, "ptr", mods, "ptr", ServerControls, "ptr", ClientControls, "CDecl uint")
         return result
     }
@@ -4541,6 +4678,8 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_modify(ld, dn, mods) {
+        dn := dn is String? StrPtr(dn) : dn
+
         result := DllCall("WLDAP32.dll\ldap_modify", "ptr", ld, "ptr", dn, "ptr", mods, "CDecl uint")
         return result
     }
@@ -4567,6 +4706,8 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_modify_s(ld, dn, mods) {
+        dn := dn is String? StrPtr(dn) : dn
+
         result := DllCall("WLDAP32.dll\ldap_modify_s", "ptr", ld, "ptr", dn, "ptr", mods, "CDecl uint")
         return result
     }
@@ -4598,6 +4739,8 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_modify_ext(ld, dn, mods, ServerControls, ClientControls, MessageNumber) {
+        dn := dn is String? StrPtr(dn) : dn
+
         result := DllCall("WLDAP32.dll\ldap_modify_ext", "ptr", ld, "ptr", dn, "ptr", mods, "ptr", ServerControls, "ptr", ClientControls, "ptr", MessageNumber, "CDecl uint")
         return result
     }
@@ -4624,6 +4767,8 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_modify_ext_s(ld, dn, mods, ServerControls, ClientControls) {
+        dn := dn is String? StrPtr(dn) : dn
+
         result := DllCall("WLDAP32.dll\ldap_modify_ext_s", "ptr", ld, "ptr", dn, "ptr", mods, "ptr", ServerControls, "ptr", ClientControls, "CDecl uint")
         return result
     }
@@ -4664,6 +4809,9 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_modrdn2W(ExternalHandle, DistinguishedName, NewDistinguishedName, DeleteOldRdn) {
+        DistinguishedName := DistinguishedName is String? StrPtr(DistinguishedName) : DistinguishedName
+        NewDistinguishedName := NewDistinguishedName is String? StrPtr(NewDistinguishedName) : NewDistinguishedName
+
         result := DllCall("WLDAP32.dll\ldap_modrdn2W", "ptr", ExternalHandle, "ptr", DistinguishedName, "ptr", NewDistinguishedName, "int", DeleteOldRdn, "CDecl uint")
         return result
     }
@@ -4698,6 +4846,9 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_modrdn2A(ExternalHandle, DistinguishedName, NewDistinguishedName, DeleteOldRdn) {
+        DistinguishedName := DistinguishedName is String? StrPtr(DistinguishedName) : DistinguishedName
+        NewDistinguishedName := NewDistinguishedName is String? StrPtr(NewDistinguishedName) : NewDistinguishedName
+
         result := DllCall("WLDAP32.dll\ldap_modrdn2A", "ptr", ExternalHandle, "ptr", DistinguishedName, "ptr", NewDistinguishedName, "int", DeleteOldRdn, "CDecl uint")
         return result
     }
@@ -4741,6 +4892,9 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_modrdnW(ExternalHandle, DistinguishedName, NewDistinguishedName) {
+        DistinguishedName := DistinguishedName is String? StrPtr(DistinguishedName) : DistinguishedName
+        NewDistinguishedName := NewDistinguishedName is String? StrPtr(NewDistinguishedName) : NewDistinguishedName
+
         result := DllCall("WLDAP32.dll\ldap_modrdnW", "ptr", ExternalHandle, "ptr", DistinguishedName, "ptr", NewDistinguishedName, "CDecl uint")
         return result
     }
@@ -4778,6 +4932,9 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_modrdnA(ExternalHandle, DistinguishedName, NewDistinguishedName) {
+        DistinguishedName := DistinguishedName is String? StrPtr(DistinguishedName) : DistinguishedName
+        NewDistinguishedName := NewDistinguishedName is String? StrPtr(NewDistinguishedName) : NewDistinguishedName
+
         result := DllCall("WLDAP32.dll\ldap_modrdnA", "ptr", ExternalHandle, "ptr", DistinguishedName, "ptr", NewDistinguishedName, "CDecl uint")
         return result
     }
@@ -4811,6 +4968,9 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_modrdn2_sW(ExternalHandle, DistinguishedName, NewDistinguishedName, DeleteOldRdn) {
+        DistinguishedName := DistinguishedName is String? StrPtr(DistinguishedName) : DistinguishedName
+        NewDistinguishedName := NewDistinguishedName is String? StrPtr(NewDistinguishedName) : NewDistinguishedName
+
         result := DllCall("WLDAP32.dll\ldap_modrdn2_sW", "ptr", ExternalHandle, "ptr", DistinguishedName, "ptr", NewDistinguishedName, "int", DeleteOldRdn, "CDecl uint")
         return result
     }
@@ -4838,6 +4998,9 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_modrdn2_sA(ExternalHandle, DistinguishedName, NewDistinguishedName, DeleteOldRdn) {
+        DistinguishedName := DistinguishedName is String? StrPtr(DistinguishedName) : DistinguishedName
+        NewDistinguishedName := NewDistinguishedName is String? StrPtr(NewDistinguishedName) : NewDistinguishedName
+
         result := DllCall("WLDAP32.dll\ldap_modrdn2_sA", "ptr", ExternalHandle, "ptr", DistinguishedName, "ptr", NewDistinguishedName, "int", DeleteOldRdn, "CDecl uint")
         return result
     }
@@ -4871,6 +5034,9 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_modrdn_sW(ExternalHandle, DistinguishedName, NewDistinguishedName) {
+        DistinguishedName := DistinguishedName is String? StrPtr(DistinguishedName) : DistinguishedName
+        NewDistinguishedName := NewDistinguishedName is String? StrPtr(NewDistinguishedName) : NewDistinguishedName
+
         result := DllCall("WLDAP32.dll\ldap_modrdn_sW", "ptr", ExternalHandle, "ptr", DistinguishedName, "ptr", NewDistinguishedName, "CDecl uint")
         return result
     }
@@ -4897,6 +5063,9 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_modrdn_sA(ExternalHandle, DistinguishedName, NewDistinguishedName) {
+        DistinguishedName := DistinguishedName is String? StrPtr(DistinguishedName) : DistinguishedName
+        NewDistinguishedName := NewDistinguishedName is String? StrPtr(NewDistinguishedName) : NewDistinguishedName
+
         result := DllCall("WLDAP32.dll\ldap_modrdn_sA", "ptr", ExternalHandle, "ptr", DistinguishedName, "ptr", NewDistinguishedName, "CDecl uint")
         return result
     }
@@ -4931,6 +5100,9 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_modrdn2(ExternalHandle, DistinguishedName, NewDistinguishedName, DeleteOldRdn) {
+        DistinguishedName := DistinguishedName is String? StrPtr(DistinguishedName) : DistinguishedName
+        NewDistinguishedName := NewDistinguishedName is String? StrPtr(NewDistinguishedName) : NewDistinguishedName
+
         result := DllCall("WLDAP32.dll\ldap_modrdn2", "ptr", ExternalHandle, "ptr", DistinguishedName, "ptr", NewDistinguishedName, "int", DeleteOldRdn, "CDecl uint")
         return result
     }
@@ -4968,6 +5140,9 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_modrdn(ExternalHandle, DistinguishedName, NewDistinguishedName) {
+        DistinguishedName := DistinguishedName is String? StrPtr(DistinguishedName) : DistinguishedName
+        NewDistinguishedName := NewDistinguishedName is String? StrPtr(NewDistinguishedName) : NewDistinguishedName
+
         result := DllCall("WLDAP32.dll\ldap_modrdn", "ptr", ExternalHandle, "ptr", DistinguishedName, "ptr", NewDistinguishedName, "CDecl uint")
         return result
     }
@@ -4995,6 +5170,9 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_modrdn2_s(ExternalHandle, DistinguishedName, NewDistinguishedName, DeleteOldRdn) {
+        DistinguishedName := DistinguishedName is String? StrPtr(DistinguishedName) : DistinguishedName
+        NewDistinguishedName := NewDistinguishedName is String? StrPtr(NewDistinguishedName) : NewDistinguishedName
+
         result := DllCall("WLDAP32.dll\ldap_modrdn2_s", "ptr", ExternalHandle, "ptr", DistinguishedName, "ptr", NewDistinguishedName, "int", DeleteOldRdn, "CDecl uint")
         return result
     }
@@ -5021,6 +5199,9 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_modrdn_s(ExternalHandle, DistinguishedName, NewDistinguishedName) {
+        DistinguishedName := DistinguishedName is String? StrPtr(DistinguishedName) : DistinguishedName
+        NewDistinguishedName := NewDistinguishedName is String? StrPtr(NewDistinguishedName) : NewDistinguishedName
+
         result := DllCall("WLDAP32.dll\ldap_modrdn_s", "ptr", ExternalHandle, "ptr", DistinguishedName, "ptr", NewDistinguishedName, "CDecl uint")
         return result
     }
@@ -5055,6 +5236,10 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_rename_extW(ld, dn, NewRDN, NewParent, DeleteOldRdn, ServerControls, ClientControls, MessageNumber) {
+        dn := dn is String? StrPtr(dn) : dn
+        NewRDN := NewRDN is String? StrPtr(NewRDN) : NewRDN
+        NewParent := NewParent is String? StrPtr(NewParent) : NewParent
+
         result := DllCall("WLDAP32.dll\ldap_rename_extW", "ptr", ld, "ptr", dn, "ptr", NewRDN, "ptr", NewParent, "int", DeleteOldRdn, "ptr", ServerControls, "ptr", ClientControls, "ptr", MessageNumber, "CDecl uint")
         return result
     }
@@ -5082,6 +5267,10 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_rename_extA(ld, dn, NewRDN, NewParent, DeleteOldRdn, ServerControls, ClientControls, MessageNumber) {
+        dn := dn is String? StrPtr(dn) : dn
+        NewRDN := NewRDN is String? StrPtr(NewRDN) : NewRDN
+        NewParent := NewParent is String? StrPtr(NewParent) : NewParent
+
         result := DllCall("WLDAP32.dll\ldap_rename_extA", "ptr", ld, "ptr", dn, "ptr", NewRDN, "ptr", NewParent, "int", DeleteOldRdn, "ptr", ServerControls, "ptr", ClientControls, "ptr", MessageNumber, "CDecl uint")
         return result
     }
@@ -5112,6 +5301,10 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_rename_ext_sW(ld, dn, NewRDN, NewParent, DeleteOldRdn, ServerControls, ClientControls) {
+        dn := dn is String? StrPtr(dn) : dn
+        NewRDN := NewRDN is String? StrPtr(NewRDN) : NewRDN
+        NewParent := NewParent is String? StrPtr(NewParent) : NewParent
+
         result := DllCall("WLDAP32.dll\ldap_rename_ext_sW", "ptr", ld, "ptr", dn, "ptr", NewRDN, "ptr", NewParent, "int", DeleteOldRdn, "ptr", ServerControls, "ptr", ClientControls, "CDecl uint")
         return result
     }
@@ -5135,6 +5328,10 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_rename_ext_sA(ld, dn, NewRDN, NewParent, DeleteOldRdn, ServerControls, ClientControls) {
+        dn := dn is String? StrPtr(dn) : dn
+        NewRDN := NewRDN is String? StrPtr(NewRDN) : NewRDN
+        NewParent := NewParent is String? StrPtr(NewParent) : NewParent
+
         result := DllCall("WLDAP32.dll\ldap_rename_ext_sA", "ptr", ld, "ptr", dn, "ptr", NewRDN, "ptr", NewParent, "int", DeleteOldRdn, "ptr", ServerControls, "ptr", ClientControls, "CDecl uint")
         return result
     }
@@ -5162,6 +5359,10 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_rename_ext(ld, dn, NewRDN, NewParent, DeleteOldRdn, ServerControls, ClientControls, MessageNumber) {
+        dn := dn is String? StrPtr(dn) : dn
+        NewRDN := NewRDN is String? StrPtr(NewRDN) : NewRDN
+        NewParent := NewParent is String? StrPtr(NewParent) : NewParent
+
         result := DllCall("WLDAP32.dll\ldap_rename_ext", "ptr", ld, "ptr", dn, "ptr", NewRDN, "ptr", NewParent, "int", DeleteOldRdn, "ptr", ServerControls, "ptr", ClientControls, "ptr", MessageNumber, "CDecl uint")
         return result
     }
@@ -5185,6 +5386,10 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_rename_ext_s(ld, dn, NewRDN, NewParent, DeleteOldRdn, ServerControls, ClientControls) {
+        dn := dn is String? StrPtr(dn) : dn
+        NewRDN := NewRDN is String? StrPtr(NewRDN) : NewRDN
+        NewParent := NewParent is String? StrPtr(NewParent) : NewParent
+
         result := DllCall("WLDAP32.dll\ldap_rename_ext_s", "ptr", ld, "ptr", dn, "ptr", NewRDN, "ptr", NewParent, "int", DeleteOldRdn, "ptr", ServerControls, "ptr", ClientControls, "CDecl uint")
         return result
     }
@@ -5229,6 +5434,8 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_addW(ld, dn, attrs) {
+        dn := dn is String? StrPtr(dn) : dn
+
         result := DllCall("WLDAP32.dll\ldap_addW", "ptr", ld, "ptr", dn, "ptr", attrs, "CDecl uint")
         return result
     }
@@ -5267,6 +5474,8 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_addA(ld, dn, attrs) {
+        dn := dn is String? StrPtr(dn) : dn
+
         result := DllCall("WLDAP32.dll\ldap_addA", "ptr", ld, "ptr", dn, "ptr", attrs, "CDecl uint")
         return result
     }
@@ -5305,6 +5514,8 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_add_sW(ld, dn, attrs) {
+        dn := dn is String? StrPtr(dn) : dn
+
         result := DllCall("WLDAP32.dll\ldap_add_sW", "ptr", ld, "ptr", dn, "ptr", attrs, "CDecl uint")
         return result
     }
@@ -5337,6 +5548,8 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_add_sA(ld, dn, attrs) {
+        dn := dn is String? StrPtr(dn) : dn
+
         result := DllCall("WLDAP32.dll\ldap_add_sA", "ptr", ld, "ptr", dn, "ptr", attrs, "CDecl uint")
         return result
     }
@@ -5384,6 +5597,8 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_add_extW(ld, dn, attrs, ServerControls, ClientControls, MessageNumber) {
+        dn := dn is String? StrPtr(dn) : dn
+
         result := DllCall("WLDAP32.dll\ldap_add_extW", "ptr", ld, "ptr", dn, "ptr", attrs, "ptr", ServerControls, "ptr", ClientControls, "ptr", MessageNumber, "CDecl uint")
         return result
     }
@@ -5424,6 +5639,8 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_add_extA(ld, dn, attrs, ServerControls, ClientControls, MessageNumber) {
+        dn := dn is String? StrPtr(dn) : dn
+
         result := DllCall("WLDAP32.dll\ldap_add_extA", "ptr", ld, "ptr", dn, "ptr", attrs, "ptr", ServerControls, "ptr", ClientControls, "ptr", MessageNumber, "CDecl uint")
         return result
     }
@@ -5467,6 +5684,8 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_add_ext_sW(ld, dn, attrs, ServerControls, ClientControls) {
+        dn := dn is String? StrPtr(dn) : dn
+
         result := DllCall("WLDAP32.dll\ldap_add_ext_sW", "ptr", ld, "ptr", dn, "ptr", attrs, "ptr", ServerControls, "ptr", ClientControls, "CDecl uint")
         return result
     }
@@ -5503,6 +5722,8 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_add_ext_sA(ld, dn, attrs, ServerControls, ClientControls) {
+        dn := dn is String? StrPtr(dn) : dn
+
         result := DllCall("WLDAP32.dll\ldap_add_ext_sA", "ptr", ld, "ptr", dn, "ptr", attrs, "ptr", ServerControls, "ptr", ClientControls, "CDecl uint")
         return result
     }
@@ -5541,6 +5762,8 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_add(ld, dn, attrs) {
+        dn := dn is String? StrPtr(dn) : dn
+
         result := DllCall("WLDAP32.dll\ldap_add", "ptr", ld, "ptr", dn, "ptr", attrs, "CDecl uint")
         return result
     }
@@ -5573,6 +5796,8 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_add_s(ld, dn, attrs) {
+        dn := dn is String? StrPtr(dn) : dn
+
         result := DllCall("WLDAP32.dll\ldap_add_s", "ptr", ld, "ptr", dn, "ptr", attrs, "CDecl uint")
         return result
     }
@@ -5613,6 +5838,8 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_add_ext(ld, dn, attrs, ServerControls, ClientControls, MessageNumber) {
+        dn := dn is String? StrPtr(dn) : dn
+
         result := DllCall("WLDAP32.dll\ldap_add_ext", "ptr", ld, "ptr", dn, "ptr", attrs, "ptr", ServerControls, "ptr", ClientControls, "ptr", MessageNumber, "CDecl uint")
         return result
     }
@@ -5649,6 +5876,8 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_add_ext_s(ld, dn, attrs, ServerControls, ClientControls) {
+        dn := dn is String? StrPtr(dn) : dn
+
         result := DllCall("WLDAP32.dll\ldap_add_ext_s", "ptr", ld, "ptr", dn, "ptr", attrs, "ptr", ServerControls, "ptr", ClientControls, "CDecl uint")
         return result
     }
@@ -5694,6 +5923,10 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_compareW(ld, dn, attr, value) {
+        dn := dn is String? StrPtr(dn) : dn
+        attr := attr is String? StrPtr(attr) : attr
+        value := value is String? StrPtr(value) : value
+
         result := DllCall("WLDAP32.dll\ldap_compareW", "ptr", ld, "ptr", dn, "ptr", attr, "ptr", value, "CDecl uint")
         return result
     }
@@ -5733,6 +5966,10 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_compareA(ld, dn, attr, value) {
+        dn := dn is String? StrPtr(dn) : dn
+        attr := attr is String? StrPtr(attr) : attr
+        value := value is String? StrPtr(value) : value
+
         result := DllCall("WLDAP32.dll\ldap_compareA", "ptr", ld, "ptr", dn, "ptr", attr, "ptr", value, "CDecl uint")
         return result
     }
@@ -5776,6 +6013,10 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_compare_sW(ld, dn, attr, value) {
+        dn := dn is String? StrPtr(dn) : dn
+        attr := attr is String? StrPtr(attr) : attr
+        value := value is String? StrPtr(value) : value
+
         result := DllCall("WLDAP32.dll\ldap_compare_sW", "ptr", ld, "ptr", dn, "ptr", attr, "ptr", value, "CDecl uint")
         return result
     }
@@ -5813,6 +6054,10 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_compare_sA(ld, dn, attr, value) {
+        dn := dn is String? StrPtr(dn) : dn
+        attr := attr is String? StrPtr(attr) : attr
+        value := value is String? StrPtr(value) : value
+
         result := DllCall("WLDAP32.dll\ldap_compare_sA", "ptr", ld, "ptr", dn, "ptr", attr, "ptr", value, "CDecl uint")
         return result
     }
@@ -5852,6 +6097,10 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_compare(ld, dn, attr, value) {
+        dn := dn is String? StrPtr(dn) : dn
+        attr := attr is String? StrPtr(attr) : attr
+        value := value is String? StrPtr(value) : value
+
         result := DllCall("WLDAP32.dll\ldap_compare", "ptr", ld, "ptr", dn, "ptr", attr, "ptr", value, "CDecl uint")
         return result
     }
@@ -5889,6 +6138,10 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_compare_s(ld, dn, attr, value) {
+        dn := dn is String? StrPtr(dn) : dn
+        attr := attr is String? StrPtr(attr) : attr
+        value := value is String? StrPtr(value) : value
+
         result := DllCall("WLDAP32.dll\ldap_compare_s", "ptr", ld, "ptr", dn, "ptr", attr, "ptr", value, "CDecl uint")
         return result
     }
@@ -5930,6 +6183,10 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_compare_extW(ld, dn, Attr, Value, Data, ServerControls, ClientControls, MessageNumber) {
+        dn := dn is String? StrPtr(dn) : dn
+        Attr := Attr is String? StrPtr(Attr) : Attr
+        Value := Value is String? StrPtr(Value) : Value
+
         result := DllCall("WLDAP32.dll\ldap_compare_extW", "ptr", ld, "ptr", dn, "ptr", Attr, "ptr", Value, "ptr", Data, "ptr", ServerControls, "ptr", ClientControls, "ptr", MessageNumber, "CDecl uint")
         return result
     }
@@ -5964,6 +6221,10 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_compare_extA(ld, dn, Attr, Value, Data, ServerControls, ClientControls, MessageNumber) {
+        dn := dn is String? StrPtr(dn) : dn
+        Attr := Attr is String? StrPtr(Attr) : Attr
+        Value := Value is String? StrPtr(Value) : Value
+
         result := DllCall("WLDAP32.dll\ldap_compare_extA", "ptr", ld, "ptr", dn, "ptr", Attr, "ptr", Value, "ptr", Data, "ptr", ServerControls, "ptr", ClientControls, "ptr", MessageNumber, "CDecl uint")
         return result
     }
@@ -6000,6 +6261,10 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_compare_ext_sW(ld, dn, Attr, Value, Data, ServerControls, ClientControls) {
+        dn := dn is String? StrPtr(dn) : dn
+        Attr := Attr is String? StrPtr(Attr) : Attr
+        Value := Value is String? StrPtr(Value) : Value
+
         result := DllCall("WLDAP32.dll\ldap_compare_ext_sW", "ptr", ld, "ptr", dn, "ptr", Attr, "ptr", Value, "ptr", Data, "ptr", ServerControls, "ptr", ClientControls, "CDecl uint")
         return result
     }
@@ -6029,6 +6294,10 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_compare_ext_sA(ld, dn, Attr, Value, Data, ServerControls, ClientControls) {
+        dn := dn is String? StrPtr(dn) : dn
+        Attr := Attr is String? StrPtr(Attr) : Attr
+        Value := Value is String? StrPtr(Value) : Value
+
         result := DllCall("WLDAP32.dll\ldap_compare_ext_sA", "ptr", ld, "ptr", dn, "ptr", Attr, "ptr", Value, "ptr", Data, "ptr", ServerControls, "ptr", ClientControls, "CDecl uint")
         return result
     }
@@ -6063,6 +6332,10 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_compare_ext(ld, dn, Attr, Value, Data, ServerControls, ClientControls, MessageNumber) {
+        dn := dn is String? StrPtr(dn) : dn
+        Attr := Attr is String? StrPtr(Attr) : Attr
+        Value := Value is String? StrPtr(Value) : Value
+
         result := DllCall("WLDAP32.dll\ldap_compare_ext", "ptr", ld, "ptr", dn, "ptr", Attr, "ptr", Value, "ptr", Data, "ptr", ServerControls, "ptr", ClientControls, "ptr", MessageNumber, "CDecl uint")
         return result
     }
@@ -6092,6 +6365,10 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_compare_ext_s(ld, dn, Attr, Value, Data, ServerControls, ClientControls) {
+        dn := dn is String? StrPtr(dn) : dn
+        Attr := Attr is String? StrPtr(Attr) : Attr
+        Value := Value is String? StrPtr(Value) : Value
+
         result := DllCall("WLDAP32.dll\ldap_compare_ext_s", "ptr", ld, "ptr", dn, "ptr", Attr, "ptr", Value, "ptr", Data, "ptr", ServerControls, "ptr", ClientControls, "CDecl uint")
         return result
     }
@@ -6131,6 +6408,8 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_deleteW(ld, dn) {
+        dn := dn is String? StrPtr(dn) : dn
+
         result := DllCall("WLDAP32.dll\ldap_deleteW", "ptr", ld, "ptr", dn, "CDecl uint")
         return result
     }
@@ -6164,6 +6443,8 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_deleteA(ld, dn) {
+        dn := dn is String? StrPtr(dn) : dn
+
         result := DllCall("WLDAP32.dll\ldap_deleteA", "ptr", ld, "ptr", dn, "CDecl uint")
         return result
     }
@@ -6197,6 +6478,8 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_delete_sW(ld, dn) {
+        dn := dn is String? StrPtr(dn) : dn
+
         result := DllCall("WLDAP32.dll\ldap_delete_sW", "ptr", ld, "ptr", dn, "CDecl uint")
         return result
     }
@@ -6224,6 +6507,8 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_delete_sA(ld, dn) {
+        dn := dn is String? StrPtr(dn) : dn
+
         result := DllCall("WLDAP32.dll\ldap_delete_sA", "ptr", ld, "ptr", dn, "CDecl uint")
         return result
     }
@@ -6263,6 +6548,8 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_delete_extW(ld, dn, ServerControls, ClientControls, MessageNumber) {
+        dn := dn is String? StrPtr(dn) : dn
+
         result := DllCall("WLDAP32.dll\ldap_delete_extW", "ptr", ld, "ptr", dn, "ptr", ServerControls, "ptr", ClientControls, "ptr", MessageNumber, "CDecl uint")
         return result
     }
@@ -6295,6 +6582,8 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_delete_extA(ld, dn, ServerControls, ClientControls, MessageNumber) {
+        dn := dn is String? StrPtr(dn) : dn
+
         result := DllCall("WLDAP32.dll\ldap_delete_extA", "ptr", ld, "ptr", dn, "ptr", ServerControls, "ptr", ClientControls, "ptr", MessageNumber, "CDecl uint")
         return result
     }
@@ -6329,6 +6618,8 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_delete_ext_sW(ld, dn, ServerControls, ClientControls) {
+        dn := dn is String? StrPtr(dn) : dn
+
         result := DllCall("WLDAP32.dll\ldap_delete_ext_sW", "ptr", ld, "ptr", dn, "ptr", ServerControls, "ptr", ClientControls, "CDecl uint")
         return result
     }
@@ -6356,6 +6647,8 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_delete_ext_sA(ld, dn, ServerControls, ClientControls) {
+        dn := dn is String? StrPtr(dn) : dn
+
         result := DllCall("WLDAP32.dll\ldap_delete_ext_sA", "ptr", ld, "ptr", dn, "ptr", ServerControls, "ptr", ClientControls, "CDecl uint")
         return result
     }
@@ -6389,6 +6682,8 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_delete(ld, dn) {
+        dn := dn is String? StrPtr(dn) : dn
+
         result := DllCall("WLDAP32.dll\ldap_delete", "ptr", ld, "ptr", dn, "CDecl uint")
         return result
     }
@@ -6416,6 +6711,8 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_delete_s(ld, dn) {
+        dn := dn is String? StrPtr(dn) : dn
+
         result := DllCall("WLDAP32.dll\ldap_delete_s", "ptr", ld, "ptr", dn, "CDecl uint")
         return result
     }
@@ -6448,6 +6745,8 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_delete_ext(ld, dn, ServerControls, ClientControls, MessageNumber) {
+        dn := dn is String? StrPtr(dn) : dn
+
         result := DllCall("WLDAP32.dll\ldap_delete_ext", "ptr", ld, "ptr", dn, "ptr", ServerControls, "ptr", ClientControls, "ptr", MessageNumber, "CDecl uint")
         return result
     }
@@ -6475,6 +6774,8 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_delete_ext_s(ld, dn, ServerControls, ClientControls) {
+        dn := dn is String? StrPtr(dn) : dn
+
         result := DllCall("WLDAP32.dll\ldap_delete_ext_s", "ptr", ld, "ptr", dn, "ptr", ServerControls, "ptr", ClientControls, "CDecl uint")
         return result
     }
@@ -6596,6 +6897,9 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_parse_resultW(Connection, ResultMessage, ReturnCode, MatchedDNs, ErrorMessage, Referrals, ServerControls, Freeit) {
+        MatchedDNs := MatchedDNs is String? StrPtr(MatchedDNs) : MatchedDNs
+        ErrorMessage := ErrorMessage is String? StrPtr(ErrorMessage) : ErrorMessage
+
         result := DllCall("WLDAP32.dll\ldap_parse_resultW", "ptr", Connection, "ptr", ResultMessage, "ptr", ReturnCode, "ptr", MatchedDNs, "ptr", ErrorMessage, "ptr", Referrals, "ptr", ServerControls, "char", Freeit, "CDecl uint")
         return result
     }
@@ -6627,6 +6931,9 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_parse_resultA(Connection, ResultMessage, ReturnCode, MatchedDNs, ErrorMessage, Referrals, ServerControls, Freeit) {
+        MatchedDNs := MatchedDNs is String? StrPtr(MatchedDNs) : MatchedDNs
+        ErrorMessage := ErrorMessage is String? StrPtr(ErrorMessage) : ErrorMessage
+
         result := DllCall("WLDAP32.dll\ldap_parse_resultA", "ptr", Connection, "ptr", ResultMessage, "ptr", ReturnCode, "ptr", MatchedDNs, "ptr", ErrorMessage, "ptr", Referrals, "ptr", ServerControls, "char", Freeit, "CDecl uint")
         return result
     }
@@ -6661,6 +6968,8 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_parse_extended_resultA(Connection, ResultMessage, ResultOID, ResultData, Freeit) {
+        ResultOID := ResultOID is String? StrPtr(ResultOID) : ResultOID
+
         result := DllCall("WLDAP32.dll\ldap_parse_extended_resultA", "ptr", Connection, "ptr", ResultMessage, "ptr", ResultOID, "ptr", ResultData, "char", Freeit, "CDecl uint")
         return result
     }
@@ -6697,6 +7006,8 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_parse_extended_resultW(Connection, ResultMessage, ResultOID, ResultData, Freeit) {
+        ResultOID := ResultOID is String? StrPtr(ResultOID) : ResultOID
+
         result := DllCall("WLDAP32.dll\ldap_parse_extended_resultW", "ptr", Connection, "ptr", ResultMessage, "ptr", ResultOID, "ptr", ResultData, "char", Freeit, "CDecl uint")
         return result
     }
@@ -6867,6 +7178,10 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_parse_result(Connection, ResultMessage, ReturnCode, MatchedDNs, ErrorMessage, Referrals, ServerControls, Freeit) {
+        MatchedDNs := MatchedDNs is String? StrPtr(MatchedDNs) : MatchedDNs
+        ErrorMessage := ErrorMessage is String? StrPtr(ErrorMessage) : ErrorMessage
+        Referrals := Referrals is String? StrPtr(Referrals) : Referrals
+
         result := DllCall("WLDAP32.dll\ldap_parse_result", "ptr", Connection, "ptr", ResultMessage, "ptr", ReturnCode, "ptr", MatchedDNs, "ptr", ErrorMessage, "ptr", Referrals, "ptr", ServerControls, "char", Freeit, "CDecl uint")
         return result
     }
@@ -7003,6 +7318,8 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_perror(ld, msg) {
+        msg := msg is String? StrPtr(msg) : msg
+
         DllCall("WLDAP32.dll\ldap_perror", "ptr", ld, "ptr", msg, "CDecl ")
     }
 
@@ -7104,6 +7421,8 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_first_attributeW(ld, entry, ptr) {
+        ptr := ptr is String? StrPtr(ptr) : ptr
+
         result := DllCall("WLDAP32.dll\ldap_first_attributeW", "ptr", ld, "ptr", entry, "ptr", ptr, "CDecl ptr")
         return result
     }
@@ -7140,6 +7459,8 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_first_attributeA(ld, entry, ptr) {
+        ptr := ptr is String? StrPtr(ptr) : ptr
+
         result := DllCall("WLDAP32.dll\ldap_first_attributeA", "ptr", ld, "ptr", entry, "ptr", ptr, "CDecl ptr")
         return result
     }
@@ -7176,6 +7497,8 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_first_attribute(ld, entry, ptr) {
+        ptr := ptr is String? StrPtr(ptr) : ptr
+
         result := DllCall("WLDAP32.dll\ldap_first_attribute", "ptr", ld, "ptr", entry, "ptr", ptr, "CDecl ptr")
         return result
     }
@@ -7218,6 +7541,8 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_next_attributeW(ld, entry, ptr) {
+        ptr := ptr is String? StrPtr(ptr) : ptr
+
         result := DllCall("WLDAP32.dll\ldap_next_attributeW", "ptr", ld, "ptr", entry, "ptr", ptr, "CDecl ptr")
         return result
     }
@@ -7253,6 +7578,8 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_next_attributeA(ld, entry, ptr) {
+        ptr := ptr is String? StrPtr(ptr) : ptr
+
         result := DllCall("WLDAP32.dll\ldap_next_attributeA", "ptr", ld, "ptr", entry, "ptr", ptr, "CDecl ptr")
         return result
     }
@@ -7288,6 +7615,8 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_next_attribute(ld, entry, ptr) {
+        ptr := ptr is String? StrPtr(ptr) : ptr
+
         result := DllCall("WLDAP32.dll\ldap_next_attribute", "ptr", ld, "ptr", entry, "ptr", ptr, "CDecl ptr")
         return result
     }
@@ -7326,6 +7655,8 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_get_valuesW(ld, entry, attr) {
+        attr := attr is String? StrPtr(attr) : attr
+
         result := DllCall("WLDAP32.dll\ldap_get_valuesW", "ptr", ld, "ptr", entry, "ptr", attr, "CDecl ptr")
         return result
     }
@@ -7357,6 +7688,8 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_get_valuesA(ld, entry, attr) {
+        attr := attr is String? StrPtr(attr) : attr
+
         result := DllCall("WLDAP32.dll\ldap_get_valuesA", "ptr", ld, "ptr", entry, "ptr", attr, "CDecl ptr")
         return result
     }
@@ -7388,6 +7721,8 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_get_values(ld, entry, attr) {
+        attr := attr is String? StrPtr(attr) : attr
+
         result := DllCall("WLDAP32.dll\ldap_get_values", "ptr", ld, "ptr", entry, "ptr", attr, "CDecl ptr")
         return result
     }
@@ -7425,6 +7760,8 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_get_values_lenW(ExternalHandle, Message, attr) {
+        attr := attr is String? StrPtr(attr) : attr
+
         result := DllCall("WLDAP32.dll\ldap_get_values_lenW", "ptr", ExternalHandle, "ptr", Message, "ptr", attr, "CDecl ptr")
         return result
     }
@@ -7455,6 +7792,8 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_get_values_lenA(ExternalHandle, Message, attr) {
+        attr := attr is String? StrPtr(attr) : attr
+
         result := DllCall("WLDAP32.dll\ldap_get_values_lenA", "ptr", ExternalHandle, "ptr", Message, "ptr", attr, "CDecl ptr")
         return result
     }
@@ -7485,6 +7824,8 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_get_values_len(ExternalHandle, Message, attr) {
+        attr := attr is String? StrPtr(attr) : attr
+
         result := DllCall("WLDAP32.dll\ldap_get_values_len", "ptr", ExternalHandle, "ptr", Message, "ptr", attr, "CDecl ptr")
         return result
     }
@@ -7511,6 +7852,8 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_count_valuesW(vals) {
+        vals := vals is String? StrPtr(vals) : vals
+
         result := DllCall("WLDAP32.dll\ldap_count_valuesW", "ptr", vals, "CDecl uint")
         return result
     }
@@ -7530,6 +7873,8 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_count_valuesA(vals) {
+        vals := vals is String? StrPtr(vals) : vals
+
         result := DllCall("WLDAP32.dll\ldap_count_valuesA", "ptr", vals, "CDecl uint")
         return result
     }
@@ -7549,6 +7894,8 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_count_values(vals) {
+        vals := vals is String? StrPtr(vals) : vals
+
         result := DllCall("WLDAP32.dll\ldap_count_values", "ptr", vals, "CDecl uint")
         return result
     }
@@ -7591,6 +7938,8 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_value_freeW(vals) {
+        vals := vals is String? StrPtr(vals) : vals
+
         result := DllCall("WLDAP32.dll\ldap_value_freeW", "ptr", vals, "CDecl uint")
         return result
     }
@@ -7607,6 +7956,8 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_value_freeA(vals) {
+        vals := vals is String? StrPtr(vals) : vals
+
         result := DllCall("WLDAP32.dll\ldap_value_freeA", "ptr", vals, "CDecl uint")
         return result
     }
@@ -7623,6 +7974,8 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_value_free(vals) {
+        vals := vals is String? StrPtr(vals) : vals
+
         result := DllCall("WLDAP32.dll\ldap_value_free", "ptr", vals, "CDecl uint")
         return result
     }
@@ -7735,6 +8088,8 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_explode_dnW(dn, notypes) {
+        dn := dn is String? StrPtr(dn) : dn
+
         result := DllCall("WLDAP32.dll\ldap_explode_dnW", "ptr", dn, "uint", notypes, "CDecl ptr")
         return result
     }
@@ -7753,6 +8108,8 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_explode_dnA(dn, notypes) {
+        dn := dn is String? StrPtr(dn) : dn
+
         result := DllCall("WLDAP32.dll\ldap_explode_dnA", "ptr", dn, "uint", notypes, "CDecl ptr")
         return result
     }
@@ -7771,6 +8128,8 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_explode_dn(dn, notypes) {
+        dn := dn is String? StrPtr(dn) : dn
+
         result := DllCall("WLDAP32.dll\ldap_explode_dn", "ptr", dn, "uint", notypes, "CDecl ptr")
         return result
     }
@@ -7795,6 +8154,8 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_dn2ufnW(dn) {
+        dn := dn is String? StrPtr(dn) : dn
+
         result := DllCall("WLDAP32.dll\ldap_dn2ufnW", "ptr", dn, "CDecl ptr")
         return result
     }
@@ -7812,6 +8173,8 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_dn2ufnA(dn) {
+        dn := dn is String? StrPtr(dn) : dn
+
         result := DllCall("WLDAP32.dll\ldap_dn2ufnA", "ptr", dn, "CDecl ptr")
         return result
     }
@@ -7829,6 +8192,8 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_dn2ufn(dn) {
+        dn := dn is String? StrPtr(dn) : dn
+
         result := DllCall("WLDAP32.dll\ldap_dn2ufn", "ptr", dn, "CDecl ptr")
         return result
     }
@@ -7853,6 +8218,8 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_memfreeW(Block) {
+        Block := Block is String? StrPtr(Block) : Block
+
         DllCall("WLDAP32.dll\ldap_memfreeW", "ptr", Block, "CDecl ")
     }
 
@@ -7869,6 +8236,8 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_memfreeA(Block) {
+        Block := Block is String? StrPtr(Block) : Block
+
         DllCall("WLDAP32.dll\ldap_memfreeA", "ptr", Block, "CDecl ")
     }
 
@@ -7898,6 +8267,8 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_memfree(Block) {
+        Block := Block is String? StrPtr(Block) : Block
+
         DllCall("WLDAP32.dll\ldap_memfree", "ptr", Block, "CDecl ")
     }
 
@@ -7925,6 +8296,9 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_ufn2dnW(ufn, pDn) {
+        ufn := ufn is String? StrPtr(ufn) : ufn
+        pDn := pDn is String? StrPtr(pDn) : pDn
+
         result := DllCall("WLDAP32.dll\ldap_ufn2dnW", "ptr", ufn, "ptr", pDn, "CDecl uint")
         return result
     }
@@ -7946,6 +8320,9 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_ufn2dnA(ufn, pDn) {
+        ufn := ufn is String? StrPtr(ufn) : ufn
+        pDn := pDn is String? StrPtr(pDn) : pDn
+
         result := DllCall("WLDAP32.dll\ldap_ufn2dnA", "ptr", ufn, "ptr", pDn, "CDecl uint")
         return result
     }
@@ -7967,6 +8344,9 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_ufn2dn(ufn, pDn) {
+        ufn := ufn is String? StrPtr(ufn) : ufn
+        pDn := pDn is String? StrPtr(pDn) : pDn
+
         result := DllCall("WLDAP32.dll\ldap_ufn2dn", "ptr", ufn, "ptr", pDn, "CDecl uint")
         return result
     }
@@ -8028,6 +8408,9 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_escape_filter_elementW(sourceFilterElement, sourceLength, destFilterElement, destLength) {
+        sourceFilterElement := sourceFilterElement is String? StrPtr(sourceFilterElement) : sourceFilterElement
+        destFilterElement := destFilterElement is String? StrPtr(destFilterElement) : destFilterElement
+
         result := DllCall("WLDAP32.dll\ldap_escape_filter_elementW", "ptr", sourceFilterElement, "uint", sourceLength, "ptr", destFilterElement, "uint", destLength, "CDecl uint")
         return result
     }
@@ -8053,6 +8436,9 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_escape_filter_elementA(sourceFilterElement, sourceLength, destFilterElement, destLength) {
+        sourceFilterElement := sourceFilterElement is String? StrPtr(sourceFilterElement) : sourceFilterElement
+        destFilterElement := destFilterElement is String? StrPtr(destFilterElement) : destFilterElement
+
         result := DllCall("WLDAP32.dll\ldap_escape_filter_elementA", "ptr", sourceFilterElement, "uint", sourceLength, "ptr", destFilterElement, "uint", destLength, "CDecl uint")
         return result
     }
@@ -8078,6 +8464,9 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_escape_filter_element(sourceFilterElement, sourceLength, destFilterElement, destLength) {
+        sourceFilterElement := sourceFilterElement is String? StrPtr(sourceFilterElement) : sourceFilterElement
+        destFilterElement := destFilterElement is String? StrPtr(destFilterElement) : destFilterElement
+
         result := DllCall("WLDAP32.dll\ldap_escape_filter_element", "ptr", sourceFilterElement, "uint", sourceLength, "ptr", destFilterElement, "uint", destLength, "CDecl uint")
         return result
     }
@@ -8112,6 +8501,9 @@ class Ldap {
      * @since windows6.0.6000
      */
     static LdapUTF8ToUnicode(lpSrcStr, cchSrc, lpDestStr, cchDest) {
+        lpSrcStr := lpSrcStr is String? StrPtr(lpSrcStr) : lpSrcStr
+        lpDestStr := lpDestStr is String? StrPtr(lpDestStr) : lpDestStr
+
         A_LastError := 0
 
         DllCall("WLDAP32.dll\LdapUTF8ToUnicode", "ptr", lpSrcStr, "int", cchSrc, "ptr", lpDestStr, "int", cchDest, "CDecl ")
@@ -8131,6 +8523,9 @@ class Ldap {
      * @since windows6.0.6000
      */
     static LdapUnicodeToUTF8(lpSrcStr, cchSrc, lpDestStr, cchDest) {
+        lpSrcStr := lpSrcStr is String? StrPtr(lpSrcStr) : lpSrcStr
+        lpDestStr := lpDestStr is String? StrPtr(lpDestStr) : lpDestStr
+
         A_LastError := 0
 
         DllCall("WLDAP32.dll\LdapUnicodeToUTF8", "ptr", lpSrcStr, "int", cchSrc, "ptr", lpDestStr, "int", cchDest, "CDecl ")
@@ -8216,6 +8611,8 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_parse_sort_controlA(ExternalHandle, Control, Result, Attribute) {
+        Attribute := Attribute is String? StrPtr(Attribute) : Attribute
+
         result := DllCall("WLDAP32.dll\ldap_parse_sort_controlA", "ptr", ExternalHandle, "ptr", Control, "ptr", Result, "ptr", Attribute, "CDecl uint")
         return result
     }
@@ -8247,6 +8644,8 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_parse_sort_controlW(ExternalHandle, Control, Result, Attribute) {
+        Attribute := Attribute is String? StrPtr(Attribute) : Attribute
+
         result := DllCall("WLDAP32.dll\ldap_parse_sort_controlW", "ptr", ExternalHandle, "ptr", Control, "ptr", Result, "ptr", Attribute, "CDecl uint")
         return result
     }
@@ -8296,6 +8695,8 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_parse_sort_control(ExternalHandle, Control, Result, Attribute) {
+        Attribute := Attribute is String? StrPtr(Attribute) : Attribute
+
         result := DllCall("WLDAP32.dll\ldap_parse_sort_control", "ptr", ExternalHandle, "ptr", Control, "ptr", Result, "ptr", Attribute, "CDecl uint")
         return result
     }
@@ -8551,6 +8952,9 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_search_init_pageW(ExternalHandle, DistinguishedName, ScopeOfSearch, SearchFilter, AttributeList, AttributesOnly, ServerControls, ClientControls, PageTimeLimit, TotalSizeLimit, SortKeys) {
+        DistinguishedName := DistinguishedName is String? StrPtr(DistinguishedName) : DistinguishedName
+        SearchFilter := SearchFilter is String? StrPtr(SearchFilter) : SearchFilter
+
         A_LastError := 0
 
         result := DllCall("WLDAP32.dll\ldap_search_init_pageW", "ptr", ExternalHandle, "ptr", DistinguishedName, "uint", ScopeOfSearch, "ptr", SearchFilter, "ptr", AttributeList, "uint", AttributesOnly, "ptr", ServerControls, "ptr", ClientControls, "uint", PageTimeLimit, "uint", TotalSizeLimit, "ptr", SortKeys, "CDecl ptr")
@@ -8596,6 +9000,9 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_search_init_pageA(ExternalHandle, DistinguishedName, ScopeOfSearch, SearchFilter, AttributeList, AttributesOnly, ServerControls, ClientControls, PageTimeLimit, TotalSizeLimit, SortKeys) {
+        DistinguishedName := DistinguishedName is String? StrPtr(DistinguishedName) : DistinguishedName
+        SearchFilter := SearchFilter is String? StrPtr(SearchFilter) : SearchFilter
+
         A_LastError := 0
 
         result := DllCall("WLDAP32.dll\ldap_search_init_pageA", "ptr", ExternalHandle, "ptr", DistinguishedName, "uint", ScopeOfSearch, "ptr", SearchFilter, "ptr", AttributeList, "uint", AttributesOnly, "ptr", ServerControls, "ptr", ClientControls, "uint", PageTimeLimit, "uint", TotalSizeLimit, "ptr", SortKeys, "CDecl ptr")
@@ -8641,6 +9048,9 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_search_init_page(ExternalHandle, DistinguishedName, ScopeOfSearch, SearchFilter, AttributeList, AttributesOnly, ServerControls, ClientControls, PageTimeLimit, TotalSizeLimit, SortKeys) {
+        DistinguishedName := DistinguishedName is String? StrPtr(DistinguishedName) : DistinguishedName
+        SearchFilter := SearchFilter is String? StrPtr(SearchFilter) : SearchFilter
+
         A_LastError := 0
 
         result := DllCall("WLDAP32.dll\ldap_search_init_page", "ptr", ExternalHandle, "ptr", DistinguishedName, "uint", ScopeOfSearch, "ptr", SearchFilter, "ptr", AttributeList, "uint", AttributesOnly, "ptr", ServerControls, "ptr", ClientControls, "uint", PageTimeLimit, "uint", TotalSizeLimit, "ptr", SortKeys, "CDecl ptr")
@@ -9039,6 +9449,8 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_parse_referenceW(Connection, ResultMessage, Referrals) {
+        Referrals := Referrals is String? StrPtr(Referrals) : Referrals
+
         result := DllCall("WLDAP32.dll\ldap_parse_referenceW", "ptr", Connection, "ptr", ResultMessage, "ptr", Referrals, "CDecl uint")
         return result
     }
@@ -9065,6 +9477,8 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_parse_referenceA(Connection, ResultMessage, Referrals) {
+        Referrals := Referrals is String? StrPtr(Referrals) : Referrals
+
         result := DllCall("WLDAP32.dll\ldap_parse_referenceA", "ptr", Connection, "ptr", ResultMessage, "ptr", Referrals, "CDecl uint")
         return result
     }
@@ -9089,6 +9503,8 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_parse_reference(Connection, ResultMessage, Referrals) {
+        Referrals := Referrals is String? StrPtr(Referrals) : Referrals
+
         result := DllCall("WLDAP32.dll\ldap_parse_reference", "ptr", Connection, "ptr", ResultMessage, "ptr", Referrals, "CDecl uint")
         return result
     }
@@ -9127,6 +9543,8 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_extended_operationW(ld, Oid, Data, ServerControls, ClientControls, MessageNumber) {
+        Oid := Oid is String? StrPtr(Oid) : Oid
+
         result := DllCall("WLDAP32.dll\ldap_extended_operationW", "ptr", ld, "ptr", Oid, "ptr", Data, "ptr", ServerControls, "ptr", ClientControls, "ptr", MessageNumber, "CDecl uint")
         return result
     }
@@ -9158,6 +9576,8 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_extended_operationA(ld, Oid, Data, ServerControls, ClientControls, MessageNumber) {
+        Oid := Oid is String? StrPtr(Oid) : Oid
+
         result := DllCall("WLDAP32.dll\ldap_extended_operationA", "ptr", ld, "ptr", Oid, "ptr", Data, "ptr", ServerControls, "ptr", ClientControls, "ptr", MessageNumber, "CDecl uint")
         return result
     }
@@ -9202,6 +9622,9 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_extended_operation_sA(ExternalHandle, Oid, Data, ServerControls, ClientControls, ReturnedOid, ReturnedData) {
+        Oid := Oid is String? StrPtr(Oid) : Oid
+        ReturnedOid := ReturnedOid is String? StrPtr(ReturnedOid) : ReturnedOid
+
         result := DllCall("WLDAP32.dll\ldap_extended_operation_sA", "ptr", ExternalHandle, "ptr", Oid, "ptr", Data, "ptr", ServerControls, "ptr", ClientControls, "ptr", ReturnedOid, "ptr", ReturnedData, "CDecl uint")
         return result
     }
@@ -9246,6 +9669,9 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_extended_operation_sW(ExternalHandle, Oid, Data, ServerControls, ClientControls, ReturnedOid, ReturnedData) {
+        Oid := Oid is String? StrPtr(Oid) : Oid
+        ReturnedOid := ReturnedOid is String? StrPtr(ReturnedOid) : ReturnedOid
+
         result := DllCall("WLDAP32.dll\ldap_extended_operation_sW", "ptr", ExternalHandle, "ptr", Oid, "ptr", Data, "ptr", ServerControls, "ptr", ClientControls, "ptr", ReturnedOid, "ptr", ReturnedData, "CDecl uint")
         return result
     }
@@ -9277,6 +9703,8 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_extended_operation(ld, Oid, Data, ServerControls, ClientControls, MessageNumber) {
+        Oid := Oid is String? StrPtr(Oid) : Oid
+
         result := DllCall("WLDAP32.dll\ldap_extended_operation", "ptr", ld, "ptr", Oid, "ptr", Data, "ptr", ServerControls, "ptr", ClientControls, "ptr", MessageNumber, "CDecl uint")
         return result
     }
@@ -9376,6 +9804,8 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ber_free(pBerElement, fbuf) {
+        pBerElement := pBerElement is String? StrPtr(pBerElement) : pBerElement
+
         DllCall("WLDAP32.dll\ber_free", "ptr", pBerElement, "int", fbuf, "CDecl ")
     }
 
@@ -9441,6 +9871,8 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ber_skip_tag(pBerElement, pLen) {
+        pBerElement := pBerElement is String? StrPtr(pBerElement) : pBerElement
+
         result := DllCall("WLDAP32.dll\ber_skip_tag", "ptr", pBerElement, "ptr", pLen, "CDecl uint")
         return result
     }
@@ -9456,6 +9888,8 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ber_peek_tag(pBerElement, pLen) {
+        pBerElement := pBerElement is String? StrPtr(pBerElement) : pBerElement
+
         result := DllCall("WLDAP32.dll\ber_peek_tag", "ptr", pBerElement, "ptr", pLen, "CDecl uint")
         return result
     }
@@ -9473,6 +9907,8 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ber_first_element(pBerElement, pLen, ppOpaque) {
+        pBerElement := pBerElement is String? StrPtr(pBerElement) : pBerElement
+
         result := DllCall("WLDAP32.dll\ber_first_element", "ptr", pBerElement, "ptr", pLen, "ptr", ppOpaque, "CDecl uint")
         return result
     }
@@ -9490,6 +9926,9 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ber_next_element(pBerElement, pLen, opaque) {
+        pBerElement := pBerElement is String? StrPtr(pBerElement) : pBerElement
+        opaque := opaque is String? StrPtr(opaque) : opaque
+
         result := DllCall("WLDAP32.dll\ber_next_element", "ptr", pBerElement, "ptr", pLen, "ptr", opaque, "CDecl uint")
         return result
     }
@@ -9506,6 +9945,8 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ber_flatten(pBerElement, pBerVal) {
+        pBerElement := pBerElement is String? StrPtr(pBerElement) : pBerElement
+
         DllCall("WLDAP32.dll\ber_flatten", "ptr", pBerElement, "ptr", pBerVal, "CDecl ")
     }
 
@@ -9586,6 +10027,9 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ber_printf(pBerElement, fmt) {
+        pBerElement := pBerElement is String? StrPtr(pBerElement) : pBerElement
+        fmt := fmt is String? StrPtr(fmt) : fmt
+
         DllCall("WLDAP32.dll\ber_printf", "ptr", pBerElement, "ptr", fmt, "CDecl ")
     }
 
@@ -9672,6 +10116,9 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ber_scanf(pBerElement, fmt) {
+        pBerElement := pBerElement is String? StrPtr(pBerElement) : pBerElement
+        fmt := fmt is String? StrPtr(fmt) : fmt
+
         result := DllCall("WLDAP32.dll\ber_scanf", "ptr", pBerElement, "ptr", fmt, "CDecl uint")
         return result
     }

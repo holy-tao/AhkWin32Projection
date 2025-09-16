@@ -1309,6 +1309,8 @@ class RemoteDesktop {
      * @since windows6.0.6000
      */
     static WTSStartRemoteControlSessionW(pTargetServerName, TargetLogonId, HotkeyVk, HotkeyModifiers) {
+        pTargetServerName := pTargetServerName is String? StrPtr(pTargetServerName) : pTargetServerName
+
         A_LastError := 0
 
         result := DllCall("WTSAPI32.dll\WTSStartRemoteControlSessionW", "ptr", pTargetServerName, "uint", TargetLogonId, "char", HotkeyVk, "ushort", HotkeyModifiers, "int")
@@ -1337,6 +1339,8 @@ class RemoteDesktop {
      * @since windows6.0.6000
      */
     static WTSStartRemoteControlSessionA(pTargetServerName, TargetLogonId, HotkeyVk, HotkeyModifiers) {
+        pTargetServerName := pTargetServerName is String? StrPtr(pTargetServerName) : pTargetServerName
+
         A_LastError := 0
 
         result := DllCall("WTSAPI32.dll\WTSStartRemoteControlSessionA", "ptr", pTargetServerName, "uint", TargetLogonId, "char", HotkeyVk, "ushort", HotkeyModifiers, "int")
@@ -1372,6 +1376,8 @@ class RemoteDesktop {
      * @since windows6.0.6000
      */
     static WTSConnectSessionA(LogonId, TargetLogonId, pPassword, bWait) {
+        pPassword := pPassword is String? StrPtr(pPassword) : pPassword
+
         A_LastError := 0
 
         result := DllCall("WTSAPI32.dll\WTSConnectSessionA", "uint", LogonId, "uint", TargetLogonId, "ptr", pPassword, "int", bWait, "int")
@@ -1407,6 +1413,8 @@ class RemoteDesktop {
      * @since windows6.0.6000
      */
     static WTSConnectSessionW(LogonId, TargetLogonId, pPassword, bWait) {
+        pPassword := pPassword is String? StrPtr(pPassword) : pPassword
+
         A_LastError := 0
 
         result := DllCall("WTSAPI32.dll\WTSConnectSessionW", "uint", LogonId, "uint", TargetLogonId, "ptr", pPassword, "int", bWait, "int")
@@ -1445,6 +1453,9 @@ class RemoteDesktop {
      * @since windows6.0.6000
      */
     static WTSEnumerateServersW(pDomainName, Reserved, Version, ppServerInfo, pCount) {
+        pDomainName := pDomainName is String? StrPtr(pDomainName) : pDomainName
+        ppServerInfo := ppServerInfo is String? StrPtr(ppServerInfo) : ppServerInfo
+
         A_LastError := 0
 
         result := DllCall("WTSAPI32.dll\WTSEnumerateServersW", "ptr", pDomainName, "uint", Reserved, "uint", Version, "ptr", ppServerInfo, "ptr", pCount, "int")
@@ -1483,6 +1494,9 @@ class RemoteDesktop {
      * @since windows6.0.6000
      */
     static WTSEnumerateServersA(pDomainName, Reserved, Version, ppServerInfo, pCount) {
+        pDomainName := pDomainName is String? StrPtr(pDomainName) : pDomainName
+        ppServerInfo := ppServerInfo is String? StrPtr(ppServerInfo) : ppServerInfo
+
         A_LastError := 0
 
         result := DllCall("WTSAPI32.dll\WTSEnumerateServersA", "ptr", pDomainName, "uint", Reserved, "uint", Version, "ptr", ppServerInfo, "ptr", pCount, "int")
@@ -1514,6 +1528,8 @@ class RemoteDesktop {
      * @since windows6.0.6000
      */
     static WTSOpenServerW(pServerName) {
+        pServerName := pServerName is String? StrPtr(pServerName) : pServerName
+
         result := DllCall("WTSAPI32.dll\WTSOpenServerW", "ptr", pServerName, "ptr")
         return result
     }
@@ -1540,6 +1556,8 @@ class RemoteDesktop {
      * @since windows6.0.6000
      */
     static WTSOpenServerA(pServerName) {
+        pServerName := pServerName is String? StrPtr(pServerName) : pServerName
+
         result := DllCall("WTSAPI32.dll\WTSOpenServerA", "ptr", pServerName, "ptr")
         return result
     }
@@ -1567,6 +1585,8 @@ class RemoteDesktop {
      * @since windows6.1
      */
     static WTSOpenServerExW(pServerName) {
+        pServerName := pServerName is String? StrPtr(pServerName) : pServerName
+
         result := DllCall("WTSAPI32.dll\WTSOpenServerExW", "ptr", pServerName, "ptr")
         return result
     }
@@ -1594,6 +1614,8 @@ class RemoteDesktop {
      * @since windows6.1
      */
     static WTSOpenServerExA(pServerName) {
+        pServerName := pServerName is String? StrPtr(pServerName) : pServerName
+
         result := DllCall("WTSAPI32.dll\WTSOpenServerExA", "ptr", pServerName, "ptr")
         return result
     }
@@ -1943,6 +1965,8 @@ class RemoteDesktop {
      * @since windows6.0.6000
      */
     static WTSQuerySessionInformationW(hServer, SessionId, WTSInfoClass, ppBuffer, pBytesReturned) {
+        ppBuffer := ppBuffer is String? StrPtr(ppBuffer) : ppBuffer
+
         A_LastError := 0
 
         result := DllCall("WTSAPI32.dll\WTSQuerySessionInformationW", "ptr", hServer, "uint", SessionId, "int", WTSInfoClass, "ptr", ppBuffer, "ptr", pBytesReturned, "int")
@@ -2009,6 +2033,8 @@ class RemoteDesktop {
      * @since windows6.0.6000
      */
     static WTSQuerySessionInformationA(hServer, SessionId, WTSInfoClass, ppBuffer, pBytesReturned) {
+        ppBuffer := ppBuffer is String? StrPtr(ppBuffer) : ppBuffer
+
         A_LastError := 0
 
         result := DllCall("WTSAPI32.dll\WTSQuerySessionInformationA", "ptr", hServer, "uint", SessionId, "int", WTSInfoClass, "ptr", ppBuffer, "ptr", pBytesReturned, "int")
@@ -2054,6 +2080,10 @@ class RemoteDesktop {
      * @since windows6.0.6000
      */
     static WTSQueryUserConfigW(pServerName, pUserName, WTSConfigClass, ppBuffer, pBytesReturned) {
+        pServerName := pServerName is String? StrPtr(pServerName) : pServerName
+        pUserName := pUserName is String? StrPtr(pUserName) : pUserName
+        ppBuffer := ppBuffer is String? StrPtr(ppBuffer) : ppBuffer
+
         A_LastError := 0
 
         result := DllCall("WTSAPI32.dll\WTSQueryUserConfigW", "ptr", pServerName, "ptr", pUserName, "int", WTSConfigClass, "ptr", ppBuffer, "ptr", pBytesReturned, "int")
@@ -2099,6 +2129,10 @@ class RemoteDesktop {
      * @since windows6.0.6000
      */
     static WTSQueryUserConfigA(pServerName, pUserName, WTSConfigClass, ppBuffer, pBytesReturned) {
+        pServerName := pServerName is String? StrPtr(pServerName) : pServerName
+        pUserName := pUserName is String? StrPtr(pUserName) : pUserName
+        ppBuffer := ppBuffer is String? StrPtr(ppBuffer) : ppBuffer
+
         A_LastError := 0
 
         result := DllCall("WTSAPI32.dll\WTSQueryUserConfigA", "ptr", pServerName, "ptr", pUserName, "int", WTSConfigClass, "ptr", ppBuffer, "ptr", pBytesReturned, "int")
@@ -2164,6 +2198,10 @@ class RemoteDesktop {
      * @since windows6.0.6000
      */
     static WTSSetUserConfigW(pServerName, pUserName, WTSConfigClass, pBuffer, DataLength) {
+        pServerName := pServerName is String? StrPtr(pServerName) : pServerName
+        pUserName := pUserName is String? StrPtr(pUserName) : pUserName
+        pBuffer := pBuffer is String? StrPtr(pBuffer) : pBuffer
+
         A_LastError := 0
 
         result := DllCall("WTSAPI32.dll\WTSSetUserConfigW", "ptr", pServerName, "ptr", pUserName, "int", WTSConfigClass, "ptr", pBuffer, "uint", DataLength, "int")
@@ -2229,6 +2267,10 @@ class RemoteDesktop {
      * @since windows6.0.6000
      */
     static WTSSetUserConfigA(pServerName, pUserName, WTSConfigClass, pBuffer, DataLength) {
+        pServerName := pServerName is String? StrPtr(pServerName) : pServerName
+        pUserName := pUserName is String? StrPtr(pUserName) : pUserName
+        pBuffer := pBuffer is String? StrPtr(pBuffer) : pBuffer
+
         A_LastError := 0
 
         result := DllCall("WTSAPI32.dll\WTSSetUserConfigA", "ptr", pServerName, "ptr", pUserName, "int", WTSConfigClass, "ptr", pBuffer, "uint", DataLength, "int")
@@ -2285,6 +2327,9 @@ class RemoteDesktop {
      * @since windows6.0.6000
      */
     static WTSSendMessageW(hServer, SessionId, pTitle, TitleLength, pMessage, MessageLength, Style, Timeout, pResponse, bWait) {
+        pTitle := pTitle is String? StrPtr(pTitle) : pTitle
+        pMessage := pMessage is String? StrPtr(pMessage) : pMessage
+
         A_LastError := 0
 
         result := DllCall("WTSAPI32.dll\WTSSendMessageW", "ptr", hServer, "uint", SessionId, "ptr", pTitle, "uint", TitleLength, "ptr", pMessage, "uint", MessageLength, "uint", Style, "uint", Timeout, "ptr", pResponse, "int", bWait, "int")
@@ -2341,6 +2386,9 @@ class RemoteDesktop {
      * @since windows6.0.6000
      */
     static WTSSendMessageA(hServer, SessionId, pTitle, TitleLength, pMessage, MessageLength, Style, Timeout, pResponse, bWait) {
+        pTitle := pTitle is String? StrPtr(pTitle) : pTitle
+        pMessage := pMessage is String? StrPtr(pMessage) : pMessage
+
         A_LastError := 0
 
         result := DllCall("WTSAPI32.dll\WTSSendMessageA", "ptr", hServer, "uint", SessionId, "ptr", pTitle, "uint", TitleLength, "ptr", pMessage, "uint", MessageLength, "uint", Style, "uint", Timeout, "ptr", pResponse, "int", bWait, "int")
@@ -2503,6 +2551,8 @@ class RemoteDesktop {
     static WTSVirtualChannelOpen(SessionId, pVirtualName) {
         static hServer := 0 ;Reserved parameters must always be NULL
 
+        pVirtualName := pVirtualName is String? StrPtr(pVirtualName) : pVirtualName
+
         A_LastError := 0
 
         result := DllCall("WTSAPI32.dll\WTSVirtualChannelOpen", "ptr", hServer, "uint", SessionId, "ptr", pVirtualName, "ptr")
@@ -2541,6 +2591,8 @@ class RemoteDesktop {
      * @since windows6.0.6000
      */
     static WTSVirtualChannelOpenEx(SessionId, pVirtualName, flags) {
+        pVirtualName := pVirtualName is String? StrPtr(pVirtualName) : pVirtualName
+
         A_LastError := 0
 
         result := DllCall("WTSAPI32.dll\WTSVirtualChannelOpenEx", "uint", SessionId, "ptr", pVirtualName, "uint", flags, "ptr")
@@ -2611,6 +2663,8 @@ class RemoteDesktop {
      * @since windows6.0.6000
      */
     static WTSVirtualChannelRead(hChannelHandle, TimeOut, Buffer, BufferSize, pBytesRead) {
+        Buffer := Buffer is String? StrPtr(Buffer) : Buffer
+
         A_LastError := 0
 
         result := DllCall("WTSAPI32.dll\WTSVirtualChannelRead", "ptr", hChannelHandle, "uint", TimeOut, "ptr", Buffer, "uint", BufferSize, "ptr", pBytesRead, "int")
@@ -2641,6 +2695,8 @@ class RemoteDesktop {
      * @since windows6.0.6000
      */
     static WTSVirtualChannelWrite(hChannelHandle, Buffer, Length, pBytesWritten) {
+        Buffer := Buffer is String? StrPtr(Buffer) : Buffer
+
         A_LastError := 0
 
         result := DllCall("WTSAPI32.dll\WTSVirtualChannelWrite", "ptr", hChannelHandle, "ptr", Buffer, "uint", Length, "ptr", pBytesWritten, "int")
@@ -3106,6 +3162,8 @@ class RemoteDesktop {
      * @since windows6.1
      */
     static WTSEnumerateProcessesExW(hServer, pLevel, SessionId, ppProcessInfo, pCount) {
+        ppProcessInfo := ppProcessInfo is String? StrPtr(ppProcessInfo) : ppProcessInfo
+
         A_LastError := 0
 
         result := DllCall("WTSAPI32.dll\WTSEnumerateProcessesExW", "ptr", hServer, "ptr", pLevel, "uint", SessionId, "ptr", ppProcessInfo, "ptr", pCount, "int")
@@ -3147,6 +3205,8 @@ class RemoteDesktop {
      * @since windows6.1
      */
     static WTSEnumerateProcessesExA(hServer, pLevel, SessionId, ppProcessInfo, pCount) {
+        ppProcessInfo := ppProcessInfo is String? StrPtr(ppProcessInfo) : ppProcessInfo
+
         A_LastError := 0
 
         result := DllCall("WTSAPI32.dll\WTSEnumerateProcessesExA", "ptr", hServer, "ptr", pLevel, "uint", SessionId, "ptr", ppProcessInfo, "ptr", pCount, "int")
@@ -3273,6 +3333,8 @@ class RemoteDesktop {
     static WTSQueryListenerConfigW(pReserved, Reserved, pListenerName, pBuffer) {
         static hServer := 0 ;Reserved parameters must always be NULL
 
+        pListenerName := pListenerName is String? StrPtr(pListenerName) : pListenerName
+
         A_LastError := 0
 
         result := DllCall("WTSAPI32.dll\WTSQueryListenerConfigW", "ptr", hServer, "ptr", pReserved, "uint", Reserved, "ptr", pListenerName, "ptr", pBuffer, "int")
@@ -3306,6 +3368,8 @@ class RemoteDesktop {
      */
     static WTSQueryListenerConfigA(pReserved, Reserved, pListenerName, pBuffer) {
         static hServer := 0 ;Reserved parameters must always be NULL
+
+        pListenerName := pListenerName is String? StrPtr(pListenerName) : pListenerName
 
         A_LastError := 0
 
@@ -3346,6 +3410,8 @@ class RemoteDesktop {
     static WTSCreateListenerW(pReserved, Reserved, pListenerName, pBuffer, flag) {
         static hServer := 0 ;Reserved parameters must always be NULL
 
+        pListenerName := pListenerName is String? StrPtr(pListenerName) : pListenerName
+
         A_LastError := 0
 
         result := DllCall("WTSAPI32.dll\WTSCreateListenerW", "ptr", hServer, "ptr", pReserved, "uint", Reserved, "ptr", pListenerName, "ptr", pBuffer, "uint", flag, "int")
@@ -3385,6 +3451,8 @@ class RemoteDesktop {
     static WTSCreateListenerA(pReserved, Reserved, pListenerName, pBuffer, flag) {
         static hServer := 0 ;Reserved parameters must always be NULL
 
+        pListenerName := pListenerName is String? StrPtr(pListenerName) : pListenerName
+
         A_LastError := 0
 
         result := DllCall("WTSAPI32.dll\WTSCreateListenerA", "ptr", hServer, "ptr", pReserved, "uint", Reserved, "ptr", pListenerName, "ptr", pBuffer, "uint", flag, "int")
@@ -3416,6 +3484,8 @@ class RemoteDesktop {
     static WTSSetListenerSecurityW(pReserved, Reserved, pListenerName, SecurityInformation, pSecurityDescriptor) {
         static hServer := 0 ;Reserved parameters must always be NULL
 
+        pListenerName := pListenerName is String? StrPtr(pListenerName) : pListenerName
+
         A_LastError := 0
 
         result := DllCall("WTSAPI32.dll\WTSSetListenerSecurityW", "ptr", hServer, "ptr", pReserved, "uint", Reserved, "ptr", pListenerName, "uint", SecurityInformation, "ptr", pSecurityDescriptor, "int")
@@ -3446,6 +3516,8 @@ class RemoteDesktop {
      */
     static WTSSetListenerSecurityA(pReserved, Reserved, pListenerName, SecurityInformation, pSecurityDescriptor) {
         static hServer := 0 ;Reserved parameters must always be NULL
+
+        pListenerName := pListenerName is String? StrPtr(pListenerName) : pListenerName
 
         A_LastError := 0
 
@@ -3486,6 +3558,8 @@ class RemoteDesktop {
     static WTSGetListenerSecurityW(pReserved, Reserved, pListenerName, SecurityInformation, pSecurityDescriptor, nLength, lpnLengthNeeded) {
         static hServer := 0 ;Reserved parameters must always be NULL
 
+        pListenerName := pListenerName is String? StrPtr(pListenerName) : pListenerName
+
         A_LastError := 0
 
         result := DllCall("WTSAPI32.dll\WTSGetListenerSecurityW", "ptr", hServer, "ptr", pReserved, "uint", Reserved, "ptr", pListenerName, "uint", SecurityInformation, "ptr", pSecurityDescriptor, "uint", nLength, "ptr", lpnLengthNeeded, "int")
@@ -3524,6 +3598,8 @@ class RemoteDesktop {
      */
     static WTSGetListenerSecurityA(pReserved, Reserved, pListenerName, SecurityInformation, pSecurityDescriptor, nLength, lpnLengthNeeded) {
         static hServer := 0 ;Reserved parameters must always be NULL
+
+        pListenerName := pListenerName is String? StrPtr(pListenerName) : pListenerName
 
         A_LastError := 0
 

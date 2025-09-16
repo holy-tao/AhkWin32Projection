@@ -122,6 +122,8 @@ class Catalog {
      * @since windows5.1.2600
      */
     static CryptCATOpen(pwszFileName, fdwOpenFlags, hProv, dwPublicVersion, dwEncodingType) {
+        pwszFileName := pwszFileName is String? StrPtr(pwszFileName) : pwszFileName
+
         result := DllCall("WINTRUST.dll\CryptCATOpen", "ptr", pwszFileName, "uint", fdwOpenFlags, "ptr", hProv, "uint", dwPublicVersion, "uint", dwEncodingType, "ptr")
         return result
     }
@@ -229,6 +231,8 @@ class Catalog {
      * @returns {String} Nothing - always returns an empty string
      */
     static CryptCATGetCatAttrInfo(hCatalog, pwszReferenceTag) {
+        pwszReferenceTag := pwszReferenceTag is String? StrPtr(pwszReferenceTag) : pwszReferenceTag
+
         DllCall("WINTRUST.dll\CryptCATGetCatAttrInfo", "ptr", hCatalog, "ptr", pwszReferenceTag)
     }
 
@@ -328,6 +332,8 @@ class Catalog {
      * @since windows5.1.2600
      */
     static CryptCATPutCatAttrInfo(hCatalog, pwszReferenceTag, dwAttrTypeAndAction, cbData, pbData) {
+        pwszReferenceTag := pwszReferenceTag is String? StrPtr(pwszReferenceTag) : pwszReferenceTag
+
         A_LastError := 0
 
         DllCall("WINTRUST.dll\CryptCATPutCatAttrInfo", "ptr", hCatalog, "ptr", pwszReferenceTag, "uint", dwAttrTypeAndAction, "uint", cbData, "ptr", pbData)
@@ -361,6 +367,8 @@ class Catalog {
      * @since windows5.1.2600
      */
     static CryptCATGetMemberInfo(hCatalog, pwszReferenceTag) {
+        pwszReferenceTag := pwszReferenceTag is String? StrPtr(pwszReferenceTag) : pwszReferenceTag
+
         DllCall("WINTRUST.dll\CryptCATGetMemberInfo", "ptr", hCatalog, "ptr", pwszReferenceTag)
     }
 
@@ -371,6 +379,8 @@ class Catalog {
      * @returns {String} Nothing - always returns an empty string
      */
     static CryptCATAllocSortedMemberInfo(hCatalog, pwszReferenceTag) {
+        pwszReferenceTag := pwszReferenceTag is String? StrPtr(pwszReferenceTag) : pwszReferenceTag
+
         DllCall("WINTRUST.dll\CryptCATAllocSortedMemberInfo", "ptr", hCatalog, "ptr", pwszReferenceTag)
     }
 
@@ -394,6 +404,8 @@ class Catalog {
      * @since windows5.1.2600
      */
     static CryptCATGetAttrInfo(hCatalog, pCatMember, pwszReferenceTag) {
+        pwszReferenceTag := pwszReferenceTag is String? StrPtr(pwszReferenceTag) : pwszReferenceTag
+
         A_LastError := 0
 
         DllCall("WINTRUST.dll\CryptCATGetAttrInfo", "ptr", hCatalog, "ptr", pCatMember, "ptr", pwszReferenceTag)
@@ -416,6 +428,9 @@ class Catalog {
      * @since windows5.1.2600
      */
     static CryptCATPutMemberInfo(hCatalog, pwszFileName, pwszReferenceTag, pgSubjectType, dwCertVersion, cbSIPIndirectData, pbSIPIndirectData) {
+        pwszFileName := pwszFileName is String? StrPtr(pwszFileName) : pwszFileName
+        pwszReferenceTag := pwszReferenceTag is String? StrPtr(pwszReferenceTag) : pwszReferenceTag
+
         A_LastError := 0
 
         DllCall("WINTRUST.dll\CryptCATPutMemberInfo", "ptr", hCatalog, "ptr", pwszFileName, "ptr", pwszReferenceTag, "ptr", pgSubjectType, "uint", dwCertVersion, "uint", cbSIPIndirectData, "ptr", pbSIPIndirectData)
@@ -521,6 +536,8 @@ class Catalog {
      * @since windows5.1.2600
      */
     static CryptCATPutAttrInfo(hCatalog, pCatMember, pwszReferenceTag, dwAttrTypeAndAction, cbData, pbData) {
+        pwszReferenceTag := pwszReferenceTag is String? StrPtr(pwszReferenceTag) : pwszReferenceTag
+
         A_LastError := 0
 
         DllCall("WINTRUST.dll\CryptCATPutAttrInfo", "ptr", hCatalog, "ptr", pCatMember, "ptr", pwszReferenceTag, "uint", dwAttrTypeAndAction, "uint", cbData, "ptr", pbData)
@@ -667,6 +684,8 @@ class Catalog {
      * @since windows5.1.2600
      */
     static CryptCATCDFOpen(pwszFilePath, pfnParseError) {
+        pwszFilePath := pwszFilePath is String? StrPtr(pwszFilePath) : pwszFilePath
+
         DllCall("WINTRUST.dll\CryptCATCDFOpen", "ptr", pwszFilePath, "ptr", pfnParseError)
     }
 
@@ -731,6 +750,8 @@ class Catalog {
      * @since windows5.1.2600
      */
     static IsCatalogFile(hFile, pwszFileName) {
+        pwszFileName := pwszFileName is String? StrPtr(pwszFileName) : pwszFileName
+
         result := DllCall("WINTRUST.dll\IsCatalogFile", "ptr", hFile, "ptr", pwszFileName, "int")
         return result
     }
@@ -818,6 +839,8 @@ class Catalog {
      */
     static CryptCATAdminAcquireContext2(phCatAdmin, pgSubsystem, pwszHashAlgorithm, pStrongHashPolicy) {
         static dwFlags := 0 ;Reserved parameters must always be NULL
+
+        pwszHashAlgorithm := pwszHashAlgorithm is String? StrPtr(pwszHashAlgorithm) : pwszHashAlgorithm
 
         A_LastError := 0
 
@@ -994,6 +1017,9 @@ class Catalog {
      * @since windows5.1.2600
      */
     static CryptCATAdminAddCatalog(hCatAdmin, pwszCatalogFile, pwszSelectBaseName, dwFlags) {
+        pwszCatalogFile := pwszCatalogFile is String? StrPtr(pwszCatalogFile) : pwszCatalogFile
+        pwszSelectBaseName := pwszSelectBaseName is String? StrPtr(pwszSelectBaseName) : pwszSelectBaseName
+
         A_LastError := 0
 
         result := DllCall("WINTRUST.dll\CryptCATAdminAddCatalog", "ptr", hCatAdmin, "ptr", pwszCatalogFile, "ptr", pwszSelectBaseName, "uint", dwFlags, "ptr")
@@ -1015,6 +1041,8 @@ class Catalog {
      * @since windows5.1.2600
      */
     static CryptCATAdminRemoveCatalog(hCatAdmin, pwszCatalogFile, dwFlags) {
+        pwszCatalogFile := pwszCatalogFile is String? StrPtr(pwszCatalogFile) : pwszCatalogFile
+
         A_LastError := 0
 
         result := DllCall("WINTRUST.dll\CryptCATAdminRemoveCatalog", "ptr", hCatAdmin, "ptr", pwszCatalogFile, "uint", dwFlags, "int")
@@ -1058,6 +1086,8 @@ class Catalog {
      * @since windows5.1.2600
      */
     static CryptCATAdminResolveCatalogPath(hCatAdmin, pwszCatalogFile, psCatInfo, dwFlags) {
+        pwszCatalogFile := pwszCatalogFile is String? StrPtr(pwszCatalogFile) : pwszCatalogFile
+
         A_LastError := 0
 
         result := DllCall("WINTRUST.dll\CryptCATAdminResolveCatalogPath", "ptr", hCatAdmin, "ptr", pwszCatalogFile, "ptr", psCatInfo, "uint", dwFlags, "int")
@@ -1092,6 +1122,8 @@ class Catalog {
      * @see https://learn.microsoft.com/windows/win32/SecCrypto/cryptcatcdfenummembersbycdftagex
      */
     static CryptCATCDFEnumMembersByCDFTagEx(pCDF, pwszPrevCDFTag, pfnParseError, ppMember, fContinueOnError, pvReserved) {
+        pwszPrevCDFTag := pwszPrevCDFTag is String? StrPtr(pwszPrevCDFTag) : pwszPrevCDFTag
+
         result := DllCall("WINTRUST.dll\CryptCATCDFEnumMembersByCDFTagEx", "ptr", pCDF, "ptr", pwszPrevCDFTag, "ptr", pfnParseError, "ptr", ppMember, "int", fContinueOnError, "ptr", pvReserved, "ptr")
         return result
     }
@@ -1109,6 +1141,8 @@ class Catalog {
      * @see https://learn.microsoft.com/windows/win32/SecCrypto/cryptcatcdfenumattributeswithcdftag
      */
     static CryptCATCDFEnumAttributesWithCDFTag(pCDF, pwszMemberTag, pMember, pPrevAttr, pfnParseError) {
+        pwszMemberTag := pwszMemberTag is String? StrPtr(pwszMemberTag) : pwszMemberTag
+
         DllCall("WINTRUST.dll\CryptCATCDFEnumAttributesWithCDFTag", "ptr", pCDF, "ptr", pwszMemberTag, "ptr", pMember, "ptr", pPrevAttr, "ptr", pfnParseError)
     }
 

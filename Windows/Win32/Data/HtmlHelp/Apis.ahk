@@ -1261,6 +1261,8 @@ class HtmlHelp {
      * @see https://learn.microsoft.com/windows/win32/api/htmlhelp/nf-htmlhelp-htmlhelpa
      */
     static HtmlHelpA(hwndCaller, pszFile, uCommand, dwData) {
+        pszFile := pszFile is String? StrPtr(pszFile) : pszFile
+
         result := DllCall("hhctrl.ocx\HtmlHelpA", "ptr", hwndCaller, "ptr", pszFile, "uint", uCommand, "ptr", dwData, "ptr")
         return result
     }
@@ -1296,6 +1298,8 @@ class HtmlHelp {
      * @see https://learn.microsoft.com/windows/win32/api/htmlhelp/nf-htmlhelp-htmlhelpw
      */
     static HtmlHelpW(hwndCaller, pszFile, uCommand, dwData) {
+        pszFile := pszFile is String? StrPtr(pszFile) : pszFile
+
         result := DllCall("hhctrl.ocx\HtmlHelpW", "ptr", hwndCaller, "ptr", pszFile, "uint", uCommand, "ptr", dwData, "ptr")
         return result
     }

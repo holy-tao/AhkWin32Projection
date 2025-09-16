@@ -748,6 +748,10 @@ class GroupPolicy {
      * @since windows6.0.6000
      */
     static GetGPOListA(hToken, lpName, lpHostName, lpComputerName, dwFlags, pGPOList) {
+        lpName := lpName is String? StrPtr(lpName) : lpName
+        lpHostName := lpHostName is String? StrPtr(lpHostName) : lpHostName
+        lpComputerName := lpComputerName is String? StrPtr(lpComputerName) : lpComputerName
+
         A_LastError := 0
 
         result := DllCall("USERENV.dll\GetGPOListA", "ptr", hToken, "ptr", lpName, "ptr", lpHostName, "ptr", lpComputerName, "uint", dwFlags, "ptr", pGPOList, "int")
@@ -841,6 +845,10 @@ class GroupPolicy {
      * @since windows6.0.6000
      */
     static GetGPOListW(hToken, lpName, lpHostName, lpComputerName, dwFlags, pGPOList) {
+        lpName := lpName is String? StrPtr(lpName) : lpName
+        lpHostName := lpHostName is String? StrPtr(lpHostName) : lpHostName
+        lpComputerName := lpComputerName is String? StrPtr(lpComputerName) : lpComputerName
+
         A_LastError := 0
 
         result := DllCall("USERENV.dll\GetGPOListW", "ptr", hToken, "ptr", lpName, "ptr", lpHostName, "ptr", lpComputerName, "uint", dwFlags, "ptr", pGPOList, "int")
@@ -929,6 +937,8 @@ class GroupPolicy {
      * @since windows6.0.6000
      */
     static GetAppliedGPOListA(dwFlags, pMachineName, pSidUser, pGuidExtension, ppGPOList) {
+        pMachineName := pMachineName is String? StrPtr(pMachineName) : pMachineName
+
         result := DllCall("USERENV.dll\GetAppliedGPOListA", "uint", dwFlags, "ptr", pMachineName, "ptr", pSidUser, "ptr", pGuidExtension, "ptr", ppGPOList, "uint")
         return result
     }
@@ -960,6 +970,8 @@ class GroupPolicy {
      * @since windows6.0.6000
      */
     static GetAppliedGPOListW(dwFlags, pMachineName, pSidUser, pGuidExtension, ppGPOList) {
+        pMachineName := pMachineName is String? StrPtr(pMachineName) : pMachineName
+
         result := DllCall("USERENV.dll\GetAppliedGPOListW", "uint", dwFlags, "ptr", pMachineName, "ptr", pSidUser, "ptr", pGuidExtension, "ptr", ppGPOList, "uint")
         return result
     }
@@ -1068,6 +1080,8 @@ class GroupPolicy {
      * @since windows6.0.6000
      */
     static RsopFileAccessCheck(pszFileName, pRsopToken, dwDesiredAccessMask, pdwGrantedAccessMask, pbAccessStatus) {
+        pszFileName := pszFileName is String? StrPtr(pszFileName) : pszFileName
+
         result := DllCall("USERENV.dll\RsopFileAccessCheck", "ptr", pszFileName, "ptr", pRsopToken, "uint", dwDesiredAccessMask, "ptr", pdwGrantedAccessMask, "ptr", pbAccessStatus, "int")
         return result
     }
@@ -1123,6 +1137,8 @@ class GroupPolicy {
      * @returns {Integer} 
      */
     static GenerateGPNotification(bMachine, lpwszMgmtProduct, dwMgmtProductOptions) {
+        lpwszMgmtProduct := lpwszMgmtProduct is String? StrPtr(lpwszMgmtProduct) : lpwszMgmtProduct
+
         result := DllCall("USERENV.dll\GenerateGPNotification", "int", bMachine, "ptr", lpwszMgmtProduct, "uint", dwMgmtProductOptions, "uint")
         return result
     }
@@ -1171,6 +1187,8 @@ class GroupPolicy {
      * @since windows6.0.6000
      */
     static UninstallApplication(ProductCode, dwStatus) {
+        ProductCode := ProductCode is String? StrPtr(ProductCode) : ProductCode
+
         result := DllCall("ADVAPI32.dll\UninstallApplication", "ptr", ProductCode, "uint", dwStatus, "uint")
         return result
     }
@@ -1183,6 +1201,9 @@ class GroupPolicy {
      * @returns {Integer} 
      */
     static CommandLineFromMsiDescriptor(Descriptor, CommandLine, CommandLineLength) {
+        Descriptor := Descriptor is String? StrPtr(Descriptor) : Descriptor
+        CommandLine := CommandLine is String? StrPtr(CommandLine) : CommandLine
+
         result := DllCall("ADVAPI32.dll\CommandLineFromMsiDescriptor", "ptr", Descriptor, "ptr", CommandLine, "ptr", CommandLineLength, "uint")
         return result
     }
@@ -1229,6 +1250,10 @@ class GroupPolicy {
      * @returns {String} Nothing - always returns an empty string
      */
     static GetLocalManagedApplicationData(ProductCode, DisplayName, SupportUrl) {
+        ProductCode := ProductCode is String? StrPtr(ProductCode) : ProductCode
+        DisplayName := DisplayName is String? StrPtr(DisplayName) : DisplayName
+        SupportUrl := SupportUrl is String? StrPtr(SupportUrl) : SupportUrl
+
         DllCall("ADVAPI32.dll\GetLocalManagedApplicationData", "ptr", ProductCode, "ptr", DisplayName, "ptr", SupportUrl)
     }
 
@@ -1267,6 +1292,9 @@ class GroupPolicy {
      * @since windows6.0.6000
      */
     static CreateGPOLink(lpGPO, lpContainer, fHighPriority) {
+        lpGPO := lpGPO is String? StrPtr(lpGPO) : lpGPO
+        lpContainer := lpContainer is String? StrPtr(lpContainer) : lpContainer
+
         result := DllCall("GPEDIT.dll\CreateGPOLink", "ptr", lpGPO, "ptr", lpContainer, "int", fHighPriority, "int")
         return result
     }
@@ -1280,6 +1308,9 @@ class GroupPolicy {
      * @since windows6.0.6000
      */
     static DeleteGPOLink(lpGPO, lpContainer) {
+        lpGPO := lpGPO is String? StrPtr(lpGPO) : lpGPO
+        lpContainer := lpContainer is String? StrPtr(lpContainer) : lpContainer
+
         result := DllCall("GPEDIT.dll\DeleteGPOLink", "ptr", lpGPO, "ptr", lpContainer, "int")
         return result
     }
@@ -1292,6 +1323,8 @@ class GroupPolicy {
      * @since windows6.0.6000
      */
     static DeleteAllGPOLinks(lpContainer) {
+        lpContainer := lpContainer is String? StrPtr(lpContainer) : lpContainer
+
         result := DllCall("GPEDIT.dll\DeleteAllGPOLinks", "ptr", lpContainer, "int")
         return result
     }
@@ -1320,6 +1353,9 @@ class GroupPolicy {
      * @since windows6.0.6000
      */
     static ImportRSoPData(lpNameSpace, lpFileName) {
+        lpNameSpace := lpNameSpace is String? StrPtr(lpNameSpace) : lpNameSpace
+        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+
         result := DllCall("GPEDIT.dll\ImportRSoPData", "ptr", lpNameSpace, "ptr", lpFileName, "int")
         return result
     }
@@ -1336,6 +1372,9 @@ class GroupPolicy {
      * @since windows6.0.6000
      */
     static ExportRSoPData(lpNameSpace, lpFileName) {
+        lpNameSpace := lpNameSpace is String? StrPtr(lpNameSpace) : lpNameSpace
+        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+
         result := DllCall("GPEDIT.dll\ExportRSoPData", "ptr", lpNameSpace, "ptr", lpFileName, "int")
         return result
     }

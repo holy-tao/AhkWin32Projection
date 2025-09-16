@@ -382,6 +382,8 @@ class MobileDeviceManagementRegistration {
      * @since windows8.1
      */
     static IsDeviceRegisteredWithManagement(pfIsDeviceRegisteredWithManagement, cchUPN, pszUPN) {
+        pszUPN := pszUPN is String? StrPtr(pszUPN) : pszUPN
+
         result := DllCall("MDMRegistration.dll\IsDeviceRegisteredWithManagement", "ptr", pfIsDeviceRegisteredWithManagement, "uint", cchUPN, "ptr", pszUPN, "int")
         return result
     }
@@ -445,6 +447,8 @@ class MobileDeviceManagementRegistration {
      * @since windows8.1
      */
     static DiscoverManagementService(pszUPN, ppMgmtInfo) {
+        pszUPN := pszUPN is String? StrPtr(pszUPN) : pszUPN
+
         result := DllCall("MDMRegistration.dll\DiscoverManagementService", "ptr", pszUPN, "ptr", ppMgmtInfo, "int")
         return result
     }
@@ -484,6 +488,8 @@ class MobileDeviceManagementRegistration {
      * @returns {Integer} 
      */
     static RegisterDeviceWithManagementUsingAADDeviceCredentials2(MDMApplicationID) {
+        MDMApplicationID := MDMApplicationID is String? StrPtr(MDMApplicationID) : MDMApplicationID
+
         result := DllCall("MDMRegistration.dll\RegisterDeviceWithManagementUsingAADDeviceCredentials2", "ptr", MDMApplicationID, "int")
         return result
     }
@@ -507,6 +513,10 @@ class MobileDeviceManagementRegistration {
      * @since windows8.1
      */
     static RegisterDeviceWithManagement(pszUPN, ppszMDMServiceUri, ppzsAccessToken) {
+        pszUPN := pszUPN is String? StrPtr(pszUPN) : pszUPN
+        ppszMDMServiceUri := ppszMDMServiceUri is String? StrPtr(ppszMDMServiceUri) : ppszMDMServiceUri
+        ppzsAccessToken := ppzsAccessToken is String? StrPtr(ppzsAccessToken) : ppzsAccessToken
+
         result := DllCall("MDMRegistration.dll\RegisterDeviceWithManagement", "ptr", pszUPN, "ptr", ppszMDMServiceUri, "ptr", ppzsAccessToken, "int")
         return result
     }
@@ -524,6 +534,8 @@ class MobileDeviceManagementRegistration {
      * @since windows8.1
      */
     static UnregisterDeviceWithManagement(enrollmentID) {
+        enrollmentID := enrollmentID is String? StrPtr(enrollmentID) : enrollmentID
+
         result := DllCall("MDMRegistration.dll\UnregisterDeviceWithManagement", "ptr", enrollmentID, "int")
         return result
     }
@@ -547,6 +559,9 @@ class MobileDeviceManagementRegistration {
      * @see https://learn.microsoft.com/windows/win32/api/mdmregistration/nf-mdmregistration-getdevicemanagementconfiginfo
      */
     static GetDeviceManagementConfigInfo(providerID, configStringBufferLength, configString) {
+        providerID := providerID is String? StrPtr(providerID) : providerID
+        configString := configString is String? StrPtr(configString) : configString
+
         result := DllCall("MDMRegistration.dll\GetDeviceManagementConfigInfo", "ptr", providerID, "ptr", configStringBufferLength, "ptr", configString, "int")
         return result
     }
@@ -565,6 +580,9 @@ class MobileDeviceManagementRegistration {
      * @see https://learn.microsoft.com/windows/win32/api/mdmregistration/nf-mdmregistration-setdevicemanagementconfiginfo
      */
     static SetDeviceManagementConfigInfo(providerID, configString) {
+        providerID := providerID is String? StrPtr(providerID) : providerID
+        configString := configString is String? StrPtr(configString) : configString
+
         result := DllCall("MDMRegistration.dll\SetDeviceManagementConfigInfo", "ptr", providerID, "ptr", configString, "int")
         return result
     }
@@ -584,6 +602,8 @@ class MobileDeviceManagementRegistration {
      * @since windows8.1
      */
     static GetManagementAppHyperlink(cchHyperlink, pszHyperlink) {
+        pszHyperlink := pszHyperlink is String? StrPtr(pszHyperlink) : pszHyperlink
+
         result := DllCall("MDMRegistration.dll\GetManagementAppHyperlink", "uint", cchHyperlink, "ptr", pszHyperlink, "int")
         return result
     }
@@ -608,6 +628,9 @@ class MobileDeviceManagementRegistration {
      * @since windows8.1
      */
     static DiscoverManagementServiceEx(pszUPN, pszDiscoveryServiceCandidate, ppMgmtInfo) {
+        pszUPN := pszUPN is String? StrPtr(pszUPN) : pszUPN
+        pszDiscoveryServiceCandidate := pszDiscoveryServiceCandidate is String? StrPtr(pszDiscoveryServiceCandidate) : pszDiscoveryServiceCandidate
+
         result := DllCall("MDMRegistration.dll\DiscoverManagementServiceEx", "ptr", pszUPN, "ptr", pszDiscoveryServiceCandidate, "ptr", ppMgmtInfo, "int")
         return result
     }
@@ -629,6 +652,9 @@ class MobileDeviceManagementRegistration {
      * @returns {Integer} 
      */
     static ApplyLocalManagementSyncML(syncMLRequest, syncMLResult) {
+        syncMLRequest := syncMLRequest is String? StrPtr(syncMLRequest) : syncMLRequest
+        syncMLResult := syncMLResult is String? StrPtr(syncMLResult) : syncMLResult
+
         result := DllCall("MDMLocalManagement.dll\ApplyLocalManagementSyncML", "ptr", syncMLRequest, "ptr", syncMLResult, "int")
         return result
     }

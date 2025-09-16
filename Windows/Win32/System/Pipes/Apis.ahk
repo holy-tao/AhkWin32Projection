@@ -702,6 +702,8 @@ class Pipes {
      * @see https://learn.microsoft.com/windows/win32/api/namedpipeapi/nf-namedpipeapi-createnamedpipew
      */
     static CreateNamedPipeW(lpName, dwOpenMode, dwPipeMode, nMaxInstances, nOutBufferSize, nInBufferSize, nDefaultTimeOut, lpSecurityAttributes) {
+        lpName := lpName is String? StrPtr(lpName) : lpName
+
         result := DllCall("KERNEL32.dll\CreateNamedPipeW", "ptr", lpName, "uint", dwOpenMode, "uint", dwPipeMode, "uint", nMaxInstances, "uint", nOutBufferSize, "uint", nInBufferSize, "uint", nDefaultTimeOut, "ptr", lpSecurityAttributes, "ptr")
         return result
     }
@@ -728,6 +730,8 @@ class Pipes {
      * @see https://learn.microsoft.com/windows/win32/api/namedpipeapi/nf-namedpipeapi-waitnamedpipew
      */
     static WaitNamedPipeW(lpNamedPipeName, nTimeOut) {
+        lpNamedPipeName := lpNamedPipeName is String? StrPtr(lpNamedPipeName) : lpNamedPipeName
+
         result := DllCall("KERNEL32.dll\WaitNamedPipeW", "ptr", lpNamedPipeName, "uint", nTimeOut, "int")
         return result
     }
@@ -747,6 +751,8 @@ class Pipes {
      * @see https://learn.microsoft.com/windows/win32/api/namedpipeapi/nf-namedpipeapi-getnamedpipeclientcomputernamew
      */
     static GetNamedPipeClientComputerNameW(Pipe, ClientComputerName, ClientComputerNameLength) {
+        ClientComputerName := ClientComputerName is String? StrPtr(ClientComputerName) : ClientComputerName
+
         result := DllCall("KERNEL32.dll\GetNamedPipeClientComputerNameW", "ptr", Pipe, "ptr", ClientComputerName, "uint", ClientComputerNameLength, "int")
         return result
     }
@@ -850,6 +856,8 @@ class Pipes {
      * @see https://learn.microsoft.com/windows/win32/api/namedpipeapi/nf-namedpipeapi-getnamedpipehandlestatew
      */
     static GetNamedPipeHandleStateW(hNamedPipe, lpState, lpCurInstances, lpMaxCollectionCount, lpCollectDataTimeout, lpUserName, nMaxUserNameSize) {
+        lpUserName := lpUserName is String? StrPtr(lpUserName) : lpUserName
+
         result := DllCall("KERNEL32.dll\GetNamedPipeHandleStateW", "ptr", hNamedPipe, "ptr", lpState, "ptr", lpCurInstances, "ptr", lpMaxCollectionCount, "ptr", lpCollectDataTimeout, "ptr", lpUserName, "uint", nMaxUserNameSize, "int")
         return result
     }
@@ -919,6 +927,8 @@ class Pipes {
      * @see https://learn.microsoft.com/windows/win32/api/namedpipeapi/nf-namedpipeapi-callnamedpipew
      */
     static CallNamedPipeW(lpNamedPipeName, lpInBuffer, nInBufferSize, lpOutBuffer, nOutBufferSize, lpBytesRead, nTimeOut) {
+        lpNamedPipeName := lpNamedPipeName is String? StrPtr(lpNamedPipeName) : lpNamedPipeName
+
         result := DllCall("KERNEL32.dll\CallNamedPipeW", "ptr", lpNamedPipeName, "ptr", lpInBuffer, "uint", nInBufferSize, "ptr", lpOutBuffer, "uint", nOutBufferSize, "ptr", lpBytesRead, "uint", nTimeOut, "int")
         return result
     }
@@ -1247,6 +1257,8 @@ class Pipes {
      * @since windows5.0
      */
     static CreateNamedPipeA(lpName, dwOpenMode, dwPipeMode, nMaxInstances, nOutBufferSize, nInBufferSize, nDefaultTimeOut, lpSecurityAttributes) {
+        lpName := lpName is String? StrPtr(lpName) : lpName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\CreateNamedPipeA", "ptr", lpName, "uint", dwOpenMode, "uint", dwPipeMode, "uint", nMaxInstances, "uint", nOutBufferSize, "uint", nInBufferSize, "uint", nDefaultTimeOut, "ptr", lpSecurityAttributes, "ptr")
@@ -1292,6 +1304,8 @@ class Pipes {
      * @since windows5.0
      */
     static GetNamedPipeHandleStateA(hNamedPipe, lpState, lpCurInstances, lpMaxCollectionCount, lpCollectDataTimeout, lpUserName, nMaxUserNameSize) {
+        lpUserName := lpUserName is String? StrPtr(lpUserName) : lpUserName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetNamedPipeHandleStateA", "ptr", hNamedPipe, "ptr", lpState, "ptr", lpCurInstances, "ptr", lpMaxCollectionCount, "ptr", lpCollectDataTimeout, "ptr", lpUserName, "uint", nMaxUserNameSize, "int")
@@ -1369,6 +1383,8 @@ class Pipes {
      * @since windows5.0
      */
     static CallNamedPipeA(lpNamedPipeName, lpInBuffer, nInBufferSize, lpOutBuffer, nOutBufferSize, lpBytesRead, nTimeOut) {
+        lpNamedPipeName := lpNamedPipeName is String? StrPtr(lpNamedPipeName) : lpNamedPipeName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\CallNamedPipeA", "ptr", lpNamedPipeName, "ptr", lpInBuffer, "uint", nInBufferSize, "ptr", lpOutBuffer, "uint", nOutBufferSize, "ptr", lpBytesRead, "uint", nTimeOut, "int")
@@ -1404,6 +1420,8 @@ class Pipes {
      * @since windows5.0
      */
     static WaitNamedPipeA(lpNamedPipeName, nTimeOut) {
+        lpNamedPipeName := lpNamedPipeName is String? StrPtr(lpNamedPipeName) : lpNamedPipeName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\WaitNamedPipeA", "ptr", lpNamedPipeName, "uint", nTimeOut, "int")
@@ -1429,6 +1447,8 @@ class Pipes {
      * @since windows6.0.6000
      */
     static GetNamedPipeClientComputerNameA(Pipe, ClientComputerName, ClientComputerNameLength) {
+        ClientComputerName := ClientComputerName is String? StrPtr(ClientComputerName) : ClientComputerName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetNamedPipeClientComputerNameA", "ptr", Pipe, "ptr", ClientComputerName, "uint", ClientComputerNameLength, "int")

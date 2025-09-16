@@ -73,6 +73,8 @@ class EventCollector {
      * @since windows6.0.6000
      */
     static EcEnumNextSubscription(SubscriptionEnum, SubscriptionNameBufferSize, SubscriptionNameBuffer, SubscriptionNameBufferUsed) {
+        SubscriptionNameBuffer := SubscriptionNameBuffer is String? StrPtr(SubscriptionNameBuffer) : SubscriptionNameBuffer
+
         result := DllCall("WecApi.dll\EcEnumNextSubscription", "ptr", SubscriptionEnum, "uint", SubscriptionNameBufferSize, "ptr", SubscriptionNameBuffer, "ptr", SubscriptionNameBufferUsed, "int")
         return result
     }
@@ -87,6 +89,8 @@ class EventCollector {
      * @since windows6.0.6000
      */
     static EcOpenSubscription(SubscriptionName, AccessMask, Flags) {
+        SubscriptionName := SubscriptionName is String? StrPtr(SubscriptionName) : SubscriptionName
+
         A_LastError := 0
 
         result := DllCall("WecApi.dll\EcOpenSubscription", "ptr", SubscriptionName, "uint", AccessMask, "uint", Flags, "ptr")
@@ -154,6 +158,8 @@ class EventCollector {
      * @since windows6.0.6000
      */
     static EcDeleteSubscription(SubscriptionName, Flags) {
+        SubscriptionName := SubscriptionName is String? StrPtr(SubscriptionName) : SubscriptionName
+
         result := DllCall("WecApi.dll\EcDeleteSubscription", "ptr", SubscriptionName, "uint", Flags, "int")
         return result
     }
@@ -261,6 +267,9 @@ class EventCollector {
      * @since windows6.0.6000
      */
     static EcGetSubscriptionRunTimeStatus(SubscriptionName, StatusInfoId, EventSourceName, Flags, StatusValueBufferSize, StatusValueBuffer, StatusValueBufferUsed) {
+        SubscriptionName := SubscriptionName is String? StrPtr(SubscriptionName) : SubscriptionName
+        EventSourceName := EventSourceName is String? StrPtr(EventSourceName) : EventSourceName
+
         result := DllCall("WecApi.dll\EcGetSubscriptionRunTimeStatus", "ptr", SubscriptionName, "int", StatusInfoId, "ptr", EventSourceName, "uint", Flags, "uint", StatusValueBufferSize, "ptr", StatusValueBuffer, "ptr", StatusValueBufferUsed, "int")
         return result
     }
@@ -277,6 +286,9 @@ class EventCollector {
      * @since windows6.0.6000
      */
     static EcRetrySubscription(SubscriptionName, EventSourceName, Flags) {
+        SubscriptionName := SubscriptionName is String? StrPtr(SubscriptionName) : SubscriptionName
+        EventSourceName := EventSourceName is String? StrPtr(EventSourceName) : EventSourceName
+
         result := DllCall("WecApi.dll\EcRetrySubscription", "ptr", SubscriptionName, "ptr", EventSourceName, "uint", Flags, "int")
         return result
     }

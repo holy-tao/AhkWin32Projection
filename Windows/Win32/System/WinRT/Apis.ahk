@@ -418,6 +418,8 @@ class WinRT {
      * @since windows8.0
      */
     static WindowsCreateString(sourceString, length, string) {
+        sourceString := sourceString is String? StrPtr(sourceString) : sourceString
+
         result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsCreateString", "ptr", sourceString, "uint", length, "ptr", string, "int")
         return result
     }
@@ -504,6 +506,8 @@ class WinRT {
      * @since windows8.0
      */
     static WindowsCreateStringReference(sourceString, length, hstringHeader, string) {
+        sourceString := sourceString is String? StrPtr(sourceString) : sourceString
+
         result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsCreateStringReference", "ptr", sourceString, "uint", length, "ptr", hstringHeader, "ptr", string, "int")
         return result
     }
@@ -2027,6 +2031,8 @@ class WinRT {
      * @since windows8.0
      */
     static RoResolveRestrictedErrorInfoReference(reference, ppRestrictedErrorInfo) {
+        reference := reference is String? StrPtr(reference) : reference
+
         result := DllCall("api-ms-win-core-winrt-error-l1-1-0.dll\RoResolveRestrictedErrorInfoReference", "ptr", reference, "ptr", ppRestrictedErrorInfo, "int")
         return result
     }
@@ -2164,6 +2170,8 @@ class WinRT {
      * @since windows8.0
      */
     static RoOriginateErrorW(error, cchMax, message) {
+        message := message is String? StrPtr(message) : message
+
         result := DllCall("api-ms-win-core-winrt-error-l1-1-0.dll\RoOriginateErrorW", "int", error, "uint", cchMax, "ptr", message, "int")
         return result
     }
@@ -2294,6 +2302,8 @@ class WinRT {
      * @since windows8.0
      */
     static RoTransformErrorW(oldError, newError, cchMax, message) {
+        message := message is String? StrPtr(message) : message
+
         result := DllCall("api-ms-win-core-winrt-error-l1-1-0.dll\RoTransformErrorW", "int", oldError, "int", newError, "uint", cchMax, "ptr", message, "int")
         return result
     }
@@ -2648,6 +2658,8 @@ class WinRT {
      * @since windows8.0
      */
     static CreateRandomAccessStreamOnFile(filePath, accessMode, riid, ppv) {
+        filePath := filePath is String? StrPtr(filePath) : filePath
+
         result := DllCall("api-ms-win-shcore-stream-winrt-l1-1-0.dll\CreateRandomAccessStreamOnFile", "ptr", filePath, "uint", accessMode, "ptr", riid, "ptr", ppv, "int")
         return result
     }

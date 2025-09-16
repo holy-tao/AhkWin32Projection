@@ -796,6 +796,8 @@ class HttpServer {
      * @since windows6.0.6000
      */
     static HttpCreateRequestQueue(Version, Name, SecurityAttributes, Flags, RequestQueueHandle) {
+        Name := Name is String? StrPtr(Name) : Name
+
         result := DllCall("HTTPAPI.dll\HttpCreateRequestQueue", "ptr", Version, "ptr", Name, "ptr", SecurityAttributes, "uint", Flags, "ptr", RequestQueueHandle, "uint")
         return result
     }
@@ -1840,6 +1842,8 @@ class HttpServer {
     static HttpAddUrl(RequestQueueHandle, FullyQualifiedUrl) {
         static Reserved := 0 ;Reserved parameters must always be NULL
 
+        FullyQualifiedUrl := FullyQualifiedUrl is String? StrPtr(FullyQualifiedUrl) : FullyQualifiedUrl
+
         result := DllCall("HTTPAPI.dll\HttpAddUrl", "ptr", RequestQueueHandle, "ptr", FullyQualifiedUrl, "ptr", Reserved, "uint")
         return result
     }
@@ -1922,6 +1926,8 @@ class HttpServer {
      * @since windows6.0.6000
      */
     static HttpRemoveUrl(RequestQueueHandle, FullyQualifiedUrl) {
+        FullyQualifiedUrl := FullyQualifiedUrl is String? StrPtr(FullyQualifiedUrl) : FullyQualifiedUrl
+
         result := DllCall("HTTPAPI.dll\HttpRemoveUrl", "ptr", RequestQueueHandle, "ptr", FullyQualifiedUrl, "uint")
         return result
     }
@@ -2085,6 +2091,8 @@ class HttpServer {
     static HttpAddUrlToUrlGroup(UrlGroupId, pFullyQualifiedUrl, UrlContext) {
         static Reserved := 0 ;Reserved parameters must always be NULL
 
+        pFullyQualifiedUrl := pFullyQualifiedUrl is String? StrPtr(pFullyQualifiedUrl) : pFullyQualifiedUrl
+
         result := DllCall("HTTPAPI.dll\HttpAddUrlToUrlGroup", "uint", UrlGroupId, "ptr", pFullyQualifiedUrl, "uint", UrlContext, "uint", Reserved, "uint")
         return result
     }
@@ -2170,6 +2178,8 @@ class HttpServer {
      * @since windows6.0.6000
      */
     static HttpRemoveUrlFromUrlGroup(UrlGroupId, pFullyQualifiedUrl, Flags) {
+        pFullyQualifiedUrl := pFullyQualifiedUrl is String? StrPtr(pFullyQualifiedUrl) : pFullyQualifiedUrl
+
         result := DllCall("HTTPAPI.dll\HttpRemoveUrlFromUrlGroup", "uint", UrlGroupId, "ptr", pFullyQualifiedUrl, "uint", Flags, "uint")
         return result
     }
@@ -2529,6 +2539,9 @@ class HttpServer {
      */
     static HttpPrepareUrl(Url, PreparedUrl) {
         static Reserved := 0, Flags := 0 ;Reserved parameters must always be NULL
+
+        Url := Url is String? StrPtr(Url) : Url
+        PreparedUrl := PreparedUrl is String? StrPtr(PreparedUrl) : PreparedUrl
 
         result := DllCall("HTTPAPI.dll\HttpPrepareUrl", "ptr", Reserved, "uint", Flags, "ptr", Url, "ptr", PreparedUrl, "uint")
         return result
@@ -3153,6 +3166,9 @@ class HttpServer {
      * @since windows10.0.10240
      */
     static HttpDeclarePush(RequestQueueHandle, RequestId, Verb, Path, Query, Headers) {
+        Path := Path is String? StrPtr(Path) : Path
+        Query := Query is String? StrPtr(Query) : Query
+
         result := DllCall("HTTPAPI.dll\HttpDeclarePush", "ptr", RequestQueueHandle, "uint", RequestId, "int", Verb, "ptr", Path, "ptr", Query, "ptr", Headers, "uint")
         return result
     }
@@ -3388,6 +3404,8 @@ class HttpServer {
      * @see https://learn.microsoft.com/windows/win32/api/http/nf-http-httpfindurlgroupid
      */
     static HttpFindUrlGroupId(FullyQualifiedUrl, RequestQueueHandle, UrlGroupId) {
+        FullyQualifiedUrl := FullyQualifiedUrl is String? StrPtr(FullyQualifiedUrl) : FullyQualifiedUrl
+
         result := DllCall("HTTPAPI.dll\HttpFindUrlGroupId", "ptr", FullyQualifiedUrl, "ptr", RequestQueueHandle, "ptr", UrlGroupId, "uint")
         return result
     }
@@ -3448,6 +3466,8 @@ class HttpServer {
      * @since windows6.0.6000
      */
     static HttpFlushResponseCache(RequestQueueHandle, UrlPrefix, Flags, Overlapped) {
+        UrlPrefix := UrlPrefix is String? StrPtr(UrlPrefix) : UrlPrefix
+
         result := DllCall("HTTPAPI.dll\HttpFlushResponseCache", "ptr", RequestQueueHandle, "ptr", UrlPrefix, "uint", Flags, "ptr", Overlapped, "uint")
         return result
     }
@@ -3513,6 +3533,8 @@ class HttpServer {
      * @since windows6.0.6000
      */
     static HttpAddFragmentToCache(RequestQueueHandle, UrlPrefix, DataChunk, CachePolicy, Overlapped) {
+        UrlPrefix := UrlPrefix is String? StrPtr(UrlPrefix) : UrlPrefix
+
         result := DllCall("HTTPAPI.dll\HttpAddFragmentToCache", "ptr", RequestQueueHandle, "ptr", UrlPrefix, "ptr", DataChunk, "ptr", CachePolicy, "ptr", Overlapped, "uint")
         return result
     }
@@ -3593,6 +3615,8 @@ class HttpServer {
      * @since windows6.0.6000
      */
     static HttpReadFragmentFromCache(RequestQueueHandle, UrlPrefix, ByteRange, Buffer, BufferLength, BytesRead, Overlapped) {
+        UrlPrefix := UrlPrefix is String? StrPtr(UrlPrefix) : UrlPrefix
+
         result := DllCall("HTTPAPI.dll\HttpReadFragmentFromCache", "ptr", RequestQueueHandle, "ptr", UrlPrefix, "ptr", ByteRange, "ptr", Buffer, "uint", BufferLength, "ptr", BytesRead, "ptr", Overlapped, "uint")
         return result
     }

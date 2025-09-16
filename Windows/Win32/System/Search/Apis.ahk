@@ -20002,6 +20002,10 @@ class Search {
      * @returns {Integer} 
      */
     static bcp_initA(param0, param1, param2, param3, param4) {
+        param1 := param1 is String? StrPtr(param1) : param1
+        param2 := param2 is String? StrPtr(param2) : param2
+        param3 := param3 is String? StrPtr(param3) : param3
+
         result := DllCall("odbcbcp.dll\bcp_initA", "ptr", param0, "ptr", param1, "ptr", param2, "ptr", param3, "int", param4, "short")
         return result
     }
@@ -20016,6 +20020,10 @@ class Search {
      * @returns {Integer} 
      */
     static bcp_initW(param0, param1, param2, param3, param4) {
+        param1 := param1 is String? StrPtr(param1) : param1
+        param2 := param2 is String? StrPtr(param2) : param2
+        param3 := param3 is String? StrPtr(param3) : param3
+
         result := DllCall("odbcbcp.dll\bcp_initW", "ptr", param0, "ptr", param1, "ptr", param2, "ptr", param3, "int", param4, "short")
         return result
     }
@@ -20071,6 +20079,8 @@ class Search {
      * @returns {Integer} 
      */
     static bcp_readfmtA(param0, param1) {
+        param1 := param1 is String? StrPtr(param1) : param1
+
         result := DllCall("odbcbcp.dll\bcp_readfmtA", "ptr", param0, "ptr", param1, "short")
         return result
     }
@@ -20082,6 +20092,8 @@ class Search {
      * @returns {Integer} 
      */
     static bcp_readfmtW(param0, param1) {
+        param1 := param1 is String? StrPtr(param1) : param1
+
         result := DllCall("odbcbcp.dll\bcp_readfmtW", "ptr", param0, "ptr", param1, "short")
         return result
     }
@@ -20161,6 +20173,8 @@ class Search {
      * @returns {Integer} 
      */
     static bcp_writefmtA(param0, param1) {
+        param1 := param1 is String? StrPtr(param1) : param1
+
         result := DllCall("odbcbcp.dll\bcp_writefmtA", "ptr", param0, "ptr", param1, "short")
         return result
     }
@@ -20172,6 +20186,8 @@ class Search {
      * @returns {Integer} 
      */
     static bcp_writefmtW(param0, param1) {
+        param1 := param1 is String? StrPtr(param1) : param1
+
         result := DllCall("odbcbcp.dll\bcp_writefmtW", "ptr", param0, "ptr", param1, "short")
         return result
     }
@@ -20214,6 +20230,8 @@ class Search {
      * @returns {Integer} 
      */
     static SQLLinkedCatalogsA(param0, param1, param2) {
+        param1 := param1 is String? StrPtr(param1) : param1
+
         result := DllCall("odbcbcp.dll\SQLLinkedCatalogsA", "ptr", param0, "ptr", param1, "short", param2, "short")
         return result
     }
@@ -20226,6 +20244,8 @@ class Search {
      * @returns {Integer} 
      */
     static SQLLinkedCatalogsW(param0, param1, param2) {
+        param1 := param1 is String? StrPtr(param1) : param1
+
         result := DllCall("odbcbcp.dll\SQLLinkedCatalogsW", "ptr", param0, "ptr", param1, "short", param2, "short")
         return result
     }
@@ -20237,6 +20257,9 @@ class Search {
      * @returns {Pointer<HANDLE>} 
      */
     static SQLInitEnumServers(pwchServerName, pwchInstanceName) {
+        pwchServerName := pwchServerName is String? StrPtr(pwchServerName) : pwchServerName
+        pwchInstanceName := pwchInstanceName is String? StrPtr(pwchInstanceName) : pwchInstanceName
+
         result := DllCall("odbcbcp.dll\SQLInitEnumServers", "ptr", pwchServerName, "ptr", pwchInstanceName, "ptr")
         return result
     }

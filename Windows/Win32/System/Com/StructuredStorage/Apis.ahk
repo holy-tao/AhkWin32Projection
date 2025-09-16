@@ -402,6 +402,8 @@ class StructuredStorage {
      * @since windows5.0
      */
     static CoGetInstanceFromFile(pServerInfo, pClsid, punkOuter, dwClsCtx, grfMode, pwszName, dwCount, pResults) {
+        pwszName := pwszName is String? StrPtr(pwszName) : pwszName
+
         result := DllCall("OLE32.dll\CoGetInstanceFromFile", "ptr", pServerInfo, "ptr", pClsid, "ptr", punkOuter, "uint", dwClsCtx, "uint", grfMode, "ptr", pwszName, "uint", dwCount, "ptr", pResults, "int")
         return result
     }
@@ -531,6 +533,8 @@ class StructuredStorage {
      * @see https://learn.microsoft.com/windows/win32/api/objbase/nf-objbase-stggetifilllockbytesonfile
      */
     static StgGetIFillLockBytesOnFile(pwcsName, ppflb) {
+        pwcsName := pwcsName is String? StrPtr(pwcsName) : pwcsName
+
         result := DllCall("ole32.dll\StgGetIFillLockBytesOnFile", "ptr", pwcsName, "ptr", ppflb, "int")
         return result
     }
@@ -556,6 +560,8 @@ class StructuredStorage {
      * @see https://learn.microsoft.com/windows/win32/api/objbase/nf-objbase-stgopenlayoutdocfile
      */
     static StgOpenLayoutDocfile(pwcsDfName, grfMode, reserved, ppstgOpen) {
+        pwcsDfName := pwcsDfName is String? StrPtr(pwcsDfName) : pwcsDfName
+
         result := DllCall("dflayout.dll\StgOpenLayoutDocfile", "ptr", pwcsDfName, "uint", grfMode, "uint", reserved, "ptr", ppstgOpen, "int")
         return result
     }
@@ -766,6 +772,8 @@ class StructuredStorage {
     static StgCreateDocfile(pwcsName, grfMode, ppstgOpen) {
         static reserved := 0 ;Reserved parameters must always be NULL
 
+        pwcsName := pwcsName is String? StrPtr(pwcsName) : pwcsName
+
         result := DllCall("OLE32.dll\StgCreateDocfile", "ptr", pwcsName, "uint", grfMode, "uint", reserved, "ptr", ppstgOpen, "int")
         return result
     }
@@ -938,6 +946,8 @@ class StructuredStorage {
      * @since windows5.0
      */
     static StgOpenStorage(pwcsName, pstgPriority, grfMode, snbExclude, reserved, ppstgOpen) {
+        pwcsName := pwcsName is String? StrPtr(pwcsName) : pwcsName
+
         result := DllCall("OLE32.dll\StgOpenStorage", "ptr", pwcsName, "ptr", pstgPriority, "uint", grfMode, "ptr", snbExclude, "uint", reserved, "ptr", ppstgOpen, "int")
         return result
     }
@@ -1016,6 +1026,8 @@ class StructuredStorage {
      * @since windows5.0
      */
     static StgIsStorageFile(pwcsName) {
+        pwcsName := pwcsName is String? StrPtr(pwcsName) : pwcsName
+
         result := DllCall("OLE32.dll\StgIsStorageFile", "ptr", pwcsName, "int")
         return result
     }
@@ -1058,6 +1070,8 @@ class StructuredStorage {
      * @since windows5.0
      */
     static StgSetTimes(lpszName, pctime, patime, pmtime) {
+        lpszName := lpszName is String? StrPtr(lpszName) : lpszName
+
         result := DllCall("OLE32.dll\StgSetTimes", "ptr", lpszName, "ptr", pctime, "ptr", patime, "ptr", pmtime, "int")
         return result
     }
@@ -1164,6 +1178,8 @@ class StructuredStorage {
      * @since windows5.0
      */
     static StgCreateStorageEx(pwcsName, grfMode, stgfmt, grfAttrs, pStgOptions, pSecurityDescriptor, riid, ppObjectOpen) {
+        pwcsName := pwcsName is String? StrPtr(pwcsName) : pwcsName
+
         result := DllCall("OLE32.dll\StgCreateStorageEx", "ptr", pwcsName, "uint", grfMode, "uint", stgfmt, "uint", grfAttrs, "ptr", pStgOptions, "ptr", pSecurityDescriptor, "ptr", riid, "ptr", ppObjectOpen, "int")
         return result
     }
@@ -1253,6 +1269,8 @@ class StructuredStorage {
      * @since windows5.0
      */
     static StgOpenStorageEx(pwcsName, grfMode, stgfmt, grfAttrs, pStgOptions, pSecurityDescriptor, riid, ppObjectOpen) {
+        pwcsName := pwcsName is String? StrPtr(pwcsName) : pwcsName
+
         result := DllCall("OLE32.dll\StgOpenStorageEx", "ptr", pwcsName, "uint", grfMode, "uint", stgfmt, "uint", grfAttrs, "ptr", pStgOptions, "ptr", pSecurityDescriptor, "ptr", riid, "ptr", ppObjectOpen, "int")
         return result
     }
@@ -1369,6 +1387,8 @@ class StructuredStorage {
      * @since windows5.0
      */
     static FmtIdToPropStgName(pfmtid, oszName) {
+        oszName := oszName is String? StrPtr(oszName) : oszName
+
         result := DllCall("OLE32.dll\FmtIdToPropStgName", "ptr", pfmtid, "ptr", oszName, "int")
         return result
     }
@@ -1388,6 +1408,8 @@ class StructuredStorage {
      * @since windows5.0
      */
     static PropStgNameToFmtId(oszName, pfmtid) {
+        oszName := oszName is String? StrPtr(oszName) : oszName
+
         result := DllCall("OLE32.dll\PropStgNameToFmtId", "ptr", oszName, "ptr", pfmtid, "int")
         return result
     }
@@ -1655,6 +1677,8 @@ class StructuredStorage {
      * @since windows5.0
      */
     static WriteFmtUserTypeStg(pstg, cf, lpszUserType) {
+        lpszUserType := lpszUserType is String? StrPtr(lpszUserType) : lpszUserType
+
         result := DllCall("OLE32.dll\WriteFmtUserTypeStg", "ptr", pstg, "ushort", cf, "ptr", lpszUserType, "int")
         return result
     }
@@ -1677,6 +1701,8 @@ class StructuredStorage {
      * @since windows5.0
      */
     static ReadFmtUserTypeStg(pstg, pcf, lplpszUserType) {
+        lplpszUserType := lplpszUserType is String? StrPtr(lplpszUserType) : lplpszUserType
+
         result := DllCall("OLE32.dll\ReadFmtUserTypeStg", "ptr", pstg, "ptr", pcf, "ptr", lplpszUserType, "int")
         return result
     }
@@ -2340,6 +2366,8 @@ class StructuredStorage {
      * @since windows5.1.2600
      */
     static InitPropVariantFromStringVector(prgsz, cElems, ppropvar) {
+        prgsz := prgsz is String? StrPtr(prgsz) : prgsz
+
         result := DllCall("PROPSYS.dll\InitPropVariantFromStringVector", "ptr", prgsz, "uint", cElems, "ptr", ppropvar, "int")
         return result
     }
@@ -2363,6 +2391,8 @@ class StructuredStorage {
      * @since windows5.1.2600
      */
     static InitPropVariantFromStringAsVector(psz, ppropvar) {
+        psz := psz is String? StrPtr(psz) : psz
+
         result := DllCall("PROPSYS.dll\InitPropVariantFromStringAsVector", "ptr", psz, "ptr", ppropvar, "int")
         return result
     }
@@ -2563,6 +2593,8 @@ class StructuredStorage {
      * @since windows5.1.2600
      */
     static PropVariantToStringWithDefault(propvarIn, pszDefault) {
+        pszDefault := pszDefault is String? StrPtr(pszDefault) : pszDefault
+
         result := DllCall("PROPSYS.dll\PropVariantToStringWithDefault", "ptr", propvarIn, "ptr", pszDefault, "ptr")
         return result
     }
@@ -2890,6 +2922,8 @@ class StructuredStorage {
      * @since windows5.1.2600
      */
     static PropVariantToString(propvar, psz, cch) {
+        psz := psz is String? StrPtr(psz) : psz
+
         result := DllCall("PROPSYS.dll\PropVariantToString", "ptr", propvar, "ptr", psz, "uint", cch, "int")
         return result
     }
@@ -2954,6 +2988,8 @@ class StructuredStorage {
      * @since windows5.1.2600
      */
     static PropVariantToStringAlloc(propvar, ppszOut) {
+        ppszOut := ppszOut is String? StrPtr(ppszOut) : ppszOut
+
         result := DllCall("PROPSYS.dll\PropVariantToStringAlloc", "ptr", propvar, "ptr", ppszOut, "int")
         return result
     }
@@ -3701,6 +3737,8 @@ class StructuredStorage {
      * @since windows5.1.2600
      */
     static PropVariantToStringVector(propvar, prgsz, crgsz, pcElem) {
+        prgsz := prgsz is String? StrPtr(prgsz) : prgsz
+
         result := DllCall("PROPSYS.dll\PropVariantToStringVector", "ptr", propvar, "ptr", prgsz, "uint", crgsz, "ptr", pcElem, "int")
         return result
     }
@@ -4234,6 +4272,8 @@ class StructuredStorage {
      * @since windows5.1.2600
      */
     static PropVariantToStringVectorAlloc(propvar, pprgsz, pcElem) {
+        pprgsz := pprgsz is String? StrPtr(pprgsz) : pprgsz
+
         result := DllCall("PROPSYS.dll\PropVariantToStringVectorAlloc", "ptr", propvar, "ptr", pprgsz, "ptr", pcElem, "int")
         return result
     }
@@ -4544,6 +4584,8 @@ class StructuredStorage {
      * @since windows5.1.2600
      */
     static PropVariantGetStringElem(propvar, iElem, ppszVal) {
+        ppszVal := ppszVal is String? StrPtr(ppszVal) : ppszVal
+
         result := DllCall("PROPSYS.dll\PropVariantGetStringElem", "ptr", propvar, "uint", iElem, "ptr", ppszVal, "int")
         return result
     }

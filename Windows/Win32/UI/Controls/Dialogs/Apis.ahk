@@ -644,6 +644,9 @@ class Dialogs {
      * @since windows5.0
      */
     static GetFileTitleA(param0, Buf, cchSize) {
+        param0 := param0 is String? StrPtr(param0) : param0
+        Buf := Buf is String? StrPtr(Buf) : Buf
+
         DllCall("COMDLG32.dll\GetFileTitleA", "ptr", param0, "ptr", Buf, "ushort", cchSize)
     }
 
@@ -677,6 +680,9 @@ class Dialogs {
      * @since windows5.0
      */
     static GetFileTitleW(param0, Buf, cchSize) {
+        param0 := param0 is String? StrPtr(param0) : param0
+        Buf := Buf is String? StrPtr(Buf) : Buf
+
         DllCall("COMDLG32.dll\GetFileTitleW", "ptr", param0, "ptr", Buf, "ushort", cchSize)
     }
 

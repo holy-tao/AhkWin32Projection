@@ -866,6 +866,8 @@ class SystemInformation {
      * @since windows5.0
      */
     static GetSystemDirectoryA(lpBuffer, uSize) {
+        lpBuffer := lpBuffer is String? StrPtr(lpBuffer) : lpBuffer
+
         A_LastError := 0
 
         DllCall("KERNEL32.dll\GetSystemDirectoryA", "ptr", lpBuffer, "uint", uSize)
@@ -885,6 +887,8 @@ class SystemInformation {
      * @since windows5.0
      */
     static GetSystemDirectoryW(lpBuffer, uSize) {
+        lpBuffer := lpBuffer is String? StrPtr(lpBuffer) : lpBuffer
+
         A_LastError := 0
 
         DllCall("KERNEL32.dll\GetSystemDirectoryW", "ptr", lpBuffer, "uint", uSize)
@@ -926,6 +930,8 @@ class SystemInformation {
      * @since windows5.0
      */
     static GetWindowsDirectoryA(lpBuffer, uSize) {
+        lpBuffer := lpBuffer is String? StrPtr(lpBuffer) : lpBuffer
+
         A_LastError := 0
 
         DllCall("KERNEL32.dll\GetWindowsDirectoryA", "ptr", lpBuffer, "uint", uSize)
@@ -967,6 +973,8 @@ class SystemInformation {
      * @since windows5.0
      */
     static GetWindowsDirectoryW(lpBuffer, uSize) {
+        lpBuffer := lpBuffer is String? StrPtr(lpBuffer) : lpBuffer
+
         A_LastError := 0
 
         DllCall("KERNEL32.dll\GetWindowsDirectoryW", "ptr", lpBuffer, "uint", uSize)
@@ -999,6 +1007,8 @@ class SystemInformation {
      * @since windows5.0
      */
     static GetSystemWindowsDirectoryA(lpBuffer, uSize) {
+        lpBuffer := lpBuffer is String? StrPtr(lpBuffer) : lpBuffer
+
         A_LastError := 0
 
         DllCall("KERNEL32.dll\GetSystemWindowsDirectoryA", "ptr", lpBuffer, "uint", uSize)
@@ -1031,6 +1041,8 @@ class SystemInformation {
      * @since windows5.0
      */
     static GetSystemWindowsDirectoryW(lpBuffer, uSize) {
+        lpBuffer := lpBuffer is String? StrPtr(lpBuffer) : lpBuffer
+
         A_LastError := 0
 
         DllCall("KERNEL32.dll\GetSystemWindowsDirectoryW", "ptr", lpBuffer, "uint", uSize)
@@ -1191,6 +1203,8 @@ class SystemInformation {
      * @since windows5.0
      */
     static GetComputerNameExA(NameType, lpBuffer, nSize) {
+        lpBuffer := lpBuffer is String? StrPtr(lpBuffer) : lpBuffer
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetComputerNameExA", "int", NameType, "ptr", lpBuffer, "ptr", nSize, "int")
@@ -1352,6 +1366,8 @@ class SystemInformation {
      * @since windows5.0
      */
     static GetComputerNameExW(NameType, lpBuffer, nSize) {
+        lpBuffer := lpBuffer is String? StrPtr(lpBuffer) : lpBuffer
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetComputerNameExW", "int", NameType, "ptr", lpBuffer, "ptr", nSize, "int")
@@ -1391,6 +1407,8 @@ class SystemInformation {
      * @since windows5.0
      */
     static SetComputerNameExW(NameType, lpBuffer) {
+        lpBuffer := lpBuffer is String? StrPtr(lpBuffer) : lpBuffer
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SetComputerNameExW", "int", NameType, "ptr", lpBuffer, "int")
@@ -1959,6 +1977,9 @@ class SystemInformation {
      * @returns {Integer} 
      */
     static DnsHostnameToComputerNameExW(Hostname, ComputerName, nSize) {
+        Hostname := Hostname is String? StrPtr(Hostname) : Hostname
+        ComputerName := ComputerName is String? StrPtr(ComputerName) : ComputerName
+
         result := DllCall("KERNEL32.dll\DnsHostnameToComputerNameExW", "ptr", Hostname, "ptr", ComputerName, "ptr", nSize, "int")
         return result
     }
@@ -2026,6 +2047,8 @@ class SystemInformation {
      * @returns {Integer} 
      */
     static SetComputerNameEx2W(NameType, Flags, lpBuffer) {
+        lpBuffer := lpBuffer is String? StrPtr(lpBuffer) : lpBuffer
+
         result := DllCall("KERNEL32.dll\SetComputerNameEx2W", "int", NameType, "uint", Flags, "ptr", lpBuffer, "int")
         return result
     }
@@ -2217,6 +2240,8 @@ class SystemInformation {
      * @since windows5.0
      */
     static SetComputerNameA(lpComputerName) {
+        lpComputerName := lpComputerName is String? StrPtr(lpComputerName) : lpComputerName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SetComputerNameA", "ptr", lpComputerName, "int")
@@ -2252,6 +2277,8 @@ class SystemInformation {
      * @since windows5.0
      */
     static SetComputerNameW(lpComputerName) {
+        lpComputerName := lpComputerName is String? StrPtr(lpComputerName) : lpComputerName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SetComputerNameW", "ptr", lpComputerName, "int")
@@ -2291,6 +2318,8 @@ class SystemInformation {
      * @since windows5.0
      */
     static SetComputerNameExA(NameType, lpBuffer) {
+        lpBuffer := lpBuffer is String? StrPtr(lpBuffer) : lpBuffer
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SetComputerNameExA", "int", NameType, "ptr", lpBuffer, "int")
@@ -2348,6 +2377,8 @@ class SystemInformation {
      * @since windows5.1.2600
      */
     static GetSystemWow64DirectoryA(lpBuffer, uSize) {
+        lpBuffer := lpBuffer is String? StrPtr(lpBuffer) : lpBuffer
+
         A_LastError := 0
 
         DllCall("KERNEL32.dll\GetSystemWow64DirectoryA", "ptr", lpBuffer, "uint", uSize)
@@ -2380,6 +2411,8 @@ class SystemInformation {
      * @since windows5.1.2600
      */
     static GetSystemWow64DirectoryW(lpBuffer, uSize) {
+        lpBuffer := lpBuffer is String? StrPtr(lpBuffer) : lpBuffer
+
         A_LastError := 0
 
         DllCall("KERNEL32.dll\GetSystemWow64DirectoryW", "ptr", lpBuffer, "uint", uSize)
@@ -2412,6 +2445,8 @@ class SystemInformation {
      * @since windows10.0.10586
      */
     static GetSystemWow64Directory2A(lpBuffer, uSize, ImageFileMachineType) {
+        lpBuffer := lpBuffer is String? StrPtr(lpBuffer) : lpBuffer
+
         A_LastError := 0
 
         DllCall("api-ms-win-core-wow64-l1-1-1.dll\GetSystemWow64Directory2A", "ptr", lpBuffer, "uint", uSize, "ushort", ImageFileMachineType)
@@ -2444,6 +2479,8 @@ class SystemInformation {
      * @since windows10.0.10586
      */
     static GetSystemWow64Directory2W(lpBuffer, uSize, ImageFileMachineType) {
+        lpBuffer := lpBuffer is String? StrPtr(lpBuffer) : lpBuffer
+
         A_LastError := 0
 
         DllCall("api-ms-win-core-wow64-l1-1-1.dll\GetSystemWow64Directory2W", "ptr", lpBuffer, "uint", uSize, "ushort", ImageFileMachineType)
@@ -2548,6 +2585,9 @@ class SystemInformation {
      * @see https://learn.microsoft.com/windows/win32/api/winnt/nf-winnt-rtlconvertdevicefamilyinfotostring
      */
     static RtlConvertDeviceFamilyInfoToString(pulDeviceFamilyBufferSize, pulDeviceFormBufferSize, DeviceFamily, DeviceForm) {
+        DeviceFamily := DeviceFamily is String? StrPtr(DeviceFamily) : DeviceFamily
+        DeviceForm := DeviceForm is String? StrPtr(DeviceForm) : DeviceForm
+
         result := DllCall("ntdll.dll\RtlConvertDeviceFamilyInfoToString", "ptr", pulDeviceFamilyBufferSize, "ptr", pulDeviceFormBufferSize, "ptr", DeviceFamily, "ptr", DeviceForm, "uint")
         return result
     }

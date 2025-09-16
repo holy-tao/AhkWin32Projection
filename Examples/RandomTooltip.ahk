@@ -60,7 +60,7 @@ CreateToolInfo(hParent, hTip){
 CreateTipWindow(forHwnd){
     return WindowsAndMessaging.CreateWindowExW(
         0, 
-        StrPtr("tooltips_class32"), 
+        "tooltips_class32",
         0, 
         WINDOW_STYLE.WS_POPUP | Controls.TTS_ALWAYSTIP, 
         WindowsAndMessaging.CW_USEDEFAULT, 

@@ -230,6 +230,8 @@ class EventLog {
      * @since windows6.0.6000
      */
     static EvtGetExtendedStatus(BufferSize, Buffer, BufferUsed) {
+        Buffer := Buffer is String? StrPtr(Buffer) : Buffer
+
         result := DllCall("wevtapi.dll\EvtGetExtendedStatus", "uint", BufferSize, "ptr", Buffer, "ptr", BufferUsed, "uint")
         return result
     }
@@ -251,6 +253,9 @@ class EventLog {
      * @since windows6.0.6000
      */
     static EvtQuery(Session, Path, Query, Flags) {
+        Path := Path is String? StrPtr(Path) : Path
+        Query := Query is String? StrPtr(Query) : Query
+
         A_LastError := 0
 
         result := DllCall("wevtapi.dll\EvtQuery", "ptr", Session, "ptr", Path, "ptr", Query, "uint", Flags, "ptr")
@@ -391,6 +396,9 @@ class EventLog {
      * @since windows6.0.6000
      */
     static EvtSubscribe(Session, SignalEvent, ChannelPath, Query, Bookmark, Context, Callback, Flags) {
+        ChannelPath := ChannelPath is String? StrPtr(ChannelPath) : ChannelPath
+        Query := Query is String? StrPtr(Query) : Query
+
         A_LastError := 0
 
         result := DllCall("wevtapi.dll\EvtSubscribe", "ptr", Session, "ptr", SignalEvent, "ptr", ChannelPath, "ptr", Query, "ptr", Bookmark, "ptr", Context, "ptr", Callback, "uint", Flags, "ptr")
@@ -420,6 +428,8 @@ class EventLog {
      * @since windows6.0.6000
      */
     static EvtCreateRenderContext(ValuePathsCount, ValuePaths, Flags) {
+        ValuePaths := ValuePaths is String? StrPtr(ValuePaths) : ValuePaths
+
         A_LastError := 0
 
         result := DllCall("wevtapi.dll\EvtCreateRenderContext", "uint", ValuePathsCount, "ptr", ValuePaths, "uint", Flags, "ptr")
@@ -568,6 +578,8 @@ class EventLog {
      * @since windows6.0.6000
      */
     static EvtFormatMessage(PublisherMetadata, Event, MessageId, ValueCount, Values, Flags, BufferSize, Buffer, BufferUsed) {
+        Buffer := Buffer is String? StrPtr(Buffer) : Buffer
+
         A_LastError := 0
 
         result := DllCall("wevtapi.dll\EvtFormatMessage", "ptr", PublisherMetadata, "ptr", Event, "uint", MessageId, "uint", ValueCount, "ptr", Values, "uint", Flags, "uint", BufferSize, "ptr", Buffer, "ptr", BufferUsed, "int")
@@ -591,6 +603,8 @@ class EventLog {
      * @since windows6.0.6000
      */
     static EvtOpenLog(Session, Path, Flags) {
+        Path := Path is String? StrPtr(Path) : Path
+
         A_LastError := 0
 
         result := DllCall("wevtapi.dll\EvtOpenLog", "ptr", Session, "ptr", Path, "uint", Flags, "ptr")
@@ -698,6 +712,9 @@ class EventLog {
      * @since windows6.0.6000
      */
     static EvtClearLog(Session, ChannelPath, TargetFilePath, Flags) {
+        ChannelPath := ChannelPath is String? StrPtr(ChannelPath) : ChannelPath
+        TargetFilePath := TargetFilePath is String? StrPtr(TargetFilePath) : TargetFilePath
+
         A_LastError := 0
 
         result := DllCall("wevtapi.dll\EvtClearLog", "ptr", Session, "ptr", ChannelPath, "ptr", TargetFilePath, "uint", Flags, "int")
@@ -756,6 +773,10 @@ class EventLog {
      * @since windows6.0.6000
      */
     static EvtExportLog(Session, Path, Query, TargetFilePath, Flags) {
+        Path := Path is String? StrPtr(Path) : Path
+        Query := Query is String? StrPtr(Query) : Query
+        TargetFilePath := TargetFilePath is String? StrPtr(TargetFilePath) : TargetFilePath
+
         A_LastError := 0
 
         result := DllCall("wevtapi.dll\EvtExportLog", "ptr", Session, "ptr", Path, "ptr", Query, "ptr", TargetFilePath, "uint", Flags, "int")
@@ -807,6 +828,8 @@ class EventLog {
      * @since windows6.0.6000
      */
     static EvtArchiveExportedLog(Session, LogFilePath, Locale, Flags) {
+        LogFilePath := LogFilePath is String? StrPtr(LogFilePath) : LogFilePath
+
         A_LastError := 0
 
         result := DllCall("wevtapi.dll\EvtArchiveExportedLog", "ptr", Session, "ptr", LogFilePath, "uint", Locale, "uint", Flags, "int")
@@ -880,6 +903,8 @@ class EventLog {
      * @since windows6.0.6000
      */
     static EvtNextChannelPath(ChannelEnum, ChannelPathBufferSize, ChannelPathBuffer, ChannelPathBufferUsed) {
+        ChannelPathBuffer := ChannelPathBuffer is String? StrPtr(ChannelPathBuffer) : ChannelPathBuffer
+
         A_LastError := 0
 
         result := DllCall("wevtapi.dll\EvtNextChannelPath", "ptr", ChannelEnum, "uint", ChannelPathBufferSize, "ptr", ChannelPathBuffer, "ptr", ChannelPathBufferUsed, "int")
@@ -907,6 +932,8 @@ class EventLog {
      * @since windows6.0.6000
      */
     static EvtOpenChannelConfig(Session, ChannelPath, Flags) {
+        ChannelPath := ChannelPath is String? StrPtr(ChannelPath) : ChannelPath
+
         A_LastError := 0
 
         result := DllCall("wevtapi.dll\EvtOpenChannelConfig", "ptr", Session, "ptr", ChannelPath, "uint", Flags, "ptr")
@@ -1137,6 +1164,8 @@ class EventLog {
      * @since windows6.0.6000
      */
     static EvtNextPublisherId(PublisherEnum, PublisherIdBufferSize, PublisherIdBuffer, PublisherIdBufferUsed) {
+        PublisherIdBuffer := PublisherIdBuffer is String? StrPtr(PublisherIdBuffer) : PublisherIdBuffer
+
         A_LastError := 0
 
         result := DllCall("wevtapi.dll\EvtNextPublisherId", "ptr", PublisherEnum, "uint", PublisherIdBufferSize, "ptr", PublisherIdBuffer, "ptr", PublisherIdBufferUsed, "int")
@@ -1164,6 +1193,9 @@ class EventLog {
      * @since windows6.0.6000
      */
     static EvtOpenPublisherMetadata(Session, PublisherId, LogFilePath, Locale, Flags) {
+        PublisherId := PublisherId is String? StrPtr(PublisherId) : PublisherId
+        LogFilePath := LogFilePath is String? StrPtr(LogFilePath) : LogFilePath
+
         A_LastError := 0
 
         result := DllCall("wevtapi.dll\EvtOpenPublisherMetadata", "ptr", Session, "ptr", PublisherId, "ptr", LogFilePath, "uint", Locale, "uint", Flags, "ptr")
@@ -1505,6 +1537,8 @@ class EventLog {
      * @since windows6.0.6000
      */
     static EvtCreateBookmark(BookmarkXml) {
+        BookmarkXml := BookmarkXml is String? StrPtr(BookmarkXml) : BookmarkXml
+
         A_LastError := 0
 
         result := DllCall("wevtapi.dll\EvtCreateBookmark", "ptr", BookmarkXml, "ptr")
@@ -1640,6 +1674,8 @@ class EventLog {
      * @since windows5.0
      */
     static ClearEventLogA(hEventLog, lpBackupFileName) {
+        lpBackupFileName := lpBackupFileName is String? StrPtr(lpBackupFileName) : lpBackupFileName
+
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\ClearEventLogA", "ptr", hEventLog, "ptr", lpBackupFileName, "int")
@@ -1676,6 +1712,8 @@ class EventLog {
      * @since windows5.0
      */
     static ClearEventLogW(hEventLog, lpBackupFileName) {
+        lpBackupFileName := lpBackupFileName is String? StrPtr(lpBackupFileName) : lpBackupFileName
+
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\ClearEventLogW", "ptr", hEventLog, "ptr", lpBackupFileName, "int")
@@ -1707,6 +1745,8 @@ class EventLog {
      * @since windows5.0
      */
     static BackupEventLogA(hEventLog, lpBackupFileName) {
+        lpBackupFileName := lpBackupFileName is String? StrPtr(lpBackupFileName) : lpBackupFileName
+
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\BackupEventLogA", "ptr", hEventLog, "ptr", lpBackupFileName, "int")
@@ -1738,6 +1778,8 @@ class EventLog {
      * @since windows5.0
      */
     static BackupEventLogW(hEventLog, lpBackupFileName) {
+        lpBackupFileName := lpBackupFileName is String? StrPtr(lpBackupFileName) : lpBackupFileName
+
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\BackupEventLogW", "ptr", hEventLog, "ptr", lpBackupFileName, "int")
@@ -1898,6 +1940,9 @@ class EventLog {
      * @since windows5.0
      */
     static OpenEventLogA(lpUNCServerName, lpSourceName) {
+        lpUNCServerName := lpUNCServerName is String? StrPtr(lpUNCServerName) : lpUNCServerName
+        lpSourceName := lpSourceName is String? StrPtr(lpSourceName) : lpSourceName
+
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\OpenEventLogA", "ptr", lpUNCServerName, "ptr", lpSourceName, "ptr")
@@ -1925,6 +1970,9 @@ class EventLog {
      * @since windows5.0
      */
     static OpenEventLogW(lpUNCServerName, lpSourceName) {
+        lpUNCServerName := lpUNCServerName is String? StrPtr(lpUNCServerName) : lpUNCServerName
+        lpSourceName := lpSourceName is String? StrPtr(lpSourceName) : lpSourceName
+
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\OpenEventLogW", "ptr", lpUNCServerName, "ptr", lpSourceName, "ptr")
@@ -1958,6 +2006,9 @@ class EventLog {
      * @since windows5.0
      */
     static RegisterEventSourceA(lpUNCServerName, lpSourceName) {
+        lpUNCServerName := lpUNCServerName is String? StrPtr(lpUNCServerName) : lpUNCServerName
+        lpSourceName := lpSourceName is String? StrPtr(lpSourceName) : lpSourceName
+
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\RegisterEventSourceA", "ptr", lpUNCServerName, "ptr", lpSourceName, "ptr")
@@ -1991,6 +2042,9 @@ class EventLog {
      * @since windows5.0
      */
     static RegisterEventSourceW(lpUNCServerName, lpSourceName) {
+        lpUNCServerName := lpUNCServerName is String? StrPtr(lpUNCServerName) : lpUNCServerName
+        lpSourceName := lpSourceName is String? StrPtr(lpSourceName) : lpSourceName
+
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\RegisterEventSourceW", "ptr", lpUNCServerName, "ptr", lpSourceName, "ptr")
@@ -2024,6 +2078,9 @@ class EventLog {
      * @since windows5.0
      */
     static OpenBackupEventLogA(lpUNCServerName, lpFileName) {
+        lpUNCServerName := lpUNCServerName is String? StrPtr(lpUNCServerName) : lpUNCServerName
+        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\OpenBackupEventLogA", "ptr", lpUNCServerName, "ptr", lpFileName, "ptr")
@@ -2057,6 +2114,9 @@ class EventLog {
      * @since windows5.0
      */
     static OpenBackupEventLogW(lpUNCServerName, lpFileName) {
+        lpUNCServerName := lpUNCServerName is String? StrPtr(lpUNCServerName) : lpUNCServerName
+        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\OpenBackupEventLogW", "ptr", lpUNCServerName, "ptr", lpFileName, "ptr")
@@ -2246,6 +2306,8 @@ class EventLog {
      * @since windows5.0
      */
     static ReportEventA(hEventLog, wType, wCategory, dwEventID, lpUserSid, wNumStrings, dwDataSize, lpStrings, lpRawData) {
+        lpStrings := lpStrings is String? StrPtr(lpStrings) : lpStrings
+
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\ReportEventA", "ptr", hEventLog, "ushort", wType, "ushort", wCategory, "uint", dwEventID, "ptr", lpUserSid, "ushort", wNumStrings, "uint", dwDataSize, "ptr", lpStrings, "ptr", lpRawData, "int")
@@ -2357,6 +2419,8 @@ class EventLog {
      * @since windows5.0
      */
     static ReportEventW(hEventLog, wType, wCategory, dwEventID, lpUserSid, wNumStrings, dwDataSize, lpStrings, lpRawData) {
+        lpStrings := lpStrings is String? StrPtr(lpStrings) : lpStrings
+
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\ReportEventW", "ptr", hEventLog, "ushort", wType, "ushort", wCategory, "uint", dwEventID, "ptr", lpUserSid, "ushort", wNumStrings, "uint", dwDataSize, "ptr", lpStrings, "ptr", lpRawData, "int")

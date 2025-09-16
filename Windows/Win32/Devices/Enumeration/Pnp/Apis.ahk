@@ -284,6 +284,9 @@ class Pnp {
      * @since windows8.0
      */
     static SwDeviceCreate(pszEnumeratorName, pszParentDeviceInstance, pCreateInfo, cPropertyCount, pProperties, pCallback, pContext, phSwDevice) {
+        pszEnumeratorName := pszEnumeratorName is String? StrPtr(pszEnumeratorName) : pszEnumeratorName
+        pszParentDeviceInstance := pszParentDeviceInstance is String? StrPtr(pszParentDeviceInstance) : pszParentDeviceInstance
+
         result := DllCall("CFGMGR32.dll\SwDeviceCreate", "ptr", pszEnumeratorName, "ptr", pszParentDeviceInstance, "ptr", pCreateInfo, "uint", cPropertyCount, "ptr", pProperties, "ptr", pCallback, "ptr", pContext, "ptr", phSwDevice, "int")
         return result
     }
@@ -443,6 +446,9 @@ class Pnp {
      * @since windows8.0
      */
     static SwDeviceInterfaceRegister(hSwDevice, pInterfaceClassGuid, pszReferenceString, cPropertyCount, pProperties, fEnabled, ppszDeviceInterfaceId) {
+        pszReferenceString := pszReferenceString is String? StrPtr(pszReferenceString) : pszReferenceString
+        ppszDeviceInterfaceId := ppszDeviceInterfaceId is String? StrPtr(ppszDeviceInterfaceId) : ppszDeviceInterfaceId
+
         result := DllCall("CFGMGR32.dll\SwDeviceInterfaceRegister", "ptr", hSwDevice, "ptr", pInterfaceClassGuid, "ptr", pszReferenceString, "uint", cPropertyCount, "ptr", pProperties, "int", fEnabled, "ptr", ppszDeviceInterfaceId, "int")
         return result
     }
@@ -474,6 +480,8 @@ class Pnp {
      * @since windows8.0
      */
     static SwDeviceInterfaceSetState(hSwDevice, pszDeviceInterfaceId, fEnabled) {
+        pszDeviceInterfaceId := pszDeviceInterfaceId is String? StrPtr(pszDeviceInterfaceId) : pszDeviceInterfaceId
+
         result := DllCall("CFGMGR32.dll\SwDeviceInterfaceSetState", "ptr", hSwDevice, "ptr", pszDeviceInterfaceId, "int", fEnabled, "int")
         return result
     }
@@ -497,6 +505,8 @@ class Pnp {
      * @since windows8.0
      */
     static SwDeviceInterfacePropertySet(hSwDevice, pszDeviceInterfaceId, cPropertyCount, pProperties) {
+        pszDeviceInterfaceId := pszDeviceInterfaceId is String? StrPtr(pszDeviceInterfaceId) : pszDeviceInterfaceId
+
         result := DllCall("CFGMGR32.dll\SwDeviceInterfacePropertySet", "ptr", hSwDevice, "ptr", pszDeviceInterfaceId, "uint", cPropertyCount, "ptr", pProperties, "int")
         return result
     }

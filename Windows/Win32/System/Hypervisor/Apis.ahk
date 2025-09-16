@@ -1297,6 +1297,12 @@ class Hypervisor {
      * @returns {Integer} 
      */
     static LocateSavedStateFiles(vmName, snapshotName, binPath, vsvPath, vmrsPath) {
+        vmName := vmName is String? StrPtr(vmName) : vmName
+        snapshotName := snapshotName is String? StrPtr(snapshotName) : snapshotName
+        binPath := binPath is String? StrPtr(binPath) : binPath
+        vsvPath := vsvPath is String? StrPtr(vsvPath) : vsvPath
+        vmrsPath := vmrsPath is String? StrPtr(vmrsPath) : vmrsPath
+
         result := DllCall("VmSavedStateDumpProvider.dll\LocateSavedStateFiles", "ptr", vmName, "ptr", snapshotName, "ptr", binPath, "ptr", vsvPath, "ptr", vmrsPath, "int")
         return result
     }
@@ -1308,6 +1314,8 @@ class Hypervisor {
      * @returns {Integer} 
      */
     static LoadSavedStateFile(vmrsFile, vmSavedStateDumpHandle) {
+        vmrsFile := vmrsFile is String? StrPtr(vmrsFile) : vmrsFile
+
         result := DllCall("VmSavedStateDumpProvider.dll\LoadSavedStateFile", "ptr", vmrsFile, "ptr", vmSavedStateDumpHandle, "int")
         return result
     }
@@ -1318,6 +1326,8 @@ class Hypervisor {
      * @returns {Integer} 
      */
     static ApplyPendingSavedStateFileReplayLog(vmrsFile) {
+        vmrsFile := vmrsFile is String? StrPtr(vmrsFile) : vmrsFile
+
         result := DllCall("VmSavedStateDumpProvider.dll\ApplyPendingSavedStateFileReplayLog", "ptr", vmrsFile, "int")
         return result
     }
@@ -1330,6 +1340,9 @@ class Hypervisor {
      * @returns {Integer} 
      */
     static LoadSavedStateFiles(binFile, vsvFile, vmSavedStateDumpHandle) {
+        binFile := binFile is String? StrPtr(binFile) : binFile
+        vsvFile := vsvFile is String? StrPtr(vsvFile) : vsvFile
+
         result := DllCall("VmSavedStateDumpProvider.dll\LoadSavedStateFiles", "ptr", binFile, "ptr", vsvFile, "ptr", vmSavedStateDumpHandle, "int")
         return result
     }
@@ -1657,6 +1670,8 @@ class Hypervisor {
      * @returns {Integer} 
      */
     static LoadSavedStateSymbolProvider(vmSavedStateDumpHandle, userSymbols, force) {
+        userSymbols := userSymbols is String? StrPtr(userSymbols) : userSymbols
+
         result := DllCall("VmSavedStateDumpProvider.dll\LoadSavedStateSymbolProvider", "ptr", vmSavedStateDumpHandle, "ptr", userSymbols, "int", force, "int")
         return result
     }
@@ -1702,6 +1717,9 @@ class Hypervisor {
      * @returns {Integer} 
      */
     static LoadSavedStateModuleSymbols(vmSavedStateDumpHandle, imageName, moduleName, baseAddress, sizeOfBase) {
+        imageName := imageName is String? StrPtr(imageName) : imageName
+        moduleName := moduleName is String? StrPtr(moduleName) : moduleName
+
         result := DllCall("VmSavedStateDumpProvider.dll\LoadSavedStateModuleSymbols", "ptr", vmSavedStateDumpHandle, "ptr", imageName, "ptr", moduleName, "uint", baseAddress, "uint", sizeOfBase, "int")
         return result
     }
@@ -1717,6 +1735,9 @@ class Hypervisor {
      * @returns {Integer} 
      */
     static LoadSavedStateModuleSymbolsEx(vmSavedStateDumpHandle, imageName, imageTimestamp, moduleName, baseAddress, sizeOfBase) {
+        imageName := imageName is String? StrPtr(imageName) : imageName
+        moduleName := moduleName is String? StrPtr(moduleName) : moduleName
+
         result := DllCall("VmSavedStateDumpProvider.dll\LoadSavedStateModuleSymbolsEx", "ptr", vmSavedStateDumpHandle, "ptr", imageName, "uint", imageTimestamp, "ptr", moduleName, "uint", baseAddress, "uint", sizeOfBase, "int")
         return result
     }
@@ -1731,6 +1752,8 @@ class Hypervisor {
      * @returns {Integer} 
      */
     static ResolveSavedStateGlobalVariableAddress(vmSavedStateDumpHandle, vpId, globalName, virtualAddress, size) {
+        globalName := globalName is String? StrPtr(globalName) : globalName
+
         result := DllCall("VmSavedStateDumpProvider.dll\ResolveSavedStateGlobalVariableAddress", "ptr", vmSavedStateDumpHandle, "uint", vpId, "ptr", globalName, "ptr", virtualAddress, "ptr", size, "int")
         return result
     }
@@ -1745,6 +1768,8 @@ class Hypervisor {
      * @returns {Integer} 
      */
     static ReadSavedStateGlobalVariable(vmSavedStateDumpHandle, vpId, globalName, buffer, bufferSize) {
+        globalName := globalName is String? StrPtr(globalName) : globalName
+
         result := DllCall("VmSavedStateDumpProvider.dll\ReadSavedStateGlobalVariable", "ptr", vmSavedStateDumpHandle, "uint", vpId, "ptr", globalName, "ptr", buffer, "uint", bufferSize, "int")
         return result
     }
@@ -1758,6 +1783,8 @@ class Hypervisor {
      * @returns {Integer} 
      */
     static GetSavedStateSymbolTypeSize(vmSavedStateDumpHandle, vpId, typeName, size) {
+        typeName := typeName is String? StrPtr(typeName) : typeName
+
         result := DllCall("VmSavedStateDumpProvider.dll\GetSavedStateSymbolTypeSize", "ptr", vmSavedStateDumpHandle, "uint", vpId, "ptr", typeName, "ptr", size, "int")
         return result
     }
@@ -1773,6 +1800,9 @@ class Hypervisor {
      * @returns {Integer} 
      */
     static FindSavedStateSymbolFieldInType(vmSavedStateDumpHandle, vpId, typeName, fieldName, offset, found) {
+        typeName := typeName is String? StrPtr(typeName) : typeName
+        fieldName := fieldName is String? StrPtr(fieldName) : fieldName
+
         result := DllCall("VmSavedStateDumpProvider.dll\FindSavedStateSymbolFieldInType", "ptr", vmSavedStateDumpHandle, "uint", vpId, "ptr", typeName, "ptr", fieldName, "ptr", offset, "ptr", found, "int")
         return result
     }
@@ -1786,6 +1816,9 @@ class Hypervisor {
      * @returns {Integer} 
      */
     static GetSavedStateSymbolFieldInfo(vmSavedStateDumpHandle, vpId, typeName, typeFieldInfoMap) {
+        typeName := typeName is String? StrPtr(typeName) : typeName
+        typeFieldInfoMap := typeFieldInfoMap is String? StrPtr(typeFieldInfoMap) : typeFieldInfoMap
+
         result := DllCall("VmSavedStateDumpProvider.dll\GetSavedStateSymbolFieldInfo", "ptr", vmSavedStateDumpHandle, "uint", vpId, "ptr", typeName, "ptr", typeFieldInfoMap, "int")
         return result
     }
@@ -1818,6 +1851,8 @@ class Hypervisor {
      * @returns {Integer} 
      */
     static CallStackUnwind(vmSavedStateDumpHandle, vpId, imageInfo, imageInfoCount, frameCount, callStack) {
+        callStack := callStack is String? StrPtr(callStack) : callStack
+
         result := DllCall("VmSavedStateDumpProvider.dll\CallStackUnwind", "ptr", vmSavedStateDumpHandle, "uint", vpId, "ptr", imageInfo, "uint", imageInfoCount, "uint", frameCount, "ptr", callStack, "int")
         return result
     }

@@ -1769,6 +1769,8 @@ class WindowsMediaFormat {
      * @since windows5.0
      */
     static WMIsContentProtected(pwszFileName, pfIsProtected) {
+        pwszFileName := pwszFileName is String? StrPtr(pwszFileName) : pwszFileName
+
         result := DllCall("WMVCore.dll\WMIsContentProtected", "ptr", pwszFileName, "ptr", pfIsProtected, "int")
         return result
     }

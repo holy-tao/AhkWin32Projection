@@ -559,6 +559,8 @@ class Com {
      * @since windows5.0
      */
     static CoLoadLibrary(lpszLibName, bAutoFree) {
+        lpszLibName := lpszLibName is String? StrPtr(lpszLibName) : lpszLibName
+
         result := DllCall("OLE32.dll\CoLoadLibrary", "ptr", lpszLibName, "int", bAutoFree, "ptr")
         return result
     }
@@ -774,6 +776,8 @@ class Com {
      * @since windows5.0
      */
     static CLSIDFromProgIDEx(lpszProgID, lpclsid) {
+        lpszProgID := lpszProgID is String? StrPtr(lpszProgID) : lpszProgID
+
         result := DllCall("OLE32.dll\CLSIDFromProgIDEx", "ptr", lpszProgID, "ptr", lpclsid, "int")
         return result
     }
@@ -1104,6 +1108,8 @@ class Com {
      * @see https://learn.microsoft.com/windows/win32/api/objbase/nf-objbase-coinstall
      */
     static CoInstall(pbc, dwFlags, pClassSpec, pQuery, pszCodeBase) {
+        pszCodeBase := pszCodeBase is String? StrPtr(pszCodeBase) : pszCodeBase
+
         result := DllCall("ole32.dll\CoInstall", "ptr", pbc, "uint", dwFlags, "ptr", pClassSpec, "ptr", pQuery, "ptr", pszCodeBase, "int")
         return result
     }
@@ -1253,6 +1259,8 @@ class Com {
      * @since windows5.0
      */
     static CoGetObject(pszName, pBindOptions, riid, ppv) {
+        pszName := pszName is String? StrPtr(pszName) : pszName
+
         result := DllCall("OLE32.dll\CoGetObject", "ptr", pszName, "ptr", pBindOptions, "ptr", riid, "ptr", ppv, "int")
         return result
     }
@@ -1333,6 +1341,8 @@ class Com {
      * @since windows5.0
      */
     static MkParseDisplayName(pbc, szUserName, pchEaten, ppmk) {
+        szUserName := szUserName is String? StrPtr(szUserName) : szUserName
+
         result := DllCall("OLE32.dll\MkParseDisplayName", "ptr", pbc, "ptr", szUserName, "ptr", pchEaten, "ptr", ppmk, "int")
         return result
     }
@@ -1684,6 +1694,8 @@ class Com {
      * @since windows5.0
      */
     static GetClassFile(szFilename, pclsid) {
+        szFilename := szFilename is String? StrPtr(szFilename) : szFilename
+
         result := DllCall("OLE32.dll\GetClassFile", "ptr", szFilename, "ptr", pclsid, "int")
         return result
     }
@@ -1778,6 +1790,8 @@ class Com {
      * @since windows5.0
      */
     static CreateFileMoniker(lpszPathName, ppmk) {
+        lpszPathName := lpszPathName is String? StrPtr(lpszPathName) : lpszPathName
+
         result := DllCall("OLE32.dll\CreateFileMoniker", "ptr", lpszPathName, "ptr", ppmk, "int")
         return result
     }
@@ -1804,6 +1818,9 @@ class Com {
      * @since windows5.0
      */
     static CreateItemMoniker(lpszDelim, lpszItem, ppmk) {
+        lpszDelim := lpszDelim is String? StrPtr(lpszDelim) : lpszDelim
+        lpszItem := lpszItem is String? StrPtr(lpszItem) : lpszItem
+
         result := DllCall("OLE32.dll\CreateItemMoniker", "ptr", lpszDelim, "ptr", lpszItem, "ptr", ppmk, "int")
         return result
     }
@@ -1919,6 +1936,8 @@ class Com {
      * @returns {Integer} 
      */
     static CreateStdProgressIndicator(hwndParent, pszTitle, pIbscCaller, ppIbsc) {
+        pszTitle := pszTitle is String? StrPtr(pszTitle) : pszTitle
+
         result := DllCall("ole32.dll\CreateStdProgressIndicator", "ptr", hwndParent, "ptr", pszTitle, "ptr", pIbscCaller, "ptr", ppIbsc, "int")
         return result
     }
@@ -3333,6 +3352,8 @@ class Com {
      * @since windows5.0
      */
     static CoQueryProxyBlanket(pProxy, pwAuthnSvc, pAuthzSvc, pServerPrincName, pAuthnLevel, pImpLevel, pAuthInfo, pCapabilites) {
+        pServerPrincName := pServerPrincName is String? StrPtr(pServerPrincName) : pServerPrincName
+
         result := DllCall("OLE32.dll\CoQueryProxyBlanket", "ptr", pProxy, "ptr", pwAuthnSvc, "ptr", pAuthzSvc, "ptr", pServerPrincName, "ptr", pAuthnLevel, "ptr", pImpLevel, "ptr", pAuthInfo, "ptr", pCapabilites, "int")
         return result
     }
@@ -3412,6 +3433,8 @@ class Com {
      * @since windows5.0
      */
     static CoSetProxyBlanket(pProxy, dwAuthnSvc, dwAuthzSvc, pServerPrincName, dwAuthnLevel, dwImpLevel, pAuthInfo, dwCapabilities) {
+        pServerPrincName := pServerPrincName is String? StrPtr(pServerPrincName) : pServerPrincName
+
         result := DllCall("OLE32.dll\CoSetProxyBlanket", "ptr", pProxy, "uint", dwAuthnSvc, "uint", dwAuthzSvc, "ptr", pServerPrincName, "uint", dwAuthnLevel, "uint", dwImpLevel, "ptr", pAuthInfo, "uint", dwCapabilities, "int")
         return result
     }
@@ -3504,6 +3527,8 @@ class Com {
      * @since windows5.0
      */
     static CoQueryClientBlanket(pAuthnSvc, pAuthzSvc, pServerPrincName, pAuthnLevel, pImpLevel, pPrivs, pCapabilities) {
+        pServerPrincName := pServerPrincName is String? StrPtr(pServerPrincName) : pServerPrincName
+
         result := DllCall("OLE32.dll\CoQueryClientBlanket", "ptr", pAuthnSvc, "ptr", pAuthzSvc, "ptr", pServerPrincName, "ptr", pAuthnLevel, "ptr", pImpLevel, "ptr", pPrivs, "ptr", pCapabilities, "int")
         return result
     }
@@ -4216,6 +4241,8 @@ class Com {
      * @since windows5.0
      */
     static StringFromCLSID(rclsid, lplpsz) {
+        lplpsz := lplpsz is String? StrPtr(lplpsz) : lplpsz
+
         result := DllCall("OLE32.dll\StringFromCLSID", "ptr", rclsid, "ptr", lplpsz, "int")
         return result
     }
@@ -4262,6 +4289,8 @@ class Com {
      * @since windows5.0
      */
     static CLSIDFromString(lpsz, pclsid) {
+        lpsz := lpsz is String? StrPtr(lpsz) : lpsz
+
         result := DllCall("OLE32.dll\CLSIDFromString", "ptr", lpsz, "ptr", pclsid, "int")
         return result
     }
@@ -4277,6 +4306,8 @@ class Com {
      * @since windows5.0
      */
     static StringFromIID(rclsid, lplpsz) {
+        lplpsz := lplpsz is String? StrPtr(lplpsz) : lplpsz
+
         result := DllCall("OLE32.dll\StringFromIID", "ptr", rclsid, "ptr", lplpsz, "int")
         return result
     }
@@ -4296,6 +4327,8 @@ class Com {
      * @since windows5.0
      */
     static IIDFromString(lpsz, lpiid) {
+        lpsz := lpsz is String? StrPtr(lpsz) : lpsz
+
         result := DllCall("OLE32.dll\IIDFromString", "ptr", lpsz, "ptr", lpiid, "int")
         return result
     }
@@ -4361,6 +4394,8 @@ class Com {
      * @since windows5.0
      */
     static ProgIDFromCLSID(clsid, lplpszProgID) {
+        lplpszProgID := lplpszProgID is String? StrPtr(lplpszProgID) : lplpszProgID
+
         result := DllCall("OLE32.dll\ProgIDFromCLSID", "ptr", clsid, "ptr", lplpszProgID, "int")
         return result
     }
@@ -4417,6 +4452,8 @@ class Com {
      * @since windows5.0
      */
     static CLSIDFromProgID(lpszProgID, lpclsid) {
+        lpszProgID := lpszProgID is String? StrPtr(lpszProgID) : lpszProgID
+
         result := DllCall("OLE32.dll\CLSIDFromProgID", "ptr", lpszProgID, "ptr", lpclsid, "int")
         return result
     }
@@ -4431,6 +4468,8 @@ class Com {
      * @since windows5.0
      */
     static StringFromGUID2(rguid, lpsz, cchMax) {
+        lpsz := lpsz is String? StrPtr(lpsz) : lpsz
+
         DllCall("OLE32.dll\StringFromGUID2", "ptr", rguid, "ptr", lpsz, "int", cchMax)
     }
 
@@ -4689,6 +4728,8 @@ class Com {
      * @since windows5.1.2600
      */
     static CoInvalidateRemoteMachineBindings(pszMachineName) {
+        pszMachineName := pszMachineName is String? StrPtr(pszMachineName) : pszMachineName
+
         result := DllCall("OLE32.dll\CoInvalidateRemoteMachineBindings", "ptr", pszMachineName, "int")
         return result
     }
@@ -4759,6 +4800,8 @@ class Com {
      * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-coregisterdevicecatalog
      */
     static CoRegisterDeviceCatalog(deviceInstanceId, cookie) {
+        deviceInstanceId := deviceInstanceId is String? StrPtr(deviceInstanceId) : deviceInstanceId
+
         result := DllCall("OLE32.dll\CoRegisterDeviceCatalog", "ptr", deviceInstanceId, "ptr", cookie, "int")
         return result
     }
@@ -4786,6 +4829,8 @@ class Com {
     static CreateUri(pwzURI, dwFlags, ppURI) {
         static dwReserved := 0 ;Reserved parameters must always be NULL
 
+        pwzURI := pwzURI is String? StrPtr(pwzURI) : pwzURI
+
         result := DllCall("URLMON.dll\CreateUri", "ptr", pwzURI, "uint", dwFlags, "ptr", dwReserved, "ptr", ppURI, "int")
         return result
     }
@@ -4800,6 +4845,9 @@ class Com {
      */
     static CreateUriWithFragment(pwzURI, pwzFragment, dwFlags, ppURI) {
         static dwReserved := 0 ;Reserved parameters must always be NULL
+
+        pwzURI := pwzURI is String? StrPtr(pwzURI) : pwzURI
+        pwzFragment := pwzFragment is String? StrPtr(pwzFragment) : pwzFragment
 
         result := DllCall("URLMON.dll\CreateUriWithFragment", "ptr", pwzURI, "ptr", pwzFragment, "uint", dwFlags, "ptr", dwReserved, "ptr", ppURI, "int")
         return result
@@ -4816,6 +4864,8 @@ class Com {
      */
     static CreateUriFromMultiByteString(pszANSIInputUri, dwEncodingFlags, dwCodePage, dwCreateFlags, ppUri) {
         static dwReserved := 0 ;Reserved parameters must always be NULL
+
+        pszANSIInputUri := pszANSIInputUri is String? StrPtr(pszANSIInputUri) : pszANSIInputUri
 
         result := DllCall("urlmon.dll\CreateUriFromMultiByteString", "ptr", pszANSIInputUri, "uint", dwEncodingFlags, "uint", dwCodePage, "uint", dwCreateFlags, "ptr", dwReserved, "ptr", ppUri, "int")
         return result

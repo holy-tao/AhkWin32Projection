@@ -1982,6 +1982,8 @@ class WindowsWebServices {
      * @since windows6.1
      */
     static WsReadChars(reader, chars, maxCharCount, actualCharCount, error) {
+        chars := chars is String? StrPtr(chars) : chars
+
         result := DllCall("webservices.dll\WsReadChars", "ptr", reader, "ptr", chars, "uint", maxCharCount, "ptr", actualCharCount, "ptr", error, "int")
         return result
     }
@@ -3378,6 +3380,8 @@ class WindowsWebServices {
      * @since windows6.1
      */
     static WsWriteChars(writer, chars, charCount, error) {
+        chars := chars is String? StrPtr(chars) : chars
+
         result := DllCall("webservices.dll\WsWriteChars", "ptr", writer, "ptr", chars, "uint", charCount, "ptr", error, "int")
         return result
     }
@@ -4081,6 +4085,8 @@ class WindowsWebServices {
      * @since windows6.1
      */
     static WsTrimXmlWhitespace(chars, charCount, trimmedChars, trimmedCount, error) {
+        chars := chars is String? StrPtr(chars) : chars
+
         result := DllCall("webservices.dll\WsTrimXmlWhitespace", "ptr", chars, "uint", charCount, "ptr", trimmedChars, "ptr", trimmedCount, "ptr", error, "int")
         return result
     }
@@ -4113,6 +4119,8 @@ class WindowsWebServices {
      * @since windows6.1
      */
     static WsVerifyXmlNCName(ncNameChars, ncNameCharCount, error) {
+        ncNameChars := ncNameChars is String? StrPtr(ncNameChars) : ncNameChars
+
         result := DllCall("webservices.dll\WsVerifyXmlNCName", "ptr", ncNameChars, "uint", ncNameCharCount, "ptr", error, "int")
         return result
     }
@@ -16278,6 +16286,8 @@ class WindowsWebServices {
      * @see https://learn.microsoft.com/windows/win32/api/webauthn/nf-webauthn-webauthnauthenticatorgetassertion
      */
     static WebAuthNAuthenticatorGetAssertion(hWnd, pwszRpId, pWebAuthNClientData, pWebAuthNGetAssertionOptions, ppWebAuthNAssertion) {
+        pwszRpId := pwszRpId is String? StrPtr(pwszRpId) : pwszRpId
+
         result := DllCall("webauthn.dll\WebAuthNAuthenticatorGetAssertion", "ptr", hWnd, "ptr", pwszRpId, "ptr", pWebAuthNClientData, "ptr", pWebAuthNGetAssertionOptions, "ptr", ppWebAuthNAssertion, "int")
         return result
     }

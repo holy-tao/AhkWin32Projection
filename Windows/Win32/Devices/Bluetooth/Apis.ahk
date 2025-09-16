@@ -4840,6 +4840,8 @@ class Bluetooth {
      * @since windows6.0.6000
      */
     static BluetoothAuthenticateDevice(hwndParent, hRadio, pbtbi, pszPasskey, ulPasskeyLength) {
+        pszPasskey := pszPasskey is String? StrPtr(pszPasskey) : pszPasskey
+
         result := DllCall("bthprops.cpl\BluetoothAuthenticateDevice", "ptr", hwndParent, "ptr", hRadio, "ptr", pbtbi, "ptr", pszPasskey, "uint", ulPasskeyLength, "uint")
         return result
     }
@@ -5290,6 +5292,8 @@ class Bluetooth {
      * @since windows6.0.6000
      */
     static BluetoothSendAuthenticationResponse(hRadio, pbtdi, pszPasskey) {
+        pszPasskey := pszPasskey is String? StrPtr(pszPasskey) : pszPasskey
+
         result := DllCall("BluetoothApis.dll\BluetoothSendAuthenticationResponse", "ptr", hRadio, "ptr", pbtdi, "ptr", pszPasskey, "uint")
         return result
     }
@@ -5525,6 +5529,8 @@ class Bluetooth {
      * @since windows6.0.6000
      */
     static BluetoothSdpGetString(pRecordStream, cbRecordLength, pStringData, usStringOffset, pszString, pcchStringLength) {
+        pszString := pszString is String? StrPtr(pszString) : pszString
+
         result := DllCall("BluetoothApis.dll\BluetoothSdpGetString", "ptr", pRecordStream, "uint", cbRecordLength, "ptr", pStringData, "ushort", usStringOffset, "ptr", pszString, "ptr", pcchStringLength, "uint")
         return result
     }

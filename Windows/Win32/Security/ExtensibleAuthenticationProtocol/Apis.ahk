@@ -1348,6 +1348,8 @@ class ExtensibleAuthenticationProtocol {
      * @since windows6.0.6000
      */
     static EapHostPeerInvokeIdentityUI(dwVersion, eapMethodType, dwFlags, hwndParent, dwSizeofConnectionData, pConnectionData, dwSizeofUserData, pUserData, pdwSizeOfUserDataOut, ppUserDataOut, ppwszIdentity, ppEapError, ppvReserved) {
+        ppwszIdentity := ppwszIdentity is String? StrPtr(ppwszIdentity) : ppwszIdentity
+
         result := DllCall("eappcfg.dll\EapHostPeerInvokeIdentityUI", "uint", dwVersion, "ptr", eapMethodType, "uint", dwFlags, "ptr", hwndParent, "uint", dwSizeofConnectionData, "ptr", pConnectionData, "uint", dwSizeofUserData, "ptr", pUserData, "ptr", pdwSizeOfUserDataOut, "ptr", ppUserDataOut, "ptr", ppwszIdentity, "ptr", ppEapError, "ptr", ppvReserved, "uint")
         return result
     }
@@ -1916,6 +1918,8 @@ class ExtensibleAuthenticationProtocol {
      * @since windows6.0.6000
      */
     static EapHostPeerGetIdentity(dwVersion, dwFlags, eapMethodType, dwSizeofConnectionData, pConnectionData, dwSizeofUserData, pUserData, hTokenImpersonateUser, pfInvokeUI, pdwSizeOfUserDataOut, ppUserDataOut, ppwszIdentity, ppEapError, ppvReserved) {
+        ppwszIdentity := ppwszIdentity is String? StrPtr(ppwszIdentity) : ppwszIdentity
+
         result := DllCall("eappprxy.dll\EapHostPeerGetIdentity", "uint", dwVersion, "uint", dwFlags, "ptr", eapMethodType, "uint", dwSizeofConnectionData, "ptr", pConnectionData, "uint", dwSizeofUserData, "ptr", pUserData, "ptr", hTokenImpersonateUser, "ptr", pfInvokeUI, "ptr", pdwSizeOfUserDataOut, "ptr", ppUserDataOut, "ptr", ppwszIdentity, "ptr", ppEapError, "ptr", ppvReserved, "uint")
         return result
     }
@@ -1928,6 +1932,9 @@ class ExtensibleAuthenticationProtocol {
      * @returns {Integer} 
      */
     static EapHostPeerGetEncryptedPassword(dwSizeofPassword, szPassword, ppszEncPassword) {
+        szPassword := szPassword is String? StrPtr(szPassword) : szPassword
+        ppszEncPassword := ppszEncPassword is String? StrPtr(ppszEncPassword) : ppszEncPassword
+
         result := DllCall("eappprxy.dll\EapHostPeerGetEncryptedPassword", "uint", dwSizeofPassword, "ptr", szPassword, "ptr", ppszEncPassword, "uint")
         return result
     }

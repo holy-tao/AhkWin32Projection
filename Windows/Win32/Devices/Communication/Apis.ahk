@@ -1170,6 +1170,8 @@ class Communication {
      * @since windows5.1.2600
      */
     static BuildCommDCBA(lpDef, lpDCB) {
+        lpDef := lpDef is String? StrPtr(lpDef) : lpDef
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\BuildCommDCBA", "ptr", lpDef, "ptr", lpDCB, "int")
@@ -1267,6 +1269,8 @@ class Communication {
      * @since windows5.1.2600
      */
     static BuildCommDCBW(lpDef, lpDCB) {
+        lpDef := lpDef is String? StrPtr(lpDef) : lpDef
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\BuildCommDCBW", "ptr", lpDef, "ptr", lpDCB, "int")
@@ -1339,6 +1343,8 @@ class Communication {
      * @since windows5.1.2600
      */
     static BuildCommDCBAndTimeoutsA(lpDef, lpDCB, lpCommTimeouts) {
+        lpDef := lpDef is String? StrPtr(lpDef) : lpDef
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\BuildCommDCBAndTimeoutsA", "ptr", lpDef, "ptr", lpDCB, "ptr", lpCommTimeouts, "int")
@@ -1411,6 +1417,8 @@ class Communication {
      * @since windows5.1.2600
      */
     static BuildCommDCBAndTimeoutsW(lpDef, lpDCB, lpCommTimeouts) {
+        lpDef := lpDef is String? StrPtr(lpDef) : lpDef
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\BuildCommDCBAndTimeoutsW", "ptr", lpDef, "ptr", lpDCB, "ptr", lpCommTimeouts, "int")
@@ -1444,6 +1452,8 @@ class Communication {
      * @since windows5.1.2600
      */
     static CommConfigDialogA(lpszName, hWnd, lpCC) {
+        lpszName := lpszName is String? StrPtr(lpszName) : lpszName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\CommConfigDialogA", "ptr", lpszName, "ptr", hWnd, "ptr", lpCC, "int")
@@ -1477,6 +1487,8 @@ class Communication {
      * @since windows5.1.2600
      */
     static CommConfigDialogW(lpszName, hWnd, lpCC) {
+        lpszName := lpszName is String? StrPtr(lpszName) : lpszName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\CommConfigDialogW", "ptr", lpszName, "ptr", hWnd, "ptr", lpCC, "int")
@@ -1503,6 +1515,8 @@ class Communication {
      * @since windows5.1.2600
      */
     static GetDefaultCommConfigA(lpszName, lpCC, lpdwSize) {
+        lpszName := lpszName is String? StrPtr(lpszName) : lpszName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetDefaultCommConfigA", "ptr", lpszName, "ptr", lpCC, "ptr", lpdwSize, "int")
@@ -1529,6 +1543,8 @@ class Communication {
      * @since windows5.1.2600
      */
     static GetDefaultCommConfigW(lpszName, lpCC, lpdwSize) {
+        lpszName := lpszName is String? StrPtr(lpszName) : lpszName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetDefaultCommConfigW", "ptr", lpszName, "ptr", lpCC, "ptr", lpdwSize, "int")
@@ -1555,6 +1571,8 @@ class Communication {
      * @since windows5.1.2600
      */
     static SetDefaultCommConfigA(lpszName, lpCC, dwSize) {
+        lpszName := lpszName is String? StrPtr(lpszName) : lpszName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SetDefaultCommConfigA", "ptr", lpszName, "ptr", lpCC, "uint", dwSize, "int")
@@ -1581,6 +1599,8 @@ class Communication {
      * @since windows5.1.2600
      */
     static SetDefaultCommConfigW(lpszName, lpCC, dwSize) {
+        lpszName := lpszName is String? StrPtr(lpszName) : lpszName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SetDefaultCommConfigW", "ptr", lpszName, "ptr", lpCC, "uint", dwSize, "int")

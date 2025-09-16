@@ -220,6 +220,11 @@ class DistributedFileSystem {
      * @since windows6.0.6000
      */
     static NetDfsAdd(DfsEntryPath, ServerName, ShareName, Comment, Flags) {
+        DfsEntryPath := DfsEntryPath is String? StrPtr(DfsEntryPath) : DfsEntryPath
+        ServerName := ServerName is String? StrPtr(ServerName) : ServerName
+        ShareName := ShareName is String? StrPtr(ShareName) : ShareName
+        Comment := Comment is String? StrPtr(Comment) : Comment
+
         result := DllCall("NETAPI32.dll\NetDfsAdd", "ptr", DfsEntryPath, "ptr", ServerName, "ptr", ShareName, "ptr", Comment, "uint", Flags, "uint")
         return result
     }
@@ -243,6 +248,10 @@ class DistributedFileSystem {
      * @since windows6.0.6000
      */
     static NetDfsAddStdRoot(ServerName, RootShare, Comment, Flags) {
+        ServerName := ServerName is String? StrPtr(ServerName) : ServerName
+        RootShare := RootShare is String? StrPtr(RootShare) : RootShare
+        Comment := Comment is String? StrPtr(Comment) : Comment
+
         result := DllCall("NETAPI32.dll\NetDfsAddStdRoot", "ptr", ServerName, "ptr", RootShare, "ptr", Comment, "uint", Flags, "uint")
         return result
     }
@@ -262,6 +271,9 @@ class DistributedFileSystem {
      */
     static NetDfsRemoveStdRoot(ServerName, RootShare) {
         static Flags := 0 ;Reserved parameters must always be NULL
+
+        ServerName := ServerName is String? StrPtr(ServerName) : ServerName
+        RootShare := RootShare is String? StrPtr(RootShare) : RootShare
 
         result := DllCall("NETAPI32.dll\NetDfsRemoveStdRoot", "ptr", ServerName, "ptr", RootShare, "uint", Flags, "uint")
         return result
@@ -286,6 +298,11 @@ class DistributedFileSystem {
      * @since windows6.0.6000
      */
     static NetDfsAddFtRoot(ServerName, RootShare, FtDfsName, Comment, Flags) {
+        ServerName := ServerName is String? StrPtr(ServerName) : ServerName
+        RootShare := RootShare is String? StrPtr(RootShare) : RootShare
+        FtDfsName := FtDfsName is String? StrPtr(FtDfsName) : FtDfsName
+        Comment := Comment is String? StrPtr(Comment) : Comment
+
         result := DllCall("NETAPI32.dll\NetDfsAddFtRoot", "ptr", ServerName, "ptr", RootShare, "ptr", FtDfsName, "ptr", Comment, "uint", Flags, "uint")
         return result
     }
@@ -308,6 +325,10 @@ class DistributedFileSystem {
      */
     static NetDfsRemoveFtRoot(ServerName, RootShare, FtDfsName) {
         static Flags := 0 ;Reserved parameters must always be NULL
+
+        ServerName := ServerName is String? StrPtr(ServerName) : ServerName
+        RootShare := RootShare is String? StrPtr(RootShare) : RootShare
+        FtDfsName := FtDfsName is String? StrPtr(FtDfsName) : FtDfsName
 
         result := DllCall("NETAPI32.dll\NetDfsRemoveFtRoot", "ptr", ServerName, "ptr", RootShare, "ptr", FtDfsName, "uint", Flags, "uint")
         return result
@@ -335,6 +356,11 @@ class DistributedFileSystem {
      */
     static NetDfsRemoveFtRootForced(DomainName, ServerName, RootShare, FtDfsName) {
         static Flags := 0 ;Reserved parameters must always be NULL
+
+        DomainName := DomainName is String? StrPtr(DomainName) : DomainName
+        ServerName := ServerName is String? StrPtr(ServerName) : ServerName
+        RootShare := RootShare is String? StrPtr(RootShare) : RootShare
+        FtDfsName := FtDfsName is String? StrPtr(FtDfsName) : FtDfsName
 
         result := DllCall("NETAPI32.dll\NetDfsRemoveFtRootForced", "ptr", DomainName, "ptr", ServerName, "ptr", RootShare, "ptr", FtDfsName, "uint", Flags, "uint")
         return result
@@ -384,6 +410,10 @@ class DistributedFileSystem {
      * @since windows6.0.6000
      */
     static NetDfsRemove(DfsEntryPath, ServerName, ShareName) {
+        DfsEntryPath := DfsEntryPath is String? StrPtr(DfsEntryPath) : DfsEntryPath
+        ServerName := ServerName is String? StrPtr(ServerName) : ServerName
+        ShareName := ShareName is String? StrPtr(ShareName) : ShareName
+
         result := DllCall("NETAPI32.dll\NetDfsRemove", "ptr", DfsEntryPath, "ptr", ServerName, "ptr", ShareName, "uint")
         return result
     }
@@ -456,6 +486,8 @@ class DistributedFileSystem {
      * @since windows6.0.6000
      */
     static NetDfsEnum(DfsName, Level, PrefMaxLen, Buffer, EntriesRead, ResumeHandle) {
+        DfsName := DfsName is String? StrPtr(DfsName) : DfsName
+
         result := DllCall("NETAPI32.dll\NetDfsEnum", "ptr", DfsName, "uint", Level, "uint", PrefMaxLen, "ptr", Buffer, "ptr", EntriesRead, "ptr", ResumeHandle, "uint")
         return result
     }
@@ -526,6 +558,10 @@ class DistributedFileSystem {
      * @since windows6.0.6000
      */
     static NetDfsGetInfo(DfsEntryPath, ServerName, ShareName, Level, Buffer) {
+        DfsEntryPath := DfsEntryPath is String? StrPtr(DfsEntryPath) : DfsEntryPath
+        ServerName := ServerName is String? StrPtr(ServerName) : ServerName
+        ShareName := ShareName is String? StrPtr(ShareName) : ShareName
+
         result := DllCall("NETAPI32.dll\NetDfsGetInfo", "ptr", DfsEntryPath, "ptr", ServerName, "ptr", ShareName, "uint", Level, "ptr", Buffer, "uint")
         return result
     }
@@ -598,6 +634,10 @@ class DistributedFileSystem {
      * @since windows6.0.6000
      */
     static NetDfsSetInfo(DfsEntryPath, ServerName, ShareName, Level, Buffer) {
+        DfsEntryPath := DfsEntryPath is String? StrPtr(DfsEntryPath) : DfsEntryPath
+        ServerName := ServerName is String? StrPtr(ServerName) : ServerName
+        ShareName := ShareName is String? StrPtr(ShareName) : ShareName
+
         result := DllCall("NETAPI32.dll\NetDfsSetInfo", "ptr", DfsEntryPath, "ptr", ServerName, "ptr", ShareName, "uint", Level, "ptr", Buffer, "uint")
         return result
     }
@@ -647,6 +687,10 @@ class DistributedFileSystem {
      * @since windows6.0.6000
      */
     static NetDfsGetClientInfo(DfsEntryPath, ServerName, ShareName, Level, Buffer) {
+        DfsEntryPath := DfsEntryPath is String? StrPtr(DfsEntryPath) : DfsEntryPath
+        ServerName := ServerName is String? StrPtr(ServerName) : ServerName
+        ShareName := ShareName is String? StrPtr(ShareName) : ShareName
+
         result := DllCall("NETAPI32.dll\NetDfsGetClientInfo", "ptr", DfsEntryPath, "ptr", ServerName, "ptr", ShareName, "uint", Level, "ptr", Buffer, "uint")
         return result
     }
@@ -699,6 +743,10 @@ class DistributedFileSystem {
      * @since windows6.0.6000
      */
     static NetDfsSetClientInfo(DfsEntryPath, ServerName, ShareName, Level, Buffer) {
+        DfsEntryPath := DfsEntryPath is String? StrPtr(DfsEntryPath) : DfsEntryPath
+        ServerName := ServerName is String? StrPtr(ServerName) : ServerName
+        ShareName := ShareName is String? StrPtr(ShareName) : ShareName
+
         result := DllCall("NETAPI32.dll\NetDfsSetClientInfo", "ptr", DfsEntryPath, "ptr", ServerName, "ptr", ShareName, "uint", Level, "ptr", Buffer, "uint")
         return result
     }
@@ -805,6 +853,9 @@ class DistributedFileSystem {
      * @since windows6.0.6000
      */
     static NetDfsMove(OldDfsEntryPath, NewDfsEntryPath, Flags) {
+        OldDfsEntryPath := OldDfsEntryPath is String? StrPtr(OldDfsEntryPath) : OldDfsEntryPath
+        NewDfsEntryPath := NewDfsEntryPath is String? StrPtr(NewDfsEntryPath) : NewDfsEntryPath
+
         result := DllCall("NETAPI32.dll\NetDfsMove", "ptr", OldDfsEntryPath, "ptr", NewDfsEntryPath, "uint", Flags, "uint")
         return result
     }
@@ -919,6 +970,10 @@ class DistributedFileSystem {
      * @since windows6.0.6000
      */
     static NetDfsAddRootTarget(pDfsPath, pTargetPath, MajorVersion, pComment, Flags) {
+        pDfsPath := pDfsPath is String? StrPtr(pDfsPath) : pDfsPath
+        pTargetPath := pTargetPath is String? StrPtr(pTargetPath) : pTargetPath
+        pComment := pComment is String? StrPtr(pComment) : pComment
+
         result := DllCall("NETAPI32.dll\NetDfsAddRootTarget", "ptr", pDfsPath, "ptr", pTargetPath, "uint", MajorVersion, "ptr", pComment, "uint", Flags, "uint")
         return result
     }
@@ -984,6 +1039,9 @@ class DistributedFileSystem {
      * @since windows6.0.6000
      */
     static NetDfsRemoveRootTarget(pDfsPath, pTargetPath, Flags) {
+        pDfsPath := pDfsPath is String? StrPtr(pDfsPath) : pDfsPath
+        pTargetPath := pTargetPath is String? StrPtr(pTargetPath) : pTargetPath
+
         result := DllCall("NETAPI32.dll\NetDfsRemoveRootTarget", "ptr", pDfsPath, "ptr", pTargetPath, "uint", Flags, "uint")
         return result
     }
@@ -1021,6 +1079,8 @@ class DistributedFileSystem {
      * @since windows6.0.6000
      */
     static NetDfsGetSecurity(DfsEntryPath, SecurityInformation, ppSecurityDescriptor, lpcbSecurityDescriptor) {
+        DfsEntryPath := DfsEntryPath is String? StrPtr(DfsEntryPath) : DfsEntryPath
+
         result := DllCall("NETAPI32.dll\NetDfsGetSecurity", "ptr", DfsEntryPath, "uint", SecurityInformation, "ptr", ppSecurityDescriptor, "ptr", lpcbSecurityDescriptor, "uint")
         return result
     }
@@ -1054,6 +1114,8 @@ class DistributedFileSystem {
      * @since windows6.0.6000
      */
     static NetDfsSetSecurity(DfsEntryPath, SecurityInformation, pSecurityDescriptor) {
+        DfsEntryPath := DfsEntryPath is String? StrPtr(DfsEntryPath) : DfsEntryPath
+
         result := DllCall("NETAPI32.dll\NetDfsSetSecurity", "ptr", DfsEntryPath, "uint", SecurityInformation, "ptr", pSecurityDescriptor, "uint")
         return result
     }
@@ -1077,6 +1139,8 @@ class DistributedFileSystem {
      * @since windows6.0.6000
      */
     static NetDfsGetStdContainerSecurity(MachineName, SecurityInformation, ppSecurityDescriptor, lpcbSecurityDescriptor) {
+        MachineName := MachineName is String? StrPtr(MachineName) : MachineName
+
         result := DllCall("NETAPI32.dll\NetDfsGetStdContainerSecurity", "ptr", MachineName, "uint", SecurityInformation, "ptr", ppSecurityDescriptor, "ptr", lpcbSecurityDescriptor, "uint")
         return result
     }
@@ -1096,6 +1160,8 @@ class DistributedFileSystem {
      * @since windows6.0.6000
      */
     static NetDfsSetStdContainerSecurity(MachineName, SecurityInformation, pSecurityDescriptor) {
+        MachineName := MachineName is String? StrPtr(MachineName) : MachineName
+
         result := DllCall("NETAPI32.dll\NetDfsSetStdContainerSecurity", "ptr", MachineName, "uint", SecurityInformation, "ptr", pSecurityDescriptor, "uint")
         return result
     }
@@ -1119,6 +1185,8 @@ class DistributedFileSystem {
      * @since windows6.0.6000
      */
     static NetDfsGetFtContainerSecurity(DomainName, SecurityInformation, ppSecurityDescriptor, lpcbSecurityDescriptor) {
+        DomainName := DomainName is String? StrPtr(DomainName) : DomainName
+
         result := DllCall("NETAPI32.dll\NetDfsGetFtContainerSecurity", "ptr", DomainName, "uint", SecurityInformation, "ptr", ppSecurityDescriptor, "ptr", lpcbSecurityDescriptor, "uint")
         return result
     }
@@ -1138,6 +1206,8 @@ class DistributedFileSystem {
      * @since windows6.0.6000
      */
     static NetDfsSetFtContainerSecurity(DomainName, SecurityInformation, pSecurityDescriptor) {
+        DomainName := DomainName is String? StrPtr(DomainName) : DomainName
+
         result := DllCall("NETAPI32.dll\NetDfsSetFtContainerSecurity", "ptr", DomainName, "uint", SecurityInformation, "ptr", pSecurityDescriptor, "uint")
         return result
     }
@@ -1165,6 +1235,8 @@ class DistributedFileSystem {
      * @since windows6.0.6000
      */
     static NetDfsGetSupportedNamespaceVersion(Origin, pName, ppVersionInfo) {
+        pName := pName is String? StrPtr(pName) : pName
+
         result := DllCall("NETAPI32.dll\NetDfsGetSupportedNamespaceVersion", "int", Origin, "ptr", pName, "ptr", ppVersionInfo, "uint")
         return result
     }

@@ -453,6 +453,8 @@ class Sip {
      * @since windows5.1.2600
      */
     static CryptSIPRetrieveSubjectGuid(FileName, hFileIn, pgSubject) {
+        FileName := FileName is String? StrPtr(FileName) : FileName
+
         A_LastError := 0
 
         result := DllCall("CRYPT32.dll\CryptSIPRetrieveSubjectGuid", "ptr", FileName, "ptr", hFileIn, "ptr", pgSubject, "int")
@@ -497,6 +499,8 @@ class Sip {
      * @since windows5.1.2600
      */
     static CryptSIPRetrieveSubjectGuidForCatalogFile(FileName, hFileIn, pgSubject) {
+        FileName := FileName is String? StrPtr(FileName) : FileName
+
         A_LastError := 0
 
         result := DllCall("CRYPT32.dll\CryptSIPRetrieveSubjectGuidForCatalogFile", "ptr", FileName, "ptr", hFileIn, "ptr", pgSubject, "int")

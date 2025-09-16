@@ -1300,6 +1300,8 @@ class Dns {
      * @since windows5.0
      */
     static DnsQueryConfig(Config, Flag, pwsAdapterName, pReserved, pBuffer, pBufLen) {
+        pwsAdapterName := pwsAdapterName is String? StrPtr(pwsAdapterName) : pwsAdapterName
+
         result := DllCall("DNSAPI.dll\DnsQueryConfig", "int", Config, "uint", Flag, "ptr", pwsAdapterName, "ptr", pReserved, "ptr", pBuffer, "ptr", pBufLen, "int")
         return result
     }
@@ -1420,6 +1422,8 @@ class Dns {
      * @since windows5.0
      */
     static DnsQuery_A(pszName, wType, Options, pExtra, ppQueryResults, pReserved) {
+        pszName := pszName is String? StrPtr(pszName) : pszName
+
         result := DllCall("DNSAPI.dll\DnsQuery_A", "ptr", pszName, "ushort", wType, "uint", Options, "ptr", pExtra, "ptr", ppQueryResults, "ptr", pReserved, "uint")
         return result
     }
@@ -1449,6 +1453,8 @@ class Dns {
      * @since windows5.0
      */
     static DnsQuery_UTF8(pszName, wType, Options, pExtra, ppQueryResults, pReserved) {
+        pszName := pszName is String? StrPtr(pszName) : pszName
+
         result := DllCall("DNSAPI.dll\DnsQuery_UTF8", "ptr", pszName, "ushort", wType, "uint", Options, "ptr", pExtra, "ptr", ppQueryResults, "ptr", pReserved, "uint")
         return result
     }
@@ -1478,6 +1484,8 @@ class Dns {
      * @since windows5.0
      */
     static DnsQuery_W(pszName, wType, Options, pExtra, ppQueryResults, pReserved) {
+        pszName := pszName is String? StrPtr(pszName) : pszName
+
         result := DllCall("DNSAPI.dll\DnsQuery_W", "ptr", pszName, "ushort", wType, "uint", Options, "ptr", pExtra, "ptr", ppQueryResults, "ptr", pReserved, "uint")
         return result
     }
@@ -1944,6 +1952,8 @@ class Dns {
      * @since windows5.0
      */
     static DnsValidateName_W(pszName, Format) {
+        pszName := pszName is String? StrPtr(pszName) : pszName
+
         result := DllCall("DNSAPI.dll\DnsValidateName_W", "ptr", pszName, "int", Format, "int")
         return result
     }
@@ -2009,6 +2019,8 @@ class Dns {
      * @since windows5.0
      */
     static DnsValidateName_A(pszName, Format) {
+        pszName := pszName is String? StrPtr(pszName) : pszName
+
         result := DllCall("DNSAPI.dll\DnsValidateName_A", "ptr", pszName, "int", Format, "int")
         return result
     }
@@ -2074,6 +2086,8 @@ class Dns {
      * @since windows5.0
      */
     static DnsValidateName_UTF8(pszName, Format) {
+        pszName := pszName is String? StrPtr(pszName) : pszName
+
         result := DllCall("DNSAPI.dll\DnsValidateName_UTF8", "ptr", pszName, "int", Format, "int")
         return result
     }
@@ -2092,6 +2106,9 @@ class Dns {
      * @since windows5.0
      */
     static DnsNameCompare_A(pName1, pName2) {
+        pName1 := pName1 is String? StrPtr(pName1) : pName1
+        pName2 := pName2 is String? StrPtr(pName2) : pName2
+
         result := DllCall("DNSAPI.dll\DnsNameCompare_A", "ptr", pName1, "ptr", pName2, "int")
         return result
     }
@@ -2110,6 +2127,9 @@ class Dns {
      * @since windows5.0
      */
     static DnsNameCompare_W(pName1, pName2) {
+        pName1 := pName1 is String? StrPtr(pName1) : pName1
+        pName2 := pName2 is String? StrPtr(pName2) : pName2
+
         result := DllCall("DNSAPI.dll\DnsNameCompare_W", "ptr", pName1, "ptr", pName2, "int")
         return result
     }
@@ -2143,6 +2163,8 @@ class Dns {
      * @since windows5.0
      */
     static DnsWriteQuestionToBuffer_W(pDnsBuffer, pdwBufferSize, pszName, wType, Xid, fRecursionDesired) {
+        pszName := pszName is String? StrPtr(pszName) : pszName
+
         result := DllCall("DNSAPI.dll\DnsWriteQuestionToBuffer_W", "ptr", pDnsBuffer, "ptr", pdwBufferSize, "ptr", pszName, "ushort", wType, "ushort", Xid, "int", fRecursionDesired, "int")
         return result
     }
@@ -2176,6 +2198,8 @@ class Dns {
      * @since windows5.0
      */
     static DnsWriteQuestionToBuffer_UTF8(pDnsBuffer, pdwBufferSize, pszName, wType, Xid, fRecursionDesired) {
+        pszName := pszName is String? StrPtr(pszName) : pszName
+
         result := DllCall("DNSAPI.dll\DnsWriteQuestionToBuffer_UTF8", "ptr", pDnsBuffer, "ptr", pdwBufferSize, "ptr", pszName, "ushort", wType, "ushort", Xid, "int", fRecursionDesired, "int")
         return result
     }
@@ -2257,6 +2281,8 @@ class Dns {
      * @since windows6.1
      */
     static DnsGetProxyInformation(hostName, proxyInformation, defaultProxyInformation, completionRoutine, completionContext) {
+        hostName := hostName is String? StrPtr(hostName) : hostName
+
         result := DllCall("DNSAPI.dll\DnsGetProxyInformation", "ptr", hostName, "ptr", proxyInformation, "ptr", defaultProxyInformation, "ptr", completionRoutine, "ptr", completionContext, "uint")
         return result
     }
@@ -2269,6 +2295,8 @@ class Dns {
      * @since windows6.1
      */
     static DnsFreeProxyName(proxyName) {
+        proxyName := proxyName is String? StrPtr(proxyName) : proxyName
+
         DllCall("DNSAPI.dll\DnsFreeProxyName", "ptr", proxyName)
     }
 
@@ -2282,6 +2310,8 @@ class Dns {
      * @returns {Integer} 
      */
     static DnsConnectionGetProxyInfoForHostUrl(pwszHostUrl, pSelectionContext, dwSelectionContextLength, dwExplicitInterfaceIndex, pProxyInfoEx) {
+        pwszHostUrl := pwszHostUrl is String? StrPtr(pwszHostUrl) : pwszHostUrl
+
         result := DllCall("DNSAPI.dll\DnsConnectionGetProxyInfoForHostUrl", "ptr", pwszHostUrl, "ptr", pSelectionContext, "uint", dwSelectionContextLength, "uint", dwExplicitInterfaceIndex, "ptr", pProxyInfoEx, "uint")
         return result
     }
@@ -2297,6 +2327,9 @@ class Dns {
      * @returns {Integer} 
      */
     static DnsConnectionGetProxyInfoForHostUrlEx(pwszHostUrl, pSelectionContext, dwSelectionContextLength, dwExplicitInterfaceIndex, pwszConnectionName, pProxyInfoEx) {
+        pwszHostUrl := pwszHostUrl is String? StrPtr(pwszHostUrl) : pwszHostUrl
+        pwszConnectionName := pwszConnectionName is String? StrPtr(pwszConnectionName) : pwszConnectionName
+
         result := DllCall("DNSAPI.dll\DnsConnectionGetProxyInfoForHostUrlEx", "ptr", pwszHostUrl, "ptr", pSelectionContext, "uint", dwSelectionContextLength, "uint", dwExplicitInterfaceIndex, "ptr", pwszConnectionName, "ptr", pProxyInfoEx, "uint")
         return result
     }
@@ -2318,6 +2351,8 @@ class Dns {
      * @returns {Integer} 
      */
     static DnsConnectionGetProxyInfo(pwszConnectionName, Type, pProxyInfo) {
+        pwszConnectionName := pwszConnectionName is String? StrPtr(pwszConnectionName) : pwszConnectionName
+
         result := DllCall("DNSAPI.dll\DnsConnectionGetProxyInfo", "ptr", pwszConnectionName, "int", Type, "ptr", pProxyInfo, "uint")
         return result
     }
@@ -2339,6 +2374,8 @@ class Dns {
      * @returns {Integer} 
      */
     static DnsConnectionSetProxyInfo(pwszConnectionName, Type, pProxyInfo) {
+        pwszConnectionName := pwszConnectionName is String? StrPtr(pwszConnectionName) : pwszConnectionName
+
         result := DllCall("DNSAPI.dll\DnsConnectionSetProxyInfo", "ptr", pwszConnectionName, "int", Type, "ptr", pProxyInfo, "uint")
         return result
     }
@@ -2350,6 +2387,8 @@ class Dns {
      * @returns {Integer} 
      */
     static DnsConnectionDeleteProxyInfo(pwszConnectionName, Type) {
+        pwszConnectionName := pwszConnectionName is String? StrPtr(pwszConnectionName) : pwszConnectionName
+
         result := DllCall("DNSAPI.dll\DnsConnectionDeleteProxyInfo", "ptr", pwszConnectionName, "int", Type, "uint")
         return result
     }
@@ -2361,6 +2400,8 @@ class Dns {
      * @returns {Integer} 
      */
     static DnsConnectionGetProxyList(pwszConnectionName, pProxyList) {
+        pwszConnectionName := pwszConnectionName is String? StrPtr(pwszConnectionName) : pwszConnectionName
+
         result := DllCall("DNSAPI.dll\DnsConnectionGetProxyList", "ptr", pwszConnectionName, "ptr", pProxyList, "uint")
         return result
     }
@@ -2443,6 +2484,11 @@ class Dns {
      * @since windows10.0.10240
      */
     static DnsServiceConstructInstance(pServiceName, pHostName, pIp4, pIp6, wPort, wPriority, wWeight, dwPropertiesCount, keys, values) {
+        pServiceName := pServiceName is String? StrPtr(pServiceName) : pServiceName
+        pHostName := pHostName is String? StrPtr(pHostName) : pHostName
+        keys := keys is String? StrPtr(keys) : keys
+        values := values is String? StrPtr(values) : values
+
         result := DllCall("DNSAPI.dll\DnsServiceConstructInstance", "ptr", pServiceName, "ptr", pHostName, "ptr", pIp4, "ptr", pIp6, "ushort", wPort, "ushort", wPriority, "ushort", wWeight, "uint", dwPropertiesCount, "ptr", keys, "ptr", values, "ptr")
         return result
     }

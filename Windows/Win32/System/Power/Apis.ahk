@@ -1446,6 +1446,9 @@ class Power {
      * @since windows5.1.2600
      */
     static WritePwrScheme(puiID, lpszSchemeName, lpszDescription, lpScheme) {
+        lpszSchemeName := lpszSchemeName is String? StrPtr(lpszSchemeName) : lpszSchemeName
+        lpszDescription := lpszDescription is String? StrPtr(lpszDescription) : lpszDescription
+
         A_LastError := 0
 
         result := DllCall("POWRPROF.dll\WritePwrScheme", "ptr", puiID, "ptr", lpszSchemeName, "ptr", lpszDescription, "ptr", lpScheme, "char")
@@ -2975,6 +2978,8 @@ class Power {
      * @since windows6.0.6000
      */
     static PowerImportPowerScheme(RootPowerKey, ImportFileNamePath, DestinationSchemeGuid) {
+        ImportFileNamePath := ImportFileNamePath is String? StrPtr(ImportFileNamePath) : ImportFileNamePath
+
         result := DllCall("POWRPROF.dll\PowerImportPowerScheme", "ptr", RootPowerKey, "ptr", ImportFileNamePath, "ptr", DestinationSchemeGuid, "uint")
         return result
     }
@@ -3658,6 +3663,8 @@ class Power {
      * @since windows6.0.6000
      */
     static DevicePowerSetDeviceState(DeviceDescription, SetFlags, SetData) {
+        DeviceDescription := DeviceDescription is String? StrPtr(DeviceDescription) : DeviceDescription
+
         A_LastError := 0
 
         result := DllCall("POWRPROF.dll\DevicePowerSetDeviceState", "ptr", DeviceDescription, "uint", SetFlags, "ptr", SetData, "uint")

@@ -14,7 +14,7 @@ while(Gdi.EnumDisplayDevicesW(0, deviceNum++, deviceInfo, 0)) {
     deviceDesc := deviceInfo.DeviceString
 
     ; Get device display name
-    Gdi.EnumDisplayDevicesW(StrPtr(deviceName), 0, deviceInfo, 0)
+    Gdi.EnumDisplayDevicesW(deviceName, 0, deviceInfo, 0)
 
     stdout.WriteLine(Format("{1}: {2} - {3}", deviceName, deviceDesc, deviceInfo.DeviceString))
 }

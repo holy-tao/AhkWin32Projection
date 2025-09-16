@@ -1708,6 +1708,8 @@ class Dhcp {
      * @since windows6.0.6000
      */
     static Dhcpv6RequestParams(forceNewInform, reserved, adapterName, classId, recdParams, buffer, pSize) {
+        adapterName := adapterName is String? StrPtr(adapterName) : adapterName
+
         result := DllCall("dhcpcsvc6.dll\Dhcpv6RequestParams", "int", forceNewInform, "ptr", reserved, "ptr", adapterName, "ptr", classId, "ptr", recdParams, "ptr", buffer, "ptr", pSize, "uint")
         return result
     }
@@ -1805,6 +1807,8 @@ class Dhcp {
      * @since windows6.0.6000
      */
     static Dhcpv6RequestPrefix(adapterName, pclassId, prefixleaseInfo, pdwTimeToWait) {
+        adapterName := adapterName is String? StrPtr(adapterName) : adapterName
+
         result := DllCall("dhcpcsvc6.dll\Dhcpv6RequestPrefix", "ptr", adapterName, "ptr", pclassId, "ptr", prefixleaseInfo, "ptr", pdwTimeToWait, "uint")
         return result
     }
@@ -1871,6 +1875,8 @@ class Dhcp {
      * @since windows6.0.6000
      */
     static Dhcpv6RenewPrefix(adapterName, pclassId, prefixleaseInfo, pdwTimeToWait, bValidatePrefix) {
+        adapterName := adapterName is String? StrPtr(adapterName) : adapterName
+
         result := DllCall("dhcpcsvc6.dll\Dhcpv6RenewPrefix", "ptr", adapterName, "ptr", pclassId, "ptr", prefixleaseInfo, "ptr", pdwTimeToWait, "uint", bValidatePrefix, "uint")
         return result
     }
@@ -1931,6 +1937,8 @@ class Dhcp {
      * @since windows6.0.6000
      */
     static Dhcpv6ReleasePrefix(adapterName, classId, leaseInfo) {
+        adapterName := adapterName is String? StrPtr(adapterName) : adapterName
+
         result := DllCall("dhcpcsvc6.dll\Dhcpv6ReleasePrefix", "ptr", adapterName, "ptr", classId, "ptr", leaseInfo, "uint")
         return result
     }
@@ -2059,6 +2067,9 @@ class Dhcp {
      * @since windows5.0
      */
     static DhcpRequestParams(Flags, Reserved, AdapterName, ClassId, SendParams, RecdParams, Buffer, pSize, RequestIdStr) {
+        AdapterName := AdapterName is String? StrPtr(AdapterName) : AdapterName
+        RequestIdStr := RequestIdStr is String? StrPtr(RequestIdStr) : RequestIdStr
+
         result := DllCall("dhcpcsvc.dll\DhcpRequestParams", "uint", Flags, "ptr", Reserved, "ptr", AdapterName, "ptr", ClassId, "ptr", SendParams, "ptr", RecdParams, "ptr", Buffer, "ptr", pSize, "ptr", RequestIdStr, "uint")
         return result
     }
@@ -2080,6 +2091,9 @@ class Dhcp {
      */
     static DhcpUndoRequestParams(AdapterName, RequestIdStr) {
         static Flags := 0, Reserved := 0 ;Reserved parameters must always be NULL
+
+        AdapterName := AdapterName is String? StrPtr(AdapterName) : AdapterName
+        RequestIdStr := RequestIdStr is String? StrPtr(RequestIdStr) : RequestIdStr
 
         result := DllCall("dhcpcsvc.dll\DhcpUndoRequestParams", "uint", Flags, "ptr", Reserved, "ptr", AdapterName, "ptr", RequestIdStr, "uint")
         return result
@@ -2120,6 +2134,8 @@ class Dhcp {
      */
     static DhcpRegisterParamChange(Flags, AdapterName, ClassId, Params, Handle) {
         static Reserved := 0 ;Reserved parameters must always be NULL
+
+        AdapterName := AdapterName is String? StrPtr(AdapterName) : AdapterName
 
         result := DllCall("dhcpcsvc.dll\DhcpRegisterParamChange", "uint", Flags, "ptr", Reserved, "ptr", AdapterName, "ptr", ClassId, "ptr", Params, "ptr", Handle, "uint")
         return result
@@ -2164,6 +2180,8 @@ class Dhcp {
      * @returns {Integer} 
      */
     static DhcpGetOriginalSubnetMask(sAdapterName, dwSubnetMask) {
+        sAdapterName := sAdapterName is String? StrPtr(sAdapterName) : sAdapterName
+
         result := DllCall("dhcpcsvc.dll\DhcpGetOriginalSubnetMask", "ptr", sAdapterName, "ptr", dwSubnetMask, "uint")
         return result
     }
@@ -2220,6 +2238,8 @@ class Dhcp {
      * @since windowsserver2008
      */
     static DhcpAddFilterV4(ServerIpAddress, AddFilterInfo, ForceFlag) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+
         result := DllCall("DHCPSAPI.dll\DhcpAddFilterV4", "ptr", ServerIpAddress, "ptr", AddFilterInfo, "int", ForceFlag, "uint")
         return result
     }
@@ -2284,6 +2304,8 @@ class Dhcp {
      * @since windowsserver2008
      */
     static DhcpDeleteFilterV4(ServerIpAddress, DeleteFilterInfo) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+
         result := DllCall("DHCPSAPI.dll\DhcpDeleteFilterV4", "ptr", ServerIpAddress, "ptr", DeleteFilterInfo, "uint")
         return result
     }
@@ -2339,6 +2361,8 @@ class Dhcp {
      * @since windowsserver2008
      */
     static DhcpSetFilterV4(ServerIpAddress, GlobalFilterInfo) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+
         result := DllCall("DHCPSAPI.dll\DhcpSetFilterV4", "ptr", ServerIpAddress, "ptr", GlobalFilterInfo, "uint")
         return result
     }
@@ -2381,6 +2405,8 @@ class Dhcp {
      * @since windowsserver2008
      */
     static DhcpGetFilterV4(ServerIpAddress, GlobalFilterInfo) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+
         result := DllCall("DHCPSAPI.dll\DhcpGetFilterV4", "ptr", ServerIpAddress, "ptr", GlobalFilterInfo, "uint")
         return result
     }
@@ -2450,6 +2476,8 @@ class Dhcp {
      * @since windowsserver2008
      */
     static DhcpEnumFilterV4(ServerIpAddress, ResumeHandle, PreferredMaximum, ListType, EnumFilterInfo, ElementsRead, ElementsTotal) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+
         result := DllCall("DHCPSAPI.dll\DhcpEnumFilterV4", "ptr", ServerIpAddress, "ptr", ResumeHandle, "uint", PreferredMaximum, "int", ListType, "ptr", EnumFilterInfo, "ptr", ElementsRead, "ptr", ElementsTotal, "uint")
         return result
     }
@@ -2464,6 +2492,8 @@ class Dhcp {
      * @since windowsserver2000
      */
     static DhcpCreateSubnet(ServerIpAddress, SubnetAddress, SubnetInfo) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+
         result := DllCall("DHCPSAPI.dll\DhcpCreateSubnet", "ptr", ServerIpAddress, "uint", SubnetAddress, "ptr", SubnetInfo, "uint")
         return result
     }
@@ -2478,6 +2508,8 @@ class Dhcp {
      * @since windowsserver2000
      */
     static DhcpSetSubnetInfo(ServerIpAddress, SubnetAddress, SubnetInfo) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+
         result := DllCall("DHCPSAPI.dll\DhcpSetSubnetInfo", "ptr", ServerIpAddress, "uint", SubnetAddress, "ptr", SubnetInfo, "uint")
         return result
     }
@@ -2499,6 +2531,8 @@ class Dhcp {
      * @since windowsserver2000
      */
     static DhcpGetSubnetInfo(ServerIpAddress, SubnetAddress, SubnetInfo) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+
         result := DllCall("DHCPSAPI.dll\DhcpGetSubnetInfo", "ptr", ServerIpAddress, "uint", SubnetAddress, "ptr", SubnetInfo, "uint")
         return result
     }
@@ -2520,6 +2554,8 @@ class Dhcp {
      * @since windowsserver2000
      */
     static DhcpEnumSubnets(ServerIpAddress, ResumeHandle, PreferredMaximum, EnumInfo, ElementsRead, ElementsTotal) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+
         result := DllCall("DHCPSAPI.dll\DhcpEnumSubnets", "ptr", ServerIpAddress, "ptr", ResumeHandle, "uint", PreferredMaximum, "ptr", EnumInfo, "ptr", ElementsRead, "ptr", ElementsTotal, "uint")
         return result
     }
@@ -2640,6 +2676,8 @@ class Dhcp {
      * @since windowsserver2008
      */
     static DhcpAddSubnetElement(ServerIpAddress, SubnetAddress, AddElementInfo) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+
         result := DllCall("DHCPSAPI.dll\DhcpAddSubnetElement", "ptr", ServerIpAddress, "uint", SubnetAddress, "ptr", AddElementInfo, "uint")
         return result
     }
@@ -2714,6 +2752,8 @@ class Dhcp {
      * @since windowsserver2000
      */
     static DhcpEnumSubnetElements(ServerIpAddress, SubnetAddress, EnumElementType, ResumeHandle, PreferredMaximum, EnumElementInfo, ElementsRead, ElementsTotal) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+
         result := DllCall("DHCPSAPI.dll\DhcpEnumSubnetElements", "ptr", ServerIpAddress, "uint", SubnetAddress, "int", EnumElementType, "ptr", ResumeHandle, "uint", PreferredMaximum, "ptr", EnumElementInfo, "ptr", ElementsRead, "ptr", ElementsTotal, "uint")
         return result
     }
@@ -2794,6 +2834,8 @@ class Dhcp {
      * @since windowsserver2008
      */
     static DhcpRemoveSubnetElement(ServerIpAddress, SubnetAddress, RemoveElementInfo, ForceFlag) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+
         result := DllCall("DHCPSAPI.dll\DhcpRemoveSubnetElement", "ptr", ServerIpAddress, "uint", SubnetAddress, "ptr", RemoveElementInfo, "int", ForceFlag, "uint")
         return result
     }
@@ -2810,6 +2852,8 @@ class Dhcp {
      * @since windowsserver2000
      */
     static DhcpDeleteSubnet(ServerIpAddress, SubnetAddress, ForceFlag) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+
         result := DllCall("DHCPSAPI.dll\DhcpDeleteSubnet", "ptr", ServerIpAddress, "uint", SubnetAddress, "int", ForceFlag, "uint")
         return result
     }
@@ -2855,6 +2899,8 @@ class Dhcp {
      * @since windowsserver2008
      */
     static DhcpCreateOption(ServerIpAddress, OptionID, OptionInfo) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+
         result := DllCall("DHCPSAPI.dll\DhcpCreateOption", "ptr", ServerIpAddress, "uint", OptionID, "ptr", OptionInfo, "uint")
         return result
     }
@@ -2898,6 +2944,8 @@ class Dhcp {
      * @since windowsserver2008
      */
     static DhcpSetOptionInfo(ServerIpAddress, OptionID, OptionInfo) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+
         result := DllCall("DHCPSAPI.dll\DhcpSetOptionInfo", "ptr", ServerIpAddress, "uint", OptionID, "ptr", OptionInfo, "uint")
         return result
     }
@@ -2946,6 +2994,8 @@ class Dhcp {
      * @since windowsserver2008
      */
     static DhcpGetOptionInfo(ServerIpAddress, OptionID, OptionInfo) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+
         result := DllCall("DHCPSAPI.dll\DhcpGetOptionInfo", "ptr", ServerIpAddress, "uint", OptionID, "ptr", OptionInfo, "uint")
         return result
     }
@@ -3009,6 +3059,8 @@ class Dhcp {
      * @since windowsserver2008
      */
     static DhcpEnumOptions(ServerIpAddress, ResumeHandle, PreferredMaximum, Options, OptionsRead, OptionsTotal) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+
         result := DllCall("DHCPSAPI.dll\DhcpEnumOptions", "ptr", ServerIpAddress, "ptr", ResumeHandle, "uint", PreferredMaximum, "ptr", Options, "ptr", OptionsRead, "ptr", OptionsTotal, "uint")
         return result
     }
@@ -3051,6 +3103,8 @@ class Dhcp {
      * @since windowsserver2008
      */
     static DhcpRemoveOption(ServerIpAddress, OptionID) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+
         result := DllCall("DHCPSAPI.dll\DhcpRemoveOption", "ptr", ServerIpAddress, "uint", OptionID, "uint")
         return result
     }
@@ -3130,6 +3184,8 @@ class Dhcp {
      * @since windowsserver2008
      */
     static DhcpSetOptionValue(ServerIpAddress, OptionID, ScopeInfo, OptionValue) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+
         result := DllCall("DHCPSAPI.dll\DhcpSetOptionValue", "ptr", ServerIpAddress, "uint", OptionID, "ptr", ScopeInfo, "ptr", OptionValue, "uint")
         return result
     }
@@ -3208,6 +3264,8 @@ class Dhcp {
      * @since windowsserver2008
      */
     static DhcpSetOptionValues(ServerIpAddress, ScopeInfo, OptionValues) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+
         result := DllCall("DHCPSAPI.dll\DhcpSetOptionValues", "ptr", ServerIpAddress, "ptr", ScopeInfo, "ptr", OptionValues, "uint")
         return result
     }
@@ -3230,6 +3288,8 @@ class Dhcp {
      * @since windowsserver2000
      */
     static DhcpGetOptionValue(ServerIpAddress, OptionID, ScopeInfo, OptionValue) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+
         result := DllCall("DHCPSAPI.dll\DhcpGetOptionValue", "ptr", ServerIpAddress, "uint", OptionID, "ptr", ScopeInfo, "ptr", OptionValue, "uint")
         return result
     }
@@ -3314,6 +3374,8 @@ class Dhcp {
      * @since windowsserver2008
      */
     static DhcpEnumOptionValues(ServerIpAddress, ScopeInfo, ResumeHandle, PreferredMaximum, OptionValues, OptionsRead, OptionsTotal) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+
         result := DllCall("DHCPSAPI.dll\DhcpEnumOptionValues", "ptr", ServerIpAddress, "ptr", ScopeInfo, "ptr", ResumeHandle, "uint", PreferredMaximum, "ptr", OptionValues, "ptr", OptionsRead, "ptr", OptionsTotal, "uint")
         return result
     }
@@ -3379,6 +3441,8 @@ class Dhcp {
      * @since windowsserver2008
      */
     static DhcpRemoveOptionValue(ServerIpAddress, OptionID, ScopeInfo) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+
         result := DllCall("DHCPSAPI.dll\DhcpRemoveOptionValue", "ptr", ServerIpAddress, "uint", OptionID, "ptr", ScopeInfo, "uint")
         return result
     }
@@ -3434,6 +3498,8 @@ class Dhcp {
      * @since windowsserver2008
      */
     static DhcpCreateClientInfoVQ(ServerIpAddress, ClientInfo) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+
         result := DllCall("DHCPSAPI.dll\DhcpCreateClientInfoVQ", "ptr", ServerIpAddress, "ptr", ClientInfo, "uint")
         return result
     }
@@ -3487,6 +3553,8 @@ class Dhcp {
      * @since windowsserver2008
      */
     static DhcpSetClientInfoVQ(ServerIpAddress, ClientInfo) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+
         result := DllCall("DHCPSAPI.dll\DhcpSetClientInfoVQ", "ptr", ServerIpAddress, "ptr", ClientInfo, "uint")
         return result
     }
@@ -3532,6 +3600,8 @@ class Dhcp {
      * @since windowsserver2008
      */
     static DhcpGetClientInfoVQ(ServerIpAddress, SearchInfo, ClientInfo) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+
         result := DllCall("DHCPSAPI.dll\DhcpGetClientInfoVQ", "ptr", ServerIpAddress, "ptr", SearchInfo, "ptr", ClientInfo, "uint")
         return result
     }
@@ -3594,6 +3664,8 @@ class Dhcp {
      * @since windowsserver2008
      */
     static DhcpEnumSubnetClientsVQ(ServerIpAddress, SubnetAddress, ResumeHandle, PreferredMaximum, ClientInfo, ClientsRead, ClientsTotal) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+
         result := DllCall("DHCPSAPI.dll\DhcpEnumSubnetClientsVQ", "ptr", ServerIpAddress, "uint", SubnetAddress, "ptr", ResumeHandle, "uint", PreferredMaximum, "ptr", ClientInfo, "ptr", ClientsRead, "ptr", ClientsTotal, "uint")
         return result
     }
@@ -3652,6 +3724,8 @@ class Dhcp {
      * @since windowsserver2008
      */
     static DhcpEnumSubnetClientsFilterStatusInfo(ServerIpAddress, SubnetAddress, ResumeHandle, PreferredMaximum, ClientInfo, ClientsRead, ClientsTotal) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+
         result := DllCall("DHCPSAPI.dll\DhcpEnumSubnetClientsFilterStatusInfo", "ptr", ServerIpAddress, "uint", SubnetAddress, "ptr", ResumeHandle, "uint", PreferredMaximum, "ptr", ClientInfo, "ptr", ClientsRead, "ptr", ClientsTotal, "uint")
         return result
     }
@@ -3667,6 +3741,8 @@ class Dhcp {
      * @since windowsserver2000
      */
     static DhcpCreateClientInfo(ServerIpAddress, ClientInfo) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+
         result := DllCall("DHCPSAPI.dll\DhcpCreateClientInfo", "ptr", ServerIpAddress, "ptr", ClientInfo, "uint")
         return result
     }
@@ -3682,6 +3758,8 @@ class Dhcp {
      * @since windowsserver2000
      */
     static DhcpSetClientInfo(ServerIpAddress, ClientInfo) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+
         result := DllCall("DHCPSAPI.dll\DhcpSetClientInfo", "ptr", ServerIpAddress, "ptr", ClientInfo, "uint")
         return result
     }
@@ -3703,6 +3781,8 @@ class Dhcp {
      * @since windowsserver2000
      */
     static DhcpGetClientInfo(ServerIpAddress, SearchInfo, ClientInfo) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+
         result := DllCall("DHCPSAPI.dll\DhcpGetClientInfo", "ptr", ServerIpAddress, "ptr", SearchInfo, "ptr", ClientInfo, "uint")
         return result
     }
@@ -3718,6 +3798,8 @@ class Dhcp {
      * @since windowsserver2000
      */
     static DhcpDeleteClientInfo(ServerIpAddress, ClientInfo) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+
         result := DllCall("DHCPSAPI.dll\DhcpDeleteClientInfo", "ptr", ServerIpAddress, "ptr", ClientInfo, "uint")
         return result
     }
@@ -3743,6 +3825,8 @@ class Dhcp {
      * @since windowsserver2000
      */
     static DhcpEnumSubnetClients(ServerIpAddress, SubnetAddress, ResumeHandle, PreferredMaximum, ClientInfo, ClientsRead, ClientsTotal) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+
         result := DllCall("DHCPSAPI.dll\DhcpEnumSubnetClients", "ptr", ServerIpAddress, "uint", SubnetAddress, "ptr", ResumeHandle, "uint", PreferredMaximum, "ptr", ClientInfo, "ptr", ClientsRead, "ptr", ClientsTotal, "uint")
         return result
     }
@@ -3781,6 +3865,8 @@ class Dhcp {
      * @since windowsserver2008
      */
     static DhcpGetClientOptions(ServerIpAddress, ClientIpAddress, ClientSubnetMask, ClientOptions) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+
         result := DllCall("DHCPSAPI.dll\DhcpGetClientOptions", "ptr", ServerIpAddress, "uint", ClientIpAddress, "uint", ClientSubnetMask, "ptr", ClientOptions, "uint")
         return result
     }
@@ -3792,6 +3878,8 @@ class Dhcp {
      * @returns {Integer} 
      */
     static DhcpGetMibInfo(ServerIpAddress, MibInfo) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+
         result := DllCall("DHCPSAPI.dll\DhcpGetMibInfo", "ptr", ServerIpAddress, "ptr", MibInfo, "uint")
         return result
     }
@@ -3920,6 +4008,8 @@ class Dhcp {
      * @since windowsserver2008
      */
     static DhcpServerSetConfig(ServerIpAddress, FieldsToSet, ConfigInfo) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+
         result := DllCall("DHCPSAPI.dll\DhcpServerSetConfig", "ptr", ServerIpAddress, "uint", FieldsToSet, "ptr", ConfigInfo, "uint")
         return result
     }
@@ -3938,6 +4028,8 @@ class Dhcp {
      * @since windowsserver2008
      */
     static DhcpServerGetConfig(ServerIpAddress, ConfigInfo) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+
         result := DllCall("DHCPSAPI.dll\DhcpServerGetConfig", "ptr", ServerIpAddress, "ptr", ConfigInfo, "uint")
         return result
     }
@@ -3997,6 +4089,8 @@ class Dhcp {
      * @since windowsserver2008
      */
     static DhcpScanDatabase(ServerIpAddress, SubnetAddress, FixFlag, ScanList) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+
         result := DllCall("DHCPSAPI.dll\DhcpScanDatabase", "ptr", ServerIpAddress, "uint", SubnetAddress, "uint", FixFlag, "ptr", ScanList, "uint")
         return result
     }
@@ -4024,6 +4118,8 @@ class Dhcp {
      * @since windowsserver2000
      */
     static DhcpGetVersion(ServerIpAddress, MajorVersion, MinorVersion) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+
         result := DllCall("DHCPSAPI.dll\DhcpGetVersion", "ptr", ServerIpAddress, "ptr", MajorVersion, "ptr", MinorVersion, "uint")
         return result
     }
@@ -4155,6 +4251,8 @@ class Dhcp {
      * @since windowsserver2008
      */
     static DhcpAddSubnetElementV4(ServerIpAddress, SubnetAddress, AddElementInfo) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+
         result := DllCall("DHCPSAPI.dll\DhcpAddSubnetElementV4", "ptr", ServerIpAddress, "uint", SubnetAddress, "ptr", AddElementInfo, "uint")
         return result
     }
@@ -4229,6 +4327,8 @@ class Dhcp {
      * @since windowsserver2000
      */
     static DhcpEnumSubnetElementsV4(ServerIpAddress, SubnetAddress, EnumElementType, ResumeHandle, PreferredMaximum, EnumElementInfo, ElementsRead, ElementsTotal) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+
         result := DllCall("DHCPSAPI.dll\DhcpEnumSubnetElementsV4", "ptr", ServerIpAddress, "uint", SubnetAddress, "int", EnumElementType, "ptr", ResumeHandle, "uint", PreferredMaximum, "ptr", EnumElementInfo, "ptr", ElementsRead, "ptr", ElementsTotal, "uint")
         return result
     }
@@ -4309,6 +4409,8 @@ class Dhcp {
      * @since windowsserver2008
      */
     static DhcpRemoveSubnetElementV4(ServerIpAddress, SubnetAddress, RemoveElementInfo, ForceFlag) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+
         result := DllCall("DHCPSAPI.dll\DhcpRemoveSubnetElementV4", "ptr", ServerIpAddress, "uint", SubnetAddress, "ptr", RemoveElementInfo, "int", ForceFlag, "uint")
         return result
     }
@@ -4342,6 +4444,8 @@ class Dhcp {
      * @since windowsserver2008
      */
     static DhcpCreateClientInfoV4(ServerIpAddress, ClientInfo) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+
         result := DllCall("DHCPSAPI.dll\DhcpCreateClientInfoV4", "ptr", ServerIpAddress, "ptr", ClientInfo, "uint")
         return result
     }
@@ -4384,6 +4488,8 @@ class Dhcp {
      * @since windowsserver2008
      */
     static DhcpSetClientInfoV4(ServerIpAddress, ClientInfo) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+
         result := DllCall("DHCPSAPI.dll\DhcpSetClientInfoV4", "ptr", ServerIpAddress, "ptr", ClientInfo, "uint")
         return result
     }
@@ -4432,6 +4538,8 @@ class Dhcp {
      * @since windowsserver2008
      */
     static DhcpGetClientInfoV4(ServerIpAddress, SearchInfo, ClientInfo) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+
         result := DllCall("DHCPSAPI.dll\DhcpGetClientInfoV4", "ptr", ServerIpAddress, "ptr", SearchInfo, "ptr", ClientInfo, "uint")
         return result
     }
@@ -4507,6 +4615,8 @@ class Dhcp {
      * @since windowsserver2008
      */
     static DhcpEnumSubnetClientsV4(ServerIpAddress, SubnetAddress, ResumeHandle, PreferredMaximum, ClientInfo, ClientsRead, ClientsTotal) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+
         result := DllCall("DHCPSAPI.dll\DhcpEnumSubnetClientsV4", "ptr", ServerIpAddress, "uint", SubnetAddress, "ptr", ResumeHandle, "uint", PreferredMaximum, "ptr", ClientInfo, "ptr", ClientsRead, "ptr", ClientsTotal, "uint")
         return result
     }
@@ -4700,6 +4810,8 @@ class Dhcp {
      * @since windowsserver2008
      */
     static DhcpServerSetConfigV4(ServerIpAddress, FieldsToSet, ConfigInfo) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+
         result := DllCall("DHCPSAPI.dll\DhcpServerSetConfigV4", "ptr", ServerIpAddress, "uint", FieldsToSet, "ptr", ConfigInfo, "uint")
         return result
     }
@@ -4758,6 +4870,8 @@ class Dhcp {
      * @since windowsserver2008
      */
     static DhcpServerGetConfigV4(ServerIpAddress, ConfigInfo) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+
         result := DllCall("DHCPSAPI.dll\DhcpServerGetConfigV4", "ptr", ServerIpAddress, "ptr", ConfigInfo, "uint")
         return result
     }
@@ -4815,6 +4929,9 @@ class Dhcp {
      * @since windowsserver2008
      */
     static DhcpSetSuperScopeV4(ServerIpAddress, SubnetAddress, SuperScopeName, ChangeExisting) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+        SuperScopeName := SuperScopeName is String? StrPtr(SuperScopeName) : SuperScopeName
+
         result := DllCall("DHCPSAPI.dll\DhcpSetSuperScopeV4", "ptr", ServerIpAddress, "uint", SubnetAddress, "ptr", SuperScopeName, "int", ChangeExisting, "uint")
         return result
     }
@@ -4870,6 +4987,9 @@ class Dhcp {
      * @since windowsserver2008
      */
     static DhcpDeleteSuperScopeV4(ServerIpAddress, SuperScopeName) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+        SuperScopeName := SuperScopeName is String? StrPtr(SuperScopeName) : SuperScopeName
+
         result := DllCall("DHCPSAPI.dll\DhcpDeleteSuperScopeV4", "ptr", ServerIpAddress, "ptr", SuperScopeName, "uint")
         return result
     }
@@ -4908,6 +5028,8 @@ class Dhcp {
      * @since windowsserver2008
      */
     static DhcpGetSuperScopeInfoV4(ServerIpAddress, SuperScopeTable) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+
         result := DllCall("DHCPSAPI.dll\DhcpGetSuperScopeInfoV4", "ptr", ServerIpAddress, "ptr", SuperScopeTable, "uint")
         return result
     }
@@ -4970,6 +5092,8 @@ class Dhcp {
      * @since windowsserver2008
      */
     static DhcpEnumSubnetClientsV5(ServerIpAddress, SubnetAddress, ResumeHandle, PreferredMaximum, ClientInfo, ClientsRead, ClientsTotal) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+
         result := DllCall("DHCPSAPI.dll\DhcpEnumSubnetClientsV5", "ptr", ServerIpAddress, "uint", SubnetAddress, "ptr", ResumeHandle, "uint", PreferredMaximum, "ptr", ClientInfo, "ptr", ClientsRead, "ptr", ClientsTotal, "uint")
         return result
     }
@@ -5067,6 +5191,10 @@ class Dhcp {
      * @since windowsserver2008
      */
     static DhcpCreateOptionV5(ServerIpAddress, Flags, OptionId, ClassName, VendorName, OptionInfo) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+        ClassName := ClassName is String? StrPtr(ClassName) : ClassName
+        VendorName := VendorName is String? StrPtr(VendorName) : VendorName
+
         result := DllCall("DHCPSAPI.dll\DhcpCreateOptionV5", "ptr", ServerIpAddress, "uint", Flags, "uint", OptionId, "ptr", ClassName, "ptr", VendorName, "ptr", OptionInfo, "uint")
         return result
     }
@@ -5141,6 +5269,10 @@ class Dhcp {
      * @since windowsserver2008
      */
     static DhcpSetOptionInfoV5(ServerIpAddress, Flags, OptionID, ClassName, VendorName, OptionInfo) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+        ClassName := ClassName is String? StrPtr(ClassName) : ClassName
+        VendorName := VendorName is String? StrPtr(VendorName) : VendorName
+
         result := DllCall("DHCPSAPI.dll\DhcpSetOptionInfoV5", "ptr", ServerIpAddress, "uint", Flags, "uint", OptionID, "ptr", ClassName, "ptr", VendorName, "ptr", OptionInfo, "uint")
         return result
     }
@@ -5254,6 +5386,10 @@ class Dhcp {
      * @since windowsserver2008
      */
     static DhcpGetOptionInfoV5(ServerIpAddress, Flags, OptionID, ClassName, VendorName, OptionInfo) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+        ClassName := ClassName is String? StrPtr(ClassName) : ClassName
+        VendorName := VendorName is String? StrPtr(VendorName) : VendorName
+
         result := DllCall("DHCPSAPI.dll\DhcpGetOptionInfoV5", "ptr", ServerIpAddress, "uint", Flags, "uint", OptionID, "ptr", ClassName, "ptr", VendorName, "ptr", OptionInfo, "uint")
         return result
     }
@@ -5332,6 +5468,10 @@ class Dhcp {
      * @since windowsserver2008
      */
     static DhcpEnumOptionsV5(ServerIpAddress, Flags, ClassName, VendorName, ResumeHandle, PreferredMaximum, Options, OptionsRead, OptionsTotal) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+        ClassName := ClassName is String? StrPtr(ClassName) : ClassName
+        VendorName := VendorName is String? StrPtr(VendorName) : VendorName
+
         result := DllCall("DHCPSAPI.dll\DhcpEnumOptionsV5", "ptr", ServerIpAddress, "uint", Flags, "ptr", ClassName, "ptr", VendorName, "ptr", ResumeHandle, "uint", PreferredMaximum, "ptr", Options, "ptr", OptionsRead, "ptr", OptionsTotal, "uint")
         return result
     }
@@ -5428,6 +5568,10 @@ class Dhcp {
      * @since windowsserver2008
      */
     static DhcpRemoveOptionV5(ServerIpAddress, Flags, OptionID, ClassName, VendorName) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+        ClassName := ClassName is String? StrPtr(ClassName) : ClassName
+        VendorName := VendorName is String? StrPtr(VendorName) : VendorName
+
         result := DllCall("DHCPSAPI.dll\DhcpRemoveOptionV5", "ptr", ServerIpAddress, "uint", Flags, "uint", OptionID, "ptr", ClassName, "ptr", VendorName, "uint")
         return result
     }
@@ -5473,6 +5617,10 @@ class Dhcp {
      * @since windowsserver2000
      */
     static DhcpSetOptionValueV5(ServerIpAddress, Flags, OptionId, ClassName, VendorName, ScopeInfo, OptionValue) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+        ClassName := ClassName is String? StrPtr(ClassName) : ClassName
+        VendorName := VendorName is String? StrPtr(VendorName) : VendorName
+
         result := DllCall("DHCPSAPI.dll\DhcpSetOptionValueV5", "ptr", ServerIpAddress, "uint", Flags, "uint", OptionId, "ptr", ClassName, "ptr", VendorName, "ptr", ScopeInfo, "ptr", OptionValue, "uint")
         return result
     }
@@ -5554,6 +5702,10 @@ class Dhcp {
      * @since windowsserver2008
      */
     static DhcpSetOptionValuesV5(ServerIpAddress, Flags, ClassName, VendorName, ScopeInfo, OptionValues) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+        ClassName := ClassName is String? StrPtr(ClassName) : ClassName
+        VendorName := VendorName is String? StrPtr(VendorName) : VendorName
+
         result := DllCall("DHCPSAPI.dll\DhcpSetOptionValuesV5", "ptr", ServerIpAddress, "uint", Flags, "ptr", ClassName, "ptr", VendorName, "ptr", ScopeInfo, "ptr", OptionValues, "uint")
         return result
     }
@@ -5668,6 +5820,10 @@ class Dhcp {
      * @since windowsserver2008
      */
     static DhcpGetOptionValueV5(ServerIpAddress, Flags, OptionID, ClassName, VendorName, ScopeInfo, OptionValue) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+        ClassName := ClassName is String? StrPtr(ClassName) : ClassName
+        VendorName := VendorName is String? StrPtr(VendorName) : VendorName
+
         result := DllCall("DHCPSAPI.dll\DhcpGetOptionValueV5", "ptr", ServerIpAddress, "uint", Flags, "uint", OptionID, "ptr", ClassName, "ptr", VendorName, "ptr", ScopeInfo, "ptr", OptionValue, "uint")
         return result
     }
@@ -5779,6 +5935,10 @@ class Dhcp {
      * @since windowsserver2008
      */
     static DhcpGetOptionValueV6(ServerIpAddress, Flags, OptionID, ClassName, VendorName, ScopeInfo, OptionValue) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+        ClassName := ClassName is String? StrPtr(ClassName) : ClassName
+        VendorName := VendorName is String? StrPtr(VendorName) : VendorName
+
         result := DllCall("DHCPSAPI.dll\DhcpGetOptionValueV6", "ptr", ServerIpAddress, "uint", Flags, "uint", OptionID, "ptr", ClassName, "ptr", VendorName, "ptr", ScopeInfo, "ptr", OptionValue, "uint")
         return result
     }
@@ -5880,6 +6040,10 @@ class Dhcp {
      * @since windowsserver2008
      */
     static DhcpEnumOptionValuesV5(ServerIpAddress, Flags, ClassName, VendorName, ScopeInfo, ResumeHandle, PreferredMaximum, OptionValues, OptionsRead, OptionsTotal) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+        ClassName := ClassName is String? StrPtr(ClassName) : ClassName
+        VendorName := VendorName is String? StrPtr(VendorName) : VendorName
+
         result := DllCall("DHCPSAPI.dll\DhcpEnumOptionValuesV5", "ptr", ServerIpAddress, "uint", Flags, "ptr", ClassName, "ptr", VendorName, "ptr", ScopeInfo, "ptr", ResumeHandle, "uint", PreferredMaximum, "ptr", OptionValues, "ptr", OptionsRead, "ptr", OptionsTotal, "uint")
         return result
     }
@@ -5914,6 +6078,10 @@ class Dhcp {
      * @since windowsserver2000
      */
     static DhcpRemoveOptionValueV5(ServerIpAddress, Flags, OptionID, ClassName, VendorName, ScopeInfo) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+        ClassName := ClassName is String? StrPtr(ClassName) : ClassName
+        VendorName := VendorName is String? StrPtr(VendorName) : VendorName
+
         result := DllCall("DHCPSAPI.dll\DhcpRemoveOptionValueV5", "ptr", ServerIpAddress, "uint", Flags, "uint", OptionID, "ptr", ClassName, "ptr", VendorName, "ptr", ScopeInfo, "uint")
         return result
     }
@@ -5968,6 +6136,8 @@ class Dhcp {
      * @since windowsserver2008
      */
     static DhcpCreateClass(ServerIpAddress, ReservedMustBeZero, ClassInfo) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+
         result := DllCall("DHCPSAPI.dll\DhcpCreateClass", "ptr", ServerIpAddress, "uint", ReservedMustBeZero, "ptr", ClassInfo, "uint")
         return result
     }
@@ -6044,6 +6214,8 @@ class Dhcp {
      * @since windowsserver2008
      */
     static DhcpModifyClass(ServerIpAddress, ReservedMustBeZero, ClassInfo) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+
         result := DllCall("DHCPSAPI.dll\DhcpModifyClass", "ptr", ServerIpAddress, "uint", ReservedMustBeZero, "ptr", ClassInfo, "uint")
         return result
     }
@@ -6109,6 +6281,9 @@ class Dhcp {
      * @since windowsserver2008
      */
     static DhcpDeleteClass(ServerIpAddress, ReservedMustBeZero, ClassName) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+        ClassName := ClassName is String? StrPtr(ClassName) : ClassName
+
         result := DllCall("DHCPSAPI.dll\DhcpDeleteClass", "ptr", ServerIpAddress, "uint", ReservedMustBeZero, "ptr", ClassName, "uint")
         return result
     }
@@ -6178,6 +6353,8 @@ class Dhcp {
      * @since windowsserver2008
      */
     static DhcpGetClassInfo(ServerIpAddress, ReservedMustBeZero, PartialClassInfo, FilledClassInfo) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+
         result := DllCall("DHCPSAPI.dll\DhcpGetClassInfo", "ptr", ServerIpAddress, "uint", ReservedMustBeZero, "ptr", PartialClassInfo, "ptr", FilledClassInfo, "uint")
         return result
     }
@@ -6225,6 +6402,8 @@ class Dhcp {
      * @since windowsserver2008
      */
     static DhcpEnumClasses(ServerIpAddress, ReservedMustBeZero, ResumeHandle, PreferredMaximum, ClassInfoArray, nRead, nTotal) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+
         result := DllCall("DHCPSAPI.dll\DhcpEnumClasses", "ptr", ServerIpAddress, "uint", ReservedMustBeZero, "ptr", ResumeHandle, "uint", PreferredMaximum, "ptr", ClassInfoArray, "ptr", nRead, "ptr", nTotal, "uint")
         return result
     }
@@ -6281,6 +6460,8 @@ class Dhcp {
      * @since windowsserver2008
      */
     static DhcpGetAllOptions(ServerIpAddress, Flags, OptionStruct) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+
         result := DllCall("DHCPSAPI.dll\DhcpGetAllOptions", "ptr", ServerIpAddress, "uint", Flags, "ptr", OptionStruct, "uint")
         return result
     }
@@ -6368,6 +6549,8 @@ class Dhcp {
      * @since windowsserver2008
      */
     static DhcpGetAllOptionsV6(ServerIpAddress, Flags, OptionStruct) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+
         result := DllCall("DHCPSAPI.dll\DhcpGetAllOptionsV6", "ptr", ServerIpAddress, "uint", Flags, "ptr", OptionStruct, "uint")
         return result
     }
@@ -6447,6 +6630,8 @@ class Dhcp {
      * @since windowsserver2008
      */
     static DhcpGetAllOptionValues(ServerIpAddress, Flags, ScopeInfo, Values) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+
         result := DllCall("DHCPSAPI.dll\DhcpGetAllOptionValues", "ptr", ServerIpAddress, "uint", Flags, "ptr", ScopeInfo, "ptr", Values, "uint")
         return result
     }
@@ -6535,6 +6720,8 @@ class Dhcp {
      * @since windowsserver2008
      */
     static DhcpGetAllOptionValuesV6(ServerIpAddress, Flags, ScopeInfo, Values) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+
         result := DllCall("DHCPSAPI.dll\DhcpGetAllOptionValuesV6", "ptr", ServerIpAddress, "uint", Flags, "ptr", ScopeInfo, "ptr", Values, "uint")
         return result
     }
@@ -6622,6 +6809,8 @@ class Dhcp {
      * @since windowsserver2000
      */
     static DhcpGetServerBindingInfo(ServerIpAddress, Flags, BindElementsInfo) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+
         result := DllCall("DHCPSAPI.dll\DhcpGetServerBindingInfo", "ptr", ServerIpAddress, "uint", Flags, "ptr", BindElementsInfo, "uint")
         return result
     }
@@ -6656,6 +6845,8 @@ class Dhcp {
      * @since windowsserver2000
      */
     static DhcpSetServerBindingInfo(ServerIpAddress, Flags, BindElementInfo) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+
         result := DllCall("DHCPSAPI.dll\DhcpSetServerBindingInfo", "ptr", ServerIpAddress, "uint", Flags, "ptr", BindElementInfo, "uint")
         return result
     }
@@ -6672,6 +6863,8 @@ class Dhcp {
      * @since windowsserver2000
      */
     static DhcpAddSubnetElementV5(ServerIpAddress, SubnetAddress, AddElementInfo) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+
         result := DllCall("DHCPSAPI.dll\DhcpAddSubnetElementV5", "ptr", ServerIpAddress, "uint", SubnetAddress, "ptr", AddElementInfo, "uint")
         return result
     }
@@ -6737,6 +6930,8 @@ class Dhcp {
      * @since windowsserver2000
      */
     static DhcpEnumSubnetElementsV5(ServerIpAddress, SubnetAddress, EnumElementType, ResumeHandle, PreferredMaximum, EnumElementInfo, ElementsRead, ElementsTotal) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+
         result := DllCall("DHCPSAPI.dll\DhcpEnumSubnetElementsV5", "ptr", ServerIpAddress, "uint", SubnetAddress, "int", EnumElementType, "ptr", ResumeHandle, "uint", PreferredMaximum, "ptr", EnumElementInfo, "ptr", ElementsRead, "ptr", ElementsTotal, "uint")
         return result
     }
@@ -6754,6 +6949,8 @@ class Dhcp {
      * @since windowsserver2000
      */
     static DhcpRemoveSubnetElementV5(ServerIpAddress, SubnetAddress, RemoveElementInfo, ForceFlag) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+
         result := DllCall("DHCPSAPI.dll\DhcpRemoveSubnetElementV5", "ptr", ServerIpAddress, "uint", SubnetAddress, "ptr", RemoveElementInfo, "int", ForceFlag, "uint")
         return result
     }
@@ -6829,6 +7026,8 @@ class Dhcp {
      * @since windowsserver2012
      */
     static DhcpV4EnumSubnetReservations(ServerIpAddress, SubnetAddress, ResumeHandle, PreferredMaximum, EnumElementInfo, ElementsRead, ElementsTotal) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+
         result := DllCall("DHCPSAPI.dll\DhcpV4EnumSubnetReservations", "ptr", ServerIpAddress, "uint", SubnetAddress, "ptr", ResumeHandle, "uint", PreferredMaximum, "ptr", EnumElementInfo, "ptr", ElementsRead, "ptr", ElementsTotal, "uint")
         return result
     }
@@ -6903,6 +7102,10 @@ class Dhcp {
      * @since windowsserver2008
      */
     static DhcpCreateOptionV6(ServerIpAddress, Flags, OptionId, ClassName, VendorName, OptionInfo) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+        ClassName := ClassName is String? StrPtr(ClassName) : ClassName
+        VendorName := VendorName is String? StrPtr(VendorName) : VendorName
+
         result := DllCall("DHCPSAPI.dll\DhcpCreateOptionV6", "ptr", ServerIpAddress, "uint", Flags, "uint", OptionId, "ptr", ClassName, "ptr", VendorName, "ptr", OptionInfo, "uint")
         return result
     }
@@ -6965,6 +7168,10 @@ class Dhcp {
      * @since windowsserver2008
      */
     static DhcpRemoveOptionV6(ServerIpAddress, Flags, OptionID, ClassName, VendorName) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+        ClassName := ClassName is String? StrPtr(ClassName) : ClassName
+        VendorName := VendorName is String? StrPtr(VendorName) : VendorName
+
         result := DllCall("DHCPSAPI.dll\DhcpRemoveOptionV6", "ptr", ServerIpAddress, "uint", Flags, "uint", OptionID, "ptr", ClassName, "ptr", VendorName, "uint")
         return result
     }
@@ -7053,6 +7260,10 @@ class Dhcp {
      * @since windowsserver2008
      */
     static DhcpEnumOptionsV6(ServerIpAddress, Flags, ClassName, VendorName, ResumeHandle, PreferredMaximum, Options, OptionsRead, OptionsTotal) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+        ClassName := ClassName is String? StrPtr(ClassName) : ClassName
+        VendorName := VendorName is String? StrPtr(VendorName) : VendorName
+
         result := DllCall("DHCPSAPI.dll\DhcpEnumOptionsV6", "ptr", ServerIpAddress, "uint", Flags, "ptr", ClassName, "ptr", VendorName, "ptr", ResumeHandle, "uint", PreferredMaximum, "ptr", Options, "ptr", OptionsRead, "ptr", OptionsTotal, "uint")
         return result
     }
@@ -7116,6 +7327,10 @@ class Dhcp {
      * @since windowsserver2008
      */
     static DhcpRemoveOptionValueV6(ServerIpAddress, Flags, OptionID, ClassName, VendorName, ScopeInfo) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+        ClassName := ClassName is String? StrPtr(ClassName) : ClassName
+        VendorName := VendorName is String? StrPtr(VendorName) : VendorName
+
         result := DllCall("DHCPSAPI.dll\DhcpRemoveOptionValueV6", "ptr", ServerIpAddress, "uint", Flags, "uint", OptionID, "ptr", ClassName, "ptr", VendorName, "ptr", ScopeInfo, "uint")
         return result
     }
@@ -7206,6 +7421,10 @@ class Dhcp {
      * @since windowsserver2008
      */
     static DhcpGetOptionInfoV6(ServerIpAddress, Flags, OptionID, ClassName, VendorName, OptionInfo) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+        ClassName := ClassName is String? StrPtr(ClassName) : ClassName
+        VendorName := VendorName is String? StrPtr(VendorName) : VendorName
+
         result := DllCall("DHCPSAPI.dll\DhcpGetOptionInfoV6", "ptr", ServerIpAddress, "uint", Flags, "uint", OptionID, "ptr", ClassName, "ptr", VendorName, "ptr", OptionInfo, "uint")
         return result
     }
@@ -7269,6 +7488,10 @@ class Dhcp {
      * @since windowsserver2008
      */
     static DhcpSetOptionInfoV6(ServerIpAddress, Flags, OptionID, ClassName, VendorName, OptionInfo) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+        ClassName := ClassName is String? StrPtr(ClassName) : ClassName
+        VendorName := VendorName is String? StrPtr(VendorName) : VendorName
+
         result := DllCall("DHCPSAPI.dll\DhcpSetOptionInfoV6", "ptr", ServerIpAddress, "uint", Flags, "uint", OptionID, "ptr", ClassName, "ptr", VendorName, "ptr", OptionInfo, "uint")
         return result
     }
@@ -7333,6 +7556,10 @@ class Dhcp {
      * @since windowsserver2008
      */
     static DhcpSetOptionValueV6(ServerIpAddress, Flags, OptionId, ClassName, VendorName, ScopeInfo, OptionValue) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+        ClassName := ClassName is String? StrPtr(ClassName) : ClassName
+        VendorName := VendorName is String? StrPtr(VendorName) : VendorName
+
         result := DllCall("DHCPSAPI.dll\DhcpSetOptionValueV6", "ptr", ServerIpAddress, "uint", Flags, "uint", OptionId, "ptr", ClassName, "ptr", VendorName, "ptr", ScopeInfo, "ptr", OptionValue, "uint")
         return result
     }
@@ -7403,6 +7630,8 @@ class Dhcp {
      * @since windowsserver2008
      */
     static DhcpGetSubnetInfoVQ(ServerIpAddress, SubnetAddress, SubnetInfo) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+
         result := DllCall("DHCPSAPI.dll\DhcpGetSubnetInfoVQ", "ptr", ServerIpAddress, "uint", SubnetAddress, "ptr", SubnetInfo, "uint")
         return result
     }
@@ -7457,6 +7686,8 @@ class Dhcp {
      * @since windowsserver2008
      */
     static DhcpCreateSubnetVQ(ServerIpAddress, SubnetAddress, SubnetInfo) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+
         result := DllCall("DHCPSAPI.dll\DhcpCreateSubnetVQ", "ptr", ServerIpAddress, "uint", SubnetAddress, "ptr", SubnetInfo, "uint")
         return result
     }
@@ -7511,6 +7742,8 @@ class Dhcp {
      * @since windowsserver2008
      */
     static DhcpSetSubnetInfoVQ(ServerIpAddress, SubnetAddress, SubnetInfo) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+
         result := DllCall("DHCPSAPI.dll\DhcpSetSubnetInfoVQ", "ptr", ServerIpAddress, "uint", SubnetAddress, "ptr", SubnetInfo, "uint")
         return result
     }
@@ -7600,6 +7833,10 @@ class Dhcp {
      * @since windowsserver2008
      */
     static DhcpEnumOptionValuesV6(ServerIpAddress, Flags, ClassName, VendorName, ScopeInfo, ResumeHandle, PreferredMaximum, OptionValues, OptionsRead, OptionsTotal) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+        ClassName := ClassName is String? StrPtr(ClassName) : ClassName
+        VendorName := VendorName is String? StrPtr(VendorName) : VendorName
+
         result := DllCall("DHCPSAPI.dll\DhcpEnumOptionValuesV6", "ptr", ServerIpAddress, "uint", Flags, "ptr", ClassName, "ptr", VendorName, "ptr", ScopeInfo, "ptr", ResumeHandle, "uint", PreferredMaximum, "ptr", OptionValues, "ptr", OptionsRead, "ptr", OptionsTotal, "uint")
         return result
     }
@@ -7726,6 +7963,8 @@ class Dhcp {
      * @since windowsserver2008
      */
     static DhcpServerQueryAttribute(ServerIpAddr, dwReserved, DhcpAttribId, pDhcpAttrib) {
+        ServerIpAddr := ServerIpAddr is String? StrPtr(ServerIpAddr) : ServerIpAddr
+
         result := DllCall("DHCPSAPI.dll\DhcpServerQueryAttribute", "ptr", ServerIpAddr, "uint", dwReserved, "uint", DhcpAttribId, "ptr", pDhcpAttrib, "uint")
         return result
     }
@@ -7746,6 +7985,8 @@ class Dhcp {
      * @since windowsserver2008
      */
     static DhcpServerQueryAttributes(ServerIpAddr, dwReserved, dwAttribCount, pDhcpAttribs, pDhcpAttribArr) {
+        ServerIpAddr := ServerIpAddr is String? StrPtr(ServerIpAddr) : ServerIpAddr
+
         result := DllCall("DHCPSAPI.dll\DhcpServerQueryAttributes", "ptr", ServerIpAddr, "uint", dwReserved, "uint", dwAttribCount, "ptr", pDhcpAttribs, "ptr", pDhcpAttribArr, "uint")
         return result
     }
@@ -7761,6 +8002,8 @@ class Dhcp {
      * @since windowsserver2000
      */
     static DhcpServerRedoAuthorization(ServerIpAddr, dwReserved) {
+        ServerIpAddr := ServerIpAddr is String? StrPtr(ServerIpAddr) : ServerIpAddr
+
         result := DllCall("DHCPSAPI.dll\DhcpServerRedoAuthorization", "ptr", ServerIpAddr, "uint", dwReserved, "uint")
         return result
     }
@@ -7796,6 +8039,9 @@ class Dhcp {
      * @since windowsserver2008
      */
     static DhcpAuditLogSetParams(ServerIpAddress, Flags, AuditLogDir, DiskCheckInterval, MaxLogFilesSize, MinSpaceOnDisk) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+        AuditLogDir := AuditLogDir is String? StrPtr(AuditLogDir) : AuditLogDir
+
         result := DllCall("DHCPSAPI.dll\DhcpAuditLogSetParams", "ptr", ServerIpAddress, "uint", Flags, "ptr", AuditLogDir, "uint", DiskCheckInterval, "uint", MaxLogFilesSize, "uint", MinSpaceOnDisk, "uint")
         return result
     }
@@ -7842,6 +8088,9 @@ class Dhcp {
      * @since windowsserver2008
      */
     static DhcpAuditLogGetParams(ServerIpAddress, Flags, AuditLogDir, DiskCheckInterval, MaxLogFilesSize, MinSpaceOnDisk) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+        AuditLogDir := AuditLogDir is String? StrPtr(AuditLogDir) : AuditLogDir
+
         result := DllCall("DHCPSAPI.dll\DhcpAuditLogGetParams", "ptr", ServerIpAddress, "uint", Flags, "ptr", AuditLogDir, "ptr", DiskCheckInterval, "ptr", MaxLogFilesSize, "ptr", MinSpaceOnDisk, "uint")
         return result
     }
@@ -7860,6 +8109,10 @@ class Dhcp {
      * @since windowsserver2008
      */
     static DhcpServerQueryDnsRegCredentials(ServerIpAddress, UnameSize, Uname, DomainSize, Domain) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+        Uname := Uname is String? StrPtr(Uname) : Uname
+        Domain := Domain is String? StrPtr(Domain) : Domain
+
         result := DllCall("DHCPSAPI.dll\DhcpServerQueryDnsRegCredentials", "ptr", ServerIpAddress, "uint", UnameSize, "ptr", Uname, "uint", DomainSize, "ptr", Domain, "uint")
         return result
     }
@@ -7873,6 +8126,11 @@ class Dhcp {
      * @returns {Integer} 
      */
     static DhcpServerSetDnsRegCredentials(ServerIpAddress, Uname, Domain, Passwd) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+        Uname := Uname is String? StrPtr(Uname) : Uname
+        Domain := Domain is String? StrPtr(Domain) : Domain
+        Passwd := Passwd is String? StrPtr(Passwd) : Passwd
+
         result := DllCall("DHCPSAPI.dll\DhcpServerSetDnsRegCredentials", "ptr", ServerIpAddress, "ptr", Uname, "ptr", Domain, "ptr", Passwd, "uint")
         return result
     }
@@ -7888,6 +8146,11 @@ class Dhcp {
      * @since windowsserver2008
      */
     static DhcpServerSetDnsRegCredentialsV5(ServerIpAddress, Uname, Domain, Passwd) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+        Uname := Uname is String? StrPtr(Uname) : Uname
+        Domain := Domain is String? StrPtr(Domain) : Domain
+        Passwd := Passwd is String? StrPtr(Passwd) : Passwd
+
         result := DllCall("DHCPSAPI.dll\DhcpServerSetDnsRegCredentialsV5", "ptr", ServerIpAddress, "ptr", Uname, "ptr", Domain, "ptr", Passwd, "uint")
         return result
     }
@@ -7930,6 +8193,9 @@ class Dhcp {
      * @since windowsserver2008
      */
     static DhcpServerBackupDatabase(ServerIpAddress, Path) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+        Path := Path is String? StrPtr(Path) : Path
+
         result := DllCall("DHCPSAPI.dll\DhcpServerBackupDatabase", "ptr", ServerIpAddress, "ptr", Path, "uint")
         return result
     }
@@ -7972,6 +8238,9 @@ class Dhcp {
      * @since windowsserver2008
      */
     static DhcpServerRestoreDatabase(ServerIpAddress, Path) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+        Path := Path is String? StrPtr(Path) : Path
+
         result := DllCall("DHCPSAPI.dll\DhcpServerRestoreDatabase", "ptr", ServerIpAddress, "ptr", Path, "uint")
         return result
     }
@@ -8014,6 +8283,8 @@ class Dhcp {
      * @since windowsserver2008
      */
     static DhcpServerSetConfigVQ(ServerIpAddress, FieldsToSet, ConfigInfo) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+
         result := DllCall("DHCPSAPI.dll\DhcpServerSetConfigVQ", "ptr", ServerIpAddress, "uint", FieldsToSet, "ptr", ConfigInfo, "uint")
         return result
     }
@@ -8047,6 +8318,8 @@ class Dhcp {
      * @since windowsserver2008
      */
     static DhcpServerGetConfigVQ(ServerIpAddress, ConfigInfo) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+
         result := DllCall("DHCPSAPI.dll\DhcpServerGetConfigVQ", "ptr", ServerIpAddress, "ptr", ConfigInfo, "uint")
         return result
     }
@@ -8083,6 +8356,8 @@ class Dhcp {
      * @since windowsserver2008
      */
     static DhcpGetServerSpecificStrings(ServerIpAddress, ServerSpecificStrings) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+
         result := DllCall("DHCPSAPI.dll\DhcpGetServerSpecificStrings", "ptr", ServerIpAddress, "ptr", ServerSpecificStrings, "uint")
         return result
     }
@@ -8135,6 +8410,8 @@ class Dhcp {
      * @since windowsserver2008
      */
     static DhcpCreateSubnetV6(ServerIpAddress, SubnetAddress, SubnetInfo) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+
         result := DllCall("DHCPSAPI.dll\DhcpCreateSubnetV6", "ptr", ServerIpAddress, "ptr", SubnetAddress, "ptr", SubnetInfo, "uint")
         return result
     }
@@ -8178,6 +8455,8 @@ class Dhcp {
      * @since windowsserver2008
      */
     static DhcpDeleteSubnetV6(ServerIpAddress, SubnetAddress, ForceFlag) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+
         result := DllCall("DHCPSAPI.dll\DhcpDeleteSubnetV6", "ptr", ServerIpAddress, "ptr", SubnetAddress, "int", ForceFlag, "uint")
         return result
     }
@@ -8246,6 +8525,8 @@ class Dhcp {
      * @since windowsserver2008
      */
     static DhcpEnumSubnetsV6(ServerIpAddress, ResumeHandle, PreferredMaximum, EnumInfo, ElementsRead, ElementsTotal) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+
         result := DllCall("DHCPSAPI.dll\DhcpEnumSubnetsV6", "ptr", ServerIpAddress, "ptr", ResumeHandle, "uint", PreferredMaximum, "ptr", EnumInfo, "ptr", ElementsRead, "ptr", ElementsTotal, "uint")
         return result
     }
@@ -8289,6 +8570,8 @@ class Dhcp {
      * @since windowsserver2008
      */
     static DhcpAddSubnetElementV6(ServerIpAddress, SubnetAddress, AddElementInfo) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+
         result := DllCall("DHCPSAPI.dll\DhcpAddSubnetElementV6", "ptr", ServerIpAddress, "ptr", SubnetAddress, "ptr", AddElementInfo, "uint")
         return result
     }
@@ -8333,6 +8616,8 @@ class Dhcp {
      * @since windowsserver2008
      */
     static DhcpRemoveSubnetElementV6(ServerIpAddress, SubnetAddress, RemoveElementInfo, ForceFlag) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+
         result := DllCall("DHCPSAPI.dll\DhcpRemoveSubnetElementV6", "ptr", ServerIpAddress, "ptr", SubnetAddress, "ptr", RemoveElementInfo, "int", ForceFlag, "uint")
         return result
     }
@@ -8403,6 +8688,8 @@ class Dhcp {
      * @since windowsserver2008
      */
     static DhcpEnumSubnetElementsV6(ServerIpAddress, SubnetAddress, EnumElementType, ResumeHandle, PreferredMaximum, EnumElementInfo, ElementsRead, ElementsTotal) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+
         result := DllCall("DHCPSAPI.dll\DhcpEnumSubnetElementsV6", "ptr", ServerIpAddress, "ptr", SubnetAddress, "int", EnumElementType, "ptr", ResumeHandle, "uint", PreferredMaximum, "ptr", EnumElementInfo, "ptr", ElementsRead, "ptr", ElementsTotal, "uint")
         return result
     }
@@ -8422,6 +8709,8 @@ class Dhcp {
      * @since windowsserver2008
      */
     static DhcpGetSubnetInfoV6(ServerIpAddress, SubnetAddress, SubnetInfo) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+
         result := DllCall("DHCPSAPI.dll\DhcpGetSubnetInfoV6", "ptr", ServerIpAddress, "ptr", SubnetAddress, "ptr", SubnetInfo, "uint")
         return result
     }
@@ -8491,6 +8780,8 @@ class Dhcp {
      * @since windowsserver2008
      */
     static DhcpEnumSubnetClientsV6(ServerIpAddress, SubnetAddress, ResumeHandle, PreferredMaximum, ClientInfo, ClientsRead, ClientsTotal) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+
         result := DllCall("DHCPSAPI.dll\DhcpEnumSubnetClientsV6", "ptr", ServerIpAddress, "ptr", SubnetAddress, "ptr", ResumeHandle, "uint", PreferredMaximum, "ptr", ClientInfo, "ptr", ClientsRead, "ptr", ClientsTotal, "uint")
         return result
     }
@@ -8539,6 +8830,8 @@ class Dhcp {
      * @since windowsserver2008
      */
     static DhcpServerGetConfigV6(ServerIpAddress, ScopeInfo, ConfigInfo) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+
         result := DllCall("DHCPSAPI.dll\DhcpServerGetConfigV6", "ptr", ServerIpAddress, "ptr", ScopeInfo, "ptr", ConfigInfo, "uint")
         return result
     }
@@ -8689,6 +8982,8 @@ class Dhcp {
      * @since windowsserver2008
      */
     static DhcpServerSetConfigV6(ServerIpAddress, ScopeInfo, FieldsToSet, ConfigInfo) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+
         result := DllCall("DHCPSAPI.dll\DhcpServerSetConfigV6", "ptr", ServerIpAddress, "ptr", ScopeInfo, "uint", FieldsToSet, "ptr", ConfigInfo, "uint")
         return result
     }
@@ -8743,6 +9038,8 @@ class Dhcp {
      * @since windowsserver2008
      */
     static DhcpSetSubnetInfoV6(ServerIpAddress, SubnetAddress, SubnetInfo) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+
         result := DllCall("DHCPSAPI.dll\DhcpSetSubnetInfoV6", "ptr", ServerIpAddress, "ptr", SubnetAddress, "ptr", SubnetInfo, "uint")
         return result
     }
@@ -8801,6 +9098,8 @@ class Dhcp {
      * @since windowsserver2008
      */
     static DhcpGetMibInfoV6(ServerIpAddress, MibInfo) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+
         result := DllCall("DHCPSAPI.dll\DhcpGetMibInfoV6", "ptr", ServerIpAddress, "ptr", MibInfo, "uint")
         return result
     }
@@ -8846,6 +9145,8 @@ class Dhcp {
      * @since windowsserver2008
      */
     static DhcpGetServerBindingInfoV6(ServerIpAddress, Flags, BindElementsInfo) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+
         result := DllCall("DHCPSAPI.dll\DhcpGetServerBindingInfoV6", "ptr", ServerIpAddress, "uint", Flags, "ptr", BindElementsInfo, "uint")
         return result
     }
@@ -8911,6 +9212,8 @@ class Dhcp {
      * @since windowsserver2008
      */
     static DhcpSetServerBindingInfoV6(ServerIpAddress, Flags, BindElementInfo) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+
         result := DllCall("DHCPSAPI.dll\DhcpSetServerBindingInfoV6", "ptr", ServerIpAddress, "uint", Flags, "ptr", BindElementInfo, "uint")
         return result
     }
@@ -8956,6 +9259,8 @@ class Dhcp {
      * @since windowsserver2008
      */
     static DhcpSetClientInfoV6(ServerIpAddress, ClientInfo) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+
         result := DllCall("DHCPSAPI.dll\DhcpSetClientInfoV6", "ptr", ServerIpAddress, "ptr", ClientInfo, "uint")
         return result
     }
@@ -9015,6 +9320,8 @@ class Dhcp {
      * @since windowsserver2008
      */
     static DhcpGetClientInfoV6(ServerIpAddress, SearchInfo, ClientInfo) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+
         result := DllCall("DHCPSAPI.dll\DhcpGetClientInfoV6", "ptr", ServerIpAddress, "ptr", SearchInfo, "ptr", ClientInfo, "uint")
         return result
     }
@@ -9079,6 +9386,8 @@ class Dhcp {
      * @since windowsserver2008
      */
     static DhcpDeleteClientInfoV6(ServerIpAddress, ClientInfo) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+
         result := DllCall("DHCPSAPI.dll\DhcpDeleteClientInfoV6", "ptr", ServerIpAddress, "ptr", ClientInfo, "uint")
         return result
     }
@@ -9133,6 +9442,8 @@ class Dhcp {
      * @since windowsserver2008
      */
     static DhcpCreateClassV6(ServerIpAddress, ReservedMustBeZero, ClassInfo) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+
         result := DllCall("DHCPSAPI.dll\DhcpCreateClassV6", "ptr", ServerIpAddress, "uint", ReservedMustBeZero, "ptr", ClassInfo, "uint")
         return result
     }
@@ -9209,6 +9520,8 @@ class Dhcp {
      * @since windowsserver2008
      */
     static DhcpModifyClassV6(ServerIpAddress, ReservedMustBeZero, ClassInfo) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+
         result := DllCall("DHCPSAPI.dll\DhcpModifyClassV6", "ptr", ServerIpAddress, "uint", ReservedMustBeZero, "ptr", ClassInfo, "uint")
         return result
     }
@@ -9274,6 +9587,9 @@ class Dhcp {
      * @since windowsserver2008
      */
     static DhcpDeleteClassV6(ServerIpAddress, ReservedMustBeZero, ClassName) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+        ClassName := ClassName is String? StrPtr(ClassName) : ClassName
+
         result := DllCall("DHCPSAPI.dll\DhcpDeleteClassV6", "ptr", ServerIpAddress, "uint", ReservedMustBeZero, "ptr", ClassName, "uint")
         return result
     }
@@ -9323,6 +9639,8 @@ class Dhcp {
      * @since windowsserver2008
      */
     static DhcpEnumClassesV6(ServerIpAddress, ReservedMustBeZero, ResumeHandle, PreferredMaximum, ClassInfoArray, nRead, nTotal) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+
         result := DllCall("DHCPSAPI.dll\DhcpEnumClassesV6", "ptr", ServerIpAddress, "uint", ReservedMustBeZero, "ptr", ResumeHandle, "uint", PreferredMaximum, "ptr", ClassInfoArray, "ptr", nRead, "ptr", nTotal, "uint")
         return result
     }
@@ -9388,6 +9706,8 @@ class Dhcp {
      * @since windowsserver2008
      */
     static DhcpSetSubnetDelayOffer(ServerIpAddress, SubnetAddress, TimeDelayInMilliseconds) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+
         result := DllCall("DHCPSAPI.dll\DhcpSetSubnetDelayOffer", "ptr", ServerIpAddress, "uint", SubnetAddress, "ushort", TimeDelayInMilliseconds, "uint")
         return result
     }
@@ -9447,6 +9767,8 @@ class Dhcp {
      * @since windowsserver2008
      */
     static DhcpGetSubnetDelayOffer(ServerIpAddress, SubnetAddress, TimeDelayInMilliseconds) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+
         result := DllCall("DHCPSAPI.dll\DhcpGetSubnetDelayOffer", "ptr", ServerIpAddress, "uint", SubnetAddress, "ptr", TimeDelayInMilliseconds, "uint")
         return result
     }
@@ -9507,6 +9829,8 @@ class Dhcp {
      * @since windowsserver2008
      */
     static DhcpGetMibInfoV5(ServerIpAddress, MibInfo) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+
         result := DllCall("DHCPSAPI.dll\DhcpGetMibInfoV5", "ptr", ServerIpAddress, "ptr", MibInfo, "uint")
         return result
     }
@@ -9517,6 +9841,8 @@ class Dhcp {
      * @returns {Integer} 
      */
     static DhcpAddSecurityGroup(pServer) {
+        pServer := pServer is String? StrPtr(pServer) : pServer
+
         result := DllCall("DHCPSAPI.dll\DhcpAddSecurityGroup", "ptr", pServer, "uint")
         return result
     }
@@ -9630,6 +9956,10 @@ class Dhcp {
      * @since windowsserver2012
      */
     static DhcpV4GetOptionValue(ServerIpAddress, Flags, OptionID, PolicyName, VendorName, ScopeInfo, OptionValue) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+        PolicyName := PolicyName is String? StrPtr(PolicyName) : PolicyName
+        VendorName := VendorName is String? StrPtr(VendorName) : VendorName
+
         result := DllCall("DHCPSAPI.dll\DhcpV4GetOptionValue", "ptr", ServerIpAddress, "uint", Flags, "uint", OptionID, "ptr", PolicyName, "ptr", VendorName, "ptr", ScopeInfo, "ptr", OptionValue, "uint")
         return result
     }
@@ -9741,6 +10071,10 @@ class Dhcp {
      * @since windowsserver2012
      */
     static DhcpV4SetOptionValue(ServerIpAddress, Flags, OptionId, PolicyName, VendorName, ScopeInfo, OptionValue) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+        PolicyName := PolicyName is String? StrPtr(PolicyName) : PolicyName
+        VendorName := VendorName is String? StrPtr(VendorName) : VendorName
+
         result := DllCall("DHCPSAPI.dll\DhcpV4SetOptionValue", "ptr", ServerIpAddress, "uint", Flags, "uint", OptionId, "ptr", PolicyName, "ptr", VendorName, "ptr", ScopeInfo, "ptr", OptionValue, "uint")
         return result
     }
@@ -9835,6 +10169,10 @@ class Dhcp {
      * @since windowsserver2012
      */
     static DhcpV4SetOptionValues(ServerIpAddress, Flags, PolicyName, VendorName, ScopeInfo, OptionValues) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+        PolicyName := PolicyName is String? StrPtr(PolicyName) : PolicyName
+        VendorName := VendorName is String? StrPtr(VendorName) : VendorName
+
         result := DllCall("DHCPSAPI.dll\DhcpV4SetOptionValues", "ptr", ServerIpAddress, "uint", Flags, "ptr", PolicyName, "ptr", VendorName, "ptr", ScopeInfo, "ptr", OptionValues, "uint")
         return result
     }
@@ -9945,6 +10283,10 @@ class Dhcp {
      * @since windowsserver2012
      */
     static DhcpV4RemoveOptionValue(ServerIpAddress, Flags, OptionID, PolicyName, VendorName, ScopeInfo) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+        PolicyName := PolicyName is String? StrPtr(PolicyName) : PolicyName
+        VendorName := VendorName is String? StrPtr(VendorName) : VendorName
+
         result := DllCall("DHCPSAPI.dll\DhcpV4RemoveOptionValue", "ptr", ServerIpAddress, "uint", Flags, "uint", OptionID, "ptr", PolicyName, "ptr", VendorName, "ptr", ScopeInfo, "uint")
         return result
     }
@@ -10013,6 +10355,8 @@ class Dhcp {
      * @since windowsserver2012
      */
     static DhcpV4GetAllOptionValues(ServerIpAddress, Flags, ScopeInfo, Values) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+
         result := DllCall("DHCPSAPI.dll\DhcpV4GetAllOptionValues", "ptr", ServerIpAddress, "uint", Flags, "ptr", ScopeInfo, "ptr", Values, "uint")
         return result
     }
@@ -10101,6 +10445,8 @@ class Dhcp {
      * @since windowsserver2012
      */
     static DhcpV4FailoverCreateRelationship(ServerIpAddress, pRelationship) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+
         result := DllCall("DHCPSAPI.dll\DhcpV4FailoverCreateRelationship", "ptr", ServerIpAddress, "ptr", pRelationship, "uint")
         return result
     }
@@ -10219,6 +10565,8 @@ class Dhcp {
      * @since windowsserver2012
      */
     static DhcpV4FailoverSetRelationship(ServerIpAddress, Flags, pRelationship) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+
         result := DllCall("DHCPSAPI.dll\DhcpV4FailoverSetRelationship", "ptr", ServerIpAddress, "uint", Flags, "ptr", pRelationship, "uint")
         return result
     }
@@ -10263,6 +10611,9 @@ class Dhcp {
      * @since windowsserver2012
      */
     static DhcpV4FailoverDeleteRelationship(ServerIpAddress, pRelationshipName) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+        pRelationshipName := pRelationshipName is String? StrPtr(pRelationshipName) : pRelationshipName
+
         result := DllCall("DHCPSAPI.dll\DhcpV4FailoverDeleteRelationship", "ptr", ServerIpAddress, "ptr", pRelationshipName, "uint")
         return result
     }
@@ -10313,6 +10664,9 @@ class Dhcp {
      * @since windowsserver2012
      */
     static DhcpV4FailoverGetRelationship(ServerIpAddress, pRelationshipName, pRelationship) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+        pRelationshipName := pRelationshipName is String? StrPtr(pRelationshipName) : pRelationshipName
+
         result := DllCall("DHCPSAPI.dll\DhcpV4FailoverGetRelationship", "ptr", ServerIpAddress, "ptr", pRelationshipName, "ptr", pRelationship, "uint")
         return result
     }
@@ -10375,6 +10729,8 @@ class Dhcp {
      * @since windowsserver2012
      */
     static DhcpV4FailoverEnumRelationship(ServerIpAddress, ResumeHandle, PreferredMaximum, pRelationship, RelationshipRead, RelationshipTotal) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+
         result := DllCall("DHCPSAPI.dll\DhcpV4FailoverEnumRelationship", "ptr", ServerIpAddress, "ptr", ResumeHandle, "uint", PreferredMaximum, "ptr", pRelationship, "ptr", RelationshipRead, "ptr", RelationshipTotal, "uint")
         return result
     }
@@ -10452,6 +10808,8 @@ class Dhcp {
      * @since windowsserver2012
      */
     static DhcpV4FailoverAddScopeToRelationship(ServerIpAddress, pRelationship) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+
         result := DllCall("DHCPSAPI.dll\DhcpV4FailoverAddScopeToRelationship", "ptr", ServerIpAddress, "ptr", pRelationship, "uint")
         return result
     }
@@ -10518,6 +10876,8 @@ class Dhcp {
      * @since windowsserver2012
      */
     static DhcpV4FailoverDeleteScopeFromRelationship(ServerIpAddress, pRelationship) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+
         result := DllCall("DHCPSAPI.dll\DhcpV4FailoverDeleteScopeFromRelationship", "ptr", ServerIpAddress, "ptr", pRelationship, "uint")
         return result
     }
@@ -10568,6 +10928,8 @@ class Dhcp {
      * @since windowsserver2012
      */
     static DhcpV4FailoverGetScopeRelationship(ServerIpAddress, ScopeId, pRelationship) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+
         result := DllCall("DHCPSAPI.dll\DhcpV4FailoverGetScopeRelationship", "ptr", ServerIpAddress, "uint", ScopeId, "ptr", pRelationship, "uint")
         return result
     }
@@ -10607,6 +10969,8 @@ class Dhcp {
      * @since windowsserver2012
      */
     static DhcpV4FailoverGetScopeStatistics(ServerIpAddress, ScopeId, pStats) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+
         result := DllCall("DHCPSAPI.dll\DhcpV4FailoverGetScopeStatistics", "ptr", ServerIpAddress, "uint", ScopeId, "ptr", pStats, "uint")
         return result
     }
@@ -10658,6 +11022,8 @@ class Dhcp {
      * @since windowsserver2012
      */
     static DhcpV4FailoverGetClientInfo(ServerIpAddress, SearchInfo, ClientInfo) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+
         result := DllCall("DHCPSAPI.dll\DhcpV4FailoverGetClientInfo", "ptr", ServerIpAddress, "ptr", SearchInfo, "ptr", ClientInfo, "uint")
         return result
     }
@@ -10692,6 +11058,8 @@ class Dhcp {
      * @since windowsserver2012
      */
     static DhcpV4FailoverGetSystemTime(ServerIpAddress, pTime, pMaxAllowedDeltaTime) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+
         result := DllCall("DHCPSAPI.dll\DhcpV4FailoverGetSystemTime", "ptr", ServerIpAddress, "ptr", pTime, "ptr", pMaxAllowedDeltaTime, "uint")
         return result
     }
@@ -10759,6 +11127,8 @@ class Dhcp {
      * @since windowsserver2012
      */
     static DhcpV4FailoverGetAddressStatus(ServerIpAddress, SubnetAddress, pStatus) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+
         result := DllCall("DHCPSAPI.dll\DhcpV4FailoverGetAddressStatus", "ptr", ServerIpAddress, "uint", SubnetAddress, "ptr", pStatus, "uint")
         return result
     }
@@ -10814,6 +11184,9 @@ class Dhcp {
      * @since windowsserver2012
      */
     static DhcpV4FailoverTriggerAddrAllocation(ServerIpAddress, pFailRelName) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+        pFailRelName := pFailRelName is String? StrPtr(pFailRelName) : pFailRelName
+
         result := DllCall("DHCPSAPI.dll\DhcpV4FailoverTriggerAddrAllocation", "ptr", ServerIpAddress, "ptr", pFailRelName, "uint")
         return result
     }
@@ -10864,6 +11237,9 @@ class Dhcp {
      * @since windowsserver2012
      */
     static DhcpHlprCreateV4Policy(PolicyName, fGlobalPolicy, Subnet, ProcessingOrder, RootOperator, Description, Enabled, Policy) {
+        PolicyName := PolicyName is String? StrPtr(PolicyName) : PolicyName
+        Description := Description is String? StrPtr(Description) : Description
+
         result := DllCall("DHCPSAPI.dll\DhcpHlprCreateV4Policy", "ptr", PolicyName, "int", fGlobalPolicy, "uint", Subnet, "uint", ProcessingOrder, "int", RootOperator, "ptr", Description, "int", Enabled, "ptr", Policy, "uint")
         return result
     }
@@ -10881,6 +11257,9 @@ class Dhcp {
      * @returns {Integer} 
      */
     static DhcpHlprCreateV4PolicyEx(PolicyName, fGlobalPolicy, Subnet, ProcessingOrder, RootOperator, Description, Enabled, Policy) {
+        PolicyName := PolicyName is String? StrPtr(PolicyName) : PolicyName
+        Description := Description is String? StrPtr(Description) : Description
+
         result := DllCall("DHCPSAPI.dll\DhcpHlprCreateV4PolicyEx", "ptr", PolicyName, "int", fGlobalPolicy, "uint", Subnet, "uint", ProcessingOrder, "int", RootOperator, "ptr", Description, "int", Enabled, "ptr", Policy, "uint")
         return result
     }
@@ -11001,6 +11380,8 @@ class Dhcp {
      * @since windowsserver2012
      */
     static DhcpHlprAddV4PolicyCondition(Policy, ParentExpr, Type, OptionID, SubOptionID, VendorName, Operator, Value, ValueLength, ConditionIndex) {
+        VendorName := VendorName is String? StrPtr(VendorName) : VendorName
+
         result := DllCall("DHCPSAPI.dll\DhcpHlprAddV4PolicyCondition", "ptr", Policy, "uint", ParentExpr, "int", Type, "uint", OptionID, "uint", SubOptionID, "ptr", VendorName, "int", Operator, "ptr", Value, "uint", ValueLength, "ptr", ConditionIndex, "uint")
         return result
     }
@@ -11241,6 +11622,8 @@ class Dhcp {
      * @since windowsserver2012
      */
     static DhcpV4QueryPolicyEnforcement(ServerIpAddress, fGlobalPolicy, SubnetAddress, Enabled) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+
         result := DllCall("DHCPSAPI.dll\DhcpV4QueryPolicyEnforcement", "ptr", ServerIpAddress, "int", fGlobalPolicy, "uint", SubnetAddress, "ptr", Enabled, "uint")
         return result
     }
@@ -11287,6 +11670,8 @@ class Dhcp {
      * @since windowsserver2012
      */
     static DhcpV4SetPolicyEnforcement(ServerIpAddress, fGlobalPolicy, SubnetAddress, Enable) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+
         result := DllCall("DHCPSAPI.dll\DhcpV4SetPolicyEnforcement", "ptr", ServerIpAddress, "int", fGlobalPolicy, "uint", SubnetAddress, "int", Enable, "uint")
         return result
     }
@@ -11519,6 +11904,8 @@ class Dhcp {
      * @since windowsserver2012
      */
     static DhcpV4CreatePolicy(ServerIpAddress, pPolicy) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+
         result := DllCall("DHCPSAPI.dll\DhcpV4CreatePolicy", "ptr", ServerIpAddress, "ptr", pPolicy, "uint")
         return result
     }
@@ -11579,6 +11966,9 @@ class Dhcp {
      * @since windowsserver2012
      */
     static DhcpV4GetPolicy(ServerIpAddress, fGlobalPolicy, SubnetAddress, PolicyName, Policy) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+        PolicyName := PolicyName is String? StrPtr(PolicyName) : PolicyName
+
         result := DllCall("DHCPSAPI.dll\DhcpV4GetPolicy", "ptr", ServerIpAddress, "int", fGlobalPolicy, "uint", SubnetAddress, "ptr", PolicyName, "ptr", Policy, "uint")
         return result
     }
@@ -11693,6 +12083,9 @@ class Dhcp {
      * @since windowsserver2012
      */
     static DhcpV4SetPolicy(ServerIpAddress, FieldsModified, fGlobalPolicy, SubnetAddress, PolicyName, Policy) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+        PolicyName := PolicyName is String? StrPtr(PolicyName) : PolicyName
+
         result := DllCall("DHCPSAPI.dll\DhcpV4SetPolicy", "ptr", ServerIpAddress, "uint", FieldsModified, "int", fGlobalPolicy, "uint", SubnetAddress, "ptr", PolicyName, "ptr", Policy, "uint")
         return result
     }
@@ -11750,6 +12143,9 @@ class Dhcp {
      * @since windowsserver2012
      */
     static DhcpV4DeletePolicy(ServerIpAddress, fGlobalPolicy, SubnetAddress, PolicyName) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+        PolicyName := PolicyName is String? StrPtr(PolicyName) : PolicyName
+
         result := DllCall("DHCPSAPI.dll\DhcpV4DeletePolicy", "ptr", ServerIpAddress, "int", fGlobalPolicy, "uint", SubnetAddress, "ptr", PolicyName, "uint")
         return result
     }
@@ -11806,6 +12202,8 @@ class Dhcp {
      * @since windowsserver2012
      */
     static DhcpV4EnumPolicies(ServerIpAddress, ResumeHandle, PreferredMaximum, fGlobalPolicy, SubnetAddress, EnumInfo, ElementsRead, ElementsTotal) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+
         result := DllCall("DHCPSAPI.dll\DhcpV4EnumPolicies", "ptr", ServerIpAddress, "ptr", ResumeHandle, "uint", PreferredMaximum, "int", fGlobalPolicy, "uint", SubnetAddress, "ptr", EnumInfo, "ptr", ElementsRead, "ptr", ElementsTotal, "uint")
         return result
     }
@@ -11874,6 +12272,9 @@ class Dhcp {
      * @since windowsserver2012
      */
     static DhcpV4AddPolicyRange(ServerIpAddress, SubnetAddress, PolicyName, Range) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+        PolicyName := PolicyName is String? StrPtr(PolicyName) : PolicyName
+
         result := DllCall("DHCPSAPI.dll\DhcpV4AddPolicyRange", "ptr", ServerIpAddress, "uint", SubnetAddress, "ptr", PolicyName, "ptr", Range, "uint")
         return result
     }
@@ -11942,6 +12343,9 @@ class Dhcp {
      * @since windowsserver2012
      */
     static DhcpV4RemovePolicyRange(ServerIpAddress, SubnetAddress, PolicyName, Range) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+        PolicyName := PolicyName is String? StrPtr(PolicyName) : PolicyName
+
         result := DllCall("DHCPSAPI.dll\DhcpV4RemovePolicyRange", "ptr", ServerIpAddress, "uint", SubnetAddress, "ptr", PolicyName, "ptr", Range, "uint")
         return result
     }
@@ -11990,6 +12394,8 @@ class Dhcp {
      * @since windowsserver2012
      */
     static DhcpV6SetStatelessStoreParams(ServerIpAddress, fServerLevel, SubnetAddress, FieldModified, Params) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+
         result := DllCall("DHCPSAPI.dll\DhcpV6SetStatelessStoreParams", "ptr", ServerIpAddress, "int", fServerLevel, "ptr", SubnetAddress, "uint", FieldModified, "ptr", Params, "uint")
         return result
     }
@@ -12039,6 +12445,8 @@ class Dhcp {
      * @since windowsserver2012
      */
     static DhcpV6GetStatelessStoreParams(ServerIpAddress, fServerLevel, SubnetAddress, Params) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+
         result := DllCall("DHCPSAPI.dll\DhcpV6GetStatelessStoreParams", "ptr", ServerIpAddress, "int", fServerLevel, "ptr", SubnetAddress, "ptr", Params, "uint")
         return result
     }
@@ -12054,6 +12462,8 @@ class Dhcp {
      * @since windowsserver2012
      */
     static DhcpV6GetStatelessStatistics(ServerIpAddress, StatelessStats) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+
         result := DllCall("DHCPSAPI.dll\DhcpV6GetStatelessStatistics", "ptr", ServerIpAddress, "ptr", StatelessStats, "uint")
         return result
     }
@@ -12124,6 +12534,8 @@ class Dhcp {
      * @since windowsserver2012
      */
     static DhcpV4CreateClientInfo(ServerIpAddress, ClientInfo) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+
         result := DllCall("DHCPSAPI.dll\DhcpV4CreateClientInfo", "ptr", ServerIpAddress, "ptr", ClientInfo, "uint")
         return result
     }
@@ -12197,6 +12609,8 @@ class Dhcp {
      * @since windowsserver2012
      */
     static DhcpV4EnumSubnetClients(ServerIpAddress, SubnetAddress, ResumeHandle, PreferredMaximum, ClientInfo, ClientsRead, ClientsTotal) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+
         result := DllCall("DHCPSAPI.dll\DhcpV4EnumSubnetClients", "ptr", ServerIpAddress, "uint", SubnetAddress, "ptr", ResumeHandle, "uint", PreferredMaximum, "ptr", ClientInfo, "ptr", ClientsRead, "ptr", ClientsTotal, "uint")
         return result
     }
@@ -12257,6 +12671,8 @@ class Dhcp {
      * @since windowsserver2012
      */
     static DhcpV4GetClientInfo(ServerIpAddress, SearchInfo, ClientInfo) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+
         result := DllCall("DHCPSAPI.dll\DhcpV4GetClientInfo", "ptr", ServerIpAddress, "ptr", SearchInfo, "ptr", ClientInfo, "uint")
         return result
     }
@@ -12323,6 +12739,8 @@ class Dhcp {
      * @since windowsserver2012
      */
     static DhcpV6CreateClientInfo(ServerIpAddress, ClientInfo) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+
         result := DllCall("DHCPSAPI.dll\DhcpV6CreateClientInfo", "ptr", ServerIpAddress, "ptr", ClientInfo, "uint")
         return result
     }
@@ -12388,6 +12806,8 @@ class Dhcp {
      * @since windowsserver2012
      */
     static DhcpV4GetFreeIPAddress(ServerIpAddress, ScopeId, StartIP, EndIP, NumFreeAddrReq, IPAddrList) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+
         result := DllCall("DHCPSAPI.dll\DhcpV4GetFreeIPAddress", "ptr", ServerIpAddress, "uint", ScopeId, "uint", StartIP, "uint", EndIP, "uint", NumFreeAddrReq, "ptr", IPAddrList, "uint")
         return result
     }
@@ -12453,6 +12873,8 @@ class Dhcp {
      * @since windowsserver2012
      */
     static DhcpV6GetFreeIPAddress(ServerIpAddress, ScopeId, StartIP, EndIP, NumFreeAddrReq, IPAddrList) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+
         result := DllCall("DHCPSAPI.dll\DhcpV6GetFreeIPAddress", "ptr", ServerIpAddress, "ptr", ScopeId, "ptr", StartIP, "ptr", EndIP, "uint", NumFreeAddrReq, "ptr", IPAddrList, "uint")
         return result
     }
@@ -12464,6 +12886,8 @@ class Dhcp {
      * @returns {Integer} 
      */
     static DhcpV4CreateClientInfoEx(ServerIpAddress, ClientInfo) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+
         result := DllCall("DHCPSAPI.dll\DhcpV4CreateClientInfoEx", "ptr", ServerIpAddress, "ptr", ClientInfo, "uint")
         return result
     }
@@ -12480,6 +12904,8 @@ class Dhcp {
      * @returns {Integer} 
      */
     static DhcpV4EnumSubnetClientsEx(ServerIpAddress, SubnetAddress, ResumeHandle, PreferredMaximum, ClientInfo, ClientsRead, ClientsTotal) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+
         result := DllCall("DHCPSAPI.dll\DhcpV4EnumSubnetClientsEx", "ptr", ServerIpAddress, "uint", SubnetAddress, "ptr", ResumeHandle, "uint", PreferredMaximum, "ptr", ClientInfo, "ptr", ClientsRead, "ptr", ClientsTotal, "uint")
         return result
     }
@@ -12492,6 +12918,8 @@ class Dhcp {
      * @returns {Integer} 
      */
     static DhcpV4GetClientInfoEx(ServerIpAddress, SearchInfo, ClientInfo) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+
         result := DllCall("DHCPSAPI.dll\DhcpV4GetClientInfoEx", "ptr", ServerIpAddress, "ptr", SearchInfo, "ptr", ClientInfo, "uint")
         return result
     }
@@ -12503,6 +12931,8 @@ class Dhcp {
      * @returns {Integer} 
      */
     static DhcpV4CreatePolicyEx(ServerIpAddress, PolicyEx) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+
         result := DllCall("DHCPSAPI.dll\DhcpV4CreatePolicyEx", "ptr", ServerIpAddress, "ptr", PolicyEx, "uint")
         return result
     }
@@ -12517,6 +12947,9 @@ class Dhcp {
      * @returns {Integer} 
      */
     static DhcpV4GetPolicyEx(ServerIpAddress, GlobalPolicy, SubnetAddress, PolicyName, Policy) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+        PolicyName := PolicyName is String? StrPtr(PolicyName) : PolicyName
+
         result := DllCall("DHCPSAPI.dll\DhcpV4GetPolicyEx", "ptr", ServerIpAddress, "int", GlobalPolicy, "uint", SubnetAddress, "ptr", PolicyName, "ptr", Policy, "uint")
         return result
     }
@@ -12532,6 +12965,9 @@ class Dhcp {
      * @returns {Integer} 
      */
     static DhcpV4SetPolicyEx(ServerIpAddress, FieldsModified, GlobalPolicy, SubnetAddress, PolicyName, Policy) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+        PolicyName := PolicyName is String? StrPtr(PolicyName) : PolicyName
+
         result := DllCall("DHCPSAPI.dll\DhcpV4SetPolicyEx", "ptr", ServerIpAddress, "uint", FieldsModified, "int", GlobalPolicy, "uint", SubnetAddress, "ptr", PolicyName, "ptr", Policy, "uint")
         return result
     }
@@ -12549,6 +12985,8 @@ class Dhcp {
      * @returns {Integer} 
      */
     static DhcpV4EnumPoliciesEx(ServerIpAddress, ResumeHandle, PreferredMaximum, GlobalPolicy, SubnetAddress, EnumInfo, ElementsRead, ElementsTotal) {
+        ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
+
         result := DllCall("DHCPSAPI.dll\DhcpV4EnumPoliciesEx", "ptr", ServerIpAddress, "ptr", ResumeHandle, "uint", PreferredMaximum, "int", GlobalPolicy, "uint", SubnetAddress, "ptr", EnumInfo, "ptr", ElementsRead, "ptr", ElementsTotal, "uint")
         return result
     }

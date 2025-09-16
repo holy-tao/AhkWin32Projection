@@ -3921,6 +3921,8 @@ class Display {
      * @since windows6.0.6000
      */
     static CapabilitiesRequestAndCapabilitiesReply(hMonitor, pszASCIICapabilitiesString, dwCapabilitiesStringLengthInCharacters) {
+        pszASCIICapabilitiesString := pszASCIICapabilitiesString is String? StrPtr(pszASCIICapabilitiesString) : pszASCIICapabilitiesString
+
         A_LastError := 0
 
         result := DllCall("dxva2.dll\CapabilitiesRequestAndCapabilitiesReply", "ptr", hMonitor, "ptr", pszASCIICapabilitiesString, "uint", dwCapabilitiesStringLengthInCharacters, "int")
@@ -6206,6 +6208,8 @@ class Display {
      * @since windows5.0
      */
     static EngLoadModule(pwsz) {
+        pwsz := pwsz is String? StrPtr(pwsz) : pwsz
+
         result := DllCall("GDI32.dll\EngLoadModule", "ptr", pwsz, "ptr")
         return result
     }
@@ -6316,6 +6320,9 @@ class Display {
      * @since windows5.0
      */
     static EngMultiByteToUnicodeN(UnicodeString, MaxBytesInUnicodeString, BytesInUnicodeString, MultiByteString, BytesInMultiByteString) {
+        UnicodeString := UnicodeString is String? StrPtr(UnicodeString) : UnicodeString
+        MultiByteString := MultiByteString is String? StrPtr(MultiByteString) : MultiByteString
+
         DllCall("GDI32.dll\EngMultiByteToUnicodeN", "ptr", UnicodeString, "uint", MaxBytesInUnicodeString, "ptr", BytesInUnicodeString, "ptr", MultiByteString, "uint", BytesInMultiByteString)
     }
 
@@ -6331,6 +6338,9 @@ class Display {
      * @since windows5.0
      */
     static EngUnicodeToMultiByteN(MultiByteString, MaxBytesInMultiByteString, BytesInMultiByteString, UnicodeString, BytesInUnicodeString) {
+        MultiByteString := MultiByteString is String? StrPtr(MultiByteString) : MultiByteString
+        UnicodeString := UnicodeString is String? StrPtr(UnicodeString) : UnicodeString
+
         DllCall("GDI32.dll\EngUnicodeToMultiByteN", "ptr", MultiByteString, "uint", MaxBytesInMultiByteString, "ptr", BytesInMultiByteString, "ptr", UnicodeString, "uint", BytesInUnicodeString)
     }
 
@@ -6376,6 +6386,9 @@ class Display {
      * @since windows5.0
      */
     static EngMultiByteToWideChar(CodePage, WideCharString, BytesInWideCharString, MultiByteString, BytesInMultiByteString) {
+        WideCharString := WideCharString is String? StrPtr(WideCharString) : WideCharString
+        MultiByteString := MultiByteString is String? StrPtr(MultiByteString) : MultiByteString
+
         DllCall("GDI32.dll\EngMultiByteToWideChar", "uint", CodePage, "ptr", WideCharString, "int", BytesInWideCharString, "ptr", MultiByteString, "int", BytesInMultiByteString)
     }
 
@@ -6391,6 +6404,9 @@ class Display {
      * @since windows5.0
      */
     static EngWideCharToMultiByte(CodePage, WideCharString, BytesInWideCharString, MultiByteString, BytesInMultiByteString) {
+        WideCharString := WideCharString is String? StrPtr(WideCharString) : WideCharString
+        MultiByteString := MultiByteString is String? StrPtr(MultiByteString) : MultiByteString
+
         DllCall("GDI32.dll\EngWideCharToMultiByte", "uint", CodePage, "ptr", WideCharString, "int", BytesInWideCharString, "ptr", MultiByteString, "int", BytesInMultiByteString)
     }
 

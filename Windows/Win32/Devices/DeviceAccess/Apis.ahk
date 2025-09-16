@@ -248,6 +248,8 @@ class DeviceAccess {
      * @see https://learn.microsoft.com/windows/win32/api/deviceaccess/nf-deviceaccess-createdeviceaccessinstance
      */
     static CreateDeviceAccessInstance(deviceInterfacePath, desiredAccess, createAsync) {
+        deviceInterfacePath := deviceInterfacePath is String? StrPtr(deviceInterfacePath) : deviceInterfacePath
+
         result := DllCall("deviceaccess.dll\CreateDeviceAccessInstance", "ptr", deviceInterfacePath, "uint", desiredAccess, "ptr", createAsync, "int")
         return result
     }

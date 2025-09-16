@@ -3031,6 +3031,8 @@ class WindowsFilteringPlatform {
      * @since windows6.0.6000
      */
     static FwpmEngineOpen0(serverName, authnService, authIdentity, session, engineHandle) {
+        serverName := serverName is String? StrPtr(serverName) : serverName
+
         result := DllCall("fwpuclnt.dll\FwpmEngineOpen0", "ptr", serverName, "uint", authnService, "ptr", authIdentity, "ptr", session, "ptr", engineHandle, "uint")
         return result
     }
@@ -9682,6 +9684,8 @@ class WindowsFilteringPlatform {
      * @since windows6.0.6000
      */
     static FwpmGetAppIdFromFileName0(fileName, appId) {
+        fileName := fileName is String? StrPtr(fileName) : fileName
+
         result := DllCall("fwpuclnt.dll\FwpmGetAppIdFromFileName0", "ptr", fileName, "ptr", appId, "uint")
         return result
     }

@@ -723,6 +723,8 @@ class KeyboardAndMouse {
      * @since windows5.0
      */
     static LoadKeyboardLayoutA(pwszKLID, Flags) {
+        pwszKLID := pwszKLID is String? StrPtr(pwszKLID) : pwszKLID
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\LoadKeyboardLayoutA", "ptr", pwszKLID, "uint", Flags, "ptr")
@@ -762,6 +764,8 @@ class KeyboardAndMouse {
      * @since windows5.0
      */
     static LoadKeyboardLayoutW(pwszKLID, Flags) {
+        pwszKLID := pwszKLID is String? StrPtr(pwszKLID) : pwszKLID
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\LoadKeyboardLayoutW", "ptr", pwszKLID, "uint", Flags, "ptr")
@@ -853,6 +857,8 @@ class KeyboardAndMouse {
      * @since windows5.0
      */
     static ToUnicodeEx(wVirtKey, wScanCode, lpKeyState, pwszBuff, cchBuff, wFlags, dwhkl) {
+        pwszBuff := pwszBuff is String? StrPtr(pwszBuff) : pwszBuff
+
         DllCall("USER32.dll\ToUnicodeEx", "uint", wVirtKey, "uint", wScanCode, "ptr", lpKeyState, "ptr", pwszBuff, "int", cchBuff, "uint", wFlags, "ptr", dwhkl)
     }
 
@@ -917,6 +923,8 @@ class KeyboardAndMouse {
      * @since windows5.0
      */
     static GetKeyboardLayoutNameA(pwszKLID) {
+        pwszKLID := pwszKLID is String? StrPtr(pwszKLID) : pwszKLID
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\GetKeyboardLayoutNameA", "ptr", pwszKLID, "int")
@@ -953,6 +961,8 @@ class KeyboardAndMouse {
      * @since windows5.0
      */
     static GetKeyboardLayoutNameW(pwszKLID) {
+        pwszKLID := pwszKLID is String? StrPtr(pwszKLID) : pwszKLID
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\GetKeyboardLayoutNameW", "ptr", pwszKLID, "int")
@@ -1585,6 +1595,8 @@ class KeyboardAndMouse {
      * @since windows5.0
      */
     static GetKeyNameTextA(lParam, lpString, cchSize) {
+        lpString := lpString is String? StrPtr(lpString) : lpString
+
         A_LastError := 0
 
         DllCall("USER32.dll\GetKeyNameTextA", "int", lParam, "ptr", lpString, "int", cchSize)
@@ -1625,6 +1637,8 @@ class KeyboardAndMouse {
      * @since windows5.0
      */
     static GetKeyNameTextW(lParam, lpString, cchSize) {
+        lpString := lpString is String? StrPtr(lpString) : lpString
+
         A_LastError := 0
 
         DllCall("USER32.dll\GetKeyNameTextW", "int", lParam, "ptr", lpString, "int", cchSize)
@@ -1781,6 +1795,8 @@ class KeyboardAndMouse {
      * @since windows5.0
      */
     static ToUnicode(wVirtKey, wScanCode, lpKeyState, pwszBuff, cchBuff, wFlags) {
+        pwszBuff := pwszBuff is String? StrPtr(pwszBuff) : pwszBuff
+
         DllCall("USER32.dll\ToUnicode", "uint", wVirtKey, "uint", wScanCode, "ptr", lpKeyState, "ptr", pwszBuff, "int", cchBuff, "uint", wFlags)
     }
 

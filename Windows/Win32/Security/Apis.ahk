@@ -428,6 +428,10 @@ class Security {
      * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-accesscheckandauditalarmw
      */
     static AccessCheckAndAuditAlarmW(SubsystemName, HandleId, ObjectTypeName, ObjectName, SecurityDescriptor, DesiredAccess, GenericMapping, ObjectCreation, GrantedAccess, AccessStatus, pfGenerateOnClose) {
+        SubsystemName := SubsystemName is String? StrPtr(SubsystemName) : SubsystemName
+        ObjectTypeName := ObjectTypeName is String? StrPtr(ObjectTypeName) : ObjectTypeName
+        ObjectName := ObjectName is String? StrPtr(ObjectName) : ObjectName
+
         result := DllCall("ADVAPI32.dll\AccessCheckAndAuditAlarmW", "ptr", SubsystemName, "ptr", HandleId, "ptr", ObjectTypeName, "ptr", ObjectName, "ptr", SecurityDescriptor, "uint", DesiredAccess, "ptr", GenericMapping, "int", ObjectCreation, "ptr", GrantedAccess, "ptr", AccessStatus, "ptr", pfGenerateOnClose, "int")
         return result
     }
@@ -615,6 +619,10 @@ class Security {
      * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-accesscheckbytypeandauditalarmw
      */
     static AccessCheckByTypeAndAuditAlarmW(SubsystemName, HandleId, ObjectTypeName, ObjectName, SecurityDescriptor, PrincipalSelfSid, DesiredAccess, AuditType, Flags, ObjectTypeList, ObjectTypeListLength, GenericMapping, ObjectCreation, GrantedAccess, AccessStatus, pfGenerateOnClose) {
+        SubsystemName := SubsystemName is String? StrPtr(SubsystemName) : SubsystemName
+        ObjectTypeName := ObjectTypeName is String? StrPtr(ObjectTypeName) : ObjectTypeName
+        ObjectName := ObjectName is String? StrPtr(ObjectName) : ObjectName
+
         result := DllCall("ADVAPI32.dll\AccessCheckByTypeAndAuditAlarmW", "ptr", SubsystemName, "ptr", HandleId, "ptr", ObjectTypeName, "ptr", ObjectName, "ptr", SecurityDescriptor, "ptr", PrincipalSelfSid, "uint", DesiredAccess, "int", AuditType, "uint", Flags, "ptr", ObjectTypeList, "uint", ObjectTypeListLength, "ptr", GenericMapping, "int", ObjectCreation, "ptr", GrantedAccess, "ptr", AccessStatus, "ptr", pfGenerateOnClose, "int")
         return result
     }
@@ -674,6 +682,10 @@ class Security {
      * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-accesscheckbytyperesultlistandauditalarmw
      */
     static AccessCheckByTypeResultListAndAuditAlarmW(SubsystemName, HandleId, ObjectTypeName, ObjectName, SecurityDescriptor, PrincipalSelfSid, DesiredAccess, AuditType, Flags, ObjectTypeList, ObjectTypeListLength, GenericMapping, ObjectCreation, GrantedAccessList, AccessStatusList, pfGenerateOnClose) {
+        SubsystemName := SubsystemName is String? StrPtr(SubsystemName) : SubsystemName
+        ObjectTypeName := ObjectTypeName is String? StrPtr(ObjectTypeName) : ObjectTypeName
+        ObjectName := ObjectName is String? StrPtr(ObjectName) : ObjectName
+
         result := DllCall("ADVAPI32.dll\AccessCheckByTypeResultListAndAuditAlarmW", "ptr", SubsystemName, "ptr", HandleId, "ptr", ObjectTypeName, "ptr", ObjectName, "ptr", SecurityDescriptor, "ptr", PrincipalSelfSid, "uint", DesiredAccess, "int", AuditType, "uint", Flags, "ptr", ObjectTypeList, "uint", ObjectTypeListLength, "ptr", GenericMapping, "int", ObjectCreation, "ptr", GrantedAccessList, "ptr", AccessStatusList, "ptr", pfGenerateOnClose, "int")
         return result
     }
@@ -729,6 +741,10 @@ class Security {
      * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-accesscheckbytyperesultlistandauditalarmbyhandlew
      */
     static AccessCheckByTypeResultListAndAuditAlarmByHandleW(SubsystemName, HandleId, ClientToken, ObjectTypeName, ObjectName, SecurityDescriptor, PrincipalSelfSid, DesiredAccess, AuditType, Flags, ObjectTypeList, ObjectTypeListLength, GenericMapping, ObjectCreation, GrantedAccessList, AccessStatusList, pfGenerateOnClose) {
+        SubsystemName := SubsystemName is String? StrPtr(SubsystemName) : SubsystemName
+        ObjectTypeName := ObjectTypeName is String? StrPtr(ObjectTypeName) : ObjectTypeName
+        ObjectName := ObjectName is String? StrPtr(ObjectName) : ObjectName
+
         result := DllCall("ADVAPI32.dll\AccessCheckByTypeResultListAndAuditAlarmByHandleW", "ptr", SubsystemName, "ptr", HandleId, "ptr", ClientToken, "ptr", ObjectTypeName, "ptr", ObjectName, "ptr", SecurityDescriptor, "ptr", PrincipalSelfSid, "uint", DesiredAccess, "int", AuditType, "uint", Flags, "ptr", ObjectTypeList, "uint", ObjectTypeListLength, "ptr", GenericMapping, "int", ObjectCreation, "ptr", GrantedAccessList, "ptr", AccessStatusList, "ptr", pfGenerateOnClose, "int")
         return result
     }
@@ -3066,6 +3082,8 @@ class Security {
      * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-getfilesecurityw
      */
     static GetFileSecurityW(lpFileName, RequestedInformation, pSecurityDescriptor, nLength, lpnLengthNeeded) {
+        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+
         result := DllCall("ADVAPI32.dll\GetFileSecurityW", "ptr", lpFileName, "uint", RequestedInformation, "ptr", pSecurityDescriptor, "uint", nLength, "ptr", lpnLengthNeeded, "int")
         return result
     }
@@ -3932,6 +3950,8 @@ class Security {
      * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-objectcloseauditalarmw
      */
     static ObjectCloseAuditAlarmW(SubsystemName, HandleId, GenerateOnClose) {
+        SubsystemName := SubsystemName is String? StrPtr(SubsystemName) : SubsystemName
+
         result := DllCall("ADVAPI32.dll\ObjectCloseAuditAlarmW", "ptr", SubsystemName, "ptr", HandleId, "int", GenerateOnClose, "int")
         return result
     }
@@ -3950,6 +3970,8 @@ class Security {
      * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-objectdeleteauditalarmw
      */
     static ObjectDeleteAuditAlarmW(SubsystemName, HandleId, GenerateOnClose) {
+        SubsystemName := SubsystemName is String? StrPtr(SubsystemName) : SubsystemName
+
         result := DllCall("ADVAPI32.dll\ObjectDeleteAuditAlarmW", "ptr", SubsystemName, "ptr", HandleId, "int", GenerateOnClose, "int")
         return result
     }
@@ -3980,6 +4002,10 @@ class Security {
      * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-objectopenauditalarmw
      */
     static ObjectOpenAuditAlarmW(SubsystemName, HandleId, ObjectTypeName, ObjectName, pSecurityDescriptor, ClientToken, DesiredAccess, GrantedAccess, Privileges, ObjectCreation, AccessGranted, GenerateOnClose) {
+        SubsystemName := SubsystemName is String? StrPtr(SubsystemName) : SubsystemName
+        ObjectTypeName := ObjectTypeName is String? StrPtr(ObjectTypeName) : ObjectTypeName
+        ObjectName := ObjectName is String? StrPtr(ObjectName) : ObjectName
+
         result := DllCall("ADVAPI32.dll\ObjectOpenAuditAlarmW", "ptr", SubsystemName, "ptr", HandleId, "ptr", ObjectTypeName, "ptr", ObjectName, "ptr", pSecurityDescriptor, "ptr", ClientToken, "uint", DesiredAccess, "uint", GrantedAccess, "ptr", Privileges, "int", ObjectCreation, "int", AccessGranted, "ptr", GenerateOnClose, "int")
         return result
     }
@@ -4002,6 +4028,8 @@ class Security {
      * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-objectprivilegeauditalarmw
      */
     static ObjectPrivilegeAuditAlarmW(SubsystemName, HandleId, ClientToken, DesiredAccess, Privileges, AccessGranted) {
+        SubsystemName := SubsystemName is String? StrPtr(SubsystemName) : SubsystemName
+
         result := DllCall("ADVAPI32.dll\ObjectPrivilegeAuditAlarmW", "ptr", SubsystemName, "ptr", HandleId, "ptr", ClientToken, "uint", DesiredAccess, "ptr", Privileges, "int", AccessGranted, "int")
         return result
     }
@@ -4057,6 +4085,9 @@ class Security {
      * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-privilegedserviceauditalarmw
      */
     static PrivilegedServiceAuditAlarmW(SubsystemName, ServiceName, ClientToken, Privileges, AccessGranted) {
+        SubsystemName := SubsystemName is String? StrPtr(SubsystemName) : SubsystemName
+        ServiceName := ServiceName is String? StrPtr(ServiceName) : ServiceName
+
         result := DllCall("ADVAPI32.dll\PrivilegedServiceAuditAlarmW", "ptr", SubsystemName, "ptr", ServiceName, "ptr", ClientToken, "ptr", Privileges, "int", AccessGranted, "int")
         return result
     }
@@ -4156,6 +4187,8 @@ class Security {
      * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-setfilesecurityw
      */
     static SetFileSecurityW(lpFileName, SecurityInformation, pSecurityDescriptor) {
+        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+
         result := DllCall("ADVAPI32.dll\SetFileSecurityW", "ptr", lpFileName, "uint", SecurityInformation, "ptr", pSecurityDescriptor, "int")
         return result
     }
@@ -4609,6 +4642,8 @@ class Security {
      * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-derivecapabilitysidsfromname
      */
     static DeriveCapabilitySidsFromName(CapName, CapabilityGroupSids, CapabilityGroupSidCount, CapabilitySids, CapabilitySidCount) {
+        CapName := CapName is String? StrPtr(CapName) : CapName
+
         A_LastError := 0
 
         result := DllCall("api-ms-win-security-base-l1-2-2.dll\DeriveCapabilitySidsFromName", "ptr", CapName, "ptr", CapabilityGroupSids, "ptr", CapabilityGroupSidCount, "ptr", CapabilitySids, "ptr", CapabilitySidCount, "int")
@@ -4729,6 +4764,10 @@ class Security {
      * @since windows5.1.2600
      */
     static AccessCheckAndAuditAlarmA(SubsystemName, HandleId, ObjectTypeName, ObjectName, SecurityDescriptor, DesiredAccess, GenericMapping, ObjectCreation, GrantedAccess, AccessStatus, pfGenerateOnClose) {
+        SubsystemName := SubsystemName is String? StrPtr(SubsystemName) : SubsystemName
+        ObjectTypeName := ObjectTypeName is String? StrPtr(ObjectTypeName) : ObjectTypeName
+        ObjectName := ObjectName is String? StrPtr(ObjectName) : ObjectName
+
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\AccessCheckAndAuditAlarmA", "ptr", SubsystemName, "ptr", HandleId, "ptr", ObjectTypeName, "ptr", ObjectName, "ptr", SecurityDescriptor, "uint", DesiredAccess, "ptr", GenericMapping, "int", ObjectCreation, "ptr", GrantedAccess, "ptr", AccessStatus, "ptr", pfGenerateOnClose, "int")
@@ -4806,6 +4845,10 @@ class Security {
      * @since windows5.1.2600
      */
     static AccessCheckByTypeAndAuditAlarmA(SubsystemName, HandleId, ObjectTypeName, ObjectName, SecurityDescriptor, PrincipalSelfSid, DesiredAccess, AuditType, Flags, ObjectTypeList, ObjectTypeListLength, GenericMapping, ObjectCreation, GrantedAccess, AccessStatus, pfGenerateOnClose) {
+        SubsystemName := SubsystemName is String? StrPtr(SubsystemName) : SubsystemName
+        ObjectTypeName := ObjectTypeName is String? StrPtr(ObjectTypeName) : ObjectTypeName
+        ObjectName := ObjectName is String? StrPtr(ObjectName) : ObjectName
+
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\AccessCheckByTypeAndAuditAlarmA", "ptr", SubsystemName, "ptr", HandleId, "ptr", ObjectTypeName, "ptr", ObjectName, "ptr", SecurityDescriptor, "ptr", PrincipalSelfSid, "uint", DesiredAccess, "int", AuditType, "uint", Flags, "ptr", ObjectTypeList, "uint", ObjectTypeListLength, "ptr", GenericMapping, "int", ObjectCreation, "ptr", GrantedAccess, "ptr", AccessStatus, "ptr", pfGenerateOnClose, "int")
@@ -4873,6 +4916,10 @@ class Security {
      * @since windows5.1.2600
      */
     static AccessCheckByTypeResultListAndAuditAlarmA(SubsystemName, HandleId, ObjectTypeName, ObjectName, SecurityDescriptor, PrincipalSelfSid, DesiredAccess, AuditType, Flags, ObjectTypeList, ObjectTypeListLength, GenericMapping, ObjectCreation, GrantedAccess, AccessStatusList, pfGenerateOnClose) {
+        SubsystemName := SubsystemName is String? StrPtr(SubsystemName) : SubsystemName
+        ObjectTypeName := ObjectTypeName is String? StrPtr(ObjectTypeName) : ObjectTypeName
+        ObjectName := ObjectName is String? StrPtr(ObjectName) : ObjectName
+
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\AccessCheckByTypeResultListAndAuditAlarmA", "ptr", SubsystemName, "ptr", HandleId, "ptr", ObjectTypeName, "ptr", ObjectName, "ptr", SecurityDescriptor, "ptr", PrincipalSelfSid, "uint", DesiredAccess, "int", AuditType, "uint", Flags, "ptr", ObjectTypeList, "uint", ObjectTypeListLength, "ptr", GenericMapping, "int", ObjectCreation, "ptr", GrantedAccess, "ptr", AccessStatusList, "ptr", pfGenerateOnClose, "int")
@@ -4942,6 +4989,10 @@ class Security {
      * @since windows5.1.2600
      */
     static AccessCheckByTypeResultListAndAuditAlarmByHandleA(SubsystemName, HandleId, ClientToken, ObjectTypeName, ObjectName, SecurityDescriptor, PrincipalSelfSid, DesiredAccess, AuditType, Flags, ObjectTypeList, ObjectTypeListLength, GenericMapping, ObjectCreation, GrantedAccess, AccessStatusList, pfGenerateOnClose) {
+        SubsystemName := SubsystemName is String? StrPtr(SubsystemName) : SubsystemName
+        ObjectTypeName := ObjectTypeName is String? StrPtr(ObjectTypeName) : ObjectTypeName
+        ObjectName := ObjectName is String? StrPtr(ObjectName) : ObjectName
+
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\AccessCheckByTypeResultListAndAuditAlarmByHandleA", "ptr", SubsystemName, "ptr", HandleId, "ptr", ClientToken, "ptr", ObjectTypeName, "ptr", ObjectName, "ptr", SecurityDescriptor, "ptr", PrincipalSelfSid, "uint", DesiredAccess, "int", AuditType, "uint", Flags, "ptr", ObjectTypeList, "uint", ObjectTypeListLength, "ptr", GenericMapping, "int", ObjectCreation, "ptr", GrantedAccess, "ptr", AccessStatusList, "ptr", pfGenerateOnClose, "int")
@@ -4983,6 +5034,10 @@ class Security {
      * @since windows5.1.2600
      */
     static ObjectOpenAuditAlarmA(SubsystemName, HandleId, ObjectTypeName, ObjectName, pSecurityDescriptor, ClientToken, DesiredAccess, GrantedAccess, Privileges, ObjectCreation, AccessGranted, GenerateOnClose) {
+        SubsystemName := SubsystemName is String? StrPtr(SubsystemName) : SubsystemName
+        ObjectTypeName := ObjectTypeName is String? StrPtr(ObjectTypeName) : ObjectTypeName
+        ObjectName := ObjectName is String? StrPtr(ObjectName) : ObjectName
+
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\ObjectOpenAuditAlarmA", "ptr", SubsystemName, "ptr", HandleId, "ptr", ObjectTypeName, "ptr", ObjectName, "ptr", pSecurityDescriptor, "ptr", ClientToken, "uint", DesiredAccess, "uint", GrantedAccess, "ptr", Privileges, "int", ObjectCreation, "int", AccessGranted, "ptr", GenerateOnClose, "int")
@@ -5016,6 +5071,8 @@ class Security {
      * @since windows5.1.2600
      */
     static ObjectPrivilegeAuditAlarmA(SubsystemName, HandleId, ClientToken, DesiredAccess, Privileges, AccessGranted) {
+        SubsystemName := SubsystemName is String? StrPtr(SubsystemName) : SubsystemName
+
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\ObjectPrivilegeAuditAlarmA", "ptr", SubsystemName, "ptr", HandleId, "ptr", ClientToken, "uint", DesiredAccess, "ptr", Privileges, "int", AccessGranted, "int")
@@ -5041,6 +5098,8 @@ class Security {
      * @since windows5.1.2600
      */
     static ObjectCloseAuditAlarmA(SubsystemName, HandleId, GenerateOnClose) {
+        SubsystemName := SubsystemName is String? StrPtr(SubsystemName) : SubsystemName
+
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\ObjectCloseAuditAlarmA", "ptr", SubsystemName, "ptr", HandleId, "int", GenerateOnClose, "int")
@@ -5069,6 +5128,8 @@ class Security {
      * @since windows5.1.2600
      */
     static ObjectDeleteAuditAlarmA(SubsystemName, HandleId, GenerateOnClose) {
+        SubsystemName := SubsystemName is String? StrPtr(SubsystemName) : SubsystemName
+
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\ObjectDeleteAuditAlarmA", "ptr", SubsystemName, "ptr", HandleId, "int", GenerateOnClose, "int")
@@ -5099,6 +5160,9 @@ class Security {
      * @since windows5.1.2600
      */
     static PrivilegedServiceAuditAlarmA(SubsystemName, ServiceName, ClientToken, Privileges, AccessGranted) {
+        SubsystemName := SubsystemName is String? StrPtr(SubsystemName) : SubsystemName
+        ServiceName := ServiceName is String? StrPtr(ServiceName) : ServiceName
+
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\PrivilegedServiceAuditAlarmA", "ptr", SubsystemName, "ptr", ServiceName, "ptr", ClientToken, "ptr", Privileges, "int", AccessGranted, "int")
@@ -5149,6 +5213,8 @@ class Security {
      * @since windows6.1
      */
     static AddConditionalAce(pAcl, dwAceRevision, AceFlags, AceType, AccessMask, pSid, ConditionStr, ReturnLength) {
+        ConditionStr := ConditionStr is String? StrPtr(ConditionStr) : ConditionStr
+
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\AddConditionalAce", "ptr", pAcl, "uint", dwAceRevision, "uint", AceFlags, "char", AceType, "uint", AccessMask, "ptr", pSid, "ptr", ConditionStr, "ptr", ReturnLength, "int")
@@ -5181,6 +5247,8 @@ class Security {
      * @since windows5.1.2600
      */
     static SetFileSecurityA(lpFileName, SecurityInformation, pSecurityDescriptor) {
+        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\SetFileSecurityA", "ptr", lpFileName, "uint", SecurityInformation, "ptr", pSecurityDescriptor, "int")
@@ -5211,6 +5279,8 @@ class Security {
      * @since windows5.1.2600
      */
     static GetFileSecurityA(lpFileName, RequestedInformation, pSecurityDescriptor, nLength, lpnLengthNeeded) {
+        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\GetFileSecurityA", "ptr", lpFileName, "uint", RequestedInformation, "ptr", pSecurityDescriptor, "uint", nLength, "ptr", lpnLengthNeeded, "int")
@@ -5252,6 +5322,10 @@ class Security {
      * @since windows5.1.2600
      */
     static LookupAccountSidA(lpSystemName, Sid, Name, cchName, ReferencedDomainName, cchReferencedDomainName, peUse) {
+        lpSystemName := lpSystemName is String? StrPtr(lpSystemName) : lpSystemName
+        Name := Name is String? StrPtr(Name) : Name
+        ReferencedDomainName := ReferencedDomainName is String? StrPtr(ReferencedDomainName) : ReferencedDomainName
+
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\LookupAccountSidA", "ptr", lpSystemName, "ptr", Sid, "ptr", Name, "ptr", cchName, "ptr", ReferencedDomainName, "ptr", cchReferencedDomainName, "ptr", peUse, "int")
@@ -5293,6 +5367,10 @@ class Security {
      * @since windows5.1.2600
      */
     static LookupAccountSidW(lpSystemName, Sid, Name, cchName, ReferencedDomainName, cchReferencedDomainName, peUse) {
+        lpSystemName := lpSystemName is String? StrPtr(lpSystemName) : lpSystemName
+        Name := Name is String? StrPtr(Name) : Name
+        ReferencedDomainName := ReferencedDomainName is String? StrPtr(ReferencedDomainName) : ReferencedDomainName
+
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\LookupAccountSidW", "ptr", lpSystemName, "ptr", Sid, "ptr", Name, "ptr", cchName, "ptr", ReferencedDomainName, "ptr", cchReferencedDomainName, "ptr", peUse, "int")
@@ -5336,6 +5414,10 @@ class Security {
      * @since windows5.1.2600
      */
     static LookupAccountNameA(lpSystemName, lpAccountName, Sid, cbSid, ReferencedDomainName, cchReferencedDomainName, peUse) {
+        lpSystemName := lpSystemName is String? StrPtr(lpSystemName) : lpSystemName
+        lpAccountName := lpAccountName is String? StrPtr(lpAccountName) : lpAccountName
+        ReferencedDomainName := ReferencedDomainName is String? StrPtr(ReferencedDomainName) : ReferencedDomainName
+
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\LookupAccountNameA", "ptr", lpSystemName, "ptr", lpAccountName, "ptr", Sid, "ptr", cbSid, "ptr", ReferencedDomainName, "ptr", cchReferencedDomainName, "ptr", peUse, "int")
@@ -5379,6 +5461,10 @@ class Security {
      * @since windows5.1.2600
      */
     static LookupAccountNameW(lpSystemName, lpAccountName, Sid, cbSid, ReferencedDomainName, cchReferencedDomainName, peUse) {
+        lpSystemName := lpSystemName is String? StrPtr(lpSystemName) : lpSystemName
+        lpAccountName := lpAccountName is String? StrPtr(lpAccountName) : lpAccountName
+        ReferencedDomainName := ReferencedDomainName is String? StrPtr(ReferencedDomainName) : ReferencedDomainName
+
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\LookupAccountNameW", "ptr", lpSystemName, "ptr", lpAccountName, "ptr", Sid, "ptr", cbSid, "ptr", ReferencedDomainName, "ptr", cchReferencedDomainName, "ptr", peUse, "int")
@@ -5404,6 +5490,9 @@ class Security {
      * @since windows5.1.2600
      */
     static LookupPrivilegeValueA(lpSystemName, lpName, lpLuid) {
+        lpSystemName := lpSystemName is String? StrPtr(lpSystemName) : lpSystemName
+        lpName := lpName is String? StrPtr(lpName) : lpName
+
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\LookupPrivilegeValueA", "ptr", lpSystemName, "ptr", lpName, "ptr", lpLuid, "int")
@@ -5429,6 +5518,9 @@ class Security {
      * @since windows5.1.2600
      */
     static LookupPrivilegeValueW(lpSystemName, lpName, lpLuid) {
+        lpSystemName := lpSystemName is String? StrPtr(lpSystemName) : lpSystemName
+        lpName := lpName is String? StrPtr(lpName) : lpName
+
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\LookupPrivilegeValueW", "ptr", lpSystemName, "ptr", lpName, "ptr", lpLuid, "int")
@@ -5462,6 +5554,9 @@ class Security {
      * @since windows5.1.2600
      */
     static LookupPrivilegeNameA(lpSystemName, lpLuid, lpName, cchName) {
+        lpSystemName := lpSystemName is String? StrPtr(lpSystemName) : lpSystemName
+        lpName := lpName is String? StrPtr(lpName) : lpName
+
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\LookupPrivilegeNameA", "ptr", lpSystemName, "ptr", lpLuid, "ptr", lpName, "ptr", cchName, "int")
@@ -5495,6 +5590,9 @@ class Security {
      * @since windows5.1.2600
      */
     static LookupPrivilegeNameW(lpSystemName, lpLuid, lpName, cchName) {
+        lpSystemName := lpSystemName is String? StrPtr(lpSystemName) : lpSystemName
+        lpName := lpName is String? StrPtr(lpName) : lpName
+
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\LookupPrivilegeNameW", "ptr", lpSystemName, "ptr", lpLuid, "ptr", lpName, "ptr", cchName, "int")
@@ -5529,6 +5627,10 @@ class Security {
      * @since windows5.1.2600
      */
     static LookupPrivilegeDisplayNameA(lpSystemName, lpName, lpDisplayName, cchDisplayName, lpLanguageId) {
+        lpSystemName := lpSystemName is String? StrPtr(lpSystemName) : lpSystemName
+        lpName := lpName is String? StrPtr(lpName) : lpName
+        lpDisplayName := lpDisplayName is String? StrPtr(lpDisplayName) : lpDisplayName
+
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\LookupPrivilegeDisplayNameA", "ptr", lpSystemName, "ptr", lpName, "ptr", lpDisplayName, "ptr", cchDisplayName, "ptr", lpLanguageId, "int")
@@ -5563,6 +5665,10 @@ class Security {
      * @since windows5.1.2600
      */
     static LookupPrivilegeDisplayNameW(lpSystemName, lpName, lpDisplayName, cchDisplayName, lpLanguageId) {
+        lpSystemName := lpSystemName is String? StrPtr(lpSystemName) : lpSystemName
+        lpName := lpName is String? StrPtr(lpName) : lpName
+        lpDisplayName := lpDisplayName is String? StrPtr(lpDisplayName) : lpDisplayName
+
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\LookupPrivilegeDisplayNameW", "ptr", lpSystemName, "ptr", lpName, "ptr", lpDisplayName, "ptr", cchDisplayName, "ptr", lpLanguageId, "int")
@@ -5617,6 +5723,10 @@ class Security {
      * @since windows5.1.2600
      */
     static LogonUserA(lpszUsername, lpszDomain, lpszPassword, dwLogonType, dwLogonProvider, phToken) {
+        lpszUsername := lpszUsername is String? StrPtr(lpszUsername) : lpszUsername
+        lpszDomain := lpszDomain is String? StrPtr(lpszDomain) : lpszDomain
+        lpszPassword := lpszPassword is String? StrPtr(lpszPassword) : lpszPassword
+
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\LogonUserA", "ptr", lpszUsername, "ptr", lpszDomain, "ptr", lpszPassword, "uint", dwLogonType, "uint", dwLogonProvider, "ptr", phToken, "int")
@@ -5671,6 +5781,10 @@ class Security {
      * @since windows5.1.2600
      */
     static LogonUserW(lpszUsername, lpszDomain, lpszPassword, dwLogonType, dwLogonProvider, phToken) {
+        lpszUsername := lpszUsername is String? StrPtr(lpszUsername) : lpszUsername
+        lpszDomain := lpszDomain is String? StrPtr(lpszDomain) : lpszDomain
+        lpszPassword := lpszPassword is String? StrPtr(lpszPassword) : lpszPassword
+
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\LogonUserW", "ptr", lpszUsername, "ptr", lpszDomain, "ptr", lpszPassword, "uint", dwLogonType, "uint", dwLogonProvider, "ptr", phToken, "int")
@@ -5738,6 +5852,10 @@ class Security {
      * @since windows5.1.2600
      */
     static LogonUserExA(lpszUsername, lpszDomain, lpszPassword, dwLogonType, dwLogonProvider, phToken, ppLogonSid, ppProfileBuffer, pdwProfileLength, pQuotaLimits) {
+        lpszUsername := lpszUsername is String? StrPtr(lpszUsername) : lpszUsername
+        lpszDomain := lpszDomain is String? StrPtr(lpszDomain) : lpszDomain
+        lpszPassword := lpszPassword is String? StrPtr(lpszPassword) : lpszPassword
+
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\LogonUserExA", "ptr", lpszUsername, "ptr", lpszDomain, "ptr", lpszPassword, "uint", dwLogonType, "uint", dwLogonProvider, "ptr", phToken, "ptr", ppLogonSid, "ptr", ppProfileBuffer, "ptr", pdwProfileLength, "ptr", pQuotaLimits, "int")
@@ -5805,6 +5923,10 @@ class Security {
      * @since windows5.1.2600
      */
     static LogonUserExW(lpszUsername, lpszDomain, lpszPassword, dwLogonType, dwLogonProvider, phToken, ppLogonSid, ppProfileBuffer, pdwProfileLength, pQuotaLimits) {
+        lpszUsername := lpszUsername is String? StrPtr(lpszUsername) : lpszUsername
+        lpszDomain := lpszDomain is String? StrPtr(lpszDomain) : lpszDomain
+        lpszPassword := lpszPassword is String? StrPtr(lpszPassword) : lpszPassword
+
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\LogonUserExW", "ptr", lpszUsername, "ptr", lpszDomain, "ptr", lpszPassword, "uint", dwLogonType, "uint", dwLogonProvider, "ptr", phToken, "ptr", ppLogonSid, "ptr", ppProfileBuffer, "ptr", pdwProfileLength, "ptr", pQuotaLimits, "int")

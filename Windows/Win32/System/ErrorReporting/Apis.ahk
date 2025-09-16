@@ -257,6 +257,8 @@ class ErrorReporting {
      * @since windows6.0.6000
      */
     static WerReportCreate(pwzEventType, repType, pReportInformation, phReportHandle) {
+        pwzEventType := pwzEventType is String? StrPtr(pwzEventType) : pwzEventType
+
         result := DllCall("wer.dll\WerReportCreate", "ptr", pwzEventType, "int", repType, "ptr", pReportInformation, "ptr", phReportHandle, "int")
         return result
     }
@@ -303,6 +305,9 @@ class ErrorReporting {
      * @since windows6.0.6000
      */
     static WerReportSetParameter(hReportHandle, dwparamID, pwzName, pwzValue) {
+        pwzName := pwzName is String? StrPtr(pwzName) : pwzName
+        pwzValue := pwzValue is String? StrPtr(pwzValue) : pwzValue
+
         result := DllCall("wer.dll\WerReportSetParameter", "ptr", hReportHandle, "uint", dwparamID, "ptr", pwzName, "ptr", pwzValue, "int")
         return result
     }
@@ -349,6 +354,8 @@ class ErrorReporting {
      * @since windows6.0.6000
      */
     static WerReportAddFile(hReportHandle, pwzPath, repFileType, dwFileFlags) {
+        pwzPath := pwzPath is String? StrPtr(pwzPath) : pwzPath
+
         result := DllCall("wer.dll\WerReportAddFile", "ptr", hReportHandle, "ptr", pwzPath, "int", repFileType, "uint", dwFileFlags, "int")
         return result
     }
@@ -363,6 +370,8 @@ class ErrorReporting {
      * @since windows6.0.6000
      */
     static WerReportSetUIOption(hReportHandle, repUITypeID, pwzValue) {
+        pwzValue := pwzValue is String? StrPtr(pwzValue) : pwzValue
+
         result := DllCall("wer.dll\WerReportSetUIOption", "ptr", hReportHandle, "int", repUITypeID, "ptr", pwzValue, "int")
         return result
     }
@@ -494,6 +503,8 @@ class ErrorReporting {
      * @since windows6.0.6000
      */
     static WerRegisterFile(pwzFile, regFileType, dwFlags) {
+        pwzFile := pwzFile is String? StrPtr(pwzFile) : pwzFile
+
         result := DllCall("KERNEL32.dll\WerRegisterFile", "ptr", pwzFile, "int", regFileType, "uint", dwFlags, "int")
         return result
     }
@@ -535,6 +546,8 @@ class ErrorReporting {
      * @since windows6.0.6000
      */
     static WerUnregisterFile(pwzFilePath) {
+        pwzFilePath := pwzFilePath is String? StrPtr(pwzFilePath) : pwzFilePath
+
         result := DllCall("KERNEL32.dll\WerUnregisterFile", "ptr", pwzFilePath, "int")
         return result
     }
@@ -789,6 +802,9 @@ class ErrorReporting {
      * @since windows10.0.15063
      */
     static WerRegisterCustomMetadata(key, value) {
+        key := key is String? StrPtr(key) : key
+        value := value is String? StrPtr(value) : value
+
         result := DllCall("KERNEL32.dll\WerRegisterCustomMetadata", "ptr", key, "ptr", value, "int")
         return result
     }
@@ -830,6 +846,8 @@ class ErrorReporting {
      * @since windows10.0.15063
      */
     static WerUnregisterCustomMetadata(key) {
+        key := key is String? StrPtr(key) : key
+
         result := DllCall("KERNEL32.dll\WerUnregisterCustomMetadata", "ptr", key, "int")
         return result
     }
@@ -982,6 +1000,8 @@ class ErrorReporting {
      * @since windows10.0.16299
      */
     static WerRegisterAppLocalDump(localAppDataRelativePath) {
+        localAppDataRelativePath := localAppDataRelativePath is String? StrPtr(localAppDataRelativePath) : localAppDataRelativePath
+
         result := DllCall("KERNEL32.dll\WerRegisterAppLocalDump", "ptr", localAppDataRelativePath, "int")
         return result
     }
@@ -1054,6 +1074,8 @@ class ErrorReporting {
      * @since windows6.0.6000
      */
     static WerAddExcludedApplication(pwzExeName, bAllUsers) {
+        pwzExeName := pwzExeName is String? StrPtr(pwzExeName) : pwzExeName
+
         result := DllCall("wer.dll\WerAddExcludedApplication", "ptr", pwzExeName, "int", bAllUsers, "int")
         return result
     }
@@ -1092,6 +1114,8 @@ class ErrorReporting {
      * @since windows6.0.6000
      */
     static WerRemoveExcludedApplication(pwzExeName, bAllUsers) {
+        pwzExeName := pwzExeName is String? StrPtr(pwzExeName) : pwzExeName
+
         result := DllCall("wer.dll\WerRemoveExcludedApplication", "ptr", pwzExeName, "int", bAllUsers, "int")
         return result
     }
@@ -1159,6 +1183,8 @@ class ErrorReporting {
      * @since windows6.1
      */
     static WerRegisterRuntimeExceptionModule(pwszOutOfProcessCallbackDll, pContext) {
+        pwszOutOfProcessCallbackDll := pwszOutOfProcessCallbackDll is String? StrPtr(pwszOutOfProcessCallbackDll) : pwszOutOfProcessCallbackDll
+
         result := DllCall("KERNEL32.dll\WerRegisterRuntimeExceptionModule", "ptr", pwszOutOfProcessCallbackDll, "ptr", pContext, "int")
         return result
     }
@@ -1203,6 +1229,8 @@ class ErrorReporting {
      * @since windows6.1
      */
     static WerUnregisterRuntimeExceptionModule(pwszOutOfProcessCallbackDll, pContext) {
+        pwszOutOfProcessCallbackDll := pwszOutOfProcessCallbackDll is String? StrPtr(pwszOutOfProcessCallbackDll) : pwszOutOfProcessCallbackDll
+
         result := DllCall("KERNEL32.dll\WerUnregisterRuntimeExceptionModule", "ptr", pwszOutOfProcessCallbackDll, "ptr", pContext, "int")
         return result
     }
@@ -1291,6 +1319,8 @@ class ErrorReporting {
      * @since windows10.0.15063
      */
     static WerStoreGetFirstReportKey(hReportStore, ppszReportKey) {
+        ppszReportKey := ppszReportKey is String? StrPtr(ppszReportKey) : ppszReportKey
+
         result := DllCall("wer.dll\WerStoreGetFirstReportKey", "ptr", hReportStore, "ptr", ppszReportKey, "int")
         return result
     }
@@ -1333,6 +1363,8 @@ class ErrorReporting {
      * @since windows10.0.15063
      */
     static WerStoreGetNextReportKey(hReportStore, ppszReportKey) {
+        ppszReportKey := ppszReportKey is String? StrPtr(ppszReportKey) : ppszReportKey
+
         result := DllCall("wer.dll\WerStoreGetNextReportKey", "ptr", hReportStore, "ptr", ppszReportKey, "int")
         return result
     }
@@ -1376,6 +1408,8 @@ class ErrorReporting {
      * @since windows10.0.15063
      */
     static WerStoreQueryReportMetadataV2(hReportStore, pszReportKey, pReportMetadata) {
+        pszReportKey := pszReportKey is String? StrPtr(pszReportKey) : pszReportKey
+
         result := DllCall("wer.dll\WerStoreQueryReportMetadataV2", "ptr", hReportStore, "ptr", pszReportKey, "ptr", pReportMetadata, "int")
         return result
     }
@@ -1388,6 +1422,8 @@ class ErrorReporting {
      * @returns {Integer} 
      */
     static WerStoreQueryReportMetadataV3(hReportStore, pszReportKey, pReportMetadata) {
+        pszReportKey := pszReportKey is String? StrPtr(pszReportKey) : pszReportKey
+
         result := DllCall("wer.dll\WerStoreQueryReportMetadataV3", "ptr", hReportStore, "ptr", pszReportKey, "ptr", pReportMetadata, "int")
         return result
     }
@@ -1400,6 +1436,8 @@ class ErrorReporting {
      * @since windows10.0.15063
      */
     static WerFreeString(pwszStr) {
+        pwszStr := pwszStr is String? StrPtr(pwszStr) : pwszStr
+
         DllCall("wer.dll\WerFreeString", "ptr", pwszStr)
     }
 
@@ -1442,6 +1480,8 @@ class ErrorReporting {
      * @returns {Integer} 
      */
     static WerStoreQueryReportMetadataV1(hReportStore, pszReportKey, pReportMetadata) {
+        pszReportKey := pszReportKey is String? StrPtr(pszReportKey) : pszReportKey
+
         result := DllCall("wer.dll\WerStoreQueryReportMetadataV1", "ptr", hReportStore, "ptr", pszReportKey, "ptr", pReportMetadata, "int")
         return result
     }
@@ -1455,6 +1495,8 @@ class ErrorReporting {
      * @returns {Integer} 
      */
     static WerStoreUploadReport(hReportStore, pszReportKey, dwFlags, pSubmitResult) {
+        pszReportKey := pszReportKey is String? StrPtr(pszReportKey) : pszReportKey
+
         result := DllCall("wer.dll\WerStoreUploadReport", "ptr", hReportStore, "ptr", pszReportKey, "uint", dwFlags, "ptr", pSubmitResult, "int")
         return result
     }
@@ -1494,6 +1536,8 @@ class ErrorReporting {
      * @since windows5.1.2600
      */
     static AddERExcludedApplicationA(szApplication) {
+        szApplication := szApplication is String? StrPtr(szApplication) : szApplication
+
         A_LastError := 0
 
         result := DllCall("faultrep.dll\AddERExcludedApplicationA", "ptr", szApplication, "int")
@@ -1518,6 +1562,8 @@ class ErrorReporting {
      * @since windows5.1.2600
      */
     static AddERExcludedApplicationW(wszApplication) {
+        wszApplication := wszApplication is String? StrPtr(wszApplication) : wszApplication
+
         A_LastError := 0
 
         result := DllCall("faultrep.dll\AddERExcludedApplicationW", "ptr", wszApplication, "int")
@@ -1551,6 +1597,8 @@ class ErrorReporting {
      * @since windows6.0.6000
      */
     static WerReportHang(hwndHungApp, pwzHungApplicationName) {
+        pwzHungApplicationName := pwzHungApplicationName is String? StrPtr(pwzHungApplicationName) : pwzHungApplicationName
+
         result := DllCall("faultrep.dll\WerReportHang", "ptr", hwndHungApp, "ptr", pwzHungApplicationName, "int")
         return result
     }

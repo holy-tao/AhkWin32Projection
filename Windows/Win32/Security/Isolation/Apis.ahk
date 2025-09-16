@@ -31,6 +31,8 @@ class Isolation {
      * @since windows8.0
      */
     static GetAppContainerNamedObjectPath(Token, AppContainerSid, ObjectPathLength, ObjectPath, ReturnLength) {
+        ObjectPath := ObjectPath is String? StrPtr(ObjectPath) : ObjectPath
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetAppContainerNamedObjectPath", "ptr", Token, "ptr", AppContainerSid, "uint", ObjectPathLength, "ptr", ObjectPath, "ptr", ReturnLength, "int")
@@ -166,6 +168,10 @@ class Isolation {
      * @since windows8.0
      */
     static CreateAppContainerProfile(pszAppContainerName, pszDisplayName, pszDescription, pCapabilities, dwCapabilityCount, ppSidAppContainerSid) {
+        pszAppContainerName := pszAppContainerName is String? StrPtr(pszAppContainerName) : pszAppContainerName
+        pszDisplayName := pszDisplayName is String? StrPtr(pszDisplayName) : pszDisplayName
+        pszDescription := pszDescription is String? StrPtr(pszDescription) : pszDescription
+
         result := DllCall("USERENV.dll\CreateAppContainerProfile", "ptr", pszAppContainerName, "ptr", pszDisplayName, "ptr", pszDescription, "ptr", pCapabilities, "uint", dwCapabilityCount, "ptr", ppSidAppContainerSid, "int")
         return result
     }
@@ -224,6 +230,8 @@ class Isolation {
      * @since windows8.0
      */
     static DeleteAppContainerProfile(pszAppContainerName) {
+        pszAppContainerName := pszAppContainerName is String? StrPtr(pszAppContainerName) : pszAppContainerName
+
         result := DllCall("USERENV.dll\DeleteAppContainerProfile", "ptr", pszAppContainerName, "int")
         return result
     }
@@ -320,6 +328,9 @@ class Isolation {
      * @since windows8.0
      */
     static GetAppContainerFolderPath(pszAppContainerSid, ppszPath) {
+        pszAppContainerSid := pszAppContainerSid is String? StrPtr(pszAppContainerSid) : pszAppContainerSid
+        ppszPath := ppszPath is String? StrPtr(ppszPath) : ppszPath
+
         result := DllCall("USERENV.dll\GetAppContainerFolderPath", "ptr", pszAppContainerSid, "ptr", ppszPath, "int")
         return result
     }
@@ -334,6 +345,8 @@ class Isolation {
      * @since windows10.0.10240
      */
     static DeriveRestrictedAppContainerSidFromAppContainerSidAndRestrictedName(psidAppContainerSid, pszRestrictedAppContainerName, ppsidRestrictedAppContainerSid) {
+        pszRestrictedAppContainerName := pszRestrictedAppContainerName is String? StrPtr(pszRestrictedAppContainerName) : pszRestrictedAppContainerName
+
         result := DllCall("USERENV.dll\DeriveRestrictedAppContainerSidFromAppContainerSidAndRestrictedName", "ptr", psidAppContainerSid, "ptr", pszRestrictedAppContainerName, "ptr", ppsidRestrictedAppContainerSid, "int")
         return result
     }
@@ -376,6 +389,8 @@ class Isolation {
      * @since windows8.0
      */
     static DeriveAppContainerSidFromAppContainerName(pszAppContainerName, ppsidAppContainerSid) {
+        pszAppContainerName := pszAppContainerName is String? StrPtr(pszAppContainerName) : pszAppContainerName
+
         result := DllCall("USERENV.dll\DeriveAppContainerSidFromAppContainerName", "ptr", pszAppContainerName, "ptr", ppsidAppContainerSid, "int")
         return result
     }

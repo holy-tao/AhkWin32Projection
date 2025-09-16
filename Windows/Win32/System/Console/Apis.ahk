@@ -664,6 +664,8 @@ class Console {
     static WriteConsoleA(hConsoleOutput, lpBuffer, nNumberOfCharsToWrite, lpNumberOfCharsWritten) {
         static lpReserved := 0 ;Reserved parameters must always be NULL
 
+        lpBuffer := lpBuffer is String? StrPtr(lpBuffer) : lpBuffer
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\WriteConsoleA", "ptr", hConsoleOutput, "ptr", lpBuffer, "uint", nNumberOfCharsToWrite, "ptr", lpNumberOfCharsWritten, "ptr", lpReserved, "int")
@@ -700,6 +702,8 @@ class Console {
      */
     static WriteConsoleW(hConsoleOutput, lpBuffer, nNumberOfCharsToWrite, lpNumberOfCharsWritten) {
         static lpReserved := 0 ;Reserved parameters must always be NULL
+
+        lpBuffer := lpBuffer is String? StrPtr(lpBuffer) : lpBuffer
 
         A_LastError := 0
 
@@ -1351,6 +1355,8 @@ class Console {
      * @see https://learn.microsoft.com/windows/console/writeconsoleoutputcharacter
      */
     static WriteConsoleOutputCharacterA(hConsoleOutput, lpCharacter, nLength, dwWriteCoord, lpNumberOfCharsWritten) {
+        lpCharacter := lpCharacter is String? StrPtr(lpCharacter) : lpCharacter
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\WriteConsoleOutputCharacterA", "ptr", hConsoleOutput, "ptr", lpCharacter, "uint", nLength, "ptr", dwWriteCoord, "ptr", lpNumberOfCharsWritten, "int")
@@ -1382,6 +1388,8 @@ class Console {
      * @see https://learn.microsoft.com/windows/console/writeconsoleoutputcharacter
      */
     static WriteConsoleOutputCharacterW(hConsoleOutput, lpCharacter, nLength, dwWriteCoord, lpNumberOfCharsWritten) {
+        lpCharacter := lpCharacter is String? StrPtr(lpCharacter) : lpCharacter
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\WriteConsoleOutputCharacterW", "ptr", hConsoleOutput, "ptr", lpCharacter, "uint", nLength, "ptr", dwWriteCoord, "ptr", lpNumberOfCharsWritten, "int")
@@ -1439,6 +1447,8 @@ class Console {
      * @see https://learn.microsoft.com/windows/console/readconsoleoutputcharacter
      */
     static ReadConsoleOutputCharacterA(hConsoleOutput, lpCharacter, nLength, dwReadCoord, lpNumberOfCharsRead) {
+        lpCharacter := lpCharacter is String? StrPtr(lpCharacter) : lpCharacter
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\ReadConsoleOutputCharacterA", "ptr", hConsoleOutput, "ptr", lpCharacter, "uint", nLength, "ptr", dwReadCoord, "ptr", lpNumberOfCharsRead, "int")
@@ -1467,6 +1477,8 @@ class Console {
      * @see https://learn.microsoft.com/windows/console/readconsoleoutputcharacter
      */
     static ReadConsoleOutputCharacterW(hConsoleOutput, lpCharacter, nLength, dwReadCoord, lpNumberOfCharsRead) {
+        lpCharacter := lpCharacter is String? StrPtr(lpCharacter) : lpCharacter
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\ReadConsoleOutputCharacterW", "ptr", hConsoleOutput, "ptr", lpCharacter, "uint", nLength, "ptr", dwReadCoord, "ptr", lpNumberOfCharsRead, "int")
@@ -1789,6 +1801,8 @@ class Console {
      * @see https://learn.microsoft.com/windows/console/getconsoletitle
      */
     static GetConsoleTitleA(lpConsoleTitle, nSize) {
+        lpConsoleTitle := lpConsoleTitle is String? StrPtr(lpConsoleTitle) : lpConsoleTitle
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetConsoleTitleA", "ptr", lpConsoleTitle, "uint", nSize, "uint")
@@ -1815,6 +1829,8 @@ class Console {
      * @see https://learn.microsoft.com/windows/console/getconsoletitle
      */
     static GetConsoleTitleW(lpConsoleTitle, nSize) {
+        lpConsoleTitle := lpConsoleTitle is String? StrPtr(lpConsoleTitle) : lpConsoleTitle
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetConsoleTitleW", "ptr", lpConsoleTitle, "uint", nSize, "uint")
@@ -1843,6 +1859,8 @@ class Console {
      * @see https://learn.microsoft.com/windows/console/getconsoleoriginaltitle
      */
     static GetConsoleOriginalTitleA(lpConsoleTitle, nSize) {
+        lpConsoleTitle := lpConsoleTitle is String? StrPtr(lpConsoleTitle) : lpConsoleTitle
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetConsoleOriginalTitleA", "ptr", lpConsoleTitle, "uint", nSize, "uint")
@@ -1871,6 +1889,8 @@ class Console {
      * @see https://learn.microsoft.com/windows/console/getconsoleoriginaltitle
      */
     static GetConsoleOriginalTitleW(lpConsoleTitle, nSize) {
+        lpConsoleTitle := lpConsoleTitle is String? StrPtr(lpConsoleTitle) : lpConsoleTitle
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetConsoleOriginalTitleW", "ptr", lpConsoleTitle, "uint", nSize, "uint")
@@ -1896,6 +1916,8 @@ class Console {
      * @see https://learn.microsoft.com/windows/console/setconsoletitle
      */
     static SetConsoleTitleA(lpConsoleTitle) {
+        lpConsoleTitle := lpConsoleTitle is String? StrPtr(lpConsoleTitle) : lpConsoleTitle
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SetConsoleTitleA", "ptr", lpConsoleTitle, "int")
@@ -1921,6 +1943,8 @@ class Console {
      * @see https://learn.microsoft.com/windows/console/setconsoletitle
      */
     static SetConsoleTitleW(lpConsoleTitle) {
+        lpConsoleTitle := lpConsoleTitle is String? StrPtr(lpConsoleTitle) : lpConsoleTitle
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SetConsoleTitleW", "ptr", lpConsoleTitle, "int")
@@ -2201,6 +2225,10 @@ class Console {
      * @see https://learn.microsoft.com/windows/console/addconsolealias
      */
     static AddConsoleAliasA(Source, Target, ExeName) {
+        Source := Source is String? StrPtr(Source) : Source
+        Target := Target is String? StrPtr(Target) : Target
+        ExeName := ExeName is String? StrPtr(ExeName) : ExeName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\AddConsoleAliasA", "ptr", Source, "ptr", Target, "ptr", ExeName, "int")
@@ -2225,6 +2253,10 @@ class Console {
      * @see https://learn.microsoft.com/windows/console/addconsolealias
      */
     static AddConsoleAliasW(Source, Target, ExeName) {
+        Source := Source is String? StrPtr(Source) : Source
+        Target := Target is String? StrPtr(Target) : Target
+        ExeName := ExeName is String? StrPtr(ExeName) : ExeName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\AddConsoleAliasW", "ptr", Source, "ptr", Target, "ptr", ExeName, "int")
@@ -2250,6 +2282,10 @@ class Console {
      * @see https://learn.microsoft.com/windows/console/getconsolealias
      */
     static GetConsoleAliasA(Source, TargetBuffer, TargetBufferLength, ExeName) {
+        Source := Source is String? StrPtr(Source) : Source
+        TargetBuffer := TargetBuffer is String? StrPtr(TargetBuffer) : TargetBuffer
+        ExeName := ExeName is String? StrPtr(ExeName) : ExeName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetConsoleAliasA", "ptr", Source, "ptr", TargetBuffer, "uint", TargetBufferLength, "ptr", ExeName, "uint")
@@ -2275,6 +2311,10 @@ class Console {
      * @see https://learn.microsoft.com/windows/console/getconsolealias
      */
     static GetConsoleAliasW(Source, TargetBuffer, TargetBufferLength, ExeName) {
+        Source := Source is String? StrPtr(Source) : Source
+        TargetBuffer := TargetBuffer is String? StrPtr(TargetBuffer) : TargetBuffer
+        ExeName := ExeName is String? StrPtr(ExeName) : ExeName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetConsoleAliasW", "ptr", Source, "ptr", TargetBuffer, "uint", TargetBufferLength, "ptr", ExeName, "uint")
@@ -2295,6 +2335,8 @@ class Console {
      * @see https://learn.microsoft.com/windows/console/getconsolealiaseslength
      */
     static GetConsoleAliasesLengthA(ExeName) {
+        ExeName := ExeName is String? StrPtr(ExeName) : ExeName
+
         result := DllCall("KERNEL32.dll\GetConsoleAliasesLengthA", "ptr", ExeName, "uint")
         return result
     }
@@ -2310,6 +2352,8 @@ class Console {
      * @see https://learn.microsoft.com/windows/console/getconsolealiaseslength
      */
     static GetConsoleAliasesLengthW(ExeName) {
+        ExeName := ExeName is String? StrPtr(ExeName) : ExeName
+
         result := DllCall("KERNEL32.dll\GetConsoleAliasesLengthW", "ptr", ExeName, "uint")
         return result
     }
@@ -2365,6 +2409,9 @@ class Console {
      * @see https://learn.microsoft.com/windows/console/getconsolealiases
      */
     static GetConsoleAliasesA(AliasBuffer, AliasBufferLength, ExeName) {
+        AliasBuffer := AliasBuffer is String? StrPtr(AliasBuffer) : AliasBuffer
+        ExeName := ExeName is String? StrPtr(ExeName) : ExeName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetConsoleAliasesA", "ptr", AliasBuffer, "uint", AliasBufferLength, "ptr", ExeName, "uint")
@@ -2391,6 +2438,9 @@ class Console {
      * @see https://learn.microsoft.com/windows/console/getconsolealiases
      */
     static GetConsoleAliasesW(AliasBuffer, AliasBufferLength, ExeName) {
+        AliasBuffer := AliasBuffer is String? StrPtr(AliasBuffer) : AliasBuffer
+        ExeName := ExeName is String? StrPtr(ExeName) : ExeName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetConsoleAliasesW", "ptr", AliasBuffer, "uint", AliasBufferLength, "ptr", ExeName, "uint")
@@ -2416,6 +2466,8 @@ class Console {
      * @see https://learn.microsoft.com/windows/console/getconsolealiasexes
      */
     static GetConsoleAliasExesA(ExeNameBuffer, ExeNameBufferLength) {
+        ExeNameBuffer := ExeNameBuffer is String? StrPtr(ExeNameBuffer) : ExeNameBuffer
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetConsoleAliasExesA", "ptr", ExeNameBuffer, "uint", ExeNameBufferLength, "uint")
@@ -2441,6 +2493,8 @@ class Console {
      * @see https://learn.microsoft.com/windows/console/getconsolealiasexes
      */
     static GetConsoleAliasExesW(ExeNameBuffer, ExeNameBufferLength) {
+        ExeNameBuffer := ExeNameBuffer is String? StrPtr(ExeNameBuffer) : ExeNameBuffer
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetConsoleAliasExesW", "ptr", ExeNameBuffer, "uint", ExeNameBufferLength, "uint")
@@ -2456,6 +2510,8 @@ class Console {
      * @returns {String} Nothing - always returns an empty string
      */
     static ExpungeConsoleCommandHistoryA(ExeName) {
+        ExeName := ExeName is String? StrPtr(ExeName) : ExeName
+
         DllCall("KERNEL32.dll\ExpungeConsoleCommandHistoryA", "ptr", ExeName)
     }
 
@@ -2465,6 +2521,8 @@ class Console {
      * @returns {String} Nothing - always returns an empty string
      */
     static ExpungeConsoleCommandHistoryW(ExeName) {
+        ExeName := ExeName is String? StrPtr(ExeName) : ExeName
+
         DllCall("KERNEL32.dll\ExpungeConsoleCommandHistoryW", "ptr", ExeName)
     }
 
@@ -2475,6 +2533,8 @@ class Console {
      * @returns {Integer} 
      */
     static SetConsoleNumberOfCommandsA(Number, ExeName) {
+        ExeName := ExeName is String? StrPtr(ExeName) : ExeName
+
         result := DllCall("KERNEL32.dll\SetConsoleNumberOfCommandsA", "uint", Number, "ptr", ExeName, "int")
         return result
     }
@@ -2486,6 +2546,8 @@ class Console {
      * @returns {Integer} 
      */
     static SetConsoleNumberOfCommandsW(Number, ExeName) {
+        ExeName := ExeName is String? StrPtr(ExeName) : ExeName
+
         result := DllCall("KERNEL32.dll\SetConsoleNumberOfCommandsW", "uint", Number, "ptr", ExeName, "int")
         return result
     }
@@ -2496,6 +2558,8 @@ class Console {
      * @returns {Integer} 
      */
     static GetConsoleCommandHistoryLengthA(ExeName) {
+        ExeName := ExeName is String? StrPtr(ExeName) : ExeName
+
         result := DllCall("KERNEL32.dll\GetConsoleCommandHistoryLengthA", "ptr", ExeName, "uint")
         return result
     }
@@ -2506,6 +2570,8 @@ class Console {
      * @returns {Integer} 
      */
     static GetConsoleCommandHistoryLengthW(ExeName) {
+        ExeName := ExeName is String? StrPtr(ExeName) : ExeName
+
         result := DllCall("KERNEL32.dll\GetConsoleCommandHistoryLengthW", "ptr", ExeName, "uint")
         return result
     }
@@ -2518,6 +2584,9 @@ class Console {
      * @returns {Integer} 
      */
     static GetConsoleCommandHistoryA(Commands, CommandBufferLength, ExeName) {
+        Commands := Commands is String? StrPtr(Commands) : Commands
+        ExeName := ExeName is String? StrPtr(ExeName) : ExeName
+
         result := DllCall("KERNEL32.dll\GetConsoleCommandHistoryA", "ptr", Commands, "uint", CommandBufferLength, "ptr", ExeName, "uint")
         return result
     }
@@ -2530,6 +2599,9 @@ class Console {
      * @returns {Integer} 
      */
     static GetConsoleCommandHistoryW(Commands, CommandBufferLength, ExeName) {
+        Commands := Commands is String? StrPtr(Commands) : Commands
+        ExeName := ExeName is String? StrPtr(ExeName) : ExeName
+
         result := DllCall("KERNEL32.dll\GetConsoleCommandHistoryW", "ptr", Commands, "uint", CommandBufferLength, "ptr", ExeName, "uint")
         return result
     }

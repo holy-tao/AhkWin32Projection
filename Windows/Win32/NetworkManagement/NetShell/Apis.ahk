@@ -183,6 +183,8 @@ class NetShell {
      * @since windows5.1.2600
      */
     static MatchEnumTag(hModule, pwcArg, dwNumArg, pEnumTable, pdwValue) {
+        pwcArg := pwcArg is String? StrPtr(pwcArg) : pwcArg
+
         result := DllCall("NETSH.dll\MatchEnumTag", "ptr", hModule, "ptr", pwcArg, "uint", dwNumArg, "ptr", pEnumTable, "ptr", pdwValue, "uint")
         return result
     }
@@ -204,6 +206,9 @@ class NetShell {
      * @since windows5.1.2600
      */
     static MatchToken(pwszUserToken, pwszCmdToken) {
+        pwszUserToken := pwszUserToken is String? StrPtr(pwszUserToken) : pwszUserToken
+        pwszCmdToken := pwszCmdToken is String? StrPtr(pwszCmdToken) : pwszCmdToken
+
         result := DllCall("NETSH.dll\MatchToken", "ptr", pwszUserToken, "ptr", pwszCmdToken, "int")
         return result
     }
@@ -305,6 +310,8 @@ class NetShell {
      * @since windows5.1.2600
      */
     static PreprocessCommand(hModule, ppwcArguments, dwCurrentIndex, dwArgCount, pttTags, dwTagCount, dwMinArgs, dwMaxArgs, pdwTagType) {
+        ppwcArguments := ppwcArguments is String? StrPtr(ppwcArguments) : ppwcArguments
+
         result := DllCall("NETSH.dll\PreprocessCommand", "ptr", hModule, "ptr", ppwcArguments, "uint", dwCurrentIndex, "uint", dwArgCount, "ptr", pttTags, "uint", dwTagCount, "uint", dwMinArgs, "uint", dwMaxArgs, "ptr", pdwTagType, "uint")
         return result
     }
@@ -348,6 +355,8 @@ class NetShell {
      * @since windows5.1.2600
      */
     static PrintMessage(pwszFormat) {
+        pwszFormat := pwszFormat is String? StrPtr(pwszFormat) : pwszFormat
+
         result := DllCall("NETSH.dll\PrintMessage", "ptr", pwszFormat, "CDecl uint")
         return result
     }

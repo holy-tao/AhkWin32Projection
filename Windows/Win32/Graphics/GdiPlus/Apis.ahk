@@ -2073,6 +2073,8 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipAddPathString(path, string, length, family, style, emSize, layoutRect, format) {
+        string := string is String? StrPtr(string) : string
+
         result := DllCall("gdiplus.dll\GdipAddPathString", "ptr", path, "ptr", string, "int", length, "ptr", family, "int", style, "float", emSize, "ptr", layoutRect, "ptr", format, "int")
         return result
     }
@@ -2090,6 +2092,8 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipAddPathStringI(path, string, length, family, style, emSize, layoutRect, format) {
+        string := string is String? StrPtr(string) : string
+
         result := DllCall("gdiplus.dll\GdipAddPathStringI", "ptr", path, "ptr", string, "int", length, "ptr", family, "int", style, "float", emSize, "ptr", layoutRect, "ptr", format, "int")
         return result
     }
@@ -5170,6 +5174,8 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipLoadImageFromFile(filename, image) {
+        filename := filename is String? StrPtr(filename) : filename
+
         result := DllCall("gdiplus.dll\GdipLoadImageFromFile", "ptr", filename, "ptr", image, "int")
         return result
     }
@@ -5192,6 +5198,8 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipLoadImageFromFileICM(filename, image) {
+        filename := filename is String? StrPtr(filename) : filename
+
         result := DllCall("gdiplus.dll\GdipLoadImageFromFileICM", "ptr", filename, "ptr", image, "int")
         return result
     }
@@ -5226,6 +5234,8 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipSaveImageToFile(image, filename, clsidEncoder, encoderParams) {
+        filename := filename is String? StrPtr(filename) : filename
+
         result := DllCall("gdiplus.dll\GdipSaveImageToFile", "ptr", image, "ptr", filename, "ptr", clsidEncoder, "ptr", encoderParams, "int")
         return result
     }
@@ -5677,6 +5687,8 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipCreateBitmapFromFile(filename, bitmap) {
+        filename := filename is String? StrPtr(filename) : filename
+
         result := DllCall("gdiplus.dll\GdipCreateBitmapFromFile", "ptr", filename, "ptr", bitmap, "int")
         return result
     }
@@ -5699,6 +5711,8 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipCreateBitmapFromFileICM(filename, bitmap) {
+        filename := filename is String? StrPtr(filename) : filename
+
         result := DllCall("gdiplus.dll\GdipCreateBitmapFromFileICM", "ptr", filename, "ptr", bitmap, "int")
         return result
     }
@@ -5808,6 +5822,8 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipCreateBitmapFromResource(hInstance, lpBitmapName, bitmap) {
+        lpBitmapName := lpBitmapName is String? StrPtr(lpBitmapName) : lpBitmapName
+
         result := DllCall("gdiplus.dll\GdipCreateBitmapFromResource", "ptr", hInstance, "ptr", lpBitmapName, "ptr", bitmap, "int")
         return result
     }
@@ -6160,6 +6176,8 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipSetImageAttributesOutputChannelColorProfile(imageattr, type, enableFlag, colorProfileFilename) {
+        colorProfileFilename := colorProfileFilename is String? StrPtr(colorProfileFilename) : colorProfileFilename
+
         result := DllCall("gdiplus.dll\GdipSetImageAttributesOutputChannelColorProfile", "ptr", imageattr, "int", type, "int", enableFlag, "ptr", colorProfileFilename, "int")
         return result
     }
@@ -8171,6 +8189,8 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipGetMetafileHeaderFromFile(filename, header) {
+        filename := filename is String? StrPtr(filename) : filename
+
         result := DllCall("gdiplus.dll\GdipGetMetafileHeaderFromFile", "ptr", filename, "ptr", header, "int")
         return result
     }
@@ -8216,6 +8236,8 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipCreateStreamOnFile(filename, access, stream) {
+        filename := filename is String? StrPtr(filename) : filename
+
         result := DllCall("gdiplus.dll\GdipCreateStreamOnFile", "ptr", filename, "uint", access, "ptr", stream, "int")
         return result
     }
@@ -8252,6 +8274,8 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipCreateMetafileFromFile(file, metafile) {
+        file := file is String? StrPtr(file) : file
+
         result := DllCall("gdiplus.dll\GdipCreateMetafileFromFile", "ptr", file, "ptr", metafile, "int")
         return result
     }
@@ -8264,6 +8288,8 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipCreateMetafileFromWmfFile(file, wmfPlaceableFileHeader, metafile) {
+        file := file is String? StrPtr(file) : file
+
         result := DllCall("gdiplus.dll\GdipCreateMetafileFromWmfFile", "ptr", file, "ptr", wmfPlaceableFileHeader, "ptr", metafile, "int")
         return result
     }
@@ -8290,6 +8316,8 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipRecordMetafile(referenceHdc, type, frameRect, frameUnit, description, metafile) {
+        description := description is String? StrPtr(description) : description
+
         result := DllCall("gdiplus.dll\GdipRecordMetafile", "ptr", referenceHdc, "int", type, "ptr", frameRect, "int", frameUnit, "ptr", description, "ptr", metafile, "int")
         return result
     }
@@ -8305,6 +8333,8 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipRecordMetafileI(referenceHdc, type, frameRect, frameUnit, description, metafile) {
+        description := description is String? StrPtr(description) : description
+
         result := DllCall("gdiplus.dll\GdipRecordMetafileI", "ptr", referenceHdc, "int", type, "ptr", frameRect, "int", frameUnit, "ptr", description, "ptr", metafile, "int")
         return result
     }
@@ -8321,6 +8351,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipRecordMetafileFileName(fileName, referenceHdc, type, frameRect, frameUnit, description, metafile) {
+        fileName := fileName is String? StrPtr(fileName) : fileName
+        description := description is String? StrPtr(description) : description
+
         result := DllCall("gdiplus.dll\GdipRecordMetafileFileName", "ptr", fileName, "ptr", referenceHdc, "int", type, "ptr", frameRect, "int", frameUnit, "ptr", description, "ptr", metafile, "int")
         return result
     }
@@ -8337,6 +8370,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipRecordMetafileFileNameI(fileName, referenceHdc, type, frameRect, frameUnit, description, metafile) {
+        fileName := fileName is String? StrPtr(fileName) : fileName
+        description := description is String? StrPtr(description) : description
+
         result := DllCall("gdiplus.dll\GdipRecordMetafileFileNameI", "ptr", fileName, "ptr", referenceHdc, "int", type, "ptr", frameRect, "int", frameUnit, "ptr", description, "ptr", metafile, "int")
         return result
     }
@@ -8353,6 +8389,8 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipRecordMetafileStream(stream, referenceHdc, type, frameRect, frameUnit, description, metafile) {
+        description := description is String? StrPtr(description) : description
+
         result := DllCall("gdiplus.dll\GdipRecordMetafileStream", "ptr", stream, "ptr", referenceHdc, "int", type, "ptr", frameRect, "int", frameUnit, "ptr", description, "ptr", metafile, "int")
         return result
     }
@@ -8369,6 +8407,8 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipRecordMetafileStreamI(stream, referenceHdc, type, frameRect, frameUnit, description, metafile) {
+        description := description is String? StrPtr(description) : description
+
         result := DllCall("gdiplus.dll\GdipRecordMetafileStreamI", "ptr", stream, "ptr", referenceHdc, "int", type, "ptr", frameRect, "int", frameUnit, "ptr", description, "ptr", metafile, "int")
         return result
     }
@@ -8461,6 +8501,8 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipCreateFontFamilyFromName(name, fontCollection, fontFamily) {
+        name := name is String? StrPtr(name) : name
+
         result := DllCall("gdiplus.dll\GdipCreateFontFamilyFromName", "ptr", name, "ptr", fontCollection, "ptr", fontFamily, "int")
         return result
     }
@@ -8524,6 +8566,8 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipGetFamilyName(family, name, language) {
+        name := name is String? StrPtr(name) : name
+
         result := DllCall("gdiplus.dll\GdipGetFamilyName", "ptr", family, "ptr", name, "ushort", language, "int")
         return result
     }
@@ -8811,6 +8855,8 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipPrivateAddFontFile(fontCollection, filename) {
+        filename := filename is String? StrPtr(filename) : filename
+
         result := DllCall("gdiplus.dll\GdipPrivateAddFontFile", "ptr", fontCollection, "ptr", filename, "int")
         return result
     }
@@ -8839,6 +8885,8 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipDrawString(graphics, string, length, font, layoutRect, stringFormat, brush) {
+        string := string is String? StrPtr(string) : string
+
         result := DllCall("gdiplus.dll\GdipDrawString", "ptr", graphics, "ptr", string, "int", length, "ptr", font, "ptr", layoutRect, "ptr", stringFormat, "ptr", brush, "int")
         return result
     }
@@ -8857,6 +8905,8 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipMeasureString(graphics, string, length, font, layoutRect, stringFormat, boundingBox, codepointsFitted, linesFilled) {
+        string := string is String? StrPtr(string) : string
+
         result := DllCall("gdiplus.dll\GdipMeasureString", "ptr", graphics, "ptr", string, "int", length, "ptr", font, "ptr", layoutRect, "ptr", stringFormat, "ptr", boundingBox, "ptr", codepointsFitted, "ptr", linesFilled, "int")
         return result
     }
@@ -8874,6 +8924,8 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipMeasureCharacterRanges(graphics, string, length, font, layoutRect, stringFormat, regionCount, regions) {
+        string := string is String? StrPtr(string) : string
+
         result := DllCall("gdiplus.dll\GdipMeasureCharacterRanges", "ptr", graphics, "ptr", string, "int", length, "ptr", font, "ptr", layoutRect, "ptr", stringFormat, "int", regionCount, "ptr", regions, "int")
         return result
     }
@@ -9259,6 +9311,8 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipConvertToEmfPlus(refGraphics, metafile, conversionFailureFlag, emfType, description, out_metafile) {
+        description := description is String? StrPtr(description) : description
+
         result := DllCall("gdiplus.dll\GdipConvertToEmfPlus", "ptr", refGraphics, "ptr", metafile, "ptr", conversionFailureFlag, "int", emfType, "ptr", description, "ptr", out_metafile, "int")
         return result
     }
@@ -9275,6 +9329,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipConvertToEmfPlusToFile(refGraphics, metafile, conversionFailureFlag, filename, emfType, description, out_metafile) {
+        filename := filename is String? StrPtr(filename) : filename
+        description := description is String? StrPtr(description) : description
+
         result := DllCall("gdiplus.dll\GdipConvertToEmfPlusToFile", "ptr", refGraphics, "ptr", metafile, "ptr", conversionFailureFlag, "ptr", filename, "int", emfType, "ptr", description, "ptr", out_metafile, "int")
         return result
     }
@@ -9291,6 +9348,8 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipConvertToEmfPlusToStream(refGraphics, metafile, conversionFailureFlag, stream, emfType, description, out_metafile) {
+        description := description is String? StrPtr(description) : description
+
         result := DllCall("gdiplus.dll\GdipConvertToEmfPlusToStream", "ptr", refGraphics, "ptr", metafile, "ptr", conversionFailureFlag, "ptr", stream, "int", emfType, "ptr", description, "ptr", out_metafile, "int")
         return result
     }

@@ -145,6 +145,8 @@ class CloudFilters {
      * @since windows10.0.16299
      */
     static CfRegisterSyncRoot(SyncRootPath, Registration, Policies, RegisterFlags) {
+        SyncRootPath := SyncRootPath is String? StrPtr(SyncRootPath) : SyncRootPath
+
         result := DllCall("cldapi.dll\CfRegisterSyncRoot", "ptr", SyncRootPath, "ptr", Registration, "ptr", Policies, "int", RegisterFlags, "int")
         return result
     }
@@ -176,6 +178,8 @@ class CloudFilters {
      * @since windows10.0.16299
      */
     static CfUnregisterSyncRoot(SyncRootPath) {
+        SyncRootPath := SyncRootPath is String? StrPtr(SyncRootPath) : SyncRootPath
+
         result := DllCall("cldapi.dll\CfUnregisterSyncRoot", "ptr", SyncRootPath, "int")
         return result
     }
@@ -204,6 +208,8 @@ class CloudFilters {
      * @since windows10.0.16299
      */
     static CfConnectSyncRoot(SyncRootPath, CallbackTable, CallbackContext, ConnectFlags, ConnectionKey) {
+        SyncRootPath := SyncRootPath is String? StrPtr(SyncRootPath) : SyncRootPath
+
         result := DllCall("cldapi.dll\CfConnectSyncRoot", "ptr", SyncRootPath, "ptr", CallbackTable, "ptr", CallbackContext, "int", ConnectFlags, "ptr", ConnectionKey, "int")
         return result
     }
@@ -330,6 +336,8 @@ class CloudFilters {
      * @since windows10.0.17134
      */
     static CfReportSyncStatus(SyncRootPath, SyncStatus) {
+        SyncRootPath := SyncRootPath is String? StrPtr(SyncRootPath) : SyncRootPath
+
         result := DllCall("cldapi.dll\CfReportSyncStatus", "ptr", SyncRootPath, "ptr", SyncStatus, "int")
         return result
     }
@@ -367,6 +375,8 @@ class CloudFilters {
      * @since windows10.0.16299
      */
     static CfCreatePlaceholders(BaseDirectoryPath, PlaceholderArray, PlaceholderCount, CreateFlags, EntriesProcessed) {
+        BaseDirectoryPath := BaseDirectoryPath is String? StrPtr(BaseDirectoryPath) : BaseDirectoryPath
+
         result := DllCall("cldapi.dll\CfCreatePlaceholders", "ptr", BaseDirectoryPath, "ptr", PlaceholderArray, "uint", PlaceholderCount, "int", CreateFlags, "ptr", EntriesProcessed, "int")
         return result
     }
@@ -385,6 +395,8 @@ class CloudFilters {
      * @since windows10.0.16299
      */
     static CfOpenFileWithOplock(FilePath, Flags, ProtectedHandle) {
+        FilePath := FilePath is String? StrPtr(FilePath) : FilePath
+
         result := DllCall("cldapi.dll\CfOpenFileWithOplock", "ptr", FilePath, "int", Flags, "ptr", ProtectedHandle, "int")
         return result
     }
@@ -773,6 +785,8 @@ class CloudFilters {
      * @since windows10.0.16299
      */
     static CfGetSyncRootInfoByPath(FilePath, InfoClass, InfoBuffer, InfoBufferLength, ReturnedLength) {
+        FilePath := FilePath is String? StrPtr(FilePath) : FilePath
+
         result := DllCall("cldapi.dll\CfGetSyncRootInfoByPath", "ptr", FilePath, "int", InfoClass, "ptr", InfoBuffer, "uint", InfoBufferLength, "ptr", ReturnedLength, "int")
         return result
     }

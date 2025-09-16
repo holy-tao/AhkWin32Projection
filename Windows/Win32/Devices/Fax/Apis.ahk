@@ -1410,6 +1410,8 @@ class Fax {
      * @since windows5.0
      */
     static FaxConnectFaxServerA(MachineName, FaxHandle) {
+        MachineName := MachineName is String? StrPtr(MachineName) : MachineName
+
         A_LastError := 0
 
         result := DllCall("WINFAX.dll\FaxConnectFaxServerA", "ptr", MachineName, "ptr", FaxHandle, "int")
@@ -1489,6 +1491,8 @@ class Fax {
      * @since windows5.0
      */
     static FaxConnectFaxServerW(MachineName, FaxHandle) {
+        MachineName := MachineName is String? StrPtr(MachineName) : MachineName
+
         A_LastError := 0
 
         result := DllCall("WINFAX.dll\FaxConnectFaxServerW", "ptr", MachineName, "ptr", FaxHandle, "int")
@@ -1705,6 +1709,8 @@ class Fax {
      * @since windows5.0
      */
     static FaxSendDocumentA(FaxHandle, FileName, JobParams, CoverpageInfo, FaxJobId) {
+        FileName := FileName is String? StrPtr(FileName) : FileName
+
         A_LastError := 0
 
         result := DllCall("WINFAX.dll\FaxSendDocumentA", "ptr", FaxHandle, "ptr", FileName, "ptr", JobParams, "ptr", CoverpageInfo, "ptr", FaxJobId, "int")
@@ -1834,6 +1840,8 @@ class Fax {
      * @since windows5.0
      */
     static FaxSendDocumentW(FaxHandle, FileName, JobParams, CoverpageInfo, FaxJobId) {
+        FileName := FileName is String? StrPtr(FileName) : FileName
+
         A_LastError := 0
 
         result := DllCall("WINFAX.dll\FaxSendDocumentW", "ptr", FaxHandle, "ptr", FileName, "ptr", JobParams, "ptr", CoverpageInfo, "ptr", FaxJobId, "int")
@@ -1949,6 +1957,8 @@ class Fax {
      * @since windows5.0
      */
     static FaxSendDocumentForBroadcastA(FaxHandle, FileName, FaxJobId, FaxRecipientCallback, Context) {
+        FileName := FileName is String? StrPtr(FileName) : FileName
+
         A_LastError := 0
 
         result := DllCall("WINFAX.dll\FaxSendDocumentForBroadcastA", "ptr", FaxHandle, "ptr", FileName, "ptr", FaxJobId, "ptr", FaxRecipientCallback, "ptr", Context, "int")
@@ -2064,6 +2074,8 @@ class Fax {
      * @since windows5.0
      */
     static FaxSendDocumentForBroadcastW(FaxHandle, FileName, FaxJobId, FaxRecipientCallback, Context) {
+        FileName := FileName is String? StrPtr(FileName) : FileName
+
         A_LastError := 0
 
         result := DllCall("WINFAX.dll\FaxSendDocumentForBroadcastW", "ptr", FaxHandle, "ptr", FileName, "ptr", FaxJobId, "ptr", FaxRecipientCallback, "ptr", Context, "int")
@@ -4114,6 +4126,8 @@ class Fax {
      * @since windows5.0
      */
     static FaxEnableRoutingMethodA(FaxPortHandle, RoutingGuid, Enabled) {
+        RoutingGuid := RoutingGuid is String? StrPtr(RoutingGuid) : RoutingGuid
+
         A_LastError := 0
 
         result := DllCall("WINFAX.dll\FaxEnableRoutingMethodA", "ptr", FaxPortHandle, "ptr", RoutingGuid, "int", Enabled, "int")
@@ -4198,6 +4212,8 @@ class Fax {
      * @since windows5.0
      */
     static FaxEnableRoutingMethodW(FaxPortHandle, RoutingGuid, Enabled) {
+        RoutingGuid := RoutingGuid is String? StrPtr(RoutingGuid) : RoutingGuid
+
         A_LastError := 0
 
         result := DllCall("WINFAX.dll\FaxEnableRoutingMethodW", "ptr", FaxPortHandle, "ptr", RoutingGuid, "int", Enabled, "int")
@@ -4620,6 +4636,8 @@ class Fax {
      * @since windows5.0
      */
     static FaxGetRoutingInfoA(FaxPortHandle, RoutingGuid, RoutingInfoBuffer, RoutingInfoBufferSize) {
+        RoutingGuid := RoutingGuid is String? StrPtr(RoutingGuid) : RoutingGuid
+
         A_LastError := 0
 
         result := DllCall("WINFAX.dll\FaxGetRoutingInfoA", "ptr", FaxPortHandle, "ptr", RoutingGuid, "ptr", RoutingInfoBuffer, "ptr", RoutingInfoBufferSize, "int")
@@ -4724,6 +4742,8 @@ class Fax {
      * @since windows5.0
      */
     static FaxGetRoutingInfoW(FaxPortHandle, RoutingGuid, RoutingInfoBuffer, RoutingInfoBufferSize) {
+        RoutingGuid := RoutingGuid is String? StrPtr(RoutingGuid) : RoutingGuid
+
         A_LastError := 0
 
         result := DllCall("WINFAX.dll\FaxGetRoutingInfoW", "ptr", FaxPortHandle, "ptr", RoutingGuid, "ptr", RoutingInfoBuffer, "ptr", RoutingInfoBufferSize, "int")
@@ -4815,6 +4835,8 @@ class Fax {
      * @since windows5.0
      */
     static FaxSetRoutingInfoA(FaxPortHandle, RoutingGuid, RoutingInfoBuffer, RoutingInfoBufferSize) {
+        RoutingGuid := RoutingGuid is String? StrPtr(RoutingGuid) : RoutingGuid
+
         A_LastError := 0
 
         result := DllCall("WINFAX.dll\FaxSetRoutingInfoA", "ptr", FaxPortHandle, "ptr", RoutingGuid, "ptr", RoutingInfoBuffer, "uint", RoutingInfoBufferSize, "int")
@@ -4906,6 +4928,8 @@ class Fax {
      * @since windows5.0
      */
     static FaxSetRoutingInfoW(FaxPortHandle, RoutingGuid, RoutingInfoBuffer, RoutingInfoBufferSize) {
+        RoutingGuid := RoutingGuid is String? StrPtr(RoutingGuid) : RoutingGuid
+
         A_LastError := 0
 
         result := DllCall("WINFAX.dll\FaxSetRoutingInfoW", "ptr", FaxPortHandle, "ptr", RoutingGuid, "ptr", RoutingInfoBuffer, "uint", RoutingInfoBufferSize, "int")
@@ -5050,6 +5074,8 @@ class Fax {
      * @since windows5.0
      */
     static FaxStartPrintJobA(PrinterName, PrintInfo, FaxJobId, FaxContextInfo) {
+        PrinterName := PrinterName is String? StrPtr(PrinterName) : PrinterName
+
         A_LastError := 0
 
         result := DllCall("WINFAX.dll\FaxStartPrintJobA", "ptr", PrinterName, "ptr", PrintInfo, "ptr", FaxJobId, "ptr", FaxContextInfo, "int")
@@ -5171,6 +5197,8 @@ class Fax {
      * @since windows5.0
      */
     static FaxStartPrintJobW(PrinterName, PrintInfo, FaxJobId, FaxContextInfo) {
+        PrinterName := PrinterName is String? StrPtr(PrinterName) : PrinterName
+
         A_LastError := 0
 
         result := DllCall("WINFAX.dll\FaxStartPrintJobW", "ptr", PrinterName, "ptr", PrintInfo, "ptr", FaxJobId, "ptr", FaxContextInfo, "int")
@@ -5389,6 +5417,11 @@ class Fax {
      * @since windows5.0
      */
     static FaxRegisterServiceProviderW(DeviceProvider, FriendlyName, ImageName, TspName) {
+        DeviceProvider := DeviceProvider is String? StrPtr(DeviceProvider) : DeviceProvider
+        FriendlyName := FriendlyName is String? StrPtr(FriendlyName) : FriendlyName
+        ImageName := ImageName is String? StrPtr(ImageName) : ImageName
+        TspName := TspName is String? StrPtr(TspName) : TspName
+
         A_LastError := 0
 
         result := DllCall("WINFAX.dll\FaxRegisterServiceProviderW", "ptr", DeviceProvider, "ptr", FriendlyName, "ptr", ImageName, "ptr", TspName, "int")
@@ -5404,6 +5437,8 @@ class Fax {
      * @returns {Integer} 
      */
     static FaxUnregisterServiceProviderW(DeviceProvider) {
+        DeviceProvider := DeviceProvider is String? StrPtr(DeviceProvider) : DeviceProvider
+
         result := DllCall("WINFAX.dll\FaxUnregisterServiceProviderW", "ptr", DeviceProvider, "int")
         return result
     }
@@ -5478,6 +5513,10 @@ class Fax {
      * @since windows5.0
      */
     static FaxRegisterRoutingExtensionW(FaxHandle, ExtensionName, FriendlyName, ImageName, CallBack, Context) {
+        ExtensionName := ExtensionName is String? StrPtr(ExtensionName) : ExtensionName
+        FriendlyName := FriendlyName is String? StrPtr(FriendlyName) : FriendlyName
+        ImageName := ImageName is String? StrPtr(ImageName) : ImageName
+
         A_LastError := 0
 
         result := DllCall("WINFAX.dll\FaxRegisterRoutingExtensionW", "ptr", FaxHandle, "ptr", ExtensionName, "ptr", FriendlyName, "ptr", ImageName, "ptr", CallBack, "ptr", Context, "int")
@@ -5535,6 +5574,8 @@ class Fax {
      * @since windows6.0.6000
      */
     static SendToFaxRecipient(sndMode, lpFileName) {
+        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+
         result := DllCall("fxsutility.dll\SendToFaxRecipient", "int", sndMode, "ptr", lpFileName, "uint")
         return result
     }

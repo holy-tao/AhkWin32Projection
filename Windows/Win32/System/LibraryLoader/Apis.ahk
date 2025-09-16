@@ -196,6 +196,9 @@ class LibraryLoader {
      * @see https://learn.microsoft.com/windows/win32/api/libloaderapi/nf-libloaderapi-findresourceexw
      */
     static FindResourceExW(hModule, lpType, lpName, wLanguage) {
+        lpType := lpType is String? StrPtr(lpType) : lpType
+        lpName := lpName is String? StrPtr(lpName) : lpName
+
         result := DllCall("KERNEL32.dll\FindResourceExW", "ptr", hModule, "ptr", lpType, "ptr", lpName, "ushort", wLanguage, "ptr")
         return result
     }
@@ -313,6 +316,8 @@ class LibraryLoader {
      * @since windows5.1.2600
      */
     static GetModuleFileNameA(hModule, lpFilename, nSize) {
+        lpFilename := lpFilename is String? StrPtr(lpFilename) : lpFilename
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetModuleFileNameA", "ptr", hModule, "ptr", lpFilename, "uint", nSize, "uint")
@@ -350,6 +355,8 @@ class LibraryLoader {
      * @since windows5.1.2600
      */
     static GetModuleFileNameW(hModule, lpFilename, nSize) {
+        lpFilename := lpFilename is String? StrPtr(lpFilename) : lpFilename
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetModuleFileNameW", "ptr", hModule, "ptr", lpFilename, "uint", nSize, "uint")
@@ -388,6 +395,8 @@ class LibraryLoader {
      * @since windows5.1.2600
      */
     static GetModuleHandleA(lpModuleName) {
+        lpModuleName := lpModuleName is String? StrPtr(lpModuleName) : lpModuleName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetModuleHandleA", "ptr", lpModuleName, "ptr")
@@ -426,6 +435,8 @@ class LibraryLoader {
      * @since windows5.1.2600
      */
     static GetModuleHandleW(lpModuleName) {
+        lpModuleName := lpModuleName is String? StrPtr(lpModuleName) : lpModuleName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetModuleHandleW", "ptr", lpModuleName, "ptr")
@@ -476,6 +487,8 @@ class LibraryLoader {
      * @since windows5.1.2600
      */
     static GetModuleHandleExA(dwFlags, lpModuleName, phModule) {
+        lpModuleName := lpModuleName is String? StrPtr(lpModuleName) : lpModuleName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetModuleHandleExA", "uint", dwFlags, "ptr", lpModuleName, "ptr", phModule, "int")
@@ -526,6 +539,8 @@ class LibraryLoader {
      * @since windows5.1.2600
      */
     static GetModuleHandleExW(dwFlags, lpModuleName, phModule) {
+        lpModuleName := lpModuleName is String? StrPtr(lpModuleName) : lpModuleName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetModuleHandleExW", "uint", dwFlags, "ptr", lpModuleName, "ptr", phModule, "int")
@@ -592,6 +607,8 @@ class LibraryLoader {
      * @since windows5.1.2600
      */
     static GetProcAddress(hModule, lpProcName) {
+        lpProcName := lpProcName is String? StrPtr(lpProcName) : lpProcName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetProcAddress", "ptr", hModule, "ptr", lpProcName, "ptr")
@@ -721,6 +738,8 @@ class LibraryLoader {
      */
     static LoadLibraryExA(lpLibFileName, dwFlags) {
         static hFile := 0 ;Reserved parameters must always be NULL
+
+        lpLibFileName := lpLibFileName is String? StrPtr(lpLibFileName) : lpLibFileName
 
         A_LastError := 0
 
@@ -852,6 +871,8 @@ class LibraryLoader {
      */
     static LoadLibraryExW(lpLibFileName, dwFlags) {
         static hFile := 0 ;Reserved parameters must always be NULL
+
+        lpLibFileName := lpLibFileName is String? StrPtr(lpLibFileName) : lpLibFileName
 
         A_LastError := 0
 
@@ -1042,6 +1063,8 @@ class LibraryLoader {
      * @since windows8.0
      */
     static AddDllDirectory(NewDirectory) {
+        NewDirectory := NewDirectory is String? StrPtr(NewDirectory) : NewDirectory
+
         A_LastError := 0
 
         DllCall("KERNEL32.dll\AddDllDirectory", "ptr", NewDirectory)
@@ -1260,6 +1283,9 @@ class LibraryLoader {
      * @since windows6.0.6000
      */
     static EnumResourceLanguagesExA(hModule, lpType, lpName, lpEnumFunc, lParam, dwFlags, LangId) {
+        lpType := lpType is String? StrPtr(lpType) : lpType
+        lpName := lpName is String? StrPtr(lpName) : lpName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\EnumResourceLanguagesExA", "ptr", hModule, "ptr", lpType, "ptr", lpName, "ptr", lpEnumFunc, "ptr", lParam, "uint", dwFlags, "ushort", LangId, "int")
@@ -1380,6 +1406,9 @@ class LibraryLoader {
      * @since windows6.0.6000
      */
     static EnumResourceLanguagesExW(hModule, lpType, lpName, lpEnumFunc, lParam, dwFlags, LangId) {
+        lpType := lpType is String? StrPtr(lpType) : lpType
+        lpName := lpName is String? StrPtr(lpName) : lpName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\EnumResourceLanguagesExW", "ptr", hModule, "ptr", lpType, "ptr", lpName, "ptr", lpEnumFunc, "ptr", lParam, "uint", dwFlags, "ushort", LangId, "int")
@@ -1478,6 +1507,8 @@ class LibraryLoader {
      * @since windows6.0.6000
      */
     static EnumResourceNamesExA(hModule, lpType, lpEnumFunc, lParam, dwFlags, LangId) {
+        lpType := lpType is String? StrPtr(lpType) : lpType
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\EnumResourceNamesExA", "ptr", hModule, "ptr", lpType, "ptr", lpEnumFunc, "ptr", lParam, "uint", dwFlags, "ushort", LangId, "int")
@@ -1576,6 +1607,8 @@ class LibraryLoader {
      * @since windows6.0.6000
      */
     static EnumResourceNamesExW(hModule, lpType, lpEnumFunc, lParam, dwFlags, LangId) {
+        lpType := lpType is String? StrPtr(lpType) : lpType
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\EnumResourceNamesExW", "ptr", hModule, "ptr", lpType, "ptr", lpEnumFunc, "ptr", lParam, "uint", dwFlags, "ushort", LangId, "int")
@@ -1837,6 +1870,9 @@ class LibraryLoader {
      * @see https://learn.microsoft.com/windows/win32/api/libloaderapi/nf-libloaderapi-findresourcew
      */
     static FindResourceW(hModule, lpName, lpType) {
+        lpName := lpName is String? StrPtr(lpName) : lpName
+        lpType := lpType is String? StrPtr(lpType) : lpType
+
         result := DllCall("KERNEL32.dll\FindResourceW", "ptr", hModule, "ptr", lpName, "ptr", lpType, "ptr")
         return result
     }
@@ -1980,6 +2016,8 @@ class LibraryLoader {
      * @since windows5.1.2600
      */
     static LoadLibraryA(lpLibFileName) {
+        lpLibFileName := lpLibFileName is String? StrPtr(lpLibFileName) : lpLibFileName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\LoadLibraryA", "ptr", lpLibFileName, "ptr")
@@ -2128,6 +2166,8 @@ class LibraryLoader {
      * @since windows5.1.2600
      */
     static LoadLibraryW(lpLibFileName) {
+        lpLibFileName := lpLibFileName is String? StrPtr(lpLibFileName) : lpLibFileName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\LoadLibraryW", "ptr", lpLibFileName, "ptr")
@@ -2173,6 +2213,8 @@ class LibraryLoader {
      * @see https://learn.microsoft.com/windows/win32/api/libloaderapi/nf-libloaderapi-enumresourcenamesw
      */
     static EnumResourceNamesW(hModule, lpType, lpEnumFunc, lParam) {
+        lpType := lpType is String? StrPtr(lpType) : lpType
+
         result := DllCall("KERNEL32.dll\EnumResourceNamesW", "ptr", hModule, "ptr", lpType, "ptr", lpEnumFunc, "ptr", lParam, "int")
         return result
     }
@@ -2214,6 +2256,8 @@ class LibraryLoader {
      * @since windows5.0
      */
     static EnumResourceNamesA(hModule, lpType, lpEnumFunc, lParam) {
+        lpType := lpType is String? StrPtr(lpType) : lpType
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\EnumResourceNamesA", "ptr", hModule, "ptr", lpType, "ptr", lpEnumFunc, "ptr", lParam, "int")
@@ -2264,6 +2308,8 @@ class LibraryLoader {
     static LoadPackagedLibrary(lpwLibFileName) {
         static Reserved := 0 ;Reserved parameters must always be NULL
 
+        lpwLibFileName := lpwLibFileName is String? StrPtr(lpwLibFileName) : lpwLibFileName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\LoadPackagedLibrary", "ptr", lpwLibFileName, "uint", Reserved, "ptr")
@@ -2295,6 +2341,9 @@ class LibraryLoader {
      */
     static QueryOptionalDelayLoadedAPI(hParentModule, lpDllName, lpProcName) {
         static Reserved := 0 ;Reserved parameters must always be NULL
+
+        lpDllName := lpDllName is String? StrPtr(lpDllName) : lpDllName
+        lpProcName := lpProcName is String? StrPtr(lpProcName) : lpProcName
 
         A_LastError := 0
 
@@ -2488,6 +2537,8 @@ class LibraryLoader {
      * @since windows5.1.2600
      */
     static LoadModule(lpModuleName, lpParameterBlock) {
+        lpModuleName := lpModuleName is String? StrPtr(lpModuleName) : lpModuleName
+
         result := DllCall("KERNEL32.dll\LoadModule", "ptr", lpModuleName, "ptr", lpParameterBlock, "uint")
         return result
     }
@@ -2574,6 +2625,9 @@ class LibraryLoader {
      * @since windows5.0
      */
     static FindResourceA(hModule, lpName, lpType) {
+        lpName := lpName is String? StrPtr(lpName) : lpName
+        lpType := lpType is String? StrPtr(lpType) : lpType
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\FindResourceA", "ptr", hModule, "ptr", lpName, "ptr", lpType, "ptr")
@@ -2674,6 +2728,9 @@ class LibraryLoader {
      * @since windows5.0
      */
     static FindResourceExA(hModule, lpType, lpName, wLanguage) {
+        lpType := lpType is String? StrPtr(lpType) : lpType
+        lpName := lpName is String? StrPtr(lpName) : lpName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\FindResourceExA", "ptr", hModule, "ptr", lpType, "ptr", lpName, "ushort", wLanguage, "ptr")
@@ -2805,6 +2862,9 @@ class LibraryLoader {
      * @since windows5.0
      */
     static EnumResourceLanguagesA(hModule, lpType, lpName, lpEnumFunc, lParam) {
+        lpType := lpType is String? StrPtr(lpType) : lpType
+        lpName := lpName is String? StrPtr(lpName) : lpName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\EnumResourceLanguagesA", "ptr", hModule, "ptr", lpType, "ptr", lpName, "ptr", lpEnumFunc, "ptr", lParam, "int")
@@ -2858,6 +2918,9 @@ class LibraryLoader {
      * @since windows5.0
      */
     static EnumResourceLanguagesW(hModule, lpType, lpName, lpEnumFunc, lParam) {
+        lpType := lpType is String? StrPtr(lpType) : lpType
+        lpName := lpName is String? StrPtr(lpName) : lpName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\EnumResourceLanguagesW", "ptr", hModule, "ptr", lpType, "ptr", lpName, "ptr", lpEnumFunc, "ptr", lParam, "int")
@@ -2888,6 +2951,8 @@ class LibraryLoader {
      * @since windows5.0
      */
     static BeginUpdateResourceA(pFileName, bDeleteExistingResources) {
+        pFileName := pFileName is String? StrPtr(pFileName) : pFileName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\BeginUpdateResourceA", "ptr", pFileName, "int", bDeleteExistingResources, "ptr")
@@ -2918,6 +2983,8 @@ class LibraryLoader {
      * @since windows5.0
      */
     static BeginUpdateResourceW(pFileName, bDeleteExistingResources) {
+        pFileName := pFileName is String? StrPtr(pFileName) : pFileName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\BeginUpdateResourceW", "ptr", pFileName, "int", bDeleteExistingResources, "ptr")
@@ -3018,6 +3085,9 @@ class LibraryLoader {
      * @since windows5.0
      */
     static UpdateResourceA(hUpdate, lpType, lpName, wLanguage, lpData, cb) {
+        lpType := lpType is String? StrPtr(lpType) : lpType
+        lpName := lpName is String? StrPtr(lpName) : lpName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\UpdateResourceA", "ptr", hUpdate, "ptr", lpType, "ptr", lpName, "ushort", wLanguage, "ptr", lpData, "uint", cb, "int")
@@ -3118,6 +3188,9 @@ class LibraryLoader {
      * @since windows5.0
      */
     static UpdateResourceW(hUpdate, lpType, lpName, wLanguage, lpData, cb) {
+        lpType := lpType is String? StrPtr(lpType) : lpType
+        lpName := lpName is String? StrPtr(lpName) : lpName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\UpdateResourceW", "ptr", hUpdate, "ptr", lpType, "ptr", lpName, "ushort", wLanguage, "ptr", lpData, "uint", cb, "int")
@@ -3232,6 +3305,8 @@ class LibraryLoader {
      * @since windows6.0.6000
      */
     static SetDllDirectoryA(lpPathName) {
+        lpPathName := lpPathName is String? StrPtr(lpPathName) : lpPathName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SetDllDirectoryA", "ptr", lpPathName, "int")
@@ -3290,6 +3365,8 @@ class LibraryLoader {
      * @since windows6.0.6000
      */
     static SetDllDirectoryW(lpPathName) {
+        lpPathName := lpPathName is String? StrPtr(lpPathName) : lpPathName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SetDllDirectoryW", "ptr", lpPathName, "int")
@@ -3325,6 +3402,8 @@ class LibraryLoader {
      * @since windows6.0.6000
      */
     static GetDllDirectoryA(nBufferLength, lpBuffer) {
+        lpBuffer := lpBuffer is String? StrPtr(lpBuffer) : lpBuffer
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetDllDirectoryA", "uint", nBufferLength, "ptr", lpBuffer, "uint")
@@ -3360,6 +3439,8 @@ class LibraryLoader {
      * @since windows6.0.6000
      */
     static GetDllDirectoryW(nBufferLength, lpBuffer) {
+        lpBuffer := lpBuffer is String? StrPtr(lpBuffer) : lpBuffer
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetDllDirectoryW", "uint", nBufferLength, "ptr", lpBuffer, "uint")

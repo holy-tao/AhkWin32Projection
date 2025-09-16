@@ -3214,6 +3214,9 @@ class PortableDevices {
      * @returns {Integer} 
      */
     static DMProcessConfigXMLFiltered(pszXmlIn, rgszAllowedCspNodes, dwNumAllowedCspNodes, pbstrXmlOut) {
+        pszXmlIn := pszXmlIn is String? StrPtr(pszXmlIn) : pszXmlIn
+        rgszAllowedCspNodes := rgszAllowedCspNodes is String? StrPtr(rgszAllowedCspNodes) : rgszAllowedCspNodes
+
         result := DllCall("DMProcessXMLFiltered.dll\DMProcessConfigXMLFiltered", "ptr", pszXmlIn, "ptr", rgszAllowedCspNodes, "uint", dwNumAllowedCspNodes, "ptr", pbstrXmlOut, "int")
         return result
     }

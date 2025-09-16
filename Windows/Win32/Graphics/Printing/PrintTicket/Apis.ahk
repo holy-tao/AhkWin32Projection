@@ -62,6 +62,8 @@ class PrintTicket {
      * @since windows5.1.2600
      */
     static PTQuerySchemaVersionSupport(pszPrinterName, pMaxVersion) {
+        pszPrinterName := pszPrinterName is String? StrPtr(pszPrinterName) : pszPrinterName
+
         result := DllCall("prntvpt.dll\PTQuerySchemaVersionSupport", "ptr", pszPrinterName, "ptr", pMaxVersion, "int")
         return result
     }
@@ -86,6 +88,8 @@ class PrintTicket {
      * @since windows5.1.2600
      */
     static PTOpenProvider(pszPrinterName, dwVersion, phProvider) {
+        pszPrinterName := pszPrinterName is String? StrPtr(pszPrinterName) : pszPrinterName
+
         result := DllCall("prntvpt.dll\PTOpenProvider", "ptr", pszPrinterName, "uint", dwVersion, "ptr", phProvider, "int")
         return result
     }
@@ -112,6 +116,8 @@ class PrintTicket {
      * @since windows5.1.2600
      */
     static PTOpenProviderEx(pszPrinterName, dwMaxVersion, dwPrefVersion, phProvider, pUsedVersion) {
+        pszPrinterName := pszPrinterName is String? StrPtr(pszPrinterName) : pszPrinterName
+
         result := DllCall("prntvpt.dll\PTOpenProviderEx", "ptr", pszPrinterName, "uint", dwMaxVersion, "uint", dwPrefVersion, "ptr", phProvider, "ptr", pUsedVersion, "int")
         return result
     }
@@ -220,6 +226,8 @@ class PrintTicket {
      * @since windows10.0.15063
      */
     static PTGetPrintDeviceResources(hProvider, pszLocaleName, pPrintTicket, pDeviceResources, pbstrErrorMessage) {
+        pszLocaleName := pszLocaleName is String? StrPtr(pszLocaleName) : pszLocaleName
+
         result := DllCall("prntvpt.dll\PTGetPrintDeviceResources", "ptr", hProvider, "ptr", pszLocaleName, "ptr", pPrintTicket, "ptr", pDeviceResources, "ptr", pbstrErrorMessage, "int")
         return result
     }

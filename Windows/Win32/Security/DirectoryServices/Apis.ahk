@@ -145,6 +145,9 @@ class DirectoryServices {
      * @since windowsserver2008
      */
     static DSCreateISecurityInfoObject(pwszObjectPath, pwszObjectClass, dwFlags, ppSI, pfnReadSD, pfnWriteSD, lpContext) {
+        pwszObjectPath := pwszObjectPath is String? StrPtr(pwszObjectPath) : pwszObjectPath
+        pwszObjectClass := pwszObjectClass is String? StrPtr(pwszObjectClass) : pwszObjectClass
+
         result := DllCall("DSSEC.dll\DSCreateISecurityInfoObject", "ptr", pwszObjectPath, "ptr", pwszObjectClass, "uint", dwFlags, "ptr", ppSI, "ptr", pfnReadSD, "ptr", pfnWriteSD, "ptr", lpContext, "int")
         return result
     }
@@ -252,6 +255,12 @@ class DirectoryServices {
      * @since windowsserver2008
      */
     static DSCreateISecurityInfoObjectEx(pwszObjectPath, pwszObjectClass, pwszServer, pwszUserName, pwszPassword, dwFlags, ppSI, pfnReadSD, pfnWriteSD, lpContext) {
+        pwszObjectPath := pwszObjectPath is String? StrPtr(pwszObjectPath) : pwszObjectPath
+        pwszObjectClass := pwszObjectClass is String? StrPtr(pwszObjectClass) : pwszObjectClass
+        pwszServer := pwszServer is String? StrPtr(pwszServer) : pwszServer
+        pwszUserName := pwszUserName is String? StrPtr(pwszUserName) : pwszUserName
+        pwszPassword := pwszPassword is String? StrPtr(pwszPassword) : pwszPassword
+
         result := DllCall("DSSEC.dll\DSCreateISecurityInfoObjectEx", "ptr", pwszObjectPath, "ptr", pwszObjectClass, "ptr", pwszServer, "ptr", pwszUserName, "ptr", pwszPassword, "uint", dwFlags, "ptr", ppSI, "ptr", pfnReadSD, "ptr", pfnWriteSD, "ptr", lpContext, "int")
         return result
     }
@@ -361,6 +370,9 @@ class DirectoryServices {
      * @since windowsserver2003
      */
     static DSCreateSecurityPage(pwszObjectPath, pwszObjectClass, dwFlags, phPage, pfnReadSD, pfnWriteSD, lpContext) {
+        pwszObjectPath := pwszObjectPath is String? StrPtr(pwszObjectPath) : pwszObjectPath
+        pwszObjectClass := pwszObjectClass is String? StrPtr(pwszObjectClass) : pwszObjectClass
+
         result := DllCall("DSSEC.dll\DSCreateSecurityPage", "ptr", pwszObjectPath, "ptr", pwszObjectClass, "uint", dwFlags, "ptr", phPage, "ptr", pfnReadSD, "ptr", pfnWriteSD, "ptr", lpContext, "int")
         return result
     }
@@ -382,6 +394,10 @@ class DirectoryServices {
      * @since windowsserver2008
      */
     static DSEditSecurity(hwndOwner, pwszObjectPath, pwszObjectClass, dwFlags, pwszCaption, pfnReadSD, pfnWriteSD, lpContext) {
+        pwszObjectPath := pwszObjectPath is String? StrPtr(pwszObjectPath) : pwszObjectPath
+        pwszObjectClass := pwszObjectClass is String? StrPtr(pwszObjectClass) : pwszObjectClass
+        pwszCaption := pwszCaption is String? StrPtr(pwszCaption) : pwszCaption
+
         result := DllCall("DSSEC.dll\DSEditSecurity", "ptr", hwndOwner, "ptr", pwszObjectPath, "ptr", pwszObjectClass, "uint", dwFlags, "ptr", pwszCaption, "ptr", pfnReadSD, "ptr", pfnWriteSD, "ptr", lpContext, "int")
         return result
     }

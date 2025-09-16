@@ -789,6 +789,8 @@ class P2P {
      * @since windows5.1.2600
      */
     static PeerGraphCreate(pGraphProperties, pwzDatabaseName, pSecurityInterface, phGraph) {
+        pwzDatabaseName := pwzDatabaseName is String? StrPtr(pwzDatabaseName) : pwzDatabaseName
+
         result := DllCall("P2PGRAPH.dll\PeerGraphCreate", "ptr", pGraphProperties, "ptr", pwzDatabaseName, "ptr", pSecurityInterface, "ptr", phGraph, "int")
         return result
     }
@@ -891,6 +893,10 @@ class P2P {
      * @since windows5.1.2600
      */
     static PeerGraphOpen(pwzGraphId, pwzPeerId, pwzDatabaseName, pSecurityInterface, cRecordTypeSyncPrecedence, pRecordTypeSyncPrecedence, phGraph) {
+        pwzGraphId := pwzGraphId is String? StrPtr(pwzGraphId) : pwzGraphId
+        pwzPeerId := pwzPeerId is String? StrPtr(pwzPeerId) : pwzPeerId
+        pwzDatabaseName := pwzDatabaseName is String? StrPtr(pwzDatabaseName) : pwzDatabaseName
+
         result := DllCall("P2PGRAPH.dll\PeerGraphOpen", "ptr", pwzGraphId, "ptr", pwzPeerId, "ptr", pwzDatabaseName, "ptr", pSecurityInterface, "uint", cRecordTypeSyncPrecedence, "ptr", pRecordTypeSyncPrecedence, "ptr", phGraph, "int")
         return result
     }
@@ -1095,6 +1101,8 @@ class P2P {
      * @since windows5.1.2600
      */
     static PeerGraphConnect(hGraph, pwzPeerId, pAddress, pullConnectionId) {
+        pwzPeerId := pwzPeerId is String? StrPtr(pwzPeerId) : pwzPeerId
+
         result := DllCall("P2PGRAPH.dll\PeerGraphConnect", "ptr", hGraph, "ptr", pwzPeerId, "ptr", pAddress, "ptr", pullConnectionId, "int")
         return result
     }
@@ -1218,6 +1226,10 @@ class P2P {
      * @since windows5.1.2600
      */
     static PeerGraphDelete(pwzGraphId, pwzPeerId, pwzDatabaseName) {
+        pwzGraphId := pwzGraphId is String? StrPtr(pwzGraphId) : pwzGraphId
+        pwzPeerId := pwzPeerId is String? StrPtr(pwzPeerId) : pwzPeerId
+        pwzDatabaseName := pwzDatabaseName is String? StrPtr(pwzDatabaseName) : pwzDatabaseName
+
         result := DllCall("P2PGRAPH.dll\PeerGraphDelete", "ptr", pwzGraphId, "ptr", pwzPeerId, "ptr", pwzDatabaseName, "int")
         return result
     }
@@ -2087,6 +2099,8 @@ class P2P {
      * @since windows5.1.2600
      */
     static PeerGraphEnumRecords(hGraph, pRecordType, pwzPeerId, phPeerEnum) {
+        pwzPeerId := pwzPeerId is String? StrPtr(pwzPeerId) : pwzPeerId
+
         result := DllCall("P2PGRAPH.dll\PeerGraphEnumRecords", "ptr", hGraph, "ptr", pRecordType, "ptr", pwzPeerId, "ptr", phPeerEnum, "int")
         return result
     }
@@ -2168,6 +2182,8 @@ class P2P {
      * @since windows5.1.2600
      */
     static PeerGraphSearchRecords(hGraph, pwzCriteria, phPeerEnum) {
+        pwzCriteria := pwzCriteria is String? StrPtr(pwzCriteria) : pwzCriteria
+
         result := DllCall("P2PGRAPH.dll\PeerGraphSearchRecords", "ptr", hGraph, "ptr", pwzCriteria, "ptr", phPeerEnum, "int")
         return result
     }
@@ -2235,6 +2251,8 @@ class P2P {
      * @since windows5.1.2600
      */
     static PeerGraphExportDatabase(hGraph, pwzFilePath) {
+        pwzFilePath := pwzFilePath is String? StrPtr(pwzFilePath) : pwzFilePath
+
         result := DllCall("P2PGRAPH.dll\PeerGraphExportDatabase", "ptr", hGraph, "ptr", pwzFilePath, "int")
         return result
     }
@@ -2315,6 +2333,8 @@ class P2P {
      * @since windows5.1.2600
      */
     static PeerGraphImportDatabase(hGraph, pwzFilePath) {
+        pwzFilePath := pwzFilePath is String? StrPtr(pwzFilePath) : pwzFilePath
+
         result := DllCall("P2PGRAPH.dll\PeerGraphImportDatabase", "ptr", hGraph, "ptr", pwzFilePath, "int")
         return result
     }
@@ -2430,6 +2450,8 @@ class P2P {
      * @since windows5.1.2600
      */
     static PeerGraphOpenDirectConnection(hGraph, pwzPeerId, pAddress, pullConnectionId) {
+        pwzPeerId := pwzPeerId is String? StrPtr(pwzPeerId) : pwzPeerId
+
         result := DllCall("P2PGRAPH.dll\PeerGraphOpenDirectConnection", "ptr", hGraph, "ptr", pwzPeerId, "ptr", pAddress, "ptr", pullConnectionId, "int")
         return result
     }
@@ -2726,6 +2748,8 @@ class P2P {
      * @since windows5.1.2600
      */
     static PeerGraphEnumNodes(hGraph, pwzPeerId, phPeerEnum) {
+        pwzPeerId := pwzPeerId is String? StrPtr(pwzPeerId) : pwzPeerId
+
         result := DllCall("P2PGRAPH.dll\PeerGraphEnumNodes", "ptr", hGraph, "ptr", pwzPeerId, "ptr", phPeerEnum, "int")
         return result
     }
@@ -2931,6 +2955,8 @@ class P2P {
      * @since windows5.1.2600
      */
     static PeerGraphSetNodeAttributes(hGraph, pwzAttributes) {
+        pwzAttributes := pwzAttributes is String? StrPtr(pwzAttributes) : pwzAttributes
+
         result := DllCall("P2PGRAPH.dll\PeerGraphSetNodeAttributes", "ptr", hGraph, "ptr", pwzAttributes, "int")
         return result
     }
@@ -3544,6 +3570,10 @@ class P2P {
      * @since windows5.1.2600
      */
     static PeerGroupOpen(pwzIdentity, pwzGroupPeerName, pwzCloud, phGroup) {
+        pwzIdentity := pwzIdentity is String? StrPtr(pwzIdentity) : pwzIdentity
+        pwzGroupPeerName := pwzGroupPeerName is String? StrPtr(pwzGroupPeerName) : pwzGroupPeerName
+        pwzCloud := pwzCloud is String? StrPtr(pwzCloud) : pwzCloud
+
         result := DllCall("P2P.dll\PeerGroupOpen", "ptr", pwzIdentity, "ptr", pwzGroupPeerName, "ptr", pwzCloud, "ptr", phGroup, "int")
         return result
     }
@@ -3670,6 +3700,10 @@ class P2P {
      * @since windows5.1.2600
      */
     static PeerGroupJoin(pwzIdentity, pwzInvitation, pwzCloud, phGroup) {
+        pwzIdentity := pwzIdentity is String? StrPtr(pwzIdentity) : pwzIdentity
+        pwzInvitation := pwzInvitation is String? StrPtr(pwzInvitation) : pwzInvitation
+        pwzCloud := pwzCloud is String? StrPtr(pwzCloud) : pwzCloud
+
         result := DllCall("P2P.dll\PeerGroupJoin", "ptr", pwzIdentity, "ptr", pwzInvitation, "ptr", pwzCloud, "ptr", phGroup, "int")
         return result
     }
@@ -3799,6 +3833,11 @@ class P2P {
      * @since windows5.1.2600
      */
     static PeerGroupPasswordJoin(pwzIdentity, pwzInvitation, pwzPassword, pwzCloud, phGroup) {
+        pwzIdentity := pwzIdentity is String? StrPtr(pwzIdentity) : pwzIdentity
+        pwzInvitation := pwzInvitation is String? StrPtr(pwzInvitation) : pwzInvitation
+        pwzPassword := pwzPassword is String? StrPtr(pwzPassword) : pwzPassword
+        pwzCloud := pwzCloud is String? StrPtr(pwzCloud) : pwzCloud
+
         result := DllCall("P2P.dll\PeerGroupPasswordJoin", "ptr", pwzIdentity, "ptr", pwzInvitation, "ptr", pwzPassword, "ptr", pwzCloud, "ptr", phGroup, "int")
         return result
     }
@@ -3995,6 +4034,9 @@ class P2P {
      * @since windows5.1.2600
      */
     static PeerGroupDelete(pwzIdentity, pwzGroupPeerName) {
+        pwzIdentity := pwzIdentity is String? StrPtr(pwzIdentity) : pwzIdentity
+        pwzGroupPeerName := pwzGroupPeerName is String? StrPtr(pwzGroupPeerName) : pwzGroupPeerName
+
         result := DllCall("P2P.dll\PeerGroupDelete", "ptr", pwzIdentity, "ptr", pwzGroupPeerName, "int")
         return result
     }
@@ -4130,6 +4172,9 @@ class P2P {
      * @since windows5.1.2600
      */
     static PeerGroupCreateInvitation(hGroup, pwzIdentityInfo, pftExpiration, cRoles, pRoles, ppwzInvitation) {
+        pwzIdentityInfo := pwzIdentityInfo is String? StrPtr(pwzIdentityInfo) : pwzIdentityInfo
+        ppwzInvitation := ppwzInvitation is String? StrPtr(ppwzInvitation) : ppwzInvitation
+
         result := DllCall("P2P.dll\PeerGroupCreateInvitation", "ptr", hGroup, "ptr", pwzIdentityInfo, "ptr", pftExpiration, "uint", cRoles, "ptr", pRoles, "ptr", ppwzInvitation, "int")
         return result
     }
@@ -4238,6 +4283,8 @@ class P2P {
      * @since windows5.1.2600
      */
     static PeerGroupCreatePasswordInvitation(hGroup, ppwzInvitation) {
+        ppwzInvitation := ppwzInvitation is String? StrPtr(ppwzInvitation) : ppwzInvitation
+
         result := DllCall("P2P.dll\PeerGroupCreatePasswordInvitation", "ptr", hGroup, "ptr", ppwzInvitation, "int")
         return result
     }
@@ -4306,6 +4353,8 @@ class P2P {
      * @since windows5.1.2600
      */
     static PeerGroupParseInvitation(pwzInvitation, ppInvitationInfo) {
+        pwzInvitation := pwzInvitation is String? StrPtr(pwzInvitation) : pwzInvitation
+
         result := DllCall("P2P.dll\PeerGroupParseInvitation", "ptr", pwzInvitation, "ptr", ppInvitationInfo, "int")
         return result
     }
@@ -4615,6 +4664,8 @@ class P2P {
      * @since windows5.1.2600
      */
     static PeerGroupEnumMembers(hGroup, dwFlags, pwzIdentity, phPeerEnum) {
+        pwzIdentity := pwzIdentity is String? StrPtr(pwzIdentity) : pwzIdentity
+
         result := DllCall("P2P.dll\PeerGroupEnumMembers", "ptr", hGroup, "uint", dwFlags, "ptr", pwzIdentity, "ptr", phPeerEnum, "int")
         return result
     }
@@ -4688,6 +4739,8 @@ class P2P {
      * @since windows5.1.2600
      */
     static PeerGroupOpenDirectConnection(hGroup, pwzIdentity, pAddress, pullConnectionId) {
+        pwzIdentity := pwzIdentity is String? StrPtr(pwzIdentity) : pwzIdentity
+
         result := DllCall("P2P.dll\PeerGroupOpenDirectConnection", "ptr", hGroup, "ptr", pwzIdentity, "ptr", pAddress, "ptr", pullConnectionId, "int")
         return result
     }
@@ -5513,6 +5566,8 @@ class P2P {
      * @since windows5.1.2600
      */
     static PeerGroupSearchRecords(hGroup, pwzCriteria, phPeerEnum) {
+        pwzCriteria := pwzCriteria is String? StrPtr(pwzCriteria) : pwzCriteria
+
         result := DllCall("P2P.dll\PeerGroupSearchRecords", "ptr", hGroup, "ptr", pwzCriteria, "ptr", phPeerEnum, "int")
         return result
     }
@@ -5561,6 +5616,8 @@ class P2P {
      * @since windows5.1.2600
      */
     static PeerGroupExportDatabase(hGroup, pwzFilePath) {
+        pwzFilePath := pwzFilePath is String? StrPtr(pwzFilePath) : pwzFilePath
+
         result := DllCall("P2P.dll\PeerGroupExportDatabase", "ptr", hGroup, "ptr", pwzFilePath, "int")
         return result
     }
@@ -5622,6 +5679,8 @@ class P2P {
      * @since windows5.1.2600
      */
     static PeerGroupImportDatabase(hGroup, pwzFilePath) {
+        pwzFilePath := pwzFilePath is String? StrPtr(pwzFilePath) : pwzFilePath
+
         result := DllCall("P2P.dll\PeerGroupImportDatabase", "ptr", hGroup, "ptr", pwzFilePath, "int")
         return result
     }
@@ -5731,6 +5790,9 @@ class P2P {
      * @since windows5.1.2600
      */
     static PeerGroupIssueCredentials(hGroup, pwzSubjectIdentity, pCredentialInfo, dwFlags, ppwzInvitation) {
+        pwzSubjectIdentity := pwzSubjectIdentity is String? StrPtr(pwzSubjectIdentity) : pwzSubjectIdentity
+        ppwzInvitation := ppwzInvitation is String? StrPtr(ppwzInvitation) : ppwzInvitation
+
         result := DllCall("P2P.dll\PeerGroupIssueCredentials", "ptr", hGroup, "ptr", pwzSubjectIdentity, "ptr", pCredentialInfo, "uint", dwFlags, "ptr", ppwzInvitation, "int")
         return result
     }
@@ -5818,6 +5880,9 @@ class P2P {
      * @since windows5.1.2600
      */
     static PeerGroupExportConfig(hGroup, pwzPassword, ppwzXML) {
+        pwzPassword := pwzPassword is String? StrPtr(pwzPassword) : pwzPassword
+        ppwzXML := ppwzXML is String? StrPtr(ppwzXML) : ppwzXML
+
         result := DllCall("P2P.dll\PeerGroupExportConfig", "ptr", hGroup, "ptr", pwzPassword, "ptr", ppwzXML, "int")
         return result
     }
@@ -5906,6 +5971,11 @@ class P2P {
      * @since windows5.1.2600
      */
     static PeerGroupImportConfig(pwzXML, pwzPassword, fOverwrite, ppwzIdentity, ppwzGroup) {
+        pwzXML := pwzXML is String? StrPtr(pwzXML) : pwzXML
+        pwzPassword := pwzPassword is String? StrPtr(pwzPassword) : pwzPassword
+        ppwzIdentity := ppwzIdentity is String? StrPtr(ppwzIdentity) : ppwzIdentity
+        ppwzGroup := ppwzGroup is String? StrPtr(ppwzGroup) : ppwzGroup
+
         result := DllCall("P2P.dll\PeerGroupImportConfig", "ptr", pwzXML, "ptr", pwzPassword, "int", fOverwrite, "ptr", ppwzIdentity, "ptr", ppwzGroup, "int")
         return result
     }
@@ -6145,6 +6215,10 @@ class P2P {
      * @since windows5.1.2600
      */
     static PeerIdentityCreate(pwzClassifier, pwzFriendlyName, hCryptProv, ppwzIdentity) {
+        pwzClassifier := pwzClassifier is String? StrPtr(pwzClassifier) : pwzClassifier
+        pwzFriendlyName := pwzFriendlyName is String? StrPtr(pwzFriendlyName) : pwzFriendlyName
+        ppwzIdentity := ppwzIdentity is String? StrPtr(ppwzIdentity) : ppwzIdentity
+
         result := DllCall("P2P.dll\PeerIdentityCreate", "ptr", pwzClassifier, "ptr", pwzFriendlyName, "ptr", hCryptProv, "ptr", ppwzIdentity, "int")
         return result
     }
@@ -6210,6 +6284,9 @@ class P2P {
      * @since windows5.1.2600
      */
     static PeerIdentityGetFriendlyName(pwzIdentity, ppwzFriendlyName) {
+        pwzIdentity := pwzIdentity is String? StrPtr(pwzIdentity) : pwzIdentity
+        ppwzFriendlyName := ppwzFriendlyName is String? StrPtr(ppwzFriendlyName) : ppwzFriendlyName
+
         result := DllCall("P2P.dll\PeerIdentityGetFriendlyName", "ptr", pwzIdentity, "ptr", ppwzFriendlyName, "int")
         return result
     }
@@ -6275,6 +6352,9 @@ class P2P {
      * @since windows5.1.2600
      */
     static PeerIdentitySetFriendlyName(pwzIdentity, pwzFriendlyName) {
+        pwzIdentity := pwzIdentity is String? StrPtr(pwzIdentity) : pwzIdentity
+        pwzFriendlyName := pwzFriendlyName is String? StrPtr(pwzFriendlyName) : pwzFriendlyName
+
         result := DllCall("P2P.dll\PeerIdentitySetFriendlyName", "ptr", pwzIdentity, "ptr", pwzFriendlyName, "int")
         return result
     }
@@ -6344,6 +6424,8 @@ class P2P {
      * @since windows5.1.2600
      */
     static PeerIdentityGetCryptKey(pwzIdentity, phCryptProv) {
+        pwzIdentity := pwzIdentity is String? StrPtr(pwzIdentity) : pwzIdentity
+
         result := DllCall("P2P.dll\PeerIdentityGetCryptKey", "ptr", pwzIdentity, "ptr", phCryptProv, "int")
         return result
     }
@@ -6398,6 +6480,8 @@ class P2P {
      * @since windows5.1.2600
      */
     static PeerIdentityDelete(pwzIdentity) {
+        pwzIdentity := pwzIdentity is String? StrPtr(pwzIdentity) : pwzIdentity
+
         result := DllCall("P2P.dll\PeerIdentityDelete", "ptr", pwzIdentity, "int")
         return result
     }
@@ -6506,6 +6590,8 @@ class P2P {
      * @since windows5.1.2600
      */
     static PeerEnumGroups(pwzIdentity, phPeerEnum) {
+        pwzIdentity := pwzIdentity is String? StrPtr(pwzIdentity) : pwzIdentity
+
         result := DllCall("P2P.dll\PeerEnumGroups", "ptr", pwzIdentity, "ptr", phPeerEnum, "int")
         return result
     }
@@ -6556,6 +6642,10 @@ class P2P {
      * @since windows5.1.2600
      */
     static PeerCreatePeerName(pwzIdentity, pwzClassifier, ppwzPeerName) {
+        pwzIdentity := pwzIdentity is String? StrPtr(pwzIdentity) : pwzIdentity
+        pwzClassifier := pwzClassifier is String? StrPtr(pwzClassifier) : pwzClassifier
+        ppwzPeerName := ppwzPeerName is String? StrPtr(ppwzPeerName) : ppwzPeerName
+
         result := DllCall("P2P.dll\PeerCreatePeerName", "ptr", pwzIdentity, "ptr", pwzClassifier, "ptr", ppwzPeerName, "int")
         return result
     }
@@ -6625,6 +6715,9 @@ class P2P {
      * @since windows5.1.2600
      */
     static PeerIdentityGetXML(pwzIdentity, ppwzIdentityXML) {
+        pwzIdentity := pwzIdentity is String? StrPtr(pwzIdentity) : pwzIdentity
+        ppwzIdentityXML := ppwzIdentityXML is String? StrPtr(ppwzIdentityXML) : ppwzIdentityXML
+
         result := DllCall("P2P.dll\PeerIdentityGetXML", "ptr", pwzIdentity, "ptr", ppwzIdentityXML, "int")
         return result
     }
@@ -6712,6 +6805,10 @@ class P2P {
      * @since windows5.1.2600
      */
     static PeerIdentityExport(pwzIdentity, pwzPassword, ppwzExportXML) {
+        pwzIdentity := pwzIdentity is String? StrPtr(pwzIdentity) : pwzIdentity
+        pwzPassword := pwzPassword is String? StrPtr(pwzPassword) : pwzPassword
+        ppwzExportXML := ppwzExportXML is String? StrPtr(ppwzExportXML) : ppwzExportXML
+
         result := DllCall("P2P.dll\PeerIdentityExport", "ptr", pwzIdentity, "ptr", pwzPassword, "ptr", ppwzExportXML, "int")
         return result
     }
@@ -6794,6 +6891,10 @@ class P2P {
      * @since windows5.1.2600
      */
     static PeerIdentityImport(pwzImportXML, pwzPassword, ppwzIdentity) {
+        pwzImportXML := pwzImportXML is String? StrPtr(pwzImportXML) : pwzImportXML
+        pwzPassword := pwzPassword is String? StrPtr(pwzPassword) : pwzPassword
+        ppwzIdentity := ppwzIdentity is String? StrPtr(ppwzIdentity) : ppwzIdentity
+
         result := DllCall("P2P.dll\PeerIdentityImport", "ptr", pwzImportXML, "ptr", pwzPassword, "ptr", ppwzIdentity, "int")
         return result
     }
@@ -6847,6 +6948,8 @@ class P2P {
      * @since windows5.1.2600
      */
     static PeerIdentityGetDefault(ppwzPeerName) {
+        ppwzPeerName := ppwzPeerName is String? StrPtr(ppwzPeerName) : ppwzPeerName
+
         result := DllCall("P2P.dll\PeerIdentityGetDefault", "ptr", ppwzPeerName, "int")
         return result
     }
@@ -8418,6 +8521,8 @@ class P2P {
      * @since windows6.0.6000
      */
     static PeerCollabQueryContactData(pcEndpoint, ppwzContactData) {
+        ppwzContactData := ppwzContactData is String? StrPtr(ppwzContactData) : ppwzContactData
+
         result := DllCall("P2P.dll\PeerCollabQueryContactData", "ptr", pcEndpoint, "ptr", ppwzContactData, "int")
         return result
     }
@@ -8672,6 +8777,8 @@ class P2P {
      * @since windows6.0.6000
      */
     static PeerCollabGetEndpointName(ppwzEndpointName) {
+        ppwzEndpointName := ppwzEndpointName is String? StrPtr(ppwzEndpointName) : ppwzEndpointName
+
         result := DllCall("P2P.dll\PeerCollabGetEndpointName", "ptr", ppwzEndpointName, "int")
         return result
     }
@@ -8727,6 +8834,8 @@ class P2P {
      * @since windows6.0.6000
      */
     static PeerCollabSetEndpointName(pwzEndpointName) {
+        pwzEndpointName := pwzEndpointName is String? StrPtr(pwzEndpointName) : pwzEndpointName
+
         result := DllCall("P2P.dll\PeerCollabSetEndpointName", "ptr", pwzEndpointName, "int")
         return result
     }
@@ -9159,6 +9268,8 @@ class P2P {
      * @since windows6.0.6000
      */
     static PeerCollabAddContact(pwzContactData, ppContact) {
+        pwzContactData := pwzContactData is String? StrPtr(pwzContactData) : pwzContactData
+
         result := DllCall("P2P.dll\PeerCollabAddContact", "ptr", pwzContactData, "ptr", ppContact, "int")
         return result
     }
@@ -9203,6 +9314,8 @@ class P2P {
      * @since windows6.0.6000
      */
     static PeerCollabDeleteContact(pwzPeerName) {
+        pwzPeerName := pwzPeerName is String? StrPtr(pwzPeerName) : pwzPeerName
+
         result := DllCall("P2P.dll\PeerCollabDeleteContact", "ptr", pwzPeerName, "int")
         return result
     }
@@ -9261,6 +9374,8 @@ class P2P {
      * @since windows6.0.6000
      */
     static PeerCollabGetContact(pwzPeerName, ppContact) {
+        pwzPeerName := pwzPeerName is String? StrPtr(pwzPeerName) : pwzPeerName
+
         result := DllCall("P2P.dll\PeerCollabGetContact", "ptr", pwzPeerName, "ptr", ppContact, "int")
         return result
     }
@@ -9431,6 +9546,9 @@ class P2P {
      * @since windows6.0.6000
      */
     static PeerCollabExportContact(pwzPeerName, ppwzContactData) {
+        pwzPeerName := pwzPeerName is String? StrPtr(pwzPeerName) : pwzPeerName
+        ppwzContactData := ppwzContactData is String? StrPtr(ppwzContactData) : ppwzContactData
+
         result := DllCall("P2P.dll\PeerCollabExportContact", "ptr", pwzPeerName, "ptr", ppwzContactData, "int")
         return result
     }
@@ -9485,6 +9603,8 @@ class P2P {
      * @since windows6.0.6000
      */
     static PeerCollabParseContact(pwzContactData, ppContact) {
+        pwzContactData := pwzContactData is String? StrPtr(pwzContactData) : pwzContactData
+
         result := DllCall("P2P.dll\PeerCollabParseContact", "ptr", pwzContactData, "ptr", ppContact, "int")
         return result
     }
@@ -9528,6 +9648,9 @@ class P2P {
      * @since windows5.1.2600
      */
     static PeerNameToPeerHostName(pwzPeerName, ppwzHostName) {
+        pwzPeerName := pwzPeerName is String? StrPtr(pwzPeerName) : pwzPeerName
+        ppwzHostName := ppwzHostName is String? StrPtr(ppwzHostName) : ppwzHostName
+
         result := DllCall("P2P.dll\PeerNameToPeerHostName", "ptr", pwzPeerName, "ptr", ppwzHostName, "int")
         return result
     }
@@ -9571,6 +9694,9 @@ class P2P {
      * @since windows5.1.2600
      */
     static PeerHostNameToPeerName(pwzHostName, ppwzPeerName) {
+        pwzHostName := pwzHostName is String? StrPtr(pwzHostName) : pwzHostName
+        ppwzPeerName := ppwzPeerName is String? StrPtr(ppwzPeerName) : ppwzPeerName
+
         result := DllCall("P2P.dll\PeerHostNameToPeerName", "ptr", pwzHostName, "ptr", ppwzPeerName, "int")
         return result
     }
@@ -9742,6 +9868,8 @@ class P2P {
      * @since windows5.1.2600
      */
     static PeerPnrpRegister(pcwzPeerName, pRegistrationInfo, phRegistration) {
+        pcwzPeerName := pcwzPeerName is String? StrPtr(pcwzPeerName) : pcwzPeerName
+
         result := DllCall("P2P.dll\PeerPnrpRegister", "ptr", pcwzPeerName, "ptr", pRegistrationInfo, "ptr", phRegistration, "int")
         return result
     }
@@ -9884,6 +10012,9 @@ class P2P {
      * @since windows5.1.2600
      */
     static PeerPnrpResolve(pcwzPeerName, pcwzCloudName, pcEndpoints, ppEndpoints) {
+        pcwzPeerName := pcwzPeerName is String? StrPtr(pcwzPeerName) : pcwzPeerName
+        pcwzCloudName := pcwzCloudName is String? StrPtr(pcwzCloudName) : pcwzCloudName
+
         result := DllCall("P2P.dll\PeerPnrpResolve", "ptr", pcwzPeerName, "ptr", pcwzCloudName, "ptr", pcEndpoints, "ptr", ppEndpoints, "int")
         return result
     }
@@ -9938,6 +10069,9 @@ class P2P {
      * @since windows5.1.2600
      */
     static PeerPnrpStartResolve(pcwzPeerName, pcwzCloudName, cMaxEndpoints, hEvent, phResolve) {
+        pcwzPeerName := pcwzPeerName is String? StrPtr(pcwzPeerName) : pcwzPeerName
+        pcwzCloudName := pcwzCloudName is String? StrPtr(pcwzCloudName) : pcwzCloudName
+
         result := DllCall("P2P.dll\PeerPnrpStartResolve", "ptr", pcwzPeerName, "ptr", pcwzCloudName, "uint", cMaxEndpoints, "ptr", hEvent, "ptr", phResolve, "int")
         return result
     }
@@ -10153,6 +10287,10 @@ class P2P {
      * @since windows6.1
      */
     static DrtCreatePnrpBootstrapResolver(fPublish, pwzPeerName, pwzCloudName, pwzPublishingIdentity, ppResolver) {
+        pwzPeerName := pwzPeerName is String? StrPtr(pwzPeerName) : pwzPeerName
+        pwzCloudName := pwzCloudName is String? StrPtr(pwzCloudName) : pwzCloudName
+        pwzPublishingIdentity := pwzPublishingIdentity is String? StrPtr(pwzPublishingIdentity) : pwzPublishingIdentity
+
         result := DllCall("drtprov.dll\DrtCreatePnrpBootstrapResolver", "int", fPublish, "ptr", pwzPeerName, "ptr", pwzCloudName, "ptr", pwzPublishingIdentity, "ptr", ppResolver, "int")
         return result
     }
@@ -10211,6 +10349,8 @@ class P2P {
      * @since windows6.1
      */
     static DrtCreateDnsBootstrapResolver(port, pwszAddress, ppModule) {
+        pwszAddress := pwszAddress is String? StrPtr(pwszAddress) : pwszAddress
+
         result := DllCall("drtprov.dll\DrtCreateDnsBootstrapResolver", "ushort", port, "ptr", pwszAddress, "ptr", ppModule, "int")
         return result
     }
@@ -11747,6 +11887,8 @@ class P2P {
      * @since windows6.1
      */
     static DrtGetInstanceName(hDrt, ulcbInstanceNameSize, pwzDrtInstanceName) {
+        pwzDrtInstanceName := pwzDrtInstanceName is String? StrPtr(pwzDrtInstanceName) : pwzDrtInstanceName
+
         result := DllCall("drt.dll\DrtGetInstanceName", "ptr", hDrt, "uint", ulcbInstanceNameSize, "ptr", pwzDrtInstanceName, "int")
         return result
     }

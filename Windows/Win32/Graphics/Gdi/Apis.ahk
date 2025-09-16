@@ -4165,6 +4165,8 @@ class Gdi {
      * @since windows5.0
      */
     static AddFontResourceA(param0) {
+        param0 := param0 is String? StrPtr(param0) : param0
+
         DllCall("GDI32.dll\AddFontResourceA", "ptr", param0)
     }
 
@@ -4191,6 +4193,8 @@ class Gdi {
      * @since windows5.0
      */
     static AddFontResourceW(param0) {
+        param0 := param0 is String? StrPtr(param0) : param0
+
         DllCall("GDI32.dll\AddFontResourceW", "ptr", param0)
     }
 
@@ -4621,6 +4625,8 @@ class Gdi {
      * @since windows5.0
      */
     static CopyMetaFileA(param0, param1) {
+        param1 := param1 is String? StrPtr(param1) : param1
+
         result := DllCall("GDI32.dll\CopyMetaFileA", "ptr", param0, "ptr", param1, "ptr")
         return result
     }
@@ -4647,6 +4653,8 @@ class Gdi {
      * @since windows5.0
      */
     static CopyMetaFileW(param0, param1) {
+        param1 := param1 is String? StrPtr(param1) : param1
+
         result := DllCall("GDI32.dll\CopyMetaFileW", "ptr", param0, "ptr", param1, "ptr")
         return result
     }
@@ -4903,6 +4911,10 @@ class Gdi {
      * @since windows5.0
      */
     static CreateDCA(pwszDriver, pwszDevice, pszPort, pdm) {
+        pwszDriver := pwszDriver is String? StrPtr(pwszDriver) : pwszDriver
+        pwszDevice := pwszDevice is String? StrPtr(pwszDevice) : pwszDevice
+        pszPort := pszPort is String? StrPtr(pszPort) : pszPort
+
         result := DllCall("GDI32.dll\CreateDCA", "ptr", pwszDriver, "ptr", pwszDevice, "ptr", pszPort, "ptr", pdm, "ptr")
         return result
     }
@@ -4942,6 +4954,10 @@ class Gdi {
      * @since windows5.0
      */
     static CreateDCW(pwszDriver, pwszDevice, pszPort, pdm) {
+        pwszDriver := pwszDriver is String? StrPtr(pwszDriver) : pwszDriver
+        pwszDevice := pwszDevice is String? StrPtr(pwszDevice) : pwszDevice
+        pszPort := pszPort is String? StrPtr(pszPort) : pszPort
+
         result := DllCall("GDI32.dll\CreateDCW", "ptr", pwszDriver, "ptr", pwszDevice, "ptr", pszPort, "ptr", pdm, "ptr")
         return result
     }
@@ -5434,6 +5450,8 @@ class Gdi {
      * @since windows5.0
      */
     static CreateFontA(cHeight, cWidth, cEscapement, cOrientation, cWeight, bItalic, bUnderline, bStrikeOut, iCharSet, iOutPrecision, iClipPrecision, iQuality, iPitchAndFamily, pszFaceName) {
+        pszFaceName := pszFaceName is String? StrPtr(pszFaceName) : pszFaceName
+
         result := DllCall("GDI32.dll\CreateFontA", "int", cHeight, "int", cWidth, "int", cEscapement, "int", cOrientation, "int", cWeight, "uint", bItalic, "uint", bUnderline, "uint", bStrikeOut, "uint", iCharSet, "uint", iOutPrecision, "uint", iClipPrecision, "uint", iQuality, "uint", iPitchAndFamily, "ptr", pszFaceName, "ptr")
         return result
     }
@@ -5742,6 +5760,8 @@ class Gdi {
      * @since windows5.0
      */
     static CreateFontW(cHeight, cWidth, cEscapement, cOrientation, cWeight, bItalic, bUnderline, bStrikeOut, iCharSet, iOutPrecision, iClipPrecision, iQuality, iPitchAndFamily, pszFaceName) {
+        pszFaceName := pszFaceName is String? StrPtr(pszFaceName) : pszFaceName
+
         result := DllCall("GDI32.dll\CreateFontW", "int", cHeight, "int", cWidth, "int", cEscapement, "int", cOrientation, "int", cWeight, "uint", bItalic, "uint", bUnderline, "uint", bStrikeOut, "uint", iCharSet, "uint", iOutPrecision, "uint", iClipPrecision, "uint", iQuality, "uint", iPitchAndFamily, "ptr", pszFaceName, "ptr")
         return result
     }
@@ -5793,6 +5813,10 @@ class Gdi {
      * @since windows5.0
      */
     static CreateICA(pszDriver, pszDevice, pszPort, pdm) {
+        pszDriver := pszDriver is String? StrPtr(pszDriver) : pszDriver
+        pszDevice := pszDevice is String? StrPtr(pszDevice) : pszDevice
+        pszPort := pszPort is String? StrPtr(pszPort) : pszPort
+
         result := DllCall("GDI32.dll\CreateICA", "ptr", pszDriver, "ptr", pszDevice, "ptr", pszPort, "ptr", pdm, "ptr")
         return result
     }
@@ -5819,6 +5843,10 @@ class Gdi {
      * @since windows5.0
      */
     static CreateICW(pszDriver, pszDevice, pszPort, pdm) {
+        pszDriver := pszDriver is String? StrPtr(pszDriver) : pszDriver
+        pszDevice := pszDevice is String? StrPtr(pszDevice) : pszDevice
+        pszPort := pszPort is String? StrPtr(pszPort) : pszPort
+
         result := DllCall("GDI32.dll\CreateICW", "ptr", pszDriver, "ptr", pszDevice, "ptr", pszPort, "ptr", pdm, "ptr")
         return result
     }
@@ -5848,6 +5876,8 @@ class Gdi {
      * @since windows5.0
      */
     static CreateMetaFileA(pszFile) {
+        pszFile := pszFile is String? StrPtr(pszFile) : pszFile
+
         result := DllCall("GDI32.dll\CreateMetaFileA", "ptr", pszFile, "ptr")
         return result
     }
@@ -5877,6 +5907,8 @@ class Gdi {
      * @since windows5.0
      */
     static CreateMetaFileW(pszFile) {
+        pszFile := pszFile is String? StrPtr(pszFile) : pszFile
+
         result := DllCall("GDI32.dll\CreateMetaFileW", "ptr", pszFile, "ptr")
         return result
     }
@@ -6096,6 +6128,10 @@ class Gdi {
      * @since windows5.0
      */
     static CreateScalableFontResourceA(fdwHidden, lpszFont, lpszFile, lpszPath) {
+        lpszFont := lpszFont is String? StrPtr(lpszFont) : lpszFont
+        lpszFile := lpszFile is String? StrPtr(lpszFile) : lpszFile
+        lpszPath := lpszPath is String? StrPtr(lpszPath) : lpszPath
+
         A_LastError := 0
 
         result := DllCall("GDI32.dll\CreateScalableFontResourceA", "uint", fdwHidden, "ptr", lpszFont, "ptr", lpszFile, "ptr", lpszPath, "int")
@@ -6137,6 +6173,10 @@ class Gdi {
      * @since windows5.0
      */
     static CreateScalableFontResourceW(fdwHidden, lpszFont, lpszFile, lpszPath) {
+        lpszFont := lpszFont is String? StrPtr(lpszFont) : lpszFont
+        lpszFile := lpszFile is String? StrPtr(lpszFile) : lpszFile
+        lpszPath := lpszPath is String? StrPtr(lpszPath) : lpszPath
+
         A_LastError := 0
 
         result := DllCall("GDI32.dll\CreateScalableFontResourceW", "uint", fdwHidden, "ptr", lpszFont, "ptr", lpszFile, "ptr", lpszPath, "int")
@@ -6233,6 +6273,8 @@ class Gdi {
      * @since windows5.0
      */
     static DrawEscape(hdc, iEscape, cjIn, lpIn) {
+        lpIn := lpIn is String? StrPtr(lpIn) : lpIn
+
         DllCall("GDI32.dll\DrawEscape", "ptr", hdc, "int", iEscape, "int", cjIn, "ptr", lpIn)
     }
 
@@ -6571,6 +6613,8 @@ class Gdi {
      * @since windows5.0
      */
     static EnumFontFamiliesA(hdc, lpLogfont, lpProc, lParam) {
+        lpLogfont := lpLogfont is String? StrPtr(lpLogfont) : lpLogfont
+
         DllCall("GDI32.dll\EnumFontFamiliesA", "ptr", hdc, "ptr", lpLogfont, "ptr", lpProc, "ptr", lParam)
     }
 
@@ -6591,6 +6635,8 @@ class Gdi {
      * @since windows5.0
      */
     static EnumFontFamiliesW(hdc, lpLogfont, lpProc, lParam) {
+        lpLogfont := lpLogfont is String? StrPtr(lpLogfont) : lpLogfont
+
         DllCall("GDI32.dll\EnumFontFamiliesW", "ptr", hdc, "ptr", lpLogfont, "ptr", lpProc, "ptr", lParam)
     }
 
@@ -6616,6 +6662,8 @@ class Gdi {
      * @since windows5.0
      */
     static EnumFontsA(hdc, lpLogfont, lpProc, lParam) {
+        lpLogfont := lpLogfont is String? StrPtr(lpLogfont) : lpLogfont
+
         DllCall("GDI32.dll\EnumFontsA", "ptr", hdc, "ptr", lpLogfont, "ptr", lpProc, "ptr", lParam)
     }
 
@@ -6641,6 +6689,8 @@ class Gdi {
      * @since windows5.0
      */
     static EnumFontsW(hdc, lpLogfont, lpProc, lParam) {
+        lpLogfont := lpLogfont is String? StrPtr(lpLogfont) : lpLogfont
+
         DllCall("GDI32.dll\EnumFontsW", "ptr", hdc, "ptr", lpLogfont, "ptr", lpProc, "ptr", lParam)
     }
 
@@ -7865,6 +7915,8 @@ class Gdi {
      * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getmetafilea
      */
     static GetMetaFileA(lpName) {
+        lpName := lpName is String? StrPtr(lpName) : lpName
+
         result := DllCall("GDI32.dll\GetMetaFileA", "ptr", lpName, "ptr")
         return result
     }
@@ -7887,6 +7939,8 @@ class Gdi {
      * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getmetafilew
      */
     static GetMetaFileW(lpName) {
+        lpName := lpName is String? StrPtr(lpName) : lpName
+
         result := DllCall("GDI32.dll\GetMetaFileW", "ptr", lpName, "ptr")
         return result
     }
@@ -8409,6 +8463,8 @@ class Gdi {
      * @since windows5.0
      */
     static GetTextExtentPointA(hdc, lpString, c, lpsz) {
+        lpString := lpString is String? StrPtr(lpString) : lpString
+
         result := DllCall("GDI32.dll\GetTextExtentPointA", "ptr", hdc, "ptr", lpString, "int", c, "ptr", lpsz, "int")
         return result
     }
@@ -8439,6 +8495,8 @@ class Gdi {
      * @since windows5.0
      */
     static GetTextExtentPointW(hdc, lpString, c, lpsz) {
+        lpString := lpString is String? StrPtr(lpString) : lpString
+
         result := DllCall("GDI32.dll\GetTextExtentPointW", "ptr", hdc, "ptr", lpString, "int", c, "ptr", lpsz, "int")
         return result
     }
@@ -8472,6 +8530,8 @@ class Gdi {
      * @since windows5.0
      */
     static GetTextExtentPoint32A(hdc, lpString, c, psizl) {
+        lpString := lpString is String? StrPtr(lpString) : lpString
+
         result := DllCall("GDI32.dll\GetTextExtentPoint32A", "ptr", hdc, "ptr", lpString, "int", c, "ptr", psizl, "int")
         return result
     }
@@ -8505,6 +8565,8 @@ class Gdi {
      * @since windows5.0
      */
     static GetTextExtentPoint32W(hdc, lpString, c, psizl) {
+        lpString := lpString is String? StrPtr(lpString) : lpString
+
         result := DllCall("GDI32.dll\GetTextExtentPoint32W", "ptr", hdc, "ptr", lpString, "int", c, "ptr", psizl, "int")
         return result
     }
@@ -8544,6 +8606,8 @@ class Gdi {
      * @since windows5.0
      */
     static GetTextExtentExPointA(hdc, lpszString, cchString, nMaxExtent, lpnFit, lpnDx, lpSize) {
+        lpszString := lpszString is String? StrPtr(lpszString) : lpszString
+
         result := DllCall("GDI32.dll\GetTextExtentExPointA", "ptr", hdc, "ptr", lpszString, "int", cchString, "int", nMaxExtent, "ptr", lpnFit, "ptr", lpnDx, "ptr", lpSize, "int")
         return result
     }
@@ -8583,6 +8647,8 @@ class Gdi {
      * @since windows5.0
      */
     static GetTextExtentExPointW(hdc, lpszString, cchString, nMaxExtent, lpnFit, lpnDx, lpSize) {
+        lpszString := lpszString is String? StrPtr(lpszString) : lpszString
+
         result := DllCall("GDI32.dll\GetTextExtentExPointW", "ptr", hdc, "ptr", lpszString, "int", cchString, "int", nMaxExtent, "ptr", lpnFit, "ptr", lpnDx, "ptr", lpSize, "int")
         return result
     }
@@ -8678,6 +8744,8 @@ class Gdi {
      * @since windows5.0
      */
     static GetCharacterPlacementA(hdc, lpString, nCount, nMexExtent, lpResults, dwFlags) {
+        lpString := lpString is String? StrPtr(lpString) : lpString
+
         result := DllCall("GDI32.dll\GetCharacterPlacementA", "ptr", hdc, "ptr", lpString, "int", nCount, "int", nMexExtent, "ptr", lpResults, "uint", dwFlags, "uint")
         return result
     }
@@ -8718,6 +8786,8 @@ class Gdi {
      * @since windows5.0
      */
     static GetCharacterPlacementW(hdc, lpString, nCount, nMexExtent, lpResults, dwFlags) {
+        lpString := lpString is String? StrPtr(lpString) : lpString
+
         result := DllCall("GDI32.dll\GetCharacterPlacementW", "ptr", hdc, "ptr", lpString, "int", nCount, "int", nMexExtent, "ptr", lpResults, "uint", dwFlags, "uint")
         return result
     }
@@ -8777,6 +8847,8 @@ class Gdi {
      * @since windows5.0
      */
     static GetGlyphIndicesA(hdc, lpstr, c, pgi, fl) {
+        lpstr := lpstr is String? StrPtr(lpstr) : lpstr
+
         result := DllCall("GDI32.dll\GetGlyphIndicesA", "ptr", hdc, "ptr", lpstr, "int", c, "ptr", pgi, "uint", fl, "uint")
         return result
     }
@@ -8821,6 +8893,8 @@ class Gdi {
      * @since windows5.0
      */
     static GetGlyphIndicesW(hdc, lpstr, c, pgi, fl) {
+        lpstr := lpstr is String? StrPtr(lpstr) : lpstr
+
         result := DllCall("GDI32.dll\GetGlyphIndicesW", "ptr", hdc, "ptr", lpstr, "int", c, "ptr", pgi, "uint", fl, "uint")
         return result
     }
@@ -9050,6 +9124,8 @@ class Gdi {
     static AddFontResourceExA(name, fl) {
         static res := 0 ;Reserved parameters must always be NULL
 
+        name := name is String? StrPtr(name) : name
+
         DllCall("GDI32.dll\AddFontResourceExA", "ptr", name, "uint", fl, "ptr", res)
     }
 
@@ -9179,6 +9255,8 @@ class Gdi {
     static AddFontResourceExW(name, fl) {
         static res := 0 ;Reserved parameters must always be NULL
 
+        name := name is String? StrPtr(name) : name
+
         DllCall("GDI32.dll\AddFontResourceExW", "ptr", name, "uint", fl, "ptr", res)
     }
 
@@ -9225,6 +9303,8 @@ class Gdi {
      */
     static RemoveFontResourceExA(name, fl) {
         static pdv := 0 ;Reserved parameters must always be NULL
+
+        name := name is String? StrPtr(name) : name
 
         result := DllCall("GDI32.dll\RemoveFontResourceExA", "ptr", name, "uint", fl, "ptr", pdv, "int")
         return result
@@ -9273,6 +9353,8 @@ class Gdi {
      */
     static RemoveFontResourceExW(name, fl) {
         static pdv := 0 ;Reserved parameters must always be NULL
+
+        name := name is String? StrPtr(name) : name
 
         result := DllCall("GDI32.dll\RemoveFontResourceExW", "ptr", name, "uint", fl, "ptr", pdv, "int")
         return result
@@ -10100,6 +10182,8 @@ class Gdi {
      * @since windows5.0
      */
     static RemoveFontResourceA(lpFileName) {
+        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+
         result := DllCall("GDI32.dll\RemoveFontResourceA", "ptr", lpFileName, "int")
         return result
     }
@@ -10147,6 +10231,8 @@ class Gdi {
      * @since windows5.0
      */
     static RemoveFontResourceW(lpFileName) {
+        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+
         result := DllCall("GDI32.dll\RemoveFontResourceW", "ptr", lpFileName, "int")
         return result
     }
@@ -11785,6 +11871,8 @@ class Gdi {
      * @since windows5.0
      */
     static CopyEnhMetaFileA(hEnh, lpFileName) {
+        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+
         result := DllCall("GDI32.dll\CopyEnhMetaFileA", "ptr", hEnh, "ptr", lpFileName, "ptr")
         return result
     }
@@ -11813,6 +11901,8 @@ class Gdi {
      * @since windows5.0
      */
     static CopyEnhMetaFileW(hEnh, lpFileName) {
+        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+
         result := DllCall("GDI32.dll\CopyEnhMetaFileW", "ptr", hEnh, "ptr", lpFileName, "ptr")
         return result
     }
@@ -11848,6 +11938,9 @@ class Gdi {
      * @since windows5.0
      */
     static CreateEnhMetaFileA(hdc, lpFilename, lprc, lpDesc) {
+        lpFilename := lpFilename is String? StrPtr(lpFilename) : lpFilename
+        lpDesc := lpDesc is String? StrPtr(lpDesc) : lpDesc
+
         result := DllCall("GDI32.dll\CreateEnhMetaFileA", "ptr", hdc, "ptr", lpFilename, "ptr", lprc, "ptr", lpDesc, "ptr")
         return result
     }
@@ -11883,6 +11976,9 @@ class Gdi {
      * @since windows5.0
      */
     static CreateEnhMetaFileW(hdc, lpFilename, lprc, lpDesc) {
+        lpFilename := lpFilename is String? StrPtr(lpFilename) : lpFilename
+        lpDesc := lpDesc is String? StrPtr(lpDesc) : lpDesc
+
         result := DllCall("GDI32.dll\CreateEnhMetaFileW", "ptr", hdc, "ptr", lpFilename, "ptr", lprc, "ptr", lpDesc, "ptr")
         return result
     }
@@ -11943,6 +12039,8 @@ class Gdi {
      * @since windows5.0
      */
     static GetEnhMetaFileA(lpName) {
+        lpName := lpName is String? StrPtr(lpName) : lpName
+
         result := DllCall("GDI32.dll\GetEnhMetaFileA", "ptr", lpName, "ptr")
         return result
     }
@@ -11963,6 +12061,8 @@ class Gdi {
      * @since windows5.0
      */
     static GetEnhMetaFileW(lpName) {
+        lpName := lpName is String? StrPtr(lpName) : lpName
+
         result := DllCall("GDI32.dll\GetEnhMetaFileW", "ptr", lpName, "ptr")
         return result
     }
@@ -12007,6 +12107,8 @@ class Gdi {
      * @since windows5.0
      */
     static GetEnhMetaFileDescriptionA(hemf, cchBuffer, lpDescription) {
+        lpDescription := lpDescription is String? StrPtr(lpDescription) : lpDescription
+
         DllCall("GDI32.dll\GetEnhMetaFileDescriptionA", "ptr", hemf, "uint", cchBuffer, "ptr", lpDescription)
     }
 
@@ -12031,6 +12133,8 @@ class Gdi {
      * @since windows5.0
      */
     static GetEnhMetaFileDescriptionW(hemf, cchBuffer, lpDescription) {
+        lpDescription := lpDescription is String? StrPtr(lpDescription) : lpDescription
+
         DllCall("GDI32.dll\GetEnhMetaFileDescriptionW", "ptr", hemf, "uint", cchBuffer, "ptr", lpDescription)
     }
 
@@ -13273,6 +13377,8 @@ class Gdi {
      * @since windows5.0
      */
     static TextOutA(hdc, x, y, lpString, c) {
+        lpString := lpString is String? StrPtr(lpString) : lpString
+
         result := DllCall("GDI32.dll\TextOutA", "ptr", hdc, "int", x, "int", y, "ptr", lpString, "int", c, "int")
         return result
     }
@@ -13428,6 +13534,8 @@ class Gdi {
      * @since windows5.0
      */
     static TextOutW(hdc, x, y, lpString, c) {
+        lpString := lpString is String? StrPtr(lpString) : lpString
+
         result := DllCall("GDI32.dll\TextOutW", "ptr", hdc, "int", x, "int", y, "ptr", lpString, "int", c, "int")
         return result
     }
@@ -13569,6 +13677,8 @@ class Gdi {
      * @since windows5.0
      */
     static ExtTextOutA(hdc, x, y, options, lprect, lpString, c, lpDx) {
+        lpString := lpString is String? StrPtr(lpString) : lpString
+
         result := DllCall("GDI32.dll\ExtTextOutA", "ptr", hdc, "int", x, "int", y, "uint", options, "ptr", lprect, "ptr", lpString, "uint", c, "ptr", lpDx, "int")
         return result
     }
@@ -13709,6 +13819,8 @@ class Gdi {
      * @since windows5.0
      */
     static ExtTextOutW(hdc, x, y, options, lprect, lpString, c, lpDx) {
+        lpString := lpString is String? StrPtr(lpString) : lpString
+
         result := DllCall("GDI32.dll\ExtTextOutW", "ptr", hdc, "int", x, "int", y, "uint", options, "ptr", lprect, "ptr", lpString, "uint", c, "ptr", lpDx, "int")
         return result
     }
@@ -14226,6 +14338,8 @@ class Gdi {
      * @since windows5.0
      */
     static GetTextFaceA(hdc, c, lpName) {
+        lpName := lpName is String? StrPtr(lpName) : lpName
+
         DllCall("GDI32.dll\GetTextFaceA", "ptr", hdc, "int", c, "ptr", lpName)
     }
 
@@ -14250,6 +14364,8 @@ class Gdi {
      * @since windows5.0
      */
     static GetTextFaceW(hdc, c, lpName) {
+        lpName := lpName is String? StrPtr(lpName) : lpName
+
         DllCall("GDI32.dll\GetTextFaceW", "ptr", hdc, "int", c, "ptr", lpName)
     }
 
@@ -14707,6 +14823,8 @@ class Gdi {
      * @since windows5.0
      */
     static TTEmbedFontFromFileA(hDC, szFontFileName, usTTCIndex, ulFlags, ulCharSet, pulPrivStatus, pulStatus, lpfnWriteToStream, lpvWriteStream, pusCharCodeSet, usCharCodeCount, usLanguage, pTTEmbedInfo) {
+        szFontFileName := szFontFileName is String? StrPtr(szFontFileName) : szFontFileName
+
         result := DllCall("t2embed.dll\TTEmbedFontFromFileA", "ptr", hDC, "ptr", szFontFileName, "ushort", usTTCIndex, "uint", ulFlags, "uint", ulCharSet, "ptr", pulPrivStatus, "ptr", pulStatus, "ptr", lpfnWriteToStream, "ptr", lpvWriteStream, "ptr", pusCharCodeSet, "ushort", usCharCodeCount, "ushort", usLanguage, "ptr", pTTEmbedInfo, "int")
         return result
     }
@@ -14759,6 +14877,9 @@ class Gdi {
      * @since windows5.0
      */
     static TTLoadEmbeddedFont(phFontReference, ulFlags, pulPrivStatus, ulPrivs, pulStatus, lpfnReadFromStream, lpvReadStream, szWinFamilyName, szMacFamilyName, pTTLoadInfo) {
+        szWinFamilyName := szWinFamilyName is String? StrPtr(szWinFamilyName) : szWinFamilyName
+        szMacFamilyName := szMacFamilyName is String? StrPtr(szMacFamilyName) : szMacFamilyName
+
         result := DllCall("t2embed.dll\TTLoadEmbeddedFont", "ptr", phFontReference, "uint", ulFlags, "ptr", pulPrivStatus, "uint", ulPrivs, "ptr", pulStatus, "ptr", lpfnReadFromStream, "ptr", lpvReadStream, "ptr", szWinFamilyName, "ptr", szMacFamilyName, "ptr", pTTLoadInfo, "int")
         return result
     }
@@ -14985,6 +15106,8 @@ class Gdi {
      * @since windows5.0
      */
     static TTIsEmbeddingEnabledForFacename(lpszFacename, pbEnabled) {
+        lpszFacename := lpszFacename is String? StrPtr(lpszFacename) : lpszFacename
+
         result := DllCall("t2embed.dll\TTIsEmbeddingEnabledForFacename", "ptr", lpszFacename, "ptr", pbEnabled, "int")
         return result
     }
@@ -15085,6 +15208,8 @@ class Gdi {
      * @since windows5.0
      */
     static TTEnableEmbeddingForFacename(lpszFacename, bEnable) {
+        lpszFacename := lpszFacename is String? StrPtr(lpszFacename) : lpszFacename
+
         result := DllCall("t2embed.dll\TTEnableEmbeddingForFacename", "ptr", lpszFacename, "int", bEnable, "int")
         return result
     }
@@ -15163,6 +15288,9 @@ class Gdi {
      * @since windows5.0
      */
     static TTGetNewFontName(phFontReference, wzWinFamilyName, cchMaxWinName, szMacFamilyName, cchMaxMacName) {
+        wzWinFamilyName := wzWinFamilyName is String? StrPtr(wzWinFamilyName) : wzWinFamilyName
+        szMacFamilyName := szMacFamilyName is String? StrPtr(szMacFamilyName) : szMacFamilyName
+
         result := DllCall("t2embed.dll\TTGetNewFontName", "ptr", phFontReference, "ptr", wzWinFamilyName, "int", cchMaxWinName, "ptr", szMacFamilyName, "int", cchMaxMacName, "int")
         return result
     }
@@ -15374,6 +15502,8 @@ class Gdi {
      * @since windows5.0
      */
     static DrawTextA(hdc, lpchText, cchText, lprc, format) {
+        lpchText := lpchText is String? StrPtr(lpchText) : lpchText
+
         DllCall("USER32.dll\DrawTextA", "ptr", hdc, "ptr", lpchText, "int", cchText, "ptr", lprc, "uint", format)
     }
 
@@ -15404,6 +15534,8 @@ class Gdi {
      * @since windows5.0
      */
     static DrawTextW(hdc, lpchText, cchText, lprc, format) {
+        lpchText := lpchText is String? StrPtr(lpchText) : lpchText
+
         DllCall("USER32.dll\DrawTextW", "ptr", hdc, "ptr", lpchText, "int", cchText, "ptr", lprc, "uint", format)
     }
 
@@ -15433,6 +15565,8 @@ class Gdi {
      * @since windows5.0
      */
     static DrawTextExA(hdc, lpchText, cchText, lprc, format, lpdtp) {
+        lpchText := lpchText is String? StrPtr(lpchText) : lpchText
+
         DllCall("USER32.dll\DrawTextExA", "ptr", hdc, "ptr", lpchText, "int", cchText, "ptr", lprc, "uint", format, "ptr", lpdtp)
     }
 
@@ -15462,6 +15596,8 @@ class Gdi {
      * @since windows5.0
      */
     static DrawTextExW(hdc, lpchText, cchText, lprc, format, lpdtp) {
+        lpchText := lpchText is String? StrPtr(lpchText) : lpchText
+
         DllCall("USER32.dll\DrawTextExW", "ptr", hdc, "ptr", lpchText, "int", cchText, "ptr", lprc, "uint", format, "ptr", lpdtp)
     }
 
@@ -15895,6 +16031,8 @@ class Gdi {
      * @since windows5.0
      */
     static TabbedTextOutA(hdc, x, y, lpString, chCount, nTabPositions, lpnTabStopPositions, nTabOrigin) {
+        lpString := lpString is String? StrPtr(lpString) : lpString
+
         result := DllCall("USER32.dll\TabbedTextOutA", "ptr", hdc, "int", x, "int", y, "ptr", lpString, "int", chCount, "int", nTabPositions, "ptr", lpnTabStopPositions, "int", nTabOrigin, "int")
         return result
     }
@@ -15935,6 +16073,8 @@ class Gdi {
      * @since windows5.0
      */
     static TabbedTextOutW(hdc, x, y, lpString, chCount, nTabPositions, lpnTabStopPositions, nTabOrigin) {
+        lpString := lpString is String? StrPtr(lpString) : lpString
+
         result := DllCall("USER32.dll\TabbedTextOutW", "ptr", hdc, "int", x, "int", y, "ptr", lpString, "int", chCount, "int", nTabPositions, "ptr", lpnTabStopPositions, "int", nTabOrigin, "int")
         return result
     }
@@ -15968,6 +16108,8 @@ class Gdi {
      * @since windows5.0
      */
     static GetTabbedTextExtentA(hdc, lpString, chCount, nTabPositions, lpnTabStopPositions) {
+        lpString := lpString is String? StrPtr(lpString) : lpString
+
         result := DllCall("USER32.dll\GetTabbedTextExtentA", "ptr", hdc, "ptr", lpString, "int", chCount, "int", nTabPositions, "ptr", lpnTabStopPositions, "uint")
         return result
     }
@@ -16001,6 +16143,8 @@ class Gdi {
      * @since windows5.0
      */
     static GetTabbedTextExtentW(hdc, lpString, chCount, nTabPositions, lpnTabStopPositions) {
+        lpString := lpString is String? StrPtr(lpString) : lpString
+
         result := DllCall("USER32.dll\GetTabbedTextExtentW", "ptr", hdc, "ptr", lpString, "int", chCount, "int", nTabPositions, "ptr", lpnTabStopPositions, "uint")
         return result
     }
@@ -17217,6 +17361,8 @@ class Gdi {
      * @since windows5.0
      */
     static LoadBitmapA(hInstance, lpBitmapName) {
+        lpBitmapName := lpBitmapName is String? StrPtr(lpBitmapName) : lpBitmapName
+
         result := DllCall("USER32.dll\LoadBitmapA", "ptr", hInstance, "ptr", lpBitmapName, "ptr")
         return result
     }
@@ -17320,6 +17466,8 @@ class Gdi {
      * @since windows5.0
      */
     static LoadBitmapW(hInstance, lpBitmapName) {
+        lpBitmapName := lpBitmapName is String? StrPtr(lpBitmapName) : lpBitmapName
+
         result := DllCall("USER32.dll\LoadBitmapW", "ptr", hInstance, "ptr", lpBitmapName, "ptr")
         return result
     }
@@ -17865,6 +18013,8 @@ class Gdi {
     static ChangeDisplaySettingsExA(lpszDeviceName, lpDevMode, dwflags, lParam) {
         static hwnd := 0 ;Reserved parameters must always be NULL
 
+        lpszDeviceName := lpszDeviceName is String? StrPtr(lpszDeviceName) : lpszDeviceName
+
         result := DllCall("USER32.dll\ChangeDisplaySettingsExA", "ptr", lpszDeviceName, "ptr", lpDevMode, "ptr", hwnd, "uint", dwflags, "ptr", lParam, "int")
         return result
     }
@@ -18060,6 +18210,8 @@ class Gdi {
     static ChangeDisplaySettingsExW(lpszDeviceName, lpDevMode, dwflags, lParam) {
         static hwnd := 0 ;Reserved parameters must always be NULL
 
+        lpszDeviceName := lpszDeviceName is String? StrPtr(lpszDeviceName) : lpszDeviceName
+
         result := DllCall("USER32.dll\ChangeDisplaySettingsExW", "ptr", lpszDeviceName, "ptr", lpDevMode, "ptr", hwnd, "uint", dwflags, "ptr", lParam, "int")
         return result
     }
@@ -18100,6 +18252,8 @@ class Gdi {
      * @since windows5.0
      */
     static EnumDisplaySettingsA(lpszDeviceName, iModeNum, lpDevMode) {
+        lpszDeviceName := lpszDeviceName is String? StrPtr(lpszDeviceName) : lpszDeviceName
+
         result := DllCall("USER32.dll\EnumDisplaySettingsA", "ptr", lpszDeviceName, "uint", iModeNum, "ptr", lpDevMode, "int")
         return result
     }
@@ -18140,6 +18294,8 @@ class Gdi {
      * @since windows5.0
      */
     static EnumDisplaySettingsW(lpszDeviceName, iModeNum, lpDevMode) {
+        lpszDeviceName := lpszDeviceName is String? StrPtr(lpszDeviceName) : lpszDeviceName
+
         result := DllCall("USER32.dll\EnumDisplaySettingsW", "ptr", lpszDeviceName, "uint", iModeNum, "ptr", lpDevMode, "int")
         return result
     }
@@ -18210,6 +18366,8 @@ class Gdi {
      * @since windows5.0
      */
     static EnumDisplaySettingsExA(lpszDeviceName, iModeNum, lpDevMode, dwFlags) {
+        lpszDeviceName := lpszDeviceName is String? StrPtr(lpszDeviceName) : lpszDeviceName
+
         result := DllCall("USER32.dll\EnumDisplaySettingsExA", "ptr", lpszDeviceName, "uint", iModeNum, "ptr", lpDevMode, "uint", dwFlags, "int")
         return result
     }
@@ -18280,6 +18438,8 @@ class Gdi {
      * @since windows5.0
      */
     static EnumDisplaySettingsExW(lpszDeviceName, iModeNum, lpDevMode, dwFlags) {
+        lpszDeviceName := lpszDeviceName is String? StrPtr(lpszDeviceName) : lpszDeviceName
+
         result := DllCall("USER32.dll\EnumDisplaySettingsExW", "ptr", lpszDeviceName, "uint", iModeNum, "ptr", lpDevMode, "uint", dwFlags, "int")
         return result
     }
@@ -18318,6 +18478,8 @@ class Gdi {
      * @since windows5.0
      */
     static EnumDisplayDevicesA(lpDevice, iDevNum, lpDisplayDevice, dwFlags) {
+        lpDevice := lpDevice is String? StrPtr(lpDevice) : lpDevice
+
         result := DllCall("USER32.dll\EnumDisplayDevicesA", "ptr", lpDevice, "uint", iDevNum, "ptr", lpDisplayDevice, "uint", dwFlags, "int")
         return result
     }
@@ -18356,6 +18518,8 @@ class Gdi {
      * @since windows5.0
      */
     static EnumDisplayDevicesW(lpDevice, iDevNum, lpDisplayDevice, dwFlags) {
+        lpDevice := lpDevice is String? StrPtr(lpDevice) : lpDevice
+
         result := DllCall("USER32.dll\EnumDisplayDevicesW", "ptr", lpDevice, "uint", iDevNum, "ptr", lpDisplayDevice, "uint", dwFlags, "int")
         return result
     }

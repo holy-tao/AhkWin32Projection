@@ -243,6 +243,9 @@ class Cabinets {
      * @see https://learn.microsoft.com/windows/win32/api/fci/nf-fci-fciaddfile
      */
     static FCIAddFile(hfci, pszSourceFile, pszFileName, fExecute, pfnfcignc, pfnfcis, pfnfcigoi, typeCompress) {
+        pszSourceFile := pszSourceFile is String? StrPtr(pszSourceFile) : pszSourceFile
+        pszFileName := pszFileName is String? StrPtr(pszFileName) : pszFileName
+
         result := DllCall("Cabinet.dll\FCIAddFile", "ptr", hfci, "ptr", pszSourceFile, "ptr", pszFileName, "int", fExecute, "ptr", pfnfcignc, "ptr", pfnfcis, "ptr", pfnfcigoi, "ushort", typeCompress, "CDecl int")
         return result
     }
@@ -354,6 +357,9 @@ class Cabinets {
      * @since windows5.0
      */
     static FDICopy(hfdi, pszCabinet, pszCabPath, flags, pfnfdin, pfnfdid, pvUser) {
+        pszCabinet := pszCabinet is String? StrPtr(pszCabinet) : pszCabinet
+        pszCabPath := pszCabPath is String? StrPtr(pszCabPath) : pszCabPath
+
         result := DllCall("Cabinet.dll\FDICopy", "ptr", hfdi, "ptr", pszCabinet, "ptr", pszCabPath, "int", flags, "ptr", pfnfdin, "ptr", pfnfdid, "ptr", pvUser, "CDecl int")
         return result
     }
@@ -383,6 +389,8 @@ class Cabinets {
      * @see https://learn.microsoft.com/windows/win32/api/fdi/nf-fdi-fditruncatecabinet
      */
     static FDITruncateCabinet(hfdi, pszCabinetName, iFolderToDelete) {
+        pszCabinetName := pszCabinetName is String? StrPtr(pszCabinetName) : pszCabinetName
+
         result := DllCall("Cabinet.dll\FDITruncateCabinet", "ptr", hfdi, "ptr", pszCabinetName, "ushort", iFolderToDelete, "CDecl int")
         return result
     }

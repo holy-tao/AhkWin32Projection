@@ -3158,6 +3158,8 @@ class Accessibility {
      * @since windows5.0
      */
     static GetRoleTextA(lRole, lpszRole, cchRoleMax) {
+        lpszRole := lpszRole is String? StrPtr(lpszRole) : lpszRole
+
         A_LastError := 0
 
         DllCall("OLEACC.dll\GetRoleTextA", "uint", lRole, "ptr", lpszRole, "uint", cchRoleMax)
@@ -3185,6 +3187,8 @@ class Accessibility {
      * @since windows5.0
      */
     static GetRoleTextW(lRole, lpszRole, cchRoleMax) {
+        lpszRole := lpszRole is String? StrPtr(lpszRole) : lpszRole
+
         A_LastError := 0
 
         DllCall("OLEACC.dll\GetRoleTextW", "uint", lRole, "ptr", lpszRole, "uint", cchRoleMax)
@@ -3217,6 +3221,8 @@ class Accessibility {
      * @since windows5.0
      */
     static GetStateTextA(lStateBit, lpszState, cchState) {
+        lpszState := lpszState is String? StrPtr(lpszState) : lpszState
+
         A_LastError := 0
 
         DllCall("OLEACC.dll\GetStateTextA", "uint", lStateBit, "ptr", lpszState, "uint", cchState)
@@ -3249,6 +3255,8 @@ class Accessibility {
      * @since windows5.0
      */
     static GetStateTextW(lStateBit, lpszState, cchState) {
+        lpszState := lpszState is String? StrPtr(lpszState) : lpszState
+
         A_LastError := 0
 
         DllCall("OLEACC.dll\GetStateTextW", "uint", lStateBit, "ptr", lpszState, "uint", cchState)
@@ -3345,6 +3353,8 @@ class Accessibility {
      * @since windows5.0
      */
     static CreateStdAccessibleProxyA(hwnd, pClassName, idObject, riid, ppvObject) {
+        pClassName := pClassName is String? StrPtr(pClassName) : pClassName
+
         result := DllCall("OLEACC.dll\CreateStdAccessibleProxyA", "ptr", hwnd, "ptr", pClassName, "int", idObject, "ptr", riid, "ptr", ppvObject, "int")
         return result
     }
@@ -3388,6 +3398,8 @@ class Accessibility {
      * @since windows5.0
      */
     static CreateStdAccessibleProxyW(hwnd, pClassName, idObject, riid, ppvObject) {
+        pClassName := pClassName is String? StrPtr(pClassName) : pClassName
+
         result := DllCall("OLEACC.dll\CreateStdAccessibleProxyW", "ptr", hwnd, "ptr", pClassName, "int", idObject, "ptr", riid, "ptr", ppvObject, "int")
         return result
     }
@@ -4608,6 +4620,8 @@ class Accessibility {
      * @since windows5.1.2600
      */
     static ValuePattern_SetValue(hobj, pVal) {
+        pVal := pVal is String? StrPtr(pVal) : pVal
+
         result := DllCall("UIAutomationCore.dll\ValuePattern_SetValue", "ptr", hobj, "ptr", pVal, "int")
         return result
     }
@@ -5341,6 +5355,8 @@ class Accessibility {
      * @since windows6.1
      */
     static LegacyIAccessiblePattern_SetValue(hobj, szValue) {
+        szValue := szValue is String? StrPtr(szValue) : szValue
+
         result := DllCall("UIAutomationCore.dll\LegacyIAccessiblePattern_SetValue", "ptr", hobj, "ptr", szValue, "int")
         return result
     }

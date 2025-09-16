@@ -687,6 +687,8 @@ class ColorSystem {
      * @since windows5.0
      */
     static GetICMProfileA(hdc, pBufSize, pszFilename) {
+        pszFilename := pszFilename is String? StrPtr(pszFilename) : pszFilename
+
         result := DllCall("GDI32.dll\GetICMProfileA", "ptr", hdc, "ptr", pBufSize, "ptr", pszFilename, "int")
         return result
     }
@@ -720,6 +722,8 @@ class ColorSystem {
      * @since windows5.0
      */
     static GetICMProfileW(hdc, pBufSize, pszFilename) {
+        pszFilename := pszFilename is String? StrPtr(pszFilename) : pszFilename
+
         result := DllCall("GDI32.dll\GetICMProfileW", "ptr", hdc, "ptr", pBufSize, "ptr", pszFilename, "int")
         return result
     }
@@ -750,6 +754,8 @@ class ColorSystem {
      * @since windows5.0
      */
     static SetICMProfileA(hdc, lpFileName) {
+        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+
         result := DllCall("GDI32.dll\SetICMProfileA", "ptr", hdc, "ptr", lpFileName, "int")
         return result
     }
@@ -780,6 +786,8 @@ class ColorSystem {
      * @since windows5.0
      */
     static SetICMProfileW(hdc, lpFileName) {
+        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+
         result := DllCall("GDI32.dll\SetICMProfileW", "ptr", hdc, "ptr", lpFileName, "int")
         return result
     }
@@ -922,6 +930,9 @@ class ColorSystem {
     static UpdateICMRegKeyA(lpszCMID, lpszFileName, command) {
         static reserved := 0 ;Reserved parameters must always be NULL
 
+        lpszCMID := lpszCMID is String? StrPtr(lpszCMID) : lpszCMID
+        lpszFileName := lpszFileName is String? StrPtr(lpszFileName) : lpszFileName
+
         result := DllCall("GDI32.dll\UpdateICMRegKeyA", "uint", reserved, "ptr", lpszCMID, "ptr", lpszFileName, "uint", command, "int")
         return result
     }
@@ -952,6 +963,9 @@ class ColorSystem {
      */
     static UpdateICMRegKeyW(lpszCMID, lpszFileName, command) {
         static reserved := 0 ;Reserved parameters must always be NULL
+
+        lpszCMID := lpszCMID is String? StrPtr(lpszCMID) : lpszCMID
+        lpszFileName := lpszFileName is String? StrPtr(lpszFileName) : lpszFileName
 
         result := DllCall("GDI32.dll\UpdateICMRegKeyW", "uint", reserved, "ptr", lpszCMID, "ptr", lpszFileName, "uint", command, "int")
         return result
@@ -1824,6 +1838,9 @@ class ColorSystem {
      * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-registercmma
      */
     static RegisterCMMA(pMachineName, cmmID, pCMMdll) {
+        pMachineName := pMachineName is String? StrPtr(pMachineName) : pMachineName
+        pCMMdll := pCMMdll is String? StrPtr(pCMMdll) : pCMMdll
+
         result := DllCall("mscms.dll\RegisterCMMA", "ptr", pMachineName, "uint", cmmID, "ptr", pCMMdll, "int")
         return result
     }
@@ -1839,6 +1856,9 @@ class ColorSystem {
      * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-registercmmw
      */
     static RegisterCMMW(pMachineName, cmmID, pCMMdll) {
+        pMachineName := pMachineName is String? StrPtr(pMachineName) : pMachineName
+        pCMMdll := pCMMdll is String? StrPtr(pCMMdll) : pCMMdll
+
         result := DllCall("mscms.dll\RegisterCMMW", "ptr", pMachineName, "uint", cmmID, "ptr", pCMMdll, "int")
         return result
     }
@@ -1855,6 +1875,8 @@ class ColorSystem {
      * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-unregistercmma
      */
     static UnregisterCMMA(pMachineName, cmmID) {
+        pMachineName := pMachineName is String? StrPtr(pMachineName) : pMachineName
+
         result := DllCall("mscms.dll\UnregisterCMMA", "ptr", pMachineName, "uint", cmmID, "int")
         return result
     }
@@ -1871,6 +1893,8 @@ class ColorSystem {
      * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-unregistercmmw
      */
     static UnregisterCMMW(pMachineName, cmmID) {
+        pMachineName := pMachineName is String? StrPtr(pMachineName) : pMachineName
+
         result := DllCall("mscms.dll\UnregisterCMMW", "ptr", pMachineName, "uint", cmmID, "int")
         return result
     }
@@ -1907,6 +1931,9 @@ class ColorSystem {
      * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-getcolordirectorya
      */
     static GetColorDirectoryA(pMachineName, pBuffer, pdwSize) {
+        pMachineName := pMachineName is String? StrPtr(pMachineName) : pMachineName
+        pBuffer := pBuffer is String? StrPtr(pBuffer) : pBuffer
+
         result := DllCall("mscms.dll\GetColorDirectoryA", "ptr", pMachineName, "ptr", pBuffer, "ptr", pdwSize, "int")
         return result
     }
@@ -1926,6 +1953,9 @@ class ColorSystem {
      * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-getcolordirectoryw
      */
     static GetColorDirectoryW(pMachineName, pBuffer, pdwSize) {
+        pMachineName := pMachineName is String? StrPtr(pMachineName) : pMachineName
+        pBuffer := pBuffer is String? StrPtr(pBuffer) : pBuffer
+
         result := DllCall("mscms.dll\GetColorDirectoryW", "ptr", pMachineName, "ptr", pBuffer, "ptr", pdwSize, "int")
         return result
     }
@@ -1940,6 +1970,9 @@ class ColorSystem {
      * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-installcolorprofilea
      */
     static InstallColorProfileA(pMachineName, pProfileName) {
+        pMachineName := pMachineName is String? StrPtr(pMachineName) : pMachineName
+        pProfileName := pProfileName is String? StrPtr(pProfileName) : pProfileName
+
         result := DllCall("mscms.dll\InstallColorProfileA", "ptr", pMachineName, "ptr", pProfileName, "int")
         return result
     }
@@ -1954,6 +1987,9 @@ class ColorSystem {
      * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-installcolorprofilew
      */
     static InstallColorProfileW(pMachineName, pProfileName) {
+        pMachineName := pMachineName is String? StrPtr(pMachineName) : pMachineName
+        pProfileName := pProfileName is String? StrPtr(pProfileName) : pProfileName
+
         result := DllCall("mscms.dll\InstallColorProfileW", "ptr", pMachineName, "ptr", pProfileName, "int")
         return result
     }
@@ -1969,6 +2005,9 @@ class ColorSystem {
      * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-uninstallcolorprofilea
      */
     static UninstallColorProfileA(pMachineName, pProfileName, bDelete) {
+        pMachineName := pMachineName is String? StrPtr(pMachineName) : pMachineName
+        pProfileName := pProfileName is String? StrPtr(pProfileName) : pProfileName
+
         result := DllCall("mscms.dll\UninstallColorProfileA", "ptr", pMachineName, "ptr", pProfileName, "int", bDelete, "int")
         return result
     }
@@ -1984,6 +2023,9 @@ class ColorSystem {
      * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-uninstallcolorprofilew
      */
     static UninstallColorProfileW(pMachineName, pProfileName, bDelete) {
+        pMachineName := pMachineName is String? StrPtr(pMachineName) : pMachineName
+        pProfileName := pProfileName is String? StrPtr(pProfileName) : pProfileName
+
         result := DllCall("mscms.dll\UninstallColorProfileW", "ptr", pMachineName, "ptr", pProfileName, "int", bDelete, "int")
         return result
     }
@@ -2013,6 +2055,8 @@ class ColorSystem {
      * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-enumcolorprofilesa
      */
     static EnumColorProfilesA(pMachineName, pEnumRecord, pEnumerationBuffer, pdwSizeOfEnumerationBuffer, pnProfiles) {
+        pMachineName := pMachineName is String? StrPtr(pMachineName) : pMachineName
+
         result := DllCall("mscms.dll\EnumColorProfilesA", "ptr", pMachineName, "ptr", pEnumRecord, "ptr", pEnumerationBuffer, "ptr", pdwSizeOfEnumerationBuffer, "ptr", pnProfiles, "int")
         return result
     }
@@ -2042,6 +2086,8 @@ class ColorSystem {
      * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-enumcolorprofilesw
      */
     static EnumColorProfilesW(pMachineName, pEnumRecord, pEnumerationBuffer, pdwSizeOfEnumerationBuffer, pnProfiles) {
+        pMachineName := pMachineName is String? StrPtr(pMachineName) : pMachineName
+
         result := DllCall("mscms.dll\EnumColorProfilesW", "ptr", pMachineName, "ptr", pEnumRecord, "ptr", pEnumerationBuffer, "ptr", pdwSizeOfEnumerationBuffer, "ptr", pnProfiles, "int")
         return result
     }
@@ -2069,6 +2115,9 @@ class ColorSystem {
      * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-setstandardcolorspaceprofilea
      */
     static SetStandardColorSpaceProfileA(pMachineName, dwProfileID, pProfilename) {
+        pMachineName := pMachineName is String? StrPtr(pMachineName) : pMachineName
+        pProfilename := pProfilename is String? StrPtr(pProfilename) : pProfilename
+
         result := DllCall("mscms.dll\SetStandardColorSpaceProfileA", "ptr", pMachineName, "uint", dwProfileID, "ptr", pProfilename, "int")
         return result
     }
@@ -2096,6 +2145,9 @@ class ColorSystem {
      * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-setstandardcolorspaceprofilew
      */
     static SetStandardColorSpaceProfileW(pMachineName, dwProfileID, pProfileName) {
+        pMachineName := pMachineName is String? StrPtr(pMachineName) : pMachineName
+        pProfileName := pProfileName is String? StrPtr(pProfileName) : pProfileName
+
         result := DllCall("mscms.dll\SetStandardColorSpaceProfileW", "ptr", pMachineName, "uint", dwProfileID, "ptr", pProfileName, "int")
         return result
     }
@@ -2128,6 +2180,9 @@ class ColorSystem {
      * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-getstandardcolorspaceprofilea
      */
     static GetStandardColorSpaceProfileA(pMachineName, dwSCS, pBuffer, pcbSize) {
+        pMachineName := pMachineName is String? StrPtr(pMachineName) : pMachineName
+        pBuffer := pBuffer is String? StrPtr(pBuffer) : pBuffer
+
         result := DllCall("mscms.dll\GetStandardColorSpaceProfileA", "ptr", pMachineName, "uint", dwSCS, "ptr", pBuffer, "ptr", pcbSize, "int")
         return result
     }
@@ -2160,6 +2215,9 @@ class ColorSystem {
      * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-getstandardcolorspaceprofilew
      */
     static GetStandardColorSpaceProfileW(pMachineName, dwSCS, pBuffer, pcbSize) {
+        pMachineName := pMachineName is String? StrPtr(pMachineName) : pMachineName
+        pBuffer := pBuffer is String? StrPtr(pBuffer) : pBuffer
+
         result := DllCall("mscms.dll\GetStandardColorSpaceProfileW", "ptr", pMachineName, "uint", dwSCS, "ptr", pBuffer, "ptr", pcbSize, "int")
         return result
     }
@@ -2187,6 +2245,10 @@ class ColorSystem {
      * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-associatecolorprofilewithdevicea
      */
     static AssociateColorProfileWithDeviceA(pMachineName, pProfileName, pDeviceName) {
+        pMachineName := pMachineName is String? StrPtr(pMachineName) : pMachineName
+        pProfileName := pProfileName is String? StrPtr(pProfileName) : pProfileName
+        pDeviceName := pDeviceName is String? StrPtr(pDeviceName) : pDeviceName
+
         result := DllCall("mscms.dll\AssociateColorProfileWithDeviceA", "ptr", pMachineName, "ptr", pProfileName, "ptr", pDeviceName, "int")
         return result
     }
@@ -2214,6 +2276,10 @@ class ColorSystem {
      * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-associatecolorprofilewithdevicew
      */
     static AssociateColorProfileWithDeviceW(pMachineName, pProfileName, pDeviceName) {
+        pMachineName := pMachineName is String? StrPtr(pMachineName) : pMachineName
+        pProfileName := pProfileName is String? StrPtr(pProfileName) : pProfileName
+        pDeviceName := pDeviceName is String? StrPtr(pDeviceName) : pDeviceName
+
         result := DllCall("mscms.dll\AssociateColorProfileWithDeviceW", "ptr", pMachineName, "ptr", pProfileName, "ptr", pDeviceName, "int")
         return result
     }
@@ -2235,6 +2301,10 @@ class ColorSystem {
      * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-disassociatecolorprofilefromdevicea
      */
     static DisassociateColorProfileFromDeviceA(pMachineName, pProfileName, pDeviceName) {
+        pMachineName := pMachineName is String? StrPtr(pMachineName) : pMachineName
+        pProfileName := pProfileName is String? StrPtr(pProfileName) : pProfileName
+        pDeviceName := pDeviceName is String? StrPtr(pDeviceName) : pDeviceName
+
         result := DllCall("mscms.dll\DisassociateColorProfileFromDeviceA", "ptr", pMachineName, "ptr", pProfileName, "ptr", pDeviceName, "int")
         return result
     }
@@ -2256,6 +2326,10 @@ class ColorSystem {
      * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-disassociatecolorprofilefromdevicew
      */
     static DisassociateColorProfileFromDeviceW(pMachineName, pProfileName, pDeviceName) {
+        pMachineName := pMachineName is String? StrPtr(pMachineName) : pMachineName
+        pProfileName := pProfileName is String? StrPtr(pProfileName) : pProfileName
+        pDeviceName := pDeviceName is String? StrPtr(pDeviceName) : pDeviceName
+
         result := DllCall("mscms.dll\DisassociateColorProfileFromDeviceW", "ptr", pMachineName, "ptr", pProfileName, "ptr", pDeviceName, "int")
         return result
     }
@@ -2307,6 +2381,9 @@ class ColorSystem {
      * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-wcsassociatecolorprofilewithdevice
      */
     static WcsAssociateColorProfileWithDevice(scope, pProfileName, pDeviceName) {
+        pProfileName := pProfileName is String? StrPtr(pProfileName) : pProfileName
+        pDeviceName := pDeviceName is String? StrPtr(pDeviceName) : pDeviceName
+
         result := DllCall("mscms.dll\WcsAssociateColorProfileWithDevice", "int", scope, "ptr", pProfileName, "ptr", pDeviceName, "int")
         return result
     }
@@ -2332,6 +2409,9 @@ class ColorSystem {
      * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-wcsdisassociatecolorprofilefromdevice
      */
     static WcsDisassociateColorProfileFromDevice(scope, pProfileName, pDeviceName) {
+        pProfileName := pProfileName is String? StrPtr(pProfileName) : pProfileName
+        pDeviceName := pDeviceName is String? StrPtr(pDeviceName) : pDeviceName
+
         result := DllCall("mscms.dll\WcsDisassociateColorProfileFromDevice", "int", scope, "ptr", pProfileName, "ptr", pDeviceName, "int")
         return result
     }
@@ -2396,6 +2476,8 @@ class ColorSystem {
      * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-wcsgetdefaultcolorprofilesize
      */
     static WcsGetDefaultColorProfileSize(scope, pDeviceName, cptColorProfileType, cpstColorProfileSubType, dwProfileID, pcbProfileName) {
+        pDeviceName := pDeviceName is String? StrPtr(pDeviceName) : pDeviceName
+
         result := DllCall("mscms.dll\WcsGetDefaultColorProfileSize", "int", scope, "ptr", pDeviceName, "int", cptColorProfileType, "int", cpstColorProfileSubType, "uint", dwProfileID, "ptr", pcbProfileName, "int")
         return result
     }
@@ -2421,6 +2503,9 @@ class ColorSystem {
      * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-wcsgetdefaultcolorprofile
      */
     static WcsGetDefaultColorProfile(scope, pDeviceName, cptColorProfileType, cpstColorProfileSubType, dwProfileID, cbProfileName, pProfileName) {
+        pDeviceName := pDeviceName is String? StrPtr(pDeviceName) : pDeviceName
+        pProfileName := pProfileName is String? StrPtr(pProfileName) : pProfileName
+
         result := DllCall("mscms.dll\WcsGetDefaultColorProfile", "int", scope, "ptr", pDeviceName, "int", cptColorProfileType, "int", cpstColorProfileSubType, "uint", dwProfileID, "uint", cbProfileName, "ptr", pProfileName, "int")
         return result
     }
@@ -2451,6 +2536,9 @@ class ColorSystem {
      * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-wcssetdefaultcolorprofile
      */
     static WcsSetDefaultColorProfile(scope, pDeviceName, cptColorProfileType, cpstColorProfileSubType, dwProfileID, pProfileName) {
+        pDeviceName := pDeviceName is String? StrPtr(pDeviceName) : pDeviceName
+        pProfileName := pProfileName is String? StrPtr(pProfileName) : pProfileName
+
         result := DllCall("mscms.dll\WcsSetDefaultColorProfile", "int", scope, "ptr", pDeviceName, "int", cptColorProfileType, "int", cpstColorProfileSubType, "uint", dwProfileID, "ptr", pProfileName, "int")
         return result
     }
@@ -2502,6 +2590,8 @@ class ColorSystem {
      * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-wcsgetuseperuserprofiles
      */
     static WcsGetUsePerUserProfiles(pDeviceName, dwDeviceClass, pUsePerUserProfiles) {
+        pDeviceName := pDeviceName is String? StrPtr(pDeviceName) : pDeviceName
+
         result := DllCall("mscms.dll\WcsGetUsePerUserProfiles", "ptr", pDeviceName, "uint", dwDeviceClass, "ptr", pUsePerUserProfiles, "int")
         return result
     }
@@ -2521,6 +2611,8 @@ class ColorSystem {
      * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-wcssetuseperuserprofiles
      */
     static WcsSetUsePerUserProfiles(pDeviceName, dwDeviceClass, usePerUserProfiles) {
+        pDeviceName := pDeviceName is String? StrPtr(pDeviceName) : pDeviceName
+
         result := DllCall("mscms.dll\WcsSetUsePerUserProfiles", "ptr", pDeviceName, "uint", dwDeviceClass, "int", usePerUserProfiles, "int")
         return result
     }
@@ -3281,6 +3373,8 @@ class ColorSystem {
      * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-colorprofileadddisplayassociation
      */
     static ColorProfileAddDisplayAssociation(scope, profileName, targetAdapterID, sourceID, setAsDefault, associateAsAdvancedColor) {
+        profileName := profileName is String? StrPtr(profileName) : profileName
+
         result := DllCall("mscms.dll\ColorProfileAddDisplayAssociation", "int", scope, "ptr", profileName, "ptr", targetAdapterID, "uint", sourceID, "int", setAsDefault, "int", associateAsAdvancedColor, "int")
         return result
     }
@@ -3298,6 +3392,8 @@ class ColorSystem {
      * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-colorprofileremovedisplayassociation
      */
     static ColorProfileRemoveDisplayAssociation(scope, profileName, targetAdapterID, sourceID, dissociateAdvancedColor) {
+        profileName := profileName is String? StrPtr(profileName) : profileName
+
         result := DllCall("mscms.dll\ColorProfileRemoveDisplayAssociation", "int", scope, "ptr", profileName, "ptr", targetAdapterID, "uint", sourceID, "int", dissociateAdvancedColor, "int")
         return result
     }
@@ -3316,6 +3412,8 @@ class ColorSystem {
      * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-colorprofilesetdisplaydefaultassociation
      */
     static ColorProfileSetDisplayDefaultAssociation(scope, profileName, profileType, profileSubType, targetAdapterID, sourceID) {
+        profileName := profileName is String? StrPtr(profileName) : profileName
+
         result := DllCall("mscms.dll\ColorProfileSetDisplayDefaultAssociation", "int", scope, "ptr", profileName, "int", profileType, "int", profileSubType, "ptr", targetAdapterID, "uint", sourceID, "int")
         return result
     }
@@ -3333,6 +3431,8 @@ class ColorSystem {
      * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-colorprofilegetdisplaylist
      */
     static ColorProfileGetDisplayList(scope, targetAdapterID, sourceID, profileList, profileCount) {
+        profileList := profileList is String? StrPtr(profileList) : profileList
+
         result := DllCall("mscms.dll\ColorProfileGetDisplayList", "int", scope, "ptr", targetAdapterID, "uint", sourceID, "ptr", profileList, "ptr", profileCount, "int")
         return result
     }
@@ -3351,6 +3451,8 @@ class ColorSystem {
      * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-colorprofilegetdisplaydefault
      */
     static ColorProfileGetDisplayDefault(scope, targetAdapterID, sourceID, profileType, profileSubType, profileName) {
+        profileName := profileName is String? StrPtr(profileName) : profileName
+
         result := DllCall("mscms.dll\ColorProfileGetDisplayDefault", "int", scope, "ptr", targetAdapterID, "uint", sourceID, "int", profileType, "int", profileSubType, "ptr", profileName, "int")
         return result
     }

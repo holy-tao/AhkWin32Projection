@@ -1261,6 +1261,8 @@ class Credentials {
     static CredReadW(TargetName, Type, Credential) {
         static Flags := 0 ;Reserved parameters must always be NULL
 
+        TargetName := TargetName is String? StrPtr(TargetName) : TargetName
+
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\CredReadW", "ptr", TargetName, "uint", Type, "uint", Flags, "ptr", Credential, "int")
@@ -1312,6 +1314,8 @@ class Credentials {
      */
     static CredReadA(TargetName, Type, Credential) {
         static Flags := 0 ;Reserved parameters must always be NULL
+
+        TargetName := TargetName is String? StrPtr(TargetName) : TargetName
 
         A_LastError := 0
 
@@ -1384,6 +1388,8 @@ class Credentials {
     static CredEnumerateW(Filter, Count, Credential) {
         static Flags := 0 ;Reserved parameters must always be NULL
 
+        Filter := Filter is String? StrPtr(Filter) : Filter
+
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\CredEnumerateW", "ptr", Filter, "uint", Flags, "ptr", Count, "ptr", Credential, "int")
@@ -1454,6 +1460,8 @@ class Credentials {
      */
     static CredEnumerateA(Filter, Count, Credential) {
         static Flags := 0 ;Reserved parameters must always be NULL
+
+        Filter := Filter is String? StrPtr(Filter) : Filter
 
         A_LastError := 0
 
@@ -2001,6 +2009,8 @@ class Credentials {
     static CredDeleteW(TargetName, Type) {
         static Flags := 0 ;Reserved parameters must always be NULL
 
+        TargetName := TargetName is String? StrPtr(TargetName) : TargetName
+
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\CredDeleteW", "ptr", TargetName, "uint", Type, "uint", Flags, "int")
@@ -2048,6 +2058,8 @@ class Credentials {
      */
     static CredDeleteA(TargetName, Type) {
         static Flags := 0 ;Reserved parameters must always be NULL
+
+        TargetName := TargetName is String? StrPtr(TargetName) : TargetName
 
         A_LastError := 0
 
@@ -2100,6 +2112,9 @@ class Credentials {
     static CredRenameW(OldTargetName, NewTargetName, Type) {
         static Flags := 0 ;Reserved parameters must always be NULL
 
+        OldTargetName := OldTargetName is String? StrPtr(OldTargetName) : OldTargetName
+        NewTargetName := NewTargetName is String? StrPtr(NewTargetName) : NewTargetName
+
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\CredRenameW", "ptr", OldTargetName, "ptr", NewTargetName, "uint", Type, "uint", Flags, "int")
@@ -2151,6 +2166,9 @@ class Credentials {
     static CredRenameA(OldTargetName, NewTargetName, Type) {
         static Flags := 0 ;Reserved parameters must always be NULL
 
+        OldTargetName := OldTargetName is String? StrPtr(OldTargetName) : OldTargetName
+        NewTargetName := NewTargetName is String? StrPtr(NewTargetName) : NewTargetName
+
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\CredRenameA", "ptr", OldTargetName, "ptr", NewTargetName, "uint", Type, "uint", Flags, "int")
@@ -2191,6 +2209,8 @@ class Credentials {
      * @since windows5.1.2600
      */
     static CredGetTargetInfoW(TargetName, Flags, TargetInfo) {
+        TargetName := TargetName is String? StrPtr(TargetName) : TargetName
+
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\CredGetTargetInfoW", "ptr", TargetName, "uint", Flags, "ptr", TargetInfo, "int")
@@ -2231,6 +2251,8 @@ class Credentials {
      * @since windows5.1.2600
      */
     static CredGetTargetInfoA(TargetName, Flags, TargetInfo) {
+        TargetName := TargetName is String? StrPtr(TargetName) : TargetName
+
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\CredGetTargetInfoA", "ptr", TargetName, "uint", Flags, "ptr", TargetInfo, "int")
@@ -2265,6 +2287,8 @@ class Credentials {
      * @since windows5.1.2600
      */
     static CredMarshalCredentialW(CredType, Credential, MarshaledCredential) {
+        MarshaledCredential := MarshaledCredential is String? StrPtr(MarshaledCredential) : MarshaledCredential
+
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\CredMarshalCredentialW", "int", CredType, "ptr", Credential, "ptr", MarshaledCredential, "int")
@@ -2299,6 +2323,8 @@ class Credentials {
      * @since windows5.1.2600
      */
     static CredMarshalCredentialA(CredType, Credential, MarshaledCredential) {
+        MarshaledCredential := MarshaledCredential is String? StrPtr(MarshaledCredential) : MarshaledCredential
+
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\CredMarshalCredentialA", "int", CredType, "ptr", Credential, "ptr", MarshaledCredential, "int")
@@ -2330,6 +2356,8 @@ class Credentials {
      * @since windows5.1.2600
      */
     static CredUnmarshalCredentialW(MarshaledCredential, CredType, Credential) {
+        MarshaledCredential := MarshaledCredential is String? StrPtr(MarshaledCredential) : MarshaledCredential
+
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\CredUnmarshalCredentialW", "ptr", MarshaledCredential, "ptr", CredType, "ptr", Credential, "int")
@@ -2361,6 +2389,8 @@ class Credentials {
      * @since windows5.1.2600
      */
     static CredUnmarshalCredentialA(MarshaledCredential, CredType, Credential) {
+        MarshaledCredential := MarshaledCredential is String? StrPtr(MarshaledCredential) : MarshaledCredential
+
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\CredUnmarshalCredentialA", "ptr", MarshaledCredential, "ptr", CredType, "ptr", Credential, "int")
@@ -2381,6 +2411,8 @@ class Credentials {
      * @since windows5.1.2600
      */
     static CredIsMarshaledCredentialW(MarshaledCredential) {
+        MarshaledCredential := MarshaledCredential is String? StrPtr(MarshaledCredential) : MarshaledCredential
+
         result := DllCall("ADVAPI32.dll\CredIsMarshaledCredentialW", "ptr", MarshaledCredential, "int")
         return result
     }
@@ -2396,6 +2428,8 @@ class Credentials {
      * @since windows5.1.2600
      */
     static CredIsMarshaledCredentialA(MarshaledCredential) {
+        MarshaledCredential := MarshaledCredential is String? StrPtr(MarshaledCredential) : MarshaledCredential
+
         result := DllCall("ADVAPI32.dll\CredIsMarshaledCredentialA", "ptr", MarshaledCredential, "int")
         return result
     }
@@ -2489,6 +2523,10 @@ class Credentials {
      * @since windows6.0.6000
      */
     static CredUnPackAuthenticationBufferW(dwFlags, pAuthBuffer, cbAuthBuffer, pszUserName, pcchMaxUserName, pszDomainName, pcchMaxDomainName, pszPassword, pcchMaxPassword) {
+        pszUserName := pszUserName is String? StrPtr(pszUserName) : pszUserName
+        pszDomainName := pszDomainName is String? StrPtr(pszDomainName) : pszDomainName
+        pszPassword := pszPassword is String? StrPtr(pszPassword) : pszPassword
+
         A_LastError := 0
 
         result := DllCall("credui.dll\CredUnPackAuthenticationBufferW", "uint", dwFlags, "ptr", pAuthBuffer, "uint", cbAuthBuffer, "ptr", pszUserName, "ptr", pcchMaxUserName, "ptr", pszDomainName, "ptr", pcchMaxDomainName, "ptr", pszPassword, "ptr", pcchMaxPassword, "int")
@@ -2587,6 +2625,10 @@ class Credentials {
      * @since windows6.0.6000
      */
     static CredUnPackAuthenticationBufferA(dwFlags, pAuthBuffer, cbAuthBuffer, pszUserName, pcchlMaxUserName, pszDomainName, pcchMaxDomainName, pszPassword, pcchMaxPassword) {
+        pszUserName := pszUserName is String? StrPtr(pszUserName) : pszUserName
+        pszDomainName := pszDomainName is String? StrPtr(pszDomainName) : pszDomainName
+        pszPassword := pszPassword is String? StrPtr(pszPassword) : pszPassword
+
         A_LastError := 0
 
         result := DllCall("credui.dll\CredUnPackAuthenticationBufferA", "uint", dwFlags, "ptr", pAuthBuffer, "uint", cbAuthBuffer, "ptr", pszUserName, "ptr", pcchlMaxUserName, "ptr", pszDomainName, "ptr", pcchMaxDomainName, "ptr", pszPassword, "ptr", pcchMaxPassword, "int")
@@ -2695,6 +2737,9 @@ class Credentials {
      * @since windows6.0.6000
      */
     static CredPackAuthenticationBufferW(dwFlags, pszUserName, pszPassword, pPackedCredentials, pcbPackedCredentials) {
+        pszUserName := pszUserName is String? StrPtr(pszUserName) : pszUserName
+        pszPassword := pszPassword is String? StrPtr(pszPassword) : pszPassword
+
         A_LastError := 0
 
         result := DllCall("credui.dll\CredPackAuthenticationBufferW", "uint", dwFlags, "ptr", pszUserName, "ptr", pszPassword, "ptr", pPackedCredentials, "ptr", pcbPackedCredentials, "int")
@@ -2803,6 +2848,9 @@ class Credentials {
      * @since windows6.0.6000
      */
     static CredPackAuthenticationBufferA(dwFlags, pszUserName, pszPassword, pPackedCredentials, pcbPackedCredentials) {
+        pszUserName := pszUserName is String? StrPtr(pszUserName) : pszUserName
+        pszPassword := pszPassword is String? StrPtr(pszPassword) : pszPassword
+
         A_LastError := 0
 
         result := DllCall("credui.dll\CredPackAuthenticationBufferA", "uint", dwFlags, "ptr", pszUserName, "ptr", pszPassword, "ptr", pPackedCredentials, "ptr", pcbPackedCredentials, "int")
@@ -2836,6 +2884,9 @@ class Credentials {
      * @since windows6.0.6000
      */
     static CredProtectW(fAsSelf, pszCredentials, cchCredentials, pszProtectedCredentials, pcchMaxChars, ProtectionType) {
+        pszCredentials := pszCredentials is String? StrPtr(pszCredentials) : pszCredentials
+        pszProtectedCredentials := pszProtectedCredentials is String? StrPtr(pszProtectedCredentials) : pszProtectedCredentials
+
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\CredProtectW", "int", fAsSelf, "ptr", pszCredentials, "uint", cchCredentials, "ptr", pszProtectedCredentials, "ptr", pcchMaxChars, "ptr", ProtectionType, "int")
@@ -2869,6 +2920,9 @@ class Credentials {
      * @since windows6.0.6000
      */
     static CredProtectA(fAsSelf, pszCredentials, cchCredentials, pszProtectedCredentials, pcchMaxChars, ProtectionType) {
+        pszCredentials := pszCredentials is String? StrPtr(pszCredentials) : pszCredentials
+        pszProtectedCredentials := pszProtectedCredentials is String? StrPtr(pszProtectedCredentials) : pszProtectedCredentials
+
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\CredProtectA", "int", fAsSelf, "ptr", pszCredentials, "uint", cchCredentials, "ptr", pszProtectedCredentials, "ptr", pcchMaxChars, "ptr", ProtectionType, "int")
@@ -2927,6 +2981,9 @@ class Credentials {
      * @since windows6.0.6000
      */
     static CredUnprotectW(fAsSelf, pszProtectedCredentials, cchProtectedCredentials, pszCredentials, pcchMaxChars) {
+        pszProtectedCredentials := pszProtectedCredentials is String? StrPtr(pszProtectedCredentials) : pszProtectedCredentials
+        pszCredentials := pszCredentials is String? StrPtr(pszCredentials) : pszCredentials
+
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\CredUnprotectW", "int", fAsSelf, "ptr", pszProtectedCredentials, "uint", cchProtectedCredentials, "ptr", pszCredentials, "ptr", pcchMaxChars, "int")
@@ -2985,6 +3042,9 @@ class Credentials {
      * @since windows6.0.6000
      */
     static CredUnprotectA(fAsSelf, pszProtectedCredentials, cchProtectedCredentials, pszCredentials, pcchMaxChars) {
+        pszProtectedCredentials := pszProtectedCredentials is String? StrPtr(pszProtectedCredentials) : pszProtectedCredentials
+        pszCredentials := pszCredentials is String? StrPtr(pszCredentials) : pszCredentials
+
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\CredUnprotectA", "int", fAsSelf, "ptr", pszProtectedCredentials, "uint", cchProtectedCredentials, "ptr", pszCredentials, "ptr", pcchMaxChars, "int")
@@ -3009,6 +3069,8 @@ class Credentials {
      * @since windows6.0.6000
      */
     static CredIsProtectedW(pszProtectedCredentials, pProtectionType) {
+        pszProtectedCredentials := pszProtectedCredentials is String? StrPtr(pszProtectedCredentials) : pszProtectedCredentials
+
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\CredIsProtectedW", "ptr", pszProtectedCredentials, "ptr", pProtectionType, "int")
@@ -3033,6 +3095,8 @@ class Credentials {
      * @since windows6.0.6000
      */
     static CredIsProtectedA(pszProtectedCredentials, pProtectionType) {
+        pszProtectedCredentials := pszProtectedCredentials is String? StrPtr(pszProtectedCredentials) : pszProtectedCredentials
+
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\CredIsProtectedA", "ptr", pszProtectedCredentials, "ptr", pProtectionType, "int")
@@ -3061,6 +3125,8 @@ class Credentials {
      * @since windows6.0.6000
      */
     static CredFindBestCredentialW(TargetName, Type, Flags, Credential) {
+        TargetName := TargetName is String? StrPtr(TargetName) : TargetName
+
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\CredFindBestCredentialW", "ptr", TargetName, "uint", Type, "uint", Flags, "ptr", Credential, "int")
@@ -3089,6 +3155,8 @@ class Credentials {
      * @since windows6.0.6000
      */
     static CredFindBestCredentialA(TargetName, Type, Flags, Credential) {
+        TargetName := TargetName is String? StrPtr(TargetName) : TargetName
+
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\CredFindBestCredentialA", "ptr", TargetName, "uint", Type, "uint", Flags, "ptr", Credential, "int")
@@ -3356,6 +3424,10 @@ class Credentials {
     static CredUIPromptForCredentialsW(pUiInfo, pszTargetName, dwAuthError, pszUserName, ulUserNameBufferSize, pszPassword, ulPasswordBufferSize, save, dwFlags) {
         static pContext := 0 ;Reserved parameters must always be NULL
 
+        pszTargetName := pszTargetName is String? StrPtr(pszTargetName) : pszTargetName
+        pszUserName := pszUserName is String? StrPtr(pszUserName) : pszUserName
+        pszPassword := pszPassword is String? StrPtr(pszPassword) : pszPassword
+
         result := DllCall("credui.dll\CredUIPromptForCredentialsW", "ptr", pUiInfo, "ptr", pszTargetName, "ptr", pContext, "uint", dwAuthError, "ptr", pszUserName, "uint", ulUserNameBufferSize, "ptr", pszPassword, "uint", ulPasswordBufferSize, "ptr", save, "uint", dwFlags, "uint")
         return result
     }
@@ -3520,6 +3592,10 @@ class Credentials {
      */
     static CredUIPromptForCredentialsA(pUiInfo, pszTargetName, dwAuthError, pszUserName, ulUserNameBufferSize, pszPassword, ulPasswordBufferSize, save, dwFlags) {
         static pContext := 0 ;Reserved parameters must always be NULL
+
+        pszTargetName := pszTargetName is String? StrPtr(pszTargetName) : pszTargetName
+        pszUserName := pszUserName is String? StrPtr(pszUserName) : pszUserName
+        pszPassword := pszPassword is String? StrPtr(pszPassword) : pszPassword
 
         result := DllCall("credui.dll\CredUIPromptForCredentialsA", "ptr", pUiInfo, "ptr", pszTargetName, "ptr", pContext, "uint", dwAuthError, "ptr", pszUserName, "uint", ulUserNameBufferSize, "ptr", pszPassword, "uint", ulPasswordBufferSize, "ptr", save, "uint", dwFlags, "uint")
         return result
@@ -3710,6 +3786,10 @@ class Credentials {
      * @since windows5.1.2600
      */
     static CredUIParseUserNameW(UserName, user, userBufferSize, domain, domainBufferSize) {
+        UserName := UserName is String? StrPtr(UserName) : UserName
+        user := user is String? StrPtr(user) : user
+        domain := domain is String? StrPtr(domain) : domain
+
         result := DllCall("credui.dll\CredUIParseUserNameW", "ptr", UserName, "ptr", user, "uint", userBufferSize, "ptr", domain, "uint", domainBufferSize, "uint")
         return result
     }
@@ -3803,6 +3883,10 @@ class Credentials {
      * @since windows5.1.2600
      */
     static CredUIParseUserNameA(userName, user, userBufferSize, domain, domainBufferSize) {
+        userName := userName is String? StrPtr(userName) : userName
+        user := user is String? StrPtr(user) : user
+        domain := domain is String? StrPtr(domain) : domain
+
         result := DllCall("credui.dll\CredUIParseUserNameA", "ptr", userName, "ptr", user, "uint", userBufferSize, "ptr", domain, "uint", domainBufferSize, "uint")
         return result
     }
@@ -3956,6 +4040,10 @@ class Credentials {
      */
     static CredUICmdLinePromptForCredentialsW(pszTargetName, dwAuthError, UserName, ulUserBufferSize, pszPassword, ulPasswordBufferSize, pfSave, dwFlags) {
         static pContext := 0 ;Reserved parameters must always be NULL
+
+        pszTargetName := pszTargetName is String? StrPtr(pszTargetName) : pszTargetName
+        UserName := UserName is String? StrPtr(UserName) : UserName
+        pszPassword := pszPassword is String? StrPtr(pszPassword) : pszPassword
 
         result := DllCall("credui.dll\CredUICmdLinePromptForCredentialsW", "ptr", pszTargetName, "ptr", pContext, "uint", dwAuthError, "ptr", UserName, "uint", ulUserBufferSize, "ptr", pszPassword, "uint", ulPasswordBufferSize, "ptr", pfSave, "uint", dwFlags, "uint")
         return result
@@ -4111,6 +4199,10 @@ class Credentials {
     static CredUICmdLinePromptForCredentialsA(pszTargetName, dwAuthError, UserName, ulUserBufferSize, pszPassword, ulPasswordBufferSize, pfSave, dwFlags) {
         static pContext := 0 ;Reserved parameters must always be NULL
 
+        pszTargetName := pszTargetName is String? StrPtr(pszTargetName) : pszTargetName
+        UserName := UserName is String? StrPtr(UserName) : UserName
+        pszPassword := pszPassword is String? StrPtr(pszPassword) : pszPassword
+
         result := DllCall("credui.dll\CredUICmdLinePromptForCredentialsA", "ptr", pszTargetName, "ptr", pContext, "uint", dwAuthError, "ptr", UserName, "uint", ulUserBufferSize, "ptr", pszPassword, "uint", ulPasswordBufferSize, "ptr", pfSave, "uint", dwFlags, "uint")
         return result
     }
@@ -4167,6 +4259,8 @@ class Credentials {
      * @since windows5.1.2600
      */
     static CredUIConfirmCredentialsW(pszTargetName, bConfirm) {
+        pszTargetName := pszTargetName is String? StrPtr(pszTargetName) : pszTargetName
+
         result := DllCall("credui.dll\CredUIConfirmCredentialsW", "ptr", pszTargetName, "int", bConfirm, "uint")
         return result
     }
@@ -4223,6 +4317,8 @@ class Credentials {
      * @since windows5.1.2600
      */
     static CredUIConfirmCredentialsA(pszTargetName, bConfirm) {
+        pszTargetName := pszTargetName is String? StrPtr(pszTargetName) : pszTargetName
+
         result := DllCall("credui.dll\CredUIConfirmCredentialsA", "ptr", pszTargetName, "int", bConfirm, "uint")
         return result
     }
@@ -4238,6 +4334,10 @@ class Credentials {
      * @since windows5.1.2600
      */
     static CredUIStoreSSOCredW(pszRealm, pszUsername, pszPassword, bPersist) {
+        pszRealm := pszRealm is String? StrPtr(pszRealm) : pszRealm
+        pszUsername := pszUsername is String? StrPtr(pszUsername) : pszUsername
+        pszPassword := pszPassword is String? StrPtr(pszPassword) : pszPassword
+
         result := DllCall("credui.dll\CredUIStoreSSOCredW", "ptr", pszRealm, "ptr", pszUsername, "ptr", pszPassword, "int", bPersist, "uint")
         return result
     }
@@ -4280,6 +4380,9 @@ class Credentials {
      * @since windows5.1.2600
      */
     static CredUIReadSSOCredW(pszRealm, ppszUsername) {
+        pszRealm := pszRealm is String? StrPtr(pszRealm) : pszRealm
+        ppszUsername := ppszUsername is String? StrPtr(ppszUsername) : ppszUsername
+
         result := DllCall("credui.dll\CredUIReadSSOCredW", "ptr", pszRealm, "ptr", ppszUsername, "uint")
         return result
     }
@@ -4508,6 +4611,8 @@ class Credentials {
      * @since windows5.1.2600
      */
     static SCardListReaderGroupsA(hContext, mszGroups, pcchGroups) {
+        mszGroups := mszGroups is String? StrPtr(mszGroups) : mszGroups
+
         result := DllCall("WinSCard.dll\SCardListReaderGroupsA", "ptr", hContext, "ptr", mszGroups, "ptr", pcchGroups, "int")
         return result
     }
@@ -4611,6 +4716,8 @@ class Credentials {
      * @since windows5.1.2600
      */
     static SCardListReaderGroupsW(hContext, mszGroups, pcchGroups) {
+        mszGroups := mszGroups is String? StrPtr(mszGroups) : mszGroups
+
         result := DllCall("WinSCard.dll\SCardListReaderGroupsW", "ptr", hContext, "ptr", mszGroups, "ptr", pcchGroups, "int")
         return result
     }
@@ -4737,6 +4844,9 @@ class Credentials {
      * @since windows5.1.2600
      */
     static SCardListReadersA(hContext, mszGroups, mszReaders, pcchReaders) {
+        mszGroups := mszGroups is String? StrPtr(mszGroups) : mszGroups
+        mszReaders := mszReaders is String? StrPtr(mszReaders) : mszReaders
+
         result := DllCall("WinSCard.dll\SCardListReadersA", "ptr", hContext, "ptr", mszGroups, "ptr", mszReaders, "ptr", pcchReaders, "int")
         return result
     }
@@ -4863,6 +4973,9 @@ class Credentials {
      * @since windows5.1.2600
      */
     static SCardListReadersW(hContext, mszGroups, mszReaders, pcchReaders) {
+        mszGroups := mszGroups is String? StrPtr(mszGroups) : mszGroups
+        mszReaders := mszReaders is String? StrPtr(mszReaders) : mszReaders
+
         result := DllCall("WinSCard.dll\SCardListReadersW", "ptr", hContext, "ptr", mszGroups, "ptr", mszReaders, "ptr", pcchReaders, "int")
         return result
     }
@@ -4926,6 +5039,8 @@ class Credentials {
      * @since windows5.1.2600
      */
     static SCardListCardsA(hContext, pbAtr, rgquidInterfaces, cguidInterfaceCount, mszCards, pcchCards) {
+        mszCards := mszCards is String? StrPtr(mszCards) : mszCards
+
         result := DllCall("WinSCard.dll\SCardListCardsA", "ptr", hContext, "ptr", pbAtr, "ptr", rgquidInterfaces, "uint", cguidInterfaceCount, "ptr", mszCards, "ptr", pcchCards, "int")
         return result
     }
@@ -4989,6 +5104,8 @@ class Credentials {
      * @since windows5.1.2600
      */
     static SCardListCardsW(hContext, pbAtr, rgquidInterfaces, cguidInterfaceCount, mszCards, pcchCards) {
+        mszCards := mszCards is String? StrPtr(mszCards) : mszCards
+
         result := DllCall("WinSCard.dll\SCardListCardsW", "ptr", hContext, "ptr", pbAtr, "ptr", rgquidInterfaces, "uint", cguidInterfaceCount, "ptr", mszCards, "ptr", pcchCards, "int")
         return result
     }
@@ -5040,6 +5157,8 @@ class Credentials {
      * @since windows5.1.2600
      */
     static SCardListInterfacesA(hContext, szCard, pguidInterfaces, pcguidInterfaces) {
+        szCard := szCard is String? StrPtr(szCard) : szCard
+
         result := DllCall("WinSCard.dll\SCardListInterfacesA", "ptr", hContext, "ptr", szCard, "ptr", pguidInterfaces, "ptr", pcguidInterfaces, "int")
         return result
     }
@@ -5091,6 +5210,8 @@ class Credentials {
      * @since windows5.1.2600
      */
     static SCardListInterfacesW(hContext, szCard, pguidInterfaces, pcguidInterfaces) {
+        szCard := szCard is String? StrPtr(szCard) : szCard
+
         result := DllCall("WinSCard.dll\SCardListInterfacesW", "ptr", hContext, "ptr", szCard, "ptr", pguidInterfaces, "ptr", pcguidInterfaces, "int")
         return result
     }
@@ -5141,6 +5262,8 @@ class Credentials {
      * @since windows5.1.2600
      */
     static SCardGetProviderIdA(hContext, szCard, pguidProviderId) {
+        szCard := szCard is String? StrPtr(szCard) : szCard
+
         result := DllCall("WinSCard.dll\SCardGetProviderIdA", "ptr", hContext, "ptr", szCard, "ptr", pguidProviderId, "int")
         return result
     }
@@ -5191,6 +5314,8 @@ class Credentials {
      * @since windows5.1.2600
      */
     static SCardGetProviderIdW(hContext, szCard, pguidProviderId) {
+        szCard := szCard is String? StrPtr(szCard) : szCard
+
         result := DllCall("WinSCard.dll\SCardGetProviderIdW", "ptr", hContext, "ptr", szCard, "ptr", pguidProviderId, "int")
         return result
     }
@@ -5301,6 +5426,9 @@ class Credentials {
      * @since windows5.1.2600
      */
     static SCardGetCardTypeProviderNameA(hContext, szCardName, dwProviderId, szProvider, pcchProvider) {
+        szCardName := szCardName is String? StrPtr(szCardName) : szCardName
+        szProvider := szProvider is String? StrPtr(szProvider) : szProvider
+
         result := DllCall("WinSCard.dll\SCardGetCardTypeProviderNameA", "ptr", hContext, "ptr", szCardName, "uint", dwProviderId, "ptr", szProvider, "ptr", pcchProvider, "int")
         return result
     }
@@ -5411,6 +5539,9 @@ class Credentials {
      * @since windows5.1.2600
      */
     static SCardGetCardTypeProviderNameW(hContext, szCardName, dwProviderId, szProvider, pcchProvider) {
+        szCardName := szCardName is String? StrPtr(szCardName) : szCardName
+        szProvider := szProvider is String? StrPtr(szProvider) : szProvider
+
         result := DllCall("WinSCard.dll\SCardGetCardTypeProviderNameW", "ptr", hContext, "ptr", szCardName, "uint", dwProviderId, "ptr", szProvider, "ptr", pcchProvider, "int")
         return result
     }
@@ -5514,6 +5645,8 @@ class Credentials {
      * @since windows5.1.2600
      */
     static SCardIntroduceReaderGroupA(hContext, szGroupName) {
+        szGroupName := szGroupName is String? StrPtr(szGroupName) : szGroupName
+
         result := DllCall("WinSCard.dll\SCardIntroduceReaderGroupA", "ptr", hContext, "ptr", szGroupName, "int")
         return result
     }
@@ -5617,6 +5750,8 @@ class Credentials {
      * @since windows5.1.2600
      */
     static SCardIntroduceReaderGroupW(hContext, szGroupName) {
+        szGroupName := szGroupName is String? StrPtr(szGroupName) : szGroupName
+
         result := DllCall("WinSCard.dll\SCardIntroduceReaderGroupW", "ptr", hContext, "ptr", szGroupName, "int")
         return result
     }
@@ -5715,6 +5850,8 @@ class Credentials {
      * @since windows5.1.2600
      */
     static SCardForgetReaderGroupA(hContext, szGroupName) {
+        szGroupName := szGroupName is String? StrPtr(szGroupName) : szGroupName
+
         result := DllCall("WinSCard.dll\SCardForgetReaderGroupA", "ptr", hContext, "ptr", szGroupName, "int")
         return result
     }
@@ -5813,6 +5950,8 @@ class Credentials {
      * @since windows5.1.2600
      */
     static SCardForgetReaderGroupW(hContext, szGroupName) {
+        szGroupName := szGroupName is String? StrPtr(szGroupName) : szGroupName
+
         result := DllCall("WinSCard.dll\SCardForgetReaderGroupW", "ptr", hContext, "ptr", szGroupName, "int")
         return result
     }
@@ -5866,6 +6005,9 @@ class Credentials {
      * @since windows5.1.2600
      */
     static SCardIntroduceReaderA(hContext, szReaderName, szDeviceName) {
+        szReaderName := szReaderName is String? StrPtr(szReaderName) : szReaderName
+        szDeviceName := szDeviceName is String? StrPtr(szDeviceName) : szDeviceName
+
         result := DllCall("WinSCard.dll\SCardIntroduceReaderA", "ptr", hContext, "ptr", szReaderName, "ptr", szDeviceName, "int")
         return result
     }
@@ -5919,6 +6061,9 @@ class Credentials {
      * @since windows5.1.2600
      */
     static SCardIntroduceReaderW(hContext, szReaderName, szDeviceName) {
+        szReaderName := szReaderName is String? StrPtr(szReaderName) : szReaderName
+        szDeviceName := szDeviceName is String? StrPtr(szDeviceName) : szDeviceName
+
         result := DllCall("WinSCard.dll\SCardIntroduceReaderW", "ptr", hContext, "ptr", szReaderName, "ptr", szDeviceName, "int")
         return result
     }
@@ -5968,6 +6113,8 @@ class Credentials {
      * @since windows5.1.2600
      */
     static SCardForgetReaderA(hContext, szReaderName) {
+        szReaderName := szReaderName is String? StrPtr(szReaderName) : szReaderName
+
         result := DllCall("WinSCard.dll\SCardForgetReaderA", "ptr", hContext, "ptr", szReaderName, "int")
         return result
     }
@@ -6017,6 +6164,8 @@ class Credentials {
      * @since windows5.1.2600
      */
     static SCardForgetReaderW(hContext, szReaderName) {
+        szReaderName := szReaderName is String? StrPtr(szReaderName) : szReaderName
+
         result := DllCall("WinSCard.dll\SCardForgetReaderW", "ptr", hContext, "ptr", szReaderName, "int")
         return result
     }
@@ -6118,6 +6267,9 @@ class Credentials {
      * @since windows5.1.2600
      */
     static SCardAddReaderToGroupA(hContext, szReaderName, szGroupName) {
+        szReaderName := szReaderName is String? StrPtr(szReaderName) : szReaderName
+        szGroupName := szGroupName is String? StrPtr(szGroupName) : szGroupName
+
         result := DllCall("WinSCard.dll\SCardAddReaderToGroupA", "ptr", hContext, "ptr", szReaderName, "ptr", szGroupName, "int")
         return result
     }
@@ -6219,6 +6371,9 @@ class Credentials {
      * @since windows5.1.2600
      */
     static SCardAddReaderToGroupW(hContext, szReaderName, szGroupName) {
+        szReaderName := szReaderName is String? StrPtr(szReaderName) : szReaderName
+        szGroupName := szGroupName is String? StrPtr(szGroupName) : szGroupName
+
         result := DllCall("WinSCard.dll\SCardAddReaderToGroupW", "ptr", hContext, "ptr", szReaderName, "ptr", szGroupName, "int")
         return result
     }
@@ -6323,6 +6478,9 @@ class Credentials {
      * @since windows5.1.2600
      */
     static SCardRemoveReaderFromGroupA(hContext, szReaderName, szGroupName) {
+        szReaderName := szReaderName is String? StrPtr(szReaderName) : szReaderName
+        szGroupName := szGroupName is String? StrPtr(szGroupName) : szGroupName
+
         result := DllCall("WinSCard.dll\SCardRemoveReaderFromGroupA", "ptr", hContext, "ptr", szReaderName, "ptr", szGroupName, "int")
         return result
     }
@@ -6427,6 +6585,9 @@ class Credentials {
      * @since windows5.1.2600
      */
     static SCardRemoveReaderFromGroupW(hContext, szReaderName, szGroupName) {
+        szReaderName := szReaderName is String? StrPtr(szReaderName) : szReaderName
+        szGroupName := szGroupName is String? StrPtr(szGroupName) : szGroupName
+
         result := DllCall("WinSCard.dll\SCardRemoveReaderFromGroupW", "ptr", hContext, "ptr", szReaderName, "ptr", szGroupName, "int")
         return result
     }
@@ -6486,6 +6647,8 @@ class Credentials {
      * @since windows5.1.2600
      */
     static SCardIntroduceCardTypeA(hContext, szCardName, pguidPrimaryProvider, rgguidInterfaces, dwInterfaceCount, pbAtr, pbAtrMask, cbAtrLen) {
+        szCardName := szCardName is String? StrPtr(szCardName) : szCardName
+
         result := DllCall("WinSCard.dll\SCardIntroduceCardTypeA", "ptr", hContext, "ptr", szCardName, "ptr", pguidPrimaryProvider, "ptr", rgguidInterfaces, "uint", dwInterfaceCount, "ptr", pbAtr, "ptr", pbAtrMask, "uint", cbAtrLen, "int")
         return result
     }
@@ -6545,6 +6708,8 @@ class Credentials {
      * @since windows5.1.2600
      */
     static SCardIntroduceCardTypeW(hContext, szCardName, pguidPrimaryProvider, rgguidInterfaces, dwInterfaceCount, pbAtr, pbAtrMask, cbAtrLen) {
+        szCardName := szCardName is String? StrPtr(szCardName) : szCardName
+
         result := DllCall("WinSCard.dll\SCardIntroduceCardTypeW", "ptr", hContext, "ptr", szCardName, "ptr", pguidPrimaryProvider, "ptr", rgguidInterfaces, "uint", dwInterfaceCount, "ptr", pbAtr, "ptr", pbAtrMask, "uint", cbAtrLen, "int")
         return result
     }
@@ -6648,6 +6813,9 @@ class Credentials {
      * @since windows5.1.2600
      */
     static SCardSetCardTypeProviderNameA(hContext, szCardName, dwProviderId, szProvider) {
+        szCardName := szCardName is String? StrPtr(szCardName) : szCardName
+        szProvider := szProvider is String? StrPtr(szProvider) : szProvider
+
         result := DllCall("WinSCard.dll\SCardSetCardTypeProviderNameA", "ptr", hContext, "ptr", szCardName, "uint", dwProviderId, "ptr", szProvider, "int")
         return result
     }
@@ -6751,6 +6919,9 @@ class Credentials {
      * @since windows5.1.2600
      */
     static SCardSetCardTypeProviderNameW(hContext, szCardName, dwProviderId, szProvider) {
+        szCardName := szCardName is String? StrPtr(szCardName) : szCardName
+        szProvider := szProvider is String? StrPtr(szProvider) : szProvider
+
         result := DllCall("WinSCard.dll\SCardSetCardTypeProviderNameW", "ptr", hContext, "ptr", szCardName, "uint", dwProviderId, "ptr", szProvider, "int")
         return result
     }
@@ -6800,6 +6971,8 @@ class Credentials {
      * @since windows5.1.2600
      */
     static SCardForgetCardTypeA(hContext, szCardName) {
+        szCardName := szCardName is String? StrPtr(szCardName) : szCardName
+
         result := DllCall("WinSCard.dll\SCardForgetCardTypeA", "ptr", hContext, "ptr", szCardName, "int")
         return result
     }
@@ -6849,6 +7022,8 @@ class Credentials {
      * @since windows5.1.2600
      */
     static SCardForgetCardTypeW(hContext, szCardName) {
+        szCardName := szCardName is String? StrPtr(szCardName) : szCardName
+
         result := DllCall("WinSCard.dll\SCardForgetCardTypeW", "ptr", hContext, "ptr", szCardName, "int")
         return result
     }
@@ -6983,6 +7158,8 @@ class Credentials {
      * @since windows5.1.2600
      */
     static SCardLocateCardsA(hContext, mszCards, rgReaderStates, cReaders) {
+        mszCards := mszCards is String? StrPtr(mszCards) : mszCards
+
         result := DllCall("WinSCard.dll\SCardLocateCardsA", "ptr", hContext, "ptr", mszCards, "ptr", rgReaderStates, "uint", cReaders, "int")
         return result
     }
@@ -7040,6 +7217,8 @@ class Credentials {
      * @since windows5.1.2600
      */
     static SCardLocateCardsW(hContext, mszCards, rgReaderStates, cReaders) {
+        mszCards := mszCards is String? StrPtr(mszCards) : mszCards
+
         result := DllCall("WinSCard.dll\SCardLocateCardsW", "ptr", hContext, "ptr", mszCards, "ptr", rgReaderStates, "uint", cReaders, "int")
         return result
     }
@@ -7487,6 +7666,8 @@ class Credentials {
      * @since windows5.1.2600
      */
     static SCardConnectA(hContext, szReader, dwShareMode, dwPreferredProtocols, phCard, pdwActiveProtocol) {
+        szReader := szReader is String? StrPtr(szReader) : szReader
+
         result := DllCall("WinSCard.dll\SCardConnectA", "ptr", hContext, "ptr", szReader, "uint", dwShareMode, "uint", dwPreferredProtocols, "ptr", phCard, "ptr", pdwActiveProtocol, "int")
         return result
     }
@@ -7660,6 +7841,8 @@ class Credentials {
      * @since windows5.1.2600
      */
     static SCardConnectW(hContext, szReader, dwShareMode, dwPreferredProtocols, phCard, pdwActiveProtocol) {
+        szReader := szReader is String? StrPtr(szReader) : szReader
+
         result := DllCall("WinSCard.dll\SCardConnectW", "ptr", hContext, "ptr", szReader, "uint", dwShareMode, "uint", dwPreferredProtocols, "ptr", phCard, "ptr", pdwActiveProtocol, "int")
         return result
     }
@@ -8196,6 +8379,8 @@ class Credentials {
      * @since windows5.1.2600
      */
     static SCardStatusA(hCard, mszReaderNames, pcchReaderLen, pdwState, pdwProtocol, pbAtr, pcbAtrLen) {
+        mszReaderNames := mszReaderNames is String? StrPtr(mszReaderNames) : mszReaderNames
+
         result := DllCall("WinSCard.dll\SCardStatusA", "ptr", hCard, "ptr", mszReaderNames, "ptr", pcchReaderLen, "ptr", pdwState, "ptr", pdwProtocol, "ptr", pbAtr, "ptr", pcbAtrLen, "int")
         return result
     }
@@ -8335,6 +8520,8 @@ class Credentials {
      * @since windows5.1.2600
      */
     static SCardStatusW(hCard, mszReaderNames, pcchReaderLen, pdwState, pdwProtocol, pbAtr, pcbAtrLen) {
+        mszReaderNames := mszReaderNames is String? StrPtr(mszReaderNames) : mszReaderNames
+
         result := DllCall("WinSCard.dll\SCardStatusW", "ptr", hCard, "ptr", mszReaderNames, "ptr", pcchReaderLen, "ptr", pdwState, "ptr", pdwProtocol, "ptr", pbAtr, "ptr", pcbAtrLen, "int")
         return result
     }
@@ -9310,6 +9497,8 @@ class Credentials {
      * @since windows6.0.6000
      */
     static SCardReadCacheA(hContext, CardIdentifier, FreshnessCounter, LookupName, Data, DataLen) {
+        LookupName := LookupName is String? StrPtr(LookupName) : LookupName
+
         result := DllCall("WinSCard.dll\SCardReadCacheA", "ptr", hContext, "ptr", CardIdentifier, "uint", FreshnessCounter, "ptr", LookupName, "ptr", Data, "ptr", DataLen, "int")
         return result
     }
@@ -9364,6 +9553,8 @@ class Credentials {
      * @since windows6.0.6000
      */
     static SCardReadCacheW(hContext, CardIdentifier, FreshnessCounter, LookupName, Data, DataLen) {
+        LookupName := LookupName is String? StrPtr(LookupName) : LookupName
+
         result := DllCall("WinSCard.dll\SCardReadCacheW", "ptr", hContext, "ptr", CardIdentifier, "uint", FreshnessCounter, "ptr", LookupName, "ptr", Data, "ptr", DataLen, "int")
         return result
     }
@@ -9406,6 +9597,8 @@ class Credentials {
      * @since windows6.0.6000
      */
     static SCardWriteCacheA(hContext, CardIdentifier, FreshnessCounter, LookupName, Data, DataLen) {
+        LookupName := LookupName is String? StrPtr(LookupName) : LookupName
+
         result := DllCall("WinSCard.dll\SCardWriteCacheA", "ptr", hContext, "ptr", CardIdentifier, "uint", FreshnessCounter, "ptr", LookupName, "ptr", Data, "uint", DataLen, "int")
         return result
     }
@@ -9448,6 +9641,8 @@ class Credentials {
      * @since windows6.0.6000
      */
     static SCardWriteCacheW(hContext, CardIdentifier, FreshnessCounter, LookupName, Data, DataLen) {
+        LookupName := LookupName is String? StrPtr(LookupName) : LookupName
+
         result := DllCall("WinSCard.dll\SCardWriteCacheW", "ptr", hContext, "ptr", CardIdentifier, "uint", FreshnessCounter, "ptr", LookupName, "ptr", Data, "uint", DataLen, "int")
         return result
     }
@@ -9495,6 +9690,8 @@ class Credentials {
      * @since windows8.0
      */
     static SCardGetReaderIconA(hContext, szReaderName, pbIcon, pcbIcon) {
+        szReaderName := szReaderName is String? StrPtr(szReaderName) : szReaderName
+
         result := DllCall("WinSCard.dll\SCardGetReaderIconA", "ptr", hContext, "ptr", szReaderName, "ptr", pbIcon, "ptr", pcbIcon, "int")
         return result
     }
@@ -9542,6 +9739,8 @@ class Credentials {
      * @since windows8.0
      */
     static SCardGetReaderIconW(hContext, szReaderName, pbIcon, pcbIcon) {
+        szReaderName := szReaderName is String? StrPtr(szReaderName) : szReaderName
+
         result := DllCall("WinSCard.dll\SCardGetReaderIconW", "ptr", hContext, "ptr", szReaderName, "ptr", pbIcon, "ptr", pcbIcon, "int")
         return result
     }
@@ -9589,6 +9788,8 @@ class Credentials {
      * @since windows8.0
      */
     static SCardGetDeviceTypeIdA(hContext, szReaderName, pdwDeviceTypeId) {
+        szReaderName := szReaderName is String? StrPtr(szReaderName) : szReaderName
+
         result := DllCall("WinSCard.dll\SCardGetDeviceTypeIdA", "ptr", hContext, "ptr", szReaderName, "ptr", pdwDeviceTypeId, "int")
         return result
     }
@@ -9636,6 +9837,8 @@ class Credentials {
      * @since windows8.0
      */
     static SCardGetDeviceTypeIdW(hContext, szReaderName, pdwDeviceTypeId) {
+        szReaderName := szReaderName is String? StrPtr(szReaderName) : szReaderName
+
         result := DllCall("WinSCard.dll\SCardGetDeviceTypeIdW", "ptr", hContext, "ptr", szReaderName, "ptr", pdwDeviceTypeId, "int")
         return result
     }
@@ -9683,6 +9886,9 @@ class Credentials {
      * @since windows8.0
      */
     static SCardGetReaderDeviceInstanceIdA(hContext, szReaderName, szDeviceInstanceId, pcchDeviceInstanceId) {
+        szReaderName := szReaderName is String? StrPtr(szReaderName) : szReaderName
+        szDeviceInstanceId := szDeviceInstanceId is String? StrPtr(szDeviceInstanceId) : szDeviceInstanceId
+
         result := DllCall("WinSCard.dll\SCardGetReaderDeviceInstanceIdA", "ptr", hContext, "ptr", szReaderName, "ptr", szDeviceInstanceId, "ptr", pcchDeviceInstanceId, "int")
         return result
     }
@@ -9730,6 +9936,9 @@ class Credentials {
      * @since windows8.0
      */
     static SCardGetReaderDeviceInstanceIdW(hContext, szReaderName, szDeviceInstanceId, pcchDeviceInstanceId) {
+        szReaderName := szReaderName is String? StrPtr(szReaderName) : szReaderName
+        szDeviceInstanceId := szDeviceInstanceId is String? StrPtr(szDeviceInstanceId) : szDeviceInstanceId
+
         result := DllCall("WinSCard.dll\SCardGetReaderDeviceInstanceIdW", "ptr", hContext, "ptr", szReaderName, "ptr", szDeviceInstanceId, "ptr", pcchDeviceInstanceId, "int")
         return result
     }
@@ -9777,6 +9986,9 @@ class Credentials {
      * @since windows8.0
      */
     static SCardListReadersWithDeviceInstanceIdA(hContext, szDeviceInstanceId, mszReaders, pcchReaders) {
+        szDeviceInstanceId := szDeviceInstanceId is String? StrPtr(szDeviceInstanceId) : szDeviceInstanceId
+        mszReaders := mszReaders is String? StrPtr(mszReaders) : mszReaders
+
         result := DllCall("WinSCard.dll\SCardListReadersWithDeviceInstanceIdA", "ptr", hContext, "ptr", szDeviceInstanceId, "ptr", mszReaders, "ptr", pcchReaders, "int")
         return result
     }
@@ -9824,6 +10036,9 @@ class Credentials {
      * @since windows8.0
      */
     static SCardListReadersWithDeviceInstanceIdW(hContext, szDeviceInstanceId, mszReaders, pcchReaders) {
+        szDeviceInstanceId := szDeviceInstanceId is String? StrPtr(szDeviceInstanceId) : szDeviceInstanceId
+        mszReaders := mszReaders is String? StrPtr(mszReaders) : mszReaders
+
         result := DllCall("WinSCard.dll\SCardListReadersWithDeviceInstanceIdW", "ptr", hContext, "ptr", szDeviceInstanceId, "ptr", mszReaders, "ptr", pcchReaders, "int")
         return result
     }

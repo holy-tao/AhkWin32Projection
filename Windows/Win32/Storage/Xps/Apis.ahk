@@ -469,6 +469,10 @@ class Xps {
      * @since windows5.0
      */
     static DeviceCapabilitiesA(pDevice, pPort, fwCapability, pOutput, pDevMode) {
+        pDevice := pDevice is String? StrPtr(pDevice) : pDevice
+        pPort := pPort is String? StrPtr(pPort) : pPort
+        pOutput := pOutput is String? StrPtr(pOutput) : pOutput
+
         DllCall("winspool.drv\DeviceCapabilitiesA", "ptr", pDevice, "ptr", pPort, "ushort", fwCapability, "ptr", pOutput, "ptr", pDevMode)
     }
 
@@ -506,6 +510,10 @@ class Xps {
      * @since windows5.0
      */
     static DeviceCapabilitiesW(pDevice, pPort, fwCapability, pOutput, pDevMode) {
+        pDevice := pDevice is String? StrPtr(pDevice) : pDevice
+        pPort := pPort is String? StrPtr(pPort) : pPort
+        pOutput := pOutput is String? StrPtr(pOutput) : pOutput
+
         DllCall("winspool.drv\DeviceCapabilitiesW", "ptr", pDevice, "ptr", pPort, "ushort", fwCapability, "ptr", pOutput, "ptr", pDevMode)
     }
 
@@ -559,6 +567,8 @@ class Xps {
      * @since windows5.0
      */
     static Escape(hdc, iEscape, cjIn, pvIn, pvOut) {
+        pvIn := pvIn is String? StrPtr(pvIn) : pvIn
+
         DllCall("GDI32.dll\Escape", "ptr", hdc, "int", iEscape, "int", cjIn, "ptr", pvIn, "ptr", pvOut)
     }
 
@@ -807,6 +817,9 @@ class Xps {
      * @since windows5.0
      */
     static ExtEscape(hdc, iEscape, cjInput, lpInData, cjOutput, lpOutData) {
+        lpInData := lpInData is String? StrPtr(lpInData) : lpInData
+        lpOutData := lpOutData is String? StrPtr(lpOutData) : lpOutData
+
         DllCall("GDI32.dll\ExtEscape", "ptr", hdc, "int", iEscape, "int", cjInput, "ptr", lpInData, "int", cjOutput, "ptr", lpOutData)
     }
 

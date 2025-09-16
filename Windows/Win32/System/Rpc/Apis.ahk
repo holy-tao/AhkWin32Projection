@@ -1632,6 +1632,8 @@ class Rpc {
      * @since windows5.0
      */
     static RpcBindingFromStringBindingA(StringBinding, Binding) {
+        StringBinding := StringBinding is String? StrPtr(StringBinding) : StringBinding
+
         result := DllCall("RPCRT4.dll\RpcBindingFromStringBindingA", "ptr", StringBinding, "ptr", Binding, "int")
         return result
     }
@@ -1771,6 +1773,8 @@ class Rpc {
      * @since windows5.0
      */
     static RpcBindingFromStringBindingW(StringBinding, Binding) {
+        StringBinding := StringBinding is String? StrPtr(StringBinding) : StringBinding
+
         result := DllCall("RPCRT4.dll\RpcBindingFromStringBindingW", "ptr", StringBinding, "ptr", Binding, "int")
         return result
     }
@@ -2100,6 +2104,8 @@ class Rpc {
      * @since windows5.0
      */
     static RpcBindingToStringBindingA(Binding, StringBinding) {
+        StringBinding := StringBinding is String? StrPtr(StringBinding) : StringBinding
+
         result := DllCall("RPCRT4.dll\RpcBindingToStringBindingA", "ptr", Binding, "ptr", StringBinding, "int")
         return result
     }
@@ -2173,6 +2179,8 @@ class Rpc {
      * @since windows5.0
      */
     static RpcBindingToStringBindingW(Binding, StringBinding) {
+        StringBinding := StringBinding is String? StrPtr(StringBinding) : StringBinding
+
         result := DllCall("RPCRT4.dll\RpcBindingToStringBindingW", "ptr", Binding, "ptr", StringBinding, "int")
         return result
     }
@@ -2324,6 +2332,13 @@ class Rpc {
      * @since windows5.0
      */
     static RpcStringBindingComposeA(ObjUuid, ProtSeq, NetworkAddr, Endpoint, Options, StringBinding) {
+        ObjUuid := ObjUuid is String? StrPtr(ObjUuid) : ObjUuid
+        ProtSeq := ProtSeq is String? StrPtr(ProtSeq) : ProtSeq
+        NetworkAddr := NetworkAddr is String? StrPtr(NetworkAddr) : NetworkAddr
+        Endpoint := Endpoint is String? StrPtr(Endpoint) : Endpoint
+        Options := Options is String? StrPtr(Options) : Options
+        StringBinding := StringBinding is String? StrPtr(StringBinding) : StringBinding
+
         result := DllCall("RPCRT4.dll\RpcStringBindingComposeA", "ptr", ObjUuid, "ptr", ProtSeq, "ptr", NetworkAddr, "ptr", Endpoint, "ptr", Options, "ptr", StringBinding, "int")
         return result
     }
@@ -2402,6 +2417,13 @@ class Rpc {
      * @since windows5.0
      */
     static RpcStringBindingComposeW(ObjUuid, ProtSeq, NetworkAddr, Endpoint, Options, StringBinding) {
+        ObjUuid := ObjUuid is String? StrPtr(ObjUuid) : ObjUuid
+        ProtSeq := ProtSeq is String? StrPtr(ProtSeq) : ProtSeq
+        NetworkAddr := NetworkAddr is String? StrPtr(NetworkAddr) : NetworkAddr
+        Endpoint := Endpoint is String? StrPtr(Endpoint) : Endpoint
+        Options := Options is String? StrPtr(Options) : Options
+        StringBinding := StringBinding is String? StrPtr(StringBinding) : StringBinding
+
         result := DllCall("RPCRT4.dll\RpcStringBindingComposeW", "ptr", ObjUuid, "ptr", ProtSeq, "ptr", NetworkAddr, "ptr", Endpoint, "ptr", Options, "ptr", StringBinding, "int")
         return result
     }
@@ -2496,6 +2518,13 @@ class Rpc {
      * @since windows5.0
      */
     static RpcStringBindingParseA(StringBinding, ObjUuid, Protseq, NetworkAddr, Endpoint, NetworkOptions) {
+        StringBinding := StringBinding is String? StrPtr(StringBinding) : StringBinding
+        ObjUuid := ObjUuid is String? StrPtr(ObjUuid) : ObjUuid
+        Protseq := Protseq is String? StrPtr(Protseq) : Protseq
+        NetworkAddr := NetworkAddr is String? StrPtr(NetworkAddr) : NetworkAddr
+        Endpoint := Endpoint is String? StrPtr(Endpoint) : Endpoint
+        NetworkOptions := NetworkOptions is String? StrPtr(NetworkOptions) : NetworkOptions
+
         result := DllCall("RPCRT4.dll\RpcStringBindingParseA", "ptr", StringBinding, "ptr", ObjUuid, "ptr", Protseq, "ptr", NetworkAddr, "ptr", Endpoint, "ptr", NetworkOptions, "int")
         return result
     }
@@ -2590,6 +2619,13 @@ class Rpc {
      * @since windows5.0
      */
     static RpcStringBindingParseW(StringBinding, ObjUuid, Protseq, NetworkAddr, Endpoint, NetworkOptions) {
+        StringBinding := StringBinding is String? StrPtr(StringBinding) : StringBinding
+        ObjUuid := ObjUuid is String? StrPtr(ObjUuid) : ObjUuid
+        Protseq := Protseq is String? StrPtr(Protseq) : Protseq
+        NetworkAddr := NetworkAddr is String? StrPtr(NetworkAddr) : NetworkAddr
+        Endpoint := Endpoint is String? StrPtr(Endpoint) : Endpoint
+        NetworkOptions := NetworkOptions is String? StrPtr(NetworkOptions) : NetworkOptions
+
         result := DllCall("RPCRT4.dll\RpcStringBindingParseW", "ptr", StringBinding, "ptr", ObjUuid, "ptr", Protseq, "ptr", NetworkAddr, "ptr", Endpoint, "ptr", NetworkOptions, "int")
         return result
     }
@@ -2633,6 +2669,8 @@ class Rpc {
      * @since windows5.0
      */
     static RpcStringFreeA(String) {
+        String := String is String? StrPtr(String) : String
+
         result := DllCall("RPCRT4.dll\RpcStringFreeA", "ptr", String, "int")
         return result
     }
@@ -2676,6 +2714,8 @@ class Rpc {
      * @since windows5.0
      */
     static RpcStringFreeW(String) {
+        String := String is String? StrPtr(String) : String
+
         result := DllCall("RPCRT4.dll\RpcStringFreeW", "ptr", String, "int")
         return result
     }
@@ -2790,6 +2830,8 @@ class Rpc {
      * @since windows5.0
      */
     static RpcNetworkIsProtseqValidA(Protseq) {
+        Protseq := Protseq is String? StrPtr(Protseq) : Protseq
+
         result := DllCall("RPCRT4.dll\RpcNetworkIsProtseqValidA", "ptr", Protseq, "int")
         return result
     }
@@ -2865,6 +2907,8 @@ class Rpc {
      * @since windows5.0
      */
     static RpcNetworkIsProtseqValidW(Protseq) {
+        Protseq := Protseq is String? StrPtr(Protseq) : Protseq
+
         result := DllCall("RPCRT4.dll\RpcNetworkIsProtseqValidW", "ptr", Protseq, "int")
         return result
     }
@@ -4818,6 +4862,8 @@ class Rpc {
      * @since windows5.0
      */
     static RpcServerUseProtseqA(Protseq, MaxCalls, SecurityDescriptor) {
+        Protseq := Protseq is String? StrPtr(Protseq) : Protseq
+
         result := DllCall("RPCRT4.dll\RpcServerUseProtseqA", "ptr", Protseq, "uint", MaxCalls, "ptr", SecurityDescriptor, "int")
         return result
     }
@@ -4938,6 +4984,8 @@ class Rpc {
      * @since windows5.0
      */
     static RpcServerUseProtseqExA(Protseq, MaxCalls, SecurityDescriptor, Policy) {
+        Protseq := Protseq is String? StrPtr(Protseq) : Protseq
+
         result := DllCall("RPCRT4.dll\RpcServerUseProtseqExA", "ptr", Protseq, "uint", MaxCalls, "ptr", SecurityDescriptor, "ptr", Policy, "int")
         return result
     }
@@ -5044,6 +5092,8 @@ class Rpc {
      * @since windows5.0
      */
     static RpcServerUseProtseqW(Protseq, MaxCalls, SecurityDescriptor) {
+        Protseq := Protseq is String? StrPtr(Protseq) : Protseq
+
         result := DllCall("RPCRT4.dll\RpcServerUseProtseqW", "ptr", Protseq, "uint", MaxCalls, "ptr", SecurityDescriptor, "int")
         return result
     }
@@ -5164,6 +5214,8 @@ class Rpc {
      * @since windows5.0
      */
     static RpcServerUseProtseqExW(Protseq, MaxCalls, SecurityDescriptor, Policy) {
+        Protseq := Protseq is String? StrPtr(Protseq) : Protseq
+
         result := DllCall("RPCRT4.dll\RpcServerUseProtseqExW", "ptr", Protseq, "uint", MaxCalls, "ptr", SecurityDescriptor, "ptr", Policy, "int")
         return result
     }
@@ -5291,6 +5343,9 @@ class Rpc {
      * @since windows5.0
      */
     static RpcServerUseProtseqEpA(Protseq, MaxCalls, Endpoint, SecurityDescriptor) {
+        Protseq := Protseq is String? StrPtr(Protseq) : Protseq
+        Endpoint := Endpoint is String? StrPtr(Endpoint) : Endpoint
+
         result := DllCall("RPCRT4.dll\RpcServerUseProtseqEpA", "ptr", Protseq, "uint", MaxCalls, "ptr", Endpoint, "ptr", SecurityDescriptor, "int")
         return result
     }
@@ -5438,6 +5493,9 @@ class Rpc {
      * @since windows5.0
      */
     static RpcServerUseProtseqEpExA(Protseq, MaxCalls, Endpoint, SecurityDescriptor, Policy) {
+        Protseq := Protseq is String? StrPtr(Protseq) : Protseq
+        Endpoint := Endpoint is String? StrPtr(Endpoint) : Endpoint
+
         result := DllCall("RPCRT4.dll\RpcServerUseProtseqEpExA", "ptr", Protseq, "uint", MaxCalls, "ptr", Endpoint, "ptr", SecurityDescriptor, "ptr", Policy, "int")
         return result
     }
@@ -5565,6 +5623,9 @@ class Rpc {
      * @since windows5.0
      */
     static RpcServerUseProtseqEpW(Protseq, MaxCalls, Endpoint, SecurityDescriptor) {
+        Protseq := Protseq is String? StrPtr(Protseq) : Protseq
+        Endpoint := Endpoint is String? StrPtr(Endpoint) : Endpoint
+
         result := DllCall("RPCRT4.dll\RpcServerUseProtseqEpW", "ptr", Protseq, "uint", MaxCalls, "ptr", Endpoint, "ptr", SecurityDescriptor, "int")
         return result
     }
@@ -5712,6 +5773,9 @@ class Rpc {
      * @since windows5.0
      */
     static RpcServerUseProtseqEpExW(Protseq, MaxCalls, Endpoint, SecurityDescriptor, Policy) {
+        Protseq := Protseq is String? StrPtr(Protseq) : Protseq
+        Endpoint := Endpoint is String? StrPtr(Endpoint) : Endpoint
+
         result := DllCall("RPCRT4.dll\RpcServerUseProtseqEpExW", "ptr", Protseq, "uint", MaxCalls, "ptr", Endpoint, "ptr", SecurityDescriptor, "ptr", Policy, "int")
         return result
     }
@@ -5844,6 +5908,8 @@ class Rpc {
      * @since windows5.0
      */
     static RpcServerUseProtseqIfA(Protseq, MaxCalls, IfSpec, SecurityDescriptor) {
+        Protseq := Protseq is String? StrPtr(Protseq) : Protseq
+
         result := DllCall("RPCRT4.dll\RpcServerUseProtseqIfA", "ptr", Protseq, "uint", MaxCalls, "ptr", IfSpec, "ptr", SecurityDescriptor, "int")
         return result
     }
@@ -5986,6 +6052,8 @@ class Rpc {
      * @since windows5.1.2600
      */
     static RpcServerUseProtseqIfExA(Protseq, MaxCalls, IfSpec, SecurityDescriptor, Policy) {
+        Protseq := Protseq is String? StrPtr(Protseq) : Protseq
+
         result := DllCall("RPCRT4.dll\RpcServerUseProtseqIfExA", "ptr", Protseq, "uint", MaxCalls, "ptr", IfSpec, "ptr", SecurityDescriptor, "ptr", Policy, "int")
         return result
     }
@@ -6118,6 +6186,8 @@ class Rpc {
      * @since windows5.0
      */
     static RpcServerUseProtseqIfW(Protseq, MaxCalls, IfSpec, SecurityDescriptor) {
+        Protseq := Protseq is String? StrPtr(Protseq) : Protseq
+
         result := DllCall("RPCRT4.dll\RpcServerUseProtseqIfW", "ptr", Protseq, "uint", MaxCalls, "ptr", IfSpec, "ptr", SecurityDescriptor, "int")
         return result
     }
@@ -6260,6 +6330,8 @@ class Rpc {
      * @since windows5.1.2600
      */
     static RpcServerUseProtseqIfExW(Protseq, MaxCalls, IfSpec, SecurityDescriptor, Policy) {
+        Protseq := Protseq is String? StrPtr(Protseq) : Protseq
+
         result := DllCall("RPCRT4.dll\RpcServerUseProtseqIfExW", "ptr", Protseq, "uint", MaxCalls, "ptr", IfSpec, "ptr", SecurityDescriptor, "ptr", Policy, "int")
         return result
     }
@@ -6958,6 +7030,8 @@ class Rpc {
      * @since windows5.0
      */
     static RpcMgmtInqServerPrincNameA(Binding, AuthnSvc, ServerPrincName) {
+        ServerPrincName := ServerPrincName is String? StrPtr(ServerPrincName) : ServerPrincName
+
         result := DllCall("RPCRT4.dll\RpcMgmtInqServerPrincNameA", "ptr", Binding, "uint", AuthnSvc, "ptr", ServerPrincName, "int")
         return result
     }
@@ -7031,6 +7105,8 @@ class Rpc {
      * @since windows5.0
      */
     static RpcMgmtInqServerPrincNameW(Binding, AuthnSvc, ServerPrincName) {
+        ServerPrincName := ServerPrincName is String? StrPtr(ServerPrincName) : ServerPrincName
+
         result := DllCall("RPCRT4.dll\RpcMgmtInqServerPrincNameW", "ptr", Binding, "uint", AuthnSvc, "ptr", ServerPrincName, "int")
         return result
     }
@@ -7085,6 +7161,8 @@ class Rpc {
      * @since windows5.0
      */
     static RpcServerInqDefaultPrincNameA(AuthnSvc, PrincName) {
+        PrincName := PrincName is String? StrPtr(PrincName) : PrincName
+
         result := DllCall("RPCRT4.dll\RpcServerInqDefaultPrincNameA", "uint", AuthnSvc, "ptr", PrincName, "int")
         return result
     }
@@ -7139,6 +7217,8 @@ class Rpc {
      * @since windows5.0
      */
     static RpcServerInqDefaultPrincNameW(AuthnSvc, PrincName) {
+        PrincName := PrincName is String? StrPtr(PrincName) : PrincName
+
         result := DllCall("RPCRT4.dll\RpcServerInqDefaultPrincNameW", "uint", AuthnSvc, "ptr", PrincName, "int")
         return result
     }
@@ -7342,6 +7422,8 @@ class Rpc {
      * @since windows5.0
      */
     static RpcNsBindingInqEntryNameA(Binding, EntryNameSyntax, EntryName) {
+        EntryName := EntryName is String? StrPtr(EntryName) : EntryName
+
         result := DllCall("RPCRT4.dll\RpcNsBindingInqEntryNameA", "ptr", Binding, "uint", EntryNameSyntax, "ptr", EntryName, "int")
         return result
     }
@@ -7468,6 +7550,8 @@ class Rpc {
      * @since windows5.0
      */
     static RpcNsBindingInqEntryNameW(Binding, EntryNameSyntax, EntryName) {
+        EntryName := EntryName is String? StrPtr(EntryName) : EntryName
+
         result := DllCall("RPCRT4.dll\RpcNsBindingInqEntryNameW", "ptr", Binding, "uint", EntryNameSyntax, "ptr", EntryName, "int")
         return result
     }
@@ -8031,6 +8115,8 @@ class Rpc {
      * @since windows5.0
      */
     static RpcBindingInqAuthClientA(ClientBinding, Privs, ServerPrincName, AuthnLevel, AuthnSvc, AuthzSvc) {
+        ServerPrincName := ServerPrincName is String? StrPtr(ServerPrincName) : ServerPrincName
+
         result := DllCall("RPCRT4.dll\RpcBindingInqAuthClientA", "ptr", ClientBinding, "ptr", Privs, "ptr", ServerPrincName, "ptr", AuthnLevel, "ptr", AuthnSvc, "ptr", AuthzSvc, "int")
         return result
     }
@@ -8138,6 +8224,8 @@ class Rpc {
      * @since windows5.0
      */
     static RpcBindingInqAuthClientW(ClientBinding, Privs, ServerPrincName, AuthnLevel, AuthnSvc, AuthzSvc) {
+        ServerPrincName := ServerPrincName is String? StrPtr(ServerPrincName) : ServerPrincName
+
         result := DllCall("RPCRT4.dll\RpcBindingInqAuthClientW", "ptr", ClientBinding, "ptr", Privs, "ptr", ServerPrincName, "ptr", AuthnLevel, "ptr", AuthnSvc, "ptr", AuthzSvc, "int")
         return result
     }
@@ -8269,6 +8357,8 @@ class Rpc {
      * @since windows5.0
      */
     static RpcBindingInqAuthClientExA(ClientBinding, Privs, ServerPrincName, AuthnLevel, AuthnSvc, AuthzSvc, Flags) {
+        ServerPrincName := ServerPrincName is String? StrPtr(ServerPrincName) : ServerPrincName
+
         result := DllCall("RPCRT4.dll\RpcBindingInqAuthClientExA", "ptr", ClientBinding, "ptr", Privs, "ptr", ServerPrincName, "ptr", AuthnLevel, "ptr", AuthnSvc, "ptr", AuthzSvc, "uint", Flags, "int")
         return result
     }
@@ -8400,6 +8490,8 @@ class Rpc {
      * @since windows5.0
      */
     static RpcBindingInqAuthClientExW(ClientBinding, Privs, ServerPrincName, AuthnLevel, AuthnSvc, AuthzSvc, Flags) {
+        ServerPrincName := ServerPrincName is String? StrPtr(ServerPrincName) : ServerPrincName
+
         result := DllCall("RPCRT4.dll\RpcBindingInqAuthClientExW", "ptr", ClientBinding, "ptr", Privs, "ptr", ServerPrincName, "ptr", AuthnLevel, "ptr", AuthnSvc, "ptr", AuthzSvc, "uint", Flags, "int")
         return result
     }
@@ -8507,6 +8599,8 @@ class Rpc {
      * @since windows5.0
      */
     static RpcBindingInqAuthInfoA(Binding, ServerPrincName, AuthnLevel, AuthnSvc, AuthIdentity, AuthzSvc) {
+        ServerPrincName := ServerPrincName is String? StrPtr(ServerPrincName) : ServerPrincName
+
         result := DllCall("RPCRT4.dll\RpcBindingInqAuthInfoA", "ptr", Binding, "ptr", ServerPrincName, "ptr", AuthnLevel, "ptr", AuthnSvc, "ptr", AuthIdentity, "ptr", AuthzSvc, "int")
         return result
     }
@@ -8614,6 +8708,8 @@ class Rpc {
      * @since windows5.0
      */
     static RpcBindingInqAuthInfoW(Binding, ServerPrincName, AuthnLevel, AuthnSvc, AuthIdentity, AuthzSvc) {
+        ServerPrincName := ServerPrincName is String? StrPtr(ServerPrincName) : ServerPrincName
+
         result := DllCall("RPCRT4.dll\RpcBindingInqAuthInfoW", "ptr", Binding, "ptr", ServerPrincName, "ptr", AuthnLevel, "ptr", AuthnSvc, "ptr", AuthIdentity, "ptr", AuthzSvc, "int")
         return result
     }
@@ -8738,6 +8834,8 @@ class Rpc {
      * @since windows5.0
      */
     static RpcBindingSetAuthInfoA(Binding, ServerPrincName, AuthnLevel, AuthnSvc, AuthIdentity, AuthzSvc) {
+        ServerPrincName := ServerPrincName is String? StrPtr(ServerPrincName) : ServerPrincName
+
         result := DllCall("RPCRT4.dll\RpcBindingSetAuthInfoA", "ptr", Binding, "ptr", ServerPrincName, "uint", AuthnLevel, "uint", AuthnSvc, "ptr", AuthIdentity, "uint", AuthzSvc, "int")
         return result
     }
@@ -8853,6 +8951,8 @@ class Rpc {
      * @since windows5.0
      */
     static RpcBindingSetAuthInfoExA(Binding, ServerPrincName, AuthnLevel, AuthnSvc, AuthIdentity, AuthzSvc, SecurityQos) {
+        ServerPrincName := ServerPrincName is String? StrPtr(ServerPrincName) : ServerPrincName
+
         result := DllCall("RPCRT4.dll\RpcBindingSetAuthInfoExA", "ptr", Binding, "ptr", ServerPrincName, "uint", AuthnLevel, "uint", AuthnSvc, "ptr", AuthIdentity, "uint", AuthzSvc, "ptr", SecurityQos, "int")
         return result
     }
@@ -8974,6 +9074,8 @@ class Rpc {
      * @since windows5.0
      */
     static RpcBindingSetAuthInfoW(Binding, ServerPrincName, AuthnLevel, AuthnSvc, AuthIdentity, AuthzSvc) {
+        ServerPrincName := ServerPrincName is String? StrPtr(ServerPrincName) : ServerPrincName
+
         result := DllCall("RPCRT4.dll\RpcBindingSetAuthInfoW", "ptr", Binding, "ptr", ServerPrincName, "uint", AuthnLevel, "uint", AuthnSvc, "ptr", AuthIdentity, "uint", AuthzSvc, "int")
         return result
     }
@@ -9097,6 +9199,8 @@ class Rpc {
      * @since windows5.0
      */
     static RpcBindingSetAuthInfoExW(Binding, ServerPrincName, AuthnLevel, AuthnSvc, AuthIdentity, AuthzSvc, SecurityQOS) {
+        ServerPrincName := ServerPrincName is String? StrPtr(ServerPrincName) : ServerPrincName
+
         result := DllCall("RPCRT4.dll\RpcBindingSetAuthInfoExW", "ptr", Binding, "ptr", ServerPrincName, "uint", AuthnLevel, "uint", AuthnSvc, "ptr", AuthIdentity, "uint", AuthzSvc, "ptr", SecurityQOS, "int")
         return result
     }
@@ -9204,6 +9308,8 @@ class Rpc {
      * @since windows5.0
      */
     static RpcBindingInqAuthInfoExA(Binding, ServerPrincName, AuthnLevel, AuthnSvc, AuthIdentity, AuthzSvc, RpcQosVersion, SecurityQOS) {
+        ServerPrincName := ServerPrincName is String? StrPtr(ServerPrincName) : ServerPrincName
+
         result := DllCall("RPCRT4.dll\RpcBindingInqAuthInfoExA", "ptr", Binding, "ptr", ServerPrincName, "ptr", AuthnLevel, "ptr", AuthnSvc, "ptr", AuthIdentity, "ptr", AuthzSvc, "uint", RpcQosVersion, "ptr", SecurityQOS, "int")
         return result
     }
@@ -9311,6 +9417,8 @@ class Rpc {
      * @since windows5.0
      */
     static RpcBindingInqAuthInfoExW(Binding, ServerPrincName, AuthnLevel, AuthnSvc, AuthIdentity, AuthzSvc, RpcQosVersion, SecurityQOS) {
+        ServerPrincName := ServerPrincName is String? StrPtr(ServerPrincName) : ServerPrincName
+
         result := DllCall("RPCRT4.dll\RpcBindingInqAuthInfoExW", "ptr", Binding, "ptr", ServerPrincName, "ptr", AuthnLevel, "ptr", AuthnSvc, "ptr", AuthIdentity, "ptr", AuthzSvc, "uint", RpcQosVersion, "ptr", SecurityQOS, "int")
         return result
     }
@@ -9486,6 +9594,8 @@ class Rpc {
      * @since windows5.0
      */
     static RpcServerRegisterAuthInfoA(ServerPrincName, AuthnSvc, GetKeyFn, Arg) {
+        ServerPrincName := ServerPrincName is String? StrPtr(ServerPrincName) : ServerPrincName
+
         result := DllCall("RPCRT4.dll\RpcServerRegisterAuthInfoA", "ptr", ServerPrincName, "uint", AuthnSvc, "ptr", GetKeyFn, "ptr", Arg, "int")
         return result
     }
@@ -9644,6 +9754,8 @@ class Rpc {
      * @since windows5.0
      */
     static RpcServerRegisterAuthInfoW(ServerPrincName, AuthnSvc, GetKeyFn, Arg) {
+        ServerPrincName := ServerPrincName is String? StrPtr(ServerPrincName) : ServerPrincName
+
         result := DllCall("RPCRT4.dll\RpcServerRegisterAuthInfoW", "ptr", ServerPrincName, "uint", AuthnSvc, "ptr", GetKeyFn, "ptr", Arg, "int")
         return result
     }
@@ -10220,6 +10332,8 @@ class Rpc {
      * @since windows5.0
      */
     static UuidToStringA(Uuid, StringUuid) {
+        StringUuid := StringUuid is String? StrPtr(StringUuid) : StringUuid
+
         result := DllCall("RPCRT4.dll\UuidToStringA", "ptr", Uuid, "ptr", StringUuid, "int")
         return result
     }
@@ -10276,6 +10390,8 @@ class Rpc {
      * @since windows5.0
      */
     static UuidFromStringA(StringUuid, Uuid) {
+        StringUuid := StringUuid is String? StrPtr(StringUuid) : StringUuid
+
         result := DllCall("RPCRT4.dll\UuidFromStringA", "ptr", StringUuid, "ptr", Uuid, "int")
         return result
     }
@@ -10333,6 +10449,8 @@ class Rpc {
      * @since windows5.0
      */
     static UuidToStringW(Uuid, StringUuid) {
+        StringUuid := StringUuid is String? StrPtr(StringUuid) : StringUuid
+
         result := DllCall("RPCRT4.dll\UuidToStringW", "ptr", Uuid, "ptr", StringUuid, "int")
         return result
     }
@@ -10389,6 +10507,8 @@ class Rpc {
      * @since windows5.0
      */
     static UuidFromStringW(StringUuid, Uuid) {
+        StringUuid := StringUuid is String? StrPtr(StringUuid) : StringUuid
+
         result := DllCall("RPCRT4.dll\UuidFromStringW", "ptr", StringUuid, "ptr", Uuid, "int")
         return result
     }
@@ -10630,6 +10750,8 @@ class Rpc {
      * @since windows5.0
      */
     static RpcEpRegisterNoReplaceA(IfSpec, BindingVector, UuidVector, Annotation) {
+        Annotation := Annotation is String? StrPtr(Annotation) : Annotation
+
         result := DllCall("RPCRT4.dll\RpcEpRegisterNoReplaceA", "ptr", IfSpec, "ptr", BindingVector, "ptr", UuidVector, "ptr", Annotation, "int")
         return result
     }
@@ -10771,6 +10893,8 @@ class Rpc {
      * @since windows5.0
      */
     static RpcEpRegisterNoReplaceW(IfSpec, BindingVector, UuidVector, Annotation) {
+        Annotation := Annotation is String? StrPtr(Annotation) : Annotation
+
         result := DllCall("RPCRT4.dll\RpcEpRegisterNoReplaceW", "ptr", IfSpec, "ptr", BindingVector, "ptr", UuidVector, "ptr", Annotation, "int")
         return result
     }
@@ -10899,6 +11023,8 @@ class Rpc {
      * @since windows5.0
      */
     static RpcEpRegisterA(IfSpec, BindingVector, UuidVector, Annotation) {
+        Annotation := Annotation is String? StrPtr(Annotation) : Annotation
+
         result := DllCall("RPCRT4.dll\RpcEpRegisterA", "ptr", IfSpec, "ptr", BindingVector, "ptr", UuidVector, "ptr", Annotation, "int")
         return result
     }
@@ -11027,6 +11153,8 @@ class Rpc {
      * @since windows5.0
      */
     static RpcEpRegisterW(IfSpec, BindingVector, UuidVector, Annotation) {
+        Annotation := Annotation is String? StrPtr(Annotation) : Annotation
+
         result := DllCall("RPCRT4.dll\RpcEpRegisterW", "ptr", IfSpec, "ptr", BindingVector, "ptr", UuidVector, "ptr", Annotation, "int")
         return result
     }
@@ -11165,6 +11293,8 @@ class Rpc {
      * @since windows5.0
      */
     static DceErrorInqTextA(RpcStatus, ErrorText) {
+        ErrorText := ErrorText is String? StrPtr(ErrorText) : ErrorText
+
         result := DllCall("RPCRT4.dll\DceErrorInqTextA", "int", RpcStatus, "ptr", ErrorText, "int")
         return result
     }
@@ -11218,6 +11348,8 @@ class Rpc {
      * @since windows5.0
      */
     static DceErrorInqTextW(RpcStatus, ErrorText) {
+        ErrorText := ErrorText is String? StrPtr(ErrorText) : ErrorText
+
         result := DllCall("RPCRT4.dll\DceErrorInqTextW", "int", RpcStatus, "ptr", ErrorText, "int")
         return result
     }
@@ -11487,6 +11619,8 @@ class Rpc {
      * @since windows5.0
      */
     static RpcMgmtEpEltInqNextA(InquiryContext, IfId, Binding, ObjectUuid, Annotation) {
+        Annotation := Annotation is String? StrPtr(Annotation) : Annotation
+
         result := DllCall("RPCRT4.dll\RpcMgmtEpEltInqNextA", "ptr", InquiryContext, "ptr", IfId, "ptr", Binding, "ptr", ObjectUuid, "ptr", Annotation, "int")
         return result
     }
@@ -11546,6 +11680,8 @@ class Rpc {
      * @since windows5.0
      */
     static RpcMgmtEpEltInqNextW(InquiryContext, IfId, Binding, ObjectUuid, Annotation) {
+        Annotation := Annotation is String? StrPtr(Annotation) : Annotation
+
         result := DllCall("RPCRT4.dll\RpcMgmtEpEltInqNextW", "ptr", InquiryContext, "ptr", IfId, "ptr", Binding, "ptr", ObjectUuid, "ptr", Annotation, "int")
         return result
     }
@@ -12339,6 +12475,8 @@ class Rpc {
      * @returns {Integer} 
      */
     static I_RpcBindingInqMarshalledTargetInfo(Binding, MarshalledTargetInfoSize, MarshalledTargetInfo) {
+        MarshalledTargetInfo := MarshalledTargetInfo is String? StrPtr(MarshalledTargetInfo) : MarshalledTargetInfo
+
         result := DllCall("RPCRT4.dll\I_RpcBindingInqMarshalledTargetInfo", "ptr", Binding, "ptr", MarshalledTargetInfoSize, "ptr", MarshalledTargetInfo, "int")
         return result
     }
@@ -12420,6 +12558,8 @@ class Rpc {
      * @returns {Integer} 
      */
     static I_RpcNsBindingSetEntryNameW(Binding, EntryNameSyntax, EntryName) {
+        EntryName := EntryName is String? StrPtr(EntryName) : EntryName
+
         result := DllCall("RPCRT4.dll\I_RpcNsBindingSetEntryNameW", "ptr", Binding, "uint", EntryNameSyntax, "ptr", EntryName, "int")
         return result
     }
@@ -12432,6 +12572,8 @@ class Rpc {
      * @returns {Integer} 
      */
     static I_RpcNsBindingSetEntryNameA(Binding, EntryNameSyntax, EntryName) {
+        EntryName := EntryName is String? StrPtr(EntryName) : EntryName
+
         result := DllCall("RPCRT4.dll\I_RpcNsBindingSetEntryNameA", "ptr", Binding, "uint", EntryNameSyntax, "ptr", EntryName, "int")
         return result
     }
@@ -12447,6 +12589,10 @@ class Rpc {
      * @returns {Integer} 
      */
     static I_RpcServerUseProtseqEp2A(NetworkAddress, Protseq, MaxCalls, Endpoint, SecurityDescriptor, Policy) {
+        NetworkAddress := NetworkAddress is String? StrPtr(NetworkAddress) : NetworkAddress
+        Protseq := Protseq is String? StrPtr(Protseq) : Protseq
+        Endpoint := Endpoint is String? StrPtr(Endpoint) : Endpoint
+
         result := DllCall("RPCRT4.dll\I_RpcServerUseProtseqEp2A", "ptr", NetworkAddress, "ptr", Protseq, "uint", MaxCalls, "ptr", Endpoint, "ptr", SecurityDescriptor, "ptr", Policy, "int")
         return result
     }
@@ -12462,6 +12608,10 @@ class Rpc {
      * @returns {Integer} 
      */
     static I_RpcServerUseProtseqEp2W(NetworkAddress, Protseq, MaxCalls, Endpoint, SecurityDescriptor, Policy) {
+        NetworkAddress := NetworkAddress is String? StrPtr(NetworkAddress) : NetworkAddress
+        Protseq := Protseq is String? StrPtr(Protseq) : Protseq
+        Endpoint := Endpoint is String? StrPtr(Endpoint) : Endpoint
+
         result := DllCall("RPCRT4.dll\I_RpcServerUseProtseqEp2W", "ptr", NetworkAddress, "ptr", Protseq, "uint", MaxCalls, "ptr", Endpoint, "ptr", SecurityDescriptor, "ptr", Policy, "int")
         return result
     }
@@ -12476,6 +12626,9 @@ class Rpc {
      * @returns {Integer} 
      */
     static I_RpcServerUseProtseq2W(NetworkAddress, Protseq, MaxCalls, SecurityDescriptor, Policy) {
+        NetworkAddress := NetworkAddress is String? StrPtr(NetworkAddress) : NetworkAddress
+        Protseq := Protseq is String? StrPtr(Protseq) : Protseq
+
         result := DllCall("RPCRT4.dll\I_RpcServerUseProtseq2W", "ptr", NetworkAddress, "ptr", Protseq, "uint", MaxCalls, "ptr", SecurityDescriptor, "ptr", Policy, "int")
         return result
     }
@@ -12490,6 +12643,9 @@ class Rpc {
      * @returns {Integer} 
      */
     static I_RpcServerUseProtseq2A(NetworkAddress, Protseq, MaxCalls, SecurityDescriptor, Policy) {
+        NetworkAddress := NetworkAddress is String? StrPtr(NetworkAddress) : NetworkAddress
+        Protseq := Protseq is String? StrPtr(Protseq) : Protseq
+
         result := DllCall("RPCRT4.dll\I_RpcServerUseProtseq2A", "ptr", NetworkAddress, "ptr", Protseq, "uint", MaxCalls, "ptr", SecurityDescriptor, "ptr", Policy, "int")
         return result
     }
@@ -12502,6 +12658,9 @@ class Rpc {
      * @returns {Integer} 
      */
     static I_RpcServerStartService(Protseq, Endpoint, IfSpec) {
+        Protseq := Protseq is String? StrPtr(Protseq) : Protseq
+        Endpoint := Endpoint is String? StrPtr(Endpoint) : Endpoint
+
         result := DllCall("RPCRT4.dll\I_RpcServerStartService", "ptr", Protseq, "ptr", Endpoint, "ptr", IfSpec, "int")
         return result
     }
@@ -12513,6 +12672,8 @@ class Rpc {
      * @returns {Integer} 
      */
     static I_RpcBindingInqDynamicEndpointW(Binding, DynamicEndpoint) {
+        DynamicEndpoint := DynamicEndpoint is String? StrPtr(DynamicEndpoint) : DynamicEndpoint
+
         result := DllCall("RPCRT4.dll\I_RpcBindingInqDynamicEndpointW", "ptr", Binding, "ptr", DynamicEndpoint, "int")
         return result
     }
@@ -12524,6 +12685,8 @@ class Rpc {
      * @returns {Integer} 
      */
     static I_RpcBindingInqDynamicEndpointA(Binding, DynamicEndpoint) {
+        DynamicEndpoint := DynamicEndpoint is String? StrPtr(DynamicEndpoint) : DynamicEndpoint
+
         result := DllCall("RPCRT4.dll\I_RpcBindingInqDynamicEndpointA", "ptr", Binding, "ptr", DynamicEndpoint, "int")
         return result
     }
@@ -12603,6 +12766,10 @@ class Rpc {
      * @returns {Integer} 
      */
     static I_RpcBindingCreateNP(ServerName, ServiceName, NetworkOptions, Binding) {
+        ServerName := ServerName is String? StrPtr(ServerName) : ServerName
+        ServiceName := ServiceName is String? StrPtr(ServiceName) : ServiceName
+        NetworkOptions := NetworkOptions is String? StrPtr(NetworkOptions) : NetworkOptions
+
         result := DllCall("RPCRT4.dll\I_RpcBindingCreateNP", "ptr", ServerName, "ptr", ServiceName, "ptr", NetworkOptions, "ptr", Binding, "int")
         return result
     }
@@ -13026,6 +13193,8 @@ class Rpc {
      * @since windows5.0
      */
     static RpcNsBindingExportA(EntryNameSyntax, EntryName, IfSpec, BindingVec, ObjectUuidVec) {
+        EntryName := EntryName is String? StrPtr(EntryName) : EntryName
+
         result := DllCall("RPCNS4.dll\RpcNsBindingExportA", "uint", EntryNameSyntax, "ptr", EntryName, "ptr", IfSpec, "ptr", BindingVec, "ptr", ObjectUuidVec, "int")
         return result
     }
@@ -13194,6 +13363,8 @@ class Rpc {
      * @since windows5.0
      */
     static RpcNsBindingUnexportA(EntryNameSyntax, EntryName, IfSpec, ObjectUuidVec) {
+        EntryName := EntryName is String? StrPtr(EntryName) : EntryName
+
         result := DllCall("RPCNS4.dll\RpcNsBindingUnexportA", "uint", EntryNameSyntax, "ptr", EntryName, "ptr", IfSpec, "ptr", ObjectUuidVec, "int")
         return result
     }
@@ -13398,6 +13569,8 @@ class Rpc {
      * @since windows5.0
      */
     static RpcNsBindingExportW(EntryNameSyntax, EntryName, IfSpec, BindingVec, ObjectUuidVec) {
+        EntryName := EntryName is String? StrPtr(EntryName) : EntryName
+
         result := DllCall("RPCNS4.dll\RpcNsBindingExportW", "uint", EntryNameSyntax, "ptr", EntryName, "ptr", IfSpec, "ptr", BindingVec, "ptr", ObjectUuidVec, "int")
         return result
     }
@@ -13566,6 +13739,8 @@ class Rpc {
      * @since windows5.0
      */
     static RpcNsBindingUnexportW(EntryNameSyntax, EntryName, IfSpec, ObjectUuidVec) {
+        EntryName := EntryName is String? StrPtr(EntryName) : EntryName
+
         result := DllCall("RPCNS4.dll\RpcNsBindingUnexportW", "uint", EntryNameSyntax, "ptr", EntryName, "ptr", IfSpec, "ptr", ObjectUuidVec, "int")
         return result
     }
@@ -13712,6 +13887,8 @@ class Rpc {
      * @since windows5.0
      */
     static RpcNsBindingExportPnPA(EntryNameSyntax, EntryName, IfSpec, ObjectVector) {
+        EntryName := EntryName is String? StrPtr(EntryName) : EntryName
+
         result := DllCall("RPCNS4.dll\RpcNsBindingExportPnPA", "uint", EntryNameSyntax, "ptr", EntryName, "ptr", IfSpec, "ptr", ObjectVector, "int")
         return result
     }
@@ -13852,6 +14029,8 @@ class Rpc {
      * @since windows5.0
      */
     static RpcNsBindingUnexportPnPA(EntryNameSyntax, EntryName, IfSpec, ObjectVector) {
+        EntryName := EntryName is String? StrPtr(EntryName) : EntryName
+
         result := DllCall("RPCNS4.dll\RpcNsBindingUnexportPnPA", "uint", EntryNameSyntax, "ptr", EntryName, "ptr", IfSpec, "ptr", ObjectVector, "int")
         return result
     }
@@ -13998,6 +14177,8 @@ class Rpc {
      * @since windows5.0
      */
     static RpcNsBindingExportPnPW(EntryNameSyntax, EntryName, IfSpec, ObjectVector) {
+        EntryName := EntryName is String? StrPtr(EntryName) : EntryName
+
         result := DllCall("RPCNS4.dll\RpcNsBindingExportPnPW", "uint", EntryNameSyntax, "ptr", EntryName, "ptr", IfSpec, "ptr", ObjectVector, "int")
         return result
     }
@@ -14138,6 +14319,8 @@ class Rpc {
      * @since windows5.0
      */
     static RpcNsBindingUnexportPnPW(EntryNameSyntax, EntryName, IfSpec, ObjectVector) {
+        EntryName := EntryName is String? StrPtr(EntryName) : EntryName
+
         result := DllCall("RPCNS4.dll\RpcNsBindingUnexportPnPW", "uint", EntryNameSyntax, "ptr", EntryName, "ptr", IfSpec, "ptr", ObjectVector, "int")
         return result
     }
@@ -14297,6 +14480,8 @@ class Rpc {
      * @since windows5.0
      */
     static RpcNsBindingLookupBeginA(EntryNameSyntax, EntryName, IfSpec, ObjUuid, BindingMaxCount, LookupContext) {
+        EntryName := EntryName is String? StrPtr(EntryName) : EntryName
+
         result := DllCall("RPCNS4.dll\RpcNsBindingLookupBeginA", "uint", EntryNameSyntax, "ptr", EntryName, "ptr", IfSpec, "ptr", ObjUuid, "uint", BindingMaxCount, "ptr", LookupContext, "int")
         return result
     }
@@ -14456,6 +14641,8 @@ class Rpc {
      * @since windows5.0
      */
     static RpcNsBindingLookupBeginW(EntryNameSyntax, EntryName, IfSpec, ObjUuid, BindingMaxCount, LookupContext) {
+        EntryName := EntryName is String? StrPtr(EntryName) : EntryName
+
         result := DllCall("RPCNS4.dll\RpcNsBindingLookupBeginW", "uint", EntryNameSyntax, "ptr", EntryName, "ptr", IfSpec, "ptr", ObjUuid, "uint", BindingMaxCount, "ptr", LookupContext, "int")
         return result
     }
@@ -14730,6 +14917,8 @@ class Rpc {
      * @since windows5.0
      */
     static RpcNsGroupDeleteA(GroupNameSyntax, GroupName) {
+        GroupName := GroupName is String? StrPtr(GroupName) : GroupName
+
         result := DllCall("RPCNS4.dll\RpcNsGroupDeleteA", "uint", GroupNameSyntax, "ptr", GroupName, "int")
         return result
     }
@@ -14836,6 +15025,9 @@ class Rpc {
      * @since windows5.0
      */
     static RpcNsGroupMbrAddA(GroupNameSyntax, GroupName, MemberNameSyntax, MemberName) {
+        GroupName := GroupName is String? StrPtr(GroupName) : GroupName
+        MemberName := MemberName is String? StrPtr(MemberName) : MemberName
+
         result := DllCall("RPCNS4.dll\RpcNsGroupMbrAddA", "uint", GroupNameSyntax, "ptr", GroupName, "uint", MemberNameSyntax, "ptr", MemberName, "int")
         return result
     }
@@ -14960,6 +15152,9 @@ class Rpc {
      * @since windows5.0
      */
     static RpcNsGroupMbrRemoveA(GroupNameSyntax, GroupName, MemberNameSyntax, MemberName) {
+        GroupName := GroupName is String? StrPtr(GroupName) : GroupName
+        MemberName := MemberName is String? StrPtr(MemberName) : MemberName
+
         result := DllCall("RPCNS4.dll\RpcNsGroupMbrRemoveA", "uint", GroupNameSyntax, "ptr", GroupName, "uint", MemberNameSyntax, "ptr", MemberName, "int")
         return result
     }
@@ -15079,6 +15274,8 @@ class Rpc {
      * @since windows5.0
      */
     static RpcNsGroupMbrInqBeginA(GroupNameSyntax, GroupName, MemberNameSyntax, InquiryContext) {
+        GroupName := GroupName is String? StrPtr(GroupName) : GroupName
+
         result := DllCall("RPCNS4.dll\RpcNsGroupMbrInqBeginA", "uint", GroupNameSyntax, "ptr", GroupName, "uint", MemberNameSyntax, "ptr", InquiryContext, "int")
         return result
     }
@@ -15175,6 +15372,8 @@ class Rpc {
      * @since windows5.0
      */
     static RpcNsGroupMbrInqNextA(InquiryContext, MemberName) {
+        MemberName := MemberName is String? StrPtr(MemberName) : MemberName
+
         result := DllCall("RPCNS4.dll\RpcNsGroupMbrInqNextA", "ptr", InquiryContext, "ptr", MemberName, "int")
         return result
     }
@@ -15280,6 +15479,8 @@ class Rpc {
      * @since windows5.0
      */
     static RpcNsGroupDeleteW(GroupNameSyntax, GroupName) {
+        GroupName := GroupName is String? StrPtr(GroupName) : GroupName
+
         result := DllCall("RPCNS4.dll\RpcNsGroupDeleteW", "uint", GroupNameSyntax, "ptr", GroupName, "int")
         return result
     }
@@ -15386,6 +15587,9 @@ class Rpc {
      * @since windows5.0
      */
     static RpcNsGroupMbrAddW(GroupNameSyntax, GroupName, MemberNameSyntax, MemberName) {
+        GroupName := GroupName is String? StrPtr(GroupName) : GroupName
+        MemberName := MemberName is String? StrPtr(MemberName) : MemberName
+
         result := DllCall("RPCNS4.dll\RpcNsGroupMbrAddW", "uint", GroupNameSyntax, "ptr", GroupName, "uint", MemberNameSyntax, "ptr", MemberName, "int")
         return result
     }
@@ -15510,6 +15714,9 @@ class Rpc {
      * @since windows5.0
      */
     static RpcNsGroupMbrRemoveW(GroupNameSyntax, GroupName, MemberNameSyntax, MemberName) {
+        GroupName := GroupName is String? StrPtr(GroupName) : GroupName
+        MemberName := MemberName is String? StrPtr(MemberName) : MemberName
+
         result := DllCall("RPCNS4.dll\RpcNsGroupMbrRemoveW", "uint", GroupNameSyntax, "ptr", GroupName, "uint", MemberNameSyntax, "ptr", MemberName, "int")
         return result
     }
@@ -15629,6 +15836,8 @@ class Rpc {
      * @since windows5.0
      */
     static RpcNsGroupMbrInqBeginW(GroupNameSyntax, GroupName, MemberNameSyntax, InquiryContext) {
+        GroupName := GroupName is String? StrPtr(GroupName) : GroupName
+
         result := DllCall("RPCNS4.dll\RpcNsGroupMbrInqBeginW", "uint", GroupNameSyntax, "ptr", GroupName, "uint", MemberNameSyntax, "ptr", InquiryContext, "int")
         return result
     }
@@ -15725,6 +15934,8 @@ class Rpc {
      * @since windows5.0
      */
     static RpcNsGroupMbrInqNextW(InquiryContext, MemberName) {
+        MemberName := MemberName is String? StrPtr(MemberName) : MemberName
+
         result := DllCall("RPCNS4.dll\RpcNsGroupMbrInqNextW", "ptr", InquiryContext, "ptr", MemberName, "int")
         return result
     }
@@ -15887,6 +16098,8 @@ class Rpc {
      * @since windows5.0
      */
     static RpcNsProfileDeleteA(ProfileNameSyntax, ProfileName) {
+        ProfileName := ProfileName is String? StrPtr(ProfileName) : ProfileName
+
         result := DllCall("RPCNS4.dll\RpcNsProfileDeleteA", "uint", ProfileNameSyntax, "ptr", ProfileName, "int")
         return result
     }
@@ -16002,6 +16215,10 @@ class Rpc {
      * @since windows5.0
      */
     static RpcNsProfileEltAddA(ProfileNameSyntax, ProfileName, IfId, MemberNameSyntax, MemberName, Priority, Annotation) {
+        ProfileName := ProfileName is String? StrPtr(ProfileName) : ProfileName
+        MemberName := MemberName is String? StrPtr(MemberName) : MemberName
+        Annotation := Annotation is String? StrPtr(Annotation) : Annotation
+
         result := DllCall("RPCNS4.dll\RpcNsProfileEltAddA", "uint", ProfileNameSyntax, "ptr", ProfileName, "ptr", IfId, "uint", MemberNameSyntax, "ptr", MemberName, "uint", Priority, "ptr", Annotation, "int")
         return result
     }
@@ -16124,6 +16341,9 @@ class Rpc {
      * @since windows5.0
      */
     static RpcNsProfileEltRemoveA(ProfileNameSyntax, ProfileName, IfId, MemberNameSyntax, MemberName) {
+        ProfileName := ProfileName is String? StrPtr(ProfileName) : ProfileName
+        MemberName := MemberName is String? StrPtr(MemberName) : MemberName
+
         result := DllCall("RPCNS4.dll\RpcNsProfileEltRemoveA", "uint", ProfileNameSyntax, "ptr", ProfileName, "ptr", IfId, "uint", MemberNameSyntax, "ptr", MemberName, "int")
         return result
     }
@@ -16402,6 +16622,9 @@ class Rpc {
      * @since windows5.0
      */
     static RpcNsProfileEltInqBeginA(ProfileNameSyntax, ProfileName, InquiryType, IfId, VersOption, MemberNameSyntax, MemberName, InquiryContext) {
+        ProfileName := ProfileName is String? StrPtr(ProfileName) : ProfileName
+        MemberName := MemberName is String? StrPtr(MemberName) : MemberName
+
         result := DllCall("RPCNS4.dll\RpcNsProfileEltInqBeginA", "uint", ProfileNameSyntax, "ptr", ProfileName, "uint", InquiryType, "ptr", IfId, "uint", VersOption, "uint", MemberNameSyntax, "ptr", MemberName, "ptr", InquiryContext, "int")
         return result
     }
@@ -16511,6 +16734,9 @@ class Rpc {
      * @since windows5.0
      */
     static RpcNsProfileEltInqNextA(InquiryContext, IfId, MemberName, Priority, Annotation) {
+        MemberName := MemberName is String? StrPtr(MemberName) : MemberName
+        Annotation := Annotation is String? StrPtr(Annotation) : Annotation
+
         result := DllCall("RPCNS4.dll\RpcNsProfileEltInqNextA", "ptr", InquiryContext, "ptr", IfId, "ptr", MemberName, "ptr", Priority, "ptr", Annotation, "int")
         return result
     }
@@ -16620,6 +16846,8 @@ class Rpc {
      * @since windows5.0
      */
     static RpcNsProfileDeleteW(ProfileNameSyntax, ProfileName) {
+        ProfileName := ProfileName is String? StrPtr(ProfileName) : ProfileName
+
         result := DllCall("RPCNS4.dll\RpcNsProfileDeleteW", "uint", ProfileNameSyntax, "ptr", ProfileName, "int")
         return result
     }
@@ -16735,6 +16963,10 @@ class Rpc {
      * @since windows5.0
      */
     static RpcNsProfileEltAddW(ProfileNameSyntax, ProfileName, IfId, MemberNameSyntax, MemberName, Priority, Annotation) {
+        ProfileName := ProfileName is String? StrPtr(ProfileName) : ProfileName
+        MemberName := MemberName is String? StrPtr(MemberName) : MemberName
+        Annotation := Annotation is String? StrPtr(Annotation) : Annotation
+
         result := DllCall("RPCNS4.dll\RpcNsProfileEltAddW", "uint", ProfileNameSyntax, "ptr", ProfileName, "ptr", IfId, "uint", MemberNameSyntax, "ptr", MemberName, "uint", Priority, "ptr", Annotation, "int")
         return result
     }
@@ -16857,6 +17089,9 @@ class Rpc {
      * @since windows5.0
      */
     static RpcNsProfileEltRemoveW(ProfileNameSyntax, ProfileName, IfId, MemberNameSyntax, MemberName) {
+        ProfileName := ProfileName is String? StrPtr(ProfileName) : ProfileName
+        MemberName := MemberName is String? StrPtr(MemberName) : MemberName
+
         result := DllCall("RPCNS4.dll\RpcNsProfileEltRemoveW", "uint", ProfileNameSyntax, "ptr", ProfileName, "ptr", IfId, "uint", MemberNameSyntax, "ptr", MemberName, "int")
         return result
     }
@@ -17135,6 +17370,9 @@ class Rpc {
      * @since windows5.0
      */
     static RpcNsProfileEltInqBeginW(ProfileNameSyntax, ProfileName, InquiryType, IfId, VersOption, MemberNameSyntax, MemberName, InquiryContext) {
+        ProfileName := ProfileName is String? StrPtr(ProfileName) : ProfileName
+        MemberName := MemberName is String? StrPtr(MemberName) : MemberName
+
         result := DllCall("RPCNS4.dll\RpcNsProfileEltInqBeginW", "uint", ProfileNameSyntax, "ptr", ProfileName, "uint", InquiryType, "ptr", IfId, "uint", VersOption, "uint", MemberNameSyntax, "ptr", MemberName, "ptr", InquiryContext, "int")
         return result
     }
@@ -17244,6 +17482,9 @@ class Rpc {
      * @since windows5.0
      */
     static RpcNsProfileEltInqNextW(InquiryContext, IfId, MemberName, Priority, Annotation) {
+        MemberName := MemberName is String? StrPtr(MemberName) : MemberName
+        Annotation := Annotation is String? StrPtr(Annotation) : Annotation
+
         result := DllCall("RPCNS4.dll\RpcNsProfileEltInqNextW", "ptr", InquiryContext, "ptr", IfId, "ptr", MemberName, "ptr", Priority, "ptr", Annotation, "int")
         return result
     }
@@ -17408,6 +17649,8 @@ class Rpc {
      * @since windows5.0
      */
     static RpcNsEntryObjectInqBeginA(EntryNameSyntax, EntryName, InquiryContext) {
+        EntryName := EntryName is String? StrPtr(EntryName) : EntryName
+
         result := DllCall("RPCNS4.dll\RpcNsEntryObjectInqBeginA", "uint", EntryNameSyntax, "ptr", EntryName, "ptr", InquiryContext, "int")
         return result
     }
@@ -17522,6 +17765,8 @@ class Rpc {
      * @since windows5.0
      */
     static RpcNsEntryObjectInqBeginW(EntryNameSyntax, EntryName, InquiryContext) {
+        EntryName := EntryName is String? StrPtr(EntryName) : EntryName
+
         result := DllCall("RPCNS4.dll\RpcNsEntryObjectInqBeginW", "uint", EntryNameSyntax, "ptr", EntryName, "ptr", InquiryContext, "int")
         return result
     }
@@ -17729,6 +17974,9 @@ class Rpc {
      * @since windows5.0
      */
     static RpcNsEntryExpandNameA(EntryNameSyntax, EntryName, ExpandedName) {
+        EntryName := EntryName is String? StrPtr(EntryName) : EntryName
+        ExpandedName := ExpandedName is String? StrPtr(ExpandedName) : ExpandedName
+
         result := DllCall("RPCNS4.dll\RpcNsEntryExpandNameA", "uint", EntryNameSyntax, "ptr", EntryName, "ptr", ExpandedName, "int")
         return result
     }
@@ -17954,6 +18202,8 @@ class Rpc {
      * @since windows5.0
      */
     static RpcNsMgmtBindingUnexportA(EntryNameSyntax, EntryName, IfId, VersOption, ObjectUuidVec) {
+        EntryName := EntryName is String? StrPtr(EntryName) : EntryName
+
         result := DllCall("RPCNS4.dll\RpcNsMgmtBindingUnexportA", "uint", EntryNameSyntax, "ptr", EntryName, "ptr", IfId, "uint", VersOption, "ptr", ObjectUuidVec, "int")
         return result
     }
@@ -18061,6 +18311,8 @@ class Rpc {
      * @since windows5.0
      */
     static RpcNsMgmtEntryCreateA(EntryNameSyntax, EntryName) {
+        EntryName := EntryName is String? StrPtr(EntryName) : EntryName
+
         result := DllCall("RPCNS4.dll\RpcNsMgmtEntryCreateA", "uint", EntryNameSyntax, "ptr", EntryName, "int")
         return result
     }
@@ -18179,6 +18431,8 @@ class Rpc {
      * @since windows5.0
      */
     static RpcNsMgmtEntryDeleteA(EntryNameSyntax, EntryName) {
+        EntryName := EntryName is String? StrPtr(EntryName) : EntryName
+
         result := DllCall("RPCNS4.dll\RpcNsMgmtEntryDeleteA", "uint", EntryNameSyntax, "ptr", EntryName, "int")
         return result
     }
@@ -18285,6 +18539,8 @@ class Rpc {
      * @since windows5.0
      */
     static RpcNsMgmtEntryInqIfIdsA(EntryNameSyntax, EntryName, IfIdVec) {
+        EntryName := EntryName is String? StrPtr(EntryName) : EntryName
+
         result := DllCall("RPCNS4.dll\RpcNsMgmtEntryInqIfIdsA", "uint", EntryNameSyntax, "ptr", EntryName, "ptr", IfIdVec, "int")
         return result
     }
@@ -18542,6 +18798,9 @@ class Rpc {
      * @since windows5.0
      */
     static RpcNsEntryExpandNameW(EntryNameSyntax, EntryName, ExpandedName) {
+        EntryName := EntryName is String? StrPtr(EntryName) : EntryName
+        ExpandedName := ExpandedName is String? StrPtr(ExpandedName) : ExpandedName
+
         result := DllCall("RPCNS4.dll\RpcNsEntryExpandNameW", "uint", EntryNameSyntax, "ptr", EntryName, "ptr", ExpandedName, "int")
         return result
     }
@@ -18767,6 +19026,8 @@ class Rpc {
      * @since windows5.0
      */
     static RpcNsMgmtBindingUnexportW(EntryNameSyntax, EntryName, IfId, VersOption, ObjectUuidVec) {
+        EntryName := EntryName is String? StrPtr(EntryName) : EntryName
+
         result := DllCall("RPCNS4.dll\RpcNsMgmtBindingUnexportW", "uint", EntryNameSyntax, "ptr", EntryName, "ptr", IfId, "uint", VersOption, "ptr", ObjectUuidVec, "int")
         return result
     }
@@ -18874,6 +19135,8 @@ class Rpc {
      * @since windows5.0
      */
     static RpcNsMgmtEntryCreateW(EntryNameSyntax, EntryName) {
+        EntryName := EntryName is String? StrPtr(EntryName) : EntryName
+
         result := DllCall("RPCNS4.dll\RpcNsMgmtEntryCreateW", "uint", EntryNameSyntax, "ptr", EntryName, "int")
         return result
     }
@@ -18992,6 +19255,8 @@ class Rpc {
      * @since windows5.0
      */
     static RpcNsMgmtEntryDeleteW(EntryNameSyntax, EntryName) {
+        EntryName := EntryName is String? StrPtr(EntryName) : EntryName
+
         result := DllCall("RPCNS4.dll\RpcNsMgmtEntryDeleteW", "uint", EntryNameSyntax, "ptr", EntryName, "int")
         return result
     }
@@ -19098,6 +19363,8 @@ class Rpc {
      * @since windows5.0
      */
     static RpcNsMgmtEntryInqIfIdsW(EntryNameSyntax, EntryName, IfIdVec) {
+        EntryName := EntryName is String? StrPtr(EntryName) : EntryName
+
         result := DllCall("RPCNS4.dll\RpcNsMgmtEntryInqIfIdsW", "uint", EntryNameSyntax, "ptr", EntryName, "ptr", IfIdVec, "int")
         return result
     }
@@ -19246,6 +19513,8 @@ class Rpc {
      * @since windows5.0
      */
     static RpcNsBindingImportBeginA(EntryNameSyntax, EntryName, IfSpec, ObjUuid, ImportContext) {
+        EntryName := EntryName is String? StrPtr(EntryName) : EntryName
+
         result := DllCall("RPCNS4.dll\RpcNsBindingImportBeginA", "uint", EntryNameSyntax, "ptr", EntryName, "ptr", IfSpec, "ptr", ObjUuid, "ptr", ImportContext, "int")
         return result
     }
@@ -19394,6 +19663,8 @@ class Rpc {
      * @since windows5.0
      */
     static RpcNsBindingImportBeginW(EntryNameSyntax, EntryName, IfSpec, ObjUuid, ImportContext) {
+        EntryName := EntryName is String? StrPtr(EntryName) : EntryName
+
         result := DllCall("RPCNS4.dll\RpcNsBindingImportBeginW", "uint", EntryNameSyntax, "ptr", EntryName, "ptr", IfSpec, "ptr", ObjUuid, "ptr", ImportContext, "int")
         return result
     }
@@ -24143,6 +24414,8 @@ class Rpc {
      * @since windows5.0
      */
     static MesEncodeFixedBufferHandleCreate(pBuffer, BufferSize, pEncodedSize, pHandle) {
+        pBuffer := pBuffer is String? StrPtr(pBuffer) : pBuffer
+
         result := DllCall("RPCRT4.dll\MesEncodeFixedBufferHandleCreate", "ptr", pBuffer, "uint", BufferSize, "ptr", pEncodedSize, "ptr", pHandle, "int")
         return result
     }
@@ -24279,6 +24552,8 @@ class Rpc {
      * @since windows5.0
      */
     static MesDecodeBufferHandleCreate(Buffer, BufferSize, pHandle) {
+        Buffer := Buffer is String? StrPtr(Buffer) : Buffer
+
         result := DllCall("RPCRT4.dll\MesDecodeBufferHandleCreate", "ptr", Buffer, "uint", BufferSize, "ptr", pHandle, "int")
         return result
     }
@@ -24774,6 +25049,8 @@ class Rpc {
      * @since windows5.0
      */
     static RpcCertGeneratePrincipalNameW(Context, Flags, pBuffer) {
+        pBuffer := pBuffer is String? StrPtr(pBuffer) : pBuffer
+
         result := DllCall("RPCRT4.dll\RpcCertGeneratePrincipalNameW", "ptr", Context, "uint", Flags, "ptr", pBuffer, "int")
         return result
     }
@@ -24803,6 +25080,8 @@ class Rpc {
      * @since windows5.0
      */
     static RpcCertGeneratePrincipalNameA(Context, Flags, pBuffer) {
+        pBuffer := pBuffer is String? StrPtr(pBuffer) : pBuffer
+
         result := DllCall("RPCRT4.dll\RpcCertGeneratePrincipalNameA", "ptr", Context, "uint", Flags, "ptr", pBuffer, "int")
         return result
     }

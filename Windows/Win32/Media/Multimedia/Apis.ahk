@@ -23285,6 +23285,9 @@ class Multimedia {
      * @returns {Integer} 
      */
     static mciSendStringA(lpstrCommand, lpstrReturnString, uReturnLength, hwndCallback) {
+        lpstrCommand := lpstrCommand is String? StrPtr(lpstrCommand) : lpstrCommand
+        lpstrReturnString := lpstrReturnString is String? StrPtr(lpstrReturnString) : lpstrReturnString
+
         result := DllCall("WINMM.dll\mciSendStringA", "ptr", lpstrCommand, "ptr", lpstrReturnString, "uint", uReturnLength, "ptr", hwndCallback, "uint")
         return result
     }
@@ -23298,6 +23301,9 @@ class Multimedia {
      * @returns {Integer} 
      */
     static mciSendStringW(lpstrCommand, lpstrReturnString, uReturnLength, hwndCallback) {
+        lpstrCommand := lpstrCommand is String? StrPtr(lpstrCommand) : lpstrCommand
+        lpstrReturnString := lpstrReturnString is String? StrPtr(lpstrReturnString) : lpstrReturnString
+
         result := DllCall("WINMM.dll\mciSendStringW", "ptr", lpstrCommand, "ptr", lpstrReturnString, "uint", uReturnLength, "ptr", hwndCallback, "uint")
         return result
     }
@@ -23308,6 +23314,8 @@ class Multimedia {
      * @returns {Integer} 
      */
     static mciGetDeviceIDA(pszDevice) {
+        pszDevice := pszDevice is String? StrPtr(pszDevice) : pszDevice
+
         result := DllCall("WINMM.dll\mciGetDeviceIDA", "ptr", pszDevice, "uint")
         return result
     }
@@ -23318,6 +23326,8 @@ class Multimedia {
      * @returns {Integer} 
      */
     static mciGetDeviceIDW(pszDevice) {
+        pszDevice := pszDevice is String? StrPtr(pszDevice) : pszDevice
+
         result := DllCall("WINMM.dll\mciGetDeviceIDW", "ptr", pszDevice, "uint")
         return result
     }
@@ -23329,6 +23339,8 @@ class Multimedia {
      * @returns {Integer} 
      */
     static mciGetDeviceIDFromElementIDA(dwElementID, lpstrType) {
+        lpstrType := lpstrType is String? StrPtr(lpstrType) : lpstrType
+
         result := DllCall("WINMM.dll\mciGetDeviceIDFromElementIDA", "uint", dwElementID, "ptr", lpstrType, "uint")
         return result
     }
@@ -23340,6 +23352,8 @@ class Multimedia {
      * @returns {Integer} 
      */
     static mciGetDeviceIDFromElementIDW(dwElementID, lpstrType) {
+        lpstrType := lpstrType is String? StrPtr(lpstrType) : lpstrType
+
         result := DllCall("WINMM.dll\mciGetDeviceIDFromElementIDW", "uint", dwElementID, "ptr", lpstrType, "uint")
         return result
     }
@@ -23352,6 +23366,8 @@ class Multimedia {
      * @returns {Integer} 
      */
     static mciGetErrorStringA(mcierr, pszText, cchText) {
+        pszText := pszText is String? StrPtr(pszText) : pszText
+
         result := DllCall("WINMM.dll\mciGetErrorStringA", "uint", mcierr, "ptr", pszText, "uint", cchText, "int")
         return result
     }
@@ -23364,6 +23380,8 @@ class Multimedia {
      * @returns {Integer} 
      */
     static mciGetErrorStringW(mcierr, pszText, cchText) {
+        pszText := pszText is String? StrPtr(pszText) : pszText
+
         result := DllCall("WINMM.dll\mciGetErrorStringW", "uint", mcierr, "ptr", pszText, "uint", cchText, "int")
         return result
     }
@@ -23419,6 +23437,8 @@ class Multimedia {
      * @returns {String} Nothing - always returns an empty string
      */
     static mciLoadCommandResource(hInstance, lpResName, wType) {
+        lpResName := lpResName is String? StrPtr(lpResName) : lpResName
+
         DllCall("WINMM.dll\mciLoadCommandResource", "ptr", hInstance, "ptr", lpResName, "uint", wType)
     }
 
@@ -23490,6 +23510,9 @@ class Multimedia {
      * @since windows5.0
      */
     static OpenDriver(szDriverName, szSectionName, lParam2) {
+        szDriverName := szDriverName is String? StrPtr(szDriverName) : szDriverName
+        szSectionName := szSectionName is String? StrPtr(szSectionName) : szSectionName
+
         result := DllCall("WINMM.dll\OpenDriver", "ptr", szDriverName, "ptr", szSectionName, "ptr", lParam2, "ptr")
         return result
     }
@@ -23676,6 +23699,9 @@ class Multimedia {
      * @since windows8.1
      */
     static sndOpenSound(EventName, AppName, Flags, FileHandle) {
+        EventName := EventName is String? StrPtr(EventName) : EventName
+        AppName := AppName is String? StrPtr(AppName) : AppName
+
         result := DllCall("api-ms-win-mm-misc-l1-1-1.dll\sndOpenSound", "ptr", EventName, "ptr", AppName, "int", Flags, "ptr", FileHandle, "int")
         return result
     }
@@ -23689,6 +23715,8 @@ class Multimedia {
      * @returns {String} Nothing - always returns an empty string
      */
     static mmDrvInstall(hDriver, wszDrvEntry, drvMessage, wFlags) {
+        wszDrvEntry := wszDrvEntry is String? StrPtr(wszDrvEntry) : wszDrvEntry
+
         DllCall("WINMM.dll\mmDrvInstall", "ptr", hDriver, "ptr", wszDrvEntry, "ptr", drvMessage, "uint", wFlags)
     }
 
@@ -23722,6 +23750,8 @@ class Multimedia {
      * @since windows5.0
      */
     static mmioStringToFOURCCA(sz, uFlags) {
+        sz := sz is String? StrPtr(sz) : sz
+
         result := DllCall("WINMM.dll\mmioStringToFOURCCA", "ptr", sz, "uint", uFlags, "uint")
         return result
     }
@@ -23756,6 +23786,8 @@ class Multimedia {
      * @since windows5.0
      */
     static mmioStringToFOURCCW(sz, uFlags) {
+        sz := sz is String? StrPtr(sz) : sz
+
         result := DllCall("WINMM.dll\mmioStringToFOURCCW", "ptr", sz, "uint", uFlags, "uint")
         return result
     }
@@ -23971,6 +24003,8 @@ class Multimedia {
      * @since windows5.0
      */
     static mmioOpenA(pszFileName, pmmioinfo, fdwOpen) {
+        pszFileName := pszFileName is String? StrPtr(pszFileName) : pszFileName
+
         result := DllCall("WINMM.dll\mmioOpenA", "ptr", pszFileName, "ptr", pmmioinfo, "uint", fdwOpen, "ptr")
         return result
     }
@@ -24102,6 +24136,8 @@ class Multimedia {
      * @since windows5.0
      */
     static mmioOpenW(pszFileName, pmmioinfo, fdwOpen) {
+        pszFileName := pszFileName is String? StrPtr(pszFileName) : pszFileName
+
         result := DllCall("WINMM.dll\mmioOpenW", "ptr", pszFileName, "ptr", pmmioinfo, "uint", fdwOpen, "ptr")
         return result
     }
@@ -24120,6 +24156,9 @@ class Multimedia {
      * @since windows5.0
      */
     static mmioRenameA(pszFileName, pszNewFileName, pmmioinfo, fdwRename) {
+        pszFileName := pszFileName is String? StrPtr(pszFileName) : pszFileName
+        pszNewFileName := pszNewFileName is String? StrPtr(pszNewFileName) : pszNewFileName
+
         result := DllCall("WINMM.dll\mmioRenameA", "ptr", pszFileName, "ptr", pszNewFileName, "ptr", pmmioinfo, "uint", fdwRename, "uint")
         return result
     }
@@ -24138,6 +24177,9 @@ class Multimedia {
      * @since windows5.0
      */
     static mmioRenameW(pszFileName, pszNewFileName, pmmioinfo, fdwRename) {
+        pszFileName := pszFileName is String? StrPtr(pszFileName) : pszFileName
+        pszNewFileName := pszNewFileName is String? StrPtr(pszNewFileName) : pszNewFileName
+
         result := DllCall("WINMM.dll\mmioRenameW", "ptr", pszFileName, "ptr", pszNewFileName, "ptr", pmmioinfo, "uint", fdwRename, "uint")
         return result
     }
@@ -24212,6 +24254,8 @@ class Multimedia {
      * @since windows5.0
      */
     static mmioWrite(hmmio, pch, cch) {
+        pch := pch is String? StrPtr(pch) : pch
+
         result := DllCall("WINMM.dll\mmioWrite", "ptr", hmmio, "ptr", pch, "int", cch, "int")
         return result
     }
@@ -24364,6 +24408,8 @@ class Multimedia {
      * @since windows5.0
      */
     static mmioSetBuffer(hmmio, pchBuffer, cchBuffer, fuBuffer) {
+        pchBuffer := pchBuffer is String? StrPtr(pchBuffer) : pchBuffer
+
         result := DllCall("WINMM.dll\mmioSetBuffer", "ptr", hmmio, "ptr", pchBuffer, "int", cchBuffer, "uint", fuBuffer, "uint")
         return result
     }
@@ -25253,6 +25299,8 @@ class Multimedia {
      * @since windows5.0
      */
     static ICInstall(fccType, fccHandler, lParam, szDesc, wFlags) {
+        szDesc := szDesc is String? StrPtr(szDesc) : szDesc
+
         result := DllCall("MSVFW32.dll\ICInstall", "uint", fccType, "uint", fccHandler, "ptr", lParam, "ptr", szDesc, "uint", wFlags, "int")
         return result
     }
@@ -25781,6 +25829,8 @@ class Multimedia {
      * @since windows5.0
      */
     static ICCompressorChoose(hwnd, uiFlags, pvIn, lpData, pc, lpszTitle) {
+        lpszTitle := lpszTitle is String? StrPtr(lpszTitle) : lpszTitle
+
         result := DllCall("MSVFW32.dll\ICCompressorChoose", "ptr", hwnd, "uint", uiFlags, "ptr", pvIn, "ptr", lpData, "ptr", pc, "ptr", lpszTitle, "int")
         return result
     }
@@ -26413,6 +26463,8 @@ class Multimedia {
      * @since windows5.0
      */
     static AVIFileOpenA(ppfile, szFile, uMode, lpHandler) {
+        szFile := szFile is String? StrPtr(szFile) : szFile
+
         result := DllCall("AVIFIL32.dll\AVIFileOpenA", "ptr", ppfile, "ptr", szFile, "uint", uMode, "ptr", lpHandler, "int")
         return result
     }
@@ -26538,6 +26590,8 @@ class Multimedia {
      * @since windows5.0
      */
     static AVIFileOpenW(ppfile, szFile, uMode, lpHandler) {
+        szFile := szFile is String? StrPtr(szFile) : szFile
+
         result := DllCall("AVIFIL32.dll\AVIFileOpenW", "ptr", ppfile, "ptr", szFile, "uint", uMode, "ptr", lpHandler, "int")
         return result
     }
@@ -27241,6 +27295,8 @@ class Multimedia {
      * @since windows5.0
      */
     static AVIStreamOpenFromFileA(ppavi, szFile, fccType, lParam, mode, pclsidHandler) {
+        szFile := szFile is String? StrPtr(szFile) : szFile
+
         result := DllCall("AVIFIL32.dll\AVIStreamOpenFromFileA", "ptr", ppavi, "ptr", szFile, "uint", fccType, "int", lParam, "uint", mode, "ptr", pclsidHandler, "int")
         return result
     }
@@ -27292,6 +27348,8 @@ class Multimedia {
      * @since windows5.0
      */
     static AVIStreamOpenFromFileW(ppavi, szFile, fccType, lParam, mode, pclsidHandler) {
+        szFile := szFile is String? StrPtr(szFile) : szFile
+
         result := DllCall("AVIFIL32.dll\AVIStreamOpenFromFileW", "ptr", ppavi, "ptr", szFile, "uint", fccType, "int", lParam, "uint", mode, "ptr", pclsidHandler, "int")
         return result
     }
@@ -27412,6 +27470,8 @@ class Multimedia {
      * @since windows5.0
      */
     static AVISaveA(szFile, pclsidHandler, lpfnCallback, nStreams, pfile, lpOptions) {
+        szFile := szFile is String? StrPtr(szFile) : szFile
+
         result := DllCall("AVIFIL32.dll\AVISaveA", "ptr", szFile, "ptr", pclsidHandler, "ptr", lpfnCallback, "int", nStreams, "ptr", pfile, "ptr", lpOptions, "CDecl int")
         return result
     }
@@ -27444,6 +27504,8 @@ class Multimedia {
      * @since windows5.0
      */
     static AVISaveVA(szFile, pclsidHandler, lpfnCallback, nStreams, ppavi, plpOptions) {
+        szFile := szFile is String? StrPtr(szFile) : szFile
+
         result := DllCall("AVIFIL32.dll\AVISaveVA", "ptr", szFile, "ptr", pclsidHandler, "ptr", lpfnCallback, "int", nStreams, "ptr", ppavi, "ptr", plpOptions, "int")
         return result
     }
@@ -27486,6 +27548,8 @@ class Multimedia {
      * @since windows5.0
      */
     static AVISaveW(szFile, pclsidHandler, lpfnCallback, nStreams, pfile, lpOptions) {
+        szFile := szFile is String? StrPtr(szFile) : szFile
+
         result := DllCall("AVIFIL32.dll\AVISaveW", "ptr", szFile, "ptr", pclsidHandler, "ptr", lpfnCallback, "int", nStreams, "ptr", pfile, "ptr", lpOptions, "CDecl int")
         return result
     }
@@ -27518,6 +27582,8 @@ class Multimedia {
      * @since windows5.0
      */
     static AVISaveVW(szFile, pclsidHandler, lpfnCallback, nStreams, ppavi, plpOptions) {
+        szFile := szFile is String? StrPtr(szFile) : szFile
+
         result := DllCall("AVIFIL32.dll\AVISaveVW", "ptr", szFile, "ptr", pclsidHandler, "ptr", lpfnCallback, "int", nStreams, "ptr", ppavi, "ptr", plpOptions, "int")
         return result
     }
@@ -27626,6 +27692,8 @@ class Multimedia {
      * @since windows5.0
      */
     static AVIBuildFilterW(lpszFilter, cbFilter, fSaving) {
+        lpszFilter := lpszFilter is String? StrPtr(lpszFilter) : lpszFilter
+
         result := DllCall("AVIFIL32.dll\AVIBuildFilterW", "ptr", lpszFilter, "int", cbFilter, "int", fSaving, "int")
         return result
     }
@@ -27678,6 +27746,8 @@ class Multimedia {
      * @since windows5.0
      */
     static AVIBuildFilterA(lpszFilter, cbFilter, fSaving) {
+        lpszFilter := lpszFilter is String? StrPtr(lpszFilter) : lpszFilter
+
         result := DllCall("AVIFIL32.dll\AVIBuildFilterA", "ptr", lpszFilter, "int", cbFilter, "int", fSaving, "int")
         return result
     }
@@ -27874,6 +27944,8 @@ class Multimedia {
      * @since windows5.0
      */
     static EditStreamSetNameA(pavi, lpszName) {
+        lpszName := lpszName is String? StrPtr(lpszName) : lpszName
+
         result := DllCall("AVIFIL32.dll\EditStreamSetNameA", "ptr", pavi, "ptr", lpszName, "int")
         return result
     }
@@ -27896,6 +27968,8 @@ class Multimedia {
      * @since windows5.0
      */
     static EditStreamSetNameW(pavi, lpszName) {
+        lpszName := lpszName is String? StrPtr(lpszName) : lpszName
+
         result := DllCall("AVIFIL32.dll\EditStreamSetNameW", "ptr", pavi, "ptr", lpszName, "int")
         return result
     }
@@ -28101,6 +28175,8 @@ class Multimedia {
      * @since windows5.0
      */
     static MCIWndCreateA(hwndParent, hInstance, dwStyle, szFile) {
+        szFile := szFile is String? StrPtr(szFile) : szFile
+
         result := DllCall("MSVFW32.dll\MCIWndCreateA", "ptr", hwndParent, "ptr", hInstance, "uint", dwStyle, "ptr", szFile, "CDecl ptr")
         return result
     }
@@ -28210,6 +28286,8 @@ class Multimedia {
      * @since windows5.0
      */
     static MCIWndCreateW(hwndParent, hInstance, dwStyle, szFile) {
+        szFile := szFile is String? StrPtr(szFile) : szFile
+
         result := DllCall("MSVFW32.dll\MCIWndCreateW", "ptr", hwndParent, "ptr", hInstance, "uint", dwStyle, "ptr", szFile, "CDecl ptr")
         return result
     }
@@ -28245,6 +28323,8 @@ class Multimedia {
      * @since windows5.0
      */
     static capCreateCaptureWindowA(lpszWindowName, dwStyle, x, y, nWidth, nHeight, hwndParent, nID) {
+        lpszWindowName := lpszWindowName is String? StrPtr(lpszWindowName) : lpszWindowName
+
         result := DllCall("AVICAP32.dll\capCreateCaptureWindowA", "ptr", lpszWindowName, "uint", dwStyle, "int", x, "int", y, "int", nWidth, "int", nHeight, "ptr", hwndParent, "int", nID, "ptr")
         return result
     }
@@ -28272,6 +28352,9 @@ class Multimedia {
      * @since windows5.0
      */
     static capGetDriverDescriptionA(wDriverIndex, lpszName, cbName, lpszVer, cbVer) {
+        lpszName := lpszName is String? StrPtr(lpszName) : lpszName
+        lpszVer := lpszVer is String? StrPtr(lpszVer) : lpszVer
+
         result := DllCall("AVICAP32.dll\capGetDriverDescriptionA", "uint", wDriverIndex, "ptr", lpszName, "int", cbName, "ptr", lpszVer, "int", cbVer, "int")
         return result
     }
@@ -28294,6 +28377,8 @@ class Multimedia {
      * @since windows5.0
      */
     static capCreateCaptureWindowW(lpszWindowName, dwStyle, x, y, nWidth, nHeight, hwndParent, nID) {
+        lpszWindowName := lpszWindowName is String? StrPtr(lpszWindowName) : lpszWindowName
+
         result := DllCall("AVICAP32.dll\capCreateCaptureWindowW", "ptr", lpszWindowName, "uint", dwStyle, "int", x, "int", y, "int", nWidth, "int", nHeight, "ptr", hwndParent, "int", nID, "ptr")
         return result
     }
@@ -28321,6 +28406,9 @@ class Multimedia {
      * @since windows5.0
      */
     static capGetDriverDescriptionW(wDriverIndex, lpszName, cbName, lpszVer, cbVer) {
+        lpszName := lpszName is String? StrPtr(lpszName) : lpszName
+        lpszVer := lpszVer is String? StrPtr(lpszVer) : lpszVer
+
         result := DllCall("AVICAP32.dll\capGetDriverDescriptionW", "uint", wDriverIndex, "ptr", lpszName, "int", cbName, "ptr", lpszVer, "int", cbVer, "int")
         return result
     }

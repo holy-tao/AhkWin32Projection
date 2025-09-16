@@ -1864,6 +1864,8 @@ class Threading {
      * @since windows5.1.2600
      */
     static CreateMutexA(lpMutexAttributes, bInitialOwner, lpName) {
+        lpName := lpName is String? StrPtr(lpName) : lpName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\CreateMutexA", "ptr", lpMutexAttributes, "int", bInitialOwner, "ptr", lpName, "ptr")
@@ -1940,6 +1942,8 @@ class Threading {
      * @since windows5.1.2600
      */
     static CreateMutexW(lpMutexAttributes, bInitialOwner, lpName) {
+        lpName := lpName is String? StrPtr(lpName) : lpName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\CreateMutexW", "ptr", lpMutexAttributes, "int", bInitialOwner, "ptr", lpName, "ptr")
@@ -1984,6 +1988,8 @@ class Threading {
      * @since windows5.1.2600
      */
     static OpenMutexW(dwDesiredAccess, bInheritHandle, lpName) {
+        lpName := lpName is String? StrPtr(lpName) : lpName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\OpenMutexW", "uint", dwDesiredAccess, "int", bInheritHandle, "ptr", lpName, "ptr")
@@ -2086,6 +2092,8 @@ class Threading {
      * @since windows5.1.2600
      */
     static CreateEventA(lpEventAttributes, bManualReset, bInitialState, lpName) {
+        lpName := lpName is String? StrPtr(lpName) : lpName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\CreateEventA", "ptr", lpEventAttributes, "int", bManualReset, "int", bInitialState, "ptr", lpName, "ptr")
@@ -2188,6 +2196,8 @@ class Threading {
      * @since windows5.1.2600
      */
     static CreateEventW(lpEventAttributes, bManualReset, bInitialState, lpName) {
+        lpName := lpName is String? StrPtr(lpName) : lpName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\CreateEventW", "ptr", lpEventAttributes, "int", bManualReset, "int", bInitialState, "ptr", lpName, "ptr")
@@ -2231,6 +2241,8 @@ class Threading {
      * @since windows5.1.2600
      */
     static OpenEventA(dwDesiredAccess, bInheritHandle, lpName) {
+        lpName := lpName is String? StrPtr(lpName) : lpName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\OpenEventA", "uint", dwDesiredAccess, "int", bInheritHandle, "ptr", lpName, "ptr")
@@ -2274,6 +2286,8 @@ class Threading {
      * @since windows5.1.2600
      */
     static OpenEventW(dwDesiredAccess, bInheritHandle, lpName) {
+        lpName := lpName is String? StrPtr(lpName) : lpName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\OpenEventW", "uint", dwDesiredAccess, "int", bInheritHandle, "ptr", lpName, "ptr")
@@ -2314,6 +2328,8 @@ class Threading {
      * @since windows5.1.2600
      */
     static OpenSemaphoreW(dwDesiredAccess, bInheritHandle, lpName) {
+        lpName := lpName is String? StrPtr(lpName) : lpName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\OpenSemaphoreW", "uint", dwDesiredAccess, "int", bInheritHandle, "ptr", lpName, "ptr")
@@ -2355,6 +2371,8 @@ class Threading {
      * @since windows5.1.2600
      */
     static OpenWaitableTimerW(dwDesiredAccess, bInheritHandle, lpTimerName) {
+        lpTimerName := lpTimerName is String? StrPtr(lpTimerName) : lpTimerName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\OpenWaitableTimerW", "uint", dwDesiredAccess, "int", bInheritHandle, "ptr", lpTimerName, "ptr")
@@ -2599,6 +2617,8 @@ class Threading {
      * @since windows6.0.6000
      */
     static CreateMutexExA(lpMutexAttributes, lpName, dwFlags, dwDesiredAccess) {
+        lpName := lpName is String? StrPtr(lpName) : lpName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\CreateMutexExA", "ptr", lpMutexAttributes, "ptr", lpName, "uint", dwFlags, "uint", dwDesiredAccess, "ptr")
@@ -2696,6 +2716,8 @@ class Threading {
      * @since windows6.0.6000
      */
     static CreateMutexExW(lpMutexAttributes, lpName, dwFlags, dwDesiredAccess) {
+        lpName := lpName is String? StrPtr(lpName) : lpName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\CreateMutexExW", "ptr", lpMutexAttributes, "ptr", lpName, "uint", dwFlags, "uint", dwDesiredAccess, "ptr")
@@ -2793,6 +2815,8 @@ class Threading {
      * @since windows6.0.6000
      */
     static CreateEventExA(lpEventAttributes, lpName, dwFlags, dwDesiredAccess) {
+        lpName := lpName is String? StrPtr(lpName) : lpName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\CreateEventExA", "ptr", lpEventAttributes, "ptr", lpName, "uint", dwFlags, "uint", dwDesiredAccess, "ptr")
@@ -2890,6 +2914,8 @@ class Threading {
      * @since windows6.0.6000
      */
     static CreateEventExW(lpEventAttributes, lpName, dwFlags, dwDesiredAccess) {
+        lpName := lpName is String? StrPtr(lpName) : lpName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\CreateEventExW", "ptr", lpEventAttributes, "ptr", lpName, "uint", dwFlags, "uint", dwDesiredAccess, "ptr")
@@ -2954,6 +2980,8 @@ class Threading {
      */
     static CreateSemaphoreExW(lpSemaphoreAttributes, lInitialCount, lMaximumCount, lpName, dwDesiredAccess) {
         static dwFlags := 0 ;Reserved parameters must always be NULL
+
+        lpName := lpName is String? StrPtr(lpName) : lpName
 
         A_LastError := 0
 
@@ -3034,6 +3062,8 @@ class Threading {
      * @since windows6.0.6000
      */
     static CreateWaitableTimerExW(lpTimerAttributes, lpTimerName, dwFlags, dwDesiredAccess) {
+        lpTimerName := lpTimerName is String? StrPtr(lpTimerName) : lpTimerName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\CreateWaitableTimerExW", "ptr", lpTimerAttributes, "ptr", lpTimerName, "uint", dwFlags, "uint", dwDesiredAccess, "ptr")
@@ -3455,6 +3485,8 @@ class Threading {
      * @since windows5.1.2600
      */
     static CreateSemaphoreW(lpSemaphoreAttributes, lInitialCount, lMaximumCount, lpName) {
+        lpName := lpName is String? StrPtr(lpName) : lpName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\CreateSemaphoreW", "ptr", lpSemaphoreAttributes, "int", lInitialCount, "int", lMaximumCount, "ptr", lpName, "ptr")
@@ -3516,6 +3548,8 @@ class Threading {
      * @since windows5.1.2600
      */
     static CreateWaitableTimerW(lpTimerAttributes, bManualReset, lpTimerName) {
+        lpTimerName := lpTimerName is String? StrPtr(lpTimerName) : lpTimerName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\CreateWaitableTimerW", "ptr", lpTimerAttributes, "int", bManualReset, "ptr", lpTimerName, "ptr")
@@ -4891,6 +4925,10 @@ class Threading {
      * @since windows5.1.2600
      */
     static CreateProcessA(lpApplicationName, lpCommandLine, lpProcessAttributes, lpThreadAttributes, bInheritHandles, dwCreationFlags, lpEnvironment, lpCurrentDirectory, lpStartupInfo, lpProcessInformation) {
+        lpApplicationName := lpApplicationName is String? StrPtr(lpApplicationName) : lpApplicationName
+        lpCommandLine := lpCommandLine is String? StrPtr(lpCommandLine) : lpCommandLine
+        lpCurrentDirectory := lpCurrentDirectory is String? StrPtr(lpCurrentDirectory) : lpCurrentDirectory
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\CreateProcessA", "ptr", lpApplicationName, "ptr", lpCommandLine, "ptr", lpProcessAttributes, "ptr", lpThreadAttributes, "int", bInheritHandles, "uint", dwCreationFlags, "ptr", lpEnvironment, "ptr", lpCurrentDirectory, "ptr", lpStartupInfo, "ptr", lpProcessInformation, "int")
@@ -5081,6 +5119,10 @@ class Threading {
      * @since windows5.1.2600
      */
     static CreateProcessW(lpApplicationName, lpCommandLine, lpProcessAttributes, lpThreadAttributes, bInheritHandles, dwCreationFlags, lpEnvironment, lpCurrentDirectory, lpStartupInfo, lpProcessInformation) {
+        lpApplicationName := lpApplicationName is String? StrPtr(lpApplicationName) : lpApplicationName
+        lpCommandLine := lpCommandLine is String? StrPtr(lpCommandLine) : lpCommandLine
+        lpCurrentDirectory := lpCurrentDirectory is String? StrPtr(lpCurrentDirectory) : lpCurrentDirectory
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\CreateProcessW", "ptr", lpApplicationName, "ptr", lpCommandLine, "ptr", lpProcessAttributes, "ptr", lpThreadAttributes, "int", bInheritHandles, "uint", dwCreationFlags, "ptr", lpEnvironment, "ptr", lpCurrentDirectory, "ptr", lpStartupInfo, "ptr", lpProcessInformation, "int")
@@ -5447,6 +5489,10 @@ class Threading {
      * @since windows5.1.2600
      */
     static CreateProcessAsUserW(hToken, lpApplicationName, lpCommandLine, lpProcessAttributes, lpThreadAttributes, bInheritHandles, dwCreationFlags, lpEnvironment, lpCurrentDirectory, lpStartupInfo, lpProcessInformation) {
+        lpApplicationName := lpApplicationName is String? StrPtr(lpApplicationName) : lpApplicationName
+        lpCommandLine := lpCommandLine is String? StrPtr(lpCommandLine) : lpCommandLine
+        lpCurrentDirectory := lpCurrentDirectory is String? StrPtr(lpCurrentDirectory) : lpCurrentDirectory
+
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\CreateProcessAsUserW", "ptr", hToken, "ptr", lpApplicationName, "ptr", lpCommandLine, "ptr", lpProcessAttributes, "ptr", lpThreadAttributes, "int", bInheritHandles, "uint", dwCreationFlags, "ptr", lpEnvironment, "ptr", lpCurrentDirectory, "ptr", lpStartupInfo, "ptr", lpProcessInformation, "int")
@@ -7490,6 +7536,10 @@ class Threading {
      * @since windows5.1.2600
      */
     static CreateProcessAsUserA(hToken, lpApplicationName, lpCommandLine, lpProcessAttributes, lpThreadAttributes, bInheritHandles, dwCreationFlags, lpEnvironment, lpCurrentDirectory, lpStartupInfo, lpProcessInformation) {
+        lpApplicationName := lpApplicationName is String? StrPtr(lpApplicationName) : lpApplicationName
+        lpCommandLine := lpCommandLine is String? StrPtr(lpCommandLine) : lpCommandLine
+        lpCurrentDirectory := lpCurrentDirectory is String? StrPtr(lpCurrentDirectory) : lpCurrentDirectory
+
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\CreateProcessAsUserA", "ptr", hToken, "ptr", lpApplicationName, "ptr", lpCommandLine, "ptr", lpProcessAttributes, "ptr", lpThreadAttributes, "int", bInheritHandles, "uint", dwCreationFlags, "ptr", lpEnvironment, "ptr", lpCurrentDirectory, "ptr", lpStartupInfo, "ptr", lpProcessInformation, "int")
@@ -7709,6 +7759,8 @@ class Threading {
      * @since windows10.0.14393
      */
     static SetThreadDescription(hThread, lpThreadDescription) {
+        lpThreadDescription := lpThreadDescription is String? StrPtr(lpThreadDescription) : lpThreadDescription
+
         result := DllCall("KERNEL32.dll\SetThreadDescription", "ptr", hThread, "ptr", lpThreadDescription, "int")
         return result
     }
@@ -7731,6 +7783,8 @@ class Threading {
      * @since windows10.0.14393
      */
     static GetThreadDescription(hThread, ppszThreadDescription) {
+        ppszThreadDescription := ppszThreadDescription is String? StrPtr(ppszThreadDescription) : ppszThreadDescription
+
         result := DllCall("KERNEL32.dll\GetThreadDescription", "ptr", hThread, "ptr", ppszThreadDescription, "int")
         return result
     }
@@ -8983,6 +9037,8 @@ class Threading {
      * @see https://learn.microsoft.com/windows/win32/api/namespaceapi/nf-namespaceapi-createprivatenamespacew
      */
     static CreatePrivateNamespaceW(lpPrivateNamespaceAttributes, lpBoundaryDescriptor, lpAliasPrefix) {
+        lpAliasPrefix := lpAliasPrefix is String? StrPtr(lpAliasPrefix) : lpAliasPrefix
+
         result := DllCall("KERNEL32.dll\CreatePrivateNamespaceW", "ptr", lpPrivateNamespaceAttributes, "ptr", lpBoundaryDescriptor, "ptr", lpAliasPrefix, "ptr")
         return result
     }
@@ -8997,6 +9053,8 @@ class Threading {
      * @see https://learn.microsoft.com/windows/win32/api/namespaceapi/nf-namespaceapi-openprivatenamespacew
      */
     static OpenPrivateNamespaceW(lpBoundaryDescriptor, lpAliasPrefix) {
+        lpAliasPrefix := lpAliasPrefix is String? StrPtr(lpAliasPrefix) : lpAliasPrefix
+
         result := DllCall("KERNEL32.dll\OpenPrivateNamespaceW", "ptr", lpBoundaryDescriptor, "ptr", lpAliasPrefix, "ptr")
         return result
     }
@@ -9042,6 +9100,8 @@ class Threading {
      * @see https://learn.microsoft.com/windows/win32/api/namespaceapi/nf-namespaceapi-createboundarydescriptorw
      */
     static CreateBoundaryDescriptorW(Name, Flags) {
+        Name := Name is String? StrPtr(Name) : Name
+
         result := DllCall("KERNEL32.dll\CreateBoundaryDescriptorW", "ptr", Name, "uint", Flags, "ptr")
         return result
     }
@@ -9327,6 +9387,8 @@ class Threading {
      * @since windows6.0.6000
      */
     static AvSetMmThreadCharacteristicsA(TaskName, TaskIndex) {
+        TaskName := TaskName is String? StrPtr(TaskName) : TaskName
+
         A_LastError := 0
 
         result := DllCall("AVRT.dll\AvSetMmThreadCharacteristicsA", "ptr", TaskName, "ptr", TaskIndex, "ptr")
@@ -9401,6 +9463,8 @@ class Threading {
      * @since windows6.0.6000
      */
     static AvSetMmThreadCharacteristicsW(TaskName, TaskIndex) {
+        TaskName := TaskName is String? StrPtr(TaskName) : TaskName
+
         A_LastError := 0
 
         result := DllCall("AVRT.dll\AvSetMmThreadCharacteristicsW", "ptr", TaskName, "ptr", TaskIndex, "ptr")
@@ -9478,6 +9542,9 @@ class Threading {
      * @since windows6.0.6000
      */
     static AvSetMmMaxThreadCharacteristicsA(FirstTask, SecondTask, TaskIndex) {
+        FirstTask := FirstTask is String? StrPtr(FirstTask) : FirstTask
+        SecondTask := SecondTask is String? StrPtr(SecondTask) : SecondTask
+
         A_LastError := 0
 
         result := DllCall("AVRT.dll\AvSetMmMaxThreadCharacteristicsA", "ptr", FirstTask, "ptr", SecondTask, "ptr", TaskIndex, "ptr")
@@ -9555,6 +9622,9 @@ class Threading {
      * @since windows6.0.6000
      */
     static AvSetMmMaxThreadCharacteristicsW(FirstTask, SecondTask, TaskIndex) {
+        FirstTask := FirstTask is String? StrPtr(FirstTask) : FirstTask
+        SecondTask := SecondTask is String? StrPtr(SecondTask) : SecondTask
+
         A_LastError := 0
 
         result := DllCall("AVRT.dll\AvSetMmMaxThreadCharacteristicsW", "ptr", FirstTask, "ptr", SecondTask, "ptr", TaskIndex, "ptr")
@@ -9691,6 +9761,8 @@ class Threading {
      * @since windows6.0.6000
      */
     static AvRtCreateThreadOrderingGroupExA(Context, Period, ThreadOrderingGuid, Timeout, TaskName) {
+        TaskName := TaskName is String? StrPtr(TaskName) : TaskName
+
         A_LastError := 0
 
         result := DllCall("AVRT.dll\AvRtCreateThreadOrderingGroupExA", "ptr", Context, "ptr", Period, "ptr", ThreadOrderingGuid, "ptr", Timeout, "ptr", TaskName, "int")
@@ -9739,6 +9811,8 @@ class Threading {
      * @since windows6.0.6000
      */
     static AvRtCreateThreadOrderingGroupExW(Context, Period, ThreadOrderingGuid, Timeout, TaskName) {
+        TaskName := TaskName is String? StrPtr(TaskName) : TaskName
+
         A_LastError := 0
 
         result := DllCall("AVRT.dll\AvRtCreateThreadOrderingGroupExW", "ptr", Context, "ptr", Period, "ptr", ThreadOrderingGuid, "ptr", Timeout, "ptr", TaskName, "int")
@@ -9930,6 +10004,8 @@ class Threading {
      * @since windows8.1
      */
     static RtwqLockSharedWorkQueue(usageClass, basePriority, taskId, id) {
+        usageClass := usageClass is String? StrPtr(usageClass) : usageClass
+
         result := DllCall("RTWorkQ.dll\RtwqLockSharedWorkQueue", "ptr", usageClass, "int", basePriority, "ptr", taskId, "ptr", id, "int")
         return result
     }
@@ -10022,6 +10098,8 @@ class Threading {
      * @since windows8.1
      */
     static RtwqRegisterPlatformWithMMCSS(usageClass, taskId, lPriority) {
+        usageClass := usageClass is String? StrPtr(usageClass) : usageClass
+
         result := DllCall("RTWorkQ.dll\RtwqRegisterPlatformWithMMCSS", "ptr", usageClass, "ptr", taskId, "int", lPriority, "int")
         return result
     }
@@ -10250,6 +10328,8 @@ class Threading {
      * @since windows8.1
      */
     static RtwqBeginRegisterWorkQueueWithMMCSS(workQueueId, usageClass, dwTaskId, lPriority, doneCallback, doneState) {
+        usageClass := usageClass is String? StrPtr(usageClass) : usageClass
+
         result := DllCall("RTWorkQ.dll\RtwqBeginRegisterWorkQueueWithMMCSS", "uint", workQueueId, "ptr", usageClass, "uint", dwTaskId, "int", lPriority, "ptr", doneCallback, "ptr", doneState, "int")
         return result
     }
@@ -10295,6 +10375,8 @@ class Threading {
      * @since windows8.1
      */
     static RtwqGetWorkQueueMMCSSClass(workQueueId, usageClass, usageClassLength) {
+        usageClass := usageClass is String? StrPtr(usageClass) : usageClass
+
         result := DllCall("RTWorkQ.dll\RtwqGetWorkQueueMMCSSClass", "uint", workQueueId, "ptr", usageClass, "ptr", usageClassLength, "int")
         return result
     }
@@ -11757,6 +11839,8 @@ class Threading {
      * @since windows5.1.2600
      */
     static WinExec(lpCmdLine, uCmdShow) {
+        lpCmdLine := lpCmdLine is String? StrPtr(lpCmdLine) : lpCmdLine
+
         DllCall("KERNEL32.dll\WinExec", "ptr", lpCmdLine, "uint", uCmdShow)
     }
 
@@ -11967,6 +12051,8 @@ class Threading {
      * @since windows5.1.2600
      */
     static CreateSemaphoreA(lpSemaphoreAttributes, lInitialCount, lMaximumCount, lpName) {
+        lpName := lpName is String? StrPtr(lpName) : lpName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\CreateSemaphoreA", "ptr", lpSemaphoreAttributes, "int", lInitialCount, "int", lMaximumCount, "ptr", lpName, "ptr")
@@ -12027,6 +12113,8 @@ class Threading {
      * @see https://learn.microsoft.com/windows/win32/api/synchapi/nf-synchapi-createwaitabletimerw
      */
     static CreateWaitableTimerA(lpTimerAttributes, bManualReset, lpTimerName) {
+        lpTimerName := lpTimerName is String? StrPtr(lpTimerName) : lpTimerName
+
         result := DllCall("KERNEL32.dll\CreateWaitableTimerA", "ptr", lpTimerAttributes, "int", bManualReset, "ptr", lpTimerName, "ptr")
         return result
     }
@@ -12062,6 +12150,8 @@ class Threading {
      * @see https://learn.microsoft.com/windows/win32/api/synchapi/nf-synchapi-openwaitabletimerw
      */
     static OpenWaitableTimerA(dwDesiredAccess, bInheritHandle, lpTimerName) {
+        lpTimerName := lpTimerName is String? StrPtr(lpTimerName) : lpTimerName
+
         result := DllCall("KERNEL32.dll\OpenWaitableTimerA", "uint", dwDesiredAccess, "int", bInheritHandle, "ptr", lpTimerName, "ptr")
         return result
     }
@@ -12121,6 +12211,8 @@ class Threading {
      */
     static CreateSemaphoreExA(lpSemaphoreAttributes, lInitialCount, lMaximumCount, lpName, dwDesiredAccess) {
         static dwFlags := 0 ;Reserved parameters must always be NULL
+
+        lpName := lpName is String? StrPtr(lpName) : lpName
 
         A_LastError := 0
 
@@ -12200,6 +12292,8 @@ class Threading {
      * @see https://learn.microsoft.com/windows/win32/api/synchapi/nf-synchapi-createwaitabletimerexw
      */
     static CreateWaitableTimerExA(lpTimerAttributes, lpTimerName, dwFlags, dwDesiredAccess) {
+        lpTimerName := lpTimerName is String? StrPtr(lpTimerName) : lpTimerName
+
         result := DllCall("KERNEL32.dll\CreateWaitableTimerExA", "ptr", lpTimerAttributes, "ptr", lpTimerName, "uint", dwFlags, "uint", dwDesiredAccess, "ptr")
         return result
     }
@@ -12228,6 +12322,8 @@ class Threading {
      * @since windows6.0.6000
      */
     static QueryFullProcessImageNameA(hProcess, dwFlags, lpExeName, lpdwSize) {
+        lpExeName := lpExeName is String? StrPtr(lpExeName) : lpExeName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\QueryFullProcessImageNameA", "ptr", hProcess, "uint", dwFlags, "ptr", lpExeName, "ptr", lpdwSize, "int")
@@ -12261,6 +12357,8 @@ class Threading {
      * @since windows6.0.6000
      */
     static QueryFullProcessImageNameW(hProcess, dwFlags, lpExeName, lpdwSize) {
+        lpExeName := lpExeName is String? StrPtr(lpExeName) : lpExeName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\QueryFullProcessImageNameW", "ptr", hProcess, "uint", dwFlags, "ptr", lpExeName, "ptr", lpdwSize, "int")
@@ -12461,6 +12559,13 @@ class Threading {
      * @since windows5.1.2600
      */
     static CreateProcessWithLogonW(lpUsername, lpDomain, lpPassword, dwLogonFlags, lpApplicationName, lpCommandLine, dwCreationFlags, lpEnvironment, lpCurrentDirectory, lpStartupInfo, lpProcessInformation) {
+        lpUsername := lpUsername is String? StrPtr(lpUsername) : lpUsername
+        lpDomain := lpDomain is String? StrPtr(lpDomain) : lpDomain
+        lpPassword := lpPassword is String? StrPtr(lpPassword) : lpPassword
+        lpApplicationName := lpApplicationName is String? StrPtr(lpApplicationName) : lpApplicationName
+        lpCommandLine := lpCommandLine is String? StrPtr(lpCommandLine) : lpCommandLine
+        lpCurrentDirectory := lpCurrentDirectory is String? StrPtr(lpCurrentDirectory) : lpCurrentDirectory
+
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\CreateProcessWithLogonW", "ptr", lpUsername, "ptr", lpDomain, "ptr", lpPassword, "uint", dwLogonFlags, "ptr", lpApplicationName, "ptr", lpCommandLine, "uint", dwCreationFlags, "ptr", lpEnvironment, "ptr", lpCurrentDirectory, "ptr", lpStartupInfo, "ptr", lpProcessInformation, "int")
@@ -12636,6 +12741,10 @@ class Threading {
      * @since windows6.0.6000
      */
     static CreateProcessWithTokenW(hToken, dwLogonFlags, lpApplicationName, lpCommandLine, dwCreationFlags, lpEnvironment, lpCurrentDirectory, lpStartupInfo, lpProcessInformation) {
+        lpApplicationName := lpApplicationName is String? StrPtr(lpApplicationName) : lpApplicationName
+        lpCommandLine := lpCommandLine is String? StrPtr(lpCommandLine) : lpCommandLine
+        lpCurrentDirectory := lpCurrentDirectory is String? StrPtr(lpCurrentDirectory) : lpCurrentDirectory
+
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\CreateProcessWithTokenW", "ptr", hToken, "uint", dwLogonFlags, "ptr", lpApplicationName, "ptr", lpCommandLine, "uint", dwCreationFlags, "ptr", lpEnvironment, "ptr", lpCurrentDirectory, "ptr", lpStartupInfo, "ptr", lpProcessInformation, "int")
@@ -12786,6 +12895,8 @@ class Threading {
      * @since windows6.0.6000
      */
     static CreatePrivateNamespaceA(lpPrivateNamespaceAttributes, lpBoundaryDescriptor, lpAliasPrefix) {
+        lpAliasPrefix := lpAliasPrefix is String? StrPtr(lpAliasPrefix) : lpAliasPrefix
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\CreatePrivateNamespaceA", "ptr", lpPrivateNamespaceAttributes, "ptr", lpBoundaryDescriptor, "ptr", lpAliasPrefix, "ptr")
@@ -12806,6 +12917,8 @@ class Threading {
      * @since windows6.0.6000
      */
     static OpenPrivateNamespaceA(lpBoundaryDescriptor, lpAliasPrefix) {
+        lpAliasPrefix := lpAliasPrefix is String? StrPtr(lpAliasPrefix) : lpAliasPrefix
+
         result := DllCall("KERNEL32.dll\OpenPrivateNamespaceA", "ptr", lpBoundaryDescriptor, "ptr", lpAliasPrefix, "ptr")
         return result
     }
@@ -12830,6 +12943,8 @@ class Threading {
      * @since windows6.0.6000
      */
     static CreateBoundaryDescriptorA(Name, Flags) {
+        Name := Name is String? StrPtr(Name) : Name
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\CreateBoundaryDescriptorA", "ptr", Name, "uint", Flags, "ptr")

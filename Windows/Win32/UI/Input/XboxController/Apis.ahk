@@ -162,6 +162,9 @@ class XboxController {
      * @see https://learn.microsoft.com/windows/win32/api/xinput/nf-xinput-xinputgetaudiodeviceids
      */
     static XInputGetAudioDeviceIds(dwUserIndex, pRenderDeviceId, pRenderCount, pCaptureDeviceId, pCaptureCount) {
+        pRenderDeviceId := pRenderDeviceId is String? StrPtr(pRenderDeviceId) : pRenderDeviceId
+        pCaptureDeviceId := pCaptureDeviceId is String? StrPtr(pCaptureDeviceId) : pCaptureDeviceId
+
         result := DllCall("xinput1_4.dll\XInputGetAudioDeviceIds", "uint", dwUserIndex, "ptr", pRenderDeviceId, "ptr", pRenderCount, "ptr", pCaptureDeviceId, "ptr", pCaptureCount, "uint")
         return result
     }

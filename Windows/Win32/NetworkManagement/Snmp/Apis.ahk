@@ -926,6 +926,8 @@ class Snmp {
      * @since windows5.0
      */
     static SnmpUtilDbgPrint(nLogLevel, szFormat) {
+        szFormat := szFormat is String? StrPtr(szFormat) : szFormat
+
         DllCall("snmpapi.dll\SnmpUtilDbgPrint", "int", nLogLevel, "ptr", szFormat, "CDecl ")
     }
 
@@ -976,6 +978,9 @@ class Snmp {
      * @since windows5.0
      */
     static SnmpMgrOpen(lpAgentAddress, lpAgentCommunity, nTimeOut, nRetries) {
+        lpAgentAddress := lpAgentAddress is String? StrPtr(lpAgentAddress) : lpAgentAddress
+        lpAgentCommunity := lpAgentCommunity is String? StrPtr(lpAgentCommunity) : lpAgentCommunity
+
         A_LastError := 0
 
         DllCall("mgmtapi.dll\SnmpMgrOpen", "ptr", lpAgentAddress, "ptr", lpAgentCommunity, "int", nTimeOut, "int", nRetries)
@@ -1152,6 +1157,8 @@ class Snmp {
      * @since windows5.0
      */
     static SnmpMgrStrToOid(string, oid) {
+        string := string is String? StrPtr(string) : string
+
         result := DllCall("mgmtapi.dll\SnmpMgrStrToOid", "ptr", string, "ptr", oid, "int")
         return result
     }
@@ -1170,6 +1177,8 @@ class Snmp {
      * @since windows5.0
      */
     static SnmpMgrOidToStr(oid, string) {
+        string := string is String? StrPtr(string) : string
+
         result := DllCall("mgmtapi.dll\SnmpMgrOidToStr", "ptr", oid, "ptr", string, "int")
         return result
     }
@@ -3765,6 +3774,8 @@ class Snmp {
      * @since windows5.0
      */
     static SnmpStrToEntity(session, string) {
+        string := string is String? StrPtr(string) : string
+
         result := DllCall("wsnmp32.dll\SnmpStrToEntity", "ptr", session, "ptr", string, "ptr")
         return result
     }
@@ -3857,6 +3868,8 @@ class Snmp {
      * @since windows5.0
      */
     static SnmpEntityToStr(entity, size, string) {
+        string := string is String? StrPtr(string) : string
+
         result := DllCall("wsnmp32.dll\SnmpEntityToStr", "ptr", entity, "uint", size, "ptr", string, "uint")
         return result
     }
@@ -5876,6 +5889,8 @@ class Snmp {
      * @since windows5.0
      */
     static SnmpStrToOid(string, dstOID) {
+        string := string is String? StrPtr(string) : string
+
         result := DllCall("wsnmp32.dll\SnmpStrToOid", "ptr", string, "ptr", dstOID, "uint")
         return result
     }
@@ -5972,6 +5987,8 @@ class Snmp {
      * @since windows5.0
      */
     static SnmpOidToStr(srcOID, size, string) {
+        string := string is String? StrPtr(string) : string
+
         result := DllCall("wsnmp32.dll\SnmpOidToStr", "ptr", srcOID, "uint", size, "ptr", string, "uint")
         return result
     }

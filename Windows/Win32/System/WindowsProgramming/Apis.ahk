@@ -3061,6 +3061,8 @@ class WindowsProgramming {
      * @see https://learn.microsoft.com/windows/win32/api/apiquery2/nf-apiquery2-isapisetimplemented
      */
     static IsApiSetImplemented(Contract) {
+        Contract := Contract is String? StrPtr(Contract) : Contract
+
         result := DllCall("api-ms-win-core-apiquery-l2-1-0.dll\IsApiSetImplemented", "ptr", Contract, "int")
         return result
     }
@@ -3468,6 +3470,8 @@ class WindowsProgramming {
      * @returns {Integer} 
      */
     static SetEnvironmentStringsA(NewEnvironment) {
+        NewEnvironment := NewEnvironment is String? StrPtr(NewEnvironment) : NewEnvironment
+
         result := DllCall("KERNEL32.dll\SetEnvironmentStringsA", "ptr", NewEnvironment, "int")
         return result
     }
@@ -3688,6 +3692,8 @@ class WindowsProgramming {
      * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-_lopen
      */
     static _lopen(lpPathName, iReadWrite) {
+        lpPathName := lpPathName is String? StrPtr(lpPathName) : lpPathName
+
         result := DllCall("KERNEL32.dll\_lopen", "ptr", lpPathName, "int", iReadWrite, "int")
         return result
     }
@@ -3706,6 +3712,8 @@ class WindowsProgramming {
      * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-_lcreat
      */
     static _lcreat(lpPathName, iAttribute) {
+        lpPathName := lpPathName is String? StrPtr(lpPathName) : lpPathName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\_lcreat", "ptr", lpPathName, "int", iAttribute, "int")
@@ -3736,6 +3744,8 @@ class WindowsProgramming {
      * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-_lwrite
      */
     static _lwrite(hFile, lpBuffer, uBytes) {
+        lpBuffer := lpBuffer is String? StrPtr(lpBuffer) : lpBuffer
+
         A_LastError := 0
 
         DllCall("KERNEL32.dll\_lwrite", "int", hFile, "ptr", lpBuffer, "uint", uBytes)
@@ -3764,6 +3774,8 @@ class WindowsProgramming {
      * @returns {Integer} 
      */
     static _hwrite(hFile, lpBuffer, lBytes) {
+        lpBuffer := lpBuffer is String? StrPtr(lpBuffer) : lpBuffer
+
         result := DllCall("KERNEL32.dll\_hwrite", "int", hFile, "ptr", lpBuffer, "int", lBytes, "int")
         return result
     }
@@ -3833,6 +3845,8 @@ class WindowsProgramming {
      * @see https://learn.microsoft.com/windows/win32/api/synchapi/nf-synchapi-openmutexw
      */
     static OpenMutexA(dwDesiredAccess, bInheritHandle, lpName) {
+        lpName := lpName is String? StrPtr(lpName) : lpName
+
         result := DllCall("KERNEL32.dll\OpenMutexA", "uint", dwDesiredAccess, "int", bInheritHandle, "ptr", lpName, "ptr")
         return result
     }
@@ -3867,6 +3881,8 @@ class WindowsProgramming {
      * @see https://learn.microsoft.com/windows/win32/api/synchapi/nf-synchapi-opensemaphorew
      */
     static OpenSemaphoreA(dwDesiredAccess, bInheritHandle, lpName) {
+        lpName := lpName is String? StrPtr(lpName) : lpName
+
         result := DllCall("KERNEL32.dll\OpenSemaphoreA", "uint", dwDesiredAccess, "int", bInheritHandle, "ptr", lpName, "ptr")
         return result
     }
@@ -3907,6 +3923,9 @@ class WindowsProgramming {
      * @since windows6.0.6000
      */
     static GetFirmwareEnvironmentVariableA(lpName, lpGuid, pBuffer, nSize) {
+        lpName := lpName is String? StrPtr(lpName) : lpName
+        lpGuid := lpGuid is String? StrPtr(lpGuid) : lpGuid
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetFirmwareEnvironmentVariableA", "ptr", lpName, "ptr", lpGuid, "ptr", pBuffer, "uint", nSize, "uint")
@@ -3952,6 +3971,9 @@ class WindowsProgramming {
      * @since windows6.0.6000
      */
     static GetFirmwareEnvironmentVariableW(lpName, lpGuid, pBuffer, nSize) {
+        lpName := lpName is String? StrPtr(lpName) : lpName
+        lpGuid := lpGuid is String? StrPtr(lpGuid) : lpGuid
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetFirmwareEnvironmentVariableW", "ptr", lpName, "ptr", lpGuid, "ptr", pBuffer, "uint", nSize, "uint")
@@ -3996,6 +4018,9 @@ class WindowsProgramming {
      * @since windows8.0
      */
     static GetFirmwareEnvironmentVariableExA(lpName, lpGuid, pBuffer, nSize, pdwAttribubutes) {
+        lpName := lpName is String? StrPtr(lpName) : lpName
+        lpGuid := lpGuid is String? StrPtr(lpGuid) : lpGuid
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetFirmwareEnvironmentVariableExA", "ptr", lpName, "ptr", lpGuid, "ptr", pBuffer, "uint", nSize, "ptr", pdwAttribubutes, "uint")
@@ -4040,6 +4065,9 @@ class WindowsProgramming {
      * @since windows8.0
      */
     static GetFirmwareEnvironmentVariableExW(lpName, lpGuid, pBuffer, nSize, pdwAttribubutes) {
+        lpName := lpName is String? StrPtr(lpName) : lpName
+        lpGuid := lpGuid is String? StrPtr(lpGuid) : lpGuid
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetFirmwareEnvironmentVariableExW", "ptr", lpName, "ptr", lpGuid, "ptr", pBuffer, "uint", nSize, "ptr", pdwAttribubutes, "uint")
@@ -4082,6 +4110,9 @@ class WindowsProgramming {
      * @since windows6.0.6000
      */
     static SetFirmwareEnvironmentVariableA(lpName, lpGuid, pValue, nSize) {
+        lpName := lpName is String? StrPtr(lpName) : lpName
+        lpGuid := lpGuid is String? StrPtr(lpGuid) : lpGuid
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SetFirmwareEnvironmentVariableA", "ptr", lpName, "ptr", lpGuid, "ptr", pValue, "uint", nSize, "int")
@@ -4124,6 +4155,9 @@ class WindowsProgramming {
      * @since windows6.0.6000
      */
     static SetFirmwareEnvironmentVariableW(lpName, lpGuid, pValue, nSize) {
+        lpName := lpName is String? StrPtr(lpName) : lpName
+        lpGuid := lpGuid is String? StrPtr(lpGuid) : lpGuid
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SetFirmwareEnvironmentVariableW", "ptr", lpName, "ptr", lpGuid, "ptr", pValue, "uint", nSize, "int")
@@ -4260,6 +4294,9 @@ class WindowsProgramming {
      * @since windows8.0
      */
     static SetFirmwareEnvironmentVariableExA(lpName, lpGuid, pValue, nSize, dwAttributes) {
+        lpName := lpName is String? StrPtr(lpName) : lpName
+        lpGuid := lpGuid is String? StrPtr(lpGuid) : lpGuid
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SetFirmwareEnvironmentVariableExA", "ptr", lpName, "ptr", lpGuid, "ptr", pValue, "uint", nSize, "uint", dwAttributes, "int")
@@ -4396,6 +4433,9 @@ class WindowsProgramming {
      * @since windows8.0
      */
     static SetFirmwareEnvironmentVariableExW(lpName, lpGuid, pValue, nSize, dwAttributes) {
+        lpName := lpName is String? StrPtr(lpName) : lpName
+        lpGuid := lpGuid is String? StrPtr(lpGuid) : lpGuid
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SetFirmwareEnvironmentVariableExW", "ptr", lpName, "ptr", lpGuid, "ptr", pValue, "uint", nSize, "uint", dwAttributes, "int")
@@ -4473,6 +4513,9 @@ class WindowsProgramming {
      * @since windows5.0
      */
     static GetProfileIntA(lpAppName, lpKeyName, nDefault) {
+        lpAppName := lpAppName is String? StrPtr(lpAppName) : lpAppName
+        lpKeyName := lpKeyName is String? StrPtr(lpKeyName) : lpKeyName
+
         DllCall("KERNEL32.dll\GetProfileIntA", "ptr", lpAppName, "ptr", lpKeyName, "int", nDefault)
     }
 
@@ -4524,6 +4567,9 @@ class WindowsProgramming {
      * @since windows5.0
      */
     static GetProfileIntW(lpAppName, lpKeyName, nDefault) {
+        lpAppName := lpAppName is String? StrPtr(lpAppName) : lpAppName
+        lpKeyName := lpKeyName is String? StrPtr(lpKeyName) : lpKeyName
+
         DllCall("KERNEL32.dll\GetProfileIntW", "ptr", lpAppName, "ptr", lpKeyName, "int", nDefault)
     }
 
@@ -4607,6 +4653,11 @@ class WindowsProgramming {
      * @since windows5.0
      */
     static GetProfileStringA(lpAppName, lpKeyName, lpDefault, lpReturnedString, nSize) {
+        lpAppName := lpAppName is String? StrPtr(lpAppName) : lpAppName
+        lpKeyName := lpKeyName is String? StrPtr(lpKeyName) : lpKeyName
+        lpDefault := lpDefault is String? StrPtr(lpDefault) : lpDefault
+        lpReturnedString := lpReturnedString is String? StrPtr(lpReturnedString) : lpReturnedString
+
         result := DllCall("KERNEL32.dll\GetProfileStringA", "ptr", lpAppName, "ptr", lpKeyName, "ptr", lpDefault, "ptr", lpReturnedString, "uint", nSize, "uint")
         return result
     }
@@ -4691,6 +4742,11 @@ class WindowsProgramming {
      * @since windows5.0
      */
     static GetProfileStringW(lpAppName, lpKeyName, lpDefault, lpReturnedString, nSize) {
+        lpAppName := lpAppName is String? StrPtr(lpAppName) : lpAppName
+        lpKeyName := lpKeyName is String? StrPtr(lpKeyName) : lpKeyName
+        lpDefault := lpDefault is String? StrPtr(lpDefault) : lpDefault
+        lpReturnedString := lpReturnedString is String? StrPtr(lpReturnedString) : lpReturnedString
+
         result := DllCall("KERNEL32.dll\GetProfileStringW", "ptr", lpAppName, "ptr", lpKeyName, "ptr", lpDefault, "ptr", lpReturnedString, "uint", nSize, "uint")
         return result
     }
@@ -4749,6 +4805,10 @@ class WindowsProgramming {
      * @since windows5.0
      */
     static WriteProfileStringA(lpAppName, lpKeyName, lpString) {
+        lpAppName := lpAppName is String? StrPtr(lpAppName) : lpAppName
+        lpKeyName := lpKeyName is String? StrPtr(lpKeyName) : lpKeyName
+        lpString := lpString is String? StrPtr(lpString) : lpString
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\WriteProfileStringA", "ptr", lpAppName, "ptr", lpKeyName, "ptr", lpString, "int")
@@ -4812,6 +4872,10 @@ class WindowsProgramming {
      * @since windows5.0
      */
     static WriteProfileStringW(lpAppName, lpKeyName, lpString) {
+        lpAppName := lpAppName is String? StrPtr(lpAppName) : lpAppName
+        lpKeyName := lpKeyName is String? StrPtr(lpKeyName) : lpKeyName
+        lpString := lpString is String? StrPtr(lpString) : lpString
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\WriteProfileStringW", "ptr", lpAppName, "ptr", lpKeyName, "ptr", lpString, "int")
@@ -4875,6 +4939,9 @@ class WindowsProgramming {
      * @since windows5.0
      */
     static GetProfileSectionA(lpAppName, lpReturnedString, nSize) {
+        lpAppName := lpAppName is String? StrPtr(lpAppName) : lpAppName
+        lpReturnedString := lpReturnedString is String? StrPtr(lpReturnedString) : lpReturnedString
+
         result := DllCall("KERNEL32.dll\GetProfileSectionA", "ptr", lpAppName, "ptr", lpReturnedString, "uint", nSize, "uint")
         return result
     }
@@ -4933,6 +5000,9 @@ class WindowsProgramming {
      * @since windows5.0
      */
     static GetProfileSectionW(lpAppName, lpReturnedString, nSize) {
+        lpAppName := lpAppName is String? StrPtr(lpAppName) : lpAppName
+        lpReturnedString := lpReturnedString is String? StrPtr(lpReturnedString) : lpReturnedString
+
         result := DllCall("KERNEL32.dll\GetProfileSectionW", "ptr", lpAppName, "ptr", lpReturnedString, "uint", nSize, "uint")
         return result
     }
@@ -4999,6 +5069,9 @@ class WindowsProgramming {
      * @since windows5.0
      */
     static WriteProfileSectionA(lpAppName, lpString) {
+        lpAppName := lpAppName is String? StrPtr(lpAppName) : lpAppName
+        lpString := lpString is String? StrPtr(lpString) : lpString
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\WriteProfileSectionA", "ptr", lpAppName, "ptr", lpString, "int")
@@ -5070,6 +5143,9 @@ class WindowsProgramming {
      * @since windows5.0
      */
     static WriteProfileSectionW(lpAppName, lpString) {
+        lpAppName := lpAppName is String? StrPtr(lpAppName) : lpAppName
+        lpString := lpString is String? StrPtr(lpString) : lpString
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\WriteProfileSectionW", "ptr", lpAppName, "ptr", lpString, "int")
@@ -5141,6 +5217,10 @@ class WindowsProgramming {
      * @since windows5.0
      */
     static GetPrivateProfileIntA(lpAppName, lpKeyName, nDefault, lpFileName) {
+        lpAppName := lpAppName is String? StrPtr(lpAppName) : lpAppName
+        lpKeyName := lpKeyName is String? StrPtr(lpKeyName) : lpKeyName
+        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+
         DllCall("KERNEL32.dll\GetPrivateProfileIntA", "ptr", lpAppName, "ptr", lpKeyName, "int", nDefault, "ptr", lpFileName)
     }
 
@@ -5206,6 +5286,10 @@ class WindowsProgramming {
      * @since windows5.0
      */
     static GetPrivateProfileIntW(lpAppName, lpKeyName, nDefault, lpFileName) {
+        lpAppName := lpAppName is String? StrPtr(lpAppName) : lpAppName
+        lpKeyName := lpKeyName is String? StrPtr(lpKeyName) : lpKeyName
+        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+
         result := DllCall("KERNEL32.dll\GetPrivateProfileIntW", "ptr", lpAppName, "ptr", lpKeyName, "int", nDefault, "ptr", lpFileName, "int")
         return result
     }
@@ -5289,6 +5373,12 @@ class WindowsProgramming {
      * @since windows5.0
      */
     static GetPrivateProfileStringA(lpAppName, lpKeyName, lpDefault, lpReturnedString, nSize, lpFileName) {
+        lpAppName := lpAppName is String? StrPtr(lpAppName) : lpAppName
+        lpKeyName := lpKeyName is String? StrPtr(lpKeyName) : lpKeyName
+        lpDefault := lpDefault is String? StrPtr(lpDefault) : lpDefault
+        lpReturnedString := lpReturnedString is String? StrPtr(lpReturnedString) : lpReturnedString
+        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetPrivateProfileStringA", "ptr", lpAppName, "ptr", lpKeyName, "ptr", lpDefault, "ptr", lpReturnedString, "uint", nSize, "ptr", lpFileName, "uint")
@@ -5377,6 +5467,12 @@ class WindowsProgramming {
      * @since windows5.0
      */
     static GetPrivateProfileStringW(lpAppName, lpKeyName, lpDefault, lpReturnedString, nSize, lpFileName) {
+        lpAppName := lpAppName is String? StrPtr(lpAppName) : lpAppName
+        lpKeyName := lpKeyName is String? StrPtr(lpKeyName) : lpKeyName
+        lpDefault := lpDefault is String? StrPtr(lpDefault) : lpDefault
+        lpReturnedString := lpReturnedString is String? StrPtr(lpReturnedString) : lpReturnedString
+        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetPrivateProfileStringW", "ptr", lpAppName, "ptr", lpKeyName, "ptr", lpDefault, "ptr", lpReturnedString, "uint", nSize, "ptr", lpFileName, "uint")
@@ -5471,6 +5567,11 @@ class WindowsProgramming {
      * @since windows5.0
      */
     static WritePrivateProfileStringA(lpAppName, lpKeyName, lpString, lpFileName) {
+        lpAppName := lpAppName is String? StrPtr(lpAppName) : lpAppName
+        lpKeyName := lpKeyName is String? StrPtr(lpKeyName) : lpKeyName
+        lpString := lpString is String? StrPtr(lpString) : lpString
+        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\WritePrivateProfileStringA", "ptr", lpAppName, "ptr", lpKeyName, "ptr", lpString, "ptr", lpFileName, "int")
@@ -5565,6 +5666,11 @@ class WindowsProgramming {
      * @since windows5.0
      */
     static WritePrivateProfileStringW(lpAppName, lpKeyName, lpString, lpFileName) {
+        lpAppName := lpAppName is String? StrPtr(lpAppName) : lpAppName
+        lpKeyName := lpKeyName is String? StrPtr(lpKeyName) : lpKeyName
+        lpString := lpString is String? StrPtr(lpString) : lpString
+        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\WritePrivateProfileStringW", "ptr", lpAppName, "ptr", lpKeyName, "ptr", lpString, "ptr", lpFileName, "int")
@@ -5632,6 +5738,10 @@ class WindowsProgramming {
      * @since windows5.0
      */
     static GetPrivateProfileSectionA(lpAppName, lpReturnedString, nSize, lpFileName) {
+        lpAppName := lpAppName is String? StrPtr(lpAppName) : lpAppName
+        lpReturnedString := lpReturnedString is String? StrPtr(lpReturnedString) : lpReturnedString
+        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+
         result := DllCall("KERNEL32.dll\GetPrivateProfileSectionA", "ptr", lpAppName, "ptr", lpReturnedString, "uint", nSize, "ptr", lpFileName, "uint")
         return result
     }
@@ -5694,6 +5804,10 @@ class WindowsProgramming {
      * @since windows5.0
      */
     static GetPrivateProfileSectionW(lpAppName, lpReturnedString, nSize, lpFileName) {
+        lpAppName := lpAppName is String? StrPtr(lpAppName) : lpAppName
+        lpReturnedString := lpReturnedString is String? StrPtr(lpReturnedString) : lpReturnedString
+        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+
         result := DllCall("KERNEL32.dll\GetPrivateProfileSectionW", "ptr", lpAppName, "ptr", lpReturnedString, "uint", nSize, "ptr", lpFileName, "uint")
         return result
     }
@@ -5768,6 +5882,10 @@ class WindowsProgramming {
      * @since windows5.0
      */
     static WritePrivateProfileSectionA(lpAppName, lpString, lpFileName) {
+        lpAppName := lpAppName is String? StrPtr(lpAppName) : lpAppName
+        lpString := lpString is String? StrPtr(lpString) : lpString
+        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\WritePrivateProfileSectionA", "ptr", lpAppName, "ptr", lpString, "ptr", lpFileName, "int")
@@ -5847,6 +5965,10 @@ class WindowsProgramming {
      * @since windows5.0
      */
     static WritePrivateProfileSectionW(lpAppName, lpString, lpFileName) {
+        lpAppName := lpAppName is String? StrPtr(lpAppName) : lpAppName
+        lpString := lpString is String? StrPtr(lpString) : lpString
+        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\WritePrivateProfileSectionW", "ptr", lpAppName, "ptr", lpString, "ptr", lpFileName, "int")
@@ -5901,6 +6023,9 @@ class WindowsProgramming {
      * @since windows5.0
      */
     static GetPrivateProfileSectionNamesA(lpszReturnBuffer, nSize, lpFileName) {
+        lpszReturnBuffer := lpszReturnBuffer is String? StrPtr(lpszReturnBuffer) : lpszReturnBuffer
+        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+
         result := DllCall("KERNEL32.dll\GetPrivateProfileSectionNamesA", "ptr", lpszReturnBuffer, "uint", nSize, "ptr", lpFileName, "uint")
         return result
     }
@@ -5950,6 +6075,9 @@ class WindowsProgramming {
      * @since windows5.0
      */
     static GetPrivateProfileSectionNamesW(lpszReturnBuffer, nSize, lpFileName) {
+        lpszReturnBuffer := lpszReturnBuffer is String? StrPtr(lpszReturnBuffer) : lpszReturnBuffer
+        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+
         result := DllCall("KERNEL32.dll\GetPrivateProfileSectionNamesW", "ptr", lpszReturnBuffer, "uint", nSize, "ptr", lpFileName, "uint")
         return result
     }
@@ -6014,6 +6142,10 @@ class WindowsProgramming {
      * @since windows5.0
      */
     static GetPrivateProfileStructA(lpszSection, lpszKey, lpStruct, uSizeStruct, szFile) {
+        lpszSection := lpszSection is String? StrPtr(lpszSection) : lpszSection
+        lpszKey := lpszKey is String? StrPtr(lpszKey) : lpszKey
+        szFile := szFile is String? StrPtr(szFile) : szFile
+
         result := DllCall("KERNEL32.dll\GetPrivateProfileStructA", "ptr", lpszSection, "ptr", lpszKey, "ptr", lpStruct, "uint", uSizeStruct, "ptr", szFile, "int")
         return result
     }
@@ -6078,6 +6210,10 @@ class WindowsProgramming {
      * @since windows5.0
      */
     static GetPrivateProfileStructW(lpszSection, lpszKey, lpStruct, uSizeStruct, szFile) {
+        lpszSection := lpszSection is String? StrPtr(lpszSection) : lpszSection
+        lpszKey := lpszKey is String? StrPtr(lpszKey) : lpszKey
+        szFile := szFile is String? StrPtr(szFile) : szFile
+
         result := DllCall("KERNEL32.dll\GetPrivateProfileStructW", "ptr", lpszSection, "ptr", lpszKey, "ptr", lpStruct, "uint", uSizeStruct, "ptr", szFile, "int")
         return result
     }
@@ -6158,6 +6294,10 @@ class WindowsProgramming {
      * @since windows5.0
      */
     static WritePrivateProfileStructA(lpszSection, lpszKey, lpStruct, uSizeStruct, szFile) {
+        lpszSection := lpszSection is String? StrPtr(lpszSection) : lpszSection
+        lpszKey := lpszKey is String? StrPtr(lpszKey) : lpszKey
+        szFile := szFile is String? StrPtr(szFile) : szFile
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\WritePrivateProfileStructA", "ptr", lpszSection, "ptr", lpszKey, "ptr", lpStruct, "uint", uSizeStruct, "ptr", szFile, "int")
@@ -6245,6 +6385,10 @@ class WindowsProgramming {
      * @since windows5.0
      */
     static WritePrivateProfileStructW(lpszSection, lpszKey, lpStruct, uSizeStruct, szFile) {
+        lpszSection := lpszSection is String? StrPtr(lpszSection) : lpszSection
+        lpszKey := lpszKey is String? StrPtr(lpszKey) : lpszKey
+        szFile := szFile is String? StrPtr(szFile) : szFile
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\WritePrivateProfileStructW", "ptr", lpszSection, "ptr", lpszKey, "ptr", lpStruct, "uint", uSizeStruct, "ptr", szFile, "int")
@@ -6300,6 +6444,8 @@ class WindowsProgramming {
      * @since windows5.0
      */
     static GetComputerNameA(lpBuffer, nSize) {
+        lpBuffer := lpBuffer is String? StrPtr(lpBuffer) : lpBuffer
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetComputerNameA", "ptr", lpBuffer, "ptr", nSize, "int")
@@ -6333,6 +6479,8 @@ class WindowsProgramming {
      * @since windows5.0
      */
     static GetComputerNameW(lpBuffer, nSize) {
+        lpBuffer := lpBuffer is String? StrPtr(lpBuffer) : lpBuffer
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetComputerNameW", "ptr", lpBuffer, "ptr", nSize, "int")
@@ -6390,6 +6538,9 @@ class WindowsProgramming {
      * @since windows5.0
      */
     static DnsHostnameToComputerNameA(Hostname, ComputerName, nSize) {
+        Hostname := Hostname is String? StrPtr(Hostname) : Hostname
+        ComputerName := ComputerName is String? StrPtr(ComputerName) : ComputerName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\DnsHostnameToComputerNameA", "ptr", Hostname, "ptr", ComputerName, "ptr", nSize, "int")
@@ -6447,6 +6598,9 @@ class WindowsProgramming {
      * @since windows5.0
      */
     static DnsHostnameToComputerNameW(Hostname, ComputerName, nSize) {
+        Hostname := Hostname is String? StrPtr(Hostname) : Hostname
+        ComputerName := ComputerName is String? StrPtr(ComputerName) : ComputerName
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\DnsHostnameToComputerNameW", "ptr", Hostname, "ptr", ComputerName, "ptr", nSize, "int")
@@ -6478,6 +6632,8 @@ class WindowsProgramming {
      * @since windows5.0
      */
     static GetUserNameA(lpBuffer, pcbBuffer) {
+        lpBuffer := lpBuffer is String? StrPtr(lpBuffer) : lpBuffer
+
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\GetUserNameA", "ptr", lpBuffer, "ptr", pcbBuffer, "int")
@@ -6509,6 +6665,8 @@ class WindowsProgramming {
      * @since windows5.0
      */
     static GetUserNameW(lpBuffer, pcbBuffer) {
+        lpBuffer := lpBuffer is String? StrPtr(lpBuffer) : lpBuffer
+
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\GetUserNameW", "ptr", lpBuffer, "ptr", pcbBuffer, "int")
@@ -6602,6 +6760,9 @@ class WindowsProgramming {
      * @returns {Integer} 
      */
     static ReplacePartitionUnit(TargetPartition, SparePartition, Flags) {
+        TargetPartition := TargetPartition is String? StrPtr(TargetPartition) : TargetPartition
+        SparePartition := SparePartition is String? StrPtr(SparePartition) : SparePartition
+
         result := DllCall("KERNEL32.dll\ReplacePartitionUnit", "ptr", TargetPartition, "ptr", SparePartition, "uint", Flags, "int")
         return result
     }
@@ -6823,6 +6984,8 @@ class WindowsProgramming {
      * @since windows5.0
      */
     static RtlInitUnicodeString(DestinationString, SourceString) {
+        SourceString := SourceString is String? StrPtr(SourceString) : SourceString
+
         DllCall("ntdll.dll\RtlInitUnicodeString", "ptr", DestinationString, "ptr", SourceString)
     }
 
@@ -6970,6 +7133,8 @@ class WindowsProgramming {
      * @since windows5.0
      */
     static RtlUnicodeToMultiByteSize(BytesInMultiByteString, UnicodeString, BytesInUnicodeString) {
+        UnicodeString := UnicodeString is String? StrPtr(UnicodeString) : UnicodeString
+
         result := DllCall("ntdll.dll\RtlUnicodeToMultiByteSize", "ptr", BytesInMultiByteString, "ptr", UnicodeString, "uint", BytesInUnicodeString, "int")
         return result
     }
@@ -7028,6 +7193,8 @@ class WindowsProgramming {
      * @see https://learn.microsoft.com/windows/win32/api/featurestagingapi/nf-featurestagingapi-recordfeatureusage
      */
     static RecordFeatureUsage(featureId, kind, addend, originName) {
+        originName := originName is String? StrPtr(originName) : originName
+
         DllCall("api-ms-win-core-featurestaging-l1-1-0.dll\RecordFeatureUsage", "uint", featureId, "uint", kind, "uint", addend, "ptr", originName)
     }
 
@@ -7338,6 +7505,11 @@ class WindowsProgramming {
      * @returns {Integer} 
      */
     static RunSetupCommandA(hWnd, szCmdName, szInfSection, szDir, lpszTitle, phEXE, dwFlags, pvReserved) {
+        szCmdName := szCmdName is String? StrPtr(szCmdName) : szCmdName
+        szInfSection := szInfSection is String? StrPtr(szInfSection) : szInfSection
+        szDir := szDir is String? StrPtr(szDir) : szDir
+        lpszTitle := lpszTitle is String? StrPtr(lpszTitle) : lpszTitle
+
         result := DllCall("ADVPACK.dll\RunSetupCommandA", "ptr", hWnd, "ptr", szCmdName, "ptr", szInfSection, "ptr", szDir, "ptr", lpszTitle, "ptr", phEXE, "uint", dwFlags, "ptr", pvReserved, "int")
         return result
     }
@@ -7355,6 +7527,11 @@ class WindowsProgramming {
      * @returns {Integer} 
      */
     static RunSetupCommandW(hWnd, szCmdName, szInfSection, szDir, lpszTitle, phEXE, dwFlags, pvReserved) {
+        szCmdName := szCmdName is String? StrPtr(szCmdName) : szCmdName
+        szInfSection := szInfSection is String? StrPtr(szInfSection) : szInfSection
+        szDir := szDir is String? StrPtr(szDir) : szDir
+        lpszTitle := lpszTitle is String? StrPtr(lpszTitle) : lpszTitle
+
         result := DllCall("ADVPACK.dll\RunSetupCommandW", "ptr", hWnd, "ptr", szCmdName, "ptr", szInfSection, "ptr", szDir, "ptr", lpszTitle, "ptr", phEXE, "uint", dwFlags, "ptr", pvReserved, "int")
         return result
     }
@@ -7387,6 +7564,9 @@ class WindowsProgramming {
      * @returns {Integer} 
      */
     static RebootCheckOnInstallA(hwnd, pszINF, pszSec, dwReserved) {
+        pszINF := pszINF is String? StrPtr(pszINF) : pszINF
+        pszSec := pszSec is String? StrPtr(pszSec) : pszSec
+
         result := DllCall("ADVPACK.dll\RebootCheckOnInstallA", "ptr", hwnd, "ptr", pszINF, "ptr", pszSec, "uint", dwReserved, "int")
         return result
     }
@@ -7400,6 +7580,9 @@ class WindowsProgramming {
      * @returns {Integer} 
      */
     static RebootCheckOnInstallW(hwnd, pszINF, pszSec, dwReserved) {
+        pszINF := pszINF is String? StrPtr(pszINF) : pszINF
+        pszSec := pszSec is String? StrPtr(pszSec) : pszSec
+
         result := DllCall("ADVPACK.dll\RebootCheckOnInstallW", "ptr", hwnd, "ptr", pszINF, "ptr", pszSec, "uint", dwReserved, "int")
         return result
     }
@@ -7417,6 +7600,12 @@ class WindowsProgramming {
      */
     static TranslateInfStringA(pszInfFilename, pszInstallSection, pszTranslateSection, pszTranslateKey, pszBuffer, cchBuffer, pdwRequiredSize) {
         static pvReserved := 0 ;Reserved parameters must always be NULL
+
+        pszInfFilename := pszInfFilename is String? StrPtr(pszInfFilename) : pszInfFilename
+        pszInstallSection := pszInstallSection is String? StrPtr(pszInstallSection) : pszInstallSection
+        pszTranslateSection := pszTranslateSection is String? StrPtr(pszTranslateSection) : pszTranslateSection
+        pszTranslateKey := pszTranslateKey is String? StrPtr(pszTranslateKey) : pszTranslateKey
+        pszBuffer := pszBuffer is String? StrPtr(pszBuffer) : pszBuffer
 
         result := DllCall("ADVPACK.dll\TranslateInfStringA", "ptr", pszInfFilename, "ptr", pszInstallSection, "ptr", pszTranslateSection, "ptr", pszTranslateKey, "ptr", pszBuffer, "uint", cchBuffer, "ptr", pdwRequiredSize, "ptr", pvReserved, "int")
         return result
@@ -7436,6 +7625,12 @@ class WindowsProgramming {
     static TranslateInfStringW(pszInfFilename, pszInstallSection, pszTranslateSection, pszTranslateKey, pszBuffer, cchBuffer, pdwRequiredSize) {
         static pvReserved := 0 ;Reserved parameters must always be NULL
 
+        pszInfFilename := pszInfFilename is String? StrPtr(pszInfFilename) : pszInfFilename
+        pszInstallSection := pszInstallSection is String? StrPtr(pszInstallSection) : pszInstallSection
+        pszTranslateSection := pszTranslateSection is String? StrPtr(pszTranslateSection) : pszTranslateSection
+        pszTranslateKey := pszTranslateKey is String? StrPtr(pszTranslateKey) : pszTranslateKey
+        pszBuffer := pszBuffer is String? StrPtr(pszBuffer) : pszBuffer
+
         result := DllCall("ADVPACK.dll\TranslateInfStringW", "ptr", pszInfFilename, "ptr", pszInstallSection, "ptr", pszTranslateSection, "ptr", pszTranslateKey, "ptr", pszBuffer, "uint", cchBuffer, "ptr", pdwRequiredSize, "ptr", pvReserved, "int")
         return result
     }
@@ -7453,6 +7648,8 @@ class WindowsProgramming {
      * @since windows10.0.10240
      */
     static RegInstallA(hmod, pszSection, pstTable) {
+        pszSection := pszSection is String? StrPtr(pszSection) : pszSection
+
         result := DllCall("ADVPACK.dll\RegInstallA", "ptr", hmod, "ptr", pszSection, "ptr", pstTable, "int")
         return result
     }
@@ -7470,6 +7667,8 @@ class WindowsProgramming {
      * @since windows10.0.10240
      */
     static RegInstallW(hmod, pszSection, pstTable) {
+        pszSection := pszSection is String? StrPtr(pszSection) : pszSection
+
         result := DllCall("ADVPACK.dll\RegInstallW", "ptr", hmod, "ptr", pszSection, "ptr", pstTable, "int")
         return result
     }
@@ -7483,6 +7682,8 @@ class WindowsProgramming {
      * @returns {Integer} 
      */
     static LaunchINFSectionExW(hwnd, hInstance, pszParms, nShow) {
+        pszParms := pszParms is String? StrPtr(pszParms) : pszParms
+
         result := DllCall("ADVPACK.dll\LaunchINFSectionExW", "ptr", hwnd, "ptr", hInstance, "ptr", pszParms, "int", nShow, "int")
         return result
     }
@@ -7523,6 +7724,11 @@ class WindowsProgramming {
      * @returns {Integer} 
      */
     static AdvInstallFileA(hwnd, lpszSourceDir, lpszSourceFile, lpszDestDir, lpszDestFile, dwFlags, dwReserved) {
+        lpszSourceDir := lpszSourceDir is String? StrPtr(lpszSourceDir) : lpszSourceDir
+        lpszSourceFile := lpszSourceFile is String? StrPtr(lpszSourceFile) : lpszSourceFile
+        lpszDestDir := lpszDestDir is String? StrPtr(lpszDestDir) : lpszDestDir
+        lpszDestFile := lpszDestFile is String? StrPtr(lpszDestFile) : lpszDestFile
+
         result := DllCall("ADVPACK.dll\AdvInstallFileA", "ptr", hwnd, "ptr", lpszSourceDir, "ptr", lpszSourceFile, "ptr", lpszDestDir, "ptr", lpszDestFile, "uint", dwFlags, "uint", dwReserved, "int")
         return result
     }
@@ -7539,6 +7745,11 @@ class WindowsProgramming {
      * @returns {Integer} 
      */
     static AdvInstallFileW(hwnd, lpszSourceDir, lpszSourceFile, lpszDestDir, lpszDestFile, dwFlags, dwReserved) {
+        lpszSourceDir := lpszSourceDir is String? StrPtr(lpszSourceDir) : lpszSourceDir
+        lpszSourceFile := lpszSourceFile is String? StrPtr(lpszSourceFile) : lpszSourceFile
+        lpszDestDir := lpszDestDir is String? StrPtr(lpszDestDir) : lpszDestDir
+        lpszDestFile := lpszDestFile is String? StrPtr(lpszDestFile) : lpszDestFile
+
         result := DllCall("ADVPACK.dll\AdvInstallFileW", "ptr", hwnd, "ptr", lpszSourceDir, "ptr", lpszSourceFile, "ptr", lpszDestDir, "ptr", lpszDestFile, "uint", dwFlags, "uint", dwReserved, "int")
         return result
     }
@@ -7555,6 +7766,11 @@ class WindowsProgramming {
      * @returns {Integer} 
      */
     static RegSaveRestoreA(hWnd, pszTitleString, hkBckupKey, pcszRootKey, pcszSubKey, pcszValueName, dwFlags) {
+        pszTitleString := pszTitleString is String? StrPtr(pszTitleString) : pszTitleString
+        pcszRootKey := pcszRootKey is String? StrPtr(pcszRootKey) : pcszRootKey
+        pcszSubKey := pcszSubKey is String? StrPtr(pcszSubKey) : pcszSubKey
+        pcszValueName := pcszValueName is String? StrPtr(pcszValueName) : pcszValueName
+
         result := DllCall("ADVPACK.dll\RegSaveRestoreA", "ptr", hWnd, "ptr", pszTitleString, "ptr", hkBckupKey, "ptr", pcszRootKey, "ptr", pcszSubKey, "ptr", pcszValueName, "uint", dwFlags, "int")
         return result
     }
@@ -7571,6 +7787,11 @@ class WindowsProgramming {
      * @returns {Integer} 
      */
     static RegSaveRestoreW(hWnd, pszTitleString, hkBckupKey, pcszRootKey, pcszSubKey, pcszValueName, dwFlags) {
+        pszTitleString := pszTitleString is String? StrPtr(pszTitleString) : pszTitleString
+        pcszRootKey := pcszRootKey is String? StrPtr(pcszRootKey) : pcszRootKey
+        pcszSubKey := pcszSubKey is String? StrPtr(pcszSubKey) : pcszSubKey
+        pcszValueName := pcszValueName is String? StrPtr(pcszValueName) : pcszValueName
+
         result := DllCall("ADVPACK.dll\RegSaveRestoreW", "ptr", hWnd, "ptr", pszTitleString, "ptr", hkBckupKey, "ptr", pcszRootKey, "ptr", pcszSubKey, "ptr", pcszValueName, "uint", dwFlags, "int")
         return result
     }
@@ -7587,6 +7808,10 @@ class WindowsProgramming {
      * @returns {Integer} 
      */
     static RegSaveRestoreOnINFA(hWnd, pszTitle, pszINF, pszSection, hHKLMBackKey, hHKCUBackKey, dwFlags) {
+        pszTitle := pszTitle is String? StrPtr(pszTitle) : pszTitle
+        pszINF := pszINF is String? StrPtr(pszINF) : pszINF
+        pszSection := pszSection is String? StrPtr(pszSection) : pszSection
+
         result := DllCall("ADVPACK.dll\RegSaveRestoreOnINFA", "ptr", hWnd, "ptr", pszTitle, "ptr", pszINF, "ptr", pszSection, "ptr", hHKLMBackKey, "ptr", hHKCUBackKey, "uint", dwFlags, "int")
         return result
     }
@@ -7603,6 +7828,10 @@ class WindowsProgramming {
      * @returns {Integer} 
      */
     static RegSaveRestoreOnINFW(hWnd, pszTitle, pszINF, pszSection, hHKLMBackKey, hHKCUBackKey, dwFlags) {
+        pszTitle := pszTitle is String? StrPtr(pszTitle) : pszTitle
+        pszINF := pszINF is String? StrPtr(pszINF) : pszINF
+        pszSection := pszSection is String? StrPtr(pszSection) : pszSection
+
         result := DllCall("ADVPACK.dll\RegSaveRestoreOnINFW", "ptr", hWnd, "ptr", pszTitle, "ptr", pszINF, "ptr", pszSection, "ptr", hHKLMBackKey, "ptr", hHKCUBackKey, "uint", dwFlags, "int")
         return result
     }
@@ -7615,6 +7844,8 @@ class WindowsProgramming {
      * @returns {Integer} 
      */
     static RegRestoreAllA(hWnd, pszTitleString, hkBckupKey) {
+        pszTitleString := pszTitleString is String? StrPtr(pszTitleString) : pszTitleString
+
         result := DllCall("ADVPACK.dll\RegRestoreAllA", "ptr", hWnd, "ptr", pszTitleString, "ptr", hkBckupKey, "int")
         return result
     }
@@ -7627,6 +7858,8 @@ class WindowsProgramming {
      * @returns {Integer} 
      */
     static RegRestoreAllW(hWnd, pszTitleString, hkBckupKey) {
+        pszTitleString := pszTitleString is String? StrPtr(pszTitleString) : pszTitleString
+
         result := DllCall("ADVPACK.dll\RegRestoreAllW", "ptr", hWnd, "ptr", pszTitleString, "ptr", hkBckupKey, "int")
         return result
     }
@@ -7641,6 +7874,10 @@ class WindowsProgramming {
      * @returns {Integer} 
      */
     static FileSaveRestoreW(hDlg, lpFileList, lpDir, lpBaseName, dwFlags) {
+        lpFileList := lpFileList is String? StrPtr(lpFileList) : lpFileList
+        lpDir := lpDir is String? StrPtr(lpDir) : lpDir
+        lpBaseName := lpBaseName is String? StrPtr(lpBaseName) : lpBaseName
+
         result := DllCall("ADVPACK.dll\FileSaveRestoreW", "ptr", hDlg, "ptr", lpFileList, "ptr", lpDir, "ptr", lpBaseName, "uint", dwFlags, "int")
         return result
     }
@@ -7657,6 +7894,12 @@ class WindowsProgramming {
      * @returns {Integer} 
      */
     static FileSaveRestoreOnINFA(hWnd, pszTitle, pszINF, pszSection, pszBackupDir, pszBaseBackupFile, dwFlags) {
+        pszTitle := pszTitle is String? StrPtr(pszTitle) : pszTitle
+        pszINF := pszINF is String? StrPtr(pszINF) : pszINF
+        pszSection := pszSection is String? StrPtr(pszSection) : pszSection
+        pszBackupDir := pszBackupDir is String? StrPtr(pszBackupDir) : pszBackupDir
+        pszBaseBackupFile := pszBaseBackupFile is String? StrPtr(pszBaseBackupFile) : pszBaseBackupFile
+
         result := DllCall("ADVPACK.dll\FileSaveRestoreOnINFA", "ptr", hWnd, "ptr", pszTitle, "ptr", pszINF, "ptr", pszSection, "ptr", pszBackupDir, "ptr", pszBaseBackupFile, "uint", dwFlags, "int")
         return result
     }
@@ -7673,6 +7916,12 @@ class WindowsProgramming {
      * @returns {Integer} 
      */
     static FileSaveRestoreOnINFW(hWnd, pszTitle, pszINF, pszSection, pszBackupDir, pszBaseBackupFile, dwFlags) {
+        pszTitle := pszTitle is String? StrPtr(pszTitle) : pszTitle
+        pszINF := pszINF is String? StrPtr(pszINF) : pszINF
+        pszSection := pszSection is String? StrPtr(pszSection) : pszSection
+        pszBackupDir := pszBackupDir is String? StrPtr(pszBackupDir) : pszBackupDir
+        pszBaseBackupFile := pszBaseBackupFile is String? StrPtr(pszBaseBackupFile) : pszBaseBackupFile
+
         result := DllCall("ADVPACK.dll\FileSaveRestoreOnINFW", "ptr", hWnd, "ptr", pszTitle, "ptr", pszINF, "ptr", pszSection, "ptr", pszBackupDir, "ptr", pszBaseBackupFile, "uint", dwFlags, "int")
         return result
     }
@@ -7686,6 +7935,10 @@ class WindowsProgramming {
      * @returns {Integer} 
      */
     static AddDelBackupEntryA(lpcszFileList, lpcszBackupDir, lpcszBaseName, dwFlags) {
+        lpcszFileList := lpcszFileList is String? StrPtr(lpcszFileList) : lpcszFileList
+        lpcszBackupDir := lpcszBackupDir is String? StrPtr(lpcszBackupDir) : lpcszBackupDir
+        lpcszBaseName := lpcszBaseName is String? StrPtr(lpcszBaseName) : lpcszBaseName
+
         result := DllCall("ADVPACK.dll\AddDelBackupEntryA", "ptr", lpcszFileList, "ptr", lpcszBackupDir, "ptr", lpcszBaseName, "uint", dwFlags, "int")
         return result
     }
@@ -7699,6 +7952,10 @@ class WindowsProgramming {
      * @returns {Integer} 
      */
     static AddDelBackupEntryW(lpcszFileList, lpcszBackupDir, lpcszBaseName, dwFlags) {
+        lpcszFileList := lpcszFileList is String? StrPtr(lpcszFileList) : lpcszFileList
+        lpcszBackupDir := lpcszBackupDir is String? StrPtr(lpcszBackupDir) : lpcszBackupDir
+        lpcszBaseName := lpcszBaseName is String? StrPtr(lpcszBaseName) : lpcszBaseName
+
         result := DllCall("ADVPACK.dll\AddDelBackupEntryW", "ptr", lpcszFileList, "ptr", lpcszBackupDir, "ptr", lpcszBaseName, "uint", dwFlags, "int")
         return result
     }
@@ -7711,6 +7968,10 @@ class WindowsProgramming {
      * @returns {Integer} 
      */
     static FileSaveMarkNotExistA(lpFileList, lpDir, lpBaseName) {
+        lpFileList := lpFileList is String? StrPtr(lpFileList) : lpFileList
+        lpDir := lpDir is String? StrPtr(lpDir) : lpDir
+        lpBaseName := lpBaseName is String? StrPtr(lpBaseName) : lpBaseName
+
         result := DllCall("ADVPACK.dll\FileSaveMarkNotExistA", "ptr", lpFileList, "ptr", lpDir, "ptr", lpBaseName, "int")
         return result
     }
@@ -7723,6 +7984,10 @@ class WindowsProgramming {
      * @returns {Integer} 
      */
     static FileSaveMarkNotExistW(lpFileList, lpDir, lpBaseName) {
+        lpFileList := lpFileList is String? StrPtr(lpFileList) : lpFileList
+        lpDir := lpDir is String? StrPtr(lpDir) : lpDir
+        lpBaseName := lpBaseName is String? StrPtr(lpBaseName) : lpBaseName
+
         result := DllCall("ADVPACK.dll\FileSaveMarkNotExistW", "ptr", lpFileList, "ptr", lpDir, "ptr", lpBaseName, "int")
         return result
     }
@@ -7736,6 +8001,8 @@ class WindowsProgramming {
      * @returns {Integer} 
      */
     static GetVersionFromFileA(lpszFilename, pdwMSVer, pdwLSVer, bVersion) {
+        lpszFilename := lpszFilename is String? StrPtr(lpszFilename) : lpszFilename
+
         result := DllCall("ADVPACK.dll\GetVersionFromFileA", "ptr", lpszFilename, "ptr", pdwMSVer, "ptr", pdwLSVer, "int", bVersion, "int")
         return result
     }
@@ -7749,6 +8016,8 @@ class WindowsProgramming {
      * @returns {Integer} 
      */
     static GetVersionFromFileW(lpszFilename, pdwMSVer, pdwLSVer, bVersion) {
+        lpszFilename := lpszFilename is String? StrPtr(lpszFilename) : lpszFilename
+
         result := DllCall("ADVPACK.dll\GetVersionFromFileW", "ptr", lpszFilename, "ptr", pdwMSVer, "ptr", pdwLSVer, "int", bVersion, "int")
         return result
     }
@@ -7762,6 +8031,8 @@ class WindowsProgramming {
      * @returns {Integer} 
      */
     static GetVersionFromFileExA(lpszFilename, pdwMSVer, pdwLSVer, bVersion) {
+        lpszFilename := lpszFilename is String? StrPtr(lpszFilename) : lpszFilename
+
         result := DllCall("ADVPACK.dll\GetVersionFromFileExA", "ptr", lpszFilename, "ptr", pdwMSVer, "ptr", pdwLSVer, "int", bVersion, "int")
         return result
     }
@@ -7775,6 +8046,8 @@ class WindowsProgramming {
      * @returns {Integer} 
      */
     static GetVersionFromFileExW(lpszFilename, pdwMSVer, pdwLSVer, bVersion) {
+        lpszFilename := lpszFilename is String? StrPtr(lpszFilename) : lpszFilename
+
         result := DllCall("ADVPACK.dll\GetVersionFromFileExW", "ptr", lpszFilename, "ptr", pdwMSVer, "ptr", pdwLSVer, "int", bVersion, "int")
         return result
     }
@@ -7797,6 +8070,8 @@ class WindowsProgramming {
      * @returns {Integer} 
      */
     static DelNodeA(pszFileOrDirName, dwFlags) {
+        pszFileOrDirName := pszFileOrDirName is String? StrPtr(pszFileOrDirName) : pszFileOrDirName
+
         result := DllCall("ADVPACK.dll\DelNodeA", "ptr", pszFileOrDirName, "uint", dwFlags, "int")
         return result
     }
@@ -7808,6 +8083,8 @@ class WindowsProgramming {
      * @returns {Integer} 
      */
     static DelNodeW(pszFileOrDirName, dwFlags) {
+        pszFileOrDirName := pszFileOrDirName is String? StrPtr(pszFileOrDirName) : pszFileOrDirName
+
         result := DllCall("ADVPACK.dll\DelNodeW", "ptr", pszFileOrDirName, "uint", dwFlags, "int")
         return result
     }
@@ -7821,6 +8098,8 @@ class WindowsProgramming {
      * @returns {Integer} 
      */
     static DelNodeRunDLL32W(hwnd, hInstance, pszParms, nShow) {
+        pszParms := pszParms is String? StrPtr(pszParms) : pszParms
+
         result := DllCall("ADVPACK.dll\DelNodeRunDLL32W", "ptr", hwnd, "ptr", hInstance, "ptr", pszParms, "int", nShow, "int")
         return result
     }
@@ -7835,6 +8114,9 @@ class WindowsProgramming {
      * @returns {Integer} 
      */
     static OpenINFEngineA(pszInfFilename, pszInstallSection, dwFlags, phInf, pvReserved) {
+        pszInfFilename := pszInfFilename is String? StrPtr(pszInfFilename) : pszInfFilename
+        pszInstallSection := pszInstallSection is String? StrPtr(pszInstallSection) : pszInstallSection
+
         result := DllCall("ADVPACK.dll\OpenINFEngineA", "ptr", pszInfFilename, "ptr", pszInstallSection, "uint", dwFlags, "ptr", phInf, "ptr", pvReserved, "int")
         return result
     }
@@ -7849,6 +8131,9 @@ class WindowsProgramming {
      * @returns {Integer} 
      */
     static OpenINFEngineW(pszInfFilename, pszInstallSection, dwFlags, phInf, pvReserved) {
+        pszInfFilename := pszInfFilename is String? StrPtr(pszInfFilename) : pszInfFilename
+        pszInstallSection := pszInstallSection is String? StrPtr(pszInstallSection) : pszInstallSection
+
         result := DllCall("ADVPACK.dll\OpenINFEngineW", "ptr", pszInfFilename, "ptr", pszInstallSection, "uint", dwFlags, "ptr", phInf, "ptr", pvReserved, "int")
         return result
     }
@@ -7867,6 +8152,11 @@ class WindowsProgramming {
     static TranslateInfStringExA(hInf, pszInfFilename, pszTranslateSection, pszTranslateKey, pszBuffer, dwBufferSize, pdwRequiredSize) {
         static pvReserved := 0 ;Reserved parameters must always be NULL
 
+        pszInfFilename := pszInfFilename is String? StrPtr(pszInfFilename) : pszInfFilename
+        pszTranslateSection := pszTranslateSection is String? StrPtr(pszTranslateSection) : pszTranslateSection
+        pszTranslateKey := pszTranslateKey is String? StrPtr(pszTranslateKey) : pszTranslateKey
+        pszBuffer := pszBuffer is String? StrPtr(pszBuffer) : pszBuffer
+
         result := DllCall("ADVPACK.dll\TranslateInfStringExA", "ptr", hInf, "ptr", pszInfFilename, "ptr", pszTranslateSection, "ptr", pszTranslateKey, "ptr", pszBuffer, "uint", dwBufferSize, "ptr", pdwRequiredSize, "ptr", pvReserved, "int")
         return result
     }
@@ -7884,6 +8174,11 @@ class WindowsProgramming {
      */
     static TranslateInfStringExW(hInf, pszInfFilename, pszTranslateSection, pszTranslateKey, pszBuffer, dwBufferSize, pdwRequiredSize) {
         static pvReserved := 0 ;Reserved parameters must always be NULL
+
+        pszInfFilename := pszInfFilename is String? StrPtr(pszInfFilename) : pszInfFilename
+        pszTranslateSection := pszTranslateSection is String? StrPtr(pszTranslateSection) : pszTranslateSection
+        pszTranslateKey := pszTranslateKey is String? StrPtr(pszTranslateKey) : pszTranslateKey
+        pszBuffer := pszBuffer is String? StrPtr(pszBuffer) : pszBuffer
 
         result := DllCall("ADVPACK.dll\TranslateInfStringExW", "ptr", hInf, "ptr", pszInfFilename, "ptr", pszTranslateSection, "ptr", pszTranslateKey, "ptr", pszBuffer, "uint", dwBufferSize, "ptr", pdwRequiredSize, "ptr", pvReserved, "int")
         return result
@@ -7910,6 +8205,10 @@ class WindowsProgramming {
      * @returns {Integer} 
      */
     static ExtractFilesA(pszCabName, pszExpandDir, dwFlags, pszFileList, lpReserved, dwReserved) {
+        pszCabName := pszCabName is String? StrPtr(pszCabName) : pszCabName
+        pszExpandDir := pszExpandDir is String? StrPtr(pszExpandDir) : pszExpandDir
+        pszFileList := pszFileList is String? StrPtr(pszFileList) : pszFileList
+
         result := DllCall("ADVPACK.dll\ExtractFilesA", "ptr", pszCabName, "ptr", pszExpandDir, "uint", dwFlags, "ptr", pszFileList, "ptr", lpReserved, "uint", dwReserved, "int")
         return result
     }
@@ -7925,6 +8224,10 @@ class WindowsProgramming {
      * @returns {Integer} 
      */
     static ExtractFilesW(pszCabName, pszExpandDir, dwFlags, pszFileList, lpReserved, dwReserved) {
+        pszCabName := pszCabName is String? StrPtr(pszCabName) : pszCabName
+        pszExpandDir := pszExpandDir is String? StrPtr(pszExpandDir) : pszExpandDir
+        pszFileList := pszFileList is String? StrPtr(pszFileList) : pszFileList
+
         result := DllCall("ADVPACK.dll\ExtractFilesW", "ptr", pszCabName, "ptr", pszExpandDir, "uint", dwFlags, "ptr", pszFileList, "ptr", lpReserved, "uint", dwReserved, "int")
         return result
     }
@@ -7938,6 +8241,8 @@ class WindowsProgramming {
      * @returns {String} Nothing - always returns an empty string
      */
     static LaunchINFSectionW(hwndOwner, hInstance, pszParams, nShow) {
+        pszParams := pszParams is String? StrPtr(pszParams) : pszParams
+
         DllCall("ADVPACK.dll\LaunchINFSectionW", "ptr", hwndOwner, "ptr", hInstance, "ptr", pszParams, "int", nShow)
     }
 
@@ -7950,6 +8255,8 @@ class WindowsProgramming {
      * @returns {Integer} 
      */
     static UserInstStubWrapperA(hwnd, hInstance, pszParms, nShow) {
+        pszParms := pszParms is String? StrPtr(pszParms) : pszParms
+
         result := DllCall("ADVPACK.dll\UserInstStubWrapperA", "ptr", hwnd, "ptr", hInstance, "ptr", pszParms, "int", nShow, "int")
         return result
     }
@@ -7963,6 +8270,8 @@ class WindowsProgramming {
      * @returns {Integer} 
      */
     static UserInstStubWrapperW(hwnd, hInstance, pszParms, nShow) {
+        pszParms := pszParms is String? StrPtr(pszParms) : pszParms
+
         result := DllCall("ADVPACK.dll\UserInstStubWrapperW", "ptr", hwnd, "ptr", hInstance, "ptr", pszParms, "int", nShow, "int")
         return result
     }
@@ -7976,6 +8285,8 @@ class WindowsProgramming {
      * @returns {Integer} 
      */
     static UserUnInstStubWrapperA(hwnd, hInstance, pszParms, nShow) {
+        pszParms := pszParms is String? StrPtr(pszParms) : pszParms
+
         result := DllCall("ADVPACK.dll\UserUnInstStubWrapperA", "ptr", hwnd, "ptr", hInstance, "ptr", pszParms, "int", nShow, "int")
         return result
     }
@@ -7989,6 +8300,8 @@ class WindowsProgramming {
      * @returns {Integer} 
      */
     static UserUnInstStubWrapperW(hwnd, hInstance, pszParms, nShow) {
+        pszParms := pszParms is String? StrPtr(pszParms) : pszParms
+
         result := DllCall("ADVPACK.dll\UserUnInstStubWrapperW", "ptr", hwnd, "ptr", hInstance, "ptr", pszParms, "int", nShow, "int")
         return result
     }
@@ -8522,6 +8835,8 @@ class WindowsProgramming {
      * @see https://learn.microsoft.com/windows/win32/api/wldp/nf-wldp-wldpcanexecutefile
      */
     static WldpCanExecuteFile(host, options, fileHandle, auditInfo, result) {
+        auditInfo := auditInfo is String? StrPtr(auditInfo) : auditInfo
+
         result := DllCall("Wldp.dll\WldpCanExecuteFile", "ptr", host, "int", options, "ptr", fileHandle, "ptr", auditInfo, "ptr", result, "int")
         return result
     }
@@ -8549,6 +8864,8 @@ class WindowsProgramming {
      * @see https://learn.microsoft.com/windows/win32/api/wldp/nf-wldp-wldpcanexecutebuffer
      */
     static WldpCanExecuteBuffer(host, options, buffer, bufferSize, auditInfo, result) {
+        auditInfo := auditInfo is String? StrPtr(auditInfo) : auditInfo
+
         result := DllCall("Wldp.dll\WldpCanExecuteBuffer", "ptr", host, "int", options, "ptr", buffer, "uint", bufferSize, "ptr", auditInfo, "ptr", result, "int")
         return result
     }
@@ -8572,6 +8889,8 @@ class WindowsProgramming {
      * @see https://learn.microsoft.com/windows/win32/api/wldp/nf-wldp-wldpcanexecutestream
      */
     static WldpCanExecuteStream(host, options, stream, auditInfo, result) {
+        auditInfo := auditInfo is String? StrPtr(auditInfo) : auditInfo
+
         result := DllCall("Wldp.dll\WldpCanExecuteStream", "ptr", host, "int", options, "ptr", stream, "ptr", auditInfo, "ptr", result, "int")
         return result
     }

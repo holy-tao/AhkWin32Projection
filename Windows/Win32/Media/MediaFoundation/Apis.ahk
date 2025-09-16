@@ -12129,6 +12129,8 @@ class MediaFoundation {
      * @since windows6.0.6000
      */
     static MFCreateProxyLocator(pszProtocol, pProxyConfig, ppProxyLocator) {
+        pszProtocol := pszProtocol is String? StrPtr(pszProtocol) : pszProtocol
+
         result := DllCall("MF.dll\MFCreateProxyLocator", "ptr", pszProtocol, "ptr", pProxyConfig, "ptr", ppProxyLocator, "int")
         return result
     }
@@ -12435,6 +12437,8 @@ class MediaFoundation {
      * @since windows6.1
      */
     static MFCreateTranscodeTopology(pSrc, pwszOutputFilePath, pProfile, ppTranscodeTopo) {
+        pwszOutputFilePath := pwszOutputFilePath is String? StrPtr(pwszOutputFilePath) : pwszOutputFilePath
+
         result := DllCall("MF.dll\MFCreateTranscodeTopology", "ptr", pSrc, "ptr", pwszOutputFilePath, "ptr", pProfile, "ptr", ppTranscodeTopo, "int")
         return result
     }
@@ -12937,6 +12941,8 @@ class MediaFoundation {
      * @since windows8.0
      */
     static MFLoadSignedLibrary(pszName, ppLib) {
+        pszName := pszName is String? StrPtr(pszName) : pszName
+
         result := DllCall("MF.dll\MFLoadSignedLibrary", "ptr", pszName, "ptr", ppLib, "int")
         return result
     }
@@ -12963,6 +12969,8 @@ class MediaFoundation {
      * @since windows8.0
      */
     static MFGetLocalId(verifier, size, id) {
+        id := id is String? StrPtr(id) : id
+
         result := DllCall("MF.dll\MFGetLocalId", "ptr", verifier, "uint", size, "ptr", id, "int")
         return result
     }
@@ -13062,6 +13070,8 @@ class MediaFoundation {
      * @since windows10.0.14393
      */
     static MFCreateSensorGroup(SensorGroupSymbolicLink, ppSensorGroup) {
+        SensorGroupSymbolicLink := SensorGroupSymbolicLink is String? StrPtr(SensorGroupSymbolicLink) : SensorGroupSymbolicLink
+
         result := DllCall("MFSENSORGROUP.dll\MFCreateSensorGroup", "ptr", SensorGroupSymbolicLink, "ptr", ppSensorGroup, "int")
         return result
     }
@@ -13132,6 +13142,8 @@ class MediaFoundation {
      * @since windows10.0.17134
      */
     static MFCreateSensorProfile(ProfileType, ProfileIndex, Constraints, ppProfile) {
+        Constraints := Constraints is String? StrPtr(Constraints) : Constraints
+
         result := DllCall("MFSENSORGROUP.dll\MFCreateSensorProfile", "ptr", ProfileType, "uint", ProfileIndex, "ptr", Constraints, "ptr", ppProfile, "int")
         return result
     }
@@ -13226,6 +13238,9 @@ class MediaFoundation {
      * @since windows10.0.19041
      */
     static MFCreateRelativePanelWatcher(videoDeviceId, displayMonitorDeviceId, ppRelativePanelWatcher) {
+        videoDeviceId := videoDeviceId is String? StrPtr(videoDeviceId) : videoDeviceId
+        displayMonitorDeviceId := displayMonitorDeviceId is String? StrPtr(displayMonitorDeviceId) : displayMonitorDeviceId
+
         result := DllCall("MFSENSORGROUP.dll\MFCreateRelativePanelWatcher", "ptr", videoDeviceId, "ptr", displayMonitorDeviceId, "ptr", ppRelativePanelWatcher, "int")
         return result
     }
@@ -13244,6 +13259,8 @@ class MediaFoundation {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-mfcreatecameraocclusionstatemonitor
      */
     static MFCreateCameraOcclusionStateMonitor(symbolicLink, callback, occlusionStateMonitor) {
+        symbolicLink := symbolicLink is String? StrPtr(symbolicLink) : symbolicLink
+
         result := DllCall("MFSENSORGROUP.dll\MFCreateCameraOcclusionStateMonitor", "ptr", symbolicLink, "ptr", callback, "ptr", occlusionStateMonitor, "int")
         return result
     }
@@ -13264,6 +13281,8 @@ class MediaFoundation {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-mfcreatecameracontrolmonitor
      */
     static MFCreateCameraControlMonitor(symbolicLink, callback, ppCameraControlMonitor) {
+        symbolicLink := symbolicLink is String? StrPtr(symbolicLink) : symbolicLink
+
         result := DllCall("MFSENSORGROUP.dll\MFCreateCameraControlMonitor", "ptr", symbolicLink, "ptr", callback, "ptr", ppCameraControlMonitor, "int")
         return result
     }
@@ -13615,6 +13634,8 @@ class MediaFoundation {
      * @since windows6.0.6000
      */
     static MFCreateASFMediaSinkActivate(pwszFileName, pContentInfo, ppIActivate) {
+        pwszFileName := pwszFileName is String? StrPtr(pwszFileName) : pwszFileName
+
         result := DllCall("MF.dll\MFCreateASFMediaSinkActivate", "ptr", pwszFileName, "ptr", pContentInfo, "ptr", ppIActivate, "int")
         return result
     }
@@ -14731,6 +14752,8 @@ class MediaFoundation {
      * @since windows6.0.6000
      */
     static MFBeginRegisterWorkQueueWithMMCSS(dwWorkQueueId, wszClass, dwTaskId, pDoneCallback, pDoneState) {
+        wszClass := wszClass is String? StrPtr(wszClass) : wszClass
+
         result := DllCall("MFPlat.dll\MFBeginRegisterWorkQueueWithMMCSS", "uint", dwWorkQueueId, "ptr", wszClass, "uint", dwTaskId, "ptr", pDoneCallback, "ptr", pDoneState, "int")
         return result
     }
@@ -14755,6 +14778,8 @@ class MediaFoundation {
      * @since windows8.0
      */
     static MFBeginRegisterWorkQueueWithMMCSSEx(dwWorkQueueId, wszClass, dwTaskId, lPriority, pDoneCallback, pDoneState) {
+        wszClass := wszClass is String? StrPtr(wszClass) : wszClass
+
         result := DllCall("MFPlat.dll\MFBeginRegisterWorkQueueWithMMCSSEx", "uint", dwWorkQueueId, "ptr", wszClass, "uint", dwTaskId, "int", lPriority, "ptr", pDoneCallback, "ptr", pDoneState, "int")
         return result
     }
@@ -14905,6 +14930,8 @@ class MediaFoundation {
      * @since windows6.0.6000
      */
     static MFGetWorkQueueMMCSSClass(dwWorkQueueId, pwszClass, pcchClass) {
+        pwszClass := pwszClass is String? StrPtr(pwszClass) : pwszClass
+
         result := DllCall("MFPlat.dll\MFGetWorkQueueMMCSSClass", "uint", dwWorkQueueId, "ptr", pwszClass, "ptr", pcchClass, "int")
         return result
     }
@@ -14954,6 +14981,8 @@ class MediaFoundation {
      * @since windows8.0
      */
     static MFRegisterPlatformWithMMCSS(wszClass, pdwTaskId, lPriority) {
+        wszClass := wszClass is String? StrPtr(wszClass) : wszClass
+
         result := DllCall("MFPlat.dll\MFRegisterPlatformWithMMCSS", "ptr", wszClass, "ptr", pdwTaskId, "int", lPriority, "int")
         return result
     }
@@ -15004,6 +15033,8 @@ class MediaFoundation {
      * @since windows8.0
      */
     static MFLockSharedWorkQueue(wszClass, BasePriority, pdwTaskId, pID) {
+        wszClass := wszClass is String? StrPtr(wszClass) : wszClass
+
         result := DllCall("MFPlat.dll\MFLockSharedWorkQueue", "ptr", wszClass, "int", BasePriority, "ptr", pdwTaskId, "ptr", pID, "int")
         return result
     }
@@ -15136,6 +15167,8 @@ class MediaFoundation {
      * @since windows6.0.6000
      */
     static MFCreateFile(AccessMode, OpenMode, fFlags, pwszFileURL, ppIByteStream) {
+        pwszFileURL := pwszFileURL is String? StrPtr(pwszFileURL) : pwszFileURL
+
         result := DllCall("MFPlat.dll\MFCreateFile", "int", AccessMode, "int", OpenMode, "int", fFlags, "ptr", pwszFileURL, "ptr", ppIByteStream, "int")
         return result
     }
@@ -15199,6 +15232,8 @@ class MediaFoundation {
      * @since windows6.0.6000
      */
     static MFBeginCreateFile(AccessMode, OpenMode, fFlags, pwszFilePath, pCallback, pState, ppCancelCookie) {
+        pwszFilePath := pwszFilePath is String? StrPtr(pwszFilePath) : pwszFilePath
+
         result := DllCall("MFPlat.dll\MFBeginCreateFile", "int", AccessMode, "int", OpenMode, "int", fFlags, "ptr", pwszFilePath, "ptr", pCallback, "ptr", pState, "ptr", ppCancelCookie, "int")
         return result
     }
@@ -16201,6 +16236,8 @@ class MediaFoundation {
      * @since windows6.0.6000
      */
     static MFTRegister(clsidMFT, guidCategory, pszName, Flags, cInputTypes, pInputTypes, cOutputTypes, pOutputTypes, pAttributes) {
+        pszName := pszName is String? StrPtr(pszName) : pszName
+
         result := DllCall("MFPlat.dll\MFTRegister", "ptr", clsidMFT, "ptr", guidCategory, "ptr", pszName, "uint", Flags, "uint", cInputTypes, "ptr", pInputTypes, "uint", cOutputTypes, "ptr", pOutputTypes, "ptr", pAttributes, "int")
         return result
     }
@@ -16248,6 +16285,8 @@ class MediaFoundation {
      * @since windows6.1
      */
     static MFTRegisterLocal(pClassFactory, guidCategory, pszName, Flags, cInputTypes, pInputTypes, cOutputTypes, pOutputTypes) {
+        pszName := pszName is String? StrPtr(pszName) : pszName
+
         result := DllCall("MFPlat.dll\MFTRegisterLocal", "ptr", pClassFactory, "ptr", guidCategory, "ptr", pszName, "uint", Flags, "uint", cInputTypes, "ptr", pInputTypes, "uint", cOutputTypes, "ptr", pOutputTypes, "int")
         return result
     }
@@ -16320,6 +16359,8 @@ class MediaFoundation {
      * @since windows6.1
      */
     static MFTRegisterLocalByCLSID(clisdMFT, guidCategory, pszName, Flags, cInputTypes, pInputTypes, cOutputTypes, pOutputTypes) {
+        pszName := pszName is String? StrPtr(pszName) : pszName
+
         result := DllCall("MFPlat.dll\MFTRegisterLocalByCLSID", "ptr", clisdMFT, "ptr", guidCategory, "ptr", pszName, "uint", Flags, "uint", cInputTypes, "ptr", pInputTypes, "uint", cOutputTypes, "ptr", pOutputTypes, "int")
         return result
     }
@@ -16819,6 +16860,8 @@ class MediaFoundation {
      * @since windows6.0.6000
      */
     static MFTGetInfo(clsidMFT, pszName, ppInputTypes, pcInputTypes, ppOutputTypes, pcOutputTypes, ppAttributes) {
+        pszName := pszName is String? StrPtr(pszName) : pszName
+
         result := DllCall("MFPlat.dll\MFTGetInfo", "ptr", clsidMFT, "ptr", pszName, "ptr", ppInputTypes, "ptr", pcInputTypes, "ptr", ppOutputTypes, "ptr", pcOutputTypes, "ptr", ppAttributes, "int")
         return result
     }
@@ -16881,6 +16924,8 @@ class MediaFoundation {
      * @since windows8.0
      */
     static MFRegisterLocalSchemeHandler(szScheme, pActivate) {
+        szScheme := szScheme is String? StrPtr(szScheme) : szScheme
+
         result := DllCall("MFPlat.dll\MFRegisterLocalSchemeHandler", "ptr", szScheme, "ptr", pActivate, "int")
         return result
     }
@@ -16903,6 +16948,9 @@ class MediaFoundation {
      * @since windows8.0
      */
     static MFRegisterLocalByteStreamHandler(szFileExtension, szMimeType, pActivate) {
+        szFileExtension := szFileExtension is String? StrPtr(szFileExtension) : szFileExtension
+        szMimeType := szMimeType is String? StrPtr(szMimeType) : szMimeType
+
         result := DllCall("MFPlat.dll\MFRegisterLocalByteStreamHandler", "ptr", szFileExtension, "ptr", szMimeType, "ptr", pActivate, "int")
         return result
     }
@@ -16947,6 +16995,8 @@ class MediaFoundation {
      * @since windows8.0
      */
     static MFCreateMediaExtensionActivate(szActivatableClassId, pConfiguration, riid, ppvObject) {
+        szActivatableClassId := szActivatableClassId is String? StrPtr(szActivatableClassId) : szActivatableClassId
+
         result := DllCall("MFPlat.dll\MFCreateMediaExtensionActivate", "ptr", szActivatableClassId, "ptr", pConfiguration, "ptr", riid, "ptr", ppvObject, "int")
         return result
     }
@@ -18394,6 +18444,8 @@ class MediaFoundation {
      * @since windows6.0.6000
      */
     static MFHeapAlloc(nSize, dwFlags, pszFile, line, eat) {
+        pszFile := pszFile is String? StrPtr(pszFile) : pszFile
+
         DllCall("MFPlat.dll\MFHeapAlloc", "ptr", nSize, "uint", dwFlags, "ptr", pszFile, "int", line, "int", eat)
     }
 
@@ -18492,6 +18544,8 @@ class MediaFoundation {
      * @since windows6.1
      */
     static MFCreateSourceReaderFromURL(pwszURL, pAttributes, ppSourceReader) {
+        pwszURL := pwszURL is String? StrPtr(pwszURL) : pwszURL
+
         result := DllCall("MFReadWrite.dll\MFCreateSourceReaderFromURL", "ptr", pwszURL, "ptr", pAttributes, "ptr", ppSourceReader, "int")
         return result
     }
@@ -18668,6 +18722,8 @@ class MediaFoundation {
      * @since windows6.1
      */
     static MFCreateSinkWriterFromURL(pwszOutputURL, pByteStream, pAttributes, ppSinkWriter) {
+        pwszOutputURL := pwszOutputURL is String? StrPtr(pwszOutputURL) : pwszOutputURL
+
         result := DllCall("MFReadWrite.dll\MFCreateSinkWriterFromURL", "ptr", pwszOutputURL, "ptr", pByteStream, "ptr", pAttributes, "ptr", ppSinkWriter, "int")
         return result
     }
@@ -18891,6 +18947,8 @@ class MediaFoundation {
      * @since windows6.1
      */
     static MFPCreateMediaPlayer(pwszURL, fStartPlayback, creationOptions, pCallback, hWnd, ppMediaPlayer) {
+        pwszURL := pwszURL is String? StrPtr(pwszURL) : pwszURL
+
         result := DllCall("MFPlay.dll\MFPCreateMediaPlayer", "ptr", pwszURL, "int", fStartPlayback, "int", creationOptions, "ptr", pCallback, "ptr", hWnd, "ptr", ppMediaPlayer, "int")
         return result
     }
@@ -18908,6 +18966,8 @@ class MediaFoundation {
      * @since windows10.0.19041
      */
     static MFCreateEncryptedMediaExtensionsStoreActivate(pmpHost, objectStream, classId, activate) {
+        classId := classId is String? StrPtr(classId) : classId
+
         result := DllCall("MF.dll\MFCreateEncryptedMediaExtensionsStoreActivate", "ptr", pmpHost, "ptr", objectStream, "ptr", classId, "ptr", activate, "int")
         return result
     }
@@ -18940,6 +19000,9 @@ class MediaFoundation {
      * @see https://learn.microsoft.com/windows/win32/api/mfvirtualcamera/nf-mfvirtualcamera-mfcreatevirtualcamera
      */
     static MFCreateVirtualCamera(type, lifetime, access, friendlyName, sourceId, categories, categoryCount, virtualCamera) {
+        friendlyName := friendlyName is String? StrPtr(friendlyName) : friendlyName
+        sourceId := sourceId is String? StrPtr(sourceId) : sourceId
+
         result := DllCall("MFSENSORGROUP.dll\MFCreateVirtualCamera", "int", type, "int", lifetime, "int", access, "ptr", friendlyName, "ptr", sourceId, "ptr", categories, "uint", categoryCount, "ptr", virtualCamera, "int")
         return result
     }

@@ -2314,6 +2314,8 @@ class Audio {
      * @returns {Integer} 
      */
     static sndPlaySoundA(pszSound, fuSound) {
+        pszSound := pszSound is String? StrPtr(pszSound) : pszSound
+
         result := DllCall("WINMM.dll\sndPlaySoundA", "ptr", pszSound, "uint", fuSound, "int")
         return result
     }
@@ -2325,6 +2327,8 @@ class Audio {
      * @returns {Integer} 
      */
     static sndPlaySoundW(pszSound, fuSound) {
+        pszSound := pszSound is String? StrPtr(pszSound) : pszSound
+
         result := DllCall("WINMM.dll\sndPlaySoundW", "ptr", pszSound, "uint", fuSound, "int")
         return result
     }
@@ -2337,6 +2341,8 @@ class Audio {
      * @returns {Integer} 
      */
     static PlaySoundA(pszSound, hmod, fdwSound) {
+        pszSound := pszSound is String? StrPtr(pszSound) : pszSound
+
         result := DllCall("WINMM.dll\PlaySoundA", "ptr", pszSound, "ptr", hmod, "uint", fdwSound, "int")
         return result
     }
@@ -2349,6 +2355,8 @@ class Audio {
      * @returns {Integer} 
      */
     static PlaySoundW(pszSound, hmod, fdwSound) {
+        pszSound := pszSound is String? StrPtr(pszSound) : pszSound
+
         result := DllCall("WINMM.dll\PlaySoundW", "ptr", pszSound, "ptr", hmod, "uint", fdwSound, "int")
         return result
     }
@@ -2545,6 +2553,8 @@ class Audio {
      * @returns {Integer} 
      */
     static waveOutGetErrorTextA(mmrError, pszText, cchText) {
+        pszText := pszText is String? StrPtr(pszText) : pszText
+
         result := DllCall("WINMM.dll\waveOutGetErrorTextA", "uint", mmrError, "ptr", pszText, "uint", cchText, "uint")
         return result
     }
@@ -2557,6 +2567,8 @@ class Audio {
      * @returns {Integer} 
      */
     static waveOutGetErrorTextW(mmrError, pszText, cchText) {
+        pszText := pszText is String? StrPtr(pszText) : pszText
+
         result := DllCall("WINMM.dll\waveOutGetErrorTextW", "uint", mmrError, "ptr", pszText, "uint", cchText, "uint")
         return result
     }
@@ -3815,6 +3827,8 @@ class Audio {
      * @returns {Integer} 
      */
     static waveInGetErrorTextA(mmrError, pszText, cchText) {
+        pszText := pszText is String? StrPtr(pszText) : pszText
+
         result := DllCall("WINMM.dll\waveInGetErrorTextA", "uint", mmrError, "ptr", pszText, "uint", cchText, "uint")
         return result
     }
@@ -3827,6 +3841,8 @@ class Audio {
      * @returns {Integer} 
      */
     static waveInGetErrorTextW(mmrError, pszText, cchText) {
+        pszText := pszText is String? StrPtr(pszText) : pszText
+
         result := DllCall("WINMM.dll\waveInGetErrorTextW", "uint", mmrError, "ptr", pszText, "uint", cchText, "uint")
         return result
     }
@@ -5468,6 +5484,8 @@ class Audio {
      * @since windows5.0
      */
     static midiOutGetErrorTextA(mmrError, pszText, cchText) {
+        pszText := pszText is String? StrPtr(pszText) : pszText
+
         result := DllCall("WINMM.dll\midiOutGetErrorTextA", "uint", mmrError, "ptr", pszText, "uint", cchText, "uint")
         return result
     }
@@ -5520,6 +5538,8 @@ class Audio {
      * @since windows5.0
      */
     static midiOutGetErrorTextW(mmrError, pszText, cchText) {
+        pszText := pszText is String? StrPtr(pszText) : pszText
+
         result := DllCall("WINMM.dll\midiOutGetErrorTextW", "uint", mmrError, "ptr", pszText, "uint", cchText, "uint")
         return result
     }
@@ -6627,6 +6647,8 @@ class Audio {
      * @since windows5.0
      */
     static midiInGetErrorTextA(mmrError, pszText, cchText) {
+        pszText := pszText is String? StrPtr(pszText) : pszText
+
         result := DllCall("WINMM.dll\midiInGetErrorTextA", "uint", mmrError, "ptr", pszText, "uint", cchText, "uint")
         return result
     }
@@ -6690,6 +6712,8 @@ class Audio {
      * @since windows5.0
      */
     static midiInGetErrorTextW(mmrError, pszText, cchText) {
+        pszText := pszText is String? StrPtr(pszText) : pszText
+
         result := DllCall("WINMM.dll\midiInGetErrorTextW", "uint", mmrError, "ptr", pszText, "uint", cchText, "uint")
         return result
     }
@@ -9454,6 +9478,8 @@ class Audio {
      * @since windows8.0
      */
     static ActivateAudioInterfaceAsync(deviceInterfacePath, riid, activationParams, completionHandler, activationOperation) {
+        deviceInterfacePath := deviceInterfacePath is String? StrPtr(deviceInterfacePath) : deviceInterfacePath
+
         result := DllCall("MMDevAPI.dll\ActivateAudioInterfaceAsync", "ptr", deviceInterfacePath, "ptr", riid, "ptr", activationParams, "ptr", completionHandler, "ptr", activationOperation, "int")
         return result
     }
@@ -9499,6 +9525,8 @@ class Audio {
      * @returns {Integer} 
      */
     static CreateRenderAudioStateMonitorForCategoryAndDeviceId(category, deviceId, audioStateMonitor) {
+        deviceId := deviceId is String? StrPtr(deviceId) : deviceId
+
         result := DllCall("Windows.Media.MediaControl.dll\CreateRenderAudioStateMonitorForCategoryAndDeviceId", "int", category, "ptr", deviceId, "ptr", audioStateMonitor, "int")
         return result
     }
@@ -9544,6 +9572,8 @@ class Audio {
      * @returns {Integer} 
      */
     static CreateCaptureAudioStateMonitorForCategoryAndDeviceId(category, deviceId, audioStateMonitor) {
+        deviceId := deviceId is String? StrPtr(deviceId) : deviceId
+
         result := DllCall("Windows.Media.MediaControl.dll\CreateCaptureAudioStateMonitorForCategoryAndDeviceId", "int", category, "ptr", deviceId, "ptr", audioStateMonitor, "int")
         return result
     }

@@ -3932,6 +3932,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiEnableLogA(dwLogMode, szLogFile, dwLogAttributes) {
+        szLogFile := szLogFile is String? StrPtr(szLogFile) : szLogFile
+
         DllCall("msi.dll\MsiEnableLogA", "uint", dwLogMode, "ptr", szLogFile, "uint", dwLogAttributes)
     }
 
@@ -3985,6 +3987,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiEnableLogW(dwLogMode, szLogFile, dwLogAttributes) {
+        szLogFile := szLogFile is String? StrPtr(szLogFile) : szLogFile
+
         DllCall("msi.dll\MsiEnableLogW", "uint", dwLogMode, "ptr", szLogFile, "uint", dwLogAttributes)
     }
 
@@ -3999,6 +4003,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiQueryProductStateA(szProduct) {
+        szProduct := szProduct is String? StrPtr(szProduct) : szProduct
+
         DllCall("msi.dll\MsiQueryProductStateA", "ptr", szProduct)
     }
 
@@ -4013,6 +4019,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiQueryProductStateW(szProduct) {
+        szProduct := szProduct is String? StrPtr(szProduct) : szProduct
+
         DllCall("msi.dll\MsiQueryProductStateW", "ptr", szProduct)
     }
 
@@ -4310,6 +4318,10 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiGetProductInfoA(szProduct, szAttribute, lpValueBuf, pcchValueBuf) {
+        szProduct := szProduct is String? StrPtr(szProduct) : szProduct
+        szAttribute := szAttribute is String? StrPtr(szAttribute) : szAttribute
+        lpValueBuf := lpValueBuf is String? StrPtr(lpValueBuf) : lpValueBuf
+
         DllCall("msi.dll\MsiGetProductInfoA", "ptr", szProduct, "ptr", szAttribute, "ptr", lpValueBuf, "ptr", pcchValueBuf)
     }
 
@@ -4607,6 +4619,10 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiGetProductInfoW(szProduct, szAttribute, lpValueBuf, pcchValueBuf) {
+        szProduct := szProduct is String? StrPtr(szProduct) : szProduct
+        szAttribute := szAttribute is String? StrPtr(szAttribute) : szAttribute
+        lpValueBuf := lpValueBuf is String? StrPtr(lpValueBuf) : lpValueBuf
+
         DllCall("msi.dll\MsiGetProductInfoW", "ptr", szProduct, "ptr", szAttribute, "ptr", lpValueBuf, "ptr", pcchValueBuf)
     }
 
@@ -4979,6 +4995,11 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiGetProductInfoExA(szProductCode, szUserSid, dwContext, szProperty, szValue, pcchValue) {
+        szProductCode := szProductCode is String? StrPtr(szProductCode) : szProductCode
+        szUserSid := szUserSid is String? StrPtr(szUserSid) : szUserSid
+        szProperty := szProperty is String? StrPtr(szProperty) : szProperty
+        szValue := szValue is String? StrPtr(szValue) : szValue
+
         DllCall("msi.dll\MsiGetProductInfoExA", "ptr", szProductCode, "ptr", szUserSid, "int", dwContext, "ptr", szProperty, "ptr", szValue, "ptr", pcchValue)
     }
 
@@ -5351,6 +5372,11 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiGetProductInfoExW(szProductCode, szUserSid, dwContext, szProperty, szValue, pcchValue) {
+        szProductCode := szProductCode is String? StrPtr(szProductCode) : szProductCode
+        szUserSid := szUserSid is String? StrPtr(szUserSid) : szUserSid
+        szProperty := szProperty is String? StrPtr(szProperty) : szProperty
+        szValue := szValue is String? StrPtr(szValue) : szValue
+
         DllCall("msi.dll\MsiGetProductInfoExW", "ptr", szProductCode, "ptr", szUserSid, "int", dwContext, "ptr", szProperty, "ptr", szValue, "ptr", pcchValue)
     }
 
@@ -5388,6 +5414,9 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiInstallProductA(szPackagePath, szCommandLine) {
+        szPackagePath := szPackagePath is String? StrPtr(szPackagePath) : szPackagePath
+        szCommandLine := szCommandLine is String? StrPtr(szCommandLine) : szCommandLine
+
         DllCall("msi.dll\MsiInstallProductA", "ptr", szPackagePath, "ptr", szCommandLine)
     }
 
@@ -5425,6 +5454,9 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiInstallProductW(szPackagePath, szCommandLine) {
+        szPackagePath := szPackagePath is String? StrPtr(szPackagePath) : szPackagePath
+        szCommandLine := szCommandLine is String? StrPtr(szCommandLine) : szCommandLine
+
         DllCall("msi.dll\MsiInstallProductW", "ptr", szPackagePath, "ptr", szCommandLine)
     }
 
@@ -5452,6 +5484,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiConfigureProductA(szProduct, iInstallLevel, eInstallState) {
+        szProduct := szProduct is String? StrPtr(szProduct) : szProduct
+
         DllCall("msi.dll\MsiConfigureProductA", "ptr", szProduct, "int", iInstallLevel, "int", eInstallState)
     }
 
@@ -5479,6 +5513,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiConfigureProductW(szProduct, iInstallLevel, eInstallState) {
+        szProduct := szProduct is String? StrPtr(szProduct) : szProduct
+
         DllCall("msi.dll\MsiConfigureProductW", "ptr", szProduct, "int", iInstallLevel, "int", eInstallState)
     }
 
@@ -5511,6 +5547,9 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiConfigureProductExA(szProduct, iInstallLevel, eInstallState, szCommandLine) {
+        szProduct := szProduct is String? StrPtr(szProduct) : szProduct
+        szCommandLine := szCommandLine is String? StrPtr(szCommandLine) : szCommandLine
+
         DllCall("msi.dll\MsiConfigureProductExA", "ptr", szProduct, "int", iInstallLevel, "int", eInstallState, "ptr", szCommandLine)
     }
 
@@ -5543,6 +5582,9 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiConfigureProductExW(szProduct, iInstallLevel, eInstallState, szCommandLine) {
+        szProduct := szProduct is String? StrPtr(szProduct) : szProduct
+        szCommandLine := szCommandLine is String? StrPtr(szCommandLine) : szCommandLine
+
         DllCall("msi.dll\MsiConfigureProductExW", "ptr", szProduct, "int", iInstallLevel, "int", eInstallState, "ptr", szCommandLine)
     }
 
@@ -5558,6 +5600,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiReinstallProductA(szProduct, szReinstallMode) {
+        szProduct := szProduct is String? StrPtr(szProduct) : szProduct
+
         DllCall("msi.dll\MsiReinstallProductA", "ptr", szProduct, "uint", szReinstallMode)
     }
 
@@ -5573,6 +5617,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiReinstallProductW(szProduct, szReinstallMode) {
+        szProduct := szProduct is String? StrPtr(szProduct) : szProduct
+
         DllCall("msi.dll\MsiReinstallProductW", "ptr", szProduct, "uint", szReinstallMode)
     }
 
@@ -5702,6 +5748,10 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiAdvertiseProductExA(szPackagePath, szScriptfilePath, szTransforms, lgidLanguage, dwPlatform, dwOptions) {
+        szPackagePath := szPackagePath is String? StrPtr(szPackagePath) : szPackagePath
+        szScriptfilePath := szScriptfilePath is String? StrPtr(szScriptfilePath) : szScriptfilePath
+        szTransforms := szTransforms is String? StrPtr(szTransforms) : szTransforms
+
         DllCall("msi.dll\MsiAdvertiseProductExA", "ptr", szPackagePath, "ptr", szScriptfilePath, "ptr", szTransforms, "ushort", lgidLanguage, "uint", dwPlatform, "uint", dwOptions)
     }
 
@@ -5831,6 +5881,10 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiAdvertiseProductExW(szPackagePath, szScriptfilePath, szTransforms, lgidLanguage, dwPlatform, dwOptions) {
+        szPackagePath := szPackagePath is String? StrPtr(szPackagePath) : szPackagePath
+        szScriptfilePath := szScriptfilePath is String? StrPtr(szScriptfilePath) : szScriptfilePath
+        szTransforms := szTransforms is String? StrPtr(szTransforms) : szTransforms
+
         DllCall("msi.dll\MsiAdvertiseProductExW", "ptr", szPackagePath, "ptr", szScriptfilePath, "ptr", szTransforms, "ushort", lgidLanguage, "uint", dwPlatform, "uint", dwOptions)
     }
 
@@ -5880,6 +5934,10 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiAdvertiseProductA(szPackagePath, szScriptfilePath, szTransforms, lgidLanguage) {
+        szPackagePath := szPackagePath is String? StrPtr(szPackagePath) : szPackagePath
+        szScriptfilePath := szScriptfilePath is String? StrPtr(szScriptfilePath) : szScriptfilePath
+        szTransforms := szTransforms is String? StrPtr(szTransforms) : szTransforms
+
         DllCall("msi.dll\MsiAdvertiseProductA", "ptr", szPackagePath, "ptr", szScriptfilePath, "ptr", szTransforms, "ushort", lgidLanguage)
     }
 
@@ -5929,6 +5987,10 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiAdvertiseProductW(szPackagePath, szScriptfilePath, szTransforms, lgidLanguage) {
+        szPackagePath := szPackagePath is String? StrPtr(szPackagePath) : szPackagePath
+        szScriptfilePath := szScriptfilePath is String? StrPtr(szScriptfilePath) : szScriptfilePath
+        szTransforms := szTransforms is String? StrPtr(szTransforms) : szTransforms
+
         DllCall("msi.dll\MsiAdvertiseProductW", "ptr", szPackagePath, "ptr", szScriptfilePath, "ptr", szTransforms, "ushort", lgidLanguage)
     }
 
@@ -5955,6 +6017,9 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiProcessAdvertiseScriptA(szScriptFile, szIconFolder, hRegData, fShortcuts, fRemoveItems) {
+        szScriptFile := szScriptFile is String? StrPtr(szScriptFile) : szScriptFile
+        szIconFolder := szIconFolder is String? StrPtr(szIconFolder) : szIconFolder
+
         DllCall("msi.dll\MsiProcessAdvertiseScriptA", "ptr", szScriptFile, "ptr", szIconFolder, "ptr", hRegData, "int", fShortcuts, "int", fRemoveItems)
     }
 
@@ -5981,6 +6046,9 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiProcessAdvertiseScriptW(szScriptFile, szIconFolder, hRegData, fShortcuts, fRemoveItems) {
+        szScriptFile := szScriptFile is String? StrPtr(szScriptFile) : szScriptFile
+        szIconFolder := szIconFolder is String? StrPtr(szIconFolder) : szIconFolder
+
         DllCall("msi.dll\MsiProcessAdvertiseScriptW", "ptr", szScriptFile, "ptr", szIconFolder, "ptr", hRegData, "int", fShortcuts, "int", fRemoveItems)
     }
 
@@ -6011,6 +6079,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiAdvertiseScriptA(szScriptFile, dwFlags, phRegData, fRemoveItems) {
+        szScriptFile := szScriptFile is String? StrPtr(szScriptFile) : szScriptFile
+
         DllCall("msi.dll\MsiAdvertiseScriptA", "ptr", szScriptFile, "uint", dwFlags, "ptr", phRegData, "int", fRemoveItems)
     }
 
@@ -6041,6 +6111,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiAdvertiseScriptW(szScriptFile, dwFlags, phRegData, fRemoveItems) {
+        szScriptFile := szScriptFile is String? StrPtr(szScriptFile) : szScriptFile
+
         DllCall("msi.dll\MsiAdvertiseScriptW", "ptr", szScriptFile, "uint", dwFlags, "ptr", phRegData, "int", fRemoveItems)
     }
 
@@ -6063,6 +6135,11 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiGetProductInfoFromScriptA(szScriptFile, lpProductBuf39, plgidLanguage, pdwVersion, lpNameBuf, pcchNameBuf, lpPackageBuf, pcchPackageBuf) {
+        szScriptFile := szScriptFile is String? StrPtr(szScriptFile) : szScriptFile
+        lpProductBuf39 := lpProductBuf39 is String? StrPtr(lpProductBuf39) : lpProductBuf39
+        lpNameBuf := lpNameBuf is String? StrPtr(lpNameBuf) : lpNameBuf
+        lpPackageBuf := lpPackageBuf is String? StrPtr(lpPackageBuf) : lpPackageBuf
+
         DllCall("msi.dll\MsiGetProductInfoFromScriptA", "ptr", szScriptFile, "ptr", lpProductBuf39, "ptr", plgidLanguage, "ptr", pdwVersion, "ptr", lpNameBuf, "ptr", pcchNameBuf, "ptr", lpPackageBuf, "ptr", pcchPackageBuf)
     }
 
@@ -6085,6 +6162,11 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiGetProductInfoFromScriptW(szScriptFile, lpProductBuf39, plgidLanguage, pdwVersion, lpNameBuf, pcchNameBuf, lpPackageBuf, pcchPackageBuf) {
+        szScriptFile := szScriptFile is String? StrPtr(szScriptFile) : szScriptFile
+        lpProductBuf39 := lpProductBuf39 is String? StrPtr(lpProductBuf39) : lpProductBuf39
+        lpNameBuf := lpNameBuf is String? StrPtr(lpNameBuf) : lpNameBuf
+        lpPackageBuf := lpPackageBuf is String? StrPtr(lpPackageBuf) : lpPackageBuf
+
         DllCall("msi.dll\MsiGetProductInfoFromScriptW", "ptr", szScriptFile, "ptr", lpProductBuf39, "ptr", plgidLanguage, "ptr", pdwVersion, "ptr", lpNameBuf, "ptr", pcchNameBuf, "ptr", lpPackageBuf, "ptr", pcchPackageBuf)
     }
 
@@ -6106,6 +6188,9 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiGetProductCodeA(szComponent, lpBuf39) {
+        szComponent := szComponent is String? StrPtr(szComponent) : szComponent
+        lpBuf39 := lpBuf39 is String? StrPtr(lpBuf39) : lpBuf39
+
         DllCall("msi.dll\MsiGetProductCodeA", "ptr", szComponent, "ptr", lpBuf39)
     }
 
@@ -6127,6 +6212,9 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiGetProductCodeW(szComponent, lpBuf39) {
+        szComponent := szComponent is String? StrPtr(szComponent) : szComponent
+        lpBuf39 := lpBuf39 is String? StrPtr(lpBuf39) : lpBuf39
+
         DllCall("msi.dll\MsiGetProductCodeW", "ptr", szComponent, "ptr", lpBuf39)
     }
 
@@ -6158,6 +6246,11 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiGetUserInfoA(szProduct, lpUserNameBuf, pcchUserNameBuf, lpOrgNameBuf, pcchOrgNameBuf, lpSerialBuf, pcchSerialBuf) {
+        szProduct := szProduct is String? StrPtr(szProduct) : szProduct
+        lpUserNameBuf := lpUserNameBuf is String? StrPtr(lpUserNameBuf) : lpUserNameBuf
+        lpOrgNameBuf := lpOrgNameBuf is String? StrPtr(lpOrgNameBuf) : lpOrgNameBuf
+        lpSerialBuf := lpSerialBuf is String? StrPtr(lpSerialBuf) : lpSerialBuf
+
         DllCall("msi.dll\MsiGetUserInfoA", "ptr", szProduct, "ptr", lpUserNameBuf, "ptr", pcchUserNameBuf, "ptr", lpOrgNameBuf, "ptr", pcchOrgNameBuf, "ptr", lpSerialBuf, "ptr", pcchSerialBuf)
     }
 
@@ -6189,6 +6282,11 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiGetUserInfoW(szProduct, lpUserNameBuf, pcchUserNameBuf, lpOrgNameBuf, pcchOrgNameBuf, lpSerialBuf, pcchSerialBuf) {
+        szProduct := szProduct is String? StrPtr(szProduct) : szProduct
+        lpUserNameBuf := lpUserNameBuf is String? StrPtr(lpUserNameBuf) : lpUserNameBuf
+        lpOrgNameBuf := lpOrgNameBuf is String? StrPtr(lpOrgNameBuf) : lpOrgNameBuf
+        lpSerialBuf := lpSerialBuf is String? StrPtr(lpSerialBuf) : lpSerialBuf
+
         DllCall("msi.dll\MsiGetUserInfoW", "ptr", szProduct, "ptr", lpUserNameBuf, "ptr", pcchUserNameBuf, "ptr", lpOrgNameBuf, "ptr", pcchOrgNameBuf, "ptr", lpSerialBuf, "ptr", pcchSerialBuf)
     }
 
@@ -6218,6 +6316,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiCollectUserInfoA(szProduct) {
+        szProduct := szProduct is String? StrPtr(szProduct) : szProduct
+
         DllCall("msi.dll\MsiCollectUserInfoA", "ptr", szProduct)
     }
 
@@ -6247,6 +6347,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiCollectUserInfoW(szProduct) {
+        szProduct := szProduct is String? StrPtr(szProduct) : szProduct
+
         DllCall("msi.dll\MsiCollectUserInfoW", "ptr", szProduct)
     }
 
@@ -6315,6 +6417,10 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiApplyPatchA(szPatchPackage, szInstallPackage, eInstallType, szCommandLine) {
+        szPatchPackage := szPatchPackage is String? StrPtr(szPatchPackage) : szPatchPackage
+        szInstallPackage := szInstallPackage is String? StrPtr(szInstallPackage) : szInstallPackage
+        szCommandLine := szCommandLine is String? StrPtr(szCommandLine) : szCommandLine
+
         DllCall("msi.dll\MsiApplyPatchA", "ptr", szPatchPackage, "ptr", szInstallPackage, "int", eInstallType, "ptr", szCommandLine)
     }
 
@@ -6383,6 +6489,10 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiApplyPatchW(szPatchPackage, szInstallPackage, eInstallType, szCommandLine) {
+        szPatchPackage := szPatchPackage is String? StrPtr(szPatchPackage) : szPatchPackage
+        szInstallPackage := szInstallPackage is String? StrPtr(szInstallPackage) : szInstallPackage
+        szCommandLine := szCommandLine is String? StrPtr(szCommandLine) : szCommandLine
+
         DllCall("msi.dll\MsiApplyPatchW", "ptr", szPatchPackage, "ptr", szInstallPackage, "int", eInstallType, "ptr", szCommandLine)
     }
 
@@ -6434,6 +6544,10 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiGetPatchInfoA(szPatch, szAttribute, lpValueBuf, pcchValueBuf) {
+        szPatch := szPatch is String? StrPtr(szPatch) : szPatch
+        szAttribute := szAttribute is String? StrPtr(szAttribute) : szAttribute
+        lpValueBuf := lpValueBuf is String? StrPtr(lpValueBuf) : lpValueBuf
+
         DllCall("msi.dll\MsiGetPatchInfoA", "ptr", szPatch, "ptr", szAttribute, "ptr", lpValueBuf, "ptr", pcchValueBuf)
     }
 
@@ -6485,6 +6599,10 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiGetPatchInfoW(szPatch, szAttribute, lpValueBuf, pcchValueBuf) {
+        szPatch := szPatch is String? StrPtr(szPatch) : szPatch
+        szAttribute := szAttribute is String? StrPtr(szAttribute) : szAttribute
+        lpValueBuf := lpValueBuf is String? StrPtr(lpValueBuf) : lpValueBuf
+
         DllCall("msi.dll\MsiGetPatchInfoW", "ptr", szPatch, "ptr", szAttribute, "ptr", lpValueBuf, "ptr", pcchValueBuf)
     }
 
@@ -6514,6 +6632,10 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiEnumPatchesA(szProduct, iPatchIndex, lpPatchBuf, lpTransformsBuf, pcchTransformsBuf) {
+        szProduct := szProduct is String? StrPtr(szProduct) : szProduct
+        lpPatchBuf := lpPatchBuf is String? StrPtr(lpPatchBuf) : lpPatchBuf
+        lpTransformsBuf := lpTransformsBuf is String? StrPtr(lpTransformsBuf) : lpTransformsBuf
+
         DllCall("msi.dll\MsiEnumPatchesA", "ptr", szProduct, "uint", iPatchIndex, "ptr", lpPatchBuf, "ptr", lpTransformsBuf, "ptr", pcchTransformsBuf)
     }
 
@@ -6543,6 +6665,10 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiEnumPatchesW(szProduct, iPatchIndex, lpPatchBuf, lpTransformsBuf, pcchTransformsBuf) {
+        szProduct := szProduct is String? StrPtr(szProduct) : szProduct
+        lpPatchBuf := lpPatchBuf is String? StrPtr(lpPatchBuf) : lpPatchBuf
+        lpTransformsBuf := lpTransformsBuf is String? StrPtr(lpTransformsBuf) : lpTransformsBuf
+
         DllCall("msi.dll\MsiEnumPatchesW", "ptr", szProduct, "uint", iPatchIndex, "ptr", lpPatchBuf, "ptr", lpTransformsBuf, "ptr", pcchTransformsBuf)
     }
 
@@ -6585,6 +6711,10 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiRemovePatchesA(szPatchList, szProductCode, eUninstallType, szPropertyList) {
+        szPatchList := szPatchList is String? StrPtr(szPatchList) : szPatchList
+        szProductCode := szProductCode is String? StrPtr(szProductCode) : szProductCode
+        szPropertyList := szPropertyList is String? StrPtr(szPropertyList) : szPropertyList
+
         DllCall("msi.dll\MsiRemovePatchesA", "ptr", szPatchList, "ptr", szProductCode, "int", eUninstallType, "ptr", szPropertyList)
     }
 
@@ -6627,6 +6757,10 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiRemovePatchesW(szPatchList, szProductCode, eUninstallType, szPropertyList) {
+        szPatchList := szPatchList is String? StrPtr(szPatchList) : szPatchList
+        szProductCode := szProductCode is String? StrPtr(szProductCode) : szProductCode
+        szPropertyList := szPropertyList is String? StrPtr(szPropertyList) : szPropertyList
+
         DllCall("msi.dll\MsiRemovePatchesW", "ptr", szPatchList, "ptr", szProductCode, "int", eUninstallType, "ptr", szPropertyList)
     }
 
@@ -6657,6 +6791,9 @@ class ApplicationInstallationAndServicing {
     static MsiExtractPatchXMLDataA(szPatchPath, szXMLData, pcchXMLData) {
         static dwReserved := 0 ;Reserved parameters must always be NULL
 
+        szPatchPath := szPatchPath is String? StrPtr(szPatchPath) : szPatchPath
+        szXMLData := szXMLData is String? StrPtr(szXMLData) : szXMLData
+
         DllCall("msi.dll\MsiExtractPatchXMLDataA", "ptr", szPatchPath, "uint", dwReserved, "ptr", szXMLData, "ptr", pcchXMLData)
     }
 
@@ -6686,6 +6823,9 @@ class ApplicationInstallationAndServicing {
      */
     static MsiExtractPatchXMLDataW(szPatchPath, szXMLData, pcchXMLData) {
         static dwReserved := 0 ;Reserved parameters must always be NULL
+
+        szPatchPath := szPatchPath is String? StrPtr(szPatchPath) : szPatchPath
+        szXMLData := szXMLData is String? StrPtr(szXMLData) : szXMLData
 
         DllCall("msi.dll\MsiExtractPatchXMLDataW", "ptr", szPatchPath, "uint", dwReserved, "ptr", szXMLData, "ptr", pcchXMLData)
     }
@@ -6880,6 +7020,12 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiGetPatchInfoExA(szPatchCode, szProductCode, szUserSid, dwContext, szProperty, lpValue, pcchValue) {
+        szPatchCode := szPatchCode is String? StrPtr(szPatchCode) : szPatchCode
+        szProductCode := szProductCode is String? StrPtr(szProductCode) : szProductCode
+        szUserSid := szUserSid is String? StrPtr(szUserSid) : szUserSid
+        szProperty := szProperty is String? StrPtr(szProperty) : szProperty
+        lpValue := lpValue is String? StrPtr(lpValue) : lpValue
+
         DllCall("msi.dll\MsiGetPatchInfoExA", "ptr", szPatchCode, "ptr", szProductCode, "ptr", szUserSid, "int", dwContext, "ptr", szProperty, "ptr", lpValue, "ptr", pcchValue)
     }
 
@@ -7073,6 +7219,12 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiGetPatchInfoExW(szPatchCode, szProductCode, szUserSid, dwContext, szProperty, lpValue, pcchValue) {
+        szPatchCode := szPatchCode is String? StrPtr(szPatchCode) : szPatchCode
+        szProductCode := szProductCode is String? StrPtr(szProductCode) : szProductCode
+        szUserSid := szUserSid is String? StrPtr(szUserSid) : szUserSid
+        szProperty := szProperty is String? StrPtr(szProperty) : szProperty
+        lpValue := lpValue is String? StrPtr(lpValue) : lpValue
+
         DllCall("msi.dll\MsiGetPatchInfoExW", "ptr", szPatchCode, "ptr", szProductCode, "ptr", szUserSid, "int", dwContext, "ptr", szProperty, "ptr", lpValue, "ptr", pcchValue)
     }
 
@@ -7094,6 +7246,10 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiApplyMultiplePatchesA(szPatchPackages, szProductCode, szPropertiesList) {
+        szPatchPackages := szPatchPackages is String? StrPtr(szPatchPackages) : szPatchPackages
+        szProductCode := szProductCode is String? StrPtr(szProductCode) : szProductCode
+        szPropertiesList := szPropertiesList is String? StrPtr(szPropertiesList) : szPropertiesList
+
         DllCall("msi.dll\MsiApplyMultiplePatchesA", "ptr", szPatchPackages, "ptr", szProductCode, "ptr", szPropertiesList)
     }
 
@@ -7115,6 +7271,10 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiApplyMultiplePatchesW(szPatchPackages, szProductCode, szPropertiesList) {
+        szPatchPackages := szPatchPackages is String? StrPtr(szPatchPackages) : szPatchPackages
+        szProductCode := szProductCode is String? StrPtr(szProductCode) : szProductCode
+        szPropertiesList := szPropertiesList is String? StrPtr(szPropertiesList) : szPropertiesList
+
         DllCall("msi.dll\MsiApplyMultiplePatchesW", "ptr", szPatchPackages, "ptr", szProductCode, "ptr", szPropertiesList)
     }
 
@@ -7188,6 +7348,9 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiDeterminePatchSequenceA(szProductCode, szUserSid, dwContext, cPatchInfo, pPatchInfo) {
+        szProductCode := szProductCode is String? StrPtr(szProductCode) : szProductCode
+        szUserSid := szUserSid is String? StrPtr(szUserSid) : szUserSid
+
         DllCall("msi.dll\MsiDeterminePatchSequenceA", "ptr", szProductCode, "ptr", szUserSid, "int", dwContext, "uint", cPatchInfo, "ptr", pPatchInfo)
     }
 
@@ -7261,6 +7424,9 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiDeterminePatchSequenceW(szProductCode, szUserSid, dwContext, cPatchInfo, pPatchInfo) {
+        szProductCode := szProductCode is String? StrPtr(szProductCode) : szProductCode
+        szUserSid := szUserSid is String? StrPtr(szUserSid) : szUserSid
+
         DllCall("msi.dll\MsiDeterminePatchSequenceW", "ptr", szProductCode, "ptr", szUserSid, "int", dwContext, "uint", cPatchInfo, "ptr", pPatchInfo)
     }
 
@@ -7292,6 +7458,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiDetermineApplicablePatchesA(szProductPackagePath, cPatchInfo, pPatchInfo) {
+        szProductPackagePath := szProductPackagePath is String? StrPtr(szProductPackagePath) : szProductPackagePath
+
         DllCall("msi.dll\MsiDetermineApplicablePatchesA", "ptr", szProductPackagePath, "uint", cPatchInfo, "ptr", pPatchInfo)
     }
 
@@ -7323,6 +7491,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiDetermineApplicablePatchesW(szProductPackagePath, cPatchInfo, pPatchInfo) {
+        szProductPackagePath := szProductPackagePath is String? StrPtr(szProductPackagePath) : szProductPackagePath
+
         DllCall("msi.dll\MsiDetermineApplicablePatchesW", "ptr", szProductPackagePath, "uint", cPatchInfo, "ptr", pPatchInfo)
     }
 
@@ -7502,6 +7672,12 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiEnumPatchesExA(szProductCode, szUserSid, dwContext, dwFilter, dwIndex, szPatchCode, szTargetProductCode, pdwTargetProductContext, szTargetUserSid, pcchTargetUserSid) {
+        szProductCode := szProductCode is String? StrPtr(szProductCode) : szProductCode
+        szUserSid := szUserSid is String? StrPtr(szUserSid) : szUserSid
+        szPatchCode := szPatchCode is String? StrPtr(szPatchCode) : szPatchCode
+        szTargetProductCode := szTargetProductCode is String? StrPtr(szTargetProductCode) : szTargetProductCode
+        szTargetUserSid := szTargetUserSid is String? StrPtr(szTargetUserSid) : szTargetUserSid
+
         DllCall("msi.dll\MsiEnumPatchesExA", "ptr", szProductCode, "ptr", szUserSid, "uint", dwContext, "uint", dwFilter, "uint", dwIndex, "ptr", szPatchCode, "ptr", szTargetProductCode, "ptr", pdwTargetProductContext, "ptr", szTargetUserSid, "ptr", pcchTargetUserSid)
     }
 
@@ -7681,6 +7857,12 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiEnumPatchesExW(szProductCode, szUserSid, dwContext, dwFilter, dwIndex, szPatchCode, szTargetProductCode, pdwTargetProductContext, szTargetUserSid, pcchTargetUserSid) {
+        szProductCode := szProductCode is String? StrPtr(szProductCode) : szProductCode
+        szUserSid := szUserSid is String? StrPtr(szUserSid) : szUserSid
+        szPatchCode := szPatchCode is String? StrPtr(szPatchCode) : szPatchCode
+        szTargetProductCode := szTargetProductCode is String? StrPtr(szTargetProductCode) : szTargetProductCode
+        szTargetUserSid := szTargetUserSid is String? StrPtr(szTargetUserSid) : szTargetUserSid
+
         DllCall("msi.dll\MsiEnumPatchesExW", "ptr", szProductCode, "ptr", szUserSid, "uint", dwContext, "uint", dwFilter, "uint", dwIndex, "ptr", szPatchCode, "ptr", szTargetProductCode, "ptr", pdwTargetProductContext, "ptr", szTargetUserSid, "ptr", pcchTargetUserSid)
     }
 
@@ -7703,6 +7885,9 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiQueryFeatureStateA(szProduct, szFeature) {
+        szProduct := szProduct is String? StrPtr(szProduct) : szProduct
+        szFeature := szFeature is String? StrPtr(szFeature) : szFeature
+
         DllCall("msi.dll\MsiQueryFeatureStateA", "ptr", szProduct, "ptr", szFeature)
     }
 
@@ -7725,6 +7910,9 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiQueryFeatureStateW(szProduct, szFeature) {
+        szProduct := szProduct is String? StrPtr(szProduct) : szProduct
+        szFeature := szFeature is String? StrPtr(szFeature) : szFeature
+
         DllCall("msi.dll\MsiQueryFeatureStateW", "ptr", szProduct, "ptr", szFeature)
     }
 
@@ -7857,6 +8045,10 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiQueryFeatureStateExA(szProductCode, szUserSid, dwContext, szFeature, pdwState) {
+        szProductCode := szProductCode is String? StrPtr(szProductCode) : szProductCode
+        szUserSid := szUserSid is String? StrPtr(szUserSid) : szUserSid
+        szFeature := szFeature is String? StrPtr(szFeature) : szFeature
+
         DllCall("msi.dll\MsiQueryFeatureStateExA", "ptr", szProductCode, "ptr", szUserSid, "int", dwContext, "ptr", szFeature, "ptr", pdwState)
     }
 
@@ -7989,6 +8181,10 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiQueryFeatureStateExW(szProductCode, szUserSid, dwContext, szFeature, pdwState) {
+        szProductCode := szProductCode is String? StrPtr(szProductCode) : szProductCode
+        szUserSid := szUserSid is String? StrPtr(szUserSid) : szUserSid
+        szFeature := szFeature is String? StrPtr(szFeature) : szFeature
+
         DllCall("msi.dll\MsiQueryFeatureStateExW", "ptr", szProductCode, "ptr", szUserSid, "int", dwContext, "ptr", szFeature, "ptr", pdwState)
     }
 
@@ -8014,6 +8210,9 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiUseFeatureA(szProduct, szFeature) {
+        szProduct := szProduct is String? StrPtr(szProduct) : szProduct
+        szFeature := szFeature is String? StrPtr(szFeature) : szFeature
+
         DllCall("msi.dll\MsiUseFeatureA", "ptr", szProduct, "ptr", szFeature)
     }
 
@@ -8039,6 +8238,9 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiUseFeatureW(szProduct, szFeature) {
+        szProduct := szProduct is String? StrPtr(szProduct) : szProduct
+        szFeature := szFeature is String? StrPtr(szFeature) : szFeature
+
         DllCall("msi.dll\MsiUseFeatureW", "ptr", szProduct, "ptr", szFeature)
     }
 
@@ -8086,6 +8288,9 @@ class ApplicationInstallationAndServicing {
     static MsiUseFeatureExA(szProduct, szFeature, dwInstallMode) {
         static dwReserved := 0 ;Reserved parameters must always be NULL
 
+        szProduct := szProduct is String? StrPtr(szProduct) : szProduct
+        szFeature := szFeature is String? StrPtr(szFeature) : szFeature
+
         DllCall("msi.dll\MsiUseFeatureExA", "ptr", szProduct, "ptr", szFeature, "uint", dwInstallMode, "uint", dwReserved)
     }
 
@@ -8132,6 +8337,9 @@ class ApplicationInstallationAndServicing {
      */
     static MsiUseFeatureExW(szProduct, szFeature, dwInstallMode) {
         static dwReserved := 0 ;Reserved parameters must always be NULL
+
+        szProduct := szProduct is String? StrPtr(szProduct) : szProduct
+        szFeature := szFeature is String? StrPtr(szFeature) : szFeature
 
         DllCall("msi.dll\MsiUseFeatureExW", "ptr", szProduct, "ptr", szFeature, "uint", dwInstallMode, "uint", dwReserved)
     }
@@ -8192,6 +8400,9 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiGetFeatureUsageA(szProduct, szFeature, pdwUseCount, pwDateUsed) {
+        szProduct := szProduct is String? StrPtr(szProduct) : szProduct
+        szFeature := szFeature is String? StrPtr(szFeature) : szFeature
+
         DllCall("msi.dll\MsiGetFeatureUsageA", "ptr", szProduct, "ptr", szFeature, "ptr", pdwUseCount, "ptr", pwDateUsed)
     }
 
@@ -8251,6 +8462,9 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiGetFeatureUsageW(szProduct, szFeature, pdwUseCount, pwDateUsed) {
+        szProduct := szProduct is String? StrPtr(szProduct) : szProduct
+        szFeature := szFeature is String? StrPtr(szFeature) : szFeature
+
         DllCall("msi.dll\MsiGetFeatureUsageW", "ptr", szProduct, "ptr", szFeature, "ptr", pdwUseCount, "ptr", pwDateUsed)
     }
 
@@ -8267,6 +8481,9 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiConfigureFeatureA(szProduct, szFeature, eInstallState) {
+        szProduct := szProduct is String? StrPtr(szProduct) : szProduct
+        szFeature := szFeature is String? StrPtr(szFeature) : szFeature
+
         DllCall("msi.dll\MsiConfigureFeatureA", "ptr", szProduct, "ptr", szFeature, "int", eInstallState)
     }
 
@@ -8283,6 +8500,9 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiConfigureFeatureW(szProduct, szFeature, eInstallState) {
+        szProduct := szProduct is String? StrPtr(szProduct) : szProduct
+        szFeature := szFeature is String? StrPtr(szFeature) : szFeature
+
         DllCall("msi.dll\MsiConfigureFeatureW", "ptr", szProduct, "ptr", szFeature, "int", eInstallState)
     }
 
@@ -8299,6 +8519,9 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiReinstallFeatureA(szProduct, szFeature, dwReinstallMode) {
+        szProduct := szProduct is String? StrPtr(szProduct) : szProduct
+        szFeature := szFeature is String? StrPtr(szFeature) : szFeature
+
         DllCall("msi.dll\MsiReinstallFeatureA", "ptr", szProduct, "ptr", szFeature, "uint", dwReinstallMode)
     }
 
@@ -8315,6 +8538,9 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiReinstallFeatureW(szProduct, szFeature, dwReinstallMode) {
+        szProduct := szProduct is String? StrPtr(szProduct) : szProduct
+        szFeature := szFeature is String? StrPtr(szFeature) : szFeature
+
         DllCall("msi.dll\MsiReinstallFeatureW", "ptr", szProduct, "ptr", szFeature, "uint", dwReinstallMode)
     }
 
@@ -8364,6 +8590,11 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiProvideComponentA(szProduct, szFeature, szComponent, dwInstallMode, lpPathBuf, pcchPathBuf) {
+        szProduct := szProduct is String? StrPtr(szProduct) : szProduct
+        szFeature := szFeature is String? StrPtr(szFeature) : szFeature
+        szComponent := szComponent is String? StrPtr(szComponent) : szComponent
+        lpPathBuf := lpPathBuf is String? StrPtr(lpPathBuf) : lpPathBuf
+
         DllCall("msi.dll\MsiProvideComponentA", "ptr", szProduct, "ptr", szFeature, "ptr", szComponent, "uint", dwInstallMode, "ptr", lpPathBuf, "ptr", pcchPathBuf)
     }
 
@@ -8413,6 +8644,11 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiProvideComponentW(szProduct, szFeature, szComponent, dwInstallMode, lpPathBuf, pcchPathBuf) {
+        szProduct := szProduct is String? StrPtr(szProduct) : szProduct
+        szFeature := szFeature is String? StrPtr(szFeature) : szFeature
+        szComponent := szComponent is String? StrPtr(szComponent) : szComponent
+        lpPathBuf := lpPathBuf is String? StrPtr(lpPathBuf) : lpPathBuf
+
         DllCall("msi.dll\MsiProvideComponentW", "ptr", szProduct, "ptr", szFeature, "ptr", szComponent, "uint", dwInstallMode, "ptr", lpPathBuf, "ptr", pcchPathBuf)
     }
 
@@ -8448,6 +8684,10 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiProvideQualifiedComponentA(szCategory, szQualifier, dwInstallMode, lpPathBuf, pcchPathBuf) {
+        szCategory := szCategory is String? StrPtr(szCategory) : szCategory
+        szQualifier := szQualifier is String? StrPtr(szQualifier) : szQualifier
+        lpPathBuf := lpPathBuf is String? StrPtr(lpPathBuf) : lpPathBuf
+
         DllCall("msi.dll\MsiProvideQualifiedComponentA", "ptr", szCategory, "ptr", szQualifier, "uint", dwInstallMode, "ptr", lpPathBuf, "ptr", pcchPathBuf)
     }
 
@@ -8483,6 +8723,10 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiProvideQualifiedComponentW(szCategory, szQualifier, dwInstallMode, lpPathBuf, pcchPathBuf) {
+        szCategory := szCategory is String? StrPtr(szCategory) : szCategory
+        szQualifier := szQualifier is String? StrPtr(szQualifier) : szQualifier
+        lpPathBuf := lpPathBuf is String? StrPtr(lpPathBuf) : lpPathBuf
+
         DllCall("msi.dll\MsiProvideQualifiedComponentW", "ptr", szCategory, "ptr", szQualifier, "uint", dwInstallMode, "ptr", lpPathBuf, "ptr", pcchPathBuf)
     }
 
@@ -8522,6 +8766,11 @@ class ApplicationInstallationAndServicing {
     static MsiProvideQualifiedComponentExA(szCategory, szQualifier, dwInstallMode, szProduct, lpPathBuf, pcchPathBuf) {
         static dwUnused1 := 0, dwUnused2 := 0 ;Reserved parameters must always be NULL
 
+        szCategory := szCategory is String? StrPtr(szCategory) : szCategory
+        szQualifier := szQualifier is String? StrPtr(szQualifier) : szQualifier
+        szProduct := szProduct is String? StrPtr(szProduct) : szProduct
+        lpPathBuf := lpPathBuf is String? StrPtr(lpPathBuf) : lpPathBuf
+
         DllCall("msi.dll\MsiProvideQualifiedComponentExA", "ptr", szCategory, "ptr", szQualifier, "uint", dwInstallMode, "ptr", szProduct, "uint", dwUnused1, "uint", dwUnused2, "ptr", lpPathBuf, "ptr", pcchPathBuf)
     }
 
@@ -8560,6 +8809,11 @@ class ApplicationInstallationAndServicing {
      */
     static MsiProvideQualifiedComponentExW(szCategory, szQualifier, dwInstallMode, szProduct, lpPathBuf, pcchPathBuf) {
         static dwUnused1 := 0, dwUnused2 := 0 ;Reserved parameters must always be NULL
+
+        szCategory := szCategory is String? StrPtr(szCategory) : szCategory
+        szQualifier := szQualifier is String? StrPtr(szQualifier) : szQualifier
+        szProduct := szProduct is String? StrPtr(szProduct) : szProduct
+        lpPathBuf := lpPathBuf is String? StrPtr(lpPathBuf) : lpPathBuf
 
         DllCall("msi.dll\MsiProvideQualifiedComponentExW", "ptr", szCategory, "ptr", szQualifier, "uint", dwInstallMode, "ptr", szProduct, "uint", dwUnused1, "uint", dwUnused2, "ptr", lpPathBuf, "ptr", pcchPathBuf)
     }
@@ -8668,6 +8922,10 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiGetComponentPathA(szProduct, szComponent, lpPathBuf, pcchBuf) {
+        szProduct := szProduct is String? StrPtr(szProduct) : szProduct
+        szComponent := szComponent is String? StrPtr(szComponent) : szComponent
+        lpPathBuf := lpPathBuf is String? StrPtr(lpPathBuf) : lpPathBuf
+
         DllCall("msi.dll\MsiGetComponentPathA", "ptr", szProduct, "ptr", szComponent, "ptr", lpPathBuf, "ptr", pcchBuf)
     }
 
@@ -8775,6 +9033,10 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiGetComponentPathW(szProduct, szComponent, lpPathBuf, pcchBuf) {
+        szProduct := szProduct is String? StrPtr(szProduct) : szProduct
+        szComponent := szComponent is String? StrPtr(szComponent) : szComponent
+        lpPathBuf := lpPathBuf is String? StrPtr(lpPathBuf) : lpPathBuf
+
         DllCall("msi.dll\MsiGetComponentPathW", "ptr", szProduct, "ptr", szComponent, "ptr", lpPathBuf, "ptr", pcchBuf)
     }
 
@@ -8917,6 +9179,11 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiGetComponentPathExA(szProductCode, szComponentCode, szUserSid, dwContext, lpOutPathBuffer, pcchOutPathBuffer) {
+        szProductCode := szProductCode is String? StrPtr(szProductCode) : szProductCode
+        szComponentCode := szComponentCode is String? StrPtr(szComponentCode) : szComponentCode
+        szUserSid := szUserSid is String? StrPtr(szUserSid) : szUserSid
+        lpOutPathBuffer := lpOutPathBuffer is String? StrPtr(lpOutPathBuffer) : lpOutPathBuffer
+
         DllCall("msi.dll\MsiGetComponentPathExA", "ptr", szProductCode, "ptr", szComponentCode, "ptr", szUserSid, "int", dwContext, "ptr", lpOutPathBuffer, "ptr", pcchOutPathBuffer)
     }
 
@@ -9059,6 +9326,11 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiGetComponentPathExW(szProductCode, szComponentCode, szUserSid, dwContext, lpOutPathBuffer, pcchOutPathBuffer) {
+        szProductCode := szProductCode is String? StrPtr(szProductCode) : szProductCode
+        szComponentCode := szComponentCode is String? StrPtr(szComponentCode) : szComponentCode
+        szUserSid := szUserSid is String? StrPtr(szUserSid) : szUserSid
+        lpOutPathBuffer := lpOutPathBuffer is String? StrPtr(lpOutPathBuffer) : lpOutPathBuffer
+
         DllCall("msi.dll\MsiGetComponentPathExW", "ptr", szProductCode, "ptr", szComponentCode, "ptr", szUserSid, "int", dwContext, "ptr", lpOutPathBuffer, "ptr", pcchOutPathBuffer)
     }
 
@@ -9095,6 +9367,10 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiProvideAssemblyA(szAssemblyName, szAppContext, dwInstallMode, dwAssemblyInfo, lpPathBuf, pcchPathBuf) {
+        szAssemblyName := szAssemblyName is String? StrPtr(szAssemblyName) : szAssemblyName
+        szAppContext := szAppContext is String? StrPtr(szAppContext) : szAppContext
+        lpPathBuf := lpPathBuf is String? StrPtr(lpPathBuf) : lpPathBuf
+
         DllCall("msi.dll\MsiProvideAssemblyA", "ptr", szAssemblyName, "ptr", szAppContext, "uint", dwInstallMode, "uint", dwAssemblyInfo, "ptr", lpPathBuf, "ptr", pcchPathBuf)
     }
 
@@ -9131,6 +9407,10 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiProvideAssemblyW(szAssemblyName, szAppContext, dwInstallMode, dwAssemblyInfo, lpPathBuf, pcchPathBuf) {
+        szAssemblyName := szAssemblyName is String? StrPtr(szAssemblyName) : szAssemblyName
+        szAppContext := szAppContext is String? StrPtr(szAppContext) : szAppContext
+        lpPathBuf := lpPathBuf is String? StrPtr(lpPathBuf) : lpPathBuf
+
         DllCall("msi.dll\MsiProvideAssemblyW", "ptr", szAssemblyName, "ptr", szAppContext, "uint", dwInstallMode, "uint", dwAssemblyInfo, "ptr", lpPathBuf, "ptr", pcchPathBuf)
     }
 
@@ -9244,6 +9524,10 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiQueryComponentStateA(szProductCode, szUserSid, dwContext, szComponentCode, pdwState) {
+        szProductCode := szProductCode is String? StrPtr(szProductCode) : szProductCode
+        szUserSid := szUserSid is String? StrPtr(szUserSid) : szUserSid
+        szComponentCode := szComponentCode is String? StrPtr(szComponentCode) : szComponentCode
+
         DllCall("msi.dll\MsiQueryComponentStateA", "ptr", szProductCode, "ptr", szUserSid, "int", dwContext, "ptr", szComponentCode, "ptr", pdwState)
     }
 
@@ -9357,6 +9641,10 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiQueryComponentStateW(szProductCode, szUserSid, dwContext, szComponentCode, pdwState) {
+        szProductCode := szProductCode is String? StrPtr(szProductCode) : szProductCode
+        szUserSid := szUserSid is String? StrPtr(szUserSid) : szUserSid
+        szComponentCode := szComponentCode is String? StrPtr(szComponentCode) : szComponentCode
+
         DllCall("msi.dll\MsiQueryComponentStateW", "ptr", szProductCode, "ptr", szUserSid, "int", dwContext, "ptr", szComponentCode, "ptr", pdwState)
     }
 
@@ -9384,6 +9672,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiEnumProductsA(iProductIndex, lpProductBuf) {
+        lpProductBuf := lpProductBuf is String? StrPtr(lpProductBuf) : lpProductBuf
+
         DllCall("msi.dll\MsiEnumProductsA", "uint", iProductIndex, "ptr", lpProductBuf)
     }
 
@@ -9411,6 +9701,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiEnumProductsW(iProductIndex, lpProductBuf) {
+        lpProductBuf := lpProductBuf is String? StrPtr(lpProductBuf) : lpProductBuf
+
         DllCall("msi.dll\MsiEnumProductsW", "uint", iProductIndex, "ptr", lpProductBuf)
     }
 
@@ -9533,6 +9825,11 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiEnumProductsExA(szProductCode, szUserSid, dwContext, dwIndex, szInstalledProductCode, pdwInstalledContext, szSid, pcchSid) {
+        szProductCode := szProductCode is String? StrPtr(szProductCode) : szProductCode
+        szUserSid := szUserSid is String? StrPtr(szUserSid) : szUserSid
+        szInstalledProductCode := szInstalledProductCode is String? StrPtr(szInstalledProductCode) : szInstalledProductCode
+        szSid := szSid is String? StrPtr(szSid) : szSid
+
         DllCall("msi.dll\MsiEnumProductsExA", "ptr", szProductCode, "ptr", szUserSid, "uint", dwContext, "uint", dwIndex, "ptr", szInstalledProductCode, "ptr", pdwInstalledContext, "ptr", szSid, "ptr", pcchSid)
     }
 
@@ -9655,6 +9952,11 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiEnumProductsExW(szProductCode, szUserSid, dwContext, dwIndex, szInstalledProductCode, pdwInstalledContext, szSid, pcchSid) {
+        szProductCode := szProductCode is String? StrPtr(szProductCode) : szProductCode
+        szUserSid := szUserSid is String? StrPtr(szUserSid) : szUserSid
+        szInstalledProductCode := szInstalledProductCode is String? StrPtr(szInstalledProductCode) : szInstalledProductCode
+        szSid := szSid is String? StrPtr(szSid) : szSid
+
         DllCall("msi.dll\MsiEnumProductsExW", "ptr", szProductCode, "ptr", szUserSid, "uint", dwContext, "uint", dwIndex, "ptr", szInstalledProductCode, "ptr", pdwInstalledContext, "ptr", szSid, "ptr", pcchSid)
     }
 
@@ -9686,6 +9988,9 @@ class ApplicationInstallationAndServicing {
      */
     static MsiEnumRelatedProductsA(lpUpgradeCode, iProductIndex, lpProductBuf) {
         static dwReserved := 0 ;Reserved parameters must always be NULL
+
+        lpUpgradeCode := lpUpgradeCode is String? StrPtr(lpUpgradeCode) : lpUpgradeCode
+        lpProductBuf := lpProductBuf is String? StrPtr(lpProductBuf) : lpProductBuf
 
         DllCall("msi.dll\MsiEnumRelatedProductsA", "ptr", lpUpgradeCode, "uint", dwReserved, "uint", iProductIndex, "ptr", lpProductBuf)
     }
@@ -9719,6 +10024,9 @@ class ApplicationInstallationAndServicing {
     static MsiEnumRelatedProductsW(lpUpgradeCode, iProductIndex, lpProductBuf) {
         static dwReserved := 0 ;Reserved parameters must always be NULL
 
+        lpUpgradeCode := lpUpgradeCode is String? StrPtr(lpUpgradeCode) : lpUpgradeCode
+        lpProductBuf := lpProductBuf is String? StrPtr(lpProductBuf) : lpProductBuf
+
         DllCall("msi.dll\MsiEnumRelatedProductsW", "ptr", lpUpgradeCode, "uint", dwReserved, "uint", iProductIndex, "ptr", lpProductBuf)
     }
 
@@ -9745,6 +10053,10 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiEnumFeaturesA(szProduct, iFeatureIndex, lpFeatureBuf, lpParentBuf) {
+        szProduct := szProduct is String? StrPtr(szProduct) : szProduct
+        lpFeatureBuf := lpFeatureBuf is String? StrPtr(lpFeatureBuf) : lpFeatureBuf
+        lpParentBuf := lpParentBuf is String? StrPtr(lpParentBuf) : lpParentBuf
+
         DllCall("msi.dll\MsiEnumFeaturesA", "ptr", szProduct, "uint", iFeatureIndex, "ptr", lpFeatureBuf, "ptr", lpParentBuf)
     }
 
@@ -9771,6 +10083,10 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiEnumFeaturesW(szProduct, iFeatureIndex, lpFeatureBuf, lpParentBuf) {
+        szProduct := szProduct is String? StrPtr(szProduct) : szProduct
+        lpFeatureBuf := lpFeatureBuf is String? StrPtr(lpFeatureBuf) : lpFeatureBuf
+        lpParentBuf := lpParentBuf is String? StrPtr(lpParentBuf) : lpParentBuf
+
         DllCall("msi.dll\MsiEnumFeaturesW", "ptr", szProduct, "uint", iFeatureIndex, "ptr", lpFeatureBuf, "ptr", lpParentBuf)
     }
 
@@ -9799,6 +10115,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiEnumComponentsA(iComponentIndex, lpComponentBuf) {
+        lpComponentBuf := lpComponentBuf is String? StrPtr(lpComponentBuf) : lpComponentBuf
+
         DllCall("msi.dll\MsiEnumComponentsA", "uint", iComponentIndex, "ptr", lpComponentBuf)
     }
 
@@ -9827,6 +10145,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiEnumComponentsW(iComponentIndex, lpComponentBuf) {
+        lpComponentBuf := lpComponentBuf is String? StrPtr(lpComponentBuf) : lpComponentBuf
+
         DllCall("msi.dll\MsiEnumComponentsW", "uint", iComponentIndex, "ptr", lpComponentBuf)
     }
 
@@ -10012,6 +10332,10 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiEnumComponentsExA(szUserSid, dwContext, dwIndex, szInstalledComponentCode, pdwInstalledContext, szSid, pcchSid) {
+        szUserSid := szUserSid is String? StrPtr(szUserSid) : szUserSid
+        szInstalledComponentCode := szInstalledComponentCode is String? StrPtr(szInstalledComponentCode) : szInstalledComponentCode
+        szSid := szSid is String? StrPtr(szSid) : szSid
+
         DllCall("msi.dll\MsiEnumComponentsExA", "ptr", szUserSid, "uint", dwContext, "uint", dwIndex, "ptr", szInstalledComponentCode, "ptr", pdwInstalledContext, "ptr", szSid, "ptr", pcchSid)
     }
 
@@ -10197,6 +10521,10 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiEnumComponentsExW(szUserSid, dwContext, dwIndex, szInstalledComponentCode, pdwInstalledContext, szSid, pcchSid) {
+        szUserSid := szUserSid is String? StrPtr(szUserSid) : szUserSid
+        szInstalledComponentCode := szInstalledComponentCode is String? StrPtr(szInstalledComponentCode) : szInstalledComponentCode
+        szSid := szSid is String? StrPtr(szSid) : szSid
+
         DllCall("msi.dll\MsiEnumComponentsExW", "ptr", szUserSid, "uint", dwContext, "uint", dwIndex, "ptr", szInstalledComponentCode, "ptr", pdwInstalledContext, "ptr", szSid, "ptr", pcchSid)
     }
 
@@ -10225,6 +10553,9 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiEnumClientsA(szComponent, iProductIndex, lpProductBuf) {
+        szComponent := szComponent is String? StrPtr(szComponent) : szComponent
+        lpProductBuf := lpProductBuf is String? StrPtr(lpProductBuf) : lpProductBuf
+
         DllCall("msi.dll\MsiEnumClientsA", "ptr", szComponent, "uint", iProductIndex, "ptr", lpProductBuf)
     }
 
@@ -10253,6 +10584,9 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiEnumClientsW(szComponent, iProductIndex, lpProductBuf) {
+        szComponent := szComponent is String? StrPtr(szComponent) : szComponent
+        lpProductBuf := lpProductBuf is String? StrPtr(lpProductBuf) : lpProductBuf
+
         DllCall("msi.dll\MsiEnumClientsW", "ptr", szComponent, "uint", iProductIndex, "ptr", lpProductBuf)
     }
 
@@ -10354,6 +10688,11 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiEnumClientsExA(szComponent, szUserSid, dwContext, dwProductIndex, szProductBuf, pdwInstalledContext, szSid, pcchSid) {
+        szComponent := szComponent is String? StrPtr(szComponent) : szComponent
+        szUserSid := szUserSid is String? StrPtr(szUserSid) : szUserSid
+        szProductBuf := szProductBuf is String? StrPtr(szProductBuf) : szProductBuf
+        szSid := szSid is String? StrPtr(szSid) : szSid
+
         DllCall("msi.dll\MsiEnumClientsExA", "ptr", szComponent, "ptr", szUserSid, "uint", dwContext, "uint", dwProductIndex, "ptr", szProductBuf, "ptr", pdwInstalledContext, "ptr", szSid, "ptr", pcchSid)
     }
 
@@ -10455,6 +10794,11 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiEnumClientsExW(szComponent, szUserSid, dwContext, dwProductIndex, szProductBuf, pdwInstalledContext, szSid, pcchSid) {
+        szComponent := szComponent is String? StrPtr(szComponent) : szComponent
+        szUserSid := szUserSid is String? StrPtr(szUserSid) : szUserSid
+        szProductBuf := szProductBuf is String? StrPtr(szProductBuf) : szProductBuf
+        szSid := szSid is String? StrPtr(szSid) : szSid
+
         DllCall("msi.dll\MsiEnumClientsExW", "ptr", szComponent, "ptr", szUserSid, "uint", dwContext, "uint", dwProductIndex, "ptr", szProductBuf, "ptr", pdwInstalledContext, "ptr", szSid, "ptr", pcchSid)
     }
 
@@ -10491,6 +10835,10 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiEnumComponentQualifiersA(szComponent, iIndex, lpQualifierBuf, pcchQualifierBuf, lpApplicationDataBuf, pcchApplicationDataBuf) {
+        szComponent := szComponent is String? StrPtr(szComponent) : szComponent
+        lpQualifierBuf := lpQualifierBuf is String? StrPtr(lpQualifierBuf) : lpQualifierBuf
+        lpApplicationDataBuf := lpApplicationDataBuf is String? StrPtr(lpApplicationDataBuf) : lpApplicationDataBuf
+
         DllCall("msi.dll\MsiEnumComponentQualifiersA", "ptr", szComponent, "uint", iIndex, "ptr", lpQualifierBuf, "ptr", pcchQualifierBuf, "ptr", lpApplicationDataBuf, "ptr", pcchApplicationDataBuf)
     }
 
@@ -10527,6 +10875,10 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiEnumComponentQualifiersW(szComponent, iIndex, lpQualifierBuf, pcchQualifierBuf, lpApplicationDataBuf, pcchApplicationDataBuf) {
+        szComponent := szComponent is String? StrPtr(szComponent) : szComponent
+        lpQualifierBuf := lpQualifierBuf is String? StrPtr(lpQualifierBuf) : lpQualifierBuf
+        lpApplicationDataBuf := lpApplicationDataBuf is String? StrPtr(lpApplicationDataBuf) : lpApplicationDataBuf
+
         DllCall("msi.dll\MsiEnumComponentQualifiersW", "ptr", szComponent, "uint", iIndex, "ptr", lpQualifierBuf, "ptr", pcchQualifierBuf, "ptr", lpApplicationDataBuf, "ptr", pcchApplicationDataBuf)
     }
 
@@ -10542,6 +10894,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiOpenProductA(szProduct, hProduct) {
+        szProduct := szProduct is String? StrPtr(szProduct) : szProduct
+
         DllCall("msi.dll\MsiOpenProductA", "ptr", szProduct, "ptr", hProduct)
     }
 
@@ -10557,6 +10911,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiOpenProductW(szProduct, hProduct) {
+        szProduct := szProduct is String? StrPtr(szProduct) : szProduct
+
         DllCall("msi.dll\MsiOpenProductW", "ptr", szProduct, "ptr", hProduct)
     }
 
@@ -10578,6 +10934,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiOpenPackageA(szPackagePath, hProduct) {
+        szPackagePath := szPackagePath is String? StrPtr(szPackagePath) : szPackagePath
+
         DllCall("msi.dll\MsiOpenPackageA", "ptr", szPackagePath, "ptr", hProduct)
     }
 
@@ -10599,6 +10957,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiOpenPackageW(szPackagePath, hProduct) {
+        szPackagePath := szPackagePath is String? StrPtr(szPackagePath) : szPackagePath
+
         DllCall("msi.dll\MsiOpenPackageW", "ptr", szPackagePath, "ptr", hProduct)
     }
 
@@ -10712,6 +11072,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiOpenPackageExA(szPackagePath, dwOptions, hProduct) {
+        szPackagePath := szPackagePath is String? StrPtr(szPackagePath) : szPackagePath
+
         DllCall("msi.dll\MsiOpenPackageExA", "ptr", szPackagePath, "uint", dwOptions, "ptr", hProduct)
     }
 
@@ -10825,6 +11187,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiOpenPackageExW(szPackagePath, dwOptions, hProduct) {
+        szPackagePath := szPackagePath is String? StrPtr(szPackagePath) : szPackagePath
+
         DllCall("msi.dll\MsiOpenPackageExW", "ptr", szPackagePath, "uint", dwOptions, "ptr", hProduct)
     }
 
@@ -10857,6 +11221,9 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiGetPatchFileListA(szProductCode, szPatchPackages, pcFiles, pphFileRecords) {
+        szProductCode := szProductCode is String? StrPtr(szProductCode) : szProductCode
+        szPatchPackages := szPatchPackages is String? StrPtr(szPatchPackages) : szPatchPackages
+
         DllCall("msi.dll\MsiGetPatchFileListA", "ptr", szProductCode, "ptr", szPatchPackages, "ptr", pcFiles, "ptr", pphFileRecords)
     }
 
@@ -10889,6 +11256,9 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiGetPatchFileListW(szProductCode, szPatchPackages, pcFiles, pphFileRecords) {
+        szProductCode := szProductCode is String? StrPtr(szProductCode) : szProductCode
+        szPatchPackages := szPatchPackages is String? StrPtr(szPatchPackages) : szPatchPackages
+
         DllCall("msi.dll\MsiGetPatchFileListW", "ptr", szProductCode, "ptr", szPatchPackages, "ptr", pcFiles, "ptr", pphFileRecords)
     }
 
@@ -10921,6 +11291,9 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiGetProductPropertyA(hProduct, szProperty, lpValueBuf, pcchValueBuf) {
+        szProperty := szProperty is String? StrPtr(szProperty) : szProperty
+        lpValueBuf := lpValueBuf is String? StrPtr(lpValueBuf) : lpValueBuf
+
         DllCall("msi.dll\MsiGetProductPropertyA", "uint", hProduct, "ptr", szProperty, "ptr", lpValueBuf, "ptr", pcchValueBuf)
     }
 
@@ -10953,6 +11326,9 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiGetProductPropertyW(hProduct, szProperty, lpValueBuf, pcchValueBuf) {
+        szProperty := szProperty is String? StrPtr(szProperty) : szProperty
+        lpValueBuf := lpValueBuf is String? StrPtr(lpValueBuf) : lpValueBuf
+
         DllCall("msi.dll\MsiGetProductPropertyW", "uint", hProduct, "ptr", szProperty, "ptr", lpValueBuf, "ptr", pcchValueBuf)
     }
 
@@ -10967,6 +11343,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiVerifyPackageA(szPackagePath) {
+        szPackagePath := szPackagePath is String? StrPtr(szPackagePath) : szPackagePath
+
         DllCall("msi.dll\MsiVerifyPackageA", "ptr", szPackagePath)
     }
 
@@ -10981,6 +11359,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiVerifyPackageW(szPackagePath) {
+        szPackagePath := szPackagePath is String? StrPtr(szPackagePath) : szPackagePath
+
         DllCall("msi.dll\MsiVerifyPackageW", "ptr", szPackagePath)
     }
 
@@ -11013,6 +11393,10 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiGetFeatureInfoA(hProduct, szFeature, lpAttributes, lpTitleBuf, pcchTitleBuf, lpHelpBuf, pcchHelpBuf) {
+        szFeature := szFeature is String? StrPtr(szFeature) : szFeature
+        lpTitleBuf := lpTitleBuf is String? StrPtr(lpTitleBuf) : lpTitleBuf
+        lpHelpBuf := lpHelpBuf is String? StrPtr(lpHelpBuf) : lpHelpBuf
+
         DllCall("msi.dll\MsiGetFeatureInfoA", "uint", hProduct, "ptr", szFeature, "ptr", lpAttributes, "ptr", lpTitleBuf, "ptr", pcchTitleBuf, "ptr", lpHelpBuf, "ptr", pcchHelpBuf)
     }
 
@@ -11045,6 +11429,10 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiGetFeatureInfoW(hProduct, szFeature, lpAttributes, lpTitleBuf, pcchTitleBuf, lpHelpBuf, pcchHelpBuf) {
+        szFeature := szFeature is String? StrPtr(szFeature) : szFeature
+        lpTitleBuf := lpTitleBuf is String? StrPtr(lpTitleBuf) : lpTitleBuf
+        lpHelpBuf := lpHelpBuf is String? StrPtr(lpHelpBuf) : lpHelpBuf
+
         DllCall("msi.dll\MsiGetFeatureInfoW", "uint", hProduct, "ptr", szFeature, "ptr", lpAttributes, "ptr", lpTitleBuf, "ptr", pcchTitleBuf, "ptr", lpHelpBuf, "ptr", pcchHelpBuf)
     }
 
@@ -11068,6 +11456,9 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiInstallMissingComponentA(szProduct, szComponent, eInstallState) {
+        szProduct := szProduct is String? StrPtr(szProduct) : szProduct
+        szComponent := szComponent is String? StrPtr(szComponent) : szComponent
+
         DllCall("msi.dll\MsiInstallMissingComponentA", "ptr", szProduct, "ptr", szComponent, "int", eInstallState)
     }
 
@@ -11091,6 +11482,9 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiInstallMissingComponentW(szProduct, szComponent, eInstallState) {
+        szProduct := szProduct is String? StrPtr(szProduct) : szProduct
+        szComponent := szComponent is String? StrPtr(szComponent) : szComponent
+
         DllCall("msi.dll\MsiInstallMissingComponentW", "ptr", szProduct, "ptr", szComponent, "int", eInstallState)
     }
 
@@ -11113,6 +11507,9 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiInstallMissingFileA(szProduct, szFile) {
+        szProduct := szProduct is String? StrPtr(szProduct) : szProduct
+        szFile := szFile is String? StrPtr(szFile) : szFile
+
         DllCall("msi.dll\MsiInstallMissingFileA", "ptr", szProduct, "ptr", szFile)
     }
 
@@ -11135,6 +11532,9 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiInstallMissingFileW(szProduct, szFile) {
+        szProduct := szProduct is String? StrPtr(szProduct) : szProduct
+        szFile := szFile is String? StrPtr(szFile) : szFile
+
         DllCall("msi.dll\MsiInstallMissingFileW", "ptr", szProduct, "ptr", szFile)
     }
 
@@ -11184,6 +11584,9 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiLocateComponentA(szComponent, lpPathBuf, pcchBuf) {
+        szComponent := szComponent is String? StrPtr(szComponent) : szComponent
+        lpPathBuf := lpPathBuf is String? StrPtr(lpPathBuf) : lpPathBuf
+
         DllCall("msi.dll\MsiLocateComponentA", "ptr", szComponent, "ptr", lpPathBuf, "ptr", pcchBuf)
     }
 
@@ -11233,6 +11636,9 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiLocateComponentW(szComponent, lpPathBuf, pcchBuf) {
+        szComponent := szComponent is String? StrPtr(szComponent) : szComponent
+        lpPathBuf := lpPathBuf is String? StrPtr(lpPathBuf) : lpPathBuf
+
         DllCall("msi.dll\MsiLocateComponentW", "ptr", szComponent, "ptr", lpPathBuf, "ptr", pcchBuf)
     }
 
@@ -11270,6 +11676,9 @@ class ApplicationInstallationAndServicing {
     static MsiSourceListClearAllA(szProduct, szUserName) {
         static dwReserved := 0 ;Reserved parameters must always be NULL
 
+        szProduct := szProduct is String? StrPtr(szProduct) : szProduct
+        szUserName := szUserName is String? StrPtr(szUserName) : szUserName
+
         DllCall("msi.dll\MsiSourceListClearAllA", "ptr", szProduct, "ptr", szUserName, "uint", dwReserved)
     }
 
@@ -11306,6 +11715,9 @@ class ApplicationInstallationAndServicing {
      */
     static MsiSourceListClearAllW(szProduct, szUserName) {
         static dwReserved := 0 ;Reserved parameters must always be NULL
+
+        szProduct := szProduct is String? StrPtr(szProduct) : szProduct
+        szUserName := szUserName is String? StrPtr(szUserName) : szUserName
 
         DllCall("msi.dll\MsiSourceListClearAllW", "ptr", szProduct, "ptr", szUserName, "uint", dwReserved)
     }
@@ -11351,6 +11763,10 @@ class ApplicationInstallationAndServicing {
     static MsiSourceListAddSourceA(szProduct, szUserName, szSource) {
         static dwReserved := 0 ;Reserved parameters must always be NULL
 
+        szProduct := szProduct is String? StrPtr(szProduct) : szProduct
+        szUserName := szUserName is String? StrPtr(szUserName) : szUserName
+        szSource := szSource is String? StrPtr(szSource) : szSource
+
         DllCall("msi.dll\MsiSourceListAddSourceA", "ptr", szProduct, "ptr", szUserName, "uint", dwReserved, "ptr", szSource)
     }
 
@@ -11395,6 +11811,10 @@ class ApplicationInstallationAndServicing {
     static MsiSourceListAddSourceW(szProduct, szUserName, szSource) {
         static dwReserved := 0 ;Reserved parameters must always be NULL
 
+        szProduct := szProduct is String? StrPtr(szProduct) : szProduct
+        szUserName := szUserName is String? StrPtr(szUserName) : szUserName
+        szSource := szSource is String? StrPtr(szSource) : szSource
+
         DllCall("msi.dll\MsiSourceListAddSourceW", "ptr", szProduct, "ptr", szUserName, "uint", dwReserved, "ptr", szSource)
     }
 
@@ -11428,6 +11848,9 @@ class ApplicationInstallationAndServicing {
     static MsiSourceListForceResolutionA(szProduct, szUserName) {
         static dwReserved := 0 ;Reserved parameters must always be NULL
 
+        szProduct := szProduct is String? StrPtr(szProduct) : szProduct
+        szUserName := szUserName is String? StrPtr(szUserName) : szUserName
+
         DllCall("msi.dll\MsiSourceListForceResolutionA", "ptr", szProduct, "ptr", szUserName, "uint", dwReserved)
     }
 
@@ -11460,6 +11883,9 @@ class ApplicationInstallationAndServicing {
      */
     static MsiSourceListForceResolutionW(szProduct, szUserName) {
         static dwReserved := 0 ;Reserved parameters must always be NULL
+
+        szProduct := szProduct is String? StrPtr(szProduct) : szProduct
+        szUserName := szUserName is String? StrPtr(szUserName) : szUserName
 
         DllCall("msi.dll\MsiSourceListForceResolutionW", "ptr", szProduct, "ptr", szUserName, "uint", dwReserved)
     }
@@ -11575,6 +12001,10 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiSourceListAddSourceExA(szProductCodeOrPatchCode, szUserSid, dwContext, dwOptions, szSource, dwIndex) {
+        szProductCodeOrPatchCode := szProductCodeOrPatchCode is String? StrPtr(szProductCodeOrPatchCode) : szProductCodeOrPatchCode
+        szUserSid := szUserSid is String? StrPtr(szUserSid) : szUserSid
+        szSource := szSource is String? StrPtr(szSource) : szSource
+
         DllCall("msi.dll\MsiSourceListAddSourceExA", "ptr", szProductCodeOrPatchCode, "ptr", szUserSid, "int", dwContext, "uint", dwOptions, "ptr", szSource, "uint", dwIndex)
     }
 
@@ -11689,6 +12119,10 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiSourceListAddSourceExW(szProductCodeOrPatchCode, szUserSid, dwContext, dwOptions, szSource, dwIndex) {
+        szProductCodeOrPatchCode := szProductCodeOrPatchCode is String? StrPtr(szProductCodeOrPatchCode) : szProductCodeOrPatchCode
+        szUserSid := szUserSid is String? StrPtr(szUserSid) : szUserSid
+        szSource := szSource is String? StrPtr(szSource) : szSource
+
         DllCall("msi.dll\MsiSourceListAddSourceExW", "ptr", szProductCodeOrPatchCode, "ptr", szUserSid, "int", dwContext, "uint", dwOptions, "ptr", szSource, "uint", dwIndex)
     }
 
@@ -11783,6 +12217,11 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiSourceListAddMediaDiskA(szProductCodeOrPatchCode, szUserSid, dwContext, dwOptions, dwDiskId, szVolumeLabel, szDiskPrompt) {
+        szProductCodeOrPatchCode := szProductCodeOrPatchCode is String? StrPtr(szProductCodeOrPatchCode) : szProductCodeOrPatchCode
+        szUserSid := szUserSid is String? StrPtr(szUserSid) : szUserSid
+        szVolumeLabel := szVolumeLabel is String? StrPtr(szVolumeLabel) : szVolumeLabel
+        szDiskPrompt := szDiskPrompt is String? StrPtr(szDiskPrompt) : szDiskPrompt
+
         DllCall("msi.dll\MsiSourceListAddMediaDiskA", "ptr", szProductCodeOrPatchCode, "ptr", szUserSid, "int", dwContext, "uint", dwOptions, "uint", dwDiskId, "ptr", szVolumeLabel, "ptr", szDiskPrompt)
     }
 
@@ -11877,6 +12316,11 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiSourceListAddMediaDiskW(szProductCodeOrPatchCode, szUserSid, dwContext, dwOptions, dwDiskId, szVolumeLabel, szDiskPrompt) {
+        szProductCodeOrPatchCode := szProductCodeOrPatchCode is String? StrPtr(szProductCodeOrPatchCode) : szProductCodeOrPatchCode
+        szUserSid := szUserSid is String? StrPtr(szUserSid) : szUserSid
+        szVolumeLabel := szVolumeLabel is String? StrPtr(szVolumeLabel) : szVolumeLabel
+        szDiskPrompt := szDiskPrompt is String? StrPtr(szDiskPrompt) : szDiskPrompt
+
         DllCall("msi.dll\MsiSourceListAddMediaDiskW", "ptr", szProductCodeOrPatchCode, "ptr", szUserSid, "int", dwContext, "uint", dwOptions, "uint", dwDiskId, "ptr", szVolumeLabel, "ptr", szDiskPrompt)
     }
 
@@ -11984,6 +12428,10 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiSourceListClearSourceA(szProductCodeOrPatchCode, szUserSid, dwContext, dwOptions, szSource) {
+        szProductCodeOrPatchCode := szProductCodeOrPatchCode is String? StrPtr(szProductCodeOrPatchCode) : szProductCodeOrPatchCode
+        szUserSid := szUserSid is String? StrPtr(szUserSid) : szUserSid
+        szSource := szSource is String? StrPtr(szSource) : szSource
+
         DllCall("msi.dll\MsiSourceListClearSourceA", "ptr", szProductCodeOrPatchCode, "ptr", szUserSid, "int", dwContext, "uint", dwOptions, "ptr", szSource)
     }
 
@@ -12091,6 +12539,10 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiSourceListClearSourceW(szProductCodeOrPatchCode, szUserSid, dwContext, dwOptions, szSource) {
+        szProductCodeOrPatchCode := szProductCodeOrPatchCode is String? StrPtr(szProductCodeOrPatchCode) : szProductCodeOrPatchCode
+        szUserSid := szUserSid is String? StrPtr(szUserSid) : szUserSid
+        szSource := szSource is String? StrPtr(szSource) : szSource
+
         DllCall("msi.dll\MsiSourceListClearSourceW", "ptr", szProductCodeOrPatchCode, "ptr", szUserSid, "int", dwContext, "uint", dwOptions, "ptr", szSource)
     }
 
@@ -12182,6 +12634,9 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiSourceListClearMediaDiskA(szProductCodeOrPatchCode, szUserSid, dwContext, dwOptions, dwDiskId) {
+        szProductCodeOrPatchCode := szProductCodeOrPatchCode is String? StrPtr(szProductCodeOrPatchCode) : szProductCodeOrPatchCode
+        szUserSid := szUserSid is String? StrPtr(szUserSid) : szUserSid
+
         DllCall("msi.dll\MsiSourceListClearMediaDiskA", "ptr", szProductCodeOrPatchCode, "ptr", szUserSid, "int", dwContext, "uint", dwOptions, "uint", dwDiskId)
     }
 
@@ -12273,6 +12728,9 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiSourceListClearMediaDiskW(szProductCodeOrPatchCode, szUserSid, dwContext, dwOptions, dwDiskId) {
+        szProductCodeOrPatchCode := szProductCodeOrPatchCode is String? StrPtr(szProductCodeOrPatchCode) : szProductCodeOrPatchCode
+        szUserSid := szUserSid is String? StrPtr(szUserSid) : szUserSid
+
         DllCall("msi.dll\MsiSourceListClearMediaDiskW", "ptr", szProductCodeOrPatchCode, "ptr", szUserSid, "int", dwContext, "uint", dwOptions, "uint", dwDiskId)
     }
 
@@ -12359,6 +12817,9 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiSourceListClearAllExA(szProductCodeOrPatchCode, szUserSid, dwContext, dwOptions) {
+        szProductCodeOrPatchCode := szProductCodeOrPatchCode is String? StrPtr(szProductCodeOrPatchCode) : szProductCodeOrPatchCode
+        szUserSid := szUserSid is String? StrPtr(szUserSid) : szUserSid
+
         DllCall("msi.dll\MsiSourceListClearAllExA", "ptr", szProductCodeOrPatchCode, "ptr", szUserSid, "int", dwContext, "uint", dwOptions)
     }
 
@@ -12445,6 +12906,9 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiSourceListClearAllExW(szProductCodeOrPatchCode, szUserSid, dwContext, dwOptions) {
+        szProductCodeOrPatchCode := szProductCodeOrPatchCode is String? StrPtr(szProductCodeOrPatchCode) : szProductCodeOrPatchCode
+        szUserSid := szUserSid is String? StrPtr(szUserSid) : szUserSid
+
         DllCall("msi.dll\MsiSourceListClearAllExW", "ptr", szProductCodeOrPatchCode, "ptr", szUserSid, "int", dwContext, "uint", dwOptions)
     }
 
@@ -12501,6 +12965,9 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiSourceListForceResolutionExA(szProductCodeOrPatchCode, szUserSid, dwContext, dwOptions) {
+        szProductCodeOrPatchCode := szProductCodeOrPatchCode is String? StrPtr(szProductCodeOrPatchCode) : szProductCodeOrPatchCode
+        szUserSid := szUserSid is String? StrPtr(szUserSid) : szUserSid
+
         DllCall("msi.dll\MsiSourceListForceResolutionExA", "ptr", szProductCodeOrPatchCode, "ptr", szUserSid, "int", dwContext, "uint", dwOptions)
     }
 
@@ -12557,6 +13024,9 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiSourceListForceResolutionExW(szProductCodeOrPatchCode, szUserSid, dwContext, dwOptions) {
+        szProductCodeOrPatchCode := szProductCodeOrPatchCode is String? StrPtr(szProductCodeOrPatchCode) : szProductCodeOrPatchCode
+        szUserSid := szUserSid is String? StrPtr(szUserSid) : szUserSid
+
         DllCall("msi.dll\MsiSourceListForceResolutionExW", "ptr", szProductCodeOrPatchCode, "ptr", szUserSid, "int", dwContext, "uint", dwOptions)
     }
 
@@ -12668,6 +13138,11 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiSourceListSetInfoA(szProductCodeOrPatchCode, szUserSid, dwContext, dwOptions, szProperty, szValue) {
+        szProductCodeOrPatchCode := szProductCodeOrPatchCode is String? StrPtr(szProductCodeOrPatchCode) : szProductCodeOrPatchCode
+        szUserSid := szUserSid is String? StrPtr(szUserSid) : szUserSid
+        szProperty := szProperty is String? StrPtr(szProperty) : szProperty
+        szValue := szValue is String? StrPtr(szValue) : szValue
+
         DllCall("msi.dll\MsiSourceListSetInfoA", "ptr", szProductCodeOrPatchCode, "ptr", szUserSid, "int", dwContext, "uint", dwOptions, "ptr", szProperty, "ptr", szValue)
     }
 
@@ -12779,6 +13254,11 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiSourceListSetInfoW(szProductCodeOrPatchCode, szUserSid, dwContext, dwOptions, szProperty, szValue) {
+        szProductCodeOrPatchCode := szProductCodeOrPatchCode is String? StrPtr(szProductCodeOrPatchCode) : szProductCodeOrPatchCode
+        szUserSid := szUserSid is String? StrPtr(szUserSid) : szUserSid
+        szProperty := szProperty is String? StrPtr(szProperty) : szProperty
+        szValue := szValue is String? StrPtr(szValue) : szValue
+
         DllCall("msi.dll\MsiSourceListSetInfoW", "ptr", szProductCodeOrPatchCode, "ptr", szUserSid, "int", dwContext, "uint", dwOptions, "ptr", szProperty, "ptr", szValue)
     }
 
@@ -12879,6 +13359,11 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiSourceListGetInfoA(szProductCodeOrPatchCode, szUserSid, dwContext, dwOptions, szProperty, szValue, pcchValue) {
+        szProductCodeOrPatchCode := szProductCodeOrPatchCode is String? StrPtr(szProductCodeOrPatchCode) : szProductCodeOrPatchCode
+        szUserSid := szUserSid is String? StrPtr(szUserSid) : szUserSid
+        szProperty := szProperty is String? StrPtr(szProperty) : szProperty
+        szValue := szValue is String? StrPtr(szValue) : szValue
+
         DllCall("msi.dll\MsiSourceListGetInfoA", "ptr", szProductCodeOrPatchCode, "ptr", szUserSid, "int", dwContext, "uint", dwOptions, "ptr", szProperty, "ptr", szValue, "ptr", pcchValue)
     }
 
@@ -12979,6 +13464,11 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiSourceListGetInfoW(szProductCodeOrPatchCode, szUserSid, dwContext, dwOptions, szProperty, szValue, pcchValue) {
+        szProductCodeOrPatchCode := szProductCodeOrPatchCode is String? StrPtr(szProductCodeOrPatchCode) : szProductCodeOrPatchCode
+        szUserSid := szUserSid is String? StrPtr(szUserSid) : szUserSid
+        szProperty := szProperty is String? StrPtr(szProperty) : szProperty
+        szValue := szValue is String? StrPtr(szValue) : szValue
+
         DllCall("msi.dll\MsiSourceListGetInfoW", "ptr", szProductCodeOrPatchCode, "ptr", szUserSid, "int", dwContext, "uint", dwOptions, "ptr", szProperty, "ptr", szValue, "ptr", pcchValue)
     }
 
@@ -13110,6 +13600,10 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiSourceListEnumSourcesA(szProductCodeOrPatchCode, szUserSid, dwContext, dwOptions, dwIndex, szSource, pcchSource) {
+        szProductCodeOrPatchCode := szProductCodeOrPatchCode is String? StrPtr(szProductCodeOrPatchCode) : szProductCodeOrPatchCode
+        szUserSid := szUserSid is String? StrPtr(szUserSid) : szUserSid
+        szSource := szSource is String? StrPtr(szSource) : szSource
+
         DllCall("msi.dll\MsiSourceListEnumSourcesA", "ptr", szProductCodeOrPatchCode, "ptr", szUserSid, "int", dwContext, "uint", dwOptions, "uint", dwIndex, "ptr", szSource, "ptr", pcchSource)
     }
 
@@ -13241,6 +13735,10 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiSourceListEnumSourcesW(szProductCodeOrPatchCode, szUserSid, dwContext, dwOptions, dwIndex, szSource, pcchSource) {
+        szProductCodeOrPatchCode := szProductCodeOrPatchCode is String? StrPtr(szProductCodeOrPatchCode) : szProductCodeOrPatchCode
+        szUserSid := szUserSid is String? StrPtr(szUserSid) : szUserSid
+        szSource := szSource is String? StrPtr(szSource) : szSource
+
         DllCall("msi.dll\MsiSourceListEnumSourcesW", "ptr", szProductCodeOrPatchCode, "ptr", szUserSid, "int", dwContext, "uint", dwOptions, "uint", dwIndex, "ptr", szSource, "ptr", pcchSource)
     }
 
@@ -13361,6 +13859,11 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiSourceListEnumMediaDisksA(szProductCodeOrPatchCode, szUserSid, dwContext, dwOptions, dwIndex, pdwDiskId, szVolumeLabel, pcchVolumeLabel, szDiskPrompt, pcchDiskPrompt) {
+        szProductCodeOrPatchCode := szProductCodeOrPatchCode is String? StrPtr(szProductCodeOrPatchCode) : szProductCodeOrPatchCode
+        szUserSid := szUserSid is String? StrPtr(szUserSid) : szUserSid
+        szVolumeLabel := szVolumeLabel is String? StrPtr(szVolumeLabel) : szVolumeLabel
+        szDiskPrompt := szDiskPrompt is String? StrPtr(szDiskPrompt) : szDiskPrompt
+
         DllCall("msi.dll\MsiSourceListEnumMediaDisksA", "ptr", szProductCodeOrPatchCode, "ptr", szUserSid, "int", dwContext, "uint", dwOptions, "uint", dwIndex, "ptr", pdwDiskId, "ptr", szVolumeLabel, "ptr", pcchVolumeLabel, "ptr", szDiskPrompt, "ptr", pcchDiskPrompt)
     }
 
@@ -13481,6 +13984,11 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiSourceListEnumMediaDisksW(szProductCodeOrPatchCode, szUserSid, dwContext, dwOptions, dwIndex, pdwDiskId, szVolumeLabel, pcchVolumeLabel, szDiskPrompt, pcchDiskPrompt) {
+        szProductCodeOrPatchCode := szProductCodeOrPatchCode is String? StrPtr(szProductCodeOrPatchCode) : szProductCodeOrPatchCode
+        szUserSid := szUserSid is String? StrPtr(szUserSid) : szUserSid
+        szVolumeLabel := szVolumeLabel is String? StrPtr(szVolumeLabel) : szVolumeLabel
+        szDiskPrompt := szDiskPrompt is String? StrPtr(szDiskPrompt) : szDiskPrompt
+
         DllCall("msi.dll\MsiSourceListEnumMediaDisksW", "ptr", szProductCodeOrPatchCode, "ptr", szUserSid, "int", dwContext, "uint", dwOptions, "uint", dwIndex, "ptr", pdwDiskId, "ptr", szVolumeLabel, "ptr", pcchVolumeLabel, "ptr", szDiskPrompt, "ptr", pcchDiskPrompt)
     }
 
@@ -13507,6 +14015,10 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiGetFileVersionA(szFilePath, lpVersionBuf, pcchVersionBuf, lpLangBuf, pcchLangBuf) {
+        szFilePath := szFilePath is String? StrPtr(szFilePath) : szFilePath
+        lpVersionBuf := lpVersionBuf is String? StrPtr(lpVersionBuf) : lpVersionBuf
+        lpLangBuf := lpLangBuf is String? StrPtr(lpLangBuf) : lpLangBuf
+
         DllCall("msi.dll\MsiGetFileVersionA", "ptr", szFilePath, "ptr", lpVersionBuf, "ptr", pcchVersionBuf, "ptr", lpLangBuf, "ptr", pcchLangBuf)
     }
 
@@ -13533,6 +14045,10 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiGetFileVersionW(szFilePath, lpVersionBuf, pcchVersionBuf, lpLangBuf, pcchLangBuf) {
+        szFilePath := szFilePath is String? StrPtr(szFilePath) : szFilePath
+        lpVersionBuf := lpVersionBuf is String? StrPtr(lpVersionBuf) : lpVersionBuf
+        lpLangBuf := lpLangBuf is String? StrPtr(lpLangBuf) : lpLangBuf
+
         DllCall("msi.dll\MsiGetFileVersionW", "ptr", szFilePath, "ptr", lpVersionBuf, "ptr", pcchVersionBuf, "ptr", lpLangBuf, "ptr", pcchLangBuf)
     }
 
@@ -13561,6 +14077,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiGetFileHashA(szFilePath, dwOptions, pHash) {
+        szFilePath := szFilePath is String? StrPtr(szFilePath) : szFilePath
+
         DllCall("msi.dll\MsiGetFileHashA", "ptr", szFilePath, "uint", dwOptions, "ptr", pHash)
     }
 
@@ -13589,6 +14107,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiGetFileHashW(szFilePath, dwOptions, pHash) {
+        szFilePath := szFilePath is String? StrPtr(szFilePath) : szFilePath
+
         DllCall("msi.dll\MsiGetFileHashW", "ptr", szFilePath, "uint", dwOptions, "ptr", pHash)
     }
 
@@ -13781,6 +14301,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiGetFileSignatureInformationA(szSignedObjectPath, dwFlags, ppcCertContext, pbHashData, pcbHashData) {
+        szSignedObjectPath := szSignedObjectPath is String? StrPtr(szSignedObjectPath) : szSignedObjectPath
+
         result := DllCall("msi.dll\MsiGetFileSignatureInformationA", "ptr", szSignedObjectPath, "uint", dwFlags, "ptr", ppcCertContext, "ptr", pbHashData, "ptr", pcbHashData, "int")
         return result
     }
@@ -13974,6 +14496,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiGetFileSignatureInformationW(szSignedObjectPath, dwFlags, ppcCertContext, pbHashData, pcbHashData) {
+        szSignedObjectPath := szSignedObjectPath is String? StrPtr(szSignedObjectPath) : szSignedObjectPath
+
         result := DllCall("msi.dll\MsiGetFileSignatureInformationW", "ptr", szSignedObjectPath, "uint", dwFlags, "ptr", ppcCertContext, "ptr", pbHashData, "ptr", pcbHashData, "int")
         return result
     }
@@ -14003,6 +14527,11 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiGetShortcutTargetA(szShortcutPath, szProductCode, szFeatureId, szComponentCode) {
+        szShortcutPath := szShortcutPath is String? StrPtr(szShortcutPath) : szShortcutPath
+        szProductCode := szProductCode is String? StrPtr(szProductCode) : szProductCode
+        szFeatureId := szFeatureId is String? StrPtr(szFeatureId) : szFeatureId
+        szComponentCode := szComponentCode is String? StrPtr(szComponentCode) : szComponentCode
+
         DllCall("msi.dll\MsiGetShortcutTargetA", "ptr", szShortcutPath, "ptr", szProductCode, "ptr", szFeatureId, "ptr", szComponentCode)
     }
 
@@ -14031,6 +14560,11 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiGetShortcutTargetW(szShortcutPath, szProductCode, szFeatureId, szComponentCode) {
+        szShortcutPath := szShortcutPath is String? StrPtr(szShortcutPath) : szShortcutPath
+        szProductCode := szProductCode is String? StrPtr(szProductCode) : szProductCode
+        szFeatureId := szFeatureId is String? StrPtr(szFeatureId) : szFeatureId
+        szComponentCode := szComponentCode is String? StrPtr(szComponentCode) : szComponentCode
+
         DllCall("msi.dll\MsiGetShortcutTargetW", "ptr", szShortcutPath, "ptr", szProductCode, "ptr", szFeatureId, "ptr", szComponentCode)
     }
 
@@ -14050,6 +14584,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiIsProductElevatedA(szProduct, pfElevated) {
+        szProduct := szProduct is String? StrPtr(szProduct) : szProduct
+
         DllCall("msi.dll\MsiIsProductElevatedA", "ptr", szProduct, "ptr", pfElevated)
     }
 
@@ -14069,6 +14605,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiIsProductElevatedW(szProduct, pfElevated) {
+        szProduct := szProduct is String? StrPtr(szProduct) : szProduct
+
         DllCall("msi.dll\MsiIsProductElevatedW", "ptr", szProduct, "ptr", pfElevated)
     }
 
@@ -14090,6 +14628,9 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiNotifySidChangeA(pOldSid, pNewSid) {
+        pOldSid := pOldSid is String? StrPtr(pOldSid) : pOldSid
+        pNewSid := pNewSid is String? StrPtr(pNewSid) : pNewSid
+
         DllCall("msi.dll\MsiNotifySidChangeA", "ptr", pOldSid, "ptr", pNewSid)
     }
 
@@ -14111,6 +14652,9 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiNotifySidChangeW(pOldSid, pNewSid) {
+        pOldSid := pOldSid is String? StrPtr(pOldSid) : pOldSid
+        pNewSid := pNewSid is String? StrPtr(pNewSid) : pNewSid
+
         DllCall("msi.dll\MsiNotifySidChangeW", "ptr", pOldSid, "ptr", pNewSid)
     }
 
@@ -14157,6 +14701,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiBeginTransactionA(szName, dwTransactionAttributes, phTransactionHandle, phChangeOfOwnerEvent) {
+        szName := szName is String? StrPtr(szName) : szName
+
         DllCall("msi.dll\MsiBeginTransactionA", "ptr", szName, "uint", dwTransactionAttributes, "ptr", phTransactionHandle, "ptr", phChangeOfOwnerEvent)
     }
 
@@ -14203,6 +14749,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiBeginTransactionW(szName, dwTransactionAttributes, phTransactionHandle, phChangeOfOwnerEvent) {
+        szName := szName is String? StrPtr(szName) : szName
+
         DllCall("msi.dll\MsiBeginTransactionW", "ptr", szName, "uint", dwTransactionAttributes, "ptr", phTransactionHandle, "ptr", phChangeOfOwnerEvent)
     }
 
@@ -14332,6 +14880,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiDatabaseOpenViewA(hDatabase, szQuery, phView) {
+        szQuery := szQuery is String? StrPtr(szQuery) : szQuery
+
         DllCall("msi.dll\MsiDatabaseOpenViewA", "uint", hDatabase, "ptr", szQuery, "ptr", phView)
     }
 
@@ -14364,6 +14914,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiDatabaseOpenViewW(hDatabase, szQuery, phView) {
+        szQuery := szQuery is String? StrPtr(szQuery) : szQuery
+
         DllCall("msi.dll\MsiDatabaseOpenViewW", "uint", hDatabase, "ptr", szQuery, "ptr", phView)
     }
 
@@ -14392,6 +14944,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiViewGetErrorA(hView, szColumnNameBuffer, pcchBuf) {
+        szColumnNameBuffer := szColumnNameBuffer is String? StrPtr(szColumnNameBuffer) : szColumnNameBuffer
+
         DllCall("msi.dll\MsiViewGetErrorA", "uint", hView, "ptr", szColumnNameBuffer, "ptr", pcchBuf)
     }
 
@@ -14420,6 +14974,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiViewGetErrorW(hView, szColumnNameBuffer, pcchBuf) {
+        szColumnNameBuffer := szColumnNameBuffer is String? StrPtr(szColumnNameBuffer) : szColumnNameBuffer
+
         DllCall("msi.dll\MsiViewGetErrorW", "uint", hView, "ptr", szColumnNameBuffer, "ptr", pcchBuf)
     }
 
@@ -14570,6 +15126,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiDatabaseGetPrimaryKeysA(hDatabase, szTableName, phRecord) {
+        szTableName := szTableName is String? StrPtr(szTableName) : szTableName
+
         DllCall("msi.dll\MsiDatabaseGetPrimaryKeysA", "uint", hDatabase, "ptr", szTableName, "ptr", phRecord)
     }
 
@@ -14601,6 +15159,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiDatabaseGetPrimaryKeysW(hDatabase, szTableName, phRecord) {
+        szTableName := szTableName is String? StrPtr(szTableName) : szTableName
+
         DllCall("msi.dll\MsiDatabaseGetPrimaryKeysW", "uint", hDatabase, "ptr", szTableName, "ptr", phRecord)
     }
 
@@ -14616,6 +15176,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiDatabaseIsTablePersistentA(hDatabase, szTableName) {
+        szTableName := szTableName is String? StrPtr(szTableName) : szTableName
+
         DllCall("msi.dll\MsiDatabaseIsTablePersistentA", "uint", hDatabase, "ptr", szTableName)
     }
 
@@ -14631,6 +15193,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiDatabaseIsTablePersistentW(hDatabase, szTableName) {
+        szTableName := szTableName is String? StrPtr(szTableName) : szTableName
+
         DllCall("msi.dll\MsiDatabaseIsTablePersistentW", "uint", hDatabase, "ptr", szTableName)
     }
 
@@ -14667,6 +15231,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiGetSummaryInformationA(hDatabase, szDatabasePath, uiUpdateCount, phSummaryInfo) {
+        szDatabasePath := szDatabasePath is String? StrPtr(szDatabasePath) : szDatabasePath
+
         DllCall("msi.dll\MsiGetSummaryInformationA", "uint", hDatabase, "ptr", szDatabasePath, "uint", uiUpdateCount, "ptr", phSummaryInfo)
     }
 
@@ -14703,6 +15269,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiGetSummaryInformationW(hDatabase, szDatabasePath, uiUpdateCount, phSummaryInfo) {
+        szDatabasePath := szDatabasePath is String? StrPtr(szDatabasePath) : szDatabasePath
+
         DllCall("msi.dll\MsiGetSummaryInformationW", "uint", hDatabase, "ptr", szDatabasePath, "uint", uiUpdateCount, "ptr", phSummaryInfo)
     }
 
@@ -14735,6 +15303,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiSummaryInfoSetPropertyA(hSummaryInfo, uiProperty, uiDataType, iValue, pftValue, szValue) {
+        szValue := szValue is String? StrPtr(szValue) : szValue
+
         DllCall("msi.dll\MsiSummaryInfoSetPropertyA", "uint", hSummaryInfo, "uint", uiProperty, "uint", uiDataType, "int", iValue, "ptr", pftValue, "ptr", szValue)
     }
 
@@ -14755,6 +15325,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiSummaryInfoSetPropertyW(hSummaryInfo, uiProperty, uiDataType, iValue, pftValue, szValue) {
+        szValue := szValue is String? StrPtr(szValue) : szValue
+
         DllCall("msi.dll\MsiSummaryInfoSetPropertyW", "uint", hSummaryInfo, "uint", uiProperty, "uint", uiDataType, "int", iValue, "ptr", pftValue, "ptr", szValue)
     }
 
@@ -14787,6 +15359,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiSummaryInfoGetPropertyA(hSummaryInfo, uiProperty, puiDataType, piValue, pftValue, szValueBuf, pcchValueBuf) {
+        szValueBuf := szValueBuf is String? StrPtr(szValueBuf) : szValueBuf
+
         DllCall("msi.dll\MsiSummaryInfoGetPropertyA", "uint", hSummaryInfo, "uint", uiProperty, "ptr", puiDataType, "ptr", piValue, "ptr", pftValue, "ptr", szValueBuf, "ptr", pcchValueBuf)
     }
 
@@ -14819,6 +15393,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiSummaryInfoGetPropertyW(hSummaryInfo, uiProperty, puiDataType, piValue, pftValue, szValueBuf, pcchValueBuf) {
+        szValueBuf := szValueBuf is String? StrPtr(szValueBuf) : szValueBuf
+
         DllCall("msi.dll\MsiSummaryInfoGetPropertyW", "uint", hSummaryInfo, "uint", uiProperty, "ptr", puiDataType, "ptr", piValue, "ptr", pftValue, "ptr", szValueBuf, "ptr", pcchValueBuf)
     }
 
@@ -14934,6 +15510,9 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiOpenDatabaseA(szDatabasePath, szPersist, phDatabase) {
+        szDatabasePath := szDatabasePath is String? StrPtr(szDatabasePath) : szDatabasePath
+        szPersist := szPersist is String? StrPtr(szPersist) : szPersist
+
         DllCall("msi.dll\MsiOpenDatabaseA", "ptr", szDatabasePath, "ptr", szPersist, "ptr", phDatabase)
     }
 
@@ -15038,6 +15617,9 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiOpenDatabaseW(szDatabasePath, szPersist, phDatabase) {
+        szDatabasePath := szDatabasePath is String? StrPtr(szDatabasePath) : szDatabasePath
+        szPersist := szPersist is String? StrPtr(szPersist) : szPersist
+
         DllCall("msi.dll\MsiOpenDatabaseW", "ptr", szDatabasePath, "ptr", szPersist, "ptr", phDatabase)
     }
 
@@ -15069,6 +15651,9 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiDatabaseImportA(hDatabase, szFolderPath, szFileName) {
+        szFolderPath := szFolderPath is String? StrPtr(szFolderPath) : szFolderPath
+        szFileName := szFileName is String? StrPtr(szFileName) : szFileName
+
         DllCall("msi.dll\MsiDatabaseImportA", "uint", hDatabase, "ptr", szFolderPath, "ptr", szFileName)
     }
 
@@ -15100,6 +15685,9 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiDatabaseImportW(hDatabase, szFolderPath, szFileName) {
+        szFolderPath := szFolderPath is String? StrPtr(szFolderPath) : szFolderPath
+        szFileName := szFileName is String? StrPtr(szFileName) : szFileName
+
         DllCall("msi.dll\MsiDatabaseImportW", "uint", hDatabase, "ptr", szFolderPath, "ptr", szFileName)
     }
 
@@ -15131,6 +15719,10 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiDatabaseExportA(hDatabase, szTableName, szFolderPath, szFileName) {
+        szTableName := szTableName is String? StrPtr(szTableName) : szTableName
+        szFolderPath := szFolderPath is String? StrPtr(szFolderPath) : szFolderPath
+        szFileName := szFileName is String? StrPtr(szFileName) : szFileName
+
         DllCall("msi.dll\MsiDatabaseExportA", "uint", hDatabase, "ptr", szTableName, "ptr", szFolderPath, "ptr", szFileName)
     }
 
@@ -15162,6 +15754,10 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiDatabaseExportW(hDatabase, szTableName, szFolderPath, szFileName) {
+        szTableName := szTableName is String? StrPtr(szTableName) : szTableName
+        szFolderPath := szFolderPath is String? StrPtr(szFolderPath) : szFolderPath
+        szFileName := szFileName is String? StrPtr(szFileName) : szFileName
+
         DllCall("msi.dll\MsiDatabaseExportW", "uint", hDatabase, "ptr", szTableName, "ptr", szFolderPath, "ptr", szFileName)
     }
 
@@ -15230,6 +15826,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiDatabaseMergeA(hDatabase, hDatabaseMerge, szTableName) {
+        szTableName := szTableName is String? StrPtr(szTableName) : szTableName
+
         DllCall("msi.dll\MsiDatabaseMergeA", "uint", hDatabase, "uint", hDatabaseMerge, "ptr", szTableName)
     }
 
@@ -15298,6 +15896,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiDatabaseMergeW(hDatabase, hDatabaseMerge, szTableName) {
+        szTableName := szTableName is String? StrPtr(szTableName) : szTableName
+
         DllCall("msi.dll\MsiDatabaseMergeW", "uint", hDatabase, "uint", hDatabaseMerge, "ptr", szTableName)
     }
 
@@ -15337,6 +15937,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiDatabaseGenerateTransformA(hDatabase, hDatabaseReference, szTransformFile, iReserved1, iReserved2) {
+        szTransformFile := szTransformFile is String? StrPtr(szTransformFile) : szTransformFile
+
         DllCall("msi.dll\MsiDatabaseGenerateTransformA", "uint", hDatabase, "uint", hDatabaseReference, "ptr", szTransformFile, "int", iReserved1, "int", iReserved2)
     }
 
@@ -15376,6 +15978,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiDatabaseGenerateTransformW(hDatabase, hDatabaseReference, szTransformFile, iReserved1, iReserved2) {
+        szTransformFile := szTransformFile is String? StrPtr(szTransformFile) : szTransformFile
+
         DllCall("msi.dll\MsiDatabaseGenerateTransformW", "uint", hDatabase, "uint", hDatabaseReference, "ptr", szTransformFile, "int", iReserved1, "int", iReserved2)
     }
 
@@ -15495,6 +16099,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiDatabaseApplyTransformA(hDatabase, szTransformFile, iErrorConditions) {
+        szTransformFile := szTransformFile is String? StrPtr(szTransformFile) : szTransformFile
+
         DllCall("msi.dll\MsiDatabaseApplyTransformA", "uint", hDatabase, "ptr", szTransformFile, "int", iErrorConditions)
     }
 
@@ -15614,6 +16220,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiDatabaseApplyTransformW(hDatabase, szTransformFile, iErrorConditions) {
+        szTransformFile := szTransformFile is String? StrPtr(szTransformFile) : szTransformFile
+
         DllCall("msi.dll\MsiDatabaseApplyTransformW", "uint", hDatabase, "ptr", szTransformFile, "int", iErrorConditions)
     }
 
@@ -15646,6 +16254,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiCreateTransformSummaryInfoA(hDatabase, hDatabaseReference, szTransformFile, iErrorConditions, iValidation) {
+        szTransformFile := szTransformFile is String? StrPtr(szTransformFile) : szTransformFile
+
         DllCall("msi.dll\MsiCreateTransformSummaryInfoA", "uint", hDatabase, "uint", hDatabaseReference, "ptr", szTransformFile, "int", iErrorConditions, "int", iValidation)
     }
 
@@ -15678,6 +16288,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiCreateTransformSummaryInfoW(hDatabase, hDatabaseReference, szTransformFile, iErrorConditions, iValidation) {
+        szTransformFile := szTransformFile is String? StrPtr(szTransformFile) : szTransformFile
+
         DllCall("msi.dll\MsiCreateTransformSummaryInfoW", "uint", hDatabase, "uint", hDatabaseReference, "ptr", szTransformFile, "int", iErrorConditions, "int", iValidation)
     }
 
@@ -15813,6 +16425,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiRecordSetStringA(hRecord, iField, szValue) {
+        szValue := szValue is String? StrPtr(szValue) : szValue
+
         DllCall("msi.dll\MsiRecordSetStringA", "uint", hRecord, "uint", iField, "ptr", szValue)
     }
 
@@ -15838,6 +16452,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiRecordSetStringW(hRecord, iField, szValue) {
+        szValue := szValue is String? StrPtr(szValue) : szValue
+
         DllCall("msi.dll\MsiRecordSetStringW", "uint", hRecord, "uint", iField, "ptr", szValue)
     }
 
@@ -15876,6 +16492,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiRecordGetStringA(hRecord, iField, szValueBuf, pcchValueBuf) {
+        szValueBuf := szValueBuf is String? StrPtr(szValueBuf) : szValueBuf
+
         DllCall("msi.dll\MsiRecordGetStringA", "uint", hRecord, "uint", iField, "ptr", szValueBuf, "ptr", pcchValueBuf)
     }
 
@@ -15899,6 +16517,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiRecordGetStringW(hRecord, iField, szValueBuf, pcchValueBuf) {
+        szValueBuf := szValueBuf is String? StrPtr(szValueBuf) : szValueBuf
+
         DllCall("msi.dll\MsiRecordGetStringW", "uint", hRecord, "uint", iField, "ptr", szValueBuf, "ptr", pcchValueBuf)
     }
 
@@ -15943,6 +16563,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiRecordSetStreamA(hRecord, iField, szFilePath) {
+        szFilePath := szFilePath is String? StrPtr(szFilePath) : szFilePath
+
         DllCall("msi.dll\MsiRecordSetStreamA", "uint", hRecord, "uint", iField, "ptr", szFilePath)
     }
 
@@ -15973,6 +16595,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiRecordSetStreamW(hRecord, iField, szFilePath) {
+        szFilePath := szFilePath is String? StrPtr(szFilePath) : szFilePath
+
         DllCall("msi.dll\MsiRecordSetStreamW", "uint", hRecord, "uint", iField, "ptr", szFilePath)
     }
 
@@ -16016,6 +16640,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiRecordReadStream(hRecord, iField, szDataBuf, pcbDataBuf) {
+        szDataBuf := szDataBuf is String? StrPtr(szDataBuf) : szDataBuf
+
         DllCall("msi.dll\MsiRecordReadStream", "uint", hRecord, "uint", iField, "ptr", szDataBuf, "ptr", pcbDataBuf)
     }
 
@@ -16068,6 +16694,9 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiSetPropertyA(hInstall, szName, szValue) {
+        szName := szName is String? StrPtr(szName) : szName
+        szValue := szValue is String? StrPtr(szValue) : szValue
+
         DllCall("msi.dll\MsiSetPropertyA", "uint", hInstall, "ptr", szName, "ptr", szValue)
     }
 
@@ -16091,6 +16720,9 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiSetPropertyW(hInstall, szName, szValue) {
+        szName := szName is String? StrPtr(szName) : szName
+        szValue := szValue is String? StrPtr(szValue) : szValue
+
         DllCall("msi.dll\MsiSetPropertyW", "uint", hInstall, "ptr", szName, "ptr", szValue)
     }
 
@@ -16154,6 +16786,9 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiGetPropertyA(hInstall, szName, szValueBuf, pcchValueBuf) {
+        szName := szName is String? StrPtr(szName) : szName
+        szValueBuf := szValueBuf is String? StrPtr(szValueBuf) : szValueBuf
+
         DllCall("msi.dll\MsiGetPropertyA", "uint", hInstall, "ptr", szName, "ptr", szValueBuf, "ptr", pcchValueBuf)
     }
 
@@ -16217,6 +16852,9 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiGetPropertyW(hInstall, szName, szValueBuf, pcchValueBuf) {
+        szName := szName is String? StrPtr(szName) : szName
+        szValueBuf := szValueBuf is String? StrPtr(szValueBuf) : szValueBuf
+
         DllCall("msi.dll\MsiGetPropertyW", "uint", hInstall, "ptr", szName, "ptr", szValueBuf, "ptr", pcchValueBuf)
     }
 
@@ -16333,6 +16971,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiFormatRecordA(hInstall, hRecord, szResultBuf, pcchResultBuf) {
+        szResultBuf := szResultBuf is String? StrPtr(szResultBuf) : szResultBuf
+
         DllCall("msi.dll\MsiFormatRecordA", "uint", hInstall, "uint", hRecord, "ptr", szResultBuf, "ptr", pcchResultBuf)
     }
 
@@ -16400,6 +17040,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiFormatRecordW(hInstall, hRecord, szResultBuf, pcchResultBuf) {
+        szResultBuf := szResultBuf is String? StrPtr(szResultBuf) : szResultBuf
+
         DllCall("msi.dll\MsiFormatRecordW", "uint", hInstall, "uint", hRecord, "ptr", szResultBuf, "ptr", pcchResultBuf)
     }
 
@@ -16434,6 +17076,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiDoActionA(hInstall, szAction) {
+        szAction := szAction is String? StrPtr(szAction) : szAction
+
         DllCall("msi.dll\MsiDoActionA", "uint", hInstall, "ptr", szAction)
     }
 
@@ -16468,6 +17112,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiDoActionW(hInstall, szAction) {
+        szAction := szAction is String? StrPtr(szAction) : szAction
+
         DllCall("msi.dll\MsiDoActionW", "uint", hInstall, "ptr", szAction)
     }
 
@@ -16502,6 +17148,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiSequenceA(hInstall, szTable, iSequenceMode) {
+        szTable := szTable is String? StrPtr(szTable) : szTable
+
         DllCall("msi.dll\MsiSequenceA", "uint", hInstall, "ptr", szTable, "int", iSequenceMode)
     }
 
@@ -16536,6 +17184,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiSequenceW(hInstall, szTable, iSequenceMode) {
+        szTable := szTable is String? StrPtr(szTable) : szTable
+
         DllCall("msi.dll\MsiSequenceW", "uint", hInstall, "ptr", szTable, "int", iSequenceMode)
     }
 
@@ -16912,6 +17562,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiEvaluateConditionA(hInstall, szCondition) {
+        szCondition := szCondition is String? StrPtr(szCondition) : szCondition
+
         DllCall("msi.dll\MsiEvaluateConditionA", "uint", hInstall, "ptr", szCondition)
     }
 
@@ -16965,6 +17617,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiEvaluateConditionW(hInstall, szCondition) {
+        szCondition := szCondition is String? StrPtr(szCondition) : szCondition
+
         DllCall("msi.dll\MsiEvaluateConditionW", "uint", hInstall, "ptr", szCondition)
     }
 
@@ -16991,6 +17645,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiGetFeatureStateA(hInstall, szFeature, piInstalled, piAction) {
+        szFeature := szFeature is String? StrPtr(szFeature) : szFeature
+
         DllCall("msi.dll\MsiGetFeatureStateA", "uint", hInstall, "ptr", szFeature, "ptr", piInstalled, "ptr", piAction)
     }
 
@@ -17017,6 +17673,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiGetFeatureStateW(hInstall, szFeature, piInstalled, piAction) {
+        szFeature := szFeature is String? StrPtr(szFeature) : szFeature
+
         DllCall("msi.dll\MsiGetFeatureStateW", "uint", hInstall, "ptr", szFeature, "ptr", piInstalled, "ptr", piAction)
     }
 
@@ -17059,6 +17717,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiSetFeatureStateA(hInstall, szFeature, iState) {
+        szFeature := szFeature is String? StrPtr(szFeature) : szFeature
+
         DllCall("msi.dll\MsiSetFeatureStateA", "uint", hInstall, "ptr", szFeature, "int", iState)
     }
 
@@ -17101,6 +17761,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiSetFeatureStateW(hInstall, szFeature, iState) {
+        szFeature := szFeature is String? StrPtr(szFeature) : szFeature
+
         DllCall("msi.dll\MsiSetFeatureStateW", "uint", hInstall, "ptr", szFeature, "int", iState)
     }
 
@@ -17210,6 +17872,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiSetFeatureAttributesA(hInstall, szFeature, dwAttributes) {
+        szFeature := szFeature is String? StrPtr(szFeature) : szFeature
+
         DllCall("msi.dll\MsiSetFeatureAttributesA", "uint", hInstall, "ptr", szFeature, "uint", dwAttributes)
     }
 
@@ -17319,6 +17983,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiSetFeatureAttributesW(hInstall, szFeature, dwAttributes) {
+        szFeature := szFeature is String? StrPtr(szFeature) : szFeature
+
         DllCall("msi.dll\MsiSetFeatureAttributesW", "uint", hInstall, "ptr", szFeature, "uint", dwAttributes)
     }
 
@@ -17345,6 +18011,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiGetComponentStateA(hInstall, szComponent, piInstalled, piAction) {
+        szComponent := szComponent is String? StrPtr(szComponent) : szComponent
+
         DllCall("msi.dll\MsiGetComponentStateA", "uint", hInstall, "ptr", szComponent, "ptr", piInstalled, "ptr", piAction)
     }
 
@@ -17371,6 +18039,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiGetComponentStateW(hInstall, szComponent, piInstalled, piAction) {
+        szComponent := szComponent is String? StrPtr(szComponent) : szComponent
+
         DllCall("msi.dll\MsiGetComponentStateW", "uint", hInstall, "ptr", szComponent, "ptr", piInstalled, "ptr", piAction)
     }
 
@@ -17400,6 +18070,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiSetComponentStateA(hInstall, szComponent, iState) {
+        szComponent := szComponent is String? StrPtr(szComponent) : szComponent
+
         DllCall("msi.dll\MsiSetComponentStateA", "uint", hInstall, "ptr", szComponent, "int", iState)
     }
 
@@ -17429,6 +18101,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiSetComponentStateW(hInstall, szComponent, iState) {
+        szComponent := szComponent is String? StrPtr(szComponent) : szComponent
+
         DllCall("msi.dll\MsiSetComponentStateW", "uint", hInstall, "ptr", szComponent, "int", iState)
     }
 
@@ -17497,6 +18171,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiGetFeatureCostA(hInstall, szFeature, iCostTree, iState, piCost) {
+        szFeature := szFeature is String? StrPtr(szFeature) : szFeature
+
         DllCall("msi.dll\MsiGetFeatureCostA", "uint", hInstall, "ptr", szFeature, "int", iCostTree, "int", iState, "ptr", piCost)
     }
 
@@ -17565,6 +18241,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiGetFeatureCostW(hInstall, szFeature, iCostTree, iState, piCost) {
+        szFeature := szFeature is String? StrPtr(szFeature) : szFeature
+
         DllCall("msi.dll\MsiGetFeatureCostW", "uint", hInstall, "ptr", szFeature, "int", iCostTree, "int", iState, "ptr", piCost)
     }
 
@@ -17599,6 +18277,9 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiEnumComponentCostsA(hInstall, szComponent, dwIndex, iState, szDriveBuf, pcchDriveBuf, piCost, piTempCost) {
+        szComponent := szComponent is String? StrPtr(szComponent) : szComponent
+        szDriveBuf := szDriveBuf is String? StrPtr(szDriveBuf) : szDriveBuf
+
         DllCall("msi.dll\MsiEnumComponentCostsA", "uint", hInstall, "ptr", szComponent, "uint", dwIndex, "int", iState, "ptr", szDriveBuf, "ptr", pcchDriveBuf, "ptr", piCost, "ptr", piTempCost)
     }
 
@@ -17633,6 +18314,9 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiEnumComponentCostsW(hInstall, szComponent, dwIndex, iState, szDriveBuf, pcchDriveBuf, piCost, piTempCost) {
+        szComponent := szComponent is String? StrPtr(szComponent) : szComponent
+        szDriveBuf := szDriveBuf is String? StrPtr(szDriveBuf) : szDriveBuf
+
         DllCall("msi.dll\MsiEnumComponentCostsW", "uint", hInstall, "ptr", szComponent, "uint", dwIndex, "int", iState, "ptr", szDriveBuf, "ptr", pcchDriveBuf, "ptr", piCost, "ptr", piTempCost)
     }
 
@@ -17715,6 +18399,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiGetFeatureValidStatesA(hInstall, szFeature, lpInstallStates) {
+        szFeature := szFeature is String? StrPtr(szFeature) : szFeature
+
         DllCall("msi.dll\MsiGetFeatureValidStatesA", "uint", hInstall, "ptr", szFeature, "ptr", lpInstallStates)
     }
 
@@ -17766,6 +18452,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiGetFeatureValidStatesW(hInstall, szFeature, lpInstallStates) {
+        szFeature := szFeature is String? StrPtr(szFeature) : szFeature
+
         DllCall("msi.dll\MsiGetFeatureValidStatesW", "uint", hInstall, "ptr", szFeature, "ptr", lpInstallStates)
     }
 
@@ -17797,6 +18485,9 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiGetSourcePathA(hInstall, szFolder, szPathBuf, pcchPathBuf) {
+        szFolder := szFolder is String? StrPtr(szFolder) : szFolder
+        szPathBuf := szPathBuf is String? StrPtr(szPathBuf) : szPathBuf
+
         DllCall("msi.dll\MsiGetSourcePathA", "uint", hInstall, "ptr", szFolder, "ptr", szPathBuf, "ptr", pcchPathBuf)
     }
 
@@ -17828,6 +18519,9 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiGetSourcePathW(hInstall, szFolder, szPathBuf, pcchPathBuf) {
+        szFolder := szFolder is String? StrPtr(szFolder) : szFolder
+        szPathBuf := szPathBuf is String? StrPtr(szPathBuf) : szPathBuf
+
         DllCall("msi.dll\MsiGetSourcePathW", "uint", hInstall, "ptr", szFolder, "ptr", szPathBuf, "ptr", pcchPathBuf)
     }
 
@@ -17866,6 +18560,9 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiGetTargetPathA(hInstall, szFolder, szPathBuf, pcchPathBuf) {
+        szFolder := szFolder is String? StrPtr(szFolder) : szFolder
+        szPathBuf := szPathBuf is String? StrPtr(szPathBuf) : szPathBuf
+
         DllCall("msi.dll\MsiGetTargetPathA", "uint", hInstall, "ptr", szFolder, "ptr", szPathBuf, "ptr", pcchPathBuf)
     }
 
@@ -17904,6 +18601,9 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiGetTargetPathW(hInstall, szFolder, szPathBuf, pcchPathBuf) {
+        szFolder := szFolder is String? StrPtr(szFolder) : szFolder
+        szPathBuf := szPathBuf is String? StrPtr(szPathBuf) : szPathBuf
+
         DllCall("msi.dll\MsiGetTargetPathW", "uint", hInstall, "ptr", szFolder, "ptr", szPathBuf, "ptr", pcchPathBuf)
     }
 
@@ -17941,6 +18641,9 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiSetTargetPathA(hInstall, szFolder, szFolderPath) {
+        szFolder := szFolder is String? StrPtr(szFolder) : szFolder
+        szFolderPath := szFolderPath is String? StrPtr(szFolderPath) : szFolderPath
+
         DllCall("msi.dll\MsiSetTargetPathA", "uint", hInstall, "ptr", szFolder, "ptr", szFolderPath)
     }
 
@@ -17978,6 +18681,9 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiSetTargetPathW(hInstall, szFolder, szFolderPath) {
+        szFolder := szFolder is String? StrPtr(szFolder) : szFolder
+        szFolderPath := szFolderPath is String? StrPtr(szFolderPath) : szFolderPath
+
         DllCall("msi.dll\MsiSetTargetPathW", "uint", hInstall, "ptr", szFolder, "ptr", szFolderPath)
     }
 
@@ -18029,6 +18735,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiPreviewDialogA(hPreview, szDialogName) {
+        szDialogName := szDialogName is String? StrPtr(szDialogName) : szDialogName
+
         DllCall("msi.dll\MsiPreviewDialogA", "uint", hPreview, "ptr", szDialogName)
     }
 
@@ -18051,6 +18759,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiPreviewDialogW(hPreview, szDialogName) {
+        szDialogName := szDialogName is String? StrPtr(szDialogName) : szDialogName
+
         DllCall("msi.dll\MsiPreviewDialogW", "uint", hPreview, "ptr", szDialogName)
     }
 
@@ -18074,6 +18784,9 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiPreviewBillboardA(hPreview, szControlName, szBillboard) {
+        szControlName := szControlName is String? StrPtr(szControlName) : szControlName
+        szBillboard := szBillboard is String? StrPtr(szBillboard) : szBillboard
+
         DllCall("msi.dll\MsiPreviewBillboardA", "uint", hPreview, "ptr", szControlName, "ptr", szBillboard)
     }
 
@@ -18097,6 +18810,9 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiPreviewBillboardW(hPreview, szControlName, szBillboard) {
+        szControlName := szControlName is String? StrPtr(szControlName) : szControlName
+        szBillboard := szBillboard is String? StrPtr(szBillboard) : szBillboard
+
         DllCall("msi.dll\MsiPreviewBillboardW", "uint", hPreview, "ptr", szControlName, "ptr", szBillboard)
     }
 
@@ -18247,6 +18963,8 @@ class ApplicationInstallationAndServicing {
      * @since windows5.1.2600
      */
     static SfcIsFileProtected(RpcHandle, ProtFileName) {
+        ProtFileName := ProtFileName is String? StrPtr(ProtFileName) : ProtFileName
+
         result := DllCall("sfc.dll\SfcIsFileProtected", "ptr", RpcHandle, "ptr", ProtFileName, "int")
         return result
     }
@@ -18334,6 +19052,8 @@ class ApplicationInstallationAndServicing {
      * @since windows6.0.6000
      */
     static SfcIsKeyProtected(KeyHandle, SubKeyName, KeySam) {
+        SubKeyName := SubKeyName is String? StrPtr(SubKeyName) : SubKeyName
+
         result := DllCall("sfc.dll\SfcIsKeyProtected", "ptr", KeyHandle, "ptr", SubKeyName, "uint", KeySam, "int")
         return result
     }
@@ -18346,6 +19066,9 @@ class ApplicationInstallationAndServicing {
      * @returns {Integer} 
      */
     static SfpVerifyFile(pszFileName, pszError, dwErrSize) {
+        pszFileName := pszFileName is String? StrPtr(pszFileName) : pszFileName
+        pszError := pszError is String? StrPtr(pszError) : pszError
+
         result := DllCall("sfc.dll\SfpVerifyFile", "ptr", pszFileName, "ptr", pszError, "uint", dwErrSize, "int")
         return result
     }
@@ -18360,6 +19083,10 @@ class ApplicationInstallationAndServicing {
      * @returns {Integer} 
      */
     static CreatePatchFileA(OldFileName, NewFileName, PatchFileName, OptionFlags, OptionData) {
+        OldFileName := OldFileName is String? StrPtr(OldFileName) : OldFileName
+        NewFileName := NewFileName is String? StrPtr(NewFileName) : NewFileName
+        PatchFileName := PatchFileName is String? StrPtr(PatchFileName) : PatchFileName
+
         result := DllCall("mspatchc.dll\CreatePatchFileA", "ptr", OldFileName, "ptr", NewFileName, "ptr", PatchFileName, "uint", OptionFlags, "ptr", OptionData, "int")
         return result
     }
@@ -18374,6 +19101,10 @@ class ApplicationInstallationAndServicing {
      * @returns {Integer} 
      */
     static CreatePatchFileW(OldFileName, NewFileName, PatchFileName, OptionFlags, OptionData) {
+        OldFileName := OldFileName is String? StrPtr(OldFileName) : OldFileName
+        NewFileName := NewFileName is String? StrPtr(NewFileName) : NewFileName
+        PatchFileName := PatchFileName is String? StrPtr(PatchFileName) : PatchFileName
+
         result := DllCall("mspatchc.dll\CreatePatchFileW", "ptr", OldFileName, "ptr", NewFileName, "ptr", PatchFileName, "uint", OptionFlags, "ptr", OptionData, "int")
         return result
     }
@@ -18406,6 +19137,9 @@ class ApplicationInstallationAndServicing {
      * @see https://learn.microsoft.com/windows/win32/DevNotes/patchapi-createpatchfileex
      */
     static CreatePatchFileExA(OldFileCount, OldFileInfoArray, NewFileName, PatchFileName, OptionFlags, OptionData, ProgressCallback, CallbackContext) {
+        NewFileName := NewFileName is String? StrPtr(NewFileName) : NewFileName
+        PatchFileName := PatchFileName is String? StrPtr(PatchFileName) : PatchFileName
+
         result := DllCall("mspatchc.dll\CreatePatchFileExA", "uint", OldFileCount, "ptr", OldFileInfoArray, "ptr", NewFileName, "ptr", PatchFileName, "uint", OptionFlags, "ptr", OptionData, "ptr", ProgressCallback, "ptr", CallbackContext, "int")
         return result
     }
@@ -18424,6 +19158,9 @@ class ApplicationInstallationAndServicing {
      * @see https://learn.microsoft.com/windows/win32/DevNotes/patchapi-createpatchfileex
      */
     static CreatePatchFileExW(OldFileCount, OldFileInfoArray, NewFileName, PatchFileName, OptionFlags, OptionData, ProgressCallback, CallbackContext) {
+        NewFileName := NewFileName is String? StrPtr(NewFileName) : NewFileName
+        PatchFileName := PatchFileName is String? StrPtr(PatchFileName) : PatchFileName
+
         result := DllCall("mspatchc.dll\CreatePatchFileExW", "uint", OldFileCount, "ptr", OldFileInfoArray, "ptr", NewFileName, "ptr", PatchFileName, "uint", OptionFlags, "ptr", OptionData, "ptr", ProgressCallback, "ptr", CallbackContext, "int")
         return result
     }
@@ -18453,6 +19190,9 @@ class ApplicationInstallationAndServicing {
      * @see https://learn.microsoft.com/windows/win32/DevNotes/patchapi-extractpatchheadertofile
      */
     static ExtractPatchHeaderToFileA(PatchFileName, PatchHeaderFileName) {
+        PatchFileName := PatchFileName is String? StrPtr(PatchFileName) : PatchFileName
+        PatchHeaderFileName := PatchHeaderFileName is String? StrPtr(PatchHeaderFileName) : PatchHeaderFileName
+
         result := DllCall("mspatchc.dll\ExtractPatchHeaderToFileA", "ptr", PatchFileName, "ptr", PatchHeaderFileName, "int")
         return result
     }
@@ -18465,6 +19205,9 @@ class ApplicationInstallationAndServicing {
      * @see https://learn.microsoft.com/windows/win32/DevNotes/patchapi-extractpatchheadertofile
      */
     static ExtractPatchHeaderToFileW(PatchFileName, PatchHeaderFileName) {
+        PatchFileName := PatchFileName is String? StrPtr(PatchFileName) : PatchFileName
+        PatchHeaderFileName := PatchHeaderFileName is String? StrPtr(PatchHeaderFileName) : PatchHeaderFileName
+
         result := DllCall("mspatchc.dll\ExtractPatchHeaderToFileW", "ptr", PatchFileName, "ptr", PatchHeaderFileName, "int")
         return result
     }
@@ -18488,6 +19231,9 @@ class ApplicationInstallationAndServicing {
      * @returns {Integer} 
      */
     static TestApplyPatchToFileA(PatchFileName, OldFileName, ApplyOptionFlags) {
+        PatchFileName := PatchFileName is String? StrPtr(PatchFileName) : PatchFileName
+        OldFileName := OldFileName is String? StrPtr(OldFileName) : OldFileName
+
         result := DllCall("mspatcha.dll\TestApplyPatchToFileA", "ptr", PatchFileName, "ptr", OldFileName, "uint", ApplyOptionFlags, "int")
         return result
     }
@@ -18500,6 +19246,9 @@ class ApplicationInstallationAndServicing {
      * @returns {Integer} 
      */
     static TestApplyPatchToFileW(PatchFileName, OldFileName, ApplyOptionFlags) {
+        PatchFileName := PatchFileName is String? StrPtr(PatchFileName) : PatchFileName
+        OldFileName := OldFileName is String? StrPtr(OldFileName) : OldFileName
+
         result := DllCall("mspatcha.dll\TestApplyPatchToFileW", "ptr", PatchFileName, "ptr", OldFileName, "uint", ApplyOptionFlags, "int")
         return result
     }
@@ -18540,6 +19289,10 @@ class ApplicationInstallationAndServicing {
      * @returns {Integer} 
      */
     static ApplyPatchToFileA(PatchFileName, OldFileName, NewFileName, ApplyOptionFlags) {
+        PatchFileName := PatchFileName is String? StrPtr(PatchFileName) : PatchFileName
+        OldFileName := OldFileName is String? StrPtr(OldFileName) : OldFileName
+        NewFileName := NewFileName is String? StrPtr(NewFileName) : NewFileName
+
         result := DllCall("mspatcha.dll\ApplyPatchToFileA", "ptr", PatchFileName, "ptr", OldFileName, "ptr", NewFileName, "uint", ApplyOptionFlags, "int")
         return result
     }
@@ -18553,6 +19306,10 @@ class ApplicationInstallationAndServicing {
      * @returns {Integer} 
      */
     static ApplyPatchToFileW(PatchFileName, OldFileName, NewFileName, ApplyOptionFlags) {
+        PatchFileName := PatchFileName is String? StrPtr(PatchFileName) : PatchFileName
+        OldFileName := OldFileName is String? StrPtr(OldFileName) : OldFileName
+        NewFileName := NewFileName is String? StrPtr(NewFileName) : NewFileName
+
         result := DllCall("mspatcha.dll\ApplyPatchToFileW", "ptr", PatchFileName, "ptr", OldFileName, "ptr", NewFileName, "uint", ApplyOptionFlags, "int")
         return result
     }
@@ -18581,6 +19338,10 @@ class ApplicationInstallationAndServicing {
      * @returns {Integer} 
      */
     static ApplyPatchToFileExA(PatchFileName, OldFileName, NewFileName, ApplyOptionFlags, ProgressCallback, CallbackContext) {
+        PatchFileName := PatchFileName is String? StrPtr(PatchFileName) : PatchFileName
+        OldFileName := OldFileName is String? StrPtr(OldFileName) : OldFileName
+        NewFileName := NewFileName is String? StrPtr(NewFileName) : NewFileName
+
         result := DllCall("mspatcha.dll\ApplyPatchToFileExA", "ptr", PatchFileName, "ptr", OldFileName, "ptr", NewFileName, "uint", ApplyOptionFlags, "ptr", ProgressCallback, "ptr", CallbackContext, "int")
         return result
     }
@@ -18596,6 +19357,10 @@ class ApplicationInstallationAndServicing {
      * @returns {Integer} 
      */
     static ApplyPatchToFileExW(PatchFileName, OldFileName, NewFileName, ApplyOptionFlags, ProgressCallback, CallbackContext) {
+        PatchFileName := PatchFileName is String? StrPtr(PatchFileName) : PatchFileName
+        OldFileName := OldFileName is String? StrPtr(OldFileName) : OldFileName
+        NewFileName := NewFileName is String? StrPtr(NewFileName) : NewFileName
+
         result := DllCall("mspatcha.dll\ApplyPatchToFileExW", "ptr", PatchFileName, "ptr", OldFileName, "ptr", NewFileName, "uint", ApplyOptionFlags, "ptr", ProgressCallback, "ptr", CallbackContext, "int")
         return result
     }
@@ -18649,6 +19414,9 @@ class ApplicationInstallationAndServicing {
      * @returns {Integer} 
      */
     static GetFilePatchSignatureA(FileName, OptionFlags, OptionData, IgnoreRangeCount, IgnoreRangeArray, RetainRangeCount, RetainRangeArray, SignatureBufferSize, SignatureBuffer) {
+        FileName := FileName is String? StrPtr(FileName) : FileName
+        SignatureBuffer := SignatureBuffer is String? StrPtr(SignatureBuffer) : SignatureBuffer
+
         result := DllCall("mspatcha.dll\GetFilePatchSignatureA", "ptr", FileName, "uint", OptionFlags, "ptr", OptionData, "uint", IgnoreRangeCount, "ptr", IgnoreRangeArray, "uint", RetainRangeCount, "ptr", RetainRangeArray, "uint", SignatureBufferSize, "ptr", SignatureBuffer, "int")
         return result
     }
@@ -18667,6 +19435,9 @@ class ApplicationInstallationAndServicing {
      * @returns {Integer} 
      */
     static GetFilePatchSignatureW(FileName, OptionFlags, OptionData, IgnoreRangeCount, IgnoreRangeArray, RetainRangeCount, RetainRangeArray, SignatureBufferSize, SignatureBuffer) {
+        FileName := FileName is String? StrPtr(FileName) : FileName
+        SignatureBuffer := SignatureBuffer is String? StrPtr(SignatureBuffer) : SignatureBuffer
+
         result := DllCall("mspatcha.dll\GetFilePatchSignatureW", "ptr", FileName, "uint", OptionFlags, "ptr", OptionData, "uint", IgnoreRangeCount, "ptr", IgnoreRangeArray, "uint", RetainRangeCount, "ptr", RetainRangeArray, "uint", SignatureBufferSize, "ptr", SignatureBuffer, "int")
         return result
     }
@@ -18685,6 +19456,8 @@ class ApplicationInstallationAndServicing {
      * @returns {Integer} 
      */
     static GetFilePatchSignatureByHandle(FileHandle, OptionFlags, OptionData, IgnoreRangeCount, IgnoreRangeArray, RetainRangeCount, RetainRangeArray, SignatureBufferSize, SignatureBuffer) {
+        SignatureBuffer := SignatureBuffer is String? StrPtr(SignatureBuffer) : SignatureBuffer
+
         result := DllCall("mspatcha.dll\GetFilePatchSignatureByHandle", "ptr", FileHandle, "uint", OptionFlags, "ptr", OptionData, "uint", IgnoreRangeCount, "ptr", IgnoreRangeArray, "uint", RetainRangeCount, "ptr", RetainRangeArray, "uint", SignatureBufferSize, "ptr", SignatureBuffer, "int")
         return result
     }
@@ -18704,6 +19477,8 @@ class ApplicationInstallationAndServicing {
      * @returns {Integer} 
      */
     static GetFilePatchSignatureByBuffer(FileBufferWritable, FileSize, OptionFlags, OptionData, IgnoreRangeCount, IgnoreRangeArray, RetainRangeCount, RetainRangeArray, SignatureBufferSize, SignatureBuffer) {
+        SignatureBuffer := SignatureBuffer is String? StrPtr(SignatureBuffer) : SignatureBuffer
+
         result := DllCall("mspatcha.dll\GetFilePatchSignatureByBuffer", "ptr", FileBufferWritable, "uint", FileSize, "uint", OptionFlags, "ptr", OptionData, "uint", IgnoreRangeCount, "ptr", IgnoreRangeArray, "uint", RetainRangeCount, "ptr", RetainRangeArray, "uint", SignatureBufferSize, "ptr", SignatureBuffer, "int")
         return result
     }
@@ -18744,6 +19519,8 @@ class ApplicationInstallationAndServicing {
      * @returns {Integer} 
      */
     static GetDeltaInfoA(lpDeltaName, lpHeaderInfo) {
+        lpDeltaName := lpDeltaName is String? StrPtr(lpDeltaName) : lpDeltaName
+
         result := DllCall("msdelta.dll\GetDeltaInfoA", "ptr", lpDeltaName, "ptr", lpHeaderInfo, "int")
         return result
     }
@@ -18755,6 +19532,8 @@ class ApplicationInstallationAndServicing {
      * @returns {Integer} 
      */
     static GetDeltaInfoW(lpDeltaName, lpHeaderInfo) {
+        lpDeltaName := lpDeltaName is String? StrPtr(lpDeltaName) : lpDeltaName
+
         result := DllCall("msdelta.dll\GetDeltaInfoW", "ptr", lpDeltaName, "ptr", lpHeaderInfo, "int")
         return result
     }
@@ -18811,6 +19590,10 @@ class ApplicationInstallationAndServicing {
      * @returns {Integer} 
      */
     static ApplyDeltaA(ApplyFlags, lpSourceName, lpDeltaName, lpTargetName) {
+        lpSourceName := lpSourceName is String? StrPtr(lpSourceName) : lpSourceName
+        lpDeltaName := lpDeltaName is String? StrPtr(lpDeltaName) : lpDeltaName
+        lpTargetName := lpTargetName is String? StrPtr(lpTargetName) : lpTargetName
+
         result := DllCall("msdelta.dll\ApplyDeltaA", "int64", ApplyFlags, "ptr", lpSourceName, "ptr", lpDeltaName, "ptr", lpTargetName, "int")
         return result
     }
@@ -18825,6 +19608,10 @@ class ApplicationInstallationAndServicing {
      * @see https://learn.microsoft.com/windows/win32/DevNotes/msdelta-applydeltaw
      */
     static ApplyDeltaW(ApplyFlags, lpSourceName, lpDeltaName, lpTargetName) {
+        lpSourceName := lpSourceName is String? StrPtr(lpSourceName) : lpSourceName
+        lpDeltaName := lpDeltaName is String? StrPtr(lpDeltaName) : lpDeltaName
+        lpTargetName := lpTargetName is String? StrPtr(lpTargetName) : lpTargetName
+
         result := DllCall("msdelta.dll\ApplyDeltaW", "int64", ApplyFlags, "ptr", lpSourceName, "ptr", lpDeltaName, "ptr", lpTargetName, "int")
         return result
     }
@@ -18869,6 +19656,12 @@ class ApplicationInstallationAndServicing {
      * @returns {Integer} 
      */
     static CreateDeltaA(FileTypeSet, SetFlags, ResetFlags, lpSourceName, lpTargetName, lpSourceOptionsName, lpTargetOptionsName, GlobalOptions, lpTargetFileTime, HashAlgId, lpDeltaName) {
+        lpSourceName := lpSourceName is String? StrPtr(lpSourceName) : lpSourceName
+        lpTargetName := lpTargetName is String? StrPtr(lpTargetName) : lpTargetName
+        lpSourceOptionsName := lpSourceOptionsName is String? StrPtr(lpSourceOptionsName) : lpSourceOptionsName
+        lpTargetOptionsName := lpTargetOptionsName is String? StrPtr(lpTargetOptionsName) : lpTargetOptionsName
+        lpDeltaName := lpDeltaName is String? StrPtr(lpDeltaName) : lpDeltaName
+
         result := DllCall("msdelta.dll\CreateDeltaA", "int64", FileTypeSet, "int64", SetFlags, "int64", ResetFlags, "ptr", lpSourceName, "ptr", lpTargetName, "ptr", lpSourceOptionsName, "ptr", lpTargetOptionsName, "ptr", GlobalOptions, "ptr", lpTargetFileTime, "uint", HashAlgId, "ptr", lpDeltaName, "int")
         return result
     }
@@ -18893,6 +19686,12 @@ class ApplicationInstallationAndServicing {
      * @see https://learn.microsoft.com/windows/win32/DevNotes/msdelta-createdeltaw
      */
     static CreateDeltaW(FileTypeSet, SetFlags, ResetFlags, lpSourceName, lpTargetName, lpSourceOptionsName, lpTargetOptionsName, GlobalOptions, lpTargetFileTime, HashAlgId, lpDeltaName) {
+        lpSourceName := lpSourceName is String? StrPtr(lpSourceName) : lpSourceName
+        lpTargetName := lpTargetName is String? StrPtr(lpTargetName) : lpTargetName
+        lpSourceOptionsName := lpSourceOptionsName is String? StrPtr(lpSourceOptionsName) : lpSourceOptionsName
+        lpTargetOptionsName := lpTargetOptionsName is String? StrPtr(lpTargetOptionsName) : lpTargetOptionsName
+        lpDeltaName := lpDeltaName is String? StrPtr(lpDeltaName) : lpDeltaName
+
         result := DllCall("msdelta.dll\CreateDeltaW", "int64", FileTypeSet, "int64", SetFlags, "int64", ResetFlags, "ptr", lpSourceName, "ptr", lpTargetName, "ptr", lpSourceOptionsName, "ptr", lpTargetOptionsName, "ptr", GlobalOptions, "ptr", lpTargetFileTime, "uint", HashAlgId, "ptr", lpDeltaName, "int")
         return result
     }
@@ -18919,6 +19718,8 @@ class ApplicationInstallationAndServicing {
      * @returns {Integer} 
      */
     static GetDeltaSignatureA(FileTypeSet, HashAlgId, lpSourceName, lpHash) {
+        lpSourceName := lpSourceName is String? StrPtr(lpSourceName) : lpSourceName
+
         result := DllCall("msdelta.dll\GetDeltaSignatureA", "int64", FileTypeSet, "uint", HashAlgId, "ptr", lpSourceName, "ptr", lpHash, "int")
         return result
     }
@@ -18932,6 +19733,8 @@ class ApplicationInstallationAndServicing {
      * @returns {Integer} 
      */
     static GetDeltaSignatureW(FileTypeSet, HashAlgId, lpSourceName, lpHash) {
+        lpSourceName := lpSourceName is String? StrPtr(lpSourceName) : lpSourceName
+
         result := DllCall("msdelta.dll\GetDeltaSignatureW", "int64", FileTypeSet, "uint", HashAlgId, "ptr", lpSourceName, "ptr", lpHash, "int")
         return result
     }
@@ -19280,6 +20083,8 @@ class ApplicationInstallationAndServicing {
     static FindActCtxSectionStringA(dwFlags, ulSectionId, lpStringToFind, ReturnedData) {
         static lpExtensionGuid := 0 ;Reserved parameters must always be NULL
 
+        lpStringToFind := lpStringToFind is String? StrPtr(lpStringToFind) : lpStringToFind
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\FindActCtxSectionStringA", "uint", dwFlags, "ptr", lpExtensionGuid, "uint", ulSectionId, "ptr", lpStringToFind, "ptr", ReturnedData, "int")
@@ -19349,6 +20154,8 @@ class ApplicationInstallationAndServicing {
      */
     static FindActCtxSectionStringW(dwFlags, ulSectionId, lpStringToFind, ReturnedData) {
         static lpExtensionGuid := 0 ;Reserved parameters must always be NULL
+
+        lpStringToFind := lpStringToFind is String? StrPtr(lpStringToFind) : lpStringToFind
 
         A_LastError := 0
 
@@ -19682,6 +20489,10 @@ class ApplicationInstallationAndServicing {
      * @since windows6.0.6000
      */
     static QueryActCtxSettingsW(dwFlags, hActCtx, settingsNameSpace, settingName, pvBuffer, dwBuffer, pdwWrittenOrRequired) {
+        settingsNameSpace := settingsNameSpace is String? StrPtr(settingsNameSpace) : settingsNameSpace
+        settingName := settingName is String? StrPtr(settingName) : settingName
+        pvBuffer := pvBuffer is String? StrPtr(pvBuffer) : pvBuffer
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\QueryActCtxSettingsW", "uint", dwFlags, "ptr", hActCtx, "ptr", settingsNameSpace, "ptr", settingName, "ptr", pvBuffer, "ptr", dwBuffer, "ptr", pdwWrittenOrRequired, "int")

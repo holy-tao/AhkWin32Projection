@@ -959,6 +959,9 @@ class IscsiDisc {
      * @since windows6.0.6000
      */
     static GetIScsiTargetInformationW(TargetName, DiscoveryMechanism, InfoClass, BufferSize, Buffer) {
+        TargetName := TargetName is String? StrPtr(TargetName) : TargetName
+        DiscoveryMechanism := DiscoveryMechanism is String? StrPtr(DiscoveryMechanism) : DiscoveryMechanism
+
         result := DllCall("ISCSIDSC.dll\GetIScsiTargetInformationW", "ptr", TargetName, "ptr", DiscoveryMechanism, "int", InfoClass, "ptr", BufferSize, "ptr", Buffer, "uint")
         return result
     }
@@ -990,6 +993,9 @@ class IscsiDisc {
      * @since windows6.0.6000
      */
     static GetIScsiTargetInformationA(TargetName, DiscoveryMechanism, InfoClass, BufferSize, Buffer) {
+        TargetName := TargetName is String? StrPtr(TargetName) : TargetName
+        DiscoveryMechanism := DiscoveryMechanism is String? StrPtr(DiscoveryMechanism) : DiscoveryMechanism
+
         result := DllCall("ISCSIDSC.dll\GetIScsiTargetInformationA", "ptr", TargetName, "ptr", DiscoveryMechanism, "int", InfoClass, "ptr", BufferSize, "ptr", Buffer, "uint")
         return result
     }
@@ -1099,6 +1105,8 @@ class IscsiDisc {
      * @since windows6.0.6000
      */
     static AddIScsiConnectionW(UniqueSessionId, Reserved, InitiatorPortNumber, TargetPortal, SecurityFlags, LoginOptions, KeySize, Key, ConnectionId) {
+        Key := Key is String? StrPtr(Key) : Key
+
         result := DllCall("ISCSIDSC.dll\AddIScsiConnectionW", "ptr", UniqueSessionId, "ptr", Reserved, "uint", InitiatorPortNumber, "ptr", TargetPortal, "uint", SecurityFlags, "ptr", LoginOptions, "uint", KeySize, "ptr", Key, "ptr", ConnectionId, "uint")
         return result
     }
@@ -1208,6 +1216,8 @@ class IscsiDisc {
      * @since windows6.0.6000
      */
     static AddIScsiConnectionA(UniqueSessionId, Reserved, InitiatorPortNumber, TargetPortal, SecurityFlags, LoginOptions, KeySize, Key, ConnectionId) {
+        Key := Key is String? StrPtr(Key) : Key
+
         result := DllCall("ISCSIDSC.dll\AddIScsiConnectionA", "ptr", UniqueSessionId, "ptr", Reserved, "uint", InitiatorPortNumber, "ptr", TargetPortal, "uint", SecurityFlags, "ptr", LoginOptions, "uint", KeySize, "ptr", Key, "ptr", ConnectionId, "uint")
         return result
     }
@@ -1240,6 +1250,8 @@ class IscsiDisc {
      * @since windows6.0.6000
      */
     static ReportIScsiTargetsW(ForceUpdate, BufferSize, Buffer) {
+        Buffer := Buffer is String? StrPtr(Buffer) : Buffer
+
         result := DllCall("ISCSIDSC.dll\ReportIScsiTargetsW", "char", ForceUpdate, "ptr", BufferSize, "ptr", Buffer, "uint")
         return result
     }
@@ -1257,6 +1269,8 @@ class IscsiDisc {
      * @since windows6.0.6000
      */
     static ReportIScsiTargetsA(ForceUpdate, BufferSize, Buffer) {
+        Buffer := Buffer is String? StrPtr(Buffer) : Buffer
+
         result := DllCall("ISCSIDSC.dll\ReportIScsiTargetsA", "char", ForceUpdate, "ptr", BufferSize, "ptr", Buffer, "uint")
         return result
     }
@@ -1318,6 +1332,9 @@ class IscsiDisc {
      * @since windows6.0.6000
      */
     static AddIScsiStaticTargetW(TargetName, TargetAlias, TargetFlags, Persist, Mappings, LoginOptions, PortalGroup) {
+        TargetName := TargetName is String? StrPtr(TargetName) : TargetName
+        TargetAlias := TargetAlias is String? StrPtr(TargetAlias) : TargetAlias
+
         result := DllCall("ISCSIDSC.dll\AddIScsiStaticTargetW", "ptr", TargetName, "ptr", TargetAlias, "uint", TargetFlags, "char", Persist, "ptr", Mappings, "ptr", LoginOptions, "ptr", PortalGroup, "uint")
         return result
     }
@@ -1379,6 +1396,9 @@ class IscsiDisc {
      * @since windows6.0.6000
      */
     static AddIScsiStaticTargetA(TargetName, TargetAlias, TargetFlags, Persist, Mappings, LoginOptions, PortalGroup) {
+        TargetName := TargetName is String? StrPtr(TargetName) : TargetName
+        TargetAlias := TargetAlias is String? StrPtr(TargetAlias) : TargetAlias
+
         result := DllCall("ISCSIDSC.dll\AddIScsiStaticTargetA", "ptr", TargetName, "ptr", TargetAlias, "uint", TargetFlags, "char", Persist, "ptr", Mappings, "ptr", LoginOptions, "ptr", PortalGroup, "uint")
         return result
     }
@@ -1394,6 +1414,8 @@ class IscsiDisc {
      * @since windows6.0.6000
      */
     static RemoveIScsiStaticTargetW(TargetName) {
+        TargetName := TargetName is String? StrPtr(TargetName) : TargetName
+
         result := DllCall("ISCSIDSC.dll\RemoveIScsiStaticTargetW", "ptr", TargetName, "uint")
         return result
     }
@@ -1409,6 +1431,8 @@ class IscsiDisc {
      * @since windows6.0.6000
      */
     static RemoveIScsiStaticTargetA(TargetName) {
+        TargetName := TargetName is String? StrPtr(TargetName) : TargetName
+
         result := DllCall("ISCSIDSC.dll\RemoveIScsiStaticTargetA", "ptr", TargetName, "uint")
         return result
     }
@@ -1514,6 +1538,8 @@ class IscsiDisc {
      * @since windows6.0.6000
      */
     static AddIScsiSendTargetPortalW(InitiatorInstance, InitiatorPortNumber, LoginOptions, SecurityFlags, Portal) {
+        InitiatorInstance := InitiatorInstance is String? StrPtr(InitiatorInstance) : InitiatorInstance
+
         result := DllCall("ISCSIDSC.dll\AddIScsiSendTargetPortalW", "ptr", InitiatorInstance, "uint", InitiatorPortNumber, "ptr", LoginOptions, "uint", SecurityFlags, "ptr", Portal, "uint")
         return result
     }
@@ -1619,6 +1645,8 @@ class IscsiDisc {
      * @since windows6.0.6000
      */
     static AddIScsiSendTargetPortalA(InitiatorInstance, InitiatorPortNumber, LoginOptions, SecurityFlags, Portal) {
+        InitiatorInstance := InitiatorInstance is String? StrPtr(InitiatorInstance) : InitiatorInstance
+
         result := DllCall("ISCSIDSC.dll\AddIScsiSendTargetPortalA", "ptr", InitiatorInstance, "uint", InitiatorPortNumber, "ptr", LoginOptions, "uint", SecurityFlags, "ptr", Portal, "uint")
         return result
     }
@@ -1636,6 +1664,8 @@ class IscsiDisc {
      * @since windows6.0.6000
      */
     static RemoveIScsiSendTargetPortalW(InitiatorInstance, InitiatorPortNumber, Portal) {
+        InitiatorInstance := InitiatorInstance is String? StrPtr(InitiatorInstance) : InitiatorInstance
+
         result := DllCall("ISCSIDSC.dll\RemoveIScsiSendTargetPortalW", "ptr", InitiatorInstance, "uint", InitiatorPortNumber, "ptr", Portal, "uint")
         return result
     }
@@ -1653,6 +1683,8 @@ class IscsiDisc {
      * @since windows6.0.6000
      */
     static RemoveIScsiSendTargetPortalA(InitiatorInstance, InitiatorPortNumber, Portal) {
+        InitiatorInstance := InitiatorInstance is String? StrPtr(InitiatorInstance) : InitiatorInstance
+
         result := DllCall("ISCSIDSC.dll\RemoveIScsiSendTargetPortalA", "ptr", InitiatorInstance, "uint", InitiatorPortNumber, "ptr", Portal, "uint")
         return result
     }
@@ -1670,6 +1702,8 @@ class IscsiDisc {
      * @since windows6.0.6000
      */
     static RefreshIScsiSendTargetPortalW(InitiatorInstance, InitiatorPortNumber, Portal) {
+        InitiatorInstance := InitiatorInstance is String? StrPtr(InitiatorInstance) : InitiatorInstance
+
         result := DllCall("ISCSIDSC.dll\RefreshIScsiSendTargetPortalW", "ptr", InitiatorInstance, "uint", InitiatorPortNumber, "ptr", Portal, "uint")
         return result
     }
@@ -1687,6 +1721,8 @@ class IscsiDisc {
      * @since windows6.0.6000
      */
     static RefreshIScsiSendTargetPortalA(InitiatorInstance, InitiatorPortNumber, Portal) {
+        InitiatorInstance := InitiatorInstance is String? StrPtr(InitiatorInstance) : InitiatorInstance
+
         result := DllCall("ISCSIDSC.dll\RefreshIScsiSendTargetPortalA", "ptr", InitiatorInstance, "uint", InitiatorPortNumber, "ptr", Portal, "uint")
         return result
     }
@@ -1883,6 +1919,10 @@ class IscsiDisc {
      * @since windows6.0.6000
      */
     static LoginIScsiTargetW(TargetName, IsInformationalSession, InitiatorInstance, InitiatorPortNumber, TargetPortal, SecurityFlags, Mappings, LoginOptions, KeySize, Key, IsPersistent, UniqueSessionId, UniqueConnectionId) {
+        TargetName := TargetName is String? StrPtr(TargetName) : TargetName
+        InitiatorInstance := InitiatorInstance is String? StrPtr(InitiatorInstance) : InitiatorInstance
+        Key := Key is String? StrPtr(Key) : Key
+
         result := DllCall("ISCSIDSC.dll\LoginIScsiTargetW", "ptr", TargetName, "char", IsInformationalSession, "ptr", InitiatorInstance, "uint", InitiatorPortNumber, "ptr", TargetPortal, "uint", SecurityFlags, "ptr", Mappings, "ptr", LoginOptions, "uint", KeySize, "ptr", Key, "char", IsPersistent, "ptr", UniqueSessionId, "ptr", UniqueConnectionId, "uint")
         return result
     }
@@ -2013,6 +2053,10 @@ class IscsiDisc {
      * @since windows6.0.6000
      */
     static LoginIScsiTargetA(TargetName, IsInformationalSession, InitiatorInstance, InitiatorPortNumber, TargetPortal, SecurityFlags, Mappings, LoginOptions, KeySize, Key, IsPersistent, UniqueSessionId, UniqueConnectionId) {
+        TargetName := TargetName is String? StrPtr(TargetName) : TargetName
+        InitiatorInstance := InitiatorInstance is String? StrPtr(InitiatorInstance) : InitiatorInstance
+        Key := Key is String? StrPtr(Key) : Key
+
         result := DllCall("ISCSIDSC.dll\LoginIScsiTargetA", "ptr", TargetName, "char", IsInformationalSession, "ptr", InitiatorInstance, "uint", InitiatorPortNumber, "ptr", TargetPortal, "uint", SecurityFlags, "ptr", Mappings, "ptr", LoginOptions, "uint", KeySize, "ptr", Key, "char", IsPersistent, "ptr", UniqueSessionId, "ptr", UniqueConnectionId, "uint")
         return result
     }
@@ -2095,6 +2139,9 @@ class IscsiDisc {
      * @since windows6.0.6000
      */
     static RemoveIScsiPersistentTargetW(InitiatorInstance, InitiatorPortNumber, TargetName, Portal) {
+        InitiatorInstance := InitiatorInstance is String? StrPtr(InitiatorInstance) : InitiatorInstance
+        TargetName := TargetName is String? StrPtr(TargetName) : TargetName
+
         result := DllCall("ISCSIDSC.dll\RemoveIScsiPersistentTargetW", "ptr", InitiatorInstance, "uint", InitiatorPortNumber, "ptr", TargetName, "ptr", Portal, "uint")
         return result
     }
@@ -2113,6 +2160,9 @@ class IscsiDisc {
      * @since windows6.0.6000
      */
     static RemoveIScsiPersistentTargetA(InitiatorInstance, InitiatorPortNumber, TargetName, Portal) {
+        InitiatorInstance := InitiatorInstance is String? StrPtr(InitiatorInstance) : InitiatorInstance
+        TargetName := TargetName is String? StrPtr(TargetName) : TargetName
+
         result := DllCall("ISCSIDSC.dll\RemoveIScsiPersistentTargetA", "ptr", InitiatorInstance, "uint", InitiatorPortNumber, "ptr", TargetName, "ptr", Portal, "uint")
         return result
     }
@@ -2212,6 +2262,8 @@ class IscsiDisc {
      * @since windows6.0.6000
      */
     static ReportIScsiInitiatorListW(BufferSize, Buffer) {
+        Buffer := Buffer is String? StrPtr(Buffer) : Buffer
+
         result := DllCall("ISCSIDSC.dll\ReportIScsiInitiatorListW", "ptr", BufferSize, "ptr", Buffer, "uint")
         return result
     }
@@ -2231,6 +2283,8 @@ class IscsiDisc {
      * @since windows6.0.6000
      */
     static ReportIScsiInitiatorListA(BufferSize, Buffer) {
+        Buffer := Buffer is String? StrPtr(Buffer) : Buffer
+
         result := DllCall("ISCSIDSC.dll\ReportIScsiInitiatorListA", "ptr", BufferSize, "ptr", Buffer, "uint")
         return result
     }
@@ -2304,6 +2358,10 @@ class IscsiDisc {
      * @since windows6.0.6000
      */
     static SetIScsiTunnelModeOuterAddressW(InitiatorName, InitiatorPortNumber, DestinationAddress, OuterModeAddress, Persist) {
+        InitiatorName := InitiatorName is String? StrPtr(InitiatorName) : InitiatorName
+        DestinationAddress := DestinationAddress is String? StrPtr(DestinationAddress) : DestinationAddress
+        OuterModeAddress := OuterModeAddress is String? StrPtr(OuterModeAddress) : OuterModeAddress
+
         result := DllCall("ISCSIDSC.dll\SetIScsiTunnelModeOuterAddressW", "ptr", InitiatorName, "uint", InitiatorPortNumber, "ptr", DestinationAddress, "ptr", OuterModeAddress, "char", Persist, "uint")
         return result
     }
@@ -2323,6 +2381,10 @@ class IscsiDisc {
      * @since windows6.0.6000
      */
     static SetIScsiTunnelModeOuterAddressA(InitiatorName, InitiatorPortNumber, DestinationAddress, OuterModeAddress, Persist) {
+        InitiatorName := InitiatorName is String? StrPtr(InitiatorName) : InitiatorName
+        DestinationAddress := DestinationAddress is String? StrPtr(DestinationAddress) : DestinationAddress
+        OuterModeAddress := OuterModeAddress is String? StrPtr(OuterModeAddress) : OuterModeAddress
+
         result := DllCall("ISCSIDSC.dll\SetIScsiTunnelModeOuterAddressA", "ptr", InitiatorName, "uint", InitiatorPortNumber, "ptr", DestinationAddress, "ptr", OuterModeAddress, "char", Persist, "uint")
         return result
     }
@@ -2341,6 +2403,8 @@ class IscsiDisc {
      * @since windows6.0.6000
      */
     static SetIScsiIKEInfoW(InitiatorName, InitiatorPortNumber, AuthInfo, Persist) {
+        InitiatorName := InitiatorName is String? StrPtr(InitiatorName) : InitiatorName
+
         result := DllCall("ISCSIDSC.dll\SetIScsiIKEInfoW", "ptr", InitiatorName, "uint", InitiatorPortNumber, "ptr", AuthInfo, "char", Persist, "uint")
         return result
     }
@@ -2359,6 +2423,8 @@ class IscsiDisc {
      * @since windows6.0.6000
      */
     static SetIScsiIKEInfoA(InitiatorName, InitiatorPortNumber, AuthInfo, Persist) {
+        InitiatorName := InitiatorName is String? StrPtr(InitiatorName) : InitiatorName
+
         result := DllCall("ISCSIDSC.dll\SetIScsiIKEInfoA", "ptr", InitiatorName, "uint", InitiatorPortNumber, "ptr", AuthInfo, "char", Persist, "uint")
         return result
     }
@@ -2377,6 +2443,8 @@ class IscsiDisc {
      * @since windows6.0.6000
      */
     static GetIScsiIKEInfoW(InitiatorName, InitiatorPortNumber, Reserved, AuthInfo) {
+        InitiatorName := InitiatorName is String? StrPtr(InitiatorName) : InitiatorName
+
         result := DllCall("ISCSIDSC.dll\GetIScsiIKEInfoW", "ptr", InitiatorName, "uint", InitiatorPortNumber, "ptr", Reserved, "ptr", AuthInfo, "uint")
         return result
     }
@@ -2395,6 +2463,8 @@ class IscsiDisc {
      * @since windows6.0.6000
      */
     static GetIScsiIKEInfoA(InitiatorName, InitiatorPortNumber, Reserved, AuthInfo) {
+        InitiatorName := InitiatorName is String? StrPtr(InitiatorName) : InitiatorName
+
         result := DllCall("ISCSIDSC.dll\GetIScsiIKEInfoA", "ptr", InitiatorName, "uint", InitiatorPortNumber, "ptr", Reserved, "ptr", AuthInfo, "uint")
         return result
     }
@@ -2465,6 +2535,8 @@ class IscsiDisc {
      * @since windows6.0.6000
      */
     static SetIScsiInitiatorNodeNameW(InitiatorNodeName) {
+        InitiatorNodeName := InitiatorNodeName is String? StrPtr(InitiatorNodeName) : InitiatorNodeName
+
         result := DllCall("ISCSIDSC.dll\SetIScsiInitiatorNodeNameW", "ptr", InitiatorNodeName, "uint")
         return result
     }
@@ -2489,6 +2561,8 @@ class IscsiDisc {
      * @since windows6.0.6000
      */
     static SetIScsiInitiatorNodeNameA(InitiatorNodeName) {
+        InitiatorNodeName := InitiatorNodeName is String? StrPtr(InitiatorNodeName) : InitiatorNodeName
+
         result := DllCall("ISCSIDSC.dll\SetIScsiInitiatorNodeNameA", "ptr", InitiatorNodeName, "uint")
         return result
     }
@@ -2509,6 +2583,8 @@ class IscsiDisc {
      * @since windows6.0.6000
      */
     static GetIScsiInitiatorNodeNameW(InitiatorNodeName) {
+        InitiatorNodeName := InitiatorNodeName is String? StrPtr(InitiatorNodeName) : InitiatorNodeName
+
         result := DllCall("ISCSIDSC.dll\GetIScsiInitiatorNodeNameW", "ptr", InitiatorNodeName, "uint")
         return result
     }
@@ -2529,6 +2605,8 @@ class IscsiDisc {
      * @since windows6.0.6000
      */
     static GetIScsiInitiatorNodeNameA(InitiatorNodeName) {
+        InitiatorNodeName := InitiatorNodeName is String? StrPtr(InitiatorNodeName) : InitiatorNodeName
+
         result := DllCall("ISCSIDSC.dll\GetIScsiInitiatorNodeNameA", "ptr", InitiatorNodeName, "uint")
         return result
     }
@@ -2552,6 +2630,8 @@ class IscsiDisc {
      * @since windows6.0.6000
      */
     static AddISNSServerW(Address) {
+        Address := Address is String? StrPtr(Address) : Address
+
         result := DllCall("ISCSIDSC.dll\AddISNSServerW", "ptr", Address, "uint")
         return result
     }
@@ -2575,6 +2655,8 @@ class IscsiDisc {
      * @since windows6.0.6000
      */
     static AddISNSServerA(Address) {
+        Address := Address is String? StrPtr(Address) : Address
+
         result := DllCall("ISCSIDSC.dll\AddISNSServerA", "ptr", Address, "uint")
         return result
     }
@@ -2598,6 +2680,8 @@ class IscsiDisc {
      * @since windows6.0.6000
      */
     static RemoveISNSServerW(Address) {
+        Address := Address is String? StrPtr(Address) : Address
+
         result := DllCall("ISCSIDSC.dll\RemoveISNSServerW", "ptr", Address, "uint")
         return result
     }
@@ -2621,6 +2705,8 @@ class IscsiDisc {
      * @since windows6.0.6000
      */
     static RemoveISNSServerA(Address) {
+        Address := Address is String? StrPtr(Address) : Address
+
         result := DllCall("ISCSIDSC.dll\RemoveISNSServerA", "ptr", Address, "uint")
         return result
     }
@@ -2645,6 +2731,8 @@ class IscsiDisc {
      * @since windows6.0.6000
      */
     static RefreshISNSServerW(Address) {
+        Address := Address is String? StrPtr(Address) : Address
+
         result := DllCall("ISCSIDSC.dll\RefreshISNSServerW", "ptr", Address, "uint")
         return result
     }
@@ -2669,6 +2757,8 @@ class IscsiDisc {
      * @since windows6.0.6000
      */
     static RefreshISNSServerA(Address) {
+        Address := Address is String? StrPtr(Address) : Address
+
         result := DllCall("ISCSIDSC.dll\RefreshISNSServerA", "ptr", Address, "uint")
         return result
     }
@@ -2688,6 +2778,8 @@ class IscsiDisc {
      * @since windows6.0.6000
      */
     static ReportISNSServerListW(BufferSizeInChar, Buffer) {
+        Buffer := Buffer is String? StrPtr(Buffer) : Buffer
+
         result := DllCall("ISCSIDSC.dll\ReportISNSServerListW", "ptr", BufferSizeInChar, "ptr", Buffer, "uint")
         return result
     }
@@ -2707,6 +2799,8 @@ class IscsiDisc {
      * @since windows6.0.6000
      */
     static ReportISNSServerListA(BufferSizeInChar, Buffer) {
+        Buffer := Buffer is String? StrPtr(Buffer) : Buffer
+
         result := DllCall("ISCSIDSC.dll\ReportISNSServerListA", "ptr", BufferSizeInChar, "ptr", Buffer, "uint")
         return result
     }
@@ -2882,6 +2976,8 @@ class IscsiDisc {
      * @since windows6.0.6000
      */
     static AddPersistentIScsiDeviceW(DevicePath) {
+        DevicePath := DevicePath is String? StrPtr(DevicePath) : DevicePath
+
         result := DllCall("ISCSIDSC.dll\AddPersistentIScsiDeviceW", "ptr", DevicePath, "uint")
         return result
     }
@@ -2926,6 +3022,8 @@ class IscsiDisc {
      * @since windows6.0.6000
      */
     static AddPersistentIScsiDeviceA(DevicePath) {
+        DevicePath := DevicePath is String? StrPtr(DevicePath) : DevicePath
+
         result := DllCall("ISCSIDSC.dll\AddPersistentIScsiDeviceA", "ptr", DevicePath, "uint")
         return result
     }
@@ -2943,6 +3041,8 @@ class IscsiDisc {
      * @since windows6.0.6000
      */
     static RemovePersistentIScsiDeviceW(DevicePath) {
+        DevicePath := DevicePath is String? StrPtr(DevicePath) : DevicePath
+
         result := DllCall("ISCSIDSC.dll\RemovePersistentIScsiDeviceW", "ptr", DevicePath, "uint")
         return result
     }
@@ -2960,6 +3060,8 @@ class IscsiDisc {
      * @since windows6.0.6000
      */
     static RemovePersistentIScsiDeviceA(DevicePath) {
+        DevicePath := DevicePath is String? StrPtr(DevicePath) : DevicePath
+
         result := DllCall("ISCSIDSC.dll\RemovePersistentIScsiDeviceA", "ptr", DevicePath, "uint")
         return result
     }
@@ -2987,6 +3089,8 @@ class IscsiDisc {
      * @since windows6.0.6000
      */
     static ReportPersistentIScsiDevicesW(BufferSizeInChar, Buffer) {
+        Buffer := Buffer is String? StrPtr(Buffer) : Buffer
+
         result := DllCall("ISCSIDSC.dll\ReportPersistentIScsiDevicesW", "ptr", BufferSizeInChar, "ptr", Buffer, "uint")
         return result
     }
@@ -3003,6 +3107,8 @@ class IscsiDisc {
      * @since windows6.0.6000
      */
     static ReportPersistentIScsiDevicesA(BufferSizeInChar, Buffer) {
+        Buffer := Buffer is String? StrPtr(Buffer) : Buffer
+
         result := DllCall("ISCSIDSC.dll\ReportPersistentIScsiDevicesA", "ptr", BufferSizeInChar, "ptr", Buffer, "uint")
         return result
     }
@@ -3022,6 +3128,9 @@ class IscsiDisc {
      * @since windows6.0.6000
      */
     static ReportIScsiTargetPortalsW(InitiatorName, TargetName, TargetPortalTag, ElementCount, Portals) {
+        InitiatorName := InitiatorName is String? StrPtr(InitiatorName) : InitiatorName
+        TargetName := TargetName is String? StrPtr(TargetName) : TargetName
+
         result := DllCall("ISCSIDSC.dll\ReportIScsiTargetPortalsW", "ptr", InitiatorName, "ptr", TargetName, "ptr", TargetPortalTag, "ptr", ElementCount, "ptr", Portals, "uint")
         return result
     }
@@ -3041,6 +3150,9 @@ class IscsiDisc {
      * @since windows6.0.6000
      */
     static ReportIScsiTargetPortalsA(InitiatorName, TargetName, TargetPortalTag, ElementCount, Portals) {
+        InitiatorName := InitiatorName is String? StrPtr(InitiatorName) : InitiatorName
+        TargetName := TargetName is String? StrPtr(TargetName) : TargetName
+
         result := DllCall("ISCSIDSC.dll\ReportIScsiTargetPortalsA", "ptr", InitiatorName, "ptr", TargetName, "ptr", TargetPortalTag, "ptr", ElementCount, "ptr", Portals, "uint")
         return result
     }
@@ -3080,6 +3192,8 @@ class IscsiDisc {
      * @since windows6.0.6000
      */
     static AddRadiusServerW(Address) {
+        Address := Address is String? StrPtr(Address) : Address
+
         result := DllCall("ISCSIDSC.dll\AddRadiusServerW", "ptr", Address, "uint")
         return result
     }
@@ -3119,6 +3233,8 @@ class IscsiDisc {
      * @since windows6.0.6000
      */
     static AddRadiusServerA(Address) {
+        Address := Address is String? StrPtr(Address) : Address
+
         result := DllCall("ISCSIDSC.dll\AddRadiusServerA", "ptr", Address, "uint")
         return result
     }
@@ -3134,6 +3250,8 @@ class IscsiDisc {
      * @since windows6.0.6000
      */
     static RemoveRadiusServerW(Address) {
+        Address := Address is String? StrPtr(Address) : Address
+
         result := DllCall("ISCSIDSC.dll\RemoveRadiusServerW", "ptr", Address, "uint")
         return result
     }
@@ -3149,6 +3267,8 @@ class IscsiDisc {
      * @since windows6.0.6000
      */
     static RemoveRadiusServerA(Address) {
+        Address := Address is String? StrPtr(Address) : Address
+
         result := DllCall("ISCSIDSC.dll\RemoveRadiusServerA", "ptr", Address, "uint")
         return result
     }
@@ -3165,6 +3285,8 @@ class IscsiDisc {
      * @since windows6.0.6000
      */
     static ReportRadiusServerListW(BufferSizeInChar, Buffer) {
+        Buffer := Buffer is String? StrPtr(Buffer) : Buffer
+
         result := DllCall("ISCSIDSC.dll\ReportRadiusServerListW", "ptr", BufferSizeInChar, "ptr", Buffer, "uint")
         return result
     }
@@ -3181,6 +3303,8 @@ class IscsiDisc {
      * @since windows6.0.6000
      */
     static ReportRadiusServerListA(BufferSizeInChar, Buffer) {
+        Buffer := Buffer is String? StrPtr(Buffer) : Buffer
+
         result := DllCall("ISCSIDSC.dll\ReportRadiusServerListA", "ptr", BufferSizeInChar, "ptr", Buffer, "uint")
         return result
     }

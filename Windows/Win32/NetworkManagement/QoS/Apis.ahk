@@ -4528,6 +4528,8 @@ class QoS {
      * @since windows5.0
      */
     static TcOpenInterfaceA(pInterfaceName, ClientHandle, ClIfcCtx, pIfcHandle) {
+        pInterfaceName := pInterfaceName is String? StrPtr(pInterfaceName) : pInterfaceName
+
         result := DllCall("TRAFFIC.dll\TcOpenInterfaceA", "ptr", pInterfaceName, "ptr", ClientHandle, "ptr", ClIfcCtx, "ptr", pIfcHandle, "uint")
         return result
     }
@@ -4615,6 +4617,8 @@ class QoS {
      * @since windows5.0
      */
     static TcOpenInterfaceW(pInterfaceName, ClientHandle, ClIfcCtx, pIfcHandle) {
+        pInterfaceName := pInterfaceName is String? StrPtr(pInterfaceName) : pInterfaceName
+
         result := DllCall("TRAFFIC.dll\TcOpenInterfaceW", "ptr", pInterfaceName, "ptr", ClientHandle, "ptr", ClIfcCtx, "ptr", pIfcHandle, "uint")
         return result
     }
@@ -4972,6 +4976,8 @@ class QoS {
      * @since windows5.0
      */
     static TcQueryFlowA(pFlowName, pGuidParam, pBufferSize, Buffer) {
+        pFlowName := pFlowName is String? StrPtr(pFlowName) : pFlowName
+
         result := DllCall("TRAFFIC.dll\TcQueryFlowA", "ptr", pFlowName, "ptr", pGuidParam, "ptr", pBufferSize, "ptr", Buffer, "uint")
         return result
     }
@@ -5069,6 +5075,8 @@ class QoS {
      * @since windows5.0
      */
     static TcQueryFlowW(pFlowName, pGuidParam, pBufferSize, Buffer) {
+        pFlowName := pFlowName is String? StrPtr(pFlowName) : pFlowName
+
         result := DllCall("TRAFFIC.dll\TcQueryFlowW", "ptr", pFlowName, "ptr", pGuidParam, "ptr", pBufferSize, "ptr", Buffer, "uint")
         return result
     }
@@ -5181,6 +5189,8 @@ class QoS {
      * @since windows5.0
      */
     static TcSetFlowA(pFlowName, pGuidParam, BufferSize, Buffer) {
+        pFlowName := pFlowName is String? StrPtr(pFlowName) : pFlowName
+
         result := DllCall("TRAFFIC.dll\TcSetFlowA", "ptr", pFlowName, "ptr", pGuidParam, "uint", BufferSize, "ptr", Buffer, "uint")
         return result
     }
@@ -5293,6 +5303,8 @@ class QoS {
      * @since windows5.0
      */
     static TcSetFlowW(pFlowName, pGuidParam, BufferSize, Buffer) {
+        pFlowName := pFlowName is String? StrPtr(pFlowName) : pFlowName
+
         result := DllCall("TRAFFIC.dll\TcSetFlowW", "ptr", pFlowName, "ptr", pGuidParam, "uint", BufferSize, "ptr", Buffer, "uint")
         return result
     }
@@ -5607,6 +5619,8 @@ class QoS {
      * @since windows5.0
      */
     static TcGetFlowNameA(FlowHandle, StrSize, pFlowName) {
+        pFlowName := pFlowName is String? StrPtr(pFlowName) : pFlowName
+
         result := DllCall("TRAFFIC.dll\TcGetFlowNameA", "ptr", FlowHandle, "uint", StrSize, "ptr", pFlowName, "uint")
         return result
     }
@@ -5680,6 +5694,8 @@ class QoS {
      * @since windows5.0
      */
     static TcGetFlowNameW(FlowHandle, StrSize, pFlowName) {
+        pFlowName := pFlowName is String? StrPtr(pFlowName) : pFlowName
+
         result := DllCall("TRAFFIC.dll\TcGetFlowNameW", "ptr", FlowHandle, "uint", StrSize, "ptr", pFlowName, "uint")
         return result
     }

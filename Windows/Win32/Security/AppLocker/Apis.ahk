@@ -838,6 +838,8 @@ class AppLocker {
     static SaferRecordEventLogEntry(hLevel, szTargetPath) {
         static lpReserved := 0 ;Reserved parameters must always be NULL
 
+        szTargetPath := szTargetPath is String? StrPtr(szTargetPath) : szTargetPath
+
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\SaferRecordEventLogEntry", "ptr", hLevel, "ptr", szTargetPath, "ptr", lpReserved, "int")
@@ -884,6 +886,8 @@ class AppLocker {
      * @since windows5.1.2600
      */
     static SaferiIsExecutableFileType(szFullPathname, bFromShellExecute) {
+        szFullPathname := szFullPathname is String? StrPtr(szFullPathname) : szFullPathname
+
         result := DllCall("ADVAPI32.dll\SaferiIsExecutableFileType", "ptr", szFullPathname, "char", bFromShellExecute, "int")
         return result
     }

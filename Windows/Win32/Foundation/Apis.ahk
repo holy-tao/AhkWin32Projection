@@ -33729,6 +33729,8 @@ class Foundation {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-sysallocstring
      */
     static SysAllocString(psz) {
+        psz := psz is String? StrPtr(psz) : psz
+
         result := DllCall("OLEAUT32.dll\SysAllocString", "ptr", psz, "ptr")
         return result
     }
@@ -33745,6 +33747,8 @@ class Foundation {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-sysreallocstring
      */
     static SysReAllocString(pbstr, psz) {
+        psz := psz is String? StrPtr(psz) : psz
+
         DllCall("OLEAUT32.dll\SysReAllocString", "ptr", pbstr, "ptr", psz)
     }
 
@@ -33761,6 +33765,8 @@ class Foundation {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-sysallocstringlen
      */
     static SysAllocStringLen(strIn, ui) {
+        strIn := strIn is String? StrPtr(strIn) : strIn
+
         result := DllCall("OLEAUT32.dll\SysAllocStringLen", "ptr", strIn, "uint", ui, "ptr")
         return result
     }
@@ -33780,6 +33786,8 @@ class Foundation {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-sysreallocstringlen
      */
     static SysReAllocStringLen(pbstr, psz, len) {
+        psz := psz is String? StrPtr(psz) : psz
+
         DllCall("OLEAUT32.dll\SysReAllocStringLen", "ptr", pbstr, "ptr", psz, "uint", len)
     }
 
@@ -33858,6 +33866,8 @@ class Foundation {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-sysallocstringbytelen
      */
     static SysAllocStringByteLen(psz, len) {
+        psz := psz is String? StrPtr(psz) : psz
+
         result := DllCall("OLEAUT32.dll\SysAllocStringByteLen", "ptr", psz, "uint", len, "ptr")
         return result
     }

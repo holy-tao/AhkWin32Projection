@@ -2589,6 +2589,8 @@ class Etw {
      * @since windows5.0
      */
     static StartTraceW(TraceHandle, InstanceName, Properties) {
+        InstanceName := InstanceName is String? StrPtr(InstanceName) : InstanceName
+
         result := DllCall("ADVAPI32.dll\StartTraceW", "ptr", TraceHandle, "ptr", InstanceName, "ptr", Properties, "uint")
         return result
     }
@@ -2757,6 +2759,8 @@ class Etw {
      * @since windows5.0
      */
     static StartTraceA(TraceHandle, InstanceName, Properties) {
+        InstanceName := InstanceName is String? StrPtr(InstanceName) : InstanceName
+
         result := DllCall("ADVAPI32.dll\StartTraceA", "ptr", TraceHandle, "ptr", InstanceName, "ptr", Properties, "uint")
         return result
     }
@@ -2845,6 +2849,8 @@ class Etw {
      * @since windows5.0
      */
     static StopTraceW(TraceHandle, InstanceName, Properties) {
+        InstanceName := InstanceName is String? StrPtr(InstanceName) : InstanceName
+
         result := DllCall("ADVAPI32.dll\StopTraceW", "uint", TraceHandle, "ptr", InstanceName, "ptr", Properties, "uint")
         return result
     }
@@ -2933,6 +2939,8 @@ class Etw {
      * @since windows5.0
      */
     static StopTraceA(TraceHandle, InstanceName, Properties) {
+        InstanceName := InstanceName is String? StrPtr(InstanceName) : InstanceName
+
         result := DllCall("ADVAPI32.dll\StopTraceA", "uint", TraceHandle, "ptr", InstanceName, "ptr", Properties, "uint")
         return result
     }
@@ -3021,6 +3029,8 @@ class Etw {
      * @since windows5.0
      */
     static QueryTraceW(TraceHandle, InstanceName, Properties) {
+        InstanceName := InstanceName is String? StrPtr(InstanceName) : InstanceName
+
         result := DllCall("ADVAPI32.dll\QueryTraceW", "uint", TraceHandle, "ptr", InstanceName, "ptr", Properties, "uint")
         return result
     }
@@ -3109,6 +3119,8 @@ class Etw {
      * @since windows5.0
      */
     static QueryTraceA(TraceHandle, InstanceName, Properties) {
+        InstanceName := InstanceName is String? StrPtr(InstanceName) : InstanceName
+
         result := DllCall("ADVAPI32.dll\QueryTraceA", "uint", TraceHandle, "ptr", InstanceName, "ptr", Properties, "uint")
         return result
     }
@@ -3220,6 +3232,8 @@ class Etw {
      * @since windows5.0
      */
     static UpdateTraceW(TraceHandle, InstanceName, Properties) {
+        InstanceName := InstanceName is String? StrPtr(InstanceName) : InstanceName
+
         result := DllCall("ADVAPI32.dll\UpdateTraceW", "uint", TraceHandle, "ptr", InstanceName, "ptr", Properties, "uint")
         return result
     }
@@ -3331,6 +3345,8 @@ class Etw {
      * @since windows5.0
      */
     static UpdateTraceA(TraceHandle, InstanceName, Properties) {
+        InstanceName := InstanceName is String? StrPtr(InstanceName) : InstanceName
+
         result := DllCall("ADVAPI32.dll\UpdateTraceA", "uint", TraceHandle, "ptr", InstanceName, "ptr", Properties, "uint")
         return result
     }
@@ -3417,6 +3433,8 @@ class Etw {
      * @since windows5.1.2600
      */
     static FlushTraceW(TraceHandle, InstanceName, Properties) {
+        InstanceName := InstanceName is String? StrPtr(InstanceName) : InstanceName
+
         result := DllCall("ADVAPI32.dll\FlushTraceW", "uint", TraceHandle, "ptr", InstanceName, "ptr", Properties, "uint")
         return result
     }
@@ -3503,6 +3521,8 @@ class Etw {
      * @since windows5.1.2600
      */
     static FlushTraceA(TraceHandle, InstanceName, Properties) {
+        InstanceName := InstanceName is String? StrPtr(InstanceName) : InstanceName
+
         result := DllCall("ADVAPI32.dll\FlushTraceA", "uint", TraceHandle, "ptr", InstanceName, "ptr", Properties, "uint")
         return result
     }
@@ -3670,6 +3690,8 @@ class Etw {
      * @since windows5.0
      */
     static ControlTraceW(TraceHandle, InstanceName, Properties, ControlCode) {
+        InstanceName := InstanceName is String? StrPtr(InstanceName) : InstanceName
+
         result := DllCall("ADVAPI32.dll\ControlTraceW", "uint", TraceHandle, "ptr", InstanceName, "ptr", Properties, "uint", ControlCode, "uint")
         return result
     }
@@ -3832,6 +3854,8 @@ class Etw {
      * @since windows5.0
      */
     static ControlTraceA(TraceHandle, InstanceName, Properties, ControlCode) {
+        InstanceName := InstanceName is String? StrPtr(InstanceName) : InstanceName
+
         result := DllCall("ADVAPI32.dll\ControlTraceA", "uint", TraceHandle, "ptr", InstanceName, "ptr", Properties, "uint", ControlCode, "uint")
         return result
     }
@@ -5249,6 +5273,9 @@ class Etw {
      * @since windows5.0
      */
     static RegisterTraceGuidsW(RequestAddress, RequestContext, ControlGuid, GuidCount, TraceGuidReg, MofImagePath, MofResourceName, RegistrationHandle) {
+        MofImagePath := MofImagePath is String? StrPtr(MofImagePath) : MofImagePath
+        MofResourceName := MofResourceName is String? StrPtr(MofResourceName) : MofResourceName
+
         result := DllCall("ADVAPI32.dll\RegisterTraceGuidsW", "ptr", RequestAddress, "ptr", RequestContext, "ptr", ControlGuid, "uint", GuidCount, "ptr", TraceGuidReg, "ptr", MofImagePath, "ptr", MofResourceName, "ptr", RegistrationHandle, "uint")
         return result
     }
@@ -5385,6 +5412,9 @@ class Etw {
      * @since windows5.0
      */
     static RegisterTraceGuidsA(RequestAddress, RequestContext, ControlGuid, GuidCount, TraceGuidReg, MofImagePath, MofResourceName, RegistrationHandle) {
+        MofImagePath := MofImagePath is String? StrPtr(MofImagePath) : MofImagePath
+        MofResourceName := MofResourceName is String? StrPtr(MofResourceName) : MofResourceName
+
         result := DllCall("ADVAPI32.dll\RegisterTraceGuidsA", "ptr", RequestAddress, "ptr", RequestContext, "ptr", ControlGuid, "uint", GuidCount, "ptr", TraceGuidReg, "ptr", MofImagePath, "ptr", MofResourceName, "ptr", RegistrationHandle, "uint")
         return result
     }
@@ -5863,6 +5893,8 @@ class Etw {
      * @see https://learn.microsoft.com/windows/win32/api/evntrace/nf-evntrace-opentracefromrealtimelogger
      */
     static OpenTraceFromRealTimeLogger(LoggerName, Options, LogFileHeader) {
+        LoggerName := LoggerName is String? StrPtr(LoggerName) : LoggerName
+
         result := DllCall("ADVAPI32.dll\OpenTraceFromRealTimeLogger", "ptr", LoggerName, "ptr", Options, "ptr", LogFileHeader, "uint")
         return result
     }
@@ -5886,6 +5918,8 @@ class Etw {
      * @see https://learn.microsoft.com/windows/win32/api/evntrace/nf-evntrace-opentracefromrealtimeloggerwithallocationoptions
      */
     static OpenTraceFromRealTimeLoggerWithAllocationOptions(LoggerName, Options, AllocationSize, MemoryPartitionHandle, LogFileHeader) {
+        LoggerName := LoggerName is String? StrPtr(LoggerName) : LoggerName
+
         result := DllCall("ADVAPI32.dll\OpenTraceFromRealTimeLoggerWithAllocationOptions", "ptr", LoggerName, "ptr", Options, "ptr", AllocationSize, "ptr", MemoryPartitionHandle, "ptr", LogFileHeader, "uint")
         return result
     }
@@ -5901,6 +5935,8 @@ class Etw {
      * @see https://learn.microsoft.com/windows/win32/api/evntrace/nf-evntrace-opentracefromfile
      */
     static OpenTraceFromFile(LogFileName, Options, LogFileHeader) {
+        LogFileName := LogFileName is String? StrPtr(LogFileName) : LogFileName
+
         result := DllCall("ADVAPI32.dll\OpenTraceFromFile", "ptr", LogFileName, "ptr", Options, "ptr", LogFileHeader, "uint")
         return result
     }
@@ -7016,6 +7052,8 @@ class Etw {
      * @since windows6.0.6000
      */
     static EventWriteString(RegHandle, Level, Keyword, String) {
+        String := String is String? StrPtr(String) : String
+
         result := DllCall("ADVAPI32.dll\EventWriteString", "int64", RegHandle, "char", Level, "uint", Keyword, "ptr", String, "uint")
         return result
     }
@@ -7675,6 +7713,8 @@ class Etw {
      * @since windows6.0.6000
      */
     static TdhGetEventMapInformation(pEvent, pMapName, pBuffer, pBufferSize) {
+        pMapName := pMapName is String? StrPtr(pMapName) : pMapName
+
         result := DllCall("TDH.dll\TdhGetEventMapInformation", "ptr", pEvent, "ptr", pMapName, "ptr", pBuffer, "ptr", pBufferSize, "uint")
         return result
     }
@@ -8167,6 +8207,8 @@ class Etw {
      * @since windows6.1
      */
     static TdhLoadManifest(Manifest) {
+        Manifest := Manifest is String? StrPtr(Manifest) : Manifest
+
         result := DllCall("TDH.dll\TdhLoadManifest", "ptr", Manifest, "uint")
         return result
     }
@@ -8244,6 +8286,8 @@ class Etw {
      * @since windows6.1
      */
     static TdhUnloadManifest(Manifest) {
+        Manifest := Manifest is String? StrPtr(Manifest) : Manifest
+
         result := DllCall("TDH.dll\TdhUnloadManifest", "ptr", Manifest, "uint")
         return result
     }
@@ -8307,6 +8351,8 @@ class Etw {
      * @since windows6.1
      */
     static TdhFormatProperty(EventInfo, MapInfo, PointerSize, PropertyInType, PropertyOutType, PropertyLength, UserDataLength, UserData, BufferSize, Buffer, UserDataConsumed) {
+        Buffer := Buffer is String? StrPtr(Buffer) : Buffer
+
         result := DllCall("TDH.dll\TdhFormatProperty", "ptr", EventInfo, "ptr", MapInfo, "uint", PointerSize, "ushort", PropertyInType, "ushort", PropertyOutType, "ushort", PropertyLength, "ushort", UserDataLength, "ptr", UserData, "ptr", BufferSize, "ptr", Buffer, "ptr", UserDataConsumed, "uint")
         return result
     }
@@ -8522,6 +8568,8 @@ class Etw {
      * @since windows8.0
      */
     static TdhGetWppProperty(Handle, EventRecord, PropertyName, BufferSize, Buffer) {
+        PropertyName := PropertyName is String? StrPtr(PropertyName) : PropertyName
+
         result := DllCall("tdh.dll\TdhGetWppProperty", "ptr", Handle, "ptr", EventRecord, "ptr", PropertyName, "ptr", BufferSize, "ptr", Buffer, "uint")
         return result
     }
@@ -8635,6 +8683,8 @@ class Etw {
      * @since windows8.0
      */
     static TdhLoadManifestFromBinary(BinaryPath) {
+        BinaryPath := BinaryPath is String? StrPtr(BinaryPath) : BinaryPath
+
         result := DllCall("tdh.dll\TdhLoadManifestFromBinary", "ptr", BinaryPath, "uint")
         return result
     }
@@ -8874,6 +8924,9 @@ class Etw {
      * @since windows10.0.10240
      */
     static CveEventWrite(CveId, AdditionalDetails) {
+        CveId := CveId is String? StrPtr(CveId) : CveId
+        AdditionalDetails := AdditionalDetails is String? StrPtr(AdditionalDetails) : AdditionalDetails
+
         result := DllCall("ADVAPI32.dll\CveEventWrite", "ptr", CveId, "ptr", AdditionalDetails, "int")
         return result
     }
