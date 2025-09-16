@@ -21,7 +21,7 @@ class DOT11_ADAPTER extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pszDescription {
         get => NumGet(this, 8, "ptr")

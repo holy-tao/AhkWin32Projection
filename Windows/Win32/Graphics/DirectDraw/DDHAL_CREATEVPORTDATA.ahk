@@ -44,7 +44,7 @@ class DDHAL_CREATEVPORTDATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPDDHALVPORTCB_CREATEVIDEOPORT>}
      */
     CreateVideoPort {
         get => NumGet(this, 32, "ptr")

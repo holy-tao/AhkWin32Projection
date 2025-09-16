@@ -13,7 +13,7 @@ class JET_CONVERT_A extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     szOldDll {
         get => NumGet(this, 0, "ptr")

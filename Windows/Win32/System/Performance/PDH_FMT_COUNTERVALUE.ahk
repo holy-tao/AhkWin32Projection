@@ -50,7 +50,7 @@ class PDH_FMT_COUNTERVALUE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     AnsiStringValue {
         get => NumGet(this, 4, "ptr")
@@ -58,7 +58,7 @@ class PDH_FMT_COUNTERVALUE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     WideStringValue {
         get => NumGet(this, 4, "ptr")

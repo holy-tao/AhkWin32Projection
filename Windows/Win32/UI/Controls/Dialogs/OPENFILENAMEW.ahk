@@ -19,9 +19,9 @@
  */
 class OPENFILENAMEW extends Win32Struct
 {
-    static sizeof => 140
+    static sizeof => 152
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * Type: <b>DWORD</b>
@@ -39,22 +39,22 @@ class OPENFILENAMEW extends Win32Struct
      * Type: <b>HWND</b>
      * 
      * A handle to the window that owns the dialog box. This member can be any valid window handle, or it can be <b>NULL</b> if the dialog box has no owner.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HWND>}
      */
     hwndOwner {
-        get => NumGet(this, 4, "ptr")
-        set => NumPut("ptr", value, this, 4)
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * Type: <b>HINSTANCE</b>
      * 
      * If the <b>OFN_ENABLETEMPLATEHANDLE</b> flag is set in the <b>Flags</b> member, <b>hInstance</b> is a handle to a memory object containing a dialog box template. If the <b>OFN_ENABLETEMPLATE</b> flag is set, <b>hInstance</b> is a handle to a module that contains a dialog box template named by the <b>lpTemplateName</b> member. If neither flag is set, this member is ignored. If the <b>OFN_EXPLORER</b> flag is set, the system uses the specified template to create a dialog box that is a child of the default Explorer-style dialog box. If the <b>OFN_EXPLORER</b> flag is not set, the system uses the template to create an old-style dialog box that replaces the default dialog box.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HINSTANCE>}
      */
     hInstance {
-        get => NumGet(this, 12, "ptr")
-        set => NumPut("ptr", value, this, 12)
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
@@ -69,11 +69,11 @@ class OPENFILENAMEW extends Win32Struct
      * If <b>lpstrFilter</b> is <b>NULL</b>, the dialog box does not display any filters.
      * 
      *  In the case of a shortcut, if no filter is set, <a href="https://docs.microsoft.com/windows/desktop/api/commdlg/nf-commdlg-getopenfilenamea">GetOpenFileName</a> and <a href="https://docs.microsoft.com/windows/desktop/api/commdlg/nf-commdlg-getsavefilenamea">GetSaveFileName</a> retrieve the name of the .lnk file, not its target. This behavior is the same as setting the <b>OFN_NODEREFERENCELINKS</b> flag in the <b>Flags</b> member. To retrieve a shortcut's target without filtering, use the string <c>"All Files\0*.*\0\0"</c>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     lpstrFilter {
-        get => NumGet(this, 20, "ptr")
-        set => NumPut("ptr", value, this, 20)
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
@@ -84,11 +84,11 @@ class OPENFILENAMEW extends Win32Struct
      * If this member is <b>NULL</b>, the dialog box does not preserve user-defined filter patterns.
      * 
      * If this member is not <b>NULL</b>, the value of the <b>nMaxCustFilter</b> member must specify the size, in characters, of the <b>lpstrCustomFilter</b> buffer.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     lpstrCustomFilter {
-        get => NumGet(this, 28, "ptr")
-        set => NumPut("ptr", value, this, 28)
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
@@ -98,8 +98,8 @@ class OPENFILENAMEW extends Win32Struct
      * @type {Integer}
      */
     nMaxCustFilter {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
+        get => NumGet(this, 40, "uint")
+        set => NumPut("uint", value, this, 40)
     }
 
     /**
@@ -109,8 +109,8 @@ class OPENFILENAMEW extends Win32Struct
      * @type {Integer}
      */
     nFilterIndex {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
+        get => NumGet(this, 44, "uint")
+        set => NumPut("uint", value, this, 44)
     }
 
     /**
@@ -121,11 +121,11 @@ class OPENFILENAMEW extends Win32Struct
      * If the <b>OFN_ALLOWMULTISELECT</b> flag is set and the user selects multiple files, the buffer contains the current directory followed by the file names of the selected files. For Explorer-style dialog boxes, the directory and file name strings are <b>NULL</b> separated, with an extra <b>NULL</b> character after the last file name. For old-style dialog boxes, the strings are space separated and the function uses short file names for file names with spaces. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-findfirstfilea">FindFirstFile</a> function to convert between long and short file names. If the user selects only one file, the <b>lpstrFile</b> string does not have a separator between the path and file name.
      * 
      * If the buffer is too small, the function returns <b>FALSE</b> and the <a href="https://docs.microsoft.com/windows/desktop/api/commdlg/nf-commdlg-commdlgextendederror">CommDlgExtendedError</a> function returns <b>FNERR_BUFFERTOOSMALL</b>. In this case, the first two bytes of the <b>lpstrFile</b> buffer contain the required size, in bytes or characters.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     lpstrFile {
-        get => NumGet(this, 44, "ptr")
-        set => NumPut("ptr", value, this, 44)
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**
@@ -135,19 +135,19 @@ class OPENFILENAMEW extends Win32Struct
      * @type {Integer}
      */
     nMaxFile {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
+        get => NumGet(this, 56, "uint")
+        set => NumPut("uint", value, this, 56)
     }
 
     /**
      * Type: <b>LPTSTR</b>
      * 
      * The file name and extension (without path information) of the selected file. This member can be <b>NULL</b>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     lpstrFileTitle {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
+        get => NumGet(this, 64, "ptr")
+        set => NumPut("ptr", value, this, 64)
     }
 
     /**
@@ -157,8 +157,8 @@ class OPENFILENAMEW extends Win32Struct
      * @type {Integer}
      */
     nMaxFileTitle {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
+        get => NumGet(this, 72, "uint")
+        set => NumPut("uint", value, this, 72)
     }
 
     /**
@@ -186,22 +186,22 @@ class OPENFILENAMEW extends Win32Struct
      * <li>Otherwise, the initial directory is the personal files directory of the current user.</li>
      * <li>Otherwise, the initial directory is the Desktop folder.</li>
      * </ol>
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     lpstrInitialDir {
-        get => NumGet(this, 68, "ptr")
-        set => NumPut("ptr", value, this, 68)
+        get => NumGet(this, 80, "ptr")
+        set => NumPut("ptr", value, this, 80)
     }
 
     /**
      * Type: <b>LPCTSTR</b>
      * 
      * A string to be placed in the title bar of the dialog box. If this member is <b>NULL</b>, the system uses the default title (that is, <b>Save As</b> or <b>Open</b>).
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     lpstrTitle {
-        get => NumGet(this, 76, "ptr")
-        set => NumPut("ptr", value, this, 76)
+        get => NumGet(this, 88, "ptr")
+        set => NumPut("ptr", value, this, 88)
     }
 
     /**
@@ -515,8 +515,8 @@ class OPENFILENAMEW extends Win32Struct
      * @type {Integer}
      */
     Flags {
-        get => NumGet(this, 84, "uint")
-        set => NumPut("uint", value, this, 84)
+        get => NumGet(this, 96, "uint")
+        set => NumPut("uint", value, this, 96)
     }
 
     /**
@@ -526,8 +526,8 @@ class OPENFILENAMEW extends Win32Struct
      * @type {Integer}
      */
     nFileOffset {
-        get => NumGet(this, 88, "ushort")
-        set => NumPut("ushort", value, this, 88)
+        get => NumGet(this, 100, "ushort")
+        set => NumPut("ushort", value, this, 100)
     }
 
     /**
@@ -537,19 +537,19 @@ class OPENFILENAMEW extends Win32Struct
      * @type {Integer}
      */
     nFileExtension {
-        get => NumGet(this, 90, "ushort")
-        set => NumPut("ushort", value, this, 90)
+        get => NumGet(this, 102, "ushort")
+        set => NumPut("ushort", value, this, 102)
     }
 
     /**
      * Type: <b>LPCTSTR</b>
      * 
      * The default extension. <a href="https://docs.microsoft.com/windows/desktop/api/commdlg/nf-commdlg-getopenfilenamea">GetOpenFileName</a> and <a href="https://docs.microsoft.com/windows/desktop/api/commdlg/nf-commdlg-getsavefilenamea">GetSaveFileName</a> append this extension to the file name if the user fails to type an extension. This string can be any length, but only the first three characters are appended. The string should not contain a period (.). If this member is <b>NULL</b> and the user fails to type an extension, no extension is appended.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     lpstrDefExt {
-        get => NumGet(this, 92, "ptr")
-        set => NumPut("ptr", value, this, 92)
+        get => NumGet(this, 104, "ptr")
+        set => NumPut("ptr", value, this, 104)
     }
 
     /**
@@ -559,8 +559,8 @@ class OPENFILENAMEW extends Win32Struct
      * @type {Pointer}
      */
     lCustData {
-        get => NumGet(this, 100, "ptr")
-        set => NumPut("ptr", value, this, 100)
+        get => NumGet(this, 112, "ptr")
+        set => NumPut("ptr", value, this, 112)
     }
 
     /**
@@ -571,22 +571,22 @@ class OPENFILENAMEW extends Win32Struct
      * If the <b>OFN_EXPLORER</b> flag is not set in the <b>Flags</b> member, <b>lpfnHook</b> is a pointer to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms646932(v=vs.85)">OFNHookProcOldStyle</a> hook procedure that receives messages intended for the dialog box. The hook procedure returns <b>FALSE</b> to pass a message to the default dialog box procedure or <b>TRUE</b> to discard the message.
      * 
      * If <b>OFN_EXPLORER</b> is set, <b>lpfnHook</b> is a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/commdlg/nc-commdlg-lpofnhookproc">OFNHookProc</a> hook procedure. The hook procedure receives notification messages sent from the dialog box. The hook procedure also receives messages for any additional controls that you defined by specifying a child dialog template. The hook procedure does not receive messages intended for the standard controls of the default dialog box.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPOFNHOOKPROC>}
      */
     lpfnHook {
-        get => NumGet(this, 108, "ptr")
-        set => NumPut("ptr", value, this, 108)
+        get => NumGet(this, 120, "ptr")
+        set => NumPut("ptr", value, this, 120)
     }
 
     /**
      * Type: <b>LPCTSTR</b>
      * 
      * The name of the dialog template resource in the module identified by the <b>hInstance</b> member. For numbered dialog box resources, this can be a value returned by the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-makeintresourcea">MAKEINTRESOURCE</a> macro. This member is ignored unless the <b>OFN_ENABLETEMPLATE</b> flag is set in the <b>Flags</b> member. If the <b>OFN_EXPLORER</b> flag is set, the system uses the specified template to create a dialog box that is a child of the default Explorer-style dialog box. If the <b>OFN_EXPLORER</b> flag is not set, the system uses the template to create an old-style dialog box that replaces the default dialog box.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     lpTemplateName {
-        get => NumGet(this, 116, "ptr")
-        set => NumPut("ptr", value, this, 116)
+        get => NumGet(this, 128, "ptr")
+        set => NumPut("ptr", value, this, 128)
     }
 
     /**
@@ -596,8 +596,8 @@ class OPENFILENAMEW extends Win32Struct
      * @type {Pointer<Void>}
      */
     pvReserved {
-        get => NumGet(this, 124, "ptr")
-        set => NumPut("ptr", value, this, 124)
+        get => NumGet(this, 136, "ptr")
+        set => NumPut("ptr", value, this, 136)
     }
 
     /**
@@ -607,8 +607,8 @@ class OPENFILENAMEW extends Win32Struct
      * @type {Integer}
      */
     dwReserved {
-        get => NumGet(this, 132, "uint")
-        set => NumPut("uint", value, this, 132)
+        get => NumGet(this, 144, "uint")
+        set => NumPut("uint", value, this, 144)
     }
 
     /**
@@ -636,7 +636,7 @@ class OPENFILENAMEW extends Win32Struct
      * @type {Integer}
      */
     FlagsEx {
-        get => NumGet(this, 136, "uint")
-        set => NumPut("uint", value, this, 136)
+        get => NumGet(this, 148, "uint")
+        set => NumPut("uint", value, this, 148)
     }
 }

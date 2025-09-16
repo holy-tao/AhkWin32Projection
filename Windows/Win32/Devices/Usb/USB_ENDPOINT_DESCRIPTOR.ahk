@@ -7,9 +7,9 @@
  */
 class USB_ENDPOINT_DESCRIPTOR extends Win32Struct
 {
-    static sizeof => 7
+    static sizeof => 8
 
-    static packingSize => 1
+    static packingSize => 2
 
     /**
      * @type {Integer}

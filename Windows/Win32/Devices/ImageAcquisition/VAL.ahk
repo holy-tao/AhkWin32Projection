@@ -44,7 +44,7 @@ class VAL extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HGLOBAL>}
      */
     handle {
         get => NumGet(this, 32, "ptr")
@@ -60,7 +60,7 @@ class VAL extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HANDLE>}
      */
     pHandle {
         get => NumGet(this, 48, "ptr")

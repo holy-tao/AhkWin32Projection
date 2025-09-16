@@ -10,7 +10,7 @@ class AUXCAPS2W extends Win32Struct
 {
     static sizeof => 104
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * @type {Integer}

@@ -40,7 +40,7 @@ class MMC_RESTORE_VIEW extends Win32Struct
     /**
      * A pointer to a string that specifies the view type used to display the result pane for the item specified by cookie. For more information about view types, see the ppViewType parameter for 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/nf-mmc-icomponent-getresultviewtype">IComponent::GetResultViewType</a>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pViewType {
         get => NumGet(this, 16, "ptr")

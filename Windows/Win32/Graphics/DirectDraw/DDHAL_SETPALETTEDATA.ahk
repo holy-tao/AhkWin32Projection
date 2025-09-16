@@ -44,7 +44,7 @@ class DDHAL_SETPALETTEDATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPDDHALSURFCB_SETPALETTE>}
      */
     SetPalette {
         get => NumGet(this, 32, "ptr")

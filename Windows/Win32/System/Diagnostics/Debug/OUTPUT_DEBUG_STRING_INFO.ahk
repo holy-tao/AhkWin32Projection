@@ -16,7 +16,7 @@ class OUTPUT_DEBUG_STRING_INFO extends Win32Struct
     /**
      * The debugging string in the calling process's address space. The debugger can use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/memoryapi/nf-memoryapi-readprocessmemory">ReadProcessMemory</a> function to retrieve the value of the string.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     lpDebugStringData {
         get => NumGet(this, 0, "ptr")

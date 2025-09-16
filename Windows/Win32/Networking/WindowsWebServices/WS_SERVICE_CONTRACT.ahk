@@ -24,7 +24,7 @@ class WS_SERVICE_CONTRACT extends Win32Struct
 
     /**
      * Callback for processing unhandled messages. Optional if contractDescription is given.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<WS_SERVICE_MESSAGE_RECEIVE_CALLBACK>}
      */
     defaultMessageHandlerCallback {
         get => NumGet(this, 8, "ptr")

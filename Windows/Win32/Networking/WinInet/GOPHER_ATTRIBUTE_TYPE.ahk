@@ -98,7 +98,7 @@ class GOPHER_ATTRIBUTE_TYPE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<GOPHER_SITE_ATTRIBUTE_TYPE>}
      */
     Site {
         get => NumGet(this, 8, "ptr")
@@ -106,7 +106,7 @@ class GOPHER_ATTRIBUTE_TYPE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<GOPHER_ORGANIZATION_ATTRIBUTE_TYPE>}
      */
     Organization {
         get => NumGet(this, 8, "ptr")
@@ -114,7 +114,7 @@ class GOPHER_ATTRIBUTE_TYPE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<GOPHER_LOCATION_ATTRIBUTE_TYPE>}
      */
     Location {
         get => NumGet(this, 8, "ptr")
@@ -141,7 +141,7 @@ class GOPHER_ATTRIBUTE_TYPE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<GOPHER_PROVIDER_ATTRIBUTE_TYPE>}
      */
     Provider {
         get => NumGet(this, 8, "ptr")
@@ -149,7 +149,7 @@ class GOPHER_ATTRIBUTE_TYPE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<GOPHER_VERSION_ATTRIBUTE_TYPE>}
      */
     Version {
         get => NumGet(this, 8, "ptr")
@@ -198,7 +198,7 @@ class GOPHER_ATTRIBUTE_TYPE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<GOPHER_UNKNOWN_ATTRIBUTE_TYPE>}
      */
     Unknown {
         get => NumGet(this, 8, "ptr")

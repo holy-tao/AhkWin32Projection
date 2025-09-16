@@ -15,7 +15,7 @@ class WS_HTTP_REDIRECT_CALLBACK_CONTEXT extends Win32Struct
 
     /**
      * Application specific callback for controlling HTTP auto redirections.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<WS_HTTP_REDIRECT_CALLBACK>}
      */
     callback {
         get => NumGet(this, 0, "ptr")

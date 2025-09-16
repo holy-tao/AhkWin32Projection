@@ -185,7 +185,7 @@ class PEB extends Win32Struct
 
     /**
      * Not supported.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PPS_POST_PROCESS_INIT_ROUTINE>}
      */
     PostProcessInitRoutine {
         get => NumGet(this, 560, "ptr")

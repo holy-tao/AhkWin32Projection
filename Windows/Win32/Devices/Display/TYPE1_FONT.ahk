@@ -19,7 +19,7 @@ class TYPE1_FONT extends Win32Struct
 
     /**
      * Handle to the PostScript Type1 .<a href="https://docs.microsoft.com/windows-hardware/drivers/">pfm</a> file.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HANDLE>}
      */
     hPFM {
         get => NumGet(this, 0, "ptr")
@@ -28,7 +28,7 @@ class TYPE1_FONT extends Win32Struct
 
     /**
      * Handle to the PostScript Type1 .<i>pfb</i> file.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HANDLE>}
      */
     hPFB {
         get => NumGet(this, 8, "ptr")

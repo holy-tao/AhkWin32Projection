@@ -12,7 +12,7 @@ class MD_CHANGE_OBJECT_W extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pszMDPath {
         get => NumGet(this, 0, "ptr")

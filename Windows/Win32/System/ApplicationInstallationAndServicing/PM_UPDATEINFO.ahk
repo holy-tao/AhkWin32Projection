@@ -20,7 +20,7 @@ class PM_UPDATEINFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<BSTR>}
      */
     PackagePath {
         get => NumGet(this, 8, "ptr")
@@ -52,7 +52,7 @@ class PM_UPDATEINFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<BSTR>}
      */
     MarketplaceAppVersion {
         get => NumGet(this, 40, "ptr")

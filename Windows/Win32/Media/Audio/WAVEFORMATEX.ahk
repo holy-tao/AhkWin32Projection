@@ -11,9 +11,9 @@
  */
 class WAVEFORMATEX extends Win32Struct
 {
-    static sizeof => 18
+    static sizeof => 20
 
-    static packingSize => 1
+    static packingSize => 4
 
     /**
      * Waveform-audio format type. Format tags are registered with Microsoft Corporation for many compression algorithms. A complete list of format tags can be found in the Mmreg.h header file. For one- or two-channel PCM data, this value should be WAVE_FORMAT_PCM. When this structure is included in a <a href="https://docs.microsoft.com/windows/desktop/api/mmreg/ns-mmreg-waveformatextensible">WAVEFORMATEXTENSIBLE</a> structure, this value must be WAVE_FORMAT_EXTENSIBLE.
@@ -86,6 +86,6 @@ class WAVEFORMATEX extends Win32Struct
      */
     __New(ptr := 0){
         super.__New(ptr)
-        this.cbSize := 18
+        this.cbSize := 20
     }
 }

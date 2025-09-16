@@ -33,7 +33,7 @@ class SmartCardApplication extends Win32Struct
 
     /**
      * Application name.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<BSTR>}
      */
     pbstrApplicationName {
         get => NumGet(this, 8, "ptr")
@@ -42,7 +42,7 @@ class SmartCardApplication extends Win32Struct
 
     /**
      * Application URL.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<BSTR>}
      */
     pbstrApplicationURL {
         get => NumGet(this, 16, "ptr")

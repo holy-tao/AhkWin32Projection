@@ -10,7 +10,7 @@ class MCI_VD_ESCAPE_PARMSA extends Win32Struct
 {
     static sizeof => 16
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * @type {Pointer}
@@ -21,7 +21,7 @@ class MCI_VD_ESCAPE_PARMSA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     lpstrCommand {
         get => NumGet(this, 8, "ptr")

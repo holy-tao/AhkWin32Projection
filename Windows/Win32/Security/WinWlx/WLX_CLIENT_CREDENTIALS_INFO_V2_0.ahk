@@ -24,7 +24,7 @@ class WLX_CLIENT_CREDENTIALS_INFO_V2_0 extends Win32Struct
 
     /**
      * A pointer to the name of the account logged onto.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pszUserName {
         get => NumGet(this, 8, "ptr")
@@ -33,7 +33,7 @@ class WLX_CLIENT_CREDENTIALS_INFO_V2_0 extends Win32Struct
 
     /**
      * A pointer to the name of the domain used to log on.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pszDomain {
         get => NumGet(this, 16, "ptr")
@@ -44,7 +44,7 @@ class WLX_CLIENT_CREDENTIALS_INFO_V2_0 extends Win32Struct
      * A pointer to the plaintext password of the user account. When you have finished using <i>pszPassword</i>, clear the sensitive information from memory by calling the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa366877(v=vs.85)">SecureZeroMemory</a> function.
      * 
      * For more information about protecting passwords, see <a href="https://docs.microsoft.com/windows/desktop/SecBP/handling-passwords">Handling Passwords</a>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pszPassword {
         get => NumGet(this, 24, "ptr")

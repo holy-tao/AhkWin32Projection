@@ -32,7 +32,7 @@ class WNDCLASSA extends Win32Struct
      * Type: <b>WNDPROC</b>
      * 
      * A pointer to the window procedure. You must use the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-callwindowproca">CallWindowProc</a> function to call the window procedure. For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms633573(v=vs.85)">WindowProc</a>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<WNDPROC>}
      */
     lpfnWndProc {
         get => NumGet(this, 8, "ptr")
@@ -66,7 +66,7 @@ class WNDCLASSA extends Win32Struct
      * Type: <b>HINSTANCE</b>
      * 
      * A handle to the instance that contains the window procedure for the class.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HINSTANCE>}
      */
     hInstance {
         get => NumGet(this, 24, "ptr")
@@ -77,7 +77,7 @@ class WNDCLASSA extends Win32Struct
      * Type: <b>HICON</b>
      * 
      * A handle to the class icon. This member must be a handle to an icon resource. If this member is <b>NULL</b>, the system provides a default icon.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HICON>}
      */
     hIcon {
         get => NumGet(this, 32, "ptr")
@@ -88,7 +88,7 @@ class WNDCLASSA extends Win32Struct
      * Type: <b>HCURSOR</b>
      * 
      * A handle to the class cursor. This member must be a handle to a cursor resource. If this member is <b>NULL</b>, an application must explicitly set the cursor shape whenever the mouse moves into the application's window.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HCURSOR>}
      */
     hCursor {
         get => NumGet(this, 40, "ptr")
@@ -128,7 +128,7 @@ class WNDCLASSA extends Win32Struct
      * When this member is <b>NULL</b>, an application must paint its own background whenever it is requested to paint in its client area. To determine whether the background must be painted, an application can either process the 
      * 						<a href="https://docs.microsoft.com/windows/desktop/winmsg/wm-erasebkgnd">WM_ERASEBKGND</a> message or test the 
      * 						<b>fErase</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-paintstruct">PAINTSTRUCT</a> structure filled by the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-beginpaint">BeginPaint</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HBRUSH>}
      */
     hbrBackground {
         get => NumGet(this, 48, "ptr")
@@ -139,7 +139,7 @@ class WNDCLASSA extends Win32Struct
      * Type: <b>LPCTSTR</b>
      * 
      * The resource name of the class menu, as the name appears in the resource file. If you use an integer to identify the menu, use the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-makeintresourcea">MAKEINTRESOURCE</a> macro. If this member is <b>NULL</b>, windows belonging to this class have no default menu.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     lpszMenuName {
         get => NumGet(this, 56, "ptr")
@@ -156,7 +156,7 @@ class WNDCLASSA extends Win32Struct
      * If <b>lpszClassName</b> is a string, it specifies the window class name. The class name can be any name registered with <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-registerclassa">RegisterClass</a> or <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-registerclassexa">RegisterClassEx</a>, or any of the predefined control-class names. 
      * 
      * The maximum length for <b>lpszClassName</b> is 256. If <b>lpszClassName</b> is greater than the maximum length, the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-registerclassa">RegisterClass</a> function will fail.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     lpszClassName {
         get => NumGet(this, 64, "ptr")

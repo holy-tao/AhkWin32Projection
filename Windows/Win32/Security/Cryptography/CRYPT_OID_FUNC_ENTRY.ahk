@@ -15,7 +15,7 @@ class CRYPT_OID_FUNC_ENTRY extends Win32Struct
 
     /**
      * If the high-order word of the OID is nonzero, <b>pszOID</b> is a pointer to either an OID string, such as "2.5.29.1" or an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">ASCII</a> string, such as "file". If the high-order word of the OID is zero, the low-order word specifies the numeric identifier to be used as the object identifier.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     pszOID {
         get => NumGet(this, 0, "ptr")

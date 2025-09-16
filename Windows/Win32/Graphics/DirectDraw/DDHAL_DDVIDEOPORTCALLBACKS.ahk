@@ -28,7 +28,7 @@ class DDHAL_DDVIDEOPORTCALLBACKS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPDDHALVPORTCB_CANCREATEVIDEOPORT>}
      */
     CanCreateVideoPort {
         get => NumGet(this, 8, "ptr")
@@ -36,7 +36,7 @@ class DDHAL_DDVIDEOPORTCALLBACKS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPDDHALVPORTCB_CREATEVIDEOPORT>}
      */
     CreateVideoPort {
         get => NumGet(this, 16, "ptr")
@@ -44,7 +44,7 @@ class DDHAL_DDVIDEOPORTCALLBACKS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPDDHALVPORTCB_FLIP>}
      */
     FlipVideoPort {
         get => NumGet(this, 24, "ptr")
@@ -52,7 +52,7 @@ class DDHAL_DDVIDEOPORTCALLBACKS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPDDHALVPORTCB_GETBANDWIDTH>}
      */
     GetVideoPortBandwidth {
         get => NumGet(this, 32, "ptr")
@@ -60,7 +60,7 @@ class DDHAL_DDVIDEOPORTCALLBACKS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPDDHALVPORTCB_GETINPUTFORMATS>}
      */
     GetVideoPortInputFormats {
         get => NumGet(this, 40, "ptr")
@@ -68,7 +68,7 @@ class DDHAL_DDVIDEOPORTCALLBACKS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPDDHALVPORTCB_GETOUTPUTFORMATS>}
      */
     GetVideoPortOutputFormats {
         get => NumGet(this, 48, "ptr")
@@ -84,7 +84,7 @@ class DDHAL_DDVIDEOPORTCALLBACKS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPDDHALVPORTCB_GETFIELD>}
      */
     GetVideoPortField {
         get => NumGet(this, 64, "ptr")
@@ -92,7 +92,7 @@ class DDHAL_DDVIDEOPORTCALLBACKS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPDDHALVPORTCB_GETLINE>}
      */
     GetVideoPortLine {
         get => NumGet(this, 72, "ptr")
@@ -100,7 +100,7 @@ class DDHAL_DDVIDEOPORTCALLBACKS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPDDHALVPORTCB_GETVPORTCONNECT>}
      */
     GetVideoPortConnectInfo {
         get => NumGet(this, 80, "ptr")
@@ -108,7 +108,7 @@ class DDHAL_DDVIDEOPORTCALLBACKS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPDDHALVPORTCB_DESTROYVPORT>}
      */
     DestroyVideoPort {
         get => NumGet(this, 88, "ptr")
@@ -116,7 +116,7 @@ class DDHAL_DDVIDEOPORTCALLBACKS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPDDHALVPORTCB_GETFLIPSTATUS>}
      */
     GetVideoPortFlipStatus {
         get => NumGet(this, 96, "ptr")
@@ -124,7 +124,7 @@ class DDHAL_DDVIDEOPORTCALLBACKS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPDDHALVPORTCB_UPDATE>}
      */
     UpdateVideoPort {
         get => NumGet(this, 104, "ptr")
@@ -132,7 +132,7 @@ class DDHAL_DDVIDEOPORTCALLBACKS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPDDHALVPORTCB_WAITFORSYNC>}
      */
     WaitForVideoPortSync {
         get => NumGet(this, 112, "ptr")
@@ -140,7 +140,7 @@ class DDHAL_DDVIDEOPORTCALLBACKS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPDDHALVPORTCB_GETSIGNALSTATUS>}
      */
     GetVideoSignalStatus {
         get => NumGet(this, 120, "ptr")
@@ -148,7 +148,7 @@ class DDHAL_DDVIDEOPORTCALLBACKS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPDDHALVPORTCB_COLORCONTROL>}
      */
     ColorControl {
         get => NumGet(this, 128, "ptr")

@@ -13,9 +13,9 @@
  */
 class MPEG_STREAM_BUFFER extends Win32Struct
 {
-    static sizeof => 20
+    static sizeof => 24
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * Specifies a status code. Use this value to check the status of the read request.
@@ -49,7 +49,7 @@ class MPEG_STREAM_BUFFER extends Win32Struct
      * @type {Pointer<Byte>}
      */
     pDataBuffer {
-        get => NumGet(this, 12, "ptr")
-        set => NumPut("ptr", value, this, 12)
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 }

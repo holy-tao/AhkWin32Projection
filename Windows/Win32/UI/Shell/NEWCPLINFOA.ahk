@@ -15,9 +15,9 @@
  */
 class NEWCPLINFOA extends Win32Struct
 {
-    static sizeof => 252
+    static sizeof => 256
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * Type: <b>DWORD</b>
@@ -59,19 +59,19 @@ class NEWCPLINFOA extends Win32Struct
      * @type {Pointer}
      */
     lData {
-        get => NumGet(this, 12, "ptr")
-        set => NumPut("ptr", value, this, 12)
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * Type: <b>HICON</b>
      * 
      * The identifier of the icon that represents the dialog box. This icon is intended to be displayed by the application that controls the Control Panel application.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HICON>}
      */
     hIcon {
-        get => NumGet(this, 20, "ptr")
-        set => NumPut("ptr", value, this, 20)
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
@@ -81,8 +81,8 @@ class NEWCPLINFOA extends Win32Struct
      * @type {String}
      */
     szName {
-        get => StrGet(this.ptr + 28, 31, "UTF-8")
-        set => StrPut(value, this.ptr + 28, 31, "UTF-8")
+        get => StrGet(this.ptr + 32, 31, "UTF-8")
+        set => StrPut(value, this.ptr + 32, 31, "UTF-8")
     }
 
     /**
@@ -92,8 +92,8 @@ class NEWCPLINFOA extends Win32Struct
      * @type {String}
      */
     szInfo {
-        get => StrGet(this.ptr + 60, 63, "UTF-8")
-        set => StrPut(value, this.ptr + 60, 63, "UTF-8")
+        get => StrGet(this.ptr + 64, 63, "UTF-8")
+        set => StrPut(value, this.ptr + 64, 63, "UTF-8")
     }
 
     /**
@@ -103,7 +103,7 @@ class NEWCPLINFOA extends Win32Struct
      * @type {String}
      */
     szHelpFile {
-        get => StrGet(this.ptr + 124, 127, "UTF-8")
-        set => StrPut(value, this.ptr + 124, 127, "UTF-8")
+        get => StrGet(this.ptr + 128, 127, "UTF-8")
+        set => StrPut(value, this.ptr + 128, 127, "UTF-8")
     }
 }

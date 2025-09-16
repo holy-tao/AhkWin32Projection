@@ -61,7 +61,7 @@ class JET_RSTINFO_A extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<JET_PFNSTATUS>}
      */
     pfnStatus {
         get => NumGet(this, 40, "ptr")

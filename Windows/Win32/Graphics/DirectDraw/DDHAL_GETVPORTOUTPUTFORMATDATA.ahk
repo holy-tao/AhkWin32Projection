@@ -68,7 +68,7 @@ class DDHAL_GETVPORTOUTPUTFORMATDATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPDDHALVPORTCB_GETOUTPUTFORMATS>}
      */
     GetVideoPortOutputFormats {
         get => NumGet(this, 48, "ptr")

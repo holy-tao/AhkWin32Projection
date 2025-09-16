@@ -11,9 +11,9 @@
  */
 class NVME_DEVICE_SELF_TEST_RESULT_DATA extends Win32Struct
 {
-    static sizeof => 28
+    static sizeof => 40
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * A **Status** structure containing fields that describe the status of a Device Self-Test operation.
@@ -56,8 +56,8 @@ class NVME_DEVICE_SELF_TEST_RESULT_DATA extends Win32Struct
      * @type {Integer}
      */
     POH {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
+        get => NumGet(this, 8, "uint")
+        set => NumPut("uint", value, this, 8)
     }
 
     /**
@@ -65,8 +65,8 @@ class NVME_DEVICE_SELF_TEST_RESULT_DATA extends Win32Struct
      * @type {Integer}
      */
     NSID {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
+        get => NumGet(this, 16, "uint")
+        set => NumPut("uint", value, this, 16)
     }
 
     /**
@@ -74,8 +74,8 @@ class NVME_DEVICE_SELF_TEST_RESULT_DATA extends Win32Struct
      * @type {Integer}
      */
     FailingLBA {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
     }
 
     /**
@@ -83,8 +83,8 @@ class NVME_DEVICE_SELF_TEST_RESULT_DATA extends Win32Struct
      * @type {Integer}
      */
     StatusCodeType {
-        get => NumGet(this, 24, "char")
-        set => NumPut("char", value, this, 24)
+        get => NumGet(this, 32, "char")
+        set => NumPut("char", value, this, 32)
     }
 
     /**
@@ -94,8 +94,8 @@ class NVME_DEVICE_SELF_TEST_RESULT_DATA extends Win32Struct
      * @type {Integer}
      */
     StatusCode {
-        get => NumGet(this, 25, "char")
-        set => NumPut("char", value, this, 25)
+        get => NumGet(this, 33, "char")
+        set => NumPut("char", value, this, 33)
     }
 
     /**
@@ -103,7 +103,7 @@ class NVME_DEVICE_SELF_TEST_RESULT_DATA extends Win32Struct
      * @type {Integer}
      */
     VendorSpecific {
-        get => NumGet(this, 26, "ushort")
-        set => NumPut("ushort", value, this, 26)
+        get => NumGet(this, 34, "ushort")
+        set => NumPut("ushort", value, this, 34)
     }
 }

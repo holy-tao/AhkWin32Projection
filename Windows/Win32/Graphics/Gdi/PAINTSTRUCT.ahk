@@ -16,7 +16,7 @@ class PAINTSTRUCT extends Win32Struct
 
     /**
      * A handle to the display DC to be used for painting.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HDC>}
      */
     hdc {
         get => NumGet(this, 0, "ptr")

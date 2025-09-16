@@ -13,7 +13,7 @@ class MIDIPROPTIMEDIV extends Win32Struct
 {
     static sizeof => 8
 
-    static packingSize => 1
+    static packingSize => 4
 
     /**
      * Length, in bytes, of this structure. This member must be filled in for both the MIDIPROP_SET and MIDIPROP_GET operations of the <a href="https://docs.microsoft.com/previous-versions/dd798490(v=vs.85)">midiStreamProperty</a> function.

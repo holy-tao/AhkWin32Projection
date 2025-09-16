@@ -12,9 +12,9 @@
  */
 class MPEG2_FILTER2 extends Win32Struct
 {
-    static sizeof => 133
+    static sizeof => 144
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * @type {Integer}
@@ -28,16 +28,16 @@ class MPEG2_FILTER2 extends Win32Struct
      * @type {Integer}
      */
     wFilterSize {
-        get => NumGet(this, 1, "ushort")
-        set => NumPut("ushort", value, this, 1)
+        get => NumGet(this, 2, "ushort")
+        set => NumPut("ushort", value, this, 2)
     }
 
     /**
      * @type {Integer}
      */
     fUseRawFilteringBits {
-        get => NumGet(this, 3, "int")
-        set => NumPut("int", value, this, 3)
+        get => NumGet(this, 4, "int")
+        set => NumPut("int", value, this, 4)
     }
 
     /**
@@ -46,7 +46,7 @@ class MPEG2_FILTER2 extends Win32Struct
     Filter{
         get {
             if(!this.HasProp("__FilterProxyArray"))
-                this.__FilterProxyArray := Win32FixedArray(this.ptr + 7, 16, Primitive, "char")
+                this.__FilterProxyArray := Win32FixedArray(this.ptr + 8, 16, Primitive, "char")
             return this.__FilterProxyArray
         }
     }
@@ -57,7 +57,7 @@ class MPEG2_FILTER2 extends Win32Struct
     Mask{
         get {
             if(!this.HasProp("__MaskProxyArray"))
-                this.__MaskProxyArray := Win32FixedArray(this.ptr + 23, 16, Primitive, "char")
+                this.__MaskProxyArray := Win32FixedArray(this.ptr + 24, 16, Primitive, "char")
             return this.__MaskProxyArray
         }
     }
@@ -66,72 +66,72 @@ class MPEG2_FILTER2 extends Win32Struct
      * @type {Integer}
      */
     fSpecifyTableIdExtension {
-        get => NumGet(this, 39, "int")
-        set => NumPut("int", value, this, 39)
+        get => NumGet(this, 40, "int")
+        set => NumPut("int", value, this, 40)
     }
 
     /**
      * @type {Integer}
      */
     TableIdExtension {
-        get => NumGet(this, 43, "ushort")
-        set => NumPut("ushort", value, this, 43)
+        get => NumGet(this, 44, "ushort")
+        set => NumPut("ushort", value, this, 44)
     }
 
     /**
      * @type {Integer}
      */
     fSpecifyVersion {
-        get => NumGet(this, 45, "int")
-        set => NumPut("int", value, this, 45)
+        get => NumGet(this, 48, "int")
+        set => NumPut("int", value, this, 48)
     }
 
     /**
      * @type {Integer}
      */
     Version {
-        get => NumGet(this, 49, "char")
-        set => NumPut("char", value, this, 49)
+        get => NumGet(this, 52, "char")
+        set => NumPut("char", value, this, 52)
     }
 
     /**
      * @type {Integer}
      */
     fSpecifySectionNumber {
-        get => NumGet(this, 50, "int")
-        set => NumPut("int", value, this, 50)
+        get => NumGet(this, 56, "int")
+        set => NumPut("int", value, this, 56)
     }
 
     /**
      * @type {Integer}
      */
     SectionNumber {
-        get => NumGet(this, 54, "char")
-        set => NumPut("char", value, this, 54)
+        get => NumGet(this, 60, "char")
+        set => NumPut("char", value, this, 60)
     }
 
     /**
      * @type {Integer}
      */
     fSpecifyCurrentNext {
-        get => NumGet(this, 55, "int")
-        set => NumPut("int", value, this, 55)
+        get => NumGet(this, 64, "int")
+        set => NumPut("int", value, this, 64)
     }
 
     /**
      * @type {Integer}
      */
     fNext {
-        get => NumGet(this, 59, "int")
-        set => NumPut("int", value, this, 59)
+        get => NumGet(this, 68, "int")
+        set => NumPut("int", value, this, 68)
     }
 
     /**
      * @type {Integer}
      */
     fSpecifyDsmccOptions {
-        get => NumGet(this, 63, "int")
-        set => NumPut("int", value, this, 63)
+        get => NumGet(this, 72, "int")
+        set => NumPut("int", value, this, 72)
     }
 
     /**
@@ -140,7 +140,7 @@ class MPEG2_FILTER2 extends Win32Struct
     Dsmcc{
         get {
             if(!this.HasProp("__Dsmcc"))
-                this.__Dsmcc := DSMCC_FILTER_OPTIONS(this.ptr + 67)
+                this.__Dsmcc := DSMCC_FILTER_OPTIONS(this.ptr + 80)
             return this.__Dsmcc
         }
     }
@@ -149,8 +149,8 @@ class MPEG2_FILTER2 extends Win32Struct
      * @type {Integer}
      */
     fSpecifyAtscOptions {
-        get => NumGet(this, 112, "int")
-        set => NumPut("int", value, this, 112)
+        get => NumGet(this, 140, "int")
+        set => NumPut("int", value, this, 140)
     }
 
     /**
@@ -159,7 +159,7 @@ class MPEG2_FILTER2 extends Win32Struct
     Atsc{
         get {
             if(!this.HasProp("__Atsc"))
-                this.__Atsc := ATSC_FILTER_OPTIONS(this.ptr + 116)
+                this.__Atsc := ATSC_FILTER_OPTIONS(this.ptr + 144)
             return this.__Atsc
         }
     }
@@ -181,8 +181,8 @@ class MPEG2_FILTER2 extends Win32Struct
      * @type {Integer}
      */
     fSpecifyDvbEitOptions {
-        get => NumGet(this, 124, "int")
-        set => NumPut("int", value, this, 124)
+        get => NumGet(this, 128, "int")
+        set => NumPut("int", value, this, 128)
     }
 
     /**
@@ -199,7 +199,7 @@ class MPEG2_FILTER2 extends Win32Struct
     DvbEit{
         get {
             if(!this.HasProp("__DvbEit"))
-                this.__DvbEit := DVB_EIT_FILTER_OPTIONS(this.ptr + 128)
+                this.__DvbEit := DVB_EIT_FILTER_OPTIONS(this.ptr + 136)
             return this.__DvbEit
         }
     }

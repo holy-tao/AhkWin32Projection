@@ -28,7 +28,7 @@ class PROFILER_HEAP_OBJECT_OPTIONAL_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     functionName {
         get => NumGet(this, 4, "ptr")

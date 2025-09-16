@@ -28,7 +28,7 @@ class DDHAL_DDPALETTECALLBACKS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPDDHALPALCB_DESTROYPALETTE>}
      */
     DestroyPalette {
         get => NumGet(this, 8, "ptr")
@@ -36,7 +36,7 @@ class DDHAL_DDPALETTECALLBACKS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPDDHALPALCB_SETENTRIES>}
      */
     SetEntries {
         get => NumGet(this, 16, "ptr")

@@ -7,9 +7,9 @@
  */
 class MMIOINFO extends Win32Struct
 {
-    static sizeof => 100
+    static sizeof => 112
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * @type {Integer}
@@ -28,7 +28,7 @@ class MMIOINFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPMMIOPROC>}
      */
     pIOProc {
         get => NumGet(this, 8, "ptr")
@@ -44,33 +44,25 @@ class MMIOINFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HTASK>}
      */
     htask {
-        get => NumGet(this, 20, "ptr")
-        set => NumPut("ptr", value, this, 20)
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
      * @type {Integer}
      */
     cchBuffer {
-        get => NumGet(this, 28, "int")
-        set => NumPut("int", value, this, 28)
+        get => NumGet(this, 32, "int")
+        set => NumPut("int", value, this, 32)
     }
 
     /**
      * @type {Pointer<SByte>}
      */
     pchBuffer {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
-
-    /**
-     * @type {Pointer<SByte>}
-     */
-    pchNext {
         get => NumGet(this, 40, "ptr")
         set => NumPut("ptr", value, this, 40)
     }
@@ -78,7 +70,7 @@ class MMIOINFO extends Win32Struct
     /**
      * @type {Pointer<SByte>}
      */
-    pchEndRead {
+    pchNext {
         get => NumGet(this, 48, "ptr")
         set => NumPut("ptr", value, this, 48)
     }
@@ -86,25 +78,33 @@ class MMIOINFO extends Win32Struct
     /**
      * @type {Pointer<SByte>}
      */
-    pchEndWrite {
+    pchEndRead {
         get => NumGet(this, 56, "ptr")
         set => NumPut("ptr", value, this, 56)
+    }
+
+    /**
+     * @type {Pointer<SByte>}
+     */
+    pchEndWrite {
+        get => NumGet(this, 64, "ptr")
+        set => NumPut("ptr", value, this, 64)
     }
 
     /**
      * @type {Integer}
      */
     lBufOffset {
-        get => NumGet(this, 64, "int")
-        set => NumPut("int", value, this, 64)
+        get => NumGet(this, 72, "int")
+        set => NumPut("int", value, this, 72)
     }
 
     /**
      * @type {Integer}
      */
     lDiskOffset {
-        get => NumGet(this, 68, "int")
-        set => NumPut("int", value, this, 68)
+        get => NumGet(this, 76, "int")
+        set => NumPut("int", value, this, 76)
     }
 
     /**
@@ -113,7 +113,7 @@ class MMIOINFO extends Win32Struct
     adwInfo{
         get {
             if(!this.HasProp("__adwInfoProxyArray"))
-                this.__adwInfoProxyArray := Win32FixedArray(this.ptr + 72, 3, Primitive, "uint")
+                this.__adwInfoProxyArray := Win32FixedArray(this.ptr + 80, 3, Primitive, "uint")
             return this.__adwInfoProxyArray
         }
     }
@@ -122,23 +122,23 @@ class MMIOINFO extends Win32Struct
      * @type {Integer}
      */
     dwReserved1 {
-        get => NumGet(this, 84, "uint")
-        set => NumPut("uint", value, this, 84)
+        get => NumGet(this, 92, "uint")
+        set => NumPut("uint", value, this, 92)
     }
 
     /**
      * @type {Integer}
      */
     dwReserved2 {
-        get => NumGet(this, 88, "uint")
-        set => NumPut("uint", value, this, 88)
+        get => NumGet(this, 96, "uint")
+        set => NumPut("uint", value, this, 96)
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HMMIO>}
      */
     hmmio {
-        get => NumGet(this, 92, "ptr")
-        set => NumPut("ptr", value, this, 92)
+        get => NumGet(this, 104, "ptr")
+        set => NumPut("ptr", value, this, 104)
     }
 }

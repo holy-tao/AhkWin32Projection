@@ -50,7 +50,7 @@ class TF_LMLATTELEMENT extends Win32Struct
 
     /**
      * Contains the display text for the element. If the spoken word is "two", the display text will be "2". The caller must free this string using <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a> when it is no longer required.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<BSTR>}
      */
     bstrText {
         get => NumGet(this, 16, "ptr")

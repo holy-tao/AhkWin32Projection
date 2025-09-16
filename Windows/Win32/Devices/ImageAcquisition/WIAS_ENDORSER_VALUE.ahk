@@ -12,7 +12,7 @@ class WIAS_ENDORSER_VALUE extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     wszTokenName {
         get => NumGet(this, 0, "ptr")
@@ -20,7 +20,7 @@ class WIAS_ENDORSER_VALUE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     wszValue {
         get => NumGet(this, 8, "ptr")

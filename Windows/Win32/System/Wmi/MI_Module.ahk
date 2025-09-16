@@ -60,7 +60,7 @@ class MI_Module extends Win32Struct
 
     /**
      * Function pointer that points to the provider's Load function where initialization takes place.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<MI_Module_Load>}
      */
     Load {
         get => NumGet(this, 24, "ptr")
@@ -69,7 +69,7 @@ class MI_Module extends Win32Struct
 
     /**
      * Function pointer that points to the provider's Unload function where cleanup takes place.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<MI_Module_Unload>}
      */
     Unload {
         get => NumGet(this, 32, "ptr")

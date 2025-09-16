@@ -87,7 +87,7 @@ class DHCP_FAILOVER_RELATIONSHIP extends Win32Struct
 
     /**
      * Pointer to a null-terminated Unicode string that represents the unique failover relationship name.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     RelationshipName {
         get => NumGet(this, 32, "ptr")
@@ -96,7 +96,7 @@ class DHCP_FAILOVER_RELATIONSHIP extends Win32Struct
 
     /**
      * Pointer to a null-terminated Unicode string that represents the primary server hostname.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     PrimaryServerName {
         get => NumGet(this, 40, "ptr")
@@ -105,7 +105,7 @@ class DHCP_FAILOVER_RELATIONSHIP extends Win32Struct
 
     /**
      * Pointer to a null-terminated Unicode string that represents the secondary server hostname.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     SecondaryServerName {
         get => NumGet(this, 48, "ptr")
@@ -132,7 +132,7 @@ class DHCP_FAILOVER_RELATIONSHIP extends Win32Struct
 
     /**
      * A pointer to a null-terminated Unicode string that represents the shared secret key associated with the failover relationship.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     SharedSecret {
         get => NumGet(this, 72, "ptr")

@@ -27,7 +27,7 @@ class VDS_SUB_SYSTEM_PROP2 extends Win32Struct
 
     /**
      * A pointer to a <b>NULL</b>-terminated wide-character string containing the name of the subsystem, typically a brand name and a model name.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pwszFriendlyName {
         get => NumGet(this, 8, "ptr")
@@ -36,7 +36,7 @@ class VDS_SUB_SYSTEM_PROP2 extends Win32Struct
 
     /**
      * A pointer to a <b>NULL</b>-terminated wide-character string containing a combination of the  disk array's serial number and the subsystem identifier.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pwszIdentification {
         get => NumGet(this, 16, "ptr")

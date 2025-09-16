@@ -16,7 +16,7 @@ class CENTRAL_ACCESS_POLICY extends Win32Struct
 
     /**
      * The identifier of the central access policy.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSID>}
      */
     CAPID {
         get => NumGet(this, 0, "ptr")

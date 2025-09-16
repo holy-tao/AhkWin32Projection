@@ -13,7 +13,7 @@ class LINECOUNTRYENTRY extends Win32Struct
 {
     static sizeof => 44
 
-    static packingSize => 1
+    static packingSize => 4
 
     /**
      * Country/region identifier of the entry. The country/region identifier is an internal identifier that allows multiple entries to exist in the country/region list with the same country/region code, for example, all countries or regions in North America and the Caribbean share the country/region code 1, but require separate entries in the list.

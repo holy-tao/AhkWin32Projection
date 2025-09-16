@@ -9,7 +9,7 @@ class MINIDUMP_SYSTEM_PERFORMANCE_INFORMATION extends Win32Struct
 {
     static sizeof => 344
 
-    static packingSize => 4
+    static packingSize => 8
 
     /**
      * @type {Integer}

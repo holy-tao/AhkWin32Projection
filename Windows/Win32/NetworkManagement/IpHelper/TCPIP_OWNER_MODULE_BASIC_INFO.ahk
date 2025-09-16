@@ -19,7 +19,7 @@ class TCPIP_OWNER_MODULE_BASIC_INFO extends Win32Struct
 
     /**
      * A pointer to the name of the module. This field should be a <b>NULL</b> pointer when passed to <a href="https://docs.microsoft.com/windows/desktop/api/iphlpapi/nf-iphlpapi-getownermodulefromtcpentry">GetOwnerModuleFromTcpEntry</a> or <a href="https://docs.microsoft.com/windows/desktop/api/iphlpapi/nf-iphlpapi-getownermodulefromtcp6entry">GetOwnerModuleFromTcp6Entry</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pModuleName {
         get => NumGet(this, 0, "ptr")
@@ -28,7 +28,7 @@ class TCPIP_OWNER_MODULE_BASIC_INFO extends Win32Struct
 
     /**
      * A pointer to the full path of the module, including the module name. This field should be a <b>NULL</b> pointer when passed to <a href="https://docs.microsoft.com/windows/desktop/api/iphlpapi/nf-iphlpapi-getownermodulefromtcpentry">GetOwnerModuleFromTcpEntry</a> or <a href="https://docs.microsoft.com/windows/desktop/api/iphlpapi/nf-iphlpapi-getownermodulefromtcp6entry">GetOwnerModuleFromTcp6Entry</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pModulePath {
         get => NumGet(this, 8, "ptr")

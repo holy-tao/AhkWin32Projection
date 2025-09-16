@@ -16,7 +16,7 @@ class DS_REPL_KCC_DSA_FAILUREW extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that contains the  distinguished name of the directory system agent object in the directory that corresponds to the source server.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pszDsaDN {
         get => NumGet(this, 0, "ptr")

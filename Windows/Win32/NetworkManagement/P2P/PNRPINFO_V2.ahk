@@ -28,7 +28,7 @@ class PNRPINFO_V2 extends Win32Struct
 
     /**
      * Points  to the Unicode string that contains the identity.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     lpwszIdentity {
         get => NumGet(this, 8, "ptr")
@@ -133,7 +133,7 @@ class PNRPINFO_V2 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pwszPayload {
         get => NumGet(this, 64, "ptr")

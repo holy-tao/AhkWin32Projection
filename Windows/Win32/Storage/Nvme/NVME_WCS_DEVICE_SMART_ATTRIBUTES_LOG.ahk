@@ -9,7 +9,7 @@ class NVME_WCS_DEVICE_SMART_ATTRIBUTES_LOG extends Win32Struct
 {
     static sizeof => 504
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * @type {Array<Byte>}

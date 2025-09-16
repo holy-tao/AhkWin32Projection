@@ -20,7 +20,7 @@ class XAUDIO2_EFFECT_DESCRIPTOR extends Win32Struct
 {
     static sizeof => 16
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * Pointer to the <b>IUnknown</b> interface of the <a href="https://docs.microsoft.com/windows/desktop/xaudio2/xapo-overview">XAPO</a> object.

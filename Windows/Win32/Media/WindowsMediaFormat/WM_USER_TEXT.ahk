@@ -11,11 +11,11 @@ class WM_USER_TEXT extends Win32Struct
 {
     static sizeof => 16
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * Pointer to a wide-character null-terminated string containing the description of the text entry.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pwszDescription {
         get => NumGet(this, 0, "ptr")
@@ -24,7 +24,7 @@ class WM_USER_TEXT extends Win32Struct
 
     /**
      * Pointer to a wide-character null-terminated string containing the text.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pwszText {
         get => NumGet(this, 8, "ptr")

@@ -44,7 +44,7 @@ class ASSEMBLYMETADATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     szLocale {
         get => NumGet(this, 8, "ptr")

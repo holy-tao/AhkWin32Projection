@@ -88,7 +88,7 @@ class DDHAL_CREATEMOCOMPDATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPDDHALMOCOMPCB_CREATE>}
      */
     CreateMoComp {
         get => NumGet(this, 80, "ptr")

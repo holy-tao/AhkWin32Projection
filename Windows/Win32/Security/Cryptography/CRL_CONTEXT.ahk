@@ -61,7 +61,7 @@ class CRL_CONTEXT extends Win32Struct
 
     /**
      * A handle to the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate store</a>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HCERTSTORE>}
      */
     hCertStore {
         get => NumGet(this, 32, "ptr")

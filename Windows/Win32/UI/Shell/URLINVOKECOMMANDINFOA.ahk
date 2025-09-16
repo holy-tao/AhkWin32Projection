@@ -29,7 +29,7 @@ class URLINVOKECOMMANDINFOA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HWND>}
      */
     hwndParent {
         get => NumGet(this, 8, "ptr")
@@ -37,7 +37,7 @@ class URLINVOKECOMMANDINFOA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     pcszVerb {
         get => NumGet(this, 16, "ptr")

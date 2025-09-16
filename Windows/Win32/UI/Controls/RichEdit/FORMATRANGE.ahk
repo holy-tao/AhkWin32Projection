@@ -24,7 +24,7 @@ class FORMATRANGE extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HDC</a></b>
      * 
      * A HDC for the device to render to, if <a href="https://msdn.microsoft.com/6d1e562b-d741-4d4a-a395-554083cb0dbb">EM_FORMATRANGE</a> is being used to send the output to a device.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HDC>}
      */
     hdc {
         get => NumGet(this, 0, "ptr")
@@ -35,7 +35,7 @@ class FORMATRANGE extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HDC</a></b>
      * 
      * An HDC for the target device to format for.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HDC>}
      */
     hdcTarget {
         get => NumGet(this, 8, "ptr")

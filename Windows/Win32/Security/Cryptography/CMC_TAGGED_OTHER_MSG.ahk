@@ -25,7 +25,7 @@ class CMC_TAGGED_OTHER_MSG extends Win32Struct
 
     /**
      * Object identifier (OID) of the other message.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     pszObjId {
         get => NumGet(this, 8, "ptr")

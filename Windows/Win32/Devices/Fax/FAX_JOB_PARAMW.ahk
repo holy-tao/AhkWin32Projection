@@ -39,7 +39,7 @@ class FAX_JOB_PARAMW extends Win32Struct
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that specifies the fax number of the recipient of the fax transmission. This member is required.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     RecipientNumber {
         get => NumGet(this, 8, "ptr")
@@ -50,7 +50,7 @@ class FAX_JOB_PARAMW extends Win32Struct
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that specifies the name of the recipient of the fax transmission.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     RecipientName {
         get => NumGet(this, 16, "ptr")
@@ -61,7 +61,7 @@ class FAX_JOB_PARAMW extends Win32Struct
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that specifies the transmitting station identifier (TSID). This identifier is usually a telephone number. Only printable characters such as English letters, numeric symbols, and punctuation marks (ASCII range 0x20 to 0x7F) can be used in a TSID.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     Tsid {
         get => NumGet(this, 24, "ptr")
@@ -72,7 +72,7 @@ class FAX_JOB_PARAMW extends Win32Struct
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that specifies the name of the sender who initiated the fax transmission.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     SenderName {
         get => NumGet(this, 32, "ptr")
@@ -83,7 +83,7 @@ class FAX_JOB_PARAMW extends Win32Struct
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that specifies the company name of the sender who initiated the fax transmission.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     SenderCompany {
         get => NumGet(this, 40, "ptr")
@@ -94,7 +94,7 @@ class FAX_JOB_PARAMW extends Win32Struct
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that specifies the department name of the sender who initiated the fax transmission.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     SenderDept {
         get => NumGet(this, 48, "ptr")
@@ -105,7 +105,7 @@ class FAX_JOB_PARAMW extends Win32Struct
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that indicates an application- or server-specific billing code that applies to the fax transmission. The fax server uses the string to generate an entry in the fax event log. Billing codes are optional.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     BillingCode {
         get => NumGet(this, 56, "ptr")
@@ -152,7 +152,7 @@ class FAX_JOB_PARAMW extends Win32Struct
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string. If the <b>DeliveryReportType</b> member is equal to <b>DRT_EMAIL</b>, the string is the address to which the DR or NDR should be sent. If the <b>DeliveryReportType</b> member is equal to <b>DRT_NONE</b>, this member must be <b>NULL</b>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     DeliveryReportAddress {
         get => NumGet(this, 96, "ptr")
@@ -163,7 +163,7 @@ class FAX_JOB_PARAMW extends Win32Struct
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string to associate with the fax document. This is the user-friendly name that appears in the print spooler.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     DocumentName {
         get => NumGet(this, 104, "ptr")

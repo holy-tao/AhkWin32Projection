@@ -12,7 +12,7 @@ class SERVICE_INFO_2 extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     svci2_name {
         get => NumGet(this, 0, "ptr")
@@ -44,7 +44,7 @@ class SERVICE_INFO_2 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     svci2_text {
         get => NumGet(this, 24, "ptr")
@@ -60,7 +60,7 @@ class SERVICE_INFO_2 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     svci2_display_name {
         get => NumGet(this, 40, "ptr")

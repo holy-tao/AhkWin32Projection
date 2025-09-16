@@ -26,7 +26,7 @@ class SLPSTRArray extends Win32Struct
 
     /**
      * > Pointer to an array of null-ended 8-bit character strings.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     lppszA {
         get => NumGet(this, 8, "ptr")

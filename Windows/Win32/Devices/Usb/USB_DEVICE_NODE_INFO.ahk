@@ -19,9 +19,9 @@
  */
 class USB_DEVICE_NODE_INFO extends Win32Struct
 {
-    static sizeof => 128
+    static sizeof => 136
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * @type {Integer}
@@ -61,7 +61,7 @@ class USB_DEVICE_NODE_INFO extends Win32Struct
     BusAddress{
         get {
             if(!this.HasProp("__BusAddress"))
-                this.__BusAddress := USB_TOPOLOGY_ADDRESS(this.ptr + 92)
+                this.__BusAddress := USB_TOPOLOGY_ADDRESS(this.ptr + 96)
             return this.__BusAddress
         }
     }
@@ -72,7 +72,7 @@ class USB_DEVICE_NODE_INFO extends Win32Struct
     UsbDeviceInfo{
         get {
             if(!this.HasProp("__UsbDeviceInfo"))
-                this.__UsbDeviceInfo := USB_DEVICE_INFO(this.ptr + 124)
+                this.__UsbDeviceInfo := USB_DEVICE_INFO(this.ptr + 128)
             return this.__UsbDeviceInfo
         }
     }
@@ -83,7 +83,7 @@ class USB_DEVICE_NODE_INFO extends Win32Struct
     HubDeviceInfo{
         get {
             if(!this.HasProp("__HubDeviceInfo"))
-                this.__HubDeviceInfo := USB_HUB_DEVICE_INFO(this.ptr + 124)
+                this.__HubDeviceInfo := USB_HUB_DEVICE_INFO(this.ptr + 128)
             return this.__HubDeviceInfo
         }
     }
@@ -94,7 +94,7 @@ class USB_DEVICE_NODE_INFO extends Win32Struct
     CompositeDeviceInfo{
         get {
             if(!this.HasProp("__CompositeDeviceInfo"))
-                this.__CompositeDeviceInfo := USB_COMPOSITE_DEVICE_INFO(this.ptr + 124)
+                this.__CompositeDeviceInfo := USB_COMPOSITE_DEVICE_INFO(this.ptr + 128)
             return this.__CompositeDeviceInfo
         }
     }
@@ -105,7 +105,7 @@ class USB_DEVICE_NODE_INFO extends Win32Struct
     ControllerDeviceInfo{
         get {
             if(!this.HasProp("__ControllerDeviceInfo"))
-                this.__ControllerDeviceInfo := USB_CONTROLLER_DEVICE_INFO(this.ptr + 124)
+                this.__ControllerDeviceInfo := USB_CONTROLLER_DEVICE_INFO(this.ptr + 128)
             return this.__ControllerDeviceInfo
         }
     }
@@ -116,7 +116,7 @@ class USB_DEVICE_NODE_INFO extends Win32Struct
     DeviceInformation{
         get {
             if(!this.HasProp("__DeviceInformationProxyArray"))
-                this.__DeviceInformationProxyArray := Win32FixedArray(this.ptr + 124, 4, Primitive, "char")
+                this.__DeviceInformationProxyArray := Win32FixedArray(this.ptr + 128, 4, Primitive, "char")
             return this.__DeviceInformationProxyArray
         }
     }

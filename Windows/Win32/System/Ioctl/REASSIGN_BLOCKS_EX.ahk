@@ -15,9 +15,9 @@
  */
 class REASSIGN_BLOCKS_EX extends Win32Struct
 {
-    static sizeof => 12
+    static sizeof => 16
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * This member is reserved. Do not use it. Set it to 0 (zero).
@@ -47,7 +47,7 @@ class REASSIGN_BLOCKS_EX extends Win32Struct
     BlockNumber{
         get {
             if(!this.HasProp("__BlockNumberProxyArray"))
-                this.__BlockNumberProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "int64")
+                this.__BlockNumberProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "int64")
             return this.__BlockNumberProxyArray
         }
     }

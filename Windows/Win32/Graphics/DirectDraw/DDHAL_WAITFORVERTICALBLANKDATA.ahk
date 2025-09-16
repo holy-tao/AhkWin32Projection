@@ -60,7 +60,7 @@ class DDHAL_WAITFORVERTICALBLANKDATA extends Win32Struct
 
     /**
      * Used by the Microsoft DirectDraw API and should not be filled in by the driver.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPDDHAL_WAITFORVERTICALBLANK>}
      */
     WaitForVerticalBlank {
         get => NumGet(this, 32, "ptr")

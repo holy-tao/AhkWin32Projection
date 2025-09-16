@@ -19,7 +19,7 @@ class STRENTRYW extends Win32Struct
 
     /**
      * The name of the string to substitute.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pszName {
         get => NumGet(this, 0, "ptr")
@@ -28,7 +28,7 @@ class STRENTRYW extends Win32Struct
 
     /**
      * The replacement string.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pszValue {
         get => NumGet(this, 8, "ptr")

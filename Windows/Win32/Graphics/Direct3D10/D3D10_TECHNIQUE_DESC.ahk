@@ -19,7 +19,7 @@ class D3D10_TECHNIQUE_DESC extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>
      * 
      * A string that contains the technique name; otherwise <b>NULL</b>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     Name {
         get => NumGet(this, 0, "ptr")

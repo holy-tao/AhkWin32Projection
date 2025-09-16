@@ -32,7 +32,7 @@ class WSD_EVENTING_DELIVERY_MODE extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     Mode {
         get => NumGet(this, 0, "ptr")
@@ -41,7 +41,7 @@ class WSD_EVENTING_DELIVERY_MODE extends Win32Struct
 
     /**
      * 
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<WSD_EVENTING_DELIVERY_MODE_PUSH>}
      */
     Push {
         get => NumGet(this, 8, "ptr")

@@ -39,7 +39,7 @@ class SIP_SUBJECTINFO extends Win32Struct
 
     /**
      * A file handle that represents the subject. If the storage type of the subject is a file, set <i>hFile</i> to <b>INVALID_HANDLE_VALUE</b> and set the <i>pwsFileName</i> parameter to the name of the file.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HANDLE>}
      */
     hFile {
         get => NumGet(this, 16, "ptr")
@@ -48,7 +48,7 @@ class SIP_SUBJECTINFO extends Win32Struct
 
     /**
      * A pointer to a null-terminated Unicode string that contains the file name of the subject.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pwsFileName {
         get => NumGet(this, 24, "ptr")
@@ -58,7 +58,7 @@ class SIP_SUBJECTINFO extends Win32Struct
     /**
      * A pointer to a null-terminated Unicode string that contains the display name of 
      *                                                 the subject.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pwsDisplayName {
         get => NumGet(this, 32, "ptr")

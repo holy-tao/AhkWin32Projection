@@ -44,7 +44,7 @@ class DOC_INFO_INTERNAL extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HANDLE>}
      */
     hTokenLowIL {
         get => NumGet(this, 32, "ptr")

@@ -25,7 +25,7 @@ class D3D12_DEVICE_REMOVED_EXTENDED_DATA1 extends Win32Struct
 
     /**
      * A [D3D12_DRED_AUTO_BREADCRUMBS_OUTPUT](ns-d3d12-d3d12_auto_breadcrumb_node.md) value that contains the auto-breadcrumb state prior to device removal.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<D3D12_DRED_AUTO_BREADCRUMBS_OUTPUT>}
      */
     AutoBreadcrumbsOutput {
         get => NumGet(this, 8, "ptr")

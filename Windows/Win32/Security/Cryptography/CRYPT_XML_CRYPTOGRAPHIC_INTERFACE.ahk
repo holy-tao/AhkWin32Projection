@@ -24,7 +24,7 @@ class CRYPT_XML_CRYPTOGRAPHIC_INTERFACE extends Win32Struct
 
     /**
      * A pointer to the implementation of the <a href="https://docs.microsoft.com/windows/desktop/api/cryptxml/nc-cryptxml-cryptxmldllencodealgorithm">CryptXmlDllEncodeAlgorithm</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<CryptXmlDllEncodeAlgorithm>}
      */
     fpCryptXmlEncodeAlgorithm {
         get => NumGet(this, 8, "ptr")
@@ -33,7 +33,7 @@ class CRYPT_XML_CRYPTOGRAPHIC_INTERFACE extends Win32Struct
 
     /**
      * A pointer to the implementation of the <a href="https://docs.microsoft.com/windows/desktop/api/cryptxml/nc-cryptxml-cryptxmldllcreatedigest">CryptXmlDllCreateDigest</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<CryptXmlDllCreateDigest>}
      */
     fpCryptXmlCreateDigest {
         get => NumGet(this, 16, "ptr")
@@ -42,7 +42,7 @@ class CRYPT_XML_CRYPTOGRAPHIC_INTERFACE extends Win32Struct
 
     /**
      * A pointer to the implementation of the <a href="https://docs.microsoft.com/windows/desktop/api/cryptxml/nc-cryptxml-cryptxmldlldigestdata">CryptXmlDllDigestData</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<CryptXmlDllDigestData>}
      */
     fpCryptXmlDigestData {
         get => NumGet(this, 24, "ptr")
@@ -51,7 +51,7 @@ class CRYPT_XML_CRYPTOGRAPHIC_INTERFACE extends Win32Struct
 
     /**
      * A pointer to the implementation of the <a href="https://docs.microsoft.com/windows/desktop/api/cryptxml/nc-cryptxml-cryptxmldllfinalizedigest">CryptXmlDllFinalizeDigest</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<CryptXmlDllFinalizeDigest>}
      */
     fpCryptXmlFinalizeDigest {
         get => NumGet(this, 32, "ptr")
@@ -60,7 +60,7 @@ class CRYPT_XML_CRYPTOGRAPHIC_INTERFACE extends Win32Struct
 
     /**
      * A pointer to the implementation of the <a href="https://docs.microsoft.com/windows/desktop/api/cryptxml/nc-cryptxml-cryptxmldllclosedigest">CryptXmlDllCloseDigest</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<CryptXmlDllCloseDigest>}
      */
     fpCryptXmlCloseDigest {
         get => NumGet(this, 40, "ptr")
@@ -69,7 +69,7 @@ class CRYPT_XML_CRYPTOGRAPHIC_INTERFACE extends Win32Struct
 
     /**
      * A pointer to the implementation of the <a href="https://docs.microsoft.com/windows/desktop/api/cryptxml/nc-cryptxml-cryptxmldllsigndata">CryptXmlDllSignData</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<CryptXmlDllSignData>}
      */
     fpCryptXmlSignData {
         get => NumGet(this, 48, "ptr")
@@ -78,7 +78,7 @@ class CRYPT_XML_CRYPTOGRAPHIC_INTERFACE extends Win32Struct
 
     /**
      * A pointer to the implementation of the <a href="https://docs.microsoft.com/windows/desktop/api/cryptxml/nc-cryptxml-cryptxmldllverifysignature">CryptXmlDllVerifySignature</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<CryptXmlDllVerifySignature>}
      */
     fpCryptXmlVerifySignature {
         get => NumGet(this, 56, "ptr")
@@ -87,7 +87,7 @@ class CRYPT_XML_CRYPTOGRAPHIC_INTERFACE extends Win32Struct
 
     /**
      * A pointer to the implementation of the <a href="https://docs.microsoft.com/windows/desktop/api/cryptxml/nc-cryptxml-cryptxmldllgetalgorithminfo">CryptXmlDllGetAlgorithmInfo</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<CryptXmlDllGetAlgorithmInfo>}
      */
     fpCryptXmlGetAlgorithmInfo {
         get => NumGet(this, 64, "ptr")

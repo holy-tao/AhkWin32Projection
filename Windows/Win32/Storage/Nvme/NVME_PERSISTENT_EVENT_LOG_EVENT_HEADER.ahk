@@ -7,9 +7,9 @@
  */
 class NVME_PERSISTENT_EVENT_LOG_EVENT_HEADER extends Win32Struct
 {
-    static sizeof => 24
+    static sizeof => 32
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * @type {Integer}
@@ -55,8 +55,8 @@ class NVME_PERSISTENT_EVENT_LOG_EVENT_HEADER extends Win32Struct
      * @type {Integer}
      */
     EventTimestamp {
-        get => NumGet(this, 6, "uint")
-        set => NumPut("uint", value, this, 6)
+        get => NumGet(this, 8, "uint")
+        set => NumPut("uint", value, this, 8)
     }
 
     /**
@@ -65,7 +65,7 @@ class NVME_PERSISTENT_EVENT_LOG_EVENT_HEADER extends Win32Struct
     Reserved1{
         get {
             if(!this.HasProp("__Reserved1ProxyArray"))
-                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 14, 6, Primitive, "char")
+                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 16, 6, Primitive, "char")
             return this.__Reserved1ProxyArray
         }
     }
@@ -74,15 +74,15 @@ class NVME_PERSISTENT_EVENT_LOG_EVENT_HEADER extends Win32Struct
      * @type {Integer}
      */
     VendorSpecificInformationLength {
-        get => NumGet(this, 20, "ushort")
-        set => NumPut("ushort", value, this, 20)
+        get => NumGet(this, 22, "ushort")
+        set => NumPut("ushort", value, this, 22)
     }
 
     /**
      * @type {Integer}
      */
     EventLength {
-        get => NumGet(this, 22, "ushort")
-        set => NumPut("ushort", value, this, 22)
+        get => NumGet(this, 24, "ushort")
+        set => NumPut("ushort", value, this, 24)
     }
 }

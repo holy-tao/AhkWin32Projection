@@ -76,7 +76,7 @@ class LEGACY_IDENTITY_UI_PARAMS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pwszIdentity {
         get => NumGet(this, 56, "ptr")

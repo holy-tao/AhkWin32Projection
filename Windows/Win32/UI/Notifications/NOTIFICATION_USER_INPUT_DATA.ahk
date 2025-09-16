@@ -17,7 +17,7 @@ class NOTIFICATION_USER_INPUT_DATA extends Win32Struct
 
     /**
      * The ID of the user input field in the XML payload.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     Key {
         get => NumGet(this, 0, "ptr")
@@ -26,7 +26,7 @@ class NOTIFICATION_USER_INPUT_DATA extends Win32Struct
 
     /**
      * The input value selected by the user for a given input field.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     Value {
         get => NumGet(this, 8, "ptr")

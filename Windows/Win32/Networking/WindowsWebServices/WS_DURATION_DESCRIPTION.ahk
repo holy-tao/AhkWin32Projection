@@ -47,7 +47,7 @@ class WS_DURATION_DESCRIPTION extends Win32Struct
      *                     (for example, 1 month and 30 days).  The default comparer function can compare durations that specify
      *                     years and months (but no other components), or durations that specify no years or months (but any other
      *                     component).
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<WS_DURATION_COMPARISON_CALLBACK>}
      */
     comparer {
         get => NumGet(this, 80, "ptr")

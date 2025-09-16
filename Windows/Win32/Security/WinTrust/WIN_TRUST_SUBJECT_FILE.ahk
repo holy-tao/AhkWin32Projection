@@ -12,7 +12,7 @@ class WIN_TRUST_SUBJECT_FILE extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HANDLE>}
      */
     hFile {
         get => NumGet(this, 0, "ptr")
@@ -20,7 +20,7 @@ class WIN_TRUST_SUBJECT_FILE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     lpPath {
         get => NumGet(this, 8, "ptr")

@@ -9,9 +9,9 @@
  */
 class USB_NODE_INFORMATION extends Win32Struct
 {
-    static sizeof => 12
+    static sizeof => 16
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * @type {Integer}
@@ -27,7 +27,7 @@ class USB_NODE_INFORMATION extends Win32Struct
     HubInformation{
         get {
             if(!this.HasProp("__HubInformation"))
-                this.__HubInformation := USB_HUB_INFORMATION(this.ptr + 4)
+                this.__HubInformation := USB_HUB_INFORMATION(this.ptr + 8)
             return this.__HubInformation
         }
     }
@@ -36,7 +36,7 @@ class USB_NODE_INFORMATION extends Win32Struct
      * @type {Integer}
      */
     MiParentInformation {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
+        get => NumGet(this, 8, "uint")
+        set => NumPut("uint", value, this, 8)
     }
 }

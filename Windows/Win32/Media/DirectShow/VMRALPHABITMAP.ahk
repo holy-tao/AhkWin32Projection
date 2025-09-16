@@ -93,7 +93,7 @@ class VMRALPHABITMAP extends Win32Struct
 
     /**
      * The handle to the device context for the bitmap. Specify <b>NULL</b> if the bitmap is located in a DirectDraw surface.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HDC>}
      */
     hdc {
         get => NumGet(this, 8, "ptr")

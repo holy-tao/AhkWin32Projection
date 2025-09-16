@@ -28,7 +28,7 @@ class DDHAL_DDSURFACECALLBACKS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPDDHALSURFCB_DESTROYSURFACE>}
      */
     DestroySurface {
         get => NumGet(this, 8, "ptr")
@@ -36,7 +36,7 @@ class DDHAL_DDSURFACECALLBACKS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPDDHALSURFCB_FLIP>}
      */
     Flip {
         get => NumGet(this, 16, "ptr")
@@ -44,7 +44,7 @@ class DDHAL_DDSURFACECALLBACKS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPDDHALSURFCB_SETCLIPLIST>}
      */
     SetClipList {
         get => NumGet(this, 24, "ptr")
@@ -52,7 +52,7 @@ class DDHAL_DDSURFACECALLBACKS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPDDHALSURFCB_LOCK>}
      */
     Lock {
         get => NumGet(this, 32, "ptr")
@@ -60,7 +60,7 @@ class DDHAL_DDSURFACECALLBACKS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPDDHALSURFCB_UNLOCK>}
      */
     Unlock {
         get => NumGet(this, 40, "ptr")
@@ -68,7 +68,7 @@ class DDHAL_DDSURFACECALLBACKS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPDDHALSURFCB_BLT>}
      */
     Blt {
         get => NumGet(this, 48, "ptr")
@@ -76,7 +76,7 @@ class DDHAL_DDSURFACECALLBACKS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPDDHALSURFCB_SETCOLORKEY>}
      */
     SetColorKey {
         get => NumGet(this, 56, "ptr")
@@ -84,7 +84,7 @@ class DDHAL_DDSURFACECALLBACKS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPDDHALSURFCB_ADDATTACHEDSURFACE>}
      */
     AddAttachedSurface {
         get => NumGet(this, 64, "ptr")
@@ -92,7 +92,7 @@ class DDHAL_DDSURFACECALLBACKS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPDDHALSURFCB_GETBLTSTATUS>}
      */
     GetBltStatus {
         get => NumGet(this, 72, "ptr")
@@ -100,7 +100,7 @@ class DDHAL_DDSURFACECALLBACKS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPDDHALSURFCB_GETFLIPSTATUS>}
      */
     GetFlipStatus {
         get => NumGet(this, 80, "ptr")
@@ -108,7 +108,7 @@ class DDHAL_DDSURFACECALLBACKS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPDDHALSURFCB_UPDATEOVERLAY>}
      */
     UpdateOverlay {
         get => NumGet(this, 88, "ptr")
@@ -116,7 +116,7 @@ class DDHAL_DDSURFACECALLBACKS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPDDHALSURFCB_SETOVERLAYPOSITION>}
      */
     SetOverlayPosition {
         get => NumGet(this, 96, "ptr")
@@ -132,7 +132,7 @@ class DDHAL_DDSURFACECALLBACKS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPDDHALSURFCB_SETPALETTE>}
      */
     SetPalette {
         get => NumGet(this, 112, "ptr")

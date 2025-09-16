@@ -8,7 +8,7 @@
  */
 class DVD_FULL_LAYER_DESCRIPTOR extends Win32Struct
 {
-    static sizeof => 2048
+    static sizeof => 2056
 
     static packingSize => 8
 
@@ -29,7 +29,7 @@ class DVD_FULL_LAYER_DESCRIPTOR extends Win32Struct
     MediaSpecific{
         get {
             if(!this.HasProp("__MediaSpecificProxyArray"))
-                this.__MediaSpecificProxyArray := Win32FixedArray(this.ptr + 17, 2031, Primitive, "char")
+                this.__MediaSpecificProxyArray := Win32FixedArray(this.ptr + 20, 2031, Primitive, "char")
             return this.__MediaSpecificProxyArray
         }
     }

@@ -28,7 +28,7 @@ class VDS_SUB_SYSTEM_PROP extends Win32Struct
     /**
      * The name of the subsystem, typically a brand name and a model name; a zero-terminated, human-readable 
      *       string.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pwszFriendlyName {
         get => NumGet(this, 8, "ptr")
@@ -37,7 +37,7 @@ class VDS_SUB_SYSTEM_PROP extends Win32Struct
 
     /**
      * The subsystem identifier; a zero-terminated, human-readable string.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pwszIdentification {
         get => NumGet(this, 16, "ptr")

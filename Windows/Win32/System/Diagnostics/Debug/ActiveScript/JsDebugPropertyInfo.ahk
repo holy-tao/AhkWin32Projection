@@ -12,7 +12,7 @@ class JsDebugPropertyInfo extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<BSTR>}
      */
     name {
         get => NumGet(this, 0, "ptr")
@@ -20,7 +20,7 @@ class JsDebugPropertyInfo extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<BSTR>}
      */
     type {
         get => NumGet(this, 8, "ptr")
@@ -28,7 +28,7 @@ class JsDebugPropertyInfo extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<BSTR>}
      */
     value {
         get => NumGet(this, 16, "ptr")
@@ -36,7 +36,7 @@ class JsDebugPropertyInfo extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<BSTR>}
      */
     fullName {
         get => NumGet(this, 24, "ptr")

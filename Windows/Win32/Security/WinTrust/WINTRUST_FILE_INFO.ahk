@@ -24,7 +24,7 @@ class WINTRUST_FILE_INFO extends Win32Struct
 
     /**
      * Full path and file name of the file to be verified. This parameter cannot be <b>NULL</b>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pcwszFilePath {
         get => NumGet(this, 8, "ptr")
@@ -33,7 +33,7 @@ class WINTRUST_FILE_INFO extends Win32Struct
 
     /**
      * Optional. File handle to the open file to be verified. This handle must be to a file that has at least read permission. This member can be set to <b>NULL</b>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HANDLE>}
      */
     hFile {
         get => NumGet(this, 16, "ptr")

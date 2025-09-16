@@ -37,7 +37,7 @@ class INTERNET_AUTH_NOTIFY_DATA extends Win32Struct
     /**
      * Notification callback to retry 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-interneterrordlg">InternetErrorDlg</a>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_AUTH_NOTIFY>}
      */
     pfnNotify {
         get => NumGet(this, 8, "ptr")

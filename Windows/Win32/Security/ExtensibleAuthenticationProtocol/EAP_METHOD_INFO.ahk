@@ -29,7 +29,7 @@ class EAP_METHOD_INFO extends Win32Struct
 
     /**
      * Pointer to a zero-terminated Unicode string that contains the name of the EAP method's author.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pwszAuthorName {
         get => NumGet(this, 16, "ptr")
@@ -38,7 +38,7 @@ class EAP_METHOD_INFO extends Win32Struct
 
     /**
      * Pointer to a zero-terminated Unicode string that contains the display name of the EAP method.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pwszFriendlyName {
         get => NumGet(this, 24, "ptr")

@@ -9,9 +9,9 @@
  */
 class RFX_GFX_MSG_CLIENT_DESKTOP_INFO_RESPONSE extends Win32Struct
 {
-    static sizeof => 204
+    static sizeof => 208
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * @type {RFX_GFX_MSG_HEADER}
@@ -46,7 +46,7 @@ class RFX_GFX_MSG_CLIENT_DESKTOP_INFO_RESPONSE extends Win32Struct
     MonitorData{
         get {
             if(!this.HasProp("__MonitorDataProxyArray"))
-                this.__MonitorDataProxyArray := Win32FixedArray(this.ptr + 12, 16, RFX_GFX_MONITOR_INFO, "")
+                this.__MonitorDataProxyArray := Win32FixedArray(this.ptr + 16, 16, RFX_GFX_MONITOR_INFO, "")
             return this.__MonitorDataProxyArray
         }
     }
@@ -55,7 +55,7 @@ class RFX_GFX_MSG_CLIENT_DESKTOP_INFO_RESPONSE extends Win32Struct
      * @type {String}
      */
     clientUniqueId {
-        get => StrGet(this.ptr + 140, 31, "UTF-16")
-        set => StrPut(value, this.ptr + 140, 31, "UTF-16")
+        get => StrGet(this.ptr + 144, 31, "UTF-16")
+        set => StrPut(value, this.ptr + 144, 31, "UTF-16")
     }
 }

@@ -17,7 +17,7 @@ class HTTP_SERVICE_CONFIG_SSL_SET extends Win32Struct
     /**
      * An 
      * <a href="https://docs.microsoft.com/windows/desktop/api/http/ns-http-http_service_config_ssl_key">HTTP_SERVICE_CONFIG_SSL_KEY</a> structure that identifies the SSL certificate record.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HTTP_SERVICE_CONFIG_SSL_KEY>}
      */
     KeyDesc {
         get => NumGet(this, 0, "ptr")

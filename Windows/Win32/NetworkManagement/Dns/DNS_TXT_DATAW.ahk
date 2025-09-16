@@ -36,7 +36,7 @@ class DNS_TXT_DATAW extends Win32Struct
 
     /**
      * An array of strings representing the descriptive text of the TXT resource record.
-     * @type {Array<Ptr>}
+     * @type {Array<PWSTR>}
      */
     pStringArray{
         get {

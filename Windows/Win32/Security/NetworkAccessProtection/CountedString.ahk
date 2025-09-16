@@ -27,7 +27,7 @@ class CountedString extends Win32Struct
 
     /**
      * A pointer to a null-terminated wide character string of size <b>length</b> + 1.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     string {
         get => NumGet(this, 8, "ptr")

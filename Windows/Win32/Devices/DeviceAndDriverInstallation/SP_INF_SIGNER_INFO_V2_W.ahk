@@ -15,7 +15,7 @@ class SP_INF_SIGNER_INFO_V2_W extends Win32Struct
 {
     static sizeof => 1568
 
-    static packingSize => 1
+    static packingSize => 4
 
     /**
      * Size of this structure, in bytes.

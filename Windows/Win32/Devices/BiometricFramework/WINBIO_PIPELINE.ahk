@@ -17,7 +17,7 @@ class WINBIO_PIPELINE extends Win32Struct
 
     /**
      * File handle to the sensor device associated with the biometric unit. Adapters should treat this as a read-only field.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HANDLE>}
      */
     SensorHandle {
         get => NumGet(this, 0, "ptr")
@@ -26,7 +26,7 @@ class WINBIO_PIPELINE extends Win32Struct
 
     /**
      * File handle to the dedicated hardware matching engine, if one is present. This is modified only by the engine adapter. It is read by the Windows Biometric Framework.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HANDLE>}
      */
     EngineHandle {
         get => NumGet(this, 8, "ptr")
@@ -35,7 +35,7 @@ class WINBIO_PIPELINE extends Win32Struct
 
     /**
      * File handle to the template storage database. This is read by the Windows Biometric Framework, but it is modified only by the storage adapter.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HANDLE>}
      */
     StorageHandle {
         get => NumGet(this, 16, "ptr")

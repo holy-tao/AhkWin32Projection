@@ -24,7 +24,7 @@ class LINECALLPARAMS extends Win32Struct
 {
     static sizeof => 176
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * Total size allocated to this data structure, in bytes. This size should be big enough to hold all the fixed and variably sized portions of this data structure.

@@ -52,7 +52,7 @@ class LDAPAPIInfoW extends Win32Struct
 
     /**
      * Pointer to an array of null-terminated strings that indicate what API extensions are supported.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     ldapai_extensions {
         get => NumGet(this, 16, "ptr")
@@ -61,7 +61,7 @@ class LDAPAPIInfoW extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that contains the name of the API vendor.  This implementation returns the string ""Microsoft Corporation."".
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     ldapai_vendor_name {
         get => NumGet(this, 24, "ptr")

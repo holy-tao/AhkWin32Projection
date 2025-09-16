@@ -11,7 +11,7 @@ class WAVEFILTER extends Win32Struct
 {
     static sizeof => 32
 
-    static packingSize => 1
+    static packingSize => 4
 
     /**
      * Size, in bytes, of the <b>WAVEFILTER</b> structure. The size specified in this member must be large enough to contain the base <b>WAVEFILTER</b> structure.

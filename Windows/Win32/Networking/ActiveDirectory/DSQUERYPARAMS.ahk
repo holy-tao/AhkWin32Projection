@@ -34,7 +34,7 @@ class DSQUERYPARAMS extends Win32Struct
 
     /**
      * Contains an instance handle used for extracting resources.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HINSTANCE>}
      */
     hInstance {
         get => NumGet(this, 8, "ptr")

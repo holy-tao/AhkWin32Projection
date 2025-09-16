@@ -60,7 +60,7 @@ class WLX_DESKTOP extends Win32Struct
 
     /**
      * A handle to the desktop returned by <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-createdesktopa">CreateDesktop</a> and <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-opendesktopa">OpenDesktop</a>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HDESK>}
      */
     hDesktop {
         get => NumGet(this, 8, "ptr")
@@ -69,7 +69,7 @@ class WLX_DESKTOP extends Win32Struct
 
     /**
      * Name of the desktop.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pszDesktopName {
         get => NumGet(this, 16, "ptr")

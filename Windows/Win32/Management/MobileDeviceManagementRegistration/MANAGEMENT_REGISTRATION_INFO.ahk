@@ -28,7 +28,7 @@ class MANAGEMENT_REGISTRATION_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pszUPN {
         get => NumGet(this, 8, "ptr")
@@ -36,7 +36,7 @@ class MANAGEMENT_REGISTRATION_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pszMDMServiceUri {
         get => NumGet(this, 16, "ptr")

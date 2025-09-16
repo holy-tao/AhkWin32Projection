@@ -44,7 +44,7 @@ class DNS_QUERY_RAW_REQUEST extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     dnsQueryName {
         get => NumGet(this, 24, "ptr")
@@ -76,7 +76,7 @@ class DNS_QUERY_RAW_REQUEST extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<DNS_QUERY_RAW_COMPLETION_ROUTINE>}
      */
     queryCompletionCallback {
         get => NumGet(this, 56, "ptr")

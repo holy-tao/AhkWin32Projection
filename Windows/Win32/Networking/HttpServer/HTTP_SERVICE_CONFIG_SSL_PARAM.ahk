@@ -52,7 +52,7 @@ class HTTP_SERVICE_CONFIG_SSL_PARAM extends Win32Struct
 
     /**
      * A pointer to a wide-character string that contains the name of the store from which the server certificate is to be read. If set to <b>NULL</b>, "MY" is assumed as the default name. The specified certificate store name must be present in the Local System store location.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pSslCertStoreName {
         get => NumGet(this, 24, "ptr")
@@ -88,7 +88,7 @@ class HTTP_SERVICE_CONFIG_SSL_PARAM extends Win32Struct
 
     /**
      * A pointer to an SSL control identifier, which enables an application to restrict the group of certificate issuers to be trusted. This group must be a subset of the certificate issuers trusted by the machine on which the application is running.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pDefaultSslCtlIdentifier {
         get => NumGet(this, 48, "ptr")
@@ -97,7 +97,7 @@ class HTTP_SERVICE_CONFIG_SSL_PARAM extends Win32Struct
 
     /**
      * The name of the store where the control identifier pointed to by <b>pDefaultSslCtlIdentifier</b> is stored.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pDefaultSslCtlStoreName {
         get => NumGet(this, 56, "ptr")

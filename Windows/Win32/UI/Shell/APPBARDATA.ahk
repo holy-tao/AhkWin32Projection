@@ -10,9 +10,9 @@
  */
 class APPBARDATA extends Win32Struct
 {
-    static sizeof => 44
+    static sizeof => 48
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * Type: <b>DWORD</b>
@@ -29,11 +29,11 @@ class APPBARDATA extends Win32Struct
      * Type: <b>HWND</b>
      * 
      * The handle to the appbar window. Not all messages use this member. See the individual message page to see if you need to provide an <b>hWind</b> value.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HWND>}
      */
     hWnd {
-        get => NumGet(this, 4, "ptr")
-        set => NumPut("ptr", value, this, 4)
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -43,8 +43,8 @@ class APPBARDATA extends Win32Struct
      * @type {Integer}
      */
     uCallbackMessage {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
+        get => NumGet(this, 16, "uint")
+        set => NumPut("uint", value, this, 16)
     }
 
     /**
@@ -75,8 +75,8 @@ class APPBARDATA extends Win32Struct
      * @type {Integer}
      */
     uEdge {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+        get => NumGet(this, 20, "uint")
+        set => NumPut("uint", value, this, 20)
     }
 
     /**
@@ -97,7 +97,7 @@ class APPBARDATA extends Win32Struct
     rc{
         get {
             if(!this.HasProp("__rc"))
-                this.__rc := RECT(this.ptr + 20)
+                this.__rc := RECT(this.ptr + 24)
             return this.__rc
         }
     }
@@ -124,8 +124,8 @@ class APPBARDATA extends Win32Struct
      * @type {Pointer}
      */
     lParam {
-        get => NumGet(this, 36, "ptr")
-        set => NumPut("ptr", value, this, 36)
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
@@ -134,6 +134,6 @@ class APPBARDATA extends Win32Struct
      */
     __New(ptr := 0){
         super.__New(ptr)
-        this.cbSize := 44
+        this.cbSize := 48
     }
 }

@@ -19,7 +19,7 @@ class WINML_VARIABLE_DESC extends Win32Struct
 
     /**
      * The name of the variable.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     Name {
         get => NumGet(this, 0, "ptr")
@@ -28,7 +28,7 @@ class WINML_VARIABLE_DESC extends Win32Struct
 
     /**
      * The description of the variable.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     Description {
         get => NumGet(this, 8, "ptr")

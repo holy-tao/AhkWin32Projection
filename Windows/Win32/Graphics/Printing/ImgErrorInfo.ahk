@@ -12,7 +12,7 @@ class ImgErrorInfo extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<BSTR>}
      */
     description {
         get => NumGet(this, 0, "ptr")
@@ -36,7 +36,7 @@ class ImgErrorInfo extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<BSTR>}
      */
     helpFile {
         get => NumGet(this, 24, "ptr")
@@ -44,7 +44,7 @@ class ImgErrorInfo extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<BSTR>}
      */
     source {
         get => NumGet(this, 32, "ptr")
@@ -52,7 +52,7 @@ class ImgErrorInfo extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<BSTR>}
      */
     devDescription {
         get => NumGet(this, 40, "ptr")
@@ -76,7 +76,7 @@ class ImgErrorInfo extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<BSTR>}
      */
     aUserParameters {
         get => NumGet(this, 64, "ptr")
@@ -84,7 +84,7 @@ class ImgErrorInfo extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<BSTR>}
      */
     userFallback {
         get => NumGet(this, 72, "ptr")

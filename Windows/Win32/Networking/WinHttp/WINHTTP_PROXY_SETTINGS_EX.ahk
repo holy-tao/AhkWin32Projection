@@ -11,9 +11,9 @@
  */
 class WINHTTP_PROXY_SETTINGS_EX extends Win32Struct
 {
-    static sizeof => 64
+    static sizeof => 72
 
-    static packingSize => 4
+    static packingSize => 8
 
     /**
      * Type: **[ULONGLONG](/windows/win32/winprog/windows-data-types)**
@@ -41,7 +41,7 @@ class WINHTTP_PROXY_SETTINGS_EX extends Win32Struct
      * Type: **[PCWSTR](/windows/win32/winprog/windows-data-types)**
      * 
      * The PAC URL for the network (for example, L"http://proxy.contoso.com/wpad.dat").
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pcwszAutoconfigUrl {
         get => NumGet(this, 16, "ptr")
@@ -52,7 +52,7 @@ class WINHTTP_PROXY_SETTINGS_EX extends Win32Struct
      * Type: **[PCWSTR](/windows/win32/winprog/windows-data-types)**
      * 
      * The proxy address and port for HTTP traffic (for example, L"http://192.168.1.1:8888").
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pcwszProxy {
         get => NumGet(this, 24, "ptr")
@@ -63,7 +63,7 @@ class WINHTTP_PROXY_SETTINGS_EX extends Win32Struct
      * Type: **[PCWSTR](/windows/win32/winprog/windows-data-types)**
      * 
      * The proxy address and port for HTTPS traffic (for example, L"http://192.168.1.1:8888").
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pcwszSecureProxy {
         get => NumGet(this, 32, "ptr")
@@ -85,11 +85,11 @@ class WINHTTP_PROXY_SETTINGS_EX extends Win32Struct
      * Type: **[PCWSTR](/windows/win32/winprog/windows-data-types)\***
      * 
      * An array of strings containing each site in the proxy bypass list. (for example, L"contoso.com").
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     rgpcwszProxyBypasses {
-        get => NumGet(this, 44, "ptr")
-        set => NumPut("ptr", value, this, 44)
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**
@@ -99,18 +99,18 @@ class WINHTTP_PROXY_SETTINGS_EX extends Win32Struct
      * @type {Integer}
      */
     dwInterfaceIndex {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
+        get => NumGet(this, 56, "uint")
+        set => NumPut("uint", value, this, 56)
     }
 
     /**
      * Type: **[PCWSTR](/windows/win32/winprog/windows-data-types)**
      * 
      * The WCM connection name for which settings were retrieved.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pcwszConnectionName {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
+        get => NumGet(this, 64, "ptr")
+        set => NumPut("ptr", value, this, 64)
     }
 }

@@ -12,7 +12,7 @@ class CPS_URLS extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pszURL {
         get => NumGet(this, 0, "ptr")

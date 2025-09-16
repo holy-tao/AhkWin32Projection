@@ -13,7 +13,7 @@ class USB_PASS_THRU_PARAMETERS extends Win32Struct
 {
     static sizeof => 16
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * A GUID that identifies the operation for the host controller miniport driver.

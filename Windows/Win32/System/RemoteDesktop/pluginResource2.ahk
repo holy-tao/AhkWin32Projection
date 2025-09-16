@@ -50,7 +50,7 @@ class pluginResource2 extends Win32Struct
 
     /**
      * A string representation of a security descriptor used to specify the domain users and groups that have access to the resource. For more information about security descriptor strings, see <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-descriptor-string-format">Security Descriptor String Format</a>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     securityDescriptor {
         get => NumGet(this, 2112, "ptr")

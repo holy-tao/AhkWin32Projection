@@ -94,7 +94,7 @@ class FWPM_PROVIDER0 extends Win32Struct
     /**
      * Optional name of the Windows service hosting the provider. This allows
      *    BFE to detect that a provider has been disabled.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     serviceName {
         get => NumGet(this, 48, "ptr")

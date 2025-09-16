@@ -35,7 +35,7 @@ class DD_MISCELLANEOUSCALLBACKS extends Win32Struct
 
     /**
      * Points to the driver-supplied <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/nc-ddrawint-pdd_getavaildrivermemory">DdGetAvailDriverMemory</a> callback.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PDD_GETAVAILDRIVERMEMORY>}
      */
     GetAvailDriverMemory {
         get => NumGet(this, 8, "ptr")

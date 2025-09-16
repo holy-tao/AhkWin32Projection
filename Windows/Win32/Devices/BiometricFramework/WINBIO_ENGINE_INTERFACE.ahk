@@ -61,7 +61,7 @@ class WINBIO_ENGINE_INTERFACE extends Win32Struct
 
     /**
      * A pointer to your implementation of the  <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/nc-winbio_adapter-pibio_engine_attach_fn">EngineAdapterAttach</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PIBIO_ENGINE_ATTACH_FN>}
      */
     Attach {
         get => NumGet(this, 24, "ptr")
@@ -70,7 +70,7 @@ class WINBIO_ENGINE_INTERFACE extends Win32Struct
 
     /**
      * A pointer to your implementation of the  <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/nc-winbio_adapter-pibio_engine_detach_fn">EngineAdapterDetach</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PIBIO_ENGINE_DETACH_FN>}
      */
     Detach {
         get => NumGet(this, 32, "ptr")
@@ -79,7 +79,7 @@ class WINBIO_ENGINE_INTERFACE extends Win32Struct
 
     /**
      * A pointer to your implementation of the  <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/nc-winbio_adapter-pibio_engine_clear_context_fn">EngineAdapterClearContext</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PIBIO_ENGINE_CLEAR_CONTEXT_FN>}
      */
     ClearContext {
         get => NumGet(this, 40, "ptr")
@@ -88,7 +88,7 @@ class WINBIO_ENGINE_INTERFACE extends Win32Struct
 
     /**
      * A pointer to your implementation of the  <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/nc-winbio_adapter-pibio_engine_query_preferred_format_fn">EngineAdapterQueryPreferredFormat</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PIBIO_ENGINE_QUERY_PREFERRED_FORMAT_FN>}
      */
     QueryPreferredFormat {
         get => NumGet(this, 48, "ptr")
@@ -97,7 +97,7 @@ class WINBIO_ENGINE_INTERFACE extends Win32Struct
 
     /**
      * A pointer to your implementation of the   <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/nc-winbio_adapter-pibio_engine_query_index_vector_size_fn">EngineAdapterQueryIndexVectorSize</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PIBIO_ENGINE_QUERY_INDEX_VECTOR_SIZE_FN>}
      */
     QueryIndexVectorSize {
         get => NumGet(this, 56, "ptr")
@@ -106,7 +106,7 @@ class WINBIO_ENGINE_INTERFACE extends Win32Struct
 
     /**
      * A pointer to your implementation of the  <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/nc-winbio_adapter-pibio_engine_query_hash_algorithms_fn">EngineAdapterQueryHashAlgorithms</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PIBIO_ENGINE_QUERY_HASH_ALGORITHMS_FN>}
      */
     QueryHashAlgorithms {
         get => NumGet(this, 64, "ptr")
@@ -115,7 +115,7 @@ class WINBIO_ENGINE_INTERFACE extends Win32Struct
 
     /**
      * A pointer to your implementation of the  <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/nc-winbio_adapter-pibio_engine_set_hash_algorithm_fn">EngineAdapterSetHashAlgorithm</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PIBIO_ENGINE_SET_HASH_ALGORITHM_FN>}
      */
     SetHashAlgorithm {
         get => NumGet(this, 72, "ptr")
@@ -124,7 +124,7 @@ class WINBIO_ENGINE_INTERFACE extends Win32Struct
 
     /**
      * A pointer to your implementation of the  <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/nc-winbio_adapter-pibio_engine_query_sample_hint_fn">EngineAdapterQuerySampleHint</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PIBIO_ENGINE_QUERY_SAMPLE_HINT_FN>}
      */
     QuerySampleHint {
         get => NumGet(this, 80, "ptr")
@@ -133,7 +133,7 @@ class WINBIO_ENGINE_INTERFACE extends Win32Struct
 
     /**
      * A pointer to your implementation of the  <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/nc-winbio_adapter-pibio_engine_accept_sample_data_fn">EngineAdapterAcceptSampleData</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PIBIO_ENGINE_ACCEPT_SAMPLE_DATA_FN>}
      */
     AcceptSampleData {
         get => NumGet(this, 88, "ptr")
@@ -142,7 +142,7 @@ class WINBIO_ENGINE_INTERFACE extends Win32Struct
 
     /**
      * A pointer to your implementation of the  <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/nc-winbio_adapter-pibio_engine_export_engine_data_fn">EngineAdapterExportEngineData</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PIBIO_ENGINE_EXPORT_ENGINE_DATA_FN>}
      */
     ExportEngineData {
         get => NumGet(this, 96, "ptr")
@@ -151,7 +151,7 @@ class WINBIO_ENGINE_INTERFACE extends Win32Struct
 
     /**
      * A pointer to your implementation of the  <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/nc-winbio_adapter-pibio_engine_verify_feature_set_fn">EngineAdapterVerifyFeatureSet</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PIBIO_ENGINE_VERIFY_FEATURE_SET_FN>}
      */
     VerifyFeatureSet {
         get => NumGet(this, 104, "ptr")
@@ -160,7 +160,7 @@ class WINBIO_ENGINE_INTERFACE extends Win32Struct
 
     /**
      * A pointer to your implementation of the   <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/nc-winbio_adapter-pibio_engine_identify_feature_set_fn">EngineAdapterIdentifyFeatureSet</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PIBIO_ENGINE_IDENTIFY_FEATURE_SET_FN>}
      */
     IdentifyFeatureSet {
         get => NumGet(this, 112, "ptr")
@@ -169,7 +169,7 @@ class WINBIO_ENGINE_INTERFACE extends Win32Struct
 
     /**
      * A pointer to your implementation of the  <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/nc-winbio_adapter-pibio_engine_create_enrollment_fn">EngineAdapterCreateEnrollment</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PIBIO_ENGINE_CREATE_ENROLLMENT_FN>}
      */
     CreateEnrollment {
         get => NumGet(this, 120, "ptr")
@@ -178,7 +178,7 @@ class WINBIO_ENGINE_INTERFACE extends Win32Struct
 
     /**
      * A pointer to your implementation of the  <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/nc-winbio_adapter-pibio_engine_update_enrollment_fn">EngineAdapterUpdateEnrollment</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PIBIO_ENGINE_UPDATE_ENROLLMENT_FN>}
      */
     UpdateEnrollment {
         get => NumGet(this, 128, "ptr")
@@ -187,7 +187,7 @@ class WINBIO_ENGINE_INTERFACE extends Win32Struct
 
     /**
      * A pointer to your implementation of the  <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/nc-winbio_adapter-pibio_engine_get_enrollment_status_fn">EngineAdapterGetEnrollmentStatus</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PIBIO_ENGINE_GET_ENROLLMENT_STATUS_FN>}
      */
     GetEnrollmentStatus {
         get => NumGet(this, 136, "ptr")
@@ -196,7 +196,7 @@ class WINBIO_ENGINE_INTERFACE extends Win32Struct
 
     /**
      * A pointer to your implementation of the  <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/nc-winbio_adapter-pibio_engine_get_enrollment_hash_fn">EngineAdapterGetEnrollmentHash</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PIBIO_ENGINE_GET_ENROLLMENT_HASH_FN>}
      */
     GetEnrollmentHash {
         get => NumGet(this, 144, "ptr")
@@ -205,7 +205,7 @@ class WINBIO_ENGINE_INTERFACE extends Win32Struct
 
     /**
      * A pointer to your implementation of the  <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/nc-winbio_adapter-pibio_engine_check_for_duplicate_fn">EngineAdapterCheckForDuplicate</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PIBIO_ENGINE_CHECK_FOR_DUPLICATE_FN>}
      */
     CheckForDuplicate {
         get => NumGet(this, 152, "ptr")
@@ -214,7 +214,7 @@ class WINBIO_ENGINE_INTERFACE extends Win32Struct
 
     /**
      * A pointer to your implementation of the  <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/nc-winbio_adapter-pibio_engine_commit_enrollment_fn">EngineAdapterCommitEnrollment</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PIBIO_ENGINE_COMMIT_ENROLLMENT_FN>}
      */
     CommitEnrollment {
         get => NumGet(this, 160, "ptr")
@@ -223,7 +223,7 @@ class WINBIO_ENGINE_INTERFACE extends Win32Struct
 
     /**
      * A pointer to your implementation of the  <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/nc-winbio_adapter-pibio_engine_discard_enrollment_fn">EngineAdapterDiscardEnrollment</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PIBIO_ENGINE_DISCARD_ENROLLMENT_FN>}
      */
     DiscardEnrollment {
         get => NumGet(this, 168, "ptr")
@@ -232,7 +232,7 @@ class WINBIO_ENGINE_INTERFACE extends Win32Struct
 
     /**
      * A pointer to your implementation of the  <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/nc-winbio_adapter-pibio_engine_control_unit_fn">EngineAdapterControlUnit</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PIBIO_ENGINE_CONTROL_UNIT_FN>}
      */
     ControlUnit {
         get => NumGet(this, 176, "ptr")
@@ -241,7 +241,7 @@ class WINBIO_ENGINE_INTERFACE extends Win32Struct
 
     /**
      * A pointer to your implementation of the  <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/nc-winbio_adapter-pibio_engine_control_unit_privileged_fn">EngineAdapterControlUnitPrivileged</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PIBIO_ENGINE_CONTROL_UNIT_PRIVILEGED_FN>}
      */
     ControlUnitPrivileged {
         get => NumGet(this, 184, "ptr")
@@ -250,7 +250,7 @@ class WINBIO_ENGINE_INTERFACE extends Win32Struct
 
     /**
      * A pointer to your implementation of the <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/nc-winbio_adapter-pibio_engine_notify_power_change_fn">EngineAdapterNotifyPowerChange</a> function. This member is supported starting in Windows 8.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PIBIO_ENGINE_NOTIFY_POWER_CHANGE_FN>}
      */
     NotifyPowerChange {
         get => NumGet(this, 192, "ptr")
@@ -259,7 +259,7 @@ class WINBIO_ENGINE_INTERFACE extends Win32Struct
 
     /**
      * This field is reserved and should be set to <b>NULL</b>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PIBIO_ENGINE_RESERVED_1_FN>}
      */
     Reserved_1 {
         get => NumGet(this, 200, "ptr")
@@ -268,7 +268,7 @@ class WINBIO_ENGINE_INTERFACE extends Win32Struct
 
     /**
      * A pointer to your implementation of the <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/nc-winbio_adapter-pibio_engine_pipeline_init_fn">EngineAdapterPipelineInit</a> function. This member is supported starting in Windows 10.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PIBIO_ENGINE_PIPELINE_INIT_FN>}
      */
     PipelineInit {
         get => NumGet(this, 208, "ptr")
@@ -277,7 +277,7 @@ class WINBIO_ENGINE_INTERFACE extends Win32Struct
 
     /**
      * A pointer to your implementation of the <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/nc-winbio_adapter-pibio_engine_pipeline_cleanup_fn">EngineAdapterPipelineCleanup</a> function. This member is supported starting in Windows 10.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PIBIO_ENGINE_PIPELINE_CLEANUP_FN>}
      */
     PipelineCleanup {
         get => NumGet(this, 216, "ptr")
@@ -286,7 +286,7 @@ class WINBIO_ENGINE_INTERFACE extends Win32Struct
 
     /**
      * A pointer to your implementation of the <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/nc-winbio_adapter-pibio_engine_activate_fn">EngineAdapterActivate</a> function. This member is supported starting in Windows 10.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PIBIO_ENGINE_ACTIVATE_FN>}
      */
     Activate {
         get => NumGet(this, 224, "ptr")
@@ -295,7 +295,7 @@ class WINBIO_ENGINE_INTERFACE extends Win32Struct
 
     /**
      * A pointer to your implementation of the <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/nc-winbio_adapter-pibio_engine_deactivate_fn">EngineAdapterDeactivate</a> function.  This member is supported starting in Windows 10.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PIBIO_ENGINE_DEACTIVATE_FN>}
      */
     Deactivate {
         get => NumGet(this, 232, "ptr")
@@ -304,7 +304,7 @@ class WINBIO_ENGINE_INTERFACE extends Win32Struct
 
     /**
      * A pointer to your implementation of the <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/nc-winbio_adapter-pibio_engine_query_extended_info_fn">EngineAdapterQueryExtendedInfo</a> function. This member is supported starting in Windows 10.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PIBIO_ENGINE_QUERY_EXTENDED_INFO_FN>}
      */
     QueryExtendedInfo {
         get => NumGet(this, 240, "ptr")
@@ -313,7 +313,7 @@ class WINBIO_ENGINE_INTERFACE extends Win32Struct
 
     /**
      * A pointer to your implementation of the <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/nc-winbio_adapter-pibio_engine_identify_all_fn">EngineAdapterIdentifyAll</a> function. This member is supported starting in Windows 10.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PIBIO_ENGINE_IDENTIFY_ALL_FN>}
      */
     IdentifyAll {
         get => NumGet(this, 248, "ptr")
@@ -322,7 +322,7 @@ class WINBIO_ENGINE_INTERFACE extends Win32Struct
 
     /**
      * A pointer to your implementation of the <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/nc-winbio_adapter-pibio_engine_set_enrollment_selector_fn">EngineAdapterSetEnrollmentSelector</a> function. This member is supported starting in Windows 10.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PIBIO_ENGINE_SET_ENROLLMENT_SELECTOR_FN>}
      */
     SetEnrollmentSelector {
         get => NumGet(this, 256, "ptr")
@@ -331,7 +331,7 @@ class WINBIO_ENGINE_INTERFACE extends Win32Struct
 
     /**
      * A pointer to your implementation of the <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/nc-winbio_adapter-pibio_engine_set_enrollment_parameters_fn">EngineAdapterSetEnrollmentParameters</a> function. This member is supported starting in Windows 10.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PIBIO_ENGINE_SET_ENROLLMENT_PARAMETERS_FN>}
      */
     SetEnrollmentParameters {
         get => NumGet(this, 264, "ptr")
@@ -340,7 +340,7 @@ class WINBIO_ENGINE_INTERFACE extends Win32Struct
 
     /**
      * A pointer to your implementation of the <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/nc-winbio_adapter-pibio_engine_query_extended_enrollment_status_fn">EngineAdapterQueryExtendedEnrollmentStatus</a> function. This member is supported starting in Windows 10.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PIBIO_ENGINE_QUERY_EXTENDED_ENROLLMENT_STATUS_FN>}
      */
     QueryExtendedEnrollmentStatus {
         get => NumGet(this, 272, "ptr")
@@ -349,7 +349,7 @@ class WINBIO_ENGINE_INTERFACE extends Win32Struct
 
     /**
      * A pointer to your implementation of the <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/nc-winbio_adapter-pibio_engine_refresh_cache_fn">EngineAdapterRefreshCache</a> function. This member is supported starting in Windows 10.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PIBIO_ENGINE_REFRESH_CACHE_FN>}
      */
     RefreshCache {
         get => NumGet(this, 280, "ptr")
@@ -358,7 +358,7 @@ class WINBIO_ENGINE_INTERFACE extends Win32Struct
 
     /**
      * A pointer to your implementation of the <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/nc-winbio_adapter-pibio_engine_select_calibration_format_fn">EngineAdapterSelectCalibrationFormat</a> function. This member is supported starting in Windows 10.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PIBIO_ENGINE_SELECT_CALIBRATION_FORMAT_FN>}
      */
     SelectCalibrationFormat {
         get => NumGet(this, 288, "ptr")
@@ -367,7 +367,7 @@ class WINBIO_ENGINE_INTERFACE extends Win32Struct
 
     /**
      * A pointer to your implementation of the <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/nc-winbio_adapter-pibio_engine_query_calibration_data_fn">EngineAdapterQueryCalibrationData</a> function. This member is supported starting in Windows 10.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PIBIO_ENGINE_QUERY_CALIBRATION_DATA_FN>}
      */
     QueryCalibrationData {
         get => NumGet(this, 296, "ptr")
@@ -376,7 +376,7 @@ class WINBIO_ENGINE_INTERFACE extends Win32Struct
 
     /**
      * A pointer to your implementation of the <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/nc-winbio_adapter-pibio_engine_set_account_policy_fn">EngineAdapterSetAccountPolicy</a> function. This member is supported starting in Windows 10.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PIBIO_ENGINE_SET_ACCOUNT_POLICY_FN>}
      */
     SetAccountPolicy {
         get => NumGet(this, 304, "ptr")
@@ -385,7 +385,7 @@ class WINBIO_ENGINE_INTERFACE extends Win32Struct
 
     /**
      * A pointer to your implementation of the <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/nc-winbio_adapter-pibio_engine_create_key_fn">EngineAdapterCreateKey</a> function. This member is supported starting in Windows 10, version 1607.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PIBIO_ENGINE_CREATE_KEY_FN>}
      */
     CreateKey {
         get => NumGet(this, 312, "ptr")
@@ -394,7 +394,7 @@ class WINBIO_ENGINE_INTERFACE extends Win32Struct
 
     /**
      * A pointer to your implementation of the <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/nc-winbio_adapter-pibio_engine_identify_feature_set_secure_fn">EngineAdapterIdentifyFeatureSetSecure</a> function. This member is supported starting in Windows 10, version 1607.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PIBIO_ENGINE_IDENTIFY_FEATURE_SET_SECURE_FN>}
      */
     IdentifyFeatureSetSecure {
         get => NumGet(this, 320, "ptr")
@@ -403,7 +403,7 @@ class WINBIO_ENGINE_INTERFACE extends Win32Struct
 
     /**
      * 
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PIBIO_ENGINE_ACCEPT_PRIVATE_SENSOR_TYPE_INFO_FN>}
      */
     AcceptPrivateSensorTypeInfo {
         get => NumGet(this, 328, "ptr")
@@ -412,7 +412,7 @@ class WINBIO_ENGINE_INTERFACE extends Win32Struct
 
     /**
      * 
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PIBIO_ENGINE_CREATE_ENROLLMENT_AUTHENTICATED_FN>}
      */
     CreateEnrollmentAuthenticated {
         get => NumGet(this, 336, "ptr")
@@ -421,7 +421,7 @@ class WINBIO_ENGINE_INTERFACE extends Win32Struct
 
     /**
      * 
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PIBIO_ENGINE_IDENTIFY_FEATURE_SET_AUTHENTICATED_FN>}
      */
     IdentifyFeatureSetAuthenticated {
         get => NumGet(this, 344, "ptr")

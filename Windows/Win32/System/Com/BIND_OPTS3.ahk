@@ -32,7 +32,7 @@ class BIND_OPTS3 extends Win32Struct
 
     /**
      * A handle to the window that becomes the owner of the elevation UI, if applicable. If <b>hwnd</b> is <b>NULL</b>, COM will call the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getactivewindow">GetActiveWindow</a> function to find a window handle associated with the current thread. This case might occur if the client is a script, which cannot fill in a <b>BIND_OPTS3</b> structure. In this case, COM will try to use the window associated with the script thread.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HWND>}
      */
     hwnd {
         get => NumGet(this, 40, "ptr")

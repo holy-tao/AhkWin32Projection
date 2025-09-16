@@ -20,7 +20,7 @@ class IMESTRINGCANDIDATE extends Win32Struct
     }
 
     /**
-     * @type {Array<Ptr>}
+     * @type {Array<PWSTR>}
      */
     lpwstr{
         get {

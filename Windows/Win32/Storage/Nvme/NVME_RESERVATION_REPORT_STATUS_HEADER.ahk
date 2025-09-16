@@ -7,9 +7,9 @@
  */
 class NVME_RESERVATION_REPORT_STATUS_HEADER extends Win32Struct
 {
-    static sizeof => 24
+    static sizeof => 28
 
-    static packingSize => 1
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -31,8 +31,8 @@ class NVME_RESERVATION_REPORT_STATUS_HEADER extends Win32Struct
      * @type {Integer}
      */
     REGCTL {
-        get => NumGet(this, 5, "ushort")
-        set => NumPut("ushort", value, this, 5)
+        get => NumGet(this, 6, "ushort")
+        set => NumPut("ushort", value, this, 6)
     }
 
     /**
@@ -41,7 +41,7 @@ class NVME_RESERVATION_REPORT_STATUS_HEADER extends Win32Struct
     Reserved{
         get {
             if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 7, 2, Primitive, "char")
+                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 8, 2, Primitive, "char")
             return this.__ReservedProxyArray
         }
     }
@@ -50,8 +50,8 @@ class NVME_RESERVATION_REPORT_STATUS_HEADER extends Win32Struct
      * @type {Integer}
      */
     PTPLS {
-        get => NumGet(this, 9, "char")
-        set => NumPut("char", value, this, 9)
+        get => NumGet(this, 10, "char")
+        set => NumPut("char", value, this, 10)
     }
 
     /**
@@ -60,7 +60,7 @@ class NVME_RESERVATION_REPORT_STATUS_HEADER extends Win32Struct
     Reserved1{
         get {
             if(!this.HasProp("__Reserved1ProxyArray"))
-                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 10, 14, Primitive, "char")
+                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 11, 14, Primitive, "char")
             return this.__Reserved1ProxyArray
         }
     }

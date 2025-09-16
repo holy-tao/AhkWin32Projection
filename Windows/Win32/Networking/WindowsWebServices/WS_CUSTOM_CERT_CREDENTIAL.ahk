@@ -28,7 +28,7 @@ class WS_CUSTOM_CERT_CREDENTIAL extends Win32Struct
 
     /**
      * The Callback to get the certificate.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<WS_GET_CERT_CALLBACK>}
      */
     getCertCallback {
         get => NumGet(this, 8, "ptr")
@@ -46,7 +46,7 @@ class WS_CUSTOM_CERT_CREDENTIAL extends Win32Struct
 
     /**
      * 
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<WS_CERT_ISSUER_LIST_NOTIFICATION_CALLBACK>}
      */
     certIssuerListNotificationCallback {
         get => NumGet(this, 24, "ptr")

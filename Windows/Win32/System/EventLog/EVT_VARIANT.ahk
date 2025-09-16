@@ -126,7 +126,7 @@ class EVT_VARIANT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     StringVal {
         get => NumGet(this, 0, "ptr")
@@ -134,7 +134,7 @@ class EVT_VARIANT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     AnsiStringVal {
         get => NumGet(this, 0, "ptr")
@@ -150,7 +150,7 @@ class EVT_VARIANT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSID>}
      */
     SidVal {
         get => NumGet(this, 0, "ptr")
@@ -278,7 +278,7 @@ class EVT_VARIANT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     StringArr {
         get => NumGet(this, 0, "ptr")
@@ -286,7 +286,7 @@ class EVT_VARIANT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     AnsiStringArr {
         get => NumGet(this, 0, "ptr")
@@ -294,7 +294,7 @@ class EVT_VARIANT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSID>}
      */
     SidArr {
         get => NumGet(this, 0, "ptr")
@@ -318,7 +318,7 @@ class EVT_VARIANT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     XmlVal {
         get => NumGet(this, 0, "ptr")
@@ -326,7 +326,7 @@ class EVT_VARIANT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     XmlValArr {
         get => NumGet(this, 0, "ptr")

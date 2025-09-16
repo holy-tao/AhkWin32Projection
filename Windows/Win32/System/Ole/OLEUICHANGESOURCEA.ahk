@@ -76,7 +76,7 @@ class OLEUICHANGESOURCEA extends Win32Struct
 
     /**
      * The window that owns the dialog box.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HWND>}
      */
     hWndOwner {
         get => NumGet(this, 8, "ptr")
@@ -85,7 +85,7 @@ class OLEUICHANGESOURCEA extends Win32Struct
 
     /**
      * Pointer to a string to be used as the title of the dialog box. If <b>NULL</b>, then the library uses <b>Change Source</b>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     lpszCaption {
         get => NumGet(this, 16, "ptr")
@@ -94,7 +94,7 @@ class OLEUICHANGESOURCEA extends Win32Struct
 
     /**
      * Pointer to a hook function that processes messages intended for the dialog box. The hook function must return zero to pass a message that it didn't process back to the dialog box procedure in the library. The hook function must return a nonzero value to prevent the library's dialog box procedure from processing a message it has already processed.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPFNOLEUIHOOK>}
      */
     lpfnHook {
         get => NumGet(this, 24, "ptr")
@@ -112,7 +112,7 @@ class OLEUICHANGESOURCEA extends Win32Struct
 
     /**
      * Instance that contains a dialog box template specified by the <b>lpszTemplate</b> member. This member is ignored if the <b>lpszTemplate</b> member is <b>NULL</b> or invalid.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HINSTANCE>}
      */
     hInstance {
         get => NumGet(this, 40, "ptr")
@@ -121,7 +121,7 @@ class OLEUICHANGESOURCEA extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that specifies the name of the resource file for the dialog box template that is to be substituted for the library's <b>Convert</b> dialog box template.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     lpszTemplate {
         get => NumGet(this, 48, "ptr")
@@ -130,7 +130,7 @@ class OLEUICHANGESOURCEA extends Win32Struct
 
     /**
      * Resource handle for a custom dialog box. If this member is <b>NULL</b>, then the library uses the standard <b>Convert</b> dialog box template, or if it is valid, the template named by the <b>lpszTemplate</b> member.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HRSRC>}
      */
     hResource {
         get => NumGet(this, 56, "ptr")
@@ -178,7 +178,7 @@ class OLEUICHANGESOURCEA extends Win32Struct
 
     /**
      * Pointer to the complete source display name.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     lpszDisplayName {
         get => NumGet(this, 104, "ptr")
@@ -196,7 +196,7 @@ class OLEUICHANGESOURCEA extends Win32Struct
 
     /**
      * Pointer to the prefix of the source that was changed from.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     lpszFrom {
         get => NumGet(this, 120, "ptr")
@@ -205,7 +205,7 @@ class OLEUICHANGESOURCEA extends Win32Struct
 
     /**
      * Pointer to the prefix of the source to be changed to.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     lpszTo {
         get => NumGet(this, 128, "ptr")

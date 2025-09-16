@@ -28,7 +28,7 @@ class WAB_PARAM extends Win32Struct
      * Type: <b>HWND</b>
      * 
      * Value of type <b>HWND</b> that specifies the window handle of the calling client application. Can be <b>NULL</b>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HWND>}
      */
     hwnd {
         get => NumGet(this, 8, "ptr")
@@ -39,7 +39,7 @@ class WAB_PARAM extends Win32Struct
      * Type: <b>LPTSTR</b>
      * 
      * Value of type <b>LPTSTR</b> that specifies the WAB file name to open. If this parameter is <b>NULL</b>, the default Address Book file is opened.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     szFileName {
         get => NumGet(this, 16, "ptr")

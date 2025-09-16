@@ -10,9 +10,9 @@
  */
 class SP_PROPCHANGE_PARAMS extends Win32Struct
 {
-    static sizeof => 20
+    static sizeof => 24
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * An install request header that contains the header size and the DIF code for the request. See <a href="https://docs.microsoft.com/windows/desktop/api/setupapi/ns-setupapi-sp_classinstall_header">SP_CLASSINSTALL_HEADER</a>.

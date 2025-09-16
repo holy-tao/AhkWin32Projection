@@ -15,7 +15,7 @@ class NET_INTERFACE_CONTEXT_TABLE extends Win32Struct
 
     /**
      * A handle to the interface context.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HANDLE>}
      */
     InterfaceContextHandle {
         get => NumGet(this, 0, "ptr")

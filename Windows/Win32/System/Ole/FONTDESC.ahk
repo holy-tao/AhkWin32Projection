@@ -27,7 +27,7 @@ class FONTDESC extends Win32Struct
      * Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/wtypesbase/nf-wtypesbase-olestr">OLESTR</a> that specifies the caller-owned string specifying the font name.
      * 
      * cySize
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     lpstrName {
         get => NumGet(this, 8, "ptr")

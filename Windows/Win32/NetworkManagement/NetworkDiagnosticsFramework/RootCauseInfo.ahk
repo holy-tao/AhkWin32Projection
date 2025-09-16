@@ -17,7 +17,7 @@ class RootCauseInfo extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      * A string that describes the problem that caused the incident.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pwszDescription {
         get => NumGet(this, 0, "ptr")

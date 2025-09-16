@@ -20,7 +20,7 @@ class DELAYLOAD_PROC_DESCRIPTOR extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     Name {
         get => NumGet(this, 8, "ptr")

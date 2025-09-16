@@ -7,9 +7,9 @@
  */
 class MODULEENTRY extends Win32Struct
 {
-    static sizeof => 548
+    static sizeof => 552
 
-    static packingSize => 4
+    static packingSize => 8
 
     /**
      * @type {Integer}
@@ -28,7 +28,7 @@ class MODULEENTRY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HANDLE>}
      */
     hModule {
         get => NumGet(this, 24, "ptr")

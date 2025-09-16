@@ -20,7 +20,7 @@ class USER_INFO_1 extends Win32Struct
      * 
      * A pointer to a Unicode string that specifies the name of the user account. For the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netusersetinfo">NetUserSetInfo</a> function, this member is ignored. For more information, see the following Remarks section.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     usri1_name {
         get => NumGet(this, 0, "ptr")
@@ -38,7 +38,7 @@ class USER_INFO_1 extends Win32Struct
      * 
      * 
      * By convention, the length of passwords is limited to LM20_PWLEN characters.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     usri1_password {
         get => NumGet(this, 8, "ptr")
@@ -76,7 +76,7 @@ class USER_INFO_1 extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to a Unicode string specifying the path of the home directory for the user specified in the <b>usri1_name</b> member. The string can be <b>NULL</b>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     usri1_home_dir {
         get => NumGet(this, 24, "ptr")
@@ -87,7 +87,7 @@ class USER_INFO_1 extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to a Unicode string that contains a comment to associate with the user account. This string can be a <b>NULL</b> string, or it can have any number of characters before the terminating null character.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     usri1_comment {
         get => NumGet(this, 32, "ptr")
@@ -107,7 +107,7 @@ class USER_INFO_1 extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to a Unicode string specifying the path for the user's logon script file. The script file can be a .CMD file, an .EXE file, or a .BAT file. The string can also be <b>NULL</b>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     usri1_script_path {
         get => NumGet(this, 48, "ptr")

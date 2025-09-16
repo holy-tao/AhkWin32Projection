@@ -35,7 +35,7 @@ class DD_COLORCONTROLCALLBACKS extends Win32Struct
 
     /**
      * Points to the driver-supplied <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/nc-ddrawint-pdd_colorcb_colorcontrol">DdControlColor</a> callback.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PDD_COLORCB_COLORCONTROL>}
      */
     ColorControl {
         get => NumGet(this, 8, "ptr")

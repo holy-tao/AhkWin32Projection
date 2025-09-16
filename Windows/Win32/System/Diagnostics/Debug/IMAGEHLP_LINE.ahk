@@ -49,7 +49,7 @@ class IMAGEHLP_LINE extends Win32Struct
 
     /**
      * The name of the file, including the full path.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     FileName {
         get => NumGet(this, 24, "ptr")

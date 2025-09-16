@@ -9,7 +9,7 @@ class NVME_OCP_DEVICE_TCG_CONFIGURATION_LOG extends Win32Struct
 {
     static sizeof => 504
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * @type {Integer}

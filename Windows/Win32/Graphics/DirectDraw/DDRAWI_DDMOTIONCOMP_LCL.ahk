@@ -80,7 +80,7 @@ class DDRAWI_DDMOTIONCOMP_LCL extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HANDLE>}
      */
     hMoComp {
         get => NumGet(this, 72, "ptr")

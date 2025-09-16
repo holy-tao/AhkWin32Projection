@@ -84,7 +84,7 @@ class EVENT_TRACE_LOGFILEW extends Win32Struct
      * > This can also occur if the file was created using the
      * > **EVENT_TRACE_FILE_MODE_NEWFILE** mode, in which case the generated ETL file
      * > will include a sequence number.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     LogFileName {
         get => NumGet(this, 0, "ptr")
@@ -111,7 +111,7 @@ class EVENT_TRACE_LOGFILEW extends Win32Struct
      * [EventAccessControl](/windows/desktop/api/evntcons/nf-evntcons-eventaccesscontrol).
      * 
      * **Windows XP and Windows 2000:** Anyone can consume real time events.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     LoggerName {
         get => NumGet(this, 8, "ptr")
@@ -187,7 +187,7 @@ class EVENT_TRACE_LOGFILEW extends Win32Struct
      * function that receives buffer-related statistics for each buffer ETW flushes.
      * ETW calls this callback after it delivers all the events in the buffer. This
      * callback is optional.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PEVENT_TRACE_BUFFER_CALLBACKW>}
      */
     BufferCallback {
         get => NumGet(this, 384, "ptr")
@@ -223,7 +223,7 @@ class EVENT_TRACE_LOGFILEW extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PEVENT_CALLBACK>}
      */
     EventCallback {
         get => NumGet(this, 408, "ptr")
@@ -231,7 +231,7 @@ class EVENT_TRACE_LOGFILEW extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PEVENT_RECORD_CALLBACK>}
      */
     EventRecordCallback {
         get => NumGet(this, 408, "ptr")

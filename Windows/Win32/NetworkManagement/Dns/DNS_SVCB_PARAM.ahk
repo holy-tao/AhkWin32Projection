@@ -68,7 +68,7 @@ class DNS_SVCB_PARAM extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     pszDohPath {
         get => NumGet(this, 2, "ptr")

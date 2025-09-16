@@ -8,9 +8,9 @@
  */
 class JOYCAPS2A extends Win32Struct
 {
-    static sizeof => 428
+    static sizeof => 432
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * @type {Integer}
@@ -208,23 +208,23 @@ class JOYCAPS2A extends Win32Struct
      * @type {Pointer<Guid>}
      */
     ManufacturerGuid {
-        get => NumGet(this, 404, "ptr")
-        set => NumPut("ptr", value, this, 404)
+        get => NumGet(this, 408, "ptr")
+        set => NumPut("ptr", value, this, 408)
     }
 
     /**
      * @type {Pointer<Guid>}
      */
     ProductGuid {
-        get => NumGet(this, 412, "ptr")
-        set => NumPut("ptr", value, this, 412)
+        get => NumGet(this, 416, "ptr")
+        set => NumPut("ptr", value, this, 416)
     }
 
     /**
      * @type {Pointer<Guid>}
      */
     NameGuid {
-        get => NumGet(this, 420, "ptr")
-        set => NumPut("ptr", value, this, 420)
+        get => NumGet(this, 424, "ptr")
+        set => NumPut("ptr", value, this, 424)
     }
 }

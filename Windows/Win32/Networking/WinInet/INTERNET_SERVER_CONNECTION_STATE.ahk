@@ -12,7 +12,7 @@ class INTERNET_SERVER_CONNECTION_STATE extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     lpcwszHostName {
         get => NumGet(this, 0, "ptr")

@@ -46,9 +46,9 @@
  */
 class STATEMGRSTATUS extends Win32Struct
 {
-    static sizeof => 12
+    static sizeof => 16
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * The status code. For a list of values, see the Remarks section.
@@ -64,7 +64,7 @@ class STATEMGRSTATUS extends Win32Struct
      * @type {Integer}
      */
     llSequenceNumber {
-        get => NumGet(this, 4, "int64")
-        set => NumPut("int64", value, this, 4)
+        get => NumGet(this, 8, "int64")
+        set => NumPut("int64", value, this, 8)
     }
 }

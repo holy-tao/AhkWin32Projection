@@ -24,7 +24,7 @@ class DWRITE_FONT_PROPERTY extends Win32Struct
 
     /**
      * Specifies the value, such as "Segoe UI".
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     propertyValue {
         get => NumGet(this, 8, "ptr")
@@ -36,7 +36,7 @@ class DWRITE_FONT_PROPERTY extends Win32Struct
      *           with the font set filtering functions, as they will find a match regardless of
      *           language. For passing to AddFontFaceReference, the localeName specifies the language
      *           of the property value.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     localeName {
         get => NumGet(this, 16, "ptr")

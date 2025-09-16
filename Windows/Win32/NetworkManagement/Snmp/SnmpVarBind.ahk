@@ -12,9 +12,9 @@
  */
 class SnmpVarBind extends Win32Struct
 {
-    static sizeof => 20
+    static sizeof => 24
 
-    static packingSize => 4
+    static packingSize => 8
 
     /**
      * Indicates the variable's name, as an object identifier.
@@ -35,7 +35,7 @@ class SnmpVarBind extends Win32Struct
     value{
         get {
             if(!this.HasProp("__value"))
-                this.__value := AsnAny(this.ptr + 12)
+                this.__value := AsnAny(this.ptr + 16)
             return this.__value
         }
     }

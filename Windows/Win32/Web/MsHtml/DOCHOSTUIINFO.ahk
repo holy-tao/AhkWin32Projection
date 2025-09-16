@@ -36,7 +36,7 @@ class DOCHOSTUIINFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pchHostCss {
         get => NumGet(this, 16, "ptr")
@@ -44,7 +44,7 @@ class DOCHOSTUIINFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pchHostNS {
         get => NumGet(this, 24, "ptr")

@@ -12,7 +12,7 @@ class HTTP_FILTER_URL_MAP_EX extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     pszURL {
         get => NumGet(this, 0, "ptr")
@@ -20,7 +20,7 @@ class HTTP_FILTER_URL_MAP_EX extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     pszPhysicalPath {
         get => NumGet(this, 8, "ptr")
@@ -60,7 +60,7 @@ class HTTP_FILTER_URL_MAP_EX extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     pszScriptMapEntry {
         get => NumGet(this, 32, "ptr")

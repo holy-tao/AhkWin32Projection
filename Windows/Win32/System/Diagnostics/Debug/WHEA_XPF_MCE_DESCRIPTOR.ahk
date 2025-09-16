@@ -10,9 +10,9 @@
  */
 class WHEA_XPF_MCE_DESCRIPTOR extends Win32Struct
 {
-    static sizeof => 284
+    static sizeof => 288
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * @type {Integer}
@@ -44,7 +44,7 @@ class WHEA_XPF_MCE_DESCRIPTOR extends Win32Struct
     Flags{
         get {
             if(!this.HasProp("__Flags"))
-                this.__Flags := XPF_MCE_FLAGS(this.ptr + 4)
+                this.__Flags := XPF_MCE_FLAGS(this.ptr + 8)
             return this.__Flags
         }
     }
@@ -53,16 +53,16 @@ class WHEA_XPF_MCE_DESCRIPTOR extends Win32Struct
      * @type {Integer}
      */
     MCG_Capability {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
+        get => NumGet(this, 16, "uint")
+        set => NumPut("uint", value, this, 16)
     }
 
     /**
      * @type {Integer}
      */
     MCG_GlobalControl {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
     }
 
     /**
@@ -71,7 +71,7 @@ class WHEA_XPF_MCE_DESCRIPTOR extends Win32Struct
     Banks{
         get {
             if(!this.HasProp("__BanksProxyArray"))
-                this.__BanksProxyArray := Win32FixedArray(this.ptr + 28, 32, WHEA_XPF_MC_BANK_DESCRIPTOR, "")
+                this.__BanksProxyArray := Win32FixedArray(this.ptr + 32, 32, WHEA_XPF_MC_BANK_DESCRIPTOR, "")
             return this.__BanksProxyArray
         }
     }

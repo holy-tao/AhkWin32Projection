@@ -19,7 +19,7 @@ class TCI_CLIENT_FUNC_LIST extends Win32Struct
     /**
      * Pointer to the client-callback function 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/traffic/nc-traffic-tci_notify_handler">ClNotifyHandler</a>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<TCI_NOTIFY_HANDLER>}
      */
     ClNotifyHandler {
         get => NumGet(this, 0, "ptr")
@@ -28,7 +28,7 @@ class TCI_CLIENT_FUNC_LIST extends Win32Struct
 
     /**
      * Pointer to the client-callback function <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/traffic/nc-traffic-tci_add_flow_complete_handler">ClAddFlowComplete</a>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<TCI_ADD_FLOW_COMPLETE_HANDLER>}
      */
     ClAddFlowCompleteHandler {
         get => NumGet(this, 8, "ptr")
@@ -37,7 +37,7 @@ class TCI_CLIENT_FUNC_LIST extends Win32Struct
 
     /**
      * Pointer to the client-callback function <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/traffic/nc-traffic-tci_mod_flow_complete_handler">ClModifyFlowComplete</a>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<TCI_MOD_FLOW_COMPLETE_HANDLER>}
      */
     ClModifyFlowCompleteHandler {
         get => NumGet(this, 16, "ptr")
@@ -46,7 +46,7 @@ class TCI_CLIENT_FUNC_LIST extends Win32Struct
 
     /**
      * Pointer to the client-callback function <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/traffic/nc-traffic-tci_del_flow_complete_handler">ClDeleteFlowComplete</a>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<TCI_DEL_FLOW_COMPLETE_HANDLER>}
      */
     ClDeleteFlowCompleteHandler {
         get => NumGet(this, 24, "ptr")

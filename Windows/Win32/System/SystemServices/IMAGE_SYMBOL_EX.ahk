@@ -7,9 +7,9 @@
  */
 class IMAGE_SYMBOL_EX extends Win32Struct
 {
-    static sizeof => 20
+    static sizeof => 24
 
-    static packingSize => 2
+    static packingSize => 8
 
     /**
      * @type {Array<Byte>}

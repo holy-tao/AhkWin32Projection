@@ -39,7 +39,7 @@ class WTS_PROPERTY_VALUE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pstrVal {
         get => NumGet(this, 12, "ptr")
@@ -47,7 +47,7 @@ class WTS_PROPERTY_VALUE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     pbVal {
         get => NumGet(this, 12, "ptr")

@@ -75,7 +75,7 @@ class COMBOBOXINFO extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
      * 
      * A handle to the combo box.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HWND>}
      */
     hwndCombo {
         get => NumGet(this, 48, "ptr")
@@ -86,7 +86,7 @@ class COMBOBOXINFO extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
      * 
      * A handle to the edit box.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HWND>}
      */
     hwndItem {
         get => NumGet(this, 56, "ptr")
@@ -97,7 +97,7 @@ class COMBOBOXINFO extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
      * 
      * A handle to the drop-down list.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HWND>}
      */
     hwndList {
         get => NumGet(this, 64, "ptr")

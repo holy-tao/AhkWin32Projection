@@ -48,7 +48,7 @@ class CERT_REVOCATION_PARA extends Win32Struct
 
     /**
      * An array of <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate store</a> handles. Specifies a set of stores that are searched for issuer certificates.  If <i>rgCertStore</i> is not set, the default stores are searched.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HCERTSTORE>}
      */
     rgCertStore {
         get => NumGet(this, 24, "ptr")
@@ -57,7 +57,7 @@ class CERT_REVOCATION_PARA extends Win32Struct
 
     /**
      * Optional store handle. When specified, a handler that uses <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate revocation lists</a> (CRLs) can search this store for CRLs.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HCERTSTORE>}
      */
     hCrlStore {
         get => NumGet(this, 32, "ptr")

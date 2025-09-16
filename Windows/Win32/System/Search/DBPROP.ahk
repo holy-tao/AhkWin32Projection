@@ -11,9 +11,9 @@
  */
 class DBPROP extends Win32Struct
 {
-    static sizeof => 52
+    static sizeof => 56
 
-    static packingSize => 2
+    static packingSize => 8
 
     /**
      * @type {Integer}
@@ -45,7 +45,7 @@ class DBPROP extends Win32Struct
     colid{
         get {
             if(!this.HasProp("__colid"))
-                this.__colid := DBID(this.ptr + 12)
+                this.__colid := DBID(this.ptr + 16)
             return this.__colid
         }
     }
@@ -56,7 +56,7 @@ class DBPROP extends Win32Struct
     vValue{
         get {
             if(!this.HasProp("__vValue"))
-                this.__vValue := VARIANT(this.ptr + 36)
+                this.__vValue := VARIANT(this.ptr + 40)
             return this.__vValue
         }
     }

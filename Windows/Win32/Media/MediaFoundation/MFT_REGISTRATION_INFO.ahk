@@ -42,7 +42,7 @@ class MFT_REGISTRATION_INFO extends Win32Struct
 
     /**
      * Wide-character string that contains the friendly name of the MFT.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pszName {
         get => NumGet(this, 24, "ptr")

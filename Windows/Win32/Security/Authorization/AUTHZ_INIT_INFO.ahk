@@ -24,7 +24,7 @@ class AUTHZ_INIT_INFO extends Win32Struct
 
     /**
      * Pointer to a Unicode string that identifies the resource manager. This parameter can be <b>NULL</b> if the resource manager does not need a name.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     szResourceManagerName {
         get => NumGet(this, 8, "ptr")
@@ -33,7 +33,7 @@ class AUTHZ_INIT_INFO extends Win32Struct
 
     /**
      * Pointer to an <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/authzaccesscheckcallback">AuthzAccessCheckCallback</a> callback function that the resource manager calls each time it encounters a callback access control entry (ACE) during access control list (ACL) evaluation in <a href="https://docs.microsoft.com/windows/desktop/api/authz/nf-authz-authzaccesscheck">AuthzAccessCheck</a> or <a href="https://docs.microsoft.com/windows/desktop/api/authz/nf-authz-authzcachedaccesscheck">AuthzCachedAccessCheck</a>. This parameter can be <b>NULL</b> if no access check callback function is used.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_AUTHZ_DYNAMIC_ACCESS_CHECK>}
      */
     pfnDynamicAccessCheck {
         get => NumGet(this, 16, "ptr")
@@ -42,7 +42,7 @@ class AUTHZ_INIT_INFO extends Win32Struct
 
     /**
      * Pointer to the <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/authzcomputegroupscallback">AuthzComputeGroupsCallback</a> callback function called by the resource manager during initialization of an AuthzClientContext handle. This parameter can be <b>NULL</b> if no callback function is used to compute dynamic groups.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_AUTHZ_COMPUTE_DYNAMIC_GROUPS>}
      */
     pfnComputeDynamicGroups {
         get => NumGet(this, 24, "ptr")
@@ -51,7 +51,7 @@ class AUTHZ_INIT_INFO extends Win32Struct
 
     /**
      * Pointer to the <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/authzfreegroupscallback">AuthzFreeGroupsCallback</a> callback function called by the resource manager to free security identifier (SID) attribute arrays allocated by the compute dynamic groups callback. This parameter can be <b>NULL</b> if no callback function is used to compute dynamic groups.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_AUTHZ_FREE_DYNAMIC_GROUPS>}
      */
     pfnFreeDynamicGroups {
         get => NumGet(this, 32, "ptr")
@@ -60,7 +60,7 @@ class AUTHZ_INIT_INFO extends Win32Struct
 
     /**
      * Pointer to the <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/authzgetcentralaccesspolicycallback-">AuthzGetCentralAccessPolicyCallback</a> callback function to be called by the resource manager to resolve any Central Access Policy ID ACE (<a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-system_scoped_policy_id_ace">SYSTEM_SCOPED_POLICY_ID_ACE</a>) encountered by <a href="https://docs.microsoft.com/windows/desktop/api/authz/nf-authz-authzaccesscheck">AuthzAccessCheck</a> or <a href="https://docs.microsoft.com/windows/desktop/api/authz/nf-authz-authzcachedaccesscheck">AuthzCachedAccessCheck</a>. If this parameter is <b>NULL</b>, the <b>AuthzAccessCheck</b> function will fall back to LSA to resolve the Central Access Policy ID ACE.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_AUTHZ_GET_CENTRAL_ACCESS_POLICY>}
      */
     pfnGetCentralAccessPolicy {
         get => NumGet(this, 40, "ptr")
@@ -69,7 +69,7 @@ class AUTHZ_INIT_INFO extends Win32Struct
 
     /**
      * Pointer to the <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/authzfreecentralaccesspolicycallback">AuthzFreeCentralAccessPolicyCallback</a> callback function called by the resource manager to free the Central Access Policy allocated by the callback to get a central access policy. This parameter can be <b>NULL</b> if no callback function is specified for pfnGetCentralAccessPolicy
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_AUTHZ_FREE_CENTRAL_ACCESS_POLICY>}
      */
     pfnFreeCentralAccessPolicy {
         get => NumGet(this, 48, "ptr")

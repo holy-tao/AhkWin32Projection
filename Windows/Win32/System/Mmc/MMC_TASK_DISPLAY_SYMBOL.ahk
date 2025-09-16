@@ -24,7 +24,7 @@ class MMC_TASK_DISPLAY_SYMBOL extends Win32Struct
      * For example, the following string specifies that the font is Webdings: "Webdings".
      * 
      * This should never be set to a <b>NULL</b> string or an empty string.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     szFontFamilyName {
         get => NumGet(this, 0, "ptr")
@@ -42,7 +42,7 @@ class MMC_TASK_DISPLAY_SYMBOL extends Win32Struct
      * where <i>filepath</i> is the full path to the snap-in's DLL that stores the image file as a resource, and <i>imgpath</i> is the resource path of the image file with the snap-in DLL.
      * 
      * For example, the following string specifies that the snap-in DLL (snapin.dll) has a path of "c:\windows\system32\snapin.dll" and that the resource path is img/myfont.eot: "res://c:\\windows\\system32\\snapin.dll/img/myfont.eot".
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     szURLtoEOT {
         get => NumGet(this, 8, "ptr")
@@ -51,7 +51,7 @@ class MMC_TASK_DISPLAY_SYMBOL extends Win32Struct
 
     /**
      * A pointer to a null-terminated string that contains the character or characters to display in the symbol.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     szSymbolString {
         get => NumGet(this, 16, "ptr")

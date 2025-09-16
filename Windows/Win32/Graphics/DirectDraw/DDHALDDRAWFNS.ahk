@@ -20,7 +20,7 @@ class DDHALDDRAWFNS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPDDHAL_SETINFO>}
      */
     lpSetInfo {
         get => NumGet(this, 8, "ptr")
@@ -28,7 +28,7 @@ class DDHALDDRAWFNS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPDDHAL_VIDMEMALLOC>}
      */
     lpVidMemAlloc {
         get => NumGet(this, 16, "ptr")
@@ -36,7 +36,7 @@ class DDHALDDRAWFNS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPDDHAL_VIDMEMFREE>}
      */
     lpVidMemFree {
         get => NumGet(this, 24, "ptr")

@@ -317,7 +317,7 @@ class PROPVARIANT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<BSTR>}
      */
     bstrVal {
         get => NumGet(this, 8, "ptr")
@@ -347,7 +347,7 @@ class PROPVARIANT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     pszVal {
         get => NumGet(this, 8, "ptr")
@@ -355,7 +355,7 @@ class PROPVARIANT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pwszVal {
         get => NumGet(this, 8, "ptr")
@@ -653,7 +653,7 @@ class PROPVARIANT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     pcVal {
         get => NumGet(this, 8, "ptr")
@@ -773,7 +773,7 @@ class PROPVARIANT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<BSTR>}
      */
     pbstrVal {
         get => NumGet(this, 8, "ptr")

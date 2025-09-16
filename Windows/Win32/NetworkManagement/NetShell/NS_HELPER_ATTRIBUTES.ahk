@@ -49,7 +49,7 @@ class NS_HELPER_ATTRIBUTES extends Win32Struct
     /**
      * A pointer to the 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netsh/nc-netsh-ns_helper_start_fn">NS_HELPER_START_FN</a> entry point (the start function) of the helper.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PNS_HELPER_START_FN>}
      */
     pfnStart {
         get => NumGet(this, 16, "ptr")
@@ -59,7 +59,7 @@ class NS_HELPER_ATTRIBUTES extends Win32Struct
     /**
      * A pointer to the 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netsh/nc-netsh-ns_helper_stop_fn">NS_HELPER_STOP_FN</a> entry point (the stop function) of the helper. Set to null if no stop function is implemented.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PNS_HELPER_STOP_FN>}
      */
     pfnStop {
         get => NumGet(this, 24, "ptr")

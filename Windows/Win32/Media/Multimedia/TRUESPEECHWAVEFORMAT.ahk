@@ -8,9 +8,9 @@
  */
 class TRUESPEECHWAVEFORMAT extends Win32Struct
 {
-    static sizeof => 50
+    static sizeof => 56
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * @type {WAVEFORMATEX}
@@ -27,16 +27,16 @@ class TRUESPEECHWAVEFORMAT extends Win32Struct
      * @type {Integer}
      */
     wRevision {
-        get => NumGet(this, 18, "ushort")
-        set => NumPut("ushort", value, this, 18)
+        get => NumGet(this, 20, "ushort")
+        set => NumPut("ushort", value, this, 20)
     }
 
     /**
      * @type {Integer}
      */
     nSamplesPerBlock {
-        get => NumGet(this, 20, "ushort")
-        set => NumPut("ushort", value, this, 20)
+        get => NumGet(this, 22, "ushort")
+        set => NumPut("ushort", value, this, 22)
     }
 
     /**
@@ -45,7 +45,7 @@ class TRUESPEECHWAVEFORMAT extends Win32Struct
     abReserved{
         get {
             if(!this.HasProp("__abReservedProxyArray"))
-                this.__abReservedProxyArray := Win32FixedArray(this.ptr + 22, 28, Primitive, "char")
+                this.__abReservedProxyArray := Win32FixedArray(this.ptr + 24, 28, Primitive, "char")
             return this.__abReservedProxyArray
         }
     }

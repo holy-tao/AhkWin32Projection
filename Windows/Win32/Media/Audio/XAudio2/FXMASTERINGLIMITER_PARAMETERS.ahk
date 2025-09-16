@@ -15,7 +15,7 @@ class FXMASTERINGLIMITER_PARAMETERS extends Win32Struct
 {
     static sizeof => 8
 
-    static packingSize => 1
+    static packingSize => 4
 
     /**
      * Speed, in milliseconds, at which the limiter stops affecting audio after the audio drops below the limiter's threshold, which is specified by the <b>Loudness</b> member. This value must be between <a href="https://docs.microsoft.com/windows/desktop/xaudio2/fxmasteringlimit-constants">FXMASTERINGLIMITER_MIN_RELEASE (1)</a> and <a href="https://docs.microsoft.com/windows/desktop/xaudio2/fxmasteringlimit-constants">FXMASTERINGLIMITER_MAX_RELEASE (20)</a> and defaults to <a href="https://docs.microsoft.com/windows/desktop/xaudio2/fxmasteringlimit-constants">FXMASTERINGLIMITER_DEFAULT_RELEASE (6)</a>.

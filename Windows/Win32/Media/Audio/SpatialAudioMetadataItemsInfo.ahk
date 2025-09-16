@@ -9,9 +9,9 @@
  */
 class SpatialAudioMetadataItemsInfo extends Win32Struct
 {
-    static sizeof => 10
+    static sizeof => 12
 
-    static packingSize => 1
+    static packingSize => 4
 
     /**
      * The total frame count, which defines valid item offsets.
@@ -45,7 +45,7 @@ class SpatialAudioMetadataItemsInfo extends Win32Struct
      * @type {Integer}
      */
     MaxValueBufferLength {
-        get => NumGet(this, 6, "uint")
-        set => NumPut("uint", value, this, 6)
+        get => NumGet(this, 8, "uint")
+        set => NumPut("uint", value, this, 8)
     }
 }

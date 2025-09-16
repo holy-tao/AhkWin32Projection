@@ -7,9 +7,9 @@
  */
 class DBINDEXCOLUMNDESC extends Win32Struct
 {
-    static sizeof => 12
+    static sizeof => 16
 
-    static packingSize => 2
+    static packingSize => 8
 
     /**
      * @type {Pointer<DBID>}

@@ -28,7 +28,7 @@ class DDHAL_DDCALLBACKS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPDDHAL_DESTROYDRIVER>}
      */
     DestroyDriver {
         get => NumGet(this, 8, "ptr")
@@ -36,7 +36,7 @@ class DDHAL_DDCALLBACKS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPDDHAL_CREATESURFACE>}
      */
     CreateSurface {
         get => NumGet(this, 16, "ptr")
@@ -44,7 +44,7 @@ class DDHAL_DDCALLBACKS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPDDHAL_SETCOLORKEY>}
      */
     SetColorKey {
         get => NumGet(this, 24, "ptr")
@@ -52,7 +52,7 @@ class DDHAL_DDCALLBACKS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPDDHAL_SETMODE>}
      */
     SetMode {
         get => NumGet(this, 32, "ptr")
@@ -60,7 +60,7 @@ class DDHAL_DDCALLBACKS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPDDHAL_WAITFORVERTICALBLANK>}
      */
     WaitForVerticalBlank {
         get => NumGet(this, 40, "ptr")
@@ -68,7 +68,7 @@ class DDHAL_DDCALLBACKS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPDDHAL_CANCREATESURFACE>}
      */
     CanCreateSurface {
         get => NumGet(this, 48, "ptr")
@@ -76,7 +76,7 @@ class DDHAL_DDCALLBACKS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPDDHAL_CREATEPALETTE>}
      */
     CreatePalette {
         get => NumGet(this, 56, "ptr")
@@ -84,7 +84,7 @@ class DDHAL_DDCALLBACKS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPDDHAL_GETSCANLINE>}
      */
     GetScanLine {
         get => NumGet(this, 64, "ptr")
@@ -92,7 +92,7 @@ class DDHAL_DDCALLBACKS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPDDHAL_SETEXCLUSIVEMODE>}
      */
     SetExclusiveMode {
         get => NumGet(this, 72, "ptr")
@@ -100,7 +100,7 @@ class DDHAL_DDCALLBACKS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPDDHAL_FLIPTOGDISURFACE>}
      */
     FlipToGDISurface {
         get => NumGet(this, 80, "ptr")

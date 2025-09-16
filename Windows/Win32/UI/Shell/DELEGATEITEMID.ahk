@@ -9,9 +9,9 @@
  */
 class DELEGATEITEMID extends Win32Struct
 {
-    static sizeof => 7
+    static sizeof => 8
 
-    static packingSize => 1
+    static packingSize => 2
 
     /**
      * Type: <b>WORD</b>
@@ -66,6 +66,6 @@ class DELEGATEITEMID extends Win32Struct
      */
     __New(ptr := 0){
         super.__New(ptr)
-        this.cbSize := 7
+        this.cbSize := 8
     }
 }

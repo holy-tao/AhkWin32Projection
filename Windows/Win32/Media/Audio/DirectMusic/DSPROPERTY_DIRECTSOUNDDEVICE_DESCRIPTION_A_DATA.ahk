@@ -36,7 +36,7 @@ class DSPROPERTY_DIRECTSOUNDDEVICE_DESCRIPTION_A_DATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     Description {
         get => NumGet(this, 16, "ptr")
@@ -44,7 +44,7 @@ class DSPROPERTY_DIRECTSOUNDDEVICE_DESCRIPTION_A_DATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     Module {
         get => NumGet(this, 24, "ptr")
@@ -52,7 +52,7 @@ class DSPROPERTY_DIRECTSOUNDDEVICE_DESCRIPTION_A_DATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     Interface {
         get => NumGet(this, 32, "ptr")

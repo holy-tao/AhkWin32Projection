@@ -9,9 +9,9 @@
  */
 class NVME_WCS_DEVICE_ERROR_RECOVERY_LOG extends Win32Struct
 {
-    static sizeof => 504
+    static sizeof => 512
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * @type {Integer}
@@ -44,8 +44,8 @@ class NVME_WCS_DEVICE_ERROR_RECOVERY_LOG extends Win32Struct
      * @type {Integer}
      */
     PanicId {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
+        get => NumGet(this, 8, "uint")
+        set => NumPut("uint", value, this, 8)
     }
 
     /**
@@ -54,7 +54,7 @@ class NVME_WCS_DEVICE_ERROR_RECOVERY_LOG extends Win32Struct
     DeviceCapabilitiesA{
         get {
             if(!this.HasProp("__DeviceCapabilitiesA"))
-                this.__DeviceCapabilitiesA := NVME_WCS_DEVICE_CAPABILITIES(this.ptr + 12)
+                this.__DeviceCapabilitiesA := NVME_WCS_DEVICE_CAPABILITIES(this.ptr + 16)
             return this.__DeviceCapabilitiesA
         }
     }
@@ -63,8 +63,8 @@ class NVME_WCS_DEVICE_ERROR_RECOVERY_LOG extends Win32Struct
      * @type {Integer}
      */
     VendorSpecificRecoveryCode {
-        get => NumGet(this, 16, "char")
-        set => NumPut("char", value, this, 16)
+        get => NumGet(this, 20, "char")
+        set => NumPut("char", value, this, 20)
     }
 
     /**
@@ -73,7 +73,7 @@ class NVME_WCS_DEVICE_ERROR_RECOVERY_LOG extends Win32Struct
     Reserved0{
         get {
             if(!this.HasProp("__Reserved0ProxyArray"))
-                this.__Reserved0ProxyArray := Win32FixedArray(this.ptr + 17, 3, Primitive, "char")
+                this.__Reserved0ProxyArray := Win32FixedArray(this.ptr + 21, 3, Primitive, "char")
             return this.__Reserved0ProxyArray
         }
     }
@@ -82,16 +82,16 @@ class NVME_WCS_DEVICE_ERROR_RECOVERY_LOG extends Win32Struct
      * @type {Integer}
      */
     VendorSpecificCommandCDW12 {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
     }
 
     /**
      * @type {Integer}
      */
     VendorSpecificCommandCDW13 {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+        get => NumGet(this, 28, "uint")
+        set => NumPut("uint", value, this, 28)
     }
 
     /**
@@ -100,7 +100,7 @@ class NVME_WCS_DEVICE_ERROR_RECOVERY_LOG extends Win32Struct
     Reserved1{
         get {
             if(!this.HasProp("__Reserved1ProxyArray"))
-                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 28, 466, Primitive, "char")
+                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 32, 466, Primitive, "char")
             return this.__Reserved1ProxyArray
         }
     }
@@ -109,15 +109,15 @@ class NVME_WCS_DEVICE_ERROR_RECOVERY_LOG extends Win32Struct
      * @type {Integer}
      */
     LogPageVersionNumber {
-        get => NumGet(this, 494, "ushort")
-        set => NumPut("ushort", value, this, 494)
+        get => NumGet(this, 498, "ushort")
+        set => NumPut("ushort", value, this, 498)
     }
 
     /**
      * @type {Pointer<Guid>}
      */
     LogPageGUID {
-        get => NumGet(this, 496, "ptr")
-        set => NumPut("ptr", value, this, 496)
+        get => NumGet(this, 504, "ptr")
+        set => NumPut("ptr", value, this, 504)
     }
 }

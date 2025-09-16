@@ -15,7 +15,7 @@ class WS_PROXY_MESSAGE_CALLBACK_CONTEXT extends Win32Struct
 
     /**
      * application specific callback for handling the message.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<WS_PROXY_MESSAGE_CALLBACK>}
      */
     callback {
         get => NumGet(this, 0, "ptr")

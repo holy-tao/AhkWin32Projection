@@ -15,11 +15,11 @@ class FILEPATHS_SIGNERINFO_A extends Win32Struct
 {
     static sizeof => 48
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * Path to the target file.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     Target {
         get => NumGet(this, 0, "ptr")
@@ -29,7 +29,7 @@ class FILEPATHS_SIGNERINFO_A extends Win32Struct
     /**
      * Path to the source file. This member is not used when the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/setupapi/ns-setupapi-filepaths_a">FILEPATHS</a> structure is used with a file delete operation.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     Source {
         get => NumGet(this, 8, "ptr")
@@ -62,7 +62,7 @@ class FILEPATHS_SIGNERINFO_A extends Win32Struct
 
     /**
      * Digital signer of the file.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     DigitalSigner {
         get => NumGet(this, 24, "ptr")
@@ -71,7 +71,7 @@ class FILEPATHS_SIGNERINFO_A extends Win32Struct
 
     /**
      * Version of the file.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     Version {
         get => NumGet(this, 32, "ptr")
@@ -80,7 +80,7 @@ class FILEPATHS_SIGNERINFO_A extends Win32Struct
 
     /**
      * Catalog file.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     CatalogFile {
         get => NumGet(this, 40, "ptr")

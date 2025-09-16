@@ -7,9 +7,9 @@
  */
 class SP_ALTPLATFORM_INFO_V3 extends Win32Struct
 {
-    static sizeof => 35
+    static sizeof => 36
 
-    static packingSize => 1
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -95,16 +95,16 @@ class SP_ALTPLATFORM_INFO_V3 extends Win32Struct
      * @type {Integer}
      */
     SuiteMask {
-        get => NumGet(this, 29, "ushort")
-        set => NumPut("ushort", value, this, 29)
+        get => NumGet(this, 30, "ushort")
+        set => NumPut("ushort", value, this, 30)
     }
 
     /**
      * @type {Integer}
      */
     BuildNumber {
-        get => NumGet(this, 31, "uint")
-        set => NumPut("uint", value, this, 31)
+        get => NumGet(this, 32, "uint")
+        set => NumPut("uint", value, this, 32)
     }
 
     /**
@@ -113,6 +113,6 @@ class SP_ALTPLATFORM_INFO_V3 extends Win32Struct
      */
     __New(ptr := 0){
         super.__New(ptr)
-        this.cbSize := 35
+        this.cbSize := 36
     }
 }

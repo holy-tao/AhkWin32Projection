@@ -33,7 +33,7 @@ class DD_MAPMEMORYDATA extends Win32Struct
 
     /**
      * Handle to the process whose address space is affected.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HANDLE>}
      */
     hProcess {
         get => NumGet(this, 16, "ptr")

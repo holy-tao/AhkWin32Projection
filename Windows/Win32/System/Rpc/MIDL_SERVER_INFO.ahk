@@ -20,7 +20,7 @@ class MIDL_SERVER_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<SERVER_ROUTINE>}
      */
     DispatchTable {
         get => NumGet(this, 8, "ptr")
@@ -44,7 +44,7 @@ class MIDL_SERVER_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<STUB_THUNK>}
      */
     ThunkTable {
         get => NumGet(this, 32, "ptr")

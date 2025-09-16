@@ -9,9 +9,9 @@
  */
 class USBUSER_SEND_RAW_COMMAND extends Win32Struct
 {
-    static sizeof => 44
+    static sizeof => 48
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * @type {USBUSER_REQUEST_HEADER}

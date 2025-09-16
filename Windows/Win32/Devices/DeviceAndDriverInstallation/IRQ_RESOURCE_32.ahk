@@ -11,9 +11,9 @@
  */
 class IRQ_RESOURCE_32 extends Win32Struct
 {
-    static sizeof => 28
+    static sizeof => 32
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * An [IRQ_DES](/windows/desktop/api/cfgmgr32/ns-cfgmgr32-irq_des_32) structure.
@@ -34,7 +34,7 @@ class IRQ_RESOURCE_32 extends Win32Struct
     IRQ_Data{
         get {
             if(!this.HasProp("__IRQ_DataProxyArray"))
-                this.__IRQ_DataProxyArray := Win32FixedArray(this.ptr + 20, 1, IRQ_RANGE, "")
+                this.__IRQ_DataProxyArray := Win32FixedArray(this.ptr + 24, 1, IRQ_RANGE, "")
             return this.__IRQ_DataProxyArray
         }
     }

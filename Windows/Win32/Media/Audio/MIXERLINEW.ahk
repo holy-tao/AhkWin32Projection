@@ -13,9 +13,9 @@
  */
 class MIXERLINEW extends Win32Struct
 {
-    static sizeof => 284
+    static sizeof => 288
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * Size, in bytes, of the <b>MIXERLINE</b> structure. This member must be initialized before calling the <a href="https://docs.microsoft.com/previous-versions/dd757303(v=vs.85)">mixerGetLineInfo</a> function. The size specified in this member must be large enough to contain the <b>MIXERLINE</b> structure. When <b>mixerGetLineInfo</b> returns, this member contains the actual size of the information returned. The returned information will not exceed the requested size.
@@ -113,8 +113,8 @@ class MIXERLINEW extends Win32Struct
      * @type {Pointer}
      */
     dwUser {
-        get => NumGet(this, 20, "ptr")
-        set => NumPut("ptr", value, this, 20)
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
@@ -122,8 +122,8 @@ class MIXERLINEW extends Win32Struct
      * @type {Integer}
      */
     dwComponentType {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
+        get => NumGet(this, 32, "uint")
+        set => NumPut("uint", value, this, 32)
     }
 
     /**
@@ -137,8 +137,8 @@ class MIXERLINEW extends Win32Struct
      * @type {Integer}
      */
     cChannels {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
+        get => NumGet(this, 36, "uint")
+        set => NumPut("uint", value, this, 36)
     }
 
     /**
@@ -146,8 +146,8 @@ class MIXERLINEW extends Win32Struct
      * @type {Integer}
      */
     cConnections {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
+        get => NumGet(this, 40, "uint")
+        set => NumPut("uint", value, this, 40)
     }
 
     /**
@@ -155,8 +155,8 @@ class MIXERLINEW extends Win32Struct
      * @type {Integer}
      */
     cControls {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
+        get => NumGet(this, 44, "uint")
+        set => NumPut("uint", value, this, 44)
     }
 
     /**
@@ -164,8 +164,8 @@ class MIXERLINEW extends Win32Struct
      * @type {String}
      */
     szShortName {
-        get => StrGet(this.ptr + 44, 15, "UTF-16")
-        set => StrPut(value, this.ptr + 44, 15, "UTF-16")
+        get => StrGet(this.ptr + 48, 15, "UTF-16")
+        set => StrPut(value, this.ptr + 48, 15, "UTF-16")
     }
 
     /**
@@ -173,22 +173,14 @@ class MIXERLINEW extends Win32Struct
      * @type {String}
      */
     szName {
-        get => StrGet(this.ptr + 76, 63, "UTF-16")
-        set => StrPut(value, this.ptr + 76, 63, "UTF-16")
+        get => StrGet(this.ptr + 80, 63, "UTF-16")
+        set => StrPut(value, this.ptr + 80, 63, "UTF-16")
     }
 
     /**
      * @type {Integer}
      */
     dwType {
-        get => NumGet(this, 204, "uint")
-        set => NumPut("uint", value, this, 204)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    dwDeviceID {
         get => NumGet(this, 208, "uint")
         set => NumPut("uint", value, this, 208)
     }
@@ -196,32 +188,40 @@ class MIXERLINEW extends Win32Struct
     /**
      * @type {Integer}
      */
+    dwDeviceID {
+        get => NumGet(this, 212, "uint")
+        set => NumPut("uint", value, this, 212)
+    }
+
+    /**
+     * @type {Integer}
+     */
     wMid {
-        get => NumGet(this, 212, "ushort")
-        set => NumPut("ushort", value, this, 212)
+        get => NumGet(this, 216, "ushort")
+        set => NumPut("ushort", value, this, 216)
     }
 
     /**
      * @type {Integer}
      */
     wPid {
-        get => NumGet(this, 214, "ushort")
-        set => NumPut("ushort", value, this, 214)
+        get => NumGet(this, 218, "ushort")
+        set => NumPut("ushort", value, this, 218)
     }
 
     /**
      * @type {Integer}
      */
     vDriverVersion {
-        get => NumGet(this, 216, "uint")
-        set => NumPut("uint", value, this, 216)
+        get => NumGet(this, 220, "uint")
+        set => NumPut("uint", value, this, 220)
     }
 
     /**
      * @type {String}
      */
     szPname {
-        get => StrGet(this.ptr + 220, 31, "UTF-16")
-        set => StrPut(value, this.ptr + 220, 31, "UTF-16")
+        get => StrGet(this.ptr + 224, 31, "UTF-16")
+        set => StrPut(value, this.ptr + 224, 31, "UTF-16")
     }
 }

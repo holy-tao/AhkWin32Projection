@@ -17,7 +17,7 @@ class WSPPROC_TABLE extends Win32Struct
 
     /**
      * A pointer to the **[LPWSPAccept](nc-ws2spi-lpwspaccept.md)** function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPWSPACCEPT>}
      */
     lpWSPAccept {
         get => NumGet(this, 0, "ptr")
@@ -26,7 +26,7 @@ class WSPPROC_TABLE extends Win32Struct
 
     /**
      * A pointer to the [**LPWSPAddressToString**](nc-ws2spi-lpwspaddresstostring.md) function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPWSPADDRESSTOSTRING>}
      */
     lpWSPAddressToString {
         get => NumGet(this, 8, "ptr")
@@ -35,7 +35,7 @@ class WSPPROC_TABLE extends Win32Struct
 
     /**
      * A pointer to the **[LPWSPAsyncSelect](nc-ws2spi-lpwspasyncselect.md)** function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPWSPASYNCSELECT>}
      */
     lpWSPAsyncSelect {
         get => NumGet(this, 16, "ptr")
@@ -44,7 +44,7 @@ class WSPPROC_TABLE extends Win32Struct
 
     /**
      * A pointer to the <b><a href="https://docs.microsoft.com/windows/win32/api/ws2spi/nc-ws2spi-lpwspbind">LPWSPBind</a></b> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPWSPBIND>}
      */
     lpWSPBind {
         get => NumGet(this, 24, "ptr")
@@ -53,7 +53,7 @@ class WSPPROC_TABLE extends Win32Struct
 
     /**
      * A pointer to the <b><a href="https://docs.microsoft.com/windows/win32/api/ws2spi/nc-ws2spi-lpwspcancelblockingcall">LPWSPCancelBlockingCall</a></b> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPWSPCANCELBLOCKINGCALL>}
      */
     lpWSPCancelBlockingCall {
         get => NumGet(this, 32, "ptr")
@@ -62,7 +62,7 @@ class WSPPROC_TABLE extends Win32Struct
 
     /**
      * A pointer to the [**WSPCleanup**](./nc-ws2spi-lpwspcleanup.md) function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPWSPCLEANUP>}
      */
     lpWSPCleanup {
         get => NumGet(this, 40, "ptr")
@@ -71,7 +71,7 @@ class WSPPROC_TABLE extends Win32Struct
 
     /**
      * A pointer to the <b><a href="https://docs.microsoft.com/windows/win32/api/ws2spi/nc-ws2spi-lpwspclosesocket">LPWSPCloseSocket</a></b> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPWSPCLOSESOCKET>}
      */
     lpWSPCloseSocket {
         get => NumGet(this, 48, "ptr")
@@ -80,7 +80,7 @@ class WSPPROC_TABLE extends Win32Struct
 
     /**
      * A pointer to the <b><a href="https://docs.microsoft.com/windows/win32/api/ws2spi/nc-ws2spi-lpwspconnect">LPWSPConnect</a></b> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPWSPCONNECT>}
      */
     lpWSPConnect {
         get => NumGet(this, 56, "ptr")
@@ -89,7 +89,7 @@ class WSPPROC_TABLE extends Win32Struct
 
     /**
      * A pointer to the [**WSPDuplicateSocket**](./nc-ws2spi-lpwspduplicatesocket.md) function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPWSPDUPLICATESOCKET>}
      */
     lpWSPDuplicateSocket {
         get => NumGet(this, 64, "ptr")
@@ -98,7 +98,7 @@ class WSPPROC_TABLE extends Win32Struct
 
     /**
      * A pointer to the [**WSPEnumNetworkEvents**](./nc-ws2spi-lpwspenumnetworkevents.md) function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPWSPENUMNETWORKEVENTS>}
      */
     lpWSPEnumNetworkEvents {
         get => NumGet(this, 72, "ptr")
@@ -107,7 +107,7 @@ class WSPPROC_TABLE extends Win32Struct
 
     /**
      * A pointer to the [**LPWSPEventSelect**](./nc-ws2spi-lpwspenumnetworkevents.md) function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPWSPEVENTSELECT>}
      */
     lpWSPEventSelect {
         get => NumGet(this, 80, "ptr")
@@ -116,7 +116,7 @@ class WSPPROC_TABLE extends Win32Struct
 
     /**
      * A pointer to the [**LPWSPGetOverlappedResult**](./nc-ws2spi-lpwspgetoverlappedresult.md) function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPWSPGETOVERLAPPEDRESULT>}
      */
     lpWSPGetOverlappedResult {
         get => NumGet(this, 88, "ptr")
@@ -125,7 +125,7 @@ class WSPPROC_TABLE extends Win32Struct
 
     /**
      * A pointer to the    function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPWSPGETPEERNAME>}
      */
     lpWSPGetPeerName {
         get => NumGet(this, 96, "ptr")
@@ -134,7 +134,7 @@ class WSPPROC_TABLE extends Win32Struct
 
     /**
      * A pointer to the [**WSPGetSockName**](./nc-ws2spi-lpwspgetsockname.md) function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPWSPGETSOCKNAME>}
      */
     lpWSPGetSockName {
         get => NumGet(this, 104, "ptr")
@@ -143,7 +143,7 @@ class WSPPROC_TABLE extends Win32Struct
 
     /**
      * A pointer to the <b><a href="https://docs.microsoft.com/windows/win32/api/ws2spi/nc-ws2spi-lpwspgetsockopt">LPWSPGetSockopt</a></b> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPWSPGETSOCKOPT>}
      */
     lpWSPGetSockOpt {
         get => NumGet(this, 112, "ptr")
@@ -152,7 +152,7 @@ class WSPPROC_TABLE extends Win32Struct
 
     /**
      * A pointer to the [**WSPGetQOSByName**](./nc-ws2spi-lpwspgetqosbyname.md) function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPWSPGETQOSBYNAME>}
      */
     lpWSPGetQOSByName {
         get => NumGet(this, 120, "ptr")
@@ -161,7 +161,7 @@ class WSPPROC_TABLE extends Win32Struct
 
     /**
      * A pointer to the <b><a href="https://docs.microsoft.com/windows/win32/api/ws2spi/nc-ws2spi-lpwspioctl">LPWSPIoctl</a></b> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPWSPIOCTL>}
      */
     lpWSPIoctl {
         get => NumGet(this, 128, "ptr")
@@ -170,7 +170,7 @@ class WSPPROC_TABLE extends Win32Struct
 
     /**
      * A pointer to the <b><a href="https://docs.microsoft.com/windows/win32/api/ws2spi/nc-ws2spi-lpwspjoinleaf">LPWSPJoinLeaf</a></b> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPWSPJOINLEAF>}
      */
     lpWSPJoinLeaf {
         get => NumGet(this, 136, "ptr")
@@ -179,7 +179,7 @@ class WSPPROC_TABLE extends Win32Struct
 
     /**
      * A pointer to the <b><a href="https://docs.microsoft.com/windows/win32/api/ws2spi/nc-ws2spi-lpwsplisten">LPWSPListen</a></b> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPWSPLISTEN>}
      */
     lpWSPListen {
         get => NumGet(this, 144, "ptr")
@@ -188,7 +188,7 @@ class WSPPROC_TABLE extends Win32Struct
 
     /**
      * A pointer to the <b><a href="https://docs.microsoft.com/windows/win32/api/ws2spi/nc-ws2spi-lpwsprecv">LPWSPRecv</a></b> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPWSPRECV>}
      */
     lpWSPRecv {
         get => NumGet(this, 152, "ptr")
@@ -197,7 +197,7 @@ class WSPPROC_TABLE extends Win32Struct
 
     /**
      * A pointer to the [**WSPRecvDisconnect**](./nc-ws2spi-lpwsprecvdisconnect.md) function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPWSPRECVDISCONNECT>}
      */
     lpWSPRecvDisconnect {
         get => NumGet(this, 160, "ptr")
@@ -206,7 +206,7 @@ class WSPPROC_TABLE extends Win32Struct
 
     /**
      * A pointer to the <b><a href="https://docs.microsoft.com/windows/win32/api/ws2spi/nc-ws2spi-lpwsprecvfrom">LPWSPRecvFrom</a></b> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPWSPRECVFROM>}
      */
     lpWSPRecvFrom {
         get => NumGet(this, 168, "ptr")
@@ -215,7 +215,7 @@ class WSPPROC_TABLE extends Win32Struct
 
     /**
      * A pointer to the [**LPWSPSelect**](./nc-ws2spi-lpwspselect.md) function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPWSPSELECT>}
      */
     lpWSPSelect {
         get => NumGet(this, 176, "ptr")
@@ -224,7 +224,7 @@ class WSPPROC_TABLE extends Win32Struct
 
     /**
      * A pointer to the <b><a href="https://docs.microsoft.com/windows/win32/api/ws2spi/nc-ws2spi-lpwspsend">LPWSPSend</a></b> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPWSPSEND>}
      */
     lpWSPSend {
         get => NumGet(this, 184, "ptr")
@@ -233,7 +233,7 @@ class WSPPROC_TABLE extends Win32Struct
 
     /**
      * A pointer to the [**WSPSendDisconnect**](./nc-ws2spi-lpwspsenddisconnect.md) function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPWSPSENDDISCONNECT>}
      */
     lpWSPSendDisconnect {
         get => NumGet(this, 192, "ptr")
@@ -242,7 +242,7 @@ class WSPPROC_TABLE extends Win32Struct
 
     /**
      * A pointer to the <b><a href="https://docs.microsoft.com/windows/win32/api/ws2spi/nc-ws2spi-lpwspsendto">LPWSPSendTo</a></b> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPWSPSENDTO>}
      */
     lpWSPSendTo {
         get => NumGet(this, 200, "ptr")
@@ -251,7 +251,7 @@ class WSPPROC_TABLE extends Win32Struct
 
     /**
      * A pointer to the <b><a href="https://docs.microsoft.com/windows/win32/api/ws2spi/nc-ws2spi-lpwspsetsockopt">LPWSPSetSockOpt</a></b> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPWSPSETSOCKOPT>}
      */
     lpWSPSetSockOpt {
         get => NumGet(this, 208, "ptr")
@@ -260,7 +260,7 @@ class WSPPROC_TABLE extends Win32Struct
 
     /**
      * A pointer to the <b><a href="https://docs.microsoft.com/windows/win32/api/ws2spi/nc-ws2spi-lpwspshutdown">LPWSPShutdown</a></b> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPWSPSHUTDOWN>}
      */
     lpWSPShutdown {
         get => NumGet(this, 216, "ptr")
@@ -269,7 +269,7 @@ class WSPPROC_TABLE extends Win32Struct
 
     /**
      * A pointer to the <a href="https://docs.microsoft.com/windows/win32/api/ws2spi/nc-ws2spi-lpwspsocket">LPWSPSocket</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPWSPSOCKET>}
      */
     lpWSPSocket {
         get => NumGet(this, 224, "ptr")
@@ -278,7 +278,7 @@ class WSPPROC_TABLE extends Win32Struct
 
     /**
      * A pointer to the <a href="https://docs.microsoft.com/windows/win32/api/ws2spi/nc-ws2spi-lpwspstringtoaddress">LPWSPStringToAddress<a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPWSPSTRINGTOADDRESS>}
      */
     lpWSPStringToAddress {
         get => NumGet(this, 232, "ptr")

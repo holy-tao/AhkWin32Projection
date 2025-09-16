@@ -9,7 +9,7 @@ class RAW_RESET_PORT_PARAMETERS extends Win32Struct
 {
     static sizeof => 4
 
-    static packingSize => 1
+    static packingSize => 2
 
     /**
      * @type {Integer}

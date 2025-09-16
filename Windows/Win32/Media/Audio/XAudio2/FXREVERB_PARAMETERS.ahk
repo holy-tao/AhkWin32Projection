@@ -14,7 +14,7 @@ class FXREVERB_PARAMETERS extends Win32Struct
 {
     static sizeof => 8
 
-    static packingSize => 1
+    static packingSize => 4
 
     /**
      * Controls the character of the individual wall reflections. Set to minimum value to simulate a hard flat surface and to maximum value to simulate a diffuse surface.Value must be between FXREVERB_MIN_DIFFUSION and FXREVERB_MAX_DIFFUSION.

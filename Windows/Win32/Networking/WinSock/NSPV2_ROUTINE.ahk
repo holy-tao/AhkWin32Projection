@@ -82,7 +82,7 @@ class NSPV2_ROUTINE extends Win32Struct
      * Type: ** LPNSPV2STARTUP**
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/ws2spi/nc-ws2spi-lpnspv2startup">NSPv2Startup</a> function for this NSPv2 provider.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPNSPV2STARTUP>}
      */
     NSPv2Startup {
         get => NumGet(this, 16, "ptr")
@@ -93,7 +93,7 @@ class NSPV2_ROUTINE extends Win32Struct
      * Type: **LPNSPV2CLEANUP**
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/ws2spi/nc-ws2spi-lpnspv2cleanup">NSPv2Cleanup</a> function for this NSPv2 provider.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPNSPV2CLEANUP>}
      */
     NSPv2Cleanup {
         get => NumGet(this, 24, "ptr")
@@ -104,7 +104,7 @@ class NSPV2_ROUTINE extends Win32Struct
      * Type: **LPNSPV2LOOKUPSERVICEBEGIN**
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/ws2spi/nc-ws2spi-lpnsplookupservicebegin">NSPv2LookupServiceBegin</a> function for this NSPv2 provider.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPNSPV2LOOKUPSERVICEBEGIN>}
      */
     NSPv2LookupServiceBegin {
         get => NumGet(this, 32, "ptr")
@@ -115,7 +115,7 @@ class NSPV2_ROUTINE extends Win32Struct
      * Type: **LPNSPV2LOOKUPSERVICENEXTEX**
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/ws2spi/nc-ws2spi-lpnspv2lookupservicenextex">NSPv2LookupServiceNextEx</a> function for this NSPv2 provider.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPNSPV2LOOKUPSERVICENEXTEX>}
      */
     NSPv2LookupServiceNextEx {
         get => NumGet(this, 40, "ptr")
@@ -126,7 +126,7 @@ class NSPV2_ROUTINE extends Win32Struct
      * Type: **LPNSPV2LOOKUPSERVICEEND**
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/ws2spi/nc-ws2spi-lpnspv2lookupserviceend">NSPv2LookupServiceEnd</a> function for this NSPv2 provider.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPNSPV2LOOKUPSERVICEEND>}
      */
     NSPv2LookupServiceEnd {
         get => NumGet(this, 48, "ptr")
@@ -137,7 +137,7 @@ class NSPV2_ROUTINE extends Win32Struct
      * Type: **LPNSPV2SETSERVICEEX**
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/ws2spi/nc-ws2spi-lpnspv2setserviceex">NSPv2SetServiceEx</a> function for this NSPv2 provider.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPNSPV2SETSERVICEEX>}
      */
     NSPv2SetServiceEx {
         get => NumGet(this, 56, "ptr")
@@ -148,7 +148,7 @@ class NSPV2_ROUTINE extends Win32Struct
      * Type: **LPNSPV2CLIENTSESSIONRUNDOWN**
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/ws2spi/nc-ws2spi-lpnspv2clientsessionrundown">NSPv2ClientSessionRundown</a> function for this NSPv2 provider.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPNSPV2CLIENTSESSIONRUNDOWN>}
      */
     NSPv2ClientSessionRundown {
         get => NumGet(this, 64, "ptr")

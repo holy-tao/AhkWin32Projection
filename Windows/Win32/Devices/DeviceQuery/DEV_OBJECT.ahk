@@ -20,7 +20,7 @@ class DEV_OBJECT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pszObjectId {
         get => NumGet(this, 8, "ptr")

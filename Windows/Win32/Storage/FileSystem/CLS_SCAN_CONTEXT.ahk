@@ -30,7 +30,7 @@ class CLS_SCAN_CONTEXT extends Win32Struct
 
     /**
      * A handle to the log being scanned that is obtained from <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-createlogfile">CreateLogFile</a> with permissions  to scan the log containers.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HANDLE>}
      */
     hLog {
         get => NumGet(this, 8, "ptr")

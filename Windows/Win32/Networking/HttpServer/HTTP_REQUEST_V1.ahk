@@ -148,7 +148,7 @@ class HTTP_REQUEST_V1 extends Win32Struct
 
     /**
      * If the <b>Verb</b> member is equal to <b>HttpVerbUnknown</b>, <b>pUnknownVerb</b>, points to a null-terminated string of octets that contains the HTTP verb for this request; otherwise, the application ignores this parameter.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     pUnknownVerb {
         get => NumGet(this, 48, "ptr")
@@ -157,7 +157,7 @@ class HTTP_REQUEST_V1 extends Win32Struct
 
     /**
      * A pointer to a string of octets that contains the original, unprocessed URL targeted by this request.  Use this unprocessed URL only for tracking or statistical purposes; the  <b>CookedUrl</b> member contains the canonical form of the URL for general use.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     pRawUrl {
         get => NumGet(this, 56, "ptr")

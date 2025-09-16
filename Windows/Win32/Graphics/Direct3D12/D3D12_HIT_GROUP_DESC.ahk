@@ -15,7 +15,7 @@ class D3D12_HIT_GROUP_DESC extends Win32Struct
 
     /**
      * The name of the hit group.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     HitGroupExport {
         get => NumGet(this, 0, "ptr")
@@ -33,7 +33,7 @@ class D3D12_HIT_GROUP_DESC extends Win32Struct
 
     /**
      * Optional name of the any-hit shader associated with the hit group. This field can be used with all hit group types.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     AnyHitShaderImport {
         get => NumGet(this, 16, "ptr")
@@ -42,7 +42,7 @@ class D3D12_HIT_GROUP_DESC extends Win32Struct
 
     /**
      * Optional name of the closest-hit shader associated with the hit group. This field can be used with all hit group types.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     ClosestHitShaderImport {
         get => NumGet(this, 24, "ptr")
@@ -51,7 +51,7 @@ class D3D12_HIT_GROUP_DESC extends Win32Struct
 
     /**
      * Optional name of the intersection shader associated with the hit group.  This field can only be used with hit groups of type procedural primitive.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     IntersectionShaderImport {
         get => NumGet(this, 32, "ptr")

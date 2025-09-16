@@ -16,7 +16,7 @@ class FXECHO_PARAMETERS extends Win32Struct
 {
     static sizeof => 12
 
-    static packingSize => 1
+    static packingSize => 4
 
     /**
      * Ratio of wet (processed) signal to dry (original) signal.

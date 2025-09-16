@@ -28,7 +28,7 @@ class OPENCARD_SEARCH_CRITERIAW extends Win32Struct
 
     /**
      * A pointer to a buffer containing null-terminated group name strings. The last string in the buffer must be terminated by two null characters. Each string is the name of a group of cards that is to be included in the search. If <b>lpstrGroupNames</b> is <b>NULL</b>, the default group (<a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">Scard$DefaultReaders</a>) is searched.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     lpstrGroupNames {
         get => NumGet(this, 8, "ptr")
@@ -64,7 +64,7 @@ class OPENCARD_SEARCH_CRITERIAW extends Win32Struct
 
     /**
      * A pointer to a buffer that contains null-terminated card name strings. The last string in the buffer must be terminated by two null characters. Each string is the name of a card that is to be located.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     lpstrCardNames {
         get => NumGet(this, 40, "ptr")
@@ -97,7 +97,7 @@ class OPENCARD_SEARCH_CRITERIAW extends Win32Struct
      * );
      * 
      * ```
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPOCNCHKPROC>}
      */
     lpfnCheck {
         get => NumGet(this, 56, "ptr")
@@ -123,7 +123,7 @@ class OPENCARD_SEARCH_CRITERIAW extends Win32Struct
      * );
      * 
      * ```
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPOCNCONNPROCW>}
      */
     lpfnConnect {
         get => NumGet(this, 64, "ptr")
@@ -151,7 +151,7 @@ class OPENCARD_SEARCH_CRITERIAW extends Win32Struct
      * 
      * <div class="alert"><b>Note</b>  When you use <b>lpfnConnect</b>, <b>lpfnCheck</b>, and <b>lpfnDisconnect</b>, all three callback procedures should be present. Using these callbacks allows further verification that the calling application has found the appropriate card. This is the best way to ensure the appropriate card is selected. However, when using a value that is not <b>NULL</b> for <b>lpfnCheck</b>, either both <b>lpfnConnect</b> and <b>lpfnDisconnect</b> must not be <b>NULL</b> (and <b>pvUserData</b> should also be provided), or <b>dwShareMode</b> and <b>dwPreferredProtocols</b> must both be set.</div>
      * <div> </div>
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPOCNDSCPROC>}
      */
     lpfnDisconnect {
         get => NumGet(this, 72, "ptr")

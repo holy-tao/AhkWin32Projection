@@ -21,7 +21,7 @@ class D2D1_PROPERTY_BINDING extends Win32Struct
 
     /**
      * The name of the property.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     propertyName {
         get => NumGet(this, 0, "ptr")
@@ -30,7 +30,7 @@ class D2D1_PROPERTY_BINDING extends Win32Struct
 
     /**
      * The function that will receive the data to set.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PD2D1_PROPERTY_SET_FUNCTION>}
      */
     setFunction {
         get => NumGet(this, 8, "ptr")
@@ -39,7 +39,7 @@ class D2D1_PROPERTY_BINDING extends Win32Struct
 
     /**
      * The function that will be asked to write the output data.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PD2D1_PROPERTY_GET_FUNCTION>}
      */
     getFunction {
         get => NumGet(this, 16, "ptr")

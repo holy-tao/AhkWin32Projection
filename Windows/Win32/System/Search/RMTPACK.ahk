@@ -7,9 +7,9 @@
  */
 class RMTPACK extends Win32Struct
 {
-    static sizeof => 84
+    static sizeof => 104
 
-    static packingSize => 2
+    static packingSize => 8
 
     /**
      * @type {Pointer<ISequentialStream>}
@@ -36,7 +36,7 @@ class RMTPACK extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<BSTR>}
      */
     rgBSTR {
         get => NumGet(this, 16, "ptr")
@@ -55,54 +55,38 @@ class RMTPACK extends Win32Struct
      * @type {Pointer<VARIANT>}
      */
     rgVARIANT {
-        get => NumGet(this, 28, "ptr")
-        set => NumPut("ptr", value, this, 28)
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
      * @type {Integer}
      */
     cIDISPATCH {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
+        get => NumGet(this, 40, "uint")
+        set => NumPut("uint", value, this, 40)
     }
 
     /**
      * @type {Pointer<IDispatch>}
      */
     rgIDISPATCH {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**
      * @type {Integer}
      */
     cIUNKNOWN {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
+        get => NumGet(this, 56, "uint")
+        set => NumPut("uint", value, this, 56)
     }
 
     /**
      * @type {Pointer<IUnknown>}
      */
     rgIUNKNOWN {
-        get => NumGet(this, 52, "ptr")
-        set => NumPut("ptr", value, this, 52)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    cPROPVARIANT {
-        get => NumGet(this, 60, "uint")
-        set => NumPut("uint", value, this, 60)
-    }
-
-    /**
-     * @type {Pointer<PROPVARIANT>}
-     */
-    rgPROPVARIANT {
         get => NumGet(this, 64, "ptr")
         set => NumPut("ptr", value, this, 64)
     }
@@ -110,16 +94,32 @@ class RMTPACK extends Win32Struct
     /**
      * @type {Integer}
      */
-    cArray {
+    cPROPVARIANT {
         get => NumGet(this, 72, "uint")
         set => NumPut("uint", value, this, 72)
+    }
+
+    /**
+     * @type {Pointer<PROPVARIANT>}
+     */
+    rgPROPVARIANT {
+        get => NumGet(this, 80, "ptr")
+        set => NumPut("ptr", value, this, 80)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    cArray {
+        get => NumGet(this, 88, "uint")
+        set => NumPut("uint", value, this, 88)
     }
 
     /**
      * @type {Pointer<VARIANT>}
      */
     rgArray {
-        get => NumGet(this, 76, "ptr")
-        set => NumPut("ptr", value, this, 76)
+        get => NumGet(this, 96, "ptr")
+        set => NumPut("ptr", value, this, 96)
     }
 }

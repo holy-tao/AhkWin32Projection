@@ -33,7 +33,7 @@ class WINTRUST_CATALOG_INFO extends Win32Struct
 
     /**
      * The full path and file name of the catalog file that contains the member to be verified.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pcwszCatalogFilePath {
         get => NumGet(this, 8, "ptr")
@@ -42,7 +42,7 @@ class WINTRUST_CATALOG_INFO extends Win32Struct
 
     /**
      * Tag of a member file to be verified.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pcwszMemberTag {
         get => NumGet(this, 16, "ptr")
@@ -51,7 +51,7 @@ class WINTRUST_CATALOG_INFO extends Win32Struct
 
     /**
      * The full path and file name of the catalog member file to be verified.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pcwszMemberFilePath {
         get => NumGet(this, 24, "ptr")
@@ -60,7 +60,7 @@ class WINTRUST_CATALOG_INFO extends Win32Struct
 
     /**
      * Optional. Handle of the open catalog member file to be verified. The handle must be to a file with at least read permissions.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HANDLE>}
      */
     hMemberFile {
         get => NumGet(this, 32, "ptr")

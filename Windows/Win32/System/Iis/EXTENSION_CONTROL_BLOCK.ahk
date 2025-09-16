@@ -28,7 +28,7 @@ class EXTENSION_CONTROL_BLOCK extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HCONN>}
      */
     ConnID {
         get => NumGet(this, 8, "ptr")
@@ -52,7 +52,7 @@ class EXTENSION_CONTROL_BLOCK extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     lpszMethod {
         get => NumGet(this, 184, "ptr")
@@ -60,7 +60,7 @@ class EXTENSION_CONTROL_BLOCK extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     lpszQueryString {
         get => NumGet(this, 192, "ptr")
@@ -68,7 +68,7 @@ class EXTENSION_CONTROL_BLOCK extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     lpszPathInfo {
         get => NumGet(this, 200, "ptr")
@@ -76,7 +76,7 @@ class EXTENSION_CONTROL_BLOCK extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     lpszPathTranslated {
         get => NumGet(this, 208, "ptr")
@@ -108,7 +108,7 @@ class EXTENSION_CONTROL_BLOCK extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     lpszContentType {
         get => NumGet(this, 232, "ptr")
@@ -116,7 +116,7 @@ class EXTENSION_CONTROL_BLOCK extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_IIS_GETSERVERVARIABLE>}
      */
     GetServerVariable {
         get => NumGet(this, 240, "ptr")
@@ -124,7 +124,7 @@ class EXTENSION_CONTROL_BLOCK extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_IIS_WRITECLIENT>}
      */
     WriteClient {
         get => NumGet(this, 248, "ptr")
@@ -132,7 +132,7 @@ class EXTENSION_CONTROL_BLOCK extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_IIS_READCLIENT>}
      */
     ReadClient {
         get => NumGet(this, 256, "ptr")
@@ -140,7 +140,7 @@ class EXTENSION_CONTROL_BLOCK extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_IIS_SERVERSUPPORTFUNCTION>}
      */
     ServerSupportFunction {
         get => NumGet(this, 264, "ptr")

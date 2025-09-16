@@ -12,7 +12,7 @@ class alljoyn_keystorelistener_callbacks extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<alljoyn_keystorelistener_loadrequest_ptr>}
      */
     load_request {
         get => NumGet(this, 0, "ptr")
@@ -20,7 +20,7 @@ class alljoyn_keystorelistener_callbacks extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<alljoyn_keystorelistener_storerequest_ptr>}
      */
     store_request {
         get => NumGet(this, 8, "ptr")

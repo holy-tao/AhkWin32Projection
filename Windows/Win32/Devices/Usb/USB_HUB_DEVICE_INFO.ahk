@@ -9,9 +9,9 @@
  */
 class USB_HUB_DEVICE_INFO extends Win32Struct
 {
-    static sizeof => 95
+    static sizeof => 96
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * @type {USB_HUB_DESCRIPTOR}
@@ -28,30 +28,22 @@ class USB_HUB_DEVICE_INFO extends Win32Struct
      * @type {Integer}
      */
     HubNumber {
-        get => NumGet(this, 71, "uint")
-        set => NumPut("uint", value, this, 71)
+        get => NumGet(this, 72, "uint")
+        set => NumPut("uint", value, this, 72)
     }
 
     /**
      * @type {Integer}
      */
     DeviceAddress {
-        get => NumGet(this, 75, "ushort")
-        set => NumPut("ushort", value, this, 75)
+        get => NumGet(this, 76, "ushort")
+        set => NumPut("ushort", value, this, 76)
     }
 
     /**
      * @type {Integer}
      */
     HubIsSelfPowered {
-        get => NumGet(this, 77, "char")
-        set => NumPut("char", value, this, 77)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    HubIsRootHub {
         get => NumGet(this, 78, "char")
         set => NumPut("char", value, this, 78)
     }
@@ -59,17 +51,25 @@ class USB_HUB_DEVICE_INFO extends Win32Struct
     /**
      * @type {Integer}
      */
+    HubIsRootHub {
+        get => NumGet(this, 79, "char")
+        set => NumPut("char", value, this, 79)
+    }
+
+    /**
+     * @type {Integer}
+     */
     HubCapabilities {
-        get => NumGet(this, 79, "uint")
-        set => NumPut("uint", value, this, 79)
+        get => NumGet(this, 80, "uint")
+        set => NumPut("uint", value, this, 80)
     }
 
     /**
      * @type {Integer}
      */
     NumberOfHubPorts {
-        get => NumGet(this, 83, "uint")
-        set => NumPut("uint", value, this, 83)
+        get => NumGet(this, 84, "uint")
+        set => NumPut("uint", value, this, 84)
     }
 
     /**
@@ -78,7 +78,7 @@ class USB_HUB_DEVICE_INFO extends Win32Struct
     PortInfo{
         get {
             if(!this.HasProp("__PortInfoProxyArray"))
-                this.__PortInfoProxyArray := Win32FixedArray(this.ptr + 87, 1, USB_HUB_PORT_INFORMATION, "")
+                this.__PortInfoProxyArray := Win32FixedArray(this.ptr + 88, 1, USB_HUB_PORT_INFORMATION, "")
             return this.__PortInfoProxyArray
         }
     }

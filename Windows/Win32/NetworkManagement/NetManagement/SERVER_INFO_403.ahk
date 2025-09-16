@@ -52,7 +52,7 @@ class SERVER_INFO_403 extends Win32Struct
      * A pointer to a string that specifies the list of user names on the server. Spaces separate the names.
      * 
      * This string is Unicode if  <b>_WIN32_WINNT</b> or <b>FORCE_UNICODE</b> are defined.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     sv403_alerts {
         get => NumGet(this, 16, "ptr")
@@ -94,7 +94,7 @@ class SERVER_INFO_403 extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to a Unicode string that specifies the name of a reserved account for guest users on the server. The UNLEN constant specifies the maximum number of characters in the string.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     sv403_guestacct {
         get => NumGet(this, 40, "ptr")
@@ -347,7 +347,7 @@ class SERVER_INFO_403 extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to a Unicode string that contains flags that are used to control operations on a server.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     sv403_srvheuristics {
         get => NumGet(this, 136, "ptr")
@@ -409,7 +409,7 @@ class SERVER_INFO_403 extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to a Unicode string that contains the path for the profile.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     sv403_autopath {
         get => NumGet(this, 152, "ptr")

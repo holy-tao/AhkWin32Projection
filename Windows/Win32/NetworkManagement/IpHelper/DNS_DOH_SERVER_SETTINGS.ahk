@@ -24,7 +24,7 @@ class DNS_DOH_SERVER_SETTINGS extends Win32Struct
      * 
      * > [!IMPORTANT]
      * > The URI template mustn't contain an IP address as hostname that's different from the IP address of the referenced server. For example, if the referenced server is 1.1.1.1, and the URI template is `https://1.0.0.1/dns-query`, then that wouldn't be valid because 1.0.0.1 doesn't match the server IP 1.1.1.1.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     Template {
         get => NumGet(this, 0, "ptr")

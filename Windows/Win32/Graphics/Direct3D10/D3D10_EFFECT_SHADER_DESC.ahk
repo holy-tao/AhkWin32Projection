@@ -63,7 +63,7 @@ class D3D10_EFFECT_SHADER_DESC extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>
      * 
      * A string that contains a declaration of the <a href="https://docs.microsoft.com/windows/desktop/direct3d10/d3d10-graphics-programming-guide-pipeline-stages">stream output </a> from a geometry shader.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     SODecl {
         get => NumGet(this, 32, "ptr")

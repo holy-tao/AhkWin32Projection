@@ -55,7 +55,7 @@ class PROPSHEETHEADERW_V2 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HWND>}
      */
     hwndParent {
         get => NumGet(this, 8, "ptr")
@@ -63,7 +63,7 @@ class PROPSHEETHEADERW_V2 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HINSTANCE>}
      */
     hInstance {
         get => NumGet(this, 16, "ptr")
@@ -71,7 +71,7 @@ class PROPSHEETHEADERW_V2 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HICON>}
      */
     hIcon {
         get => NumGet(this, 24, "ptr")
@@ -79,7 +79,7 @@ class PROPSHEETHEADERW_V2 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pszIcon {
         get => NumGet(this, 24, "ptr")
@@ -87,7 +87,7 @@ class PROPSHEETHEADERW_V2 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pszCaption {
         get => NumGet(this, 32, "ptr")
@@ -111,7 +111,7 @@ class PROPSHEETHEADERW_V2 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pStartPage {
         get => NumGet(this, 44, "ptr")
@@ -127,7 +127,7 @@ class PROPSHEETHEADERW_V2 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HPROPSHEETPAGE>}
      */
     phpage {
         get => NumGet(this, 48, "ptr")
@@ -135,7 +135,7 @@ class PROPSHEETHEADERW_V2 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFNPROPSHEETCALLBACK>}
      */
     pfnCallback {
         get => NumGet(this, 56, "ptr")
@@ -143,7 +143,7 @@ class PROPSHEETHEADERW_V2 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HBITMAP>}
      */
     hbmWatermark {
         get => NumGet(this, 64, "ptr")
@@ -151,7 +151,7 @@ class PROPSHEETHEADERW_V2 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pszbmWatermark {
         get => NumGet(this, 64, "ptr")
@@ -163,7 +163,7 @@ class PROPSHEETHEADERW_V2 extends Win32Struct
      * 
      * 
      * <a href="https://docs.microsoft.com/windows/desktop/Controls/common-control-versions">Version 5.80</a> or later. <b>HPALETTE</b> structure used for drawing the watermark bitmap and/or header bitmap. If the <b>dwFlags</b> member does not include PSH_USEHPLWATERMARK, this member is ignored.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HPALETTE>}
      */
     hplWatermark {
         get => NumGet(this, 72, "ptr")
@@ -171,7 +171,7 @@ class PROPSHEETHEADERW_V2 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HBITMAP>}
      */
     hbmHeader {
         get => NumGet(this, 80, "ptr")
@@ -179,7 +179,7 @@ class PROPSHEETHEADERW_V2 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pszbmHeader {
         get => NumGet(this, 80, "ptr")

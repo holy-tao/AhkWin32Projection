@@ -41,7 +41,7 @@ class PERF_COUNTER_DEFINITION extends Win32Struct
 
     /**
      * Reserved.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     CounterNameTitle {
         get => NumGet(this, 8, "ptr")
@@ -63,7 +63,7 @@ class PERF_COUNTER_DEFINITION extends Win32Struct
 
     /**
      * Reserved.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     CounterHelpTitle {
         get => NumGet(this, 24, "ptr")

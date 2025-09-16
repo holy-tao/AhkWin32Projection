@@ -64,7 +64,7 @@ class POINTER_INFO extends Win32Struct
      * Type: <b>HANDLE</b>
      * 
      * Handle to the source device that can be used in calls to the raw input device API and the digitizer device API.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HANDLE>}
      */
     sourceDevice {
         get => NumGet(this, 16, "ptr")
@@ -75,7 +75,7 @@ class POINTER_INFO extends Win32Struct
      * Type: <b>HWND</b>
      * 
      * Window to which this message was targeted. If the pointer is captured, either implicitly by virtue of having made contact over this window or explicitly using the pointer capture API, this is the capture window. If the pointer is uncaptured, this is the window over which the pointer was when this message was generated.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HWND>}
      */
     hwndTarget {
         get => NumGet(this, 24, "ptr")

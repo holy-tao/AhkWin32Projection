@@ -7,9 +7,9 @@
  */
 class DXVA_ConfigPictureDecode extends Win32Struct
 {
-    static sizeof => 52
+    static sizeof => 56
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * @type {Integer}

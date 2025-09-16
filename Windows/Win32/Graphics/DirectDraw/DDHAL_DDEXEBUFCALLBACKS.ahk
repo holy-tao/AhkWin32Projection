@@ -28,7 +28,7 @@ class DDHAL_DDEXEBUFCALLBACKS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPDDHALEXEBUFCB_CANCREATEEXEBUF>}
      */
     CanCreateExecuteBuffer {
         get => NumGet(this, 8, "ptr")
@@ -36,7 +36,7 @@ class DDHAL_DDEXEBUFCALLBACKS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPDDHALEXEBUFCB_CREATEEXEBUF>}
      */
     CreateExecuteBuffer {
         get => NumGet(this, 16, "ptr")
@@ -44,7 +44,7 @@ class DDHAL_DDEXEBUFCALLBACKS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPDDHALEXEBUFCB_DESTROYEXEBUF>}
      */
     DestroyExecuteBuffer {
         get => NumGet(this, 24, "ptr")
@@ -52,7 +52,7 @@ class DDHAL_DDEXEBUFCALLBACKS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPDDHALEXEBUFCB_LOCKEXEBUF>}
      */
     LockExecuteBuffer {
         get => NumGet(this, 32, "ptr")
@@ -60,7 +60,7 @@ class DDHAL_DDEXEBUFCALLBACKS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPDDHALEXEBUFCB_UNLOCKEXEBUF>}
      */
     UnlockExecuteBuffer {
         get => NumGet(this, 40, "ptr")

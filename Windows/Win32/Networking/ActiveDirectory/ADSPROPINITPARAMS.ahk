@@ -53,7 +53,7 @@ class ADSPROPINITPARAMS extends Win32Struct
 
     /**
      * Pointer to a null-terminated Unicode string that contains the common name of the directory object.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pwzCN {
         get => NumGet(this, 24, "ptr")

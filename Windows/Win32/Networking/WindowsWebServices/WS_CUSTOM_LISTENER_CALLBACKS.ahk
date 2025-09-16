@@ -25,7 +25,7 @@ class WS_CUSTOM_LISTENER_CALLBACKS extends Win32Struct
     /**
      * The callback that implements <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscreatelistener">WsCreateListener</a>.
      *                     See <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nc-webservices-ws_create_listener_callback">WS_CREATE_LISTENER_CALLBACK</a> for more information.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<WS_CREATE_LISTENER_CALLBACK>}
      */
     createListenerCallback {
         get => NumGet(this, 0, "ptr")
@@ -35,7 +35,7 @@ class WS_CUSTOM_LISTENER_CALLBACKS extends Win32Struct
     /**
      * The callback that implements <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsfreelistener">WsFreeListener</a>.
      *                     See <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nc-webservices-ws_free_listener_callback">WS_FREE_LISTENER_CALLBACK</a> for more information.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<WS_FREE_LISTENER_CALLBACK>}
      */
     freeListenerCallback {
         get => NumGet(this, 8, "ptr")
@@ -45,7 +45,7 @@ class WS_CUSTOM_LISTENER_CALLBACKS extends Win32Struct
     /**
      * The callback that implements <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsresetlistener">WsResetListener</a>.
      *                     See <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nc-webservices-ws_reset_listener_callback">WS_RESET_LISTENER_CALLBACK</a> for more information.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<WS_RESET_LISTENER_CALLBACK>}
      */
     resetListenerCallback {
         get => NumGet(this, 16, "ptr")
@@ -55,7 +55,7 @@ class WS_CUSTOM_LISTENER_CALLBACKS extends Win32Struct
     /**
      * The callback that implements <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsopenlistener">WsOpenListener</a>.
      *                     See <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nc-webservices-ws_open_listener_callback">WS_OPEN_LISTENER_CALLBACK</a> for more information.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<WS_OPEN_LISTENER_CALLBACK>}
      */
     openListenerCallback {
         get => NumGet(this, 24, "ptr")
@@ -65,7 +65,7 @@ class WS_CUSTOM_LISTENER_CALLBACKS extends Win32Struct
     /**
      * The callback that implements <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscloselistener">WsCloseListener</a>.
      *                     See <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nc-webservices-ws_close_listener_callback">WS_CLOSE_LISTENER_CALLBACK</a> for more information.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<WS_CLOSE_LISTENER_CALLBACK>}
      */
     closeListenerCallback {
         get => NumGet(this, 32, "ptr")
@@ -75,7 +75,7 @@ class WS_CUSTOM_LISTENER_CALLBACKS extends Win32Struct
     /**
      * The callback that implements <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsabortlistener">WsAbortListener</a>.
      *                     See <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nc-webservices-ws_abort_listener_callback">WS_ABORT_LISTENER_CALLBACK</a> for more information.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<WS_ABORT_LISTENER_CALLBACK>}
      */
     abortListenerCallback {
         get => NumGet(this, 40, "ptr")
@@ -85,7 +85,7 @@ class WS_CUSTOM_LISTENER_CALLBACKS extends Win32Struct
     /**
      * The callback that implements <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsgetlistenerproperty">WsGetListenerProperty</a>.
      *                     See <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nc-webservices-ws_get_listener_property_callback">WS_GET_LISTENER_PROPERTY_CALLBACK</a> for more information.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<WS_GET_LISTENER_PROPERTY_CALLBACK>}
      */
     getListenerPropertyCallback {
         get => NumGet(this, 48, "ptr")
@@ -95,7 +95,7 @@ class WS_CUSTOM_LISTENER_CALLBACKS extends Win32Struct
     /**
      * The callback that implements <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wssetlistenerproperty">WsSetListenerProperty</a>.
      *                     See <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nc-webservices-ws_set_listener_property_callback">WS_SET_LISTENER_PROPERTY_CALLBACK</a> for more information.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<WS_SET_LISTENER_PROPERTY_CALLBACK>}
      */
     setListenerPropertyCallback {
         get => NumGet(this, 56, "ptr")
@@ -105,7 +105,7 @@ class WS_CUSTOM_LISTENER_CALLBACKS extends Win32Struct
     /**
      * The callback that implements <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscreatechannelforlistener">WsCreateChannelForListener</a>.
      *                     See <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nc-webservices-ws_create_channel_for_listener_callback">WS_CREATE_CHANNEL_FOR_LISTENER_CALLBACK</a> for more information.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<WS_CREATE_CHANNEL_FOR_LISTENER_CALLBACK>}
      */
     createChannelForListenerCallback {
         get => NumGet(this, 64, "ptr")
@@ -115,7 +115,7 @@ class WS_CUSTOM_LISTENER_CALLBACKS extends Win32Struct
     /**
      * The callback that implements <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsacceptchannel">WsAcceptChannel</a>.
      *                     See <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nc-webservices-ws_accept_channel_callback">WS_ACCEPT_CHANNEL_CALLBACK</a> for more information.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<WS_ACCEPT_CHANNEL_CALLBACK>}
      */
     acceptChannelCallback {
         get => NumGet(this, 72, "ptr")

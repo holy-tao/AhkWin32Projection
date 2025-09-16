@@ -11,7 +11,7 @@ class SpatialAudioHrtfActivationParams extends Win32Struct
 {
     static sizeof => 72
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * Format descriptor for spatial audio objects associated with the stream. All objects must have the same format and must be of type <a href="https://docs.microsoft.com/previous-versions/dd757713(v=vs.85)">WAVEFORMATEX</a> or <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/dd390971(v=vs.85)">WAVEFORMATEXTENSIBLE</a>.
@@ -60,7 +60,7 @@ class SpatialAudioHrtfActivationParams extends Win32Struct
 
     /**
      * The event that will signal the client to provide more audio data. This handle will be duplicated internally before it is used.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HANDLE>}
      */
     EventHandle {
         get => NumGet(this, 24, "ptr")

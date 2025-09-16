@@ -44,7 +44,7 @@ class WSASENDMSG extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPWSAOVERLAPPED_COMPLETION_ROUTINE>}
      */
     lpCompletionRoutine {
         get => NumGet(this, 32, "ptr")

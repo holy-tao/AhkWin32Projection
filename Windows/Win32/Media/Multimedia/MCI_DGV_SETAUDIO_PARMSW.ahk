@@ -19,9 +19,9 @@
  */
 class MCI_DGV_SETAUDIO_PARMSW extends Win32Struct
 {
-    static sizeof => 36
+    static sizeof => 40
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * The low-order word specifies a window handle used for the MCI_NOTIFY flag.
@@ -61,19 +61,19 @@ class MCI_DGV_SETAUDIO_PARMSW extends Win32Struct
 
     /**
      * Pointer to a null-terminated string containing the name of the audio-compression algorithm.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     lpstrAlgorithm {
-        get => NumGet(this, 20, "ptr")
-        set => NumPut("ptr", value, this, 20)
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
      * Pointer to a null-terminated string containing a descriptor of the audio-compression algorithm.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     lpstrQuality {
-        get => NumGet(this, 28, "ptr")
-        set => NumPut("ptr", value, this, 28)
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 }

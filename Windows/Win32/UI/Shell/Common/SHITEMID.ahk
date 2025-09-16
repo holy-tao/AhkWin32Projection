@@ -9,9 +9,9 @@
  */
 class SHITEMID extends Win32Struct
 {
-    static sizeof => 3
+    static sizeof => 4
 
-    static packingSize => 1
+    static packingSize => 2
 
     /**
      * Type: <b>USHORT</b>

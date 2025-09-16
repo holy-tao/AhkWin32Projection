@@ -15,7 +15,7 @@ class MIXERCAPSA extends Win32Struct
 {
     static sizeof => 48
 
-    static packingSize => 1
+    static packingSize => 4
 
     /**
      * A manufacturer identifier for the mixer device driver. Manufacturer identifiers are defined in <a href="https://docs.microsoft.com/windows/desktop/Multimedia/manufacturer-and-product-identifiers">Manufacturer and Product Identifiers</a>.

@@ -57,7 +57,7 @@ class NMHDDISPINFOA extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPTSTR</a></b>
      * 
      * A pointer to a null-terminated string containing the text that will be displayed for the header item.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     pszText {
         get => NumGet(this, 32, "ptr")

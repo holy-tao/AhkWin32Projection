@@ -9,10 +9,10 @@ class WHEA_ERROR_SOURCE_CONFIGURATION_DD extends Win32Struct
 {
     static sizeof => 24
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<WHEA_ERROR_SOURCE_INITIALIZE_DEVICE_DRIVER>}
      */
     Initialize {
         get => NumGet(this, 0, "ptr")
@@ -20,7 +20,7 @@ class WHEA_ERROR_SOURCE_CONFIGURATION_DD extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<WHEA_ERROR_SOURCE_UNINITIALIZE_DEVICE_DRIVER>}
      */
     Uninitialize {
         get => NumGet(this, 8, "ptr")
@@ -28,7 +28,7 @@ class WHEA_ERROR_SOURCE_CONFIGURATION_DD extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<WHEA_ERROR_SOURCE_CORRECT_DEVICE_DRIVER>}
      */
     Correct {
         get => NumGet(this, 16, "ptr")

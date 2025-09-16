@@ -42,7 +42,7 @@ class SWbemQueryQualifiedName extends Win32Struct
 
     /**
      * List of property names. For example, for the  "propName" property, <b>m_uNameListSize</b> is 1 (one) and <b>m_ppszNameList</b> is "propName".
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     m_ppszNameList {
         get => NumGet(this, 16, "ptr")

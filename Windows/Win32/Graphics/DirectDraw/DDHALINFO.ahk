@@ -77,7 +77,7 @@ class DDHALINFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPDDHAL_GETDRIVERINFO>}
      */
     GetDriverInfo {
         get => NumGet(this, 440, "ptr")

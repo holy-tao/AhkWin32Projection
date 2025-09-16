@@ -28,7 +28,7 @@ class SE_SECURITY_DESCRIPTOR extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSECURITY_DESCRIPTOR>}
      */
     SecurityDescriptor {
         get => NumGet(this, 8, "ptr")

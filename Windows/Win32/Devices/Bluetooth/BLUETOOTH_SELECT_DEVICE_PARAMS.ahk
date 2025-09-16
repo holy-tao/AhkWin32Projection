@@ -47,7 +47,7 @@ class BLUETOOTH_SELECT_DEVICE_PARAMS extends Win32Struct
 
     /**
      * Sets the information text when not <b>NULL</b>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pszInfo {
         get => NumGet(this, 16, "ptr")
@@ -56,7 +56,7 @@ class BLUETOOTH_SELECT_DEVICE_PARAMS extends Win32Struct
 
     /**
      * Handle to the parent window. Set to <b>NULL</b> for no parent.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HWND>}
      */
     hwndParent {
         get => NumGet(this, 24, "ptr")
@@ -119,7 +119,7 @@ class BLUETOOTH_SELECT_DEVICE_PARAMS extends Win32Struct
 
     /**
      * A pointer to a callback function that is called for each device. If the callback function returns <b>TRUE</b>, the item is added. If the callback function returns <b>FALSE</b>, the item is not shown. Set <b>pfnDeviceCallback</b> to null for no callback. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/bluetoothapis/nc-bluetoothapis-pfn_device_callback">PFN_DEVICE_CALLBACK</a>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_DEVICE_CALLBACK>}
      */
     pfnDeviceCallback {
         get => NumGet(this, 56, "ptr")

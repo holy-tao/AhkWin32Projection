@@ -36,7 +36,7 @@ class DDHAL_DESTROYSURFACEDATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPDDHALSURFCB_DESTROYSURFACE>}
      */
     DestroySurface {
         get => NumGet(this, 24, "ptr")

@@ -41,7 +41,7 @@ class MONCBSTRUCT extends Win32Struct
      * Type: <b>HANDLE</b>
      * 
      * A handle to the task (application instance) containing the DDE callback function that received the transaction.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HANDLE>}
      */
     hTask {
         get => NumGet(this, 8, "ptr")
@@ -85,7 +85,7 @@ class MONCBSTRUCT extends Win32Struct
      * Type: <b>HCONV</b>
      * 
      * A handle to the conversation in which the transaction took place.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HCONV>}
      */
     hConv {
         get => NumGet(this, 32, "ptr")
@@ -96,7 +96,7 @@ class MONCBSTRUCT extends Win32Struct
      * Type: <b>HSZ</b>
      * 
      * A handle to a string.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HSZ>}
      */
     hsz1 {
         get => NumGet(this, 40, "ptr")
@@ -107,7 +107,7 @@ class MONCBSTRUCT extends Win32Struct
      * Type: <b>HSZ</b>
      * 
      * A handle to a string.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HSZ>}
      */
     hsz2 {
         get => NumGet(this, 48, "ptr")
@@ -118,7 +118,7 @@ class MONCBSTRUCT extends Win32Struct
      * Type: <b>HDDEDATA</b>
      * 
      * A handle to the data exchanged (if any) during the transaction.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HDDEDATA>}
      */
     hData {
         get => NumGet(this, 56, "ptr")

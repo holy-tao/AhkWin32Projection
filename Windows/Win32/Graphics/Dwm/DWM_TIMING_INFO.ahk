@@ -12,9 +12,9 @@
  */
 class DWM_TIMING_INFO extends Win32Struct
 {
-    static sizeof => 292
+    static sizeof => 320
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * The size of this <b>DWM_TIMING_INFO</b> structure.
@@ -32,7 +32,7 @@ class DWM_TIMING_INFO extends Win32Struct
     rateRefresh{
         get {
             if(!this.HasProp("__rateRefresh"))
-                this.__rateRefresh := UNSIGNED_RATIO(this.ptr + 4)
+                this.__rateRefresh := UNSIGNED_RATIO(this.ptr + 8)
             return this.__rateRefresh
         }
     }
@@ -42,8 +42,8 @@ class DWM_TIMING_INFO extends Win32Struct
      * @type {Integer}
      */
     qpcRefreshPeriod {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
+        get => NumGet(this, 16, "uint")
+        set => NumPut("uint", value, this, 16)
     }
 
     /**
@@ -53,7 +53,7 @@ class DWM_TIMING_INFO extends Win32Struct
     rateCompose{
         get {
             if(!this.HasProp("__rateCompose"))
-                this.__rateCompose := UNSIGNED_RATIO(this.ptr + 20)
+                this.__rateCompose := UNSIGNED_RATIO(this.ptr + 24)
             return this.__rateCompose
         }
     }
@@ -63,8 +63,8 @@ class DWM_TIMING_INFO extends Win32Struct
      * @type {Integer}
      */
     qpcVBlank {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
+        get => NumGet(this, 32, "uint")
+        set => NumPut("uint", value, this, 32)
     }
 
     /**
@@ -72,8 +72,8 @@ class DWM_TIMING_INFO extends Win32Struct
      * @type {Integer}
      */
     cRefresh {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
+        get => NumGet(this, 40, "uint")
+        set => NumPut("uint", value, this, 40)
     }
 
     /**
@@ -81,8 +81,8 @@ class DWM_TIMING_INFO extends Win32Struct
      * @type {Integer}
      */
     cDXRefresh {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
+        get => NumGet(this, 48, "uint")
+        set => NumPut("uint", value, this, 48)
     }
 
     /**
@@ -90,8 +90,8 @@ class DWM_TIMING_INFO extends Win32Struct
      * @type {Integer}
      */
     qpcCompose {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
+        get => NumGet(this, 56, "uint")
+        set => NumPut("uint", value, this, 56)
     }
 
     /**
@@ -99,8 +99,8 @@ class DWM_TIMING_INFO extends Win32Struct
      * @type {Integer}
      */
     cFrame {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
+        get => NumGet(this, 64, "uint")
+        set => NumPut("uint", value, this, 64)
     }
 
     /**
@@ -108,8 +108,8 @@ class DWM_TIMING_INFO extends Win32Struct
      * @type {Integer}
      */
     cDXPresent {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
+        get => NumGet(this, 72, "uint")
+        set => NumPut("uint", value, this, 72)
     }
 
     /**
@@ -117,8 +117,8 @@ class DWM_TIMING_INFO extends Win32Struct
      * @type {Integer}
      */
     cRefreshFrame {
-        get => NumGet(this, 68, "uint")
-        set => NumPut("uint", value, this, 68)
+        get => NumGet(this, 80, "uint")
+        set => NumPut("uint", value, this, 80)
     }
 
     /**
@@ -126,8 +126,8 @@ class DWM_TIMING_INFO extends Win32Struct
      * @type {Integer}
      */
     cFrameSubmitted {
-        get => NumGet(this, 76, "uint")
-        set => NumPut("uint", value, this, 76)
+        get => NumGet(this, 88, "uint")
+        set => NumPut("uint", value, this, 88)
     }
 
     /**
@@ -135,8 +135,8 @@ class DWM_TIMING_INFO extends Win32Struct
      * @type {Integer}
      */
     cDXPresentSubmitted {
-        get => NumGet(this, 84, "uint")
-        set => NumPut("uint", value, this, 84)
+        get => NumGet(this, 96, "uint")
+        set => NumPut("uint", value, this, 96)
     }
 
     /**
@@ -144,8 +144,8 @@ class DWM_TIMING_INFO extends Win32Struct
      * @type {Integer}
      */
     cFrameConfirmed {
-        get => NumGet(this, 88, "uint")
-        set => NumPut("uint", value, this, 88)
+        get => NumGet(this, 104, "uint")
+        set => NumPut("uint", value, this, 104)
     }
 
     /**
@@ -153,8 +153,8 @@ class DWM_TIMING_INFO extends Win32Struct
      * @type {Integer}
      */
     cDXPresentConfirmed {
-        get => NumGet(this, 96, "uint")
-        set => NumPut("uint", value, this, 96)
+        get => NumGet(this, 112, "uint")
+        set => NumPut("uint", value, this, 112)
     }
 
     /**
@@ -162,8 +162,8 @@ class DWM_TIMING_INFO extends Win32Struct
      * @type {Integer}
      */
     cRefreshConfirmed {
-        get => NumGet(this, 100, "uint")
-        set => NumPut("uint", value, this, 100)
+        get => NumGet(this, 120, "uint")
+        set => NumPut("uint", value, this, 120)
     }
 
     /**
@@ -171,8 +171,8 @@ class DWM_TIMING_INFO extends Win32Struct
      * @type {Integer}
      */
     cDXRefreshConfirmed {
-        get => NumGet(this, 108, "uint")
-        set => NumPut("uint", value, this, 108)
+        get => NumGet(this, 128, "uint")
+        set => NumPut("uint", value, this, 128)
     }
 
     /**
@@ -180,8 +180,8 @@ class DWM_TIMING_INFO extends Win32Struct
      * @type {Integer}
      */
     cFramesLate {
-        get => NumGet(this, 112, "uint")
-        set => NumPut("uint", value, this, 112)
+        get => NumGet(this, 136, "uint")
+        set => NumPut("uint", value, this, 136)
     }
 
     /**
@@ -189,8 +189,8 @@ class DWM_TIMING_INFO extends Win32Struct
      * @type {Integer}
      */
     cFramesOutstanding {
-        get => NumGet(this, 120, "uint")
-        set => NumPut("uint", value, this, 120)
+        get => NumGet(this, 144, "uint")
+        set => NumPut("uint", value, this, 144)
     }
 
     /**
@@ -198,8 +198,8 @@ class DWM_TIMING_INFO extends Win32Struct
      * @type {Integer}
      */
     cFrameDisplayed {
-        get => NumGet(this, 124, "uint")
-        set => NumPut("uint", value, this, 124)
+        get => NumGet(this, 152, "uint")
+        set => NumPut("uint", value, this, 152)
     }
 
     /**
@@ -207,8 +207,8 @@ class DWM_TIMING_INFO extends Win32Struct
      * @type {Integer}
      */
     qpcFrameDisplayed {
-        get => NumGet(this, 132, "uint")
-        set => NumPut("uint", value, this, 132)
+        get => NumGet(this, 160, "uint")
+        set => NumPut("uint", value, this, 160)
     }
 
     /**
@@ -216,8 +216,8 @@ class DWM_TIMING_INFO extends Win32Struct
      * @type {Integer}
      */
     cRefreshFrameDisplayed {
-        get => NumGet(this, 140, "uint")
-        set => NumPut("uint", value, this, 140)
+        get => NumGet(this, 168, "uint")
+        set => NumPut("uint", value, this, 168)
     }
 
     /**
@@ -225,8 +225,8 @@ class DWM_TIMING_INFO extends Win32Struct
      * @type {Integer}
      */
     cFrameComplete {
-        get => NumGet(this, 148, "uint")
-        set => NumPut("uint", value, this, 148)
+        get => NumGet(this, 176, "uint")
+        set => NumPut("uint", value, this, 176)
     }
 
     /**
@@ -234,8 +234,8 @@ class DWM_TIMING_INFO extends Win32Struct
      * @type {Integer}
      */
     qpcFrameComplete {
-        get => NumGet(this, 156, "uint")
-        set => NumPut("uint", value, this, 156)
+        get => NumGet(this, 184, "uint")
+        set => NumPut("uint", value, this, 184)
     }
 
     /**
@@ -243,8 +243,8 @@ class DWM_TIMING_INFO extends Win32Struct
      * @type {Integer}
      */
     cFramePending {
-        get => NumGet(this, 164, "uint")
-        set => NumPut("uint", value, this, 164)
+        get => NumGet(this, 192, "uint")
+        set => NumPut("uint", value, this, 192)
     }
 
     /**
@@ -252,8 +252,8 @@ class DWM_TIMING_INFO extends Win32Struct
      * @type {Integer}
      */
     qpcFramePending {
-        get => NumGet(this, 172, "uint")
-        set => NumPut("uint", value, this, 172)
+        get => NumGet(this, 200, "uint")
+        set => NumPut("uint", value, this, 200)
     }
 
     /**
@@ -261,8 +261,8 @@ class DWM_TIMING_INFO extends Win32Struct
      * @type {Integer}
      */
     cFramesDisplayed {
-        get => NumGet(this, 180, "uint")
-        set => NumPut("uint", value, this, 180)
+        get => NumGet(this, 208, "uint")
+        set => NumPut("uint", value, this, 208)
     }
 
     /**
@@ -270,8 +270,8 @@ class DWM_TIMING_INFO extends Win32Struct
      * @type {Integer}
      */
     cFramesComplete {
-        get => NumGet(this, 188, "uint")
-        set => NumPut("uint", value, this, 188)
+        get => NumGet(this, 216, "uint")
+        set => NumPut("uint", value, this, 216)
     }
 
     /**
@@ -279,8 +279,8 @@ class DWM_TIMING_INFO extends Win32Struct
      * @type {Integer}
      */
     cFramesPending {
-        get => NumGet(this, 196, "uint")
-        set => NumPut("uint", value, this, 196)
+        get => NumGet(this, 224, "uint")
+        set => NumPut("uint", value, this, 224)
     }
 
     /**
@@ -288,8 +288,8 @@ class DWM_TIMING_INFO extends Win32Struct
      * @type {Integer}
      */
     cFramesAvailable {
-        get => NumGet(this, 204, "uint")
-        set => NumPut("uint", value, this, 204)
+        get => NumGet(this, 232, "uint")
+        set => NumPut("uint", value, this, 232)
     }
 
     /**
@@ -297,8 +297,8 @@ class DWM_TIMING_INFO extends Win32Struct
      * @type {Integer}
      */
     cFramesDropped {
-        get => NumGet(this, 212, "uint")
-        set => NumPut("uint", value, this, 212)
+        get => NumGet(this, 240, "uint")
+        set => NumPut("uint", value, this, 240)
     }
 
     /**
@@ -306,8 +306,8 @@ class DWM_TIMING_INFO extends Win32Struct
      * @type {Integer}
      */
     cFramesMissed {
-        get => NumGet(this, 220, "uint")
-        set => NumPut("uint", value, this, 220)
+        get => NumGet(this, 248, "uint")
+        set => NumPut("uint", value, this, 248)
     }
 
     /**
@@ -315,8 +315,8 @@ class DWM_TIMING_INFO extends Win32Struct
      * @type {Integer}
      */
     cRefreshNextDisplayed {
-        get => NumGet(this, 228, "uint")
-        set => NumPut("uint", value, this, 228)
+        get => NumGet(this, 256, "uint")
+        set => NumPut("uint", value, this, 256)
     }
 
     /**
@@ -324,8 +324,8 @@ class DWM_TIMING_INFO extends Win32Struct
      * @type {Integer}
      */
     cRefreshNextPresented {
-        get => NumGet(this, 236, "uint")
-        set => NumPut("uint", value, this, 236)
+        get => NumGet(this, 264, "uint")
+        set => NumPut("uint", value, this, 264)
     }
 
     /**
@@ -333,8 +333,8 @@ class DWM_TIMING_INFO extends Win32Struct
      * @type {Integer}
      */
     cRefreshesDisplayed {
-        get => NumGet(this, 244, "uint")
-        set => NumPut("uint", value, this, 244)
+        get => NumGet(this, 272, "uint")
+        set => NumPut("uint", value, this, 272)
     }
 
     /**
@@ -342,8 +342,8 @@ class DWM_TIMING_INFO extends Win32Struct
      * @type {Integer}
      */
     cRefreshesPresented {
-        get => NumGet(this, 252, "uint")
-        set => NumPut("uint", value, this, 252)
+        get => NumGet(this, 280, "uint")
+        set => NumPut("uint", value, this, 280)
     }
 
     /**
@@ -351,8 +351,8 @@ class DWM_TIMING_INFO extends Win32Struct
      * @type {Integer}
      */
     cRefreshStarted {
-        get => NumGet(this, 260, "uint")
-        set => NumPut("uint", value, this, 260)
+        get => NumGet(this, 288, "uint")
+        set => NumPut("uint", value, this, 288)
     }
 
     /**
@@ -360,8 +360,8 @@ class DWM_TIMING_INFO extends Win32Struct
      * @type {Integer}
      */
     cPixelsReceived {
-        get => NumGet(this, 268, "uint")
-        set => NumPut("uint", value, this, 268)
+        get => NumGet(this, 296, "uint")
+        set => NumPut("uint", value, this, 296)
     }
 
     /**
@@ -369,8 +369,8 @@ class DWM_TIMING_INFO extends Win32Struct
      * @type {Integer}
      */
     cPixelsDrawn {
-        get => NumGet(this, 276, "uint")
-        set => NumPut("uint", value, this, 276)
+        get => NumGet(this, 304, "uint")
+        set => NumPut("uint", value, this, 304)
     }
 
     /**
@@ -378,8 +378,8 @@ class DWM_TIMING_INFO extends Win32Struct
      * @type {Integer}
      */
     cBuffersEmpty {
-        get => NumGet(this, 284, "uint")
-        set => NumPut("uint", value, this, 284)
+        get => NumGet(this, 312, "uint")
+        set => NumPut("uint", value, this, 312)
     }
 
     /**
@@ -388,6 +388,6 @@ class DWM_TIMING_INFO extends Win32Struct
      */
     __New(ptr := 0){
         super.__New(ptr)
-        this.cbSize := 292
+        this.cbSize := 320
     }
 }

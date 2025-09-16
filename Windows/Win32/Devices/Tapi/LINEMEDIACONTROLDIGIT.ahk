@@ -17,7 +17,7 @@ class LINEMEDIACONTROLDIGIT extends Win32Struct
 {
     static sizeof => 12
 
-    static packingSize => 1
+    static packingSize => 4
 
     /**
      * Low-order byte is the digit in whose detection is to trigger a media action. Valid digits depend on the media type.

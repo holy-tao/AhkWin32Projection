@@ -16,7 +16,7 @@ class PRINTER_ENUM_VALUESW extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that specifies the name of the retrieved value.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pValueName {
         get => NumGet(this, 0, "ptr")

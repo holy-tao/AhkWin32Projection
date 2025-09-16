@@ -11,9 +11,9 @@
  */
 class NT_CONSOLE_PROPS extends Win32Struct
 {
-    static sizeof => 204
+    static sizeof => 208
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/win32/api/shlobj_core/ns-shlobj_core-datablock_header">DATABLOCK_HEADER</a></b>

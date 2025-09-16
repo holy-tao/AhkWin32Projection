@@ -31,7 +31,7 @@ class FILE_RENAME_INFO extends Win32Struct
 
     /**
      * This field should be set to NULL.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HANDLE>}
      */
     RootDirectory {
         get => NumGet(this, 8, "ptr")

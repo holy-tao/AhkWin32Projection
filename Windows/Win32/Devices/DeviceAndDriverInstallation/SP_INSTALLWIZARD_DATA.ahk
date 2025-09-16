@@ -8,9 +8,9 @@
  */
 class SP_INSTALLWIZARD_DATA extends Win32Struct
 {
-    static sizeof => 200
+    static sizeof => 208
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * @type {SP_CLASSINSTALL_HEADER}
@@ -32,12 +32,12 @@ class SP_INSTALLWIZARD_DATA extends Win32Struct
     }
 
     /**
-     * @type {Array<Ptr>}
+     * @type {Array<HPROPSHEETPAGE>}
      */
     DynamicPages{
         get {
             if(!this.HasProp("__DynamicPagesProxyArray"))
-                this.__DynamicPagesProxyArray := Win32FixedArray(this.ptr + 12, 20, Primitive, "ptr")
+                this.__DynamicPagesProxyArray := Win32FixedArray(this.ptr + 16, 20, Primitive, "ptr")
             return this.__DynamicPagesProxyArray
         }
     }
@@ -46,14 +46,6 @@ class SP_INSTALLWIZARD_DATA extends Win32Struct
      * @type {Integer}
      */
     NumDynamicPages {
-        get => NumGet(this, 172, "uint")
-        set => NumPut("uint", value, this, 172)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    DynamicPageFlags {
         get => NumGet(this, 176, "uint")
         set => NumPut("uint", value, this, 176)
     }
@@ -61,24 +53,32 @@ class SP_INSTALLWIZARD_DATA extends Win32Struct
     /**
      * @type {Integer}
      */
-    PrivateFlags {
+    DynamicPageFlags {
         get => NumGet(this, 180, "uint")
         set => NumPut("uint", value, this, 180)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    PrivateFlags {
+        get => NumGet(this, 184, "uint")
+        set => NumPut("uint", value, this, 184)
     }
 
     /**
      * @type {Pointer}
      */
     PrivateData {
-        get => NumGet(this, 184, "ptr")
-        set => NumPut("ptr", value, this, 184)
+        get => NumGet(this, 192, "ptr")
+        set => NumPut("ptr", value, this, 192)
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HWND>}
      */
     hwndWizardDlg {
-        get => NumGet(this, 192, "ptr")
-        set => NumPut("ptr", value, this, 192)
+        get => NumGet(this, 200, "ptr")
+        set => NumPut("ptr", value, this, 200)
     }
 }

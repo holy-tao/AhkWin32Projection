@@ -7,9 +7,9 @@
  */
 class CONTENT_MISSING_EVENT_DATA extends Win32Struct
 {
-    static sizeof => 24
+    static sizeof => 32
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * @type {Integer}
@@ -23,23 +23,23 @@ class CONTENT_MISSING_EVENT_DATA extends Win32Struct
      * @type {Pointer<Guid>}
      */
     ApplicationId {
-        get => NumGet(this, 4, "ptr")
-        set => NumPut("ptr", value, this, 4)
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * @type {Pointer<Guid>}
      */
     EndpointId {
-        get => NumGet(this, 12, "ptr")
-        set => NumPut("ptr", value, this, 12)
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * @type {Integer}
      */
     ContentId {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
     }
 }

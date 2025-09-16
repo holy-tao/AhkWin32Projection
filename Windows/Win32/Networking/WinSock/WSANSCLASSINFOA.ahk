@@ -26,7 +26,7 @@ class WSANSCLASSINFOA extends Win32Struct
 
     /**
      * String value associated with the parameter, such as SAPID, TCPPORT, and so forth.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     lpszName {
         get => NumGet(this, 0, "ptr")

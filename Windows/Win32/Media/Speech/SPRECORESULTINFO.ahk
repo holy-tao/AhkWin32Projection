@@ -60,7 +60,7 @@ class SPRECORESULTINFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<SPGRAMMARHANDLE>}
      */
     hGrammar {
         get => NumGet(this, 32, "ptr")

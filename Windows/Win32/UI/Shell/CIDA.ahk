@@ -18,7 +18,7 @@ class CIDA extends Win32Struct
 {
     static sizeof => 8
 
-    static packingSize => 1
+    static packingSize => 4
 
     /**
      * Type: <b>UINT</b>

@@ -12,7 +12,7 @@ class alljoyn_authlistener_callbacks extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<alljoyn_authlistener_requestcredentials_ptr>}
      */
     request_credentials {
         get => NumGet(this, 0, "ptr")
@@ -20,7 +20,7 @@ class alljoyn_authlistener_callbacks extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<alljoyn_authlistener_verifycredentials_ptr>}
      */
     verify_credentials {
         get => NumGet(this, 8, "ptr")
@@ -28,7 +28,7 @@ class alljoyn_authlistener_callbacks extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<alljoyn_authlistener_securityviolation_ptr>}
      */
     security_violation {
         get => NumGet(this, 16, "ptr")
@@ -36,7 +36,7 @@ class alljoyn_authlistener_callbacks extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<alljoyn_authlistener_authenticationcomplete_ptr>}
      */
     authentication_complete {
         get => NumGet(this, 24, "ptr")

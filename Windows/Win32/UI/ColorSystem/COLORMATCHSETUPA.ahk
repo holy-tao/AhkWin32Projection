@@ -65,7 +65,7 @@ class COLORMATCHSETUPA extends Win32Struct
 
     /**
      * The window handle to the owner of the dialog box, or **NULL** if the dialog box has no owner.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HWND>}
      */
     hwndOwner {
         get => NumGet(this, 16, "ptr")
@@ -74,7 +74,7 @@ class COLORMATCHSETUPA extends Win32Struct
 
     /**
      * Pointer to an application-specified string which describes the source profile of the item for which color management is to be performed. If this is **NULL**, the Image Source control displays the name of the Windows default color profile.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     pSourceName {
         get => NumGet(this, 24, "ptr")
@@ -83,7 +83,7 @@ class COLORMATCHSETUPA extends Win32Struct
 
     /**
      * Points to a string naming the monitor to be used for color management. If this is not the name of a valid monitor, the first enumerated monitor is used.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     pDisplayName {
         get => NumGet(this, 32, "ptr")
@@ -92,7 +92,7 @@ class COLORMATCHSETUPA extends Win32Struct
 
     /**
      * Points to a string naming the printer on which the image is to be rendered. If this is not a valid printer name, the default printer is used and named in the dialog.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     pPrinterName {
         get => NumGet(this, 40, "ptr")
@@ -139,7 +139,7 @@ class COLORMATCHSETUPA extends Win32Struct
 
     /**
      * Pointer to a buffer in which to place the name of the user-selected monitor profile. If the CMS\_SETMONITORPROFILE flag is used, this flag can also be used to select a profile other than the monitor default when the dialog is first displayed.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     pMonitorProfile {
         get => NumGet(this, 56, "ptr")
@@ -157,7 +157,7 @@ class COLORMATCHSETUPA extends Win32Struct
 
     /**
      * Points to a buffer in which to place the name of the user-selected printer profile. If the CMS\_SETPRINTERPROFILE flag is used, this flag can also be used to select a profile other than the printer default when the dialog is first displayed.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     pPrinterProfile {
         get => NumGet(this, 72, "ptr")
@@ -175,7 +175,7 @@ class COLORMATCHSETUPA extends Win32Struct
 
     /**
      * Points to a buffer in which to place the name of the user-selected target profile for proofing. If the CMS\_SETTARGETPROFILE flag is used, this flag can also be used to select a profile other than the printer default when the dialog is first displayed.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     pTargetProfile {
         get => NumGet(this, 88, "ptr")
@@ -195,7 +195,7 @@ class COLORMATCHSETUPA extends Win32Struct
      * If the CMS\_USEHOOK flag is set, this member is the address of a dialog procedure (see [DialogProc](https://msdn.microsoft.com/windows/desktop/37c1b0b2-cf81-45d9-9a4e-9e5f7fa58dfd) ) that can filter or handle messages for the dialog. The hook procedure receives no messages issued before WM\_INITDIALOG. It is called on the WM\_INITDIALOG message after the system-provided dialog procedure has processed the message. On all other messages, the hook procedure receives the message before the system-provided procedure. If the hook procedure returns **TRUE** to these messages, the system-provided procedure is not called.
      * 
      * The hook procedure may call the [EndDialog](https://msdn.microsoft.com/windows/desktop/925e8aa8-9d8d-4bec-a19e-ba24e78b2d10) function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<DLGPROC>}
      */
     lpfnHook {
         get => NumGet(this, 104, "ptr")
@@ -213,7 +213,7 @@ class COLORMATCHSETUPA extends Win32Struct
 
     /**
      * Contains a pointer to a callback function that is invoked when the **Apply** button of the Color Management dialog box is selected. If no callback function is provided, this member should be set to **NULL**. See [**PCMSCALLBACKW**](/windows/win32/api/icm/nc-icm-pcmscallbackw).
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PCMSCALLBACKA>}
      */
     lpfnApplyCallback {
         get => NumGet(this, 120, "ptr")

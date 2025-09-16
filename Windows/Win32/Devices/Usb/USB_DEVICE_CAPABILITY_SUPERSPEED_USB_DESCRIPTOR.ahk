@@ -9,7 +9,7 @@ class USB_DEVICE_CAPABILITY_SUPERSPEED_USB_DESCRIPTOR extends Win32Struct
 {
     static sizeof => 10
 
-    static packingSize => 1
+    static packingSize => 2
 
     /**
      * @type {Integer}

@@ -88,7 +88,7 @@ class WEBAUTHN_AUTHENTICATOR_GET_ASSERTION_OPTIONS extends Win32Struct
 
     /**
      * _Optional_ identifier for the U2F AppId. Converted to UTF8 before being hashed. Not lower-cased.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pwszU2fAppId {
         get => NumGet(this, 56, "ptr")

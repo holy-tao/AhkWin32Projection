@@ -42,7 +42,7 @@ class DHCP_CLIENT_INFO_EX extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     ClientName {
         get => NumGet(this, 24, "ptr")
@@ -50,7 +50,7 @@ class DHCP_CLIENT_INFO_EX extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     ClientComment {
         get => NumGet(this, 32, "ptr")
@@ -131,7 +131,7 @@ class DHCP_CLIENT_INFO_EX extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     PolicyName {
         get => NumGet(this, 96, "ptr")

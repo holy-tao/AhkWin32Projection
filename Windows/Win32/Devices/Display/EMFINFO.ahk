@@ -20,7 +20,7 @@ class EMFINFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HDC>}
      */
     hdc {
         get => NumGet(this, 8, "ptr")

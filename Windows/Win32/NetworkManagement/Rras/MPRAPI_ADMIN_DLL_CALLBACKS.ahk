@@ -66,7 +66,7 @@ class MPRAPI_ADMIN_DLL_CALLBACKS extends Win32Struct
      * typedef DWORD (APIENTRY * PMPRADMINGETIPADDRESSFORUSER)(WCHAR *, WCHAR *, DWORD *, BOOL *);
      * 
      * ```
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PMPRADMINGETIPADDRESSFORUSER>}
      */
     lpfnMprAdminGetIpAddressForUser {
         get => NumGet(this, 8, "ptr")
@@ -81,7 +81,7 @@ class MPRAPI_ADMIN_DLL_CALLBACKS extends Win32Struct
      * typedef VOID  (APIENTRY * PMPRADMINRELEASEIPADRESS)(WCHAR *, WCHAR *, DWORD *);
      * 
      * ```
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PMPRADMINRELEASEIPADRESS>}
      */
     lpfnMprAdminReleaseIpAddress {
         get => NumGet(this, 16, "ptr")
@@ -96,7 +96,7 @@ class MPRAPI_ADMIN_DLL_CALLBACKS extends Win32Struct
      * typedef DWORD (APIENTRY * PMPRADMINGETIPV6ADDRESSFORUSER)(WCHAR *, WCHAR *, IN6_ADDR *, BOOL *);
      * 
      * ```
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PMPRADMINGETIPV6ADDRESSFORUSER>}
      */
     lpfnMprAdminGetIpv6AddressForUser {
         get => NumGet(this, 24, "ptr")
@@ -111,7 +111,7 @@ class MPRAPI_ADMIN_DLL_CALLBACKS extends Win32Struct
      * typedef VOID  (APIENTRY * PMPRADMINRELEASEIPV6ADDRESSFORUSER)(WCHAR *, WCHAR *, IN6_ADDR *);
      * 
      * ```
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PMPRADMINRELEASEIPV6ADDRESSFORUSER>}
      */
     lpfnMprAdminReleaseIpV6AddressForUser {
         get => NumGet(this, 32, "ptr")
@@ -126,7 +126,7 @@ class MPRAPI_ADMIN_DLL_CALLBACKS extends Win32Struct
      * typedef BOOL  (APIENTRY * PMPRADMINACCEPTNEWLINK)(RAS_PORT_0 *, RAS_PORT_1 *);
      * 
      * ```
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PMPRADMINACCEPTNEWLINK>}
      */
     lpfnRasAdminAcceptNewLink {
         get => NumGet(this, 40, "ptr")
@@ -141,7 +141,7 @@ class MPRAPI_ADMIN_DLL_CALLBACKS extends Win32Struct
      * typedef VOID  (APIENTRY * PMPRADMINLINKHANGUPNOTIFICATION)(RAS_PORT_0 *, RAS_PORT_1 *);
      * 
      * ```
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PMPRADMINLINKHANGUPNOTIFICATION>}
      */
     lpfnRasAdminLinkHangupNotification {
         get => NumGet(this, 48, "ptr")
@@ -156,7 +156,7 @@ class MPRAPI_ADMIN_DLL_CALLBACKS extends Win32Struct
      * typedef DWORD (APIENTRY * PMPRADMINTERMINATEDLL)();
      * 
      * ```
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PMPRADMINTERMINATEDLL>}
      */
     lpfnRasAdminTerminateDll {
         get => NumGet(this, 56, "ptr")
@@ -171,7 +171,7 @@ class MPRAPI_ADMIN_DLL_CALLBACKS extends Win32Struct
      * typedef BOOL  (APIENTRY * PMPRADMINACCEPTNEWCONNECTIONEX)(RAS_CONNECTION_EX *);
      * 
      * ```
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PMPRADMINACCEPTNEWCONNECTIONEX>}
      */
     lpfnRasAdminAcceptNewConnectionEx {
         get => NumGet(this, 64, "ptr")
@@ -180,7 +180,7 @@ class MPRAPI_ADMIN_DLL_CALLBACKS extends Win32Struct
 
     /**
      * 
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PMPRADMINACCEPTTUNNELENDPOINTCHANGEEX>}
      */
     lpfnRasAdminAcceptEndpointChangeEx {
         get => NumGet(this, 72, "ptr")
@@ -195,7 +195,7 @@ class MPRAPI_ADMIN_DLL_CALLBACKS extends Win32Struct
      * typedef BOOL  (APIENTRY * PMPRADMINACCEPTREAUTHENTICATIONEX)(RAS_CONNECTION_EX *);
      * 
      * ```
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PMPRADMINACCEPTREAUTHENTICATIONEX>}
      */
     lpfnRasAdminAcceptReauthenticationEx {
         get => NumGet(this, 80, "ptr")
@@ -210,7 +210,7 @@ class MPRAPI_ADMIN_DLL_CALLBACKS extends Win32Struct
      * typedef VOID  (APIENTRY * PMPRADMINCONNECTIONHANGUPNOTIFICATIONEX)(RAS_CONNECTION_EX *);
      * 
      * ```
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PMPRADMINCONNECTIONHANGUPNOTIFICATIONEX>}
      */
     lpfnRasAdminConnectionHangupNotificationEx {
         get => NumGet(this, 88, "ptr")
@@ -219,7 +219,7 @@ class MPRAPI_ADMIN_DLL_CALLBACKS extends Win32Struct
 
     /**
      * 
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PMPRADMINRASVALIDATEPREAUTHENTICATEDCONNECTIONEX>}
      */
     lpfnRASValidatePreAuthenticatedConnectionEx {
         get => NumGet(this, 96, "ptr")

@@ -12,9 +12,9 @@
  */
 class DL_TEREDO_ADDRESS extends Win32Struct
 {
-    static sizeof => 14
+    static sizeof => 16
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * @type {Array<Byte>}
@@ -33,7 +33,7 @@ class DL_TEREDO_ADDRESS extends Win32Struct
     Eui64{
         get {
             if(!this.HasProp("__Eui64"))
-                this.__Eui64 := DL_EUI64(this.ptr + 6)
+                this.__Eui64 := DL_EUI64(this.ptr + 8)
             return this.__Eui64
         }
     }
@@ -42,16 +42,16 @@ class DL_TEREDO_ADDRESS extends Win32Struct
      * @type {Integer}
      */
     Flags {
-        get => NumGet(this, 6, "ushort")
-        set => NumPut("ushort", value, this, 6)
+        get => NumGet(this, 8, "ushort")
+        set => NumPut("ushort", value, this, 8)
     }
 
     /**
      * @type {Integer}
      */
     MappedPort {
-        get => NumGet(this, 8, "ushort")
-        set => NumPut("ushort", value, this, 8)
+        get => NumGet(this, 10, "ushort")
+        set => NumPut("ushort", value, this, 10)
     }
 
     /**
@@ -60,7 +60,7 @@ class DL_TEREDO_ADDRESS extends Win32Struct
     MappedAddress{
         get {
             if(!this.HasProp("__MappedAddress"))
-                this.__MappedAddress := IN_ADDR(this.ptr + 10)
+                this.__MappedAddress := IN_ADDR(this.ptr + 12)
             return this.__MappedAddress
         }
     }

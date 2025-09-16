@@ -13,9 +13,9 @@
  */
 class SP_FILE_COPY_PARAMS_A extends Win32Struct
 {
-    static sizeof => 88
+    static sizeof => 96
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * Size of the structure, in bytes. Set to the value: <c>sizeof(SP_FILE_COPY_PARAMS)</c>.
@@ -32,71 +32,71 @@ class SP_FILE_COPY_PARAMS_A extends Win32Struct
      * @type {Pointer<Void>}
      */
     QueueHandle {
-        get => NumGet(this, 4, "ptr")
-        set => NumPut("ptr", value, this, 4)
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * Optional pointer to the root of the source for this copy, such as A:\.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     SourceRootPath {
-        get => NumGet(this, 12, "ptr")
-        set => NumPut("ptr", value, this, 12)
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * Optional pointer to the path relative to <b>SourceRootPath</b> where the file can be found.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     SourcePath {
-        get => NumGet(this, 20, "ptr")
-        set => NumPut("ptr", value, this, 20)
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
      * File name part of the file to be copied.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     SourceFilename {
-        get => NumGet(this, 28, "ptr")
-        set => NumPut("ptr", value, this, 28)
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
      * Optional pointer to a description of the source media to be used during disk prompts.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     SourceDescription {
-        get => NumGet(this, 36, "ptr")
-        set => NumPut("ptr", value, this, 36)
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
      * Optional pointer to a tag file whose presence at <b>SourceRootPath</b> indicates the presence of the source media. If not specified, the file itself will be used as the tag file if required.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     SourceTagfile {
-        get => NumGet(this, 44, "ptr")
-        set => NumPut("ptr", value, this, 44)
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**
      * Directory where the file is to be copied.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     TargetDirectory {
-        get => NumGet(this, 52, "ptr")
-        set => NumPut("ptr", value, this, 52)
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 
     /**
      * Optional pointer to the name of the target file. If not specified, the target file will have the same name as the source file.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     TargetFilename {
-        get => NumGet(this, 60, "ptr")
-        set => NumPut("ptr", value, this, 60)
+        get => NumGet(this, 64, "ptr")
+        set => NumPut("ptr", value, this, 64)
     }
 
     /**
@@ -104,8 +104,8 @@ class SP_FILE_COPY_PARAMS_A extends Win32Struct
      * @type {Integer}
      */
     CopyStyle {
-        get => NumGet(this, 68, "uint")
-        set => NumPut("uint", value, this, 68)
+        get => NumGet(this, 72, "uint")
+        set => NumPut("uint", value, this, 72)
     }
 
     /**
@@ -113,17 +113,17 @@ class SP_FILE_COPY_PARAMS_A extends Win32Struct
      * @type {Pointer<Void>}
      */
     LayoutInf {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
+        get => NumGet(this, 80, "ptr")
+        set => NumPut("ptr", value, this, 80)
     }
 
     /**
      * An optional Security Descriptor String specifying the ACL to apply to the file.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     SecurityDescriptor {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
+        get => NumGet(this, 88, "ptr")
+        set => NumPut("ptr", value, this, 88)
     }
 
     /**
@@ -132,6 +132,6 @@ class SP_FILE_COPY_PARAMS_A extends Win32Struct
      */
     __New(ptr := 0){
         super.__New(ptr)
-        this.cbSize := 88
+        this.cbSize := 96
     }
 }

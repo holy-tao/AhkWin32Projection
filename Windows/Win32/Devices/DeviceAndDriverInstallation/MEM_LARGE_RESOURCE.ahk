@@ -11,7 +11,7 @@ class MEM_LARGE_RESOURCE extends Win32Struct
 {
     static sizeof => 40
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * @type {MEM_LARGE_DES}

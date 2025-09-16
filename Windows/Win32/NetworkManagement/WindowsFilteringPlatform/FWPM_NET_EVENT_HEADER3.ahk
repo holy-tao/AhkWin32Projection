@@ -177,7 +177,7 @@ class FWPM_NET_EVENT_HEADER3 extends Win32Struct
 
     /**
      * The enterprise identifier for use with enterprise data protection (EDP).
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     enterpriseId {
         get => NumGet(this, 80, "ptr")

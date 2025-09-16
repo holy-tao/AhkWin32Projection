@@ -39,7 +39,7 @@ class SYNCMGRPROGRESSITEM extends Win32Struct
      * Type: <b>LPCWSTR</b>
      * 
      * Status text.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     lpcStatusText {
         get => NumGet(this, 8, "ptr")

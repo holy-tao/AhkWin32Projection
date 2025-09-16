@@ -24,7 +24,7 @@ class SHARDAPPIDINFOLINK extends Win32Struct
 {
     static sizeof => 16
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishelllinka">IShellLink</a>*</b>
@@ -41,7 +41,7 @@ class SHARDAPPIDINFOLINK extends Win32Struct
      * Type: <b>PCWSTR</b>
      * 
      * The application-defined AppUserModelID associated with the item.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pszAppID {
         get => NumGet(this, 8, "ptr")

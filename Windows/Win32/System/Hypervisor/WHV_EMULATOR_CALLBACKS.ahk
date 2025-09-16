@@ -28,7 +28,7 @@ class WHV_EMULATOR_CALLBACKS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<WHV_EMULATOR_IO_PORT_CALLBACK>}
      */
     WHvEmulatorIoPortCallback {
         get => NumGet(this, 8, "ptr")
@@ -36,7 +36,7 @@ class WHV_EMULATOR_CALLBACKS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<WHV_EMULATOR_MEMORY_CALLBACK>}
      */
     WHvEmulatorMemoryCallback {
         get => NumGet(this, 16, "ptr")
@@ -44,7 +44,7 @@ class WHV_EMULATOR_CALLBACKS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<WHV_EMULATOR_GET_VIRTUAL_PROCESSOR_REGISTERS_CALLBACK>}
      */
     WHvEmulatorGetVirtualProcessorRegisters {
         get => NumGet(this, 24, "ptr")
@@ -52,7 +52,7 @@ class WHV_EMULATOR_CALLBACKS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<WHV_EMULATOR_SET_VIRTUAL_PROCESSOR_REGISTERS_CALLBACK>}
      */
     WHvEmulatorSetVirtualProcessorRegisters {
         get => NumGet(this, 32, "ptr")
@@ -60,7 +60,7 @@ class WHV_EMULATOR_CALLBACKS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<WHV_EMULATOR_TRANSLATE_GVA_PAGE_CALLBACK>}
      */
     WHvEmulatorTranslateGvaPage {
         get => NumGet(this, 40, "ptr")

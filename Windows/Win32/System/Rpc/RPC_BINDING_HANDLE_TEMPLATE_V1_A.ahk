@@ -114,7 +114,7 @@ class RPC_BINDING_HANDLE_TEMPLATE_V1_A extends Win32Struct
 
     /**
      * 
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<_u1_e__Union>}
      */
     u1 {
         get => NumGet(this, 32, "ptr")

@@ -24,7 +24,7 @@ class NCRYPT_KEY_STORAGE_FUNCTION_TABLE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<NCryptOpenStorageProviderFn>}
      */
     OpenProvider {
         get => NumGet(this, 8, "ptr")
@@ -32,7 +32,7 @@ class NCRYPT_KEY_STORAGE_FUNCTION_TABLE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<NCryptOpenKeyFn>}
      */
     OpenKey {
         get => NumGet(this, 16, "ptr")
@@ -40,7 +40,7 @@ class NCRYPT_KEY_STORAGE_FUNCTION_TABLE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<NCryptCreatePersistedKeyFn>}
      */
     CreatePersistedKey {
         get => NumGet(this, 24, "ptr")
@@ -48,7 +48,7 @@ class NCRYPT_KEY_STORAGE_FUNCTION_TABLE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<NCryptGetProviderPropertyFn>}
      */
     GetProviderProperty {
         get => NumGet(this, 32, "ptr")
@@ -56,7 +56,7 @@ class NCRYPT_KEY_STORAGE_FUNCTION_TABLE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<NCryptGetKeyPropertyFn>}
      */
     GetKeyProperty {
         get => NumGet(this, 40, "ptr")
@@ -64,7 +64,7 @@ class NCRYPT_KEY_STORAGE_FUNCTION_TABLE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<NCryptSetProviderPropertyFn>}
      */
     SetProviderProperty {
         get => NumGet(this, 48, "ptr")
@@ -72,7 +72,7 @@ class NCRYPT_KEY_STORAGE_FUNCTION_TABLE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<NCryptSetKeyPropertyFn>}
      */
     SetKeyProperty {
         get => NumGet(this, 56, "ptr")
@@ -80,7 +80,7 @@ class NCRYPT_KEY_STORAGE_FUNCTION_TABLE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<NCryptFinalizeKeyFn>}
      */
     FinalizeKey {
         get => NumGet(this, 64, "ptr")
@@ -88,7 +88,7 @@ class NCRYPT_KEY_STORAGE_FUNCTION_TABLE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<NCryptDeleteKeyFn>}
      */
     DeleteKey {
         get => NumGet(this, 72, "ptr")
@@ -96,7 +96,7 @@ class NCRYPT_KEY_STORAGE_FUNCTION_TABLE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<NCryptFreeProviderFn>}
      */
     FreeProvider {
         get => NumGet(this, 80, "ptr")
@@ -104,7 +104,7 @@ class NCRYPT_KEY_STORAGE_FUNCTION_TABLE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<NCryptFreeKeyFn>}
      */
     FreeKey {
         get => NumGet(this, 88, "ptr")
@@ -112,7 +112,7 @@ class NCRYPT_KEY_STORAGE_FUNCTION_TABLE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<NCryptFreeBufferFn>}
      */
     FreeBuffer {
         get => NumGet(this, 96, "ptr")
@@ -120,7 +120,7 @@ class NCRYPT_KEY_STORAGE_FUNCTION_TABLE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<NCryptEncryptFn>}
      */
     Encrypt {
         get => NumGet(this, 104, "ptr")
@@ -128,7 +128,7 @@ class NCRYPT_KEY_STORAGE_FUNCTION_TABLE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<NCryptDecryptFn>}
      */
     Decrypt {
         get => NumGet(this, 112, "ptr")
@@ -136,7 +136,7 @@ class NCRYPT_KEY_STORAGE_FUNCTION_TABLE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<NCryptIsAlgSupportedFn>}
      */
     IsAlgSupported {
         get => NumGet(this, 120, "ptr")
@@ -144,7 +144,7 @@ class NCRYPT_KEY_STORAGE_FUNCTION_TABLE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<NCryptEnumAlgorithmsFn>}
      */
     EnumAlgorithms {
         get => NumGet(this, 128, "ptr")
@@ -152,7 +152,7 @@ class NCRYPT_KEY_STORAGE_FUNCTION_TABLE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<NCryptEnumKeysFn>}
      */
     EnumKeys {
         get => NumGet(this, 136, "ptr")
@@ -160,7 +160,7 @@ class NCRYPT_KEY_STORAGE_FUNCTION_TABLE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<NCryptImportKeyFn>}
      */
     ImportKey {
         get => NumGet(this, 144, "ptr")
@@ -168,7 +168,7 @@ class NCRYPT_KEY_STORAGE_FUNCTION_TABLE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<NCryptExportKeyFn>}
      */
     ExportKey {
         get => NumGet(this, 152, "ptr")
@@ -176,7 +176,7 @@ class NCRYPT_KEY_STORAGE_FUNCTION_TABLE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<NCryptSignHashFn>}
      */
     SignHash {
         get => NumGet(this, 160, "ptr")
@@ -184,7 +184,7 @@ class NCRYPT_KEY_STORAGE_FUNCTION_TABLE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<NCryptVerifySignatureFn>}
      */
     VerifySignature {
         get => NumGet(this, 168, "ptr")
@@ -192,7 +192,7 @@ class NCRYPT_KEY_STORAGE_FUNCTION_TABLE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<NCryptPromptUserFn>}
      */
     PromptUser {
         get => NumGet(this, 176, "ptr")
@@ -200,7 +200,7 @@ class NCRYPT_KEY_STORAGE_FUNCTION_TABLE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<NCryptNotifyChangeKeyFn>}
      */
     NotifyChangeKey {
         get => NumGet(this, 184, "ptr")
@@ -208,7 +208,7 @@ class NCRYPT_KEY_STORAGE_FUNCTION_TABLE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<NCryptSecretAgreementFn>}
      */
     SecretAgreement {
         get => NumGet(this, 192, "ptr")
@@ -216,7 +216,7 @@ class NCRYPT_KEY_STORAGE_FUNCTION_TABLE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<NCryptDeriveKeyFn>}
      */
     DeriveKey {
         get => NumGet(this, 200, "ptr")
@@ -224,7 +224,7 @@ class NCRYPT_KEY_STORAGE_FUNCTION_TABLE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<NCryptFreeSecretFn>}
      */
     FreeSecret {
         get => NumGet(this, 208, "ptr")
@@ -232,7 +232,7 @@ class NCRYPT_KEY_STORAGE_FUNCTION_TABLE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<NCryptKeyDerivationFn>}
      */
     KeyDerivation {
         get => NumGet(this, 216, "ptr")
@@ -240,7 +240,7 @@ class NCRYPT_KEY_STORAGE_FUNCTION_TABLE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<NCryptCreateClaimFn>}
      */
     CreateClaim {
         get => NumGet(this, 224, "ptr")
@@ -248,7 +248,7 @@ class NCRYPT_KEY_STORAGE_FUNCTION_TABLE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<NCryptVerifyClaimFn>}
      */
     VerifyClaim {
         get => NumGet(this, 232, "ptr")

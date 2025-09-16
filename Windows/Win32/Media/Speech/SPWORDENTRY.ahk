@@ -12,7 +12,7 @@ class SPWORDENTRY extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<SPWORDHANDLE>}
      */
     hWord {
         get => NumGet(this, 0, "ptr")
@@ -28,7 +28,7 @@ class SPWORDENTRY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pszDisplayText {
         get => NumGet(this, 16, "ptr")
@@ -36,7 +36,7 @@ class SPWORDENTRY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pszLexicalForm {
         get => NumGet(this, 24, "ptr")

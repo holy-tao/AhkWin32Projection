@@ -20,7 +20,7 @@ class CLUSAPI_REASON_HANDLER extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PCLUSAPI_PFN_REASON_HANDLER>}
      */
     pfnHandler {
         get => NumGet(this, 8, "ptr")

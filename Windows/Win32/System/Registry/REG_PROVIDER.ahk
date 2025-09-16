@@ -12,7 +12,7 @@ class REG_PROVIDER extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PQUERYHANDLER>}
      */
     pi_R0_1val {
         get => NumGet(this, 0, "ptr")
@@ -20,7 +20,7 @@ class REG_PROVIDER extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PQUERYHANDLER>}
      */
     pi_R0_allvals {
         get => NumGet(this, 8, "ptr")
@@ -28,7 +28,7 @@ class REG_PROVIDER extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PQUERYHANDLER>}
      */
     pi_R3_1val {
         get => NumGet(this, 16, "ptr")
@@ -36,7 +36,7 @@ class REG_PROVIDER extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PQUERYHANDLER>}
      */
     pi_R3_allvals {
         get => NumGet(this, 24, "ptr")

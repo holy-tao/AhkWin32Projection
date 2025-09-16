@@ -201,7 +201,7 @@ class RPC_CALL_ATTRIBUTES_V2_A extends Win32Struct
 
     /**
      * Handle that contains the process ID of the calling client. This field is only supported for the ncalrpc protocol sequence, and is populated only when <b>RPC_QUERY_CLIENT_PID</b> is specified in the <i>Flags</i> parameter.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HANDLE>}
      */
     ClientPID {
         get => NumGet(this, 64, "ptr")

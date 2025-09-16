@@ -12,7 +12,7 @@ class USB_IDLE_CALLBACK_INFO extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<USB_IDLE_CALLBACK>}
      */
     IdleCallback {
         get => NumGet(this, 0, "ptr")

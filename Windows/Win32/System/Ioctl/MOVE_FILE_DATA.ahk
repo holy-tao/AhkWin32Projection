@@ -40,7 +40,7 @@ class MOVE_FILE_DATA extends Win32Struct
      *        <b>FILE_WRITE_DATA</b>, <b>FILE_APPEND_DATA</b>, or 
      *        <b>FILE_EXECUTE</b> access right. For more information, see 
      *        <a href="https://docs.microsoft.com/windows/desktop/FileIO/file-security-and-access-rights">File Security and Access Rights</a>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HANDLE>}
      */
     FileHandle {
         get => NumGet(this, 0, "ptr")

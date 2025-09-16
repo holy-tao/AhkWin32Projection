@@ -28,7 +28,7 @@ class CRYPT_PASSWORD_CREDENTIALSA extends Win32Struct
 
     /**
      * A pointer to a null-terminated string that contains the user name credential for the remote session authentication.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     pszUsername {
         get => NumGet(this, 8, "ptr")
@@ -37,7 +37,7 @@ class CRYPT_PASSWORD_CREDENTIALSA extends Win32Struct
 
     /**
      * A pointer to a null-terminated string that contains the password credential for the remote session authentication.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     pszPassword {
         get => NumGet(this, 16, "ptr")

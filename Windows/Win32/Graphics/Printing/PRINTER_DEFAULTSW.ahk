@@ -16,7 +16,7 @@ class PRINTER_DEFAULTSW extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that specifies the default data type for a printer.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pDatatype {
         get => NumGet(this, 0, "ptr")

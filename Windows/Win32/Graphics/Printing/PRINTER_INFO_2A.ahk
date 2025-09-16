@@ -16,7 +16,7 @@ class PRINTER_INFO_2A extends Win32Struct
 
     /**
      * A pointer to a null-terminated string identifying the server that controls the printer. If this string is **NULL**, the printer is controlled locally.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     pServerName {
         get => NumGet(this, 0, "ptr")
@@ -25,7 +25,7 @@ class PRINTER_INFO_2A extends Win32Struct
 
     /**
      * A pointer to a null-terminated string that specifies the name of the printer.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     pPrinterName {
         get => NumGet(this, 8, "ptr")
@@ -34,7 +34,7 @@ class PRINTER_INFO_2A extends Win32Struct
 
     /**
      * A pointer to a null-terminated string that identifies the share point for the printer. (This string is used only if the PRINTER\_ATTRIBUTE\_SHARED constant was set for the **Attributes** member.)
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     pShareName {
         get => NumGet(this, 16, "ptr")
@@ -43,7 +43,7 @@ class PRINTER_INFO_2A extends Win32Struct
 
     /**
      * A pointer to a null-terminated string that identifies the port(s) used to transmit data to the printer. If a printer is connected to more than one port, the names of each port must be separated by commas (for example, "LPT1:,LPT2:,LPT3:").
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     pPortName {
         get => NumGet(this, 24, "ptr")
@@ -52,7 +52,7 @@ class PRINTER_INFO_2A extends Win32Struct
 
     /**
      * A pointer to a null-terminated string that specifies the name of the printer driver.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     pDriverName {
         get => NumGet(this, 32, "ptr")
@@ -61,7 +61,7 @@ class PRINTER_INFO_2A extends Win32Struct
 
     /**
      * A pointer to a null-terminated string that provides a brief description of the printer.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     pComment {
         get => NumGet(this, 40, "ptr")
@@ -70,7 +70,7 @@ class PRINTER_INFO_2A extends Win32Struct
 
     /**
      * A pointer to a null-terminated string that specifies the physical location of the printer (for example, "Bldg. 38, Room 1164").
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     pLocation {
         get => NumGet(this, 48, "ptr")
@@ -88,7 +88,7 @@ class PRINTER_INFO_2A extends Win32Struct
 
     /**
      * A pointer to a null-terminated string that specifies the name of the file used to create the separator page. This page is used to separate print jobs sent to the printer.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     pSepFile {
         get => NumGet(this, 64, "ptr")
@@ -97,7 +97,7 @@ class PRINTER_INFO_2A extends Win32Struct
 
     /**
      * A pointer to a null-terminated string that specifies the name of the print processor used by the printer. You can use the [**EnumPrintProcessors**](enumprintprocessors.md) function to obtain a list of print processors installed on a server.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     pPrintProcessor {
         get => NumGet(this, 72, "ptr")
@@ -106,7 +106,7 @@ class PRINTER_INFO_2A extends Win32Struct
 
     /**
      * A pointer to a null-terminated string that specifies the data type used to record the print job. You can use the [**EnumPrintProcessorDatatypes**](enumprintprocessordatatypes.md) function to obtain a list of data types supported by a specific print processor.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     pDatatype {
         get => NumGet(this, 80, "ptr")
@@ -115,7 +115,7 @@ class PRINTER_INFO_2A extends Win32Struct
 
     /**
      * A pointer to a null-terminated string that specifies the default print-processor parameters.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     pParameters {
         get => NumGet(this, 88, "ptr")
@@ -124,7 +124,7 @@ class PRINTER_INFO_2A extends Win32Struct
 
     /**
      * A pointer to a [**SECURITY\_DESCRIPTOR**](/windows/desktop/api/winnt/ns-winnt-security_descriptor) structure for the printer. This member may be **NULL**.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSECURITY_DESCRIPTOR>}
      */
     pSecurityDescriptor {
         get => NumGet(this, 96, "ptr")

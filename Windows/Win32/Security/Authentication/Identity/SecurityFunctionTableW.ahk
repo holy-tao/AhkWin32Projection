@@ -30,7 +30,7 @@ class SecurityFunctionTableW extends Win32Struct
 
     /**
      * 
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<ENUMERATE_SECURITY_PACKAGES_FN_W>}
      */
     EnumerateSecurityPackagesW {
         get => NumGet(this, 8, "ptr")
@@ -39,7 +39,7 @@ class SecurityFunctionTableW extends Win32Struct
 
     /**
      * 
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<QUERY_CREDENTIALS_ATTRIBUTES_FN_W>}
      */
     QueryCredentialsAttributesW {
         get => NumGet(this, 16, "ptr")
@@ -48,7 +48,7 @@ class SecurityFunctionTableW extends Win32Struct
 
     /**
      * 
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<ACQUIRE_CREDENTIALS_HANDLE_FN_W>}
      */
     AcquireCredentialsHandleW {
         get => NumGet(this, 24, "ptr")
@@ -57,7 +57,7 @@ class SecurityFunctionTableW extends Win32Struct
 
     /**
      * Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/sspi/nf-sspi-freecredentialshandle">FreeCredentialsHandle</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<FREE_CREDENTIALS_HANDLE_FN>}
      */
     FreeCredentialsHandle {
         get => NumGet(this, 32, "ptr")
@@ -75,7 +75,7 @@ class SecurityFunctionTableW extends Win32Struct
 
     /**
      * 
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<INITIALIZE_SECURITY_CONTEXT_FN_W>}
      */
     InitializeSecurityContextW {
         get => NumGet(this, 48, "ptr")
@@ -84,7 +84,7 @@ class SecurityFunctionTableW extends Win32Struct
 
     /**
      * Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/sspi/nf-sspi-acceptsecuritycontext">AcceptSecurityContext (General)</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<ACCEPT_SECURITY_CONTEXT_FN>}
      */
     AcceptSecurityContext {
         get => NumGet(this, 56, "ptr")
@@ -93,7 +93,7 @@ class SecurityFunctionTableW extends Win32Struct
 
     /**
      * Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/sspi/nf-sspi-completeauthtoken">CompleteAuthToken</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<COMPLETE_AUTH_TOKEN_FN>}
      */
     CompleteAuthToken {
         get => NumGet(this, 64, "ptr")
@@ -102,7 +102,7 @@ class SecurityFunctionTableW extends Win32Struct
 
     /**
      * Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/sspi/nf-sspi-deletesecuritycontext">DeleteSecurityContext</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<DELETE_SECURITY_CONTEXT_FN>}
      */
     DeleteSecurityContext {
         get => NumGet(this, 72, "ptr")
@@ -111,7 +111,7 @@ class SecurityFunctionTableW extends Win32Struct
 
     /**
      * Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/sspi/nf-sspi-applycontroltoken">ApplyControlToken</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<APPLY_CONTROL_TOKEN_FN>}
      */
     ApplyControlToken {
         get => NumGet(this, 80, "ptr")
@@ -120,7 +120,7 @@ class SecurityFunctionTableW extends Win32Struct
 
     /**
      * 
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<QUERY_CONTEXT_ATTRIBUTES_FN_W>}
      */
     QueryContextAttributesW {
         get => NumGet(this, 88, "ptr")
@@ -129,7 +129,7 @@ class SecurityFunctionTableW extends Win32Struct
 
     /**
      * Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/sspi/nf-sspi-impersonatesecuritycontext">ImpersonateSecurityContext</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<IMPERSONATE_SECURITY_CONTEXT_FN>}
      */
     ImpersonateSecurityContext {
         get => NumGet(this, 96, "ptr")
@@ -138,7 +138,7 @@ class SecurityFunctionTableW extends Win32Struct
 
     /**
      * Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/sspi/nf-sspi-revertsecuritycontext">RevertSecurityContext</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<REVERT_SECURITY_CONTEXT_FN>}
      */
     RevertSecurityContext {
         get => NumGet(this, 104, "ptr")
@@ -147,7 +147,7 @@ class SecurityFunctionTableW extends Win32Struct
 
     /**
      * Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/sspi/nf-sspi-makesignature">MakeSignature</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<MAKE_SIGNATURE_FN>}
      */
     MakeSignature {
         get => NumGet(this, 112, "ptr")
@@ -156,7 +156,7 @@ class SecurityFunctionTableW extends Win32Struct
 
     /**
      * Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/sspi/nf-sspi-verifysignature">VerifySignature</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<VERIFY_SIGNATURE_FN>}
      */
     VerifySignature {
         get => NumGet(this, 120, "ptr")
@@ -165,7 +165,7 @@ class SecurityFunctionTableW extends Win32Struct
 
     /**
      * Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/sspi/nf-sspi-freecontextbuffer">FreeContextBuffer</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<FREE_CONTEXT_BUFFER_FN>}
      */
     FreeContextBuffer {
         get => NumGet(this, 128, "ptr")
@@ -174,7 +174,7 @@ class SecurityFunctionTableW extends Win32Struct
 
     /**
      * 
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<QUERY_SECURITY_PACKAGE_INFO_FN_W>}
      */
     QuerySecurityPackageInfoW {
         get => NumGet(this, 136, "ptr")
@@ -201,7 +201,7 @@ class SecurityFunctionTableW extends Win32Struct
 
     /**
      * Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/sspi/nf-sspi-exportsecuritycontext">ExportSecurityContext</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<EXPORT_SECURITY_CONTEXT_FN>}
      */
     ExportSecurityContext {
         get => NumGet(this, 160, "ptr")
@@ -210,7 +210,7 @@ class SecurityFunctionTableW extends Win32Struct
 
     /**
      * 
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<IMPORT_SECURITY_CONTEXT_FN_W>}
      */
     ImportSecurityContextW {
         get => NumGet(this, 168, "ptr")
@@ -219,7 +219,7 @@ class SecurityFunctionTableW extends Win32Struct
 
     /**
      * 
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<ADD_CREDENTIALS_FN_W>}
      */
     AddCredentialsW {
         get => NumGet(this, 176, "ptr")
@@ -237,7 +237,7 @@ class SecurityFunctionTableW extends Win32Struct
 
     /**
      * Pointer to the  <a href="https://docs.microsoft.com/windows/desktop/api/sspi/nf-sspi-querysecuritycontexttoken">QuerySecurityContextToken</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<QUERY_SECURITY_CONTEXT_TOKEN_FN>}
      */
     QuerySecurityContextToken {
         get => NumGet(this, 192, "ptr")
@@ -246,7 +246,7 @@ class SecurityFunctionTableW extends Win32Struct
 
     /**
      * Pointer to the  <a href="https://docs.microsoft.com/windows/desktop/api/sspi/nf-sspi-encryptmessage">EncryptMessage (General)</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<ENCRYPT_MESSAGE_FN>}
      */
     EncryptMessage {
         get => NumGet(this, 200, "ptr")
@@ -255,7 +255,7 @@ class SecurityFunctionTableW extends Win32Struct
 
     /**
      * Pointer to the   <a href="https://docs.microsoft.com/windows/desktop/api/sspi/nf-sspi-decryptmessage">DecryptMessage (General)</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<DECRYPT_MESSAGE_FN>}
      */
     DecryptMessage {
         get => NumGet(this, 208, "ptr")
@@ -264,7 +264,7 @@ class SecurityFunctionTableW extends Win32Struct
 
     /**
      * 
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<SET_CONTEXT_ATTRIBUTES_FN_W>}
      */
     SetContextAttributesW {
         get => NumGet(this, 216, "ptr")
@@ -273,7 +273,7 @@ class SecurityFunctionTableW extends Win32Struct
 
     /**
      * 
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<SET_CREDENTIALS_ATTRIBUTES_FN_W>}
      */
     SetCredentialsAttributesW {
         get => NumGet(this, 224, "ptr")
@@ -282,7 +282,7 @@ class SecurityFunctionTableW extends Win32Struct
 
     /**
      * 
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<CHANGE_PASSWORD_FN_W>}
      */
     ChangeAccountPasswordW {
         get => NumGet(this, 232, "ptr")
@@ -291,7 +291,7 @@ class SecurityFunctionTableW extends Win32Struct
 
     /**
      * 
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<QUERY_CONTEXT_ATTRIBUTES_EX_FN_W>}
      */
     QueryContextAttributesExW {
         get => NumGet(this, 240, "ptr")
@@ -300,7 +300,7 @@ class SecurityFunctionTableW extends Win32Struct
 
     /**
      * 
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<QUERY_CREDENTIALS_ATTRIBUTES_EX_FN_W>}
      */
     QueryCredentialsAttributesExW {
         get => NumGet(this, 248, "ptr")

@@ -34,7 +34,7 @@ class PRJ_EXTENDED_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     Anonymous {
         get => NumGet(this, 8, "ptr")

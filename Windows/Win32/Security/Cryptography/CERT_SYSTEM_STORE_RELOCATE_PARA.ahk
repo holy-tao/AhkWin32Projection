@@ -17,7 +17,7 @@ class CERT_SYSTEM_STORE_RELOCATE_PARA extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HKEY>}
      */
     hKeyBase {
         get => NumGet(this, 0, "ptr")
@@ -41,7 +41,7 @@ class CERT_SYSTEM_STORE_RELOCATE_PARA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     pszSystemStore {
         get => NumGet(this, 8, "ptr")
@@ -49,7 +49,7 @@ class CERT_SYSTEM_STORE_RELOCATE_PARA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pwszSystemStore {
         get => NumGet(this, 8, "ptr")

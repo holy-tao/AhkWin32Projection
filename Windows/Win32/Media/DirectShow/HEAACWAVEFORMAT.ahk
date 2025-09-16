@@ -13,7 +13,7 @@
  */
 class HEAACWAVEFORMAT extends Win32Struct
 {
-    static sizeof => 32
+    static sizeof => 40
 
     static packingSize => 8
 
@@ -36,7 +36,7 @@ class HEAACWAVEFORMAT extends Win32Struct
     pbAudioSpecificConfig{
         get {
             if(!this.HasProp("__pbAudioSpecificConfigProxyArray"))
-                this.__pbAudioSpecificConfigProxyArray := Win32FixedArray(this.ptr + 30, 1, Primitive, "char")
+                this.__pbAudioSpecificConfigProxyArray := Win32FixedArray(this.ptr + 32, 1, Primitive, "char")
             return this.__pbAudioSpecificConfigProxyArray
         }
     }

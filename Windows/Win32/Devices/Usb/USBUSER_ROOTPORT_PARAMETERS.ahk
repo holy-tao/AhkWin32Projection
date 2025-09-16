@@ -9,9 +9,9 @@
  */
 class USBUSER_ROOTPORT_PARAMETERS extends Win32Struct
 {
-    static sizeof => 20
+    static sizeof => 24
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * @type {USBUSER_REQUEST_HEADER}

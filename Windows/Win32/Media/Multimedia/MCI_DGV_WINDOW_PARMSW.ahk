@@ -19,9 +19,9 @@
  */
 class MCI_DGV_WINDOW_PARMSW extends Win32Struct
 {
-    static sizeof => 28
+    static sizeof => 32
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * The low-order word specifies a window handle used for the MCI_NOTIFY flag.
@@ -34,7 +34,7 @@ class MCI_DGV_WINDOW_PARMSW extends Win32Struct
 
     /**
      * Handle to the display window. If this member is MCI_DGV_WINDOW_HWND, the system uses a default window.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HWND>}
      */
     hWnd {
         get => NumGet(this, 8, "ptr")
@@ -52,10 +52,10 @@ class MCI_DGV_WINDOW_PARMSW extends Win32Struct
 
     /**
      * Window caption.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     lpstrText {
-        get => NumGet(this, 20, "ptr")
-        set => NumPut("ptr", value, this, 20)
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 }

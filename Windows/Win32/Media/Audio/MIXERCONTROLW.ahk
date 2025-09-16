@@ -13,9 +13,9 @@
  */
 class MIXERCONTROLW extends Win32Struct
 {
-    static sizeof => 192
+    static sizeof => 200
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * Size, in bytes, of the <b>MIXERCONTROL</b> structure.
@@ -208,14 +208,6 @@ class MIXERCONTROLW extends Win32Struct
      * @type {Integer}
      */
     lMinimum {
-        get => NumGet(this, 180, "int")
-        set => NumPut("int", value, this, 180)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    lMaximum {
         get => NumGet(this, 184, "int")
         set => NumPut("int", value, this, 184)
     }
@@ -223,17 +215,25 @@ class MIXERCONTROLW extends Win32Struct
     /**
      * @type {Integer}
      */
+    lMaximum {
+        get => NumGet(this, 188, "int")
+        set => NumPut("int", value, this, 188)
+    }
+
+    /**
+     * @type {Integer}
+     */
     dwMinimum {
-        get => NumGet(this, 180, "uint")
-        set => NumPut("uint", value, this, 180)
+        get => NumGet(this, 184, "uint")
+        set => NumPut("uint", value, this, 184)
     }
 
     /**
      * @type {Integer}
      */
     dwMaximum {
-        get => NumGet(this, 184, "uint")
-        set => NumPut("uint", value, this, 184)
+        get => NumGet(this, 188, "uint")
+        set => NumPut("uint", value, this, 188)
     }
 
     /**
@@ -242,7 +242,7 @@ class MIXERCONTROLW extends Win32Struct
     dwReserved{
         get {
             if(!this.HasProp("__dwReservedProxyArray"))
-                this.__dwReservedProxyArray := Win32FixedArray(this.ptr + 180, 6, Primitive, "uint")
+                this.__dwReservedProxyArray := Win32FixedArray(this.ptr + 184, 6, Primitive, "uint")
             return this.__dwReservedProxyArray
         }
     }
@@ -251,15 +251,15 @@ class MIXERCONTROLW extends Win32Struct
      * @type {Integer}
      */
     cSteps {
-        get => NumGet(this, 188, "uint")
-        set => NumPut("uint", value, this, 188)
+        get => NumGet(this, 192, "uint")
+        set => NumPut("uint", value, this, 192)
     }
 
     /**
      * @type {Integer}
      */
     cbCustomData {
-        get => NumGet(this, 188, "uint")
-        set => NumPut("uint", value, this, 188)
+        get => NumGet(this, 192, "uint")
+        set => NumPut("uint", value, this, 192)
     }
 }

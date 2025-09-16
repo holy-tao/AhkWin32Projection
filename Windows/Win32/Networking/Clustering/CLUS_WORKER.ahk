@@ -24,7 +24,7 @@ class CLUS_WORKER extends Win32Struct
 
     /**
      * Handle to the worker thread.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HANDLE>}
      */
     hThread {
         get => NumGet(this, 0, "ptr")

@@ -11,7 +11,7 @@ class MINIDUMP_MEMORY_INFO extends Win32Struct
 {
     static sizeof => 48
 
-    static packingSize => 4
+    static packingSize => 8
 
     /**
      * The base address of the region of pages.

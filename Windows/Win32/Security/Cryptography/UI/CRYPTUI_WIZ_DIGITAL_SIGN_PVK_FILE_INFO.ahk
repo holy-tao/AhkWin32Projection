@@ -24,7 +24,7 @@ class CRYPTUI_WIZ_DIGITAL_SIGN_PVK_FILE_INFO extends Win32Struct
 
     /**
      * A pointer to a null-terminated Unicode string that contains the path and file name of the PVK file.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pwszPvkFileName {
         get => NumGet(this, 8, "ptr")
@@ -33,7 +33,7 @@ class CRYPTUI_WIZ_DIGITAL_SIGN_PVK_FILE_INFO extends Win32Struct
 
     /**
      * A pointer to a null-terminated Unicode string that contains the name of the provider.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pwszProvName {
         get => NumGet(this, 16, "ptr")

@@ -75,7 +75,7 @@ class IMAGEHLP_DEFERRED_SYMBOL_LOADW64 extends Win32Struct
 
     /**
      * A handle to a file. This member is used with <b>CBA_DEFERRED_SYMBOL_LOAD_PARTIAL</b> and <b>IMAGEHLP_DEFERRED_SYMBOL_LOAD_FAILURE</b> callbacks.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HANDLE>}
      */
     hFile {
         get => NumGet(this, 552, "ptr")

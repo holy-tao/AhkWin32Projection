@@ -15,7 +15,7 @@ class NCRYPT_PROTECT_STREAM_INFO extends Win32Struct
 
     /**
      * Address of a callback function that accepts data from the stream encryption or decryption process. for more information, see <a href="https://docs.microsoft.com/windows/desktop/api/ncryptprotect/nc-ncryptprotect-pfncryptstreamoutputcallback">PFNCryptStreamOutputCallback</a>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFNCryptStreamOutputCallback>}
      */
     pfnStreamOutput {
         get => NumGet(this, 0, "ptr")

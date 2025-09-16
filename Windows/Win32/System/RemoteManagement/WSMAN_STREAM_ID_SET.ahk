@@ -24,7 +24,7 @@ class WSMAN_STREAM_ID_SET extends Win32Struct
 
     /**
      * Specifies an array of stream IDs.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     streamIDs {
         get => NumGet(this, 8, "ptr")

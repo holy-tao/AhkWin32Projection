@@ -86,7 +86,7 @@ class OLEUIVIEWPROPSW extends Win32Struct
 
     /**
      * Pointer to a hook callback (not used in this dialog box).
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPFNOLEUIHOOK>}
      */
     lpfnHook {
         get => NumGet(this, 16, "ptr")

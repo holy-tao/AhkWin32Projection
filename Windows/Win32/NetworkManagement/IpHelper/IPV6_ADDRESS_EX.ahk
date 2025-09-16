@@ -30,9 +30,9 @@
  */
 class IPV6_ADDRESS_EX extends Win32Struct
 {
-    static sizeof => 26
+    static sizeof => 28
 
-    static packingSize => 1
+    static packingSize => 4
 
     /**
      * The IPv6 port number in network byte order.
@@ -48,8 +48,8 @@ class IPV6_ADDRESS_EX extends Win32Struct
      * @type {Integer}
      */
     sin6_flowinfo {
-        get => NumGet(this, 2, "uint")
-        set => NumPut("uint", value, this, 2)
+        get => NumGet(this, 4, "uint")
+        set => NumPut("uint", value, this, 4)
     }
 
     /**
@@ -59,7 +59,7 @@ class IPV6_ADDRESS_EX extends Win32Struct
     sin6_addr{
         get {
             if(!this.HasProp("__sin6_addrProxyArray"))
-                this.__sin6_addrProxyArray := Win32FixedArray(this.ptr + 6, 8, Primitive, "ushort")
+                this.__sin6_addrProxyArray := Win32FixedArray(this.ptr + 8, 8, Primitive, "ushort")
             return this.__sin6_addrProxyArray
         }
     }
@@ -69,7 +69,7 @@ class IPV6_ADDRESS_EX extends Win32Struct
      * @type {Integer}
      */
     sin6_scope_id {
-        get => NumGet(this, 22, "uint")
-        set => NumPut("uint", value, this, 22)
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
     }
 }

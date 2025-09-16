@@ -19,7 +19,7 @@ class D3D11_PARAMETER_DESC extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>
      * 
      * The name of the function parameter.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     Name {
         get => NumGet(this, 0, "ptr")
@@ -30,7 +30,7 @@ class D3D11_PARAMETER_DESC extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>
      * 
      * The HLSL <a href="https://docs.microsoft.com/windows/desktop/direct3dhlsl/dx-graphics-hlsl-semantics">semantic</a> that is associated with this function parameter. This name includes the index, for example, SV_Target[n].
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     SemanticName {
         get => NumGet(this, 8, "ptr")

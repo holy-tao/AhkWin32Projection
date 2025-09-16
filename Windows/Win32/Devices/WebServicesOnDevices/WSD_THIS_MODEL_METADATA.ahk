@@ -59,7 +59,7 @@ class WSD_THIS_MODEL_METADATA extends Win32Struct
 
     /**
      * The URL to a Web site for the device manufacturer. The URL should have fewer than 2048 characters.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     ManufacturerUrl {
         get => NumGet(this, 8, "ptr")
@@ -77,7 +77,7 @@ class WSD_THIS_MODEL_METADATA extends Win32Struct
 
     /**
      * The model number. This should be set to fewer than 256 characters.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     ModelNumber {
         get => NumGet(this, 24, "ptr")
@@ -86,7 +86,7 @@ class WSD_THIS_MODEL_METADATA extends Win32Struct
 
     /**
      * The URL to a Web site for this device model. The URL should have fewer than 2048 characters.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     ModelUrl {
         get => NumGet(this, 32, "ptr")
@@ -95,7 +95,7 @@ class WSD_THIS_MODEL_METADATA extends Win32Struct
 
     /**
      * An HTML page for this device. This can be relative to a base URL set by XML Base. The URL should have fewer than 2048 characters.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     PresentationUrl {
         get => NumGet(this, 40, "ptr")

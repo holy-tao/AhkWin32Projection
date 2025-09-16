@@ -28,7 +28,7 @@ class SETRESULT_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HANDLE>}
      */
     hSetResult {
         get => NumGet(this, 8, "ptr")

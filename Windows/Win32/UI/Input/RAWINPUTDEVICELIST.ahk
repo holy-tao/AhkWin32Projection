@@ -17,7 +17,7 @@ class RAWINPUTDEVICELIST extends Win32Struct
      * Type: <b>HANDLE</b>
      * 
      * A handle to the raw input device.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HANDLE>}
      */
     hDevice {
         get => NumGet(this, 0, "ptr")

@@ -19,7 +19,7 @@ class DS_DOMAIN_TRUSTSW extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that contains the NetBIOS name of the domain.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     NetbiosDomainName {
         get => NumGet(this, 0, "ptr")
@@ -28,7 +28,7 @@ class DS_DOMAIN_TRUSTSW extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that contains the DNS name of the domain. This member may be <b>NULL</b>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     DnsDomainName {
         get => NumGet(this, 8, "ptr")
@@ -78,7 +78,7 @@ class DS_DOMAIN_TRUSTSW extends Win32Struct
 
     /**
      * Contains the security identifier of the domain represented by this structure.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSID>}
      */
     DomainSid {
         get => NumGet(this, 32, "ptr")

@@ -28,7 +28,7 @@ class D3D12_SO_DECLARATION_ENTRY extends Win32Struct
      * Type of output element; possible values include: <b>"POSITION"</b>, <b>"NORMAL"</b>, or <b>"TEXCOORD0"</b>.
      *         Note that if <b>SemanticName</b> is <b>NULL</b> then 
      *         <b>ComponentCount</b> can be greater than 4 and the described entry will be a gap in the stream out where no data will be written.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     SemanticName {
         get => NumGet(this, 8, "ptr")

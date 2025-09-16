@@ -68,7 +68,7 @@ class SecPkgCred_ClientCertPolicy extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pwszSslCtlStoreName {
         get => NumGet(this, 40, "ptr")
@@ -76,7 +76,7 @@ class SecPkgCred_ClientCertPolicy extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pwszSslCtlIdentifier {
         get => NumGet(this, 48, "ptr")

@@ -52,7 +52,7 @@ class DD_SURFACECALLBACKS extends Win32Struct
 
     /**
      * Points to the driver-supplied <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/nc-ddrawint-pdd_surfcb_destroysurface">DdDestroySurface</a> surface callback.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PDD_SURFCB_DESTROYSURFACE>}
      */
     DestroySurface {
         get => NumGet(this, 8, "ptr")
@@ -61,7 +61,7 @@ class DD_SURFACECALLBACKS extends Win32Struct
 
     /**
      * Points to the driver-supplied <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/nc-ddrawint-pdd_surfcb_flip">DdFlip</a> surface callback.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PDD_SURFCB_FLIP>}
      */
     Flip {
         get => NumGet(this, 16, "ptr")
@@ -70,7 +70,7 @@ class DD_SURFACECALLBACKS extends Win32Struct
 
     /**
      * Points to the driver-supplied <a href="https://docs.microsoft.com/windows-hardware/drivers/display/windows-vista-display-driver-model-design-guide">DdSetClipList</a> surface callback.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PDD_SURFCB_SETCLIPLIST>}
      */
     SetClipList {
         get => NumGet(this, 24, "ptr")
@@ -79,7 +79,7 @@ class DD_SURFACECALLBACKS extends Win32Struct
 
     /**
      * Points to the driver-supplied <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/nc-ddrawint-pdd_surfcb_lock">DdLock</a> surface callback.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PDD_SURFCB_LOCK>}
      */
     Lock {
         get => NumGet(this, 32, "ptr")
@@ -88,7 +88,7 @@ class DD_SURFACECALLBACKS extends Win32Struct
 
     /**
      * Points to the driver-supplied <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/nc-ddrawint-pdd_surfcb_unlock">DdUnlock</a> surface callback.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PDD_SURFCB_UNLOCK>}
      */
     Unlock {
         get => NumGet(this, 40, "ptr")
@@ -97,7 +97,7 @@ class DD_SURFACECALLBACKS extends Win32Struct
 
     /**
      * Points to the driver-supplied <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/nc-ddrawint-pdd_surfcb_blt">DdBlt</a> surface callback.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PDD_SURFCB_BLT>}
      */
     Blt {
         get => NumGet(this, 48, "ptr")
@@ -106,7 +106,7 @@ class DD_SURFACECALLBACKS extends Win32Struct
 
     /**
      * Points to the driver-supplied <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/nc-ddrawint-pdd_surfcb_setcolorkey">DdSetColorKey</a> surface callback.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PDD_SURFCB_SETCOLORKEY>}
      */
     SetColorKey {
         get => NumGet(this, 56, "ptr")
@@ -115,7 +115,7 @@ class DD_SURFACECALLBACKS extends Win32Struct
 
     /**
      * Points to the driver-supplied <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/nc-ddrawint-pdd_surfcb_addattachedsurface">DdAddAttachedSurface</a> surface callback.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PDD_SURFCB_ADDATTACHEDSURFACE>}
      */
     AddAttachedSurface {
         get => NumGet(this, 64, "ptr")
@@ -124,7 +124,7 @@ class DD_SURFACECALLBACKS extends Win32Struct
 
     /**
      * Points to the driver-supplied <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/nc-ddrawint-pdd_surfcb_getbltstatus">DdGetBltStatus</a> surface callback.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PDD_SURFCB_GETBLTSTATUS>}
      */
     GetBltStatus {
         get => NumGet(this, 72, "ptr")
@@ -133,7 +133,7 @@ class DD_SURFACECALLBACKS extends Win32Struct
 
     /**
      * Points to the driver-supplied <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/nc-ddrawint-pdd_surfcb_getflipstatus">DdGetFlipStatus</a> surface callback.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PDD_SURFCB_GETFLIPSTATUS>}
      */
     GetFlipStatus {
         get => NumGet(this, 80, "ptr")
@@ -142,7 +142,7 @@ class DD_SURFACECALLBACKS extends Win32Struct
 
     /**
      * Points to the driver-supplied <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/nc-ddrawint-pdd_surfcb_updateoverlay">DdUpdateOverlay</a> surface callback.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PDD_SURFCB_UPDATEOVERLAY>}
      */
     UpdateOverlay {
         get => NumGet(this, 88, "ptr")
@@ -151,7 +151,7 @@ class DD_SURFACECALLBACKS extends Win32Struct
 
     /**
      * Points to the driver-supplied <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/nc-ddrawint-pdd_surfcb_setoverlayposition">DdSetOverlayPosition</a> surface callback.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PDD_SURFCB_SETOVERLAYPOSITION>}
      */
     SetOverlayPosition {
         get => NumGet(this, 96, "ptr")
@@ -169,7 +169,7 @@ class DD_SURFACECALLBACKS extends Win32Struct
 
     /**
      * Points to the driver-supplied <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/nc-ddrawint-pdd_surfcb_setpalette">DdSetPalette</a> surface callback.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PDD_SURFCB_SETPALETTE>}
      */
     SetPalette {
         get => NumGet(this, 112, "ptr")

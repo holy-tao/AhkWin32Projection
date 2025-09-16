@@ -25,7 +25,7 @@ class HTML_PAINT_DRAW_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HRGN>}
      */
     hrgnUpdate {
         get => NumGet(this, 16, "ptr")

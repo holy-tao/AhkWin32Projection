@@ -20,7 +20,7 @@ class PM_EXTENSIONCONSUMER extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<BSTR>}
      */
     ExtensionID {
         get => NumGet(this, 8, "ptr")

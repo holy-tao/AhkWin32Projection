@@ -13,7 +13,7 @@ class ACMSTREAMHEADER extends Win32Struct
 {
     static sizeof => 104
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * Size, in bytes, of the <b>ACMSTREAMHEADER</b> structure. This member must be initialized before the application calls any ACM stream functions using this structure. The size specified in this member must be large enough to contain the base <b>ACMSTREAMHEADER</b> structure.

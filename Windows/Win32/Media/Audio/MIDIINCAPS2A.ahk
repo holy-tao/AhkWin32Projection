@@ -8,9 +8,9 @@
  */
 class MIDIINCAPS2A extends Win32Struct
 {
-    static sizeof => 68
+    static sizeof => 72
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * @type {Integer}
@@ -56,23 +56,23 @@ class MIDIINCAPS2A extends Win32Struct
      * @type {Pointer<Guid>}
      */
     ManufacturerGuid {
-        get => NumGet(this, 44, "ptr")
-        set => NumPut("ptr", value, this, 44)
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**
      * @type {Pointer<Guid>}
      */
     ProductGuid {
-        get => NumGet(this, 52, "ptr")
-        set => NumPut("ptr", value, this, 52)
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 
     /**
      * @type {Pointer<Guid>}
      */
     NameGuid {
-        get => NumGet(this, 60, "ptr")
-        set => NumPut("ptr", value, this, 60)
+        get => NumGet(this, 64, "ptr")
+        set => NumPut("ptr", value, this, 64)
     }
 }

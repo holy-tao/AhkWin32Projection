@@ -8,9 +8,9 @@
  */
 class MCI_INFO_PARMSW extends Win32Struct
 {
-    static sizeof => 20
+    static sizeof => 24
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * @type {Pointer}
@@ -21,7 +21,7 @@ class MCI_INFO_PARMSW extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     lpstrReturn {
         get => NumGet(this, 8, "ptr")

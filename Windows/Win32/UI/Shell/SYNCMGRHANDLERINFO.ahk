@@ -28,7 +28,7 @@ class SYNCMGRHANDLERINFO extends Win32Struct
      * Type: <b>HICON</b>
      * 
      * The icon for the handler.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HICON>}
      */
     hIcon {
         get => NumGet(this, 8, "ptr")

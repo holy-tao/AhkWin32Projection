@@ -36,7 +36,7 @@ class COPYFILE2_EXTENDED_PARAMETERS_V2 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PCOPYFILE2_PROGRESS_ROUTINE>}
      */
     pProgressRoutine {
         get => NumGet(this, 16, "ptr")

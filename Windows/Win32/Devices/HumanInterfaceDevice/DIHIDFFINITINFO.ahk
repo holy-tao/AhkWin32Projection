@@ -24,7 +24,7 @@ class DIHIDFFINITINFO extends Win32Struct
 
     /**
      * Points to a null-terminated Unicode string that identifies the device interface for the device. The driver can pass the device interface to the <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a> function to obtain access to the device.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pwszDeviceInterface {
         get => NumGet(this, 8, "ptr")

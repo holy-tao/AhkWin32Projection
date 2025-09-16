@@ -31,7 +31,7 @@ class MODIFY_VHDSET_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     SnapshotFilePath {
         get => NumGet(this, 16, "ptr")
@@ -39,7 +39,7 @@ class MODIFY_VHDSET_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     DefaultFilePath {
         get => NumGet(this, 8, "ptr")

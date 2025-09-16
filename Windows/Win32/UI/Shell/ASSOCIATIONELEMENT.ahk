@@ -9,9 +9,9 @@
  */
 class ASSOCIATIONELEMENT extends Win32Struct
 {
-    static sizeof => 20
+    static sizeof => 24
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * Type: <b>ASSOCCLASS</b>
@@ -26,21 +26,21 @@ class ASSOCIATIONELEMENT extends Win32Struct
      * Type: <b>HKEY</b>
      * 
      * A registry key that specifies a class that contains association information.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HKEY>}
      */
     hkClass {
-        get => NumGet(this, 4, "ptr")
-        set => NumPut("ptr", value, this, 4)
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * Type: <b>PCWSTR</b>
      * 
      * A pointer to the name of a class that contains association information.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pszClass {
-        get => NumGet(this, 12, "ptr")
-        set => NumPut("ptr", value, this, 12)
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 }

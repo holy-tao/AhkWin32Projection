@@ -157,9 +157,9 @@
  */
 class WAVEFORMATEXTENSIBLE extends Win32Struct
 {
-    static sizeof => 32
+    static sizeof => 40
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * <a href="https://docs.microsoft.com/previous-versions/dd757713(v=vs.85)">WAVEFORMATEX</a> structure that specifies the basic format. The <b>wFormatTag</b> member must be WAVE_FORMAT_EXTENSIBLE. The <b>cbSize</b> member must be at least 22.
@@ -177,24 +177,24 @@ class WAVEFORMATEXTENSIBLE extends Win32Struct
      * @type {Integer}
      */
     wValidBitsPerSample {
-        get => NumGet(this, 18, "ushort")
-        set => NumPut("ushort", value, this, 18)
+        get => NumGet(this, 20, "ushort")
+        set => NumPut("ushort", value, this, 20)
     }
 
     /**
      * @type {Integer}
      */
     wSamplesPerBlock {
-        get => NumGet(this, 18, "ushort")
-        set => NumPut("ushort", value, this, 18)
+        get => NumGet(this, 20, "ushort")
+        set => NumPut("ushort", value, this, 20)
     }
 
     /**
      * @type {Integer}
      */
     wReserved {
-        get => NumGet(this, 18, "ushort")
-        set => NumPut("ushort", value, this, 18)
+        get => NumGet(this, 20, "ushort")
+        set => NumPut("ushort", value, this, 20)
     }
 
     /**
@@ -202,8 +202,8 @@ class WAVEFORMATEXTENSIBLE extends Win32Struct
      * @type {Integer}
      */
     dwChannelMask {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
     }
 
     /**
@@ -211,7 +211,7 @@ class WAVEFORMATEXTENSIBLE extends Win32Struct
      * @type {Pointer<Guid>}
      */
     SubFormat {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 }

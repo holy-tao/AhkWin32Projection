@@ -28,7 +28,7 @@ class SSL_KEY_PIN_EXTRA_CERT_CHAIN_POLICY_PARA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pwszServerName {
         get => NumGet(this, 8, "ptr")

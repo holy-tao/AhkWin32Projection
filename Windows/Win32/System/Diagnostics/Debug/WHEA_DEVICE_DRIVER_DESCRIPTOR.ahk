@@ -8,9 +8,9 @@
  */
 class WHEA_DEVICE_DRIVER_DESCRIPTOR extends Win32Struct
 {
-    static sizeof => 92
+    static sizeof => 104
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * @type {Integer}
@@ -40,48 +40,48 @@ class WHEA_DEVICE_DRIVER_DESCRIPTOR extends Win32Struct
      * @type {Pointer<Guid>}
      */
     SourceGuid {
-        get => NumGet(this, 4, "ptr")
-        set => NumPut("ptr", value, this, 4)
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * @type {Integer}
      */
     LogTag {
-        get => NumGet(this, 12, "ushort")
-        set => NumPut("ushort", value, this, 12)
+        get => NumGet(this, 16, "ushort")
+        set => NumPut("ushort", value, this, 16)
     }
 
     /**
      * @type {Integer}
      */
     Reserved2 {
-        get => NumGet(this, 14, "ushort")
-        set => NumPut("ushort", value, this, 14)
+        get => NumGet(this, 18, "ushort")
+        set => NumPut("ushort", value, this, 18)
     }
 
     /**
      * @type {Integer}
      */
     PacketLength {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+        get => NumGet(this, 20, "uint")
+        set => NumPut("uint", value, this, 20)
     }
 
     /**
      * @type {Integer}
      */
     PacketCount {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
     }
 
     /**
      * @type {Pointer<Byte>}
      */
     PacketBuffer {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
@@ -90,7 +90,7 @@ class WHEA_DEVICE_DRIVER_DESCRIPTOR extends Win32Struct
     Config{
         get {
             if(!this.HasProp("__Config"))
-                this.__Config := WHEA_ERROR_SOURCE_CONFIGURATION_DD(this.ptr + 32)
+                this.__Config := WHEA_ERROR_SOURCE_CONFIGURATION_DD(this.ptr + 40)
             return this.__Config
         }
     }
@@ -99,47 +99,47 @@ class WHEA_DEVICE_DRIVER_DESCRIPTOR extends Win32Struct
      * @type {Pointer<Guid>}
      */
     CreatorId {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
+        get => NumGet(this, 64, "ptr")
+        set => NumPut("ptr", value, this, 64)
     }
 
     /**
      * @type {Pointer<Guid>}
      */
     PartitionId {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
+        get => NumGet(this, 72, "ptr")
+        set => NumPut("ptr", value, this, 72)
     }
 
     /**
      * @type {Integer}
      */
     MaxSectionDataLength {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
+        get => NumGet(this, 80, "uint")
+        set => NumPut("uint", value, this, 80)
     }
 
     /**
      * @type {Integer}
      */
     MaxSectionsPerRecord {
-        get => NumGet(this, 76, "uint")
-        set => NumPut("uint", value, this, 76)
+        get => NumGet(this, 84, "uint")
+        set => NumPut("uint", value, this, 84)
     }
 
     /**
      * @type {Pointer<Byte>}
      */
     PacketStateBuffer {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
+        get => NumGet(this, 88, "ptr")
+        set => NumPut("ptr", value, this, 88)
     }
 
     /**
      * @type {Integer}
      */
     OpenHandles {
-        get => NumGet(this, 88, "int")
-        set => NumPut("int", value, this, 88)
+        get => NumGet(this, 96, "int")
+        set => NumPut("int", value, this, 96)
     }
 }

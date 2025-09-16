@@ -38,7 +38,7 @@ class CRYPT_PROVUI_FUNCS extends Win32Struct
 
     /**
      * A pointer to the  function called when the <b>More Info</b> button is clicked.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_PROVUI_CALL>}
      */
     pfnOnMoreInfoClick {
         get => NumGet(this, 16, "ptr")
@@ -47,7 +47,7 @@ class CRYPT_PROVUI_FUNCS extends Win32Struct
 
     /**
      * A pointer to the  default function called when the <b>More Info</b> button is clicked.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_PROVUI_CALL>}
      */
     pfnOnMoreInfoClickDefault {
         get => NumGet(this, 24, "ptr")
@@ -56,7 +56,7 @@ class CRYPT_PROVUI_FUNCS extends Win32Struct
 
     /**
      * A pointer to the  function called when the <b>Advanced</b> button is clicked.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_PROVUI_CALL>}
      */
     pfnOnAdvancedClick {
         get => NumGet(this, 32, "ptr")
@@ -65,7 +65,7 @@ class CRYPT_PROVUI_FUNCS extends Win32Struct
 
     /**
      * A pointer to the  default function called when the <b>Advanced</b> button is clicked.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_PROVUI_CALL>}
      */
     pfnOnAdvancedClickDefault {
         get => NumGet(this, 40, "ptr")

@@ -94,7 +94,7 @@ class DIACTIONFORMATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HINSTANCE>}
      */
     hInstString {
         get => NumGet(this, 48, "ptr")

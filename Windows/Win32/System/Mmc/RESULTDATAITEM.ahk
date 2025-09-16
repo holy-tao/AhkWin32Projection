@@ -73,7 +73,7 @@ class RESULTDATAITEM extends Win32Struct
      * Be aware that the snap-in can use <b>MMC_TEXTCALLBACK</b> instead of <b>MMC_CALLBACK</b>. The <b>MMC_TEXTCALLBACK</b> value is a type-correct (no casting necessary) version of <b>MMC_CALLBACK</b>.
      * 
      * <b>MMC_TEXTCALLBACK</b> is introduced in MMC version 1.2.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     str {
         get => NumGet(this, 24, "ptr")

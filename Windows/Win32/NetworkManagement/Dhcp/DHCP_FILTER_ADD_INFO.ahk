@@ -28,7 +28,7 @@ class DHCP_FILTER_ADD_INFO extends Win32Struct
 
     /**
      * Pointer to a Unicode string that contains a text comment for the filter.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     Comment {
         get => NumGet(this, 272, "ptr")

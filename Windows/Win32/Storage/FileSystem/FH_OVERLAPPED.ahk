@@ -44,7 +44,7 @@ class FH_OVERLAPPED extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HANDLE>}
      */
     hEvent {
         get => NumGet(this, 24, "ptr")
@@ -52,7 +52,7 @@ class FH_OVERLAPPED extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_IO_COMPLETION>}
      */
     pfnCompletion {
         get => NumGet(this, 32, "ptr")

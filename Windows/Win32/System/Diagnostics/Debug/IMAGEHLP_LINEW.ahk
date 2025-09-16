@@ -37,7 +37,7 @@ class IMAGEHLP_LINEW extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     FileName {
         get => NumGet(this, 24, "ptr")

@@ -7,9 +7,9 @@
  */
 class SEC_OBJECT extends Win32Struct
 {
-    static sizeof => 12
+    static sizeof => 16
 
-    static packingSize => 2
+    static packingSize => 8
 
     /**
      * @type {Integer}
@@ -23,7 +23,7 @@ class SEC_OBJECT extends Win32Struct
      * @type {Pointer<SEC_OBJECT_ELEMENT>}
      */
     prgObjects {
-        get => NumGet(this, 4, "ptr")
-        set => NumPut("ptr", value, this, 4)
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 }

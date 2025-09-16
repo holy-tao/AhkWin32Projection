@@ -36,7 +36,7 @@ class DDHAL_SETCLIPLISTDATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPDDHALSURFCB_SETCLIPLIST>}
      */
     SetClipList {
         get => NumGet(this, 24, "ptr")

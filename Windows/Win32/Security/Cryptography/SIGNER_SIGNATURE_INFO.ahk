@@ -48,7 +48,7 @@ class SIGNER_SIGNATURE_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<_Anonymous_e__Union>}
      */
     Anonymous {
         get => NumGet(this, 16, "ptr")

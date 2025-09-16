@@ -7,9 +7,9 @@
  */
 class ACMDRVSTREAMHEADER extends Win32Struct
 {
-    static sizeof => 124
+    static sizeof => 144
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * @type {Integer}
@@ -111,62 +111,46 @@ class ACMDRVSTREAMHEADER extends Win32Struct
      * @type {Pointer<ACMDRVSTREAMHEADER>}
      */
     padshNext {
-        get => NumGet(this, 68, "ptr")
-        set => NumPut("ptr", value, this, 68)
+        get => NumGet(this, 72, "ptr")
+        set => NumPut("ptr", value, this, 72)
     }
 
     /**
      * @type {Integer}
      */
     fdwDriver {
-        get => NumGet(this, 76, "uint")
-        set => NumPut("uint", value, this, 76)
+        get => NumGet(this, 80, "uint")
+        set => NumPut("uint", value, this, 80)
     }
 
     /**
      * @type {Pointer}
      */
     dwDriver {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
+        get => NumGet(this, 88, "ptr")
+        set => NumPut("ptr", value, this, 88)
     }
 
     /**
      * @type {Integer}
      */
     fdwPrepared {
-        get => NumGet(this, 88, "uint")
-        set => NumPut("uint", value, this, 88)
+        get => NumGet(this, 96, "uint")
+        set => NumPut("uint", value, this, 96)
     }
 
     /**
      * @type {Pointer}
      */
     dwPrepared {
-        get => NumGet(this, 92, "ptr")
-        set => NumPut("ptr", value, this, 92)
+        get => NumGet(this, 104, "ptr")
+        set => NumPut("ptr", value, this, 104)
     }
 
     /**
      * @type {Pointer<Byte>}
      */
     pbPreparedSrc {
-        get => NumGet(this, 100, "ptr")
-        set => NumPut("ptr", value, this, 100)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    cbPreparedSrcLength {
-        get => NumGet(this, 108, "uint")
-        set => NumPut("uint", value, this, 108)
-    }
-
-    /**
-     * @type {Pointer<Byte>}
-     */
-    pbPreparedDst {
         get => NumGet(this, 112, "ptr")
         set => NumPut("ptr", value, this, 112)
     }
@@ -174,8 +158,24 @@ class ACMDRVSTREAMHEADER extends Win32Struct
     /**
      * @type {Integer}
      */
-    cbPreparedDstLength {
+    cbPreparedSrcLength {
         get => NumGet(this, 120, "uint")
         set => NumPut("uint", value, this, 120)
+    }
+
+    /**
+     * @type {Pointer<Byte>}
+     */
+    pbPreparedDst {
+        get => NumGet(this, 128, "ptr")
+        set => NumPut("ptr", value, this, 128)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    cbPreparedDstLength {
+        get => NumGet(this, 136, "uint")
+        set => NumPut("uint", value, this, 136)
     }
 }

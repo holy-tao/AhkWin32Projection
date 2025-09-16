@@ -50,7 +50,7 @@ class TTGETTITLE extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">WCHAR</a>*</b>
      * 
      * Pointer to a wide character string that contains the title.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pszTitle {
         get => NumGet(this, 16, "ptr")

@@ -32,7 +32,7 @@ class CERT_ALT_NAME_ENTRY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pwszRfc822Name {
         get => NumGet(this, 8, "ptr")
@@ -40,7 +40,7 @@ class CERT_ALT_NAME_ENTRY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pwszDNSName {
         get => NumGet(this, 8, "ptr")
@@ -59,7 +59,7 @@ class CERT_ALT_NAME_ENTRY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pwszURL {
         get => NumGet(this, 8, "ptr")
@@ -78,7 +78,7 @@ class CERT_ALT_NAME_ENTRY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     pszRegisteredID {
         get => NumGet(this, 8, "ptr")

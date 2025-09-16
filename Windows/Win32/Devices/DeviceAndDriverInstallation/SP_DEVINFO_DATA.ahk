@@ -13,9 +13,9 @@
  */
 class SP_DEVINFO_DATA extends Win32Struct
 {
-    static sizeof => 24
+    static sizeof => 32
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * The size, in bytes, of the SP_DEVINFO_DATA structure. For more information, see the following Remarks section.
@@ -31,8 +31,8 @@ class SP_DEVINFO_DATA extends Win32Struct
      * @type {Pointer<Guid>}
      */
     ClassGuid {
-        get => NumGet(this, 4, "ptr")
-        set => NumPut("ptr", value, this, 4)
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -42,8 +42,8 @@ class SP_DEVINFO_DATA extends Win32Struct
      * @type {Integer}
      */
     DevInst {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
+        get => NumGet(this, 16, "uint")
+        set => NumPut("uint", value, this, 16)
     }
 
     /**
@@ -51,8 +51,8 @@ class SP_DEVINFO_DATA extends Win32Struct
      * @type {Pointer}
      */
     Reserved {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
@@ -61,6 +61,6 @@ class SP_DEVINFO_DATA extends Win32Struct
      */
     __New(ptr := 0){
         super.__New(ptr)
-        this.cbSize := 24
+        this.cbSize := 32
     }
 }

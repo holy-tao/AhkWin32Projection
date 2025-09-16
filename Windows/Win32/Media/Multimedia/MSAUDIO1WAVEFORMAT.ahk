@@ -8,9 +8,9 @@
  */
 class MSAUDIO1WAVEFORMAT extends Win32Struct
 {
-    static sizeof => 22
+    static sizeof => 24
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * @type {WAVEFORMATEX}
@@ -27,15 +27,15 @@ class MSAUDIO1WAVEFORMAT extends Win32Struct
      * @type {Integer}
      */
     wSamplesPerBlock {
-        get => NumGet(this, 18, "ushort")
-        set => NumPut("ushort", value, this, 18)
+        get => NumGet(this, 20, "ushort")
+        set => NumPut("ushort", value, this, 20)
     }
 
     /**
      * @type {Integer}
      */
     wEncodeOptions {
-        get => NumGet(this, 20, "ushort")
-        set => NumPut("ushort", value, this, 20)
+        get => NumGet(this, 22, "ushort")
+        set => NumPut("ushort", value, this, 22)
     }
 }

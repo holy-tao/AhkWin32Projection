@@ -19,9 +19,9 @@
  */
 class MCI_DGV_RESERVE_PARMSA extends Win32Struct
 {
-    static sizeof => 20
+    static sizeof => 24
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * The low-order word specifies a window handle used for the MCI_NOTIFY flag.
@@ -34,7 +34,7 @@ class MCI_DGV_RESERVE_PARMSA extends Win32Struct
 
     /**
      * Pointer to a null-terminated string containing the location of a temporary file. The buffer contains only the drive and directory path of the file used to hold recorded data; the filename is specified by the device driver.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     lpstrPath {
         get => NumGet(this, 8, "ptr")

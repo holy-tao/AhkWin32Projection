@@ -9,9 +9,9 @@
  */
 class DEVICEDUMP_STORAGESTACK_PUBLIC_DUMP extends Win32Struct
 {
-    static sizeof => 44
+    static sizeof => 48
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * @type {DEVICEDUMP_STRUCTURE_VERSION}
@@ -57,7 +57,7 @@ class DEVICEDUMP_STORAGESTACK_PUBLIC_DUMP extends Win32Struct
     RecordArray{
         get {
             if(!this.HasProp("__RecordArrayProxyArray"))
-                this.__RecordArrayProxyArray := Win32FixedArray(this.ptr + 36, 1, DEVICEDUMP_STORAGESTACK_PUBLIC_STATE_RECORD, "")
+                this.__RecordArrayProxyArray := Win32FixedArray(this.ptr + 40, 1, DEVICEDUMP_STORAGESTACK_PUBLIC_STATE_RECORD, "")
             return this.__RecordArrayProxyArray
         }
     }

@@ -60,9 +60,9 @@
  */
 class SHChangeUpdateImageIDList extends Win32Struct
 {
-    static sizeof => 540
+    static sizeof => 544
 
-    static packingSize => 1
+    static packingSize => 4
 
     /**
      * Type: <b>USHORT</b>
@@ -82,8 +82,8 @@ class SHChangeUpdateImageIDList extends Win32Struct
      * @type {Integer}
      */
     iIconIndex {
-        get => NumGet(this, 2, "int")
-        set => NumPut("int", value, this, 2)
+        get => NumGet(this, 4, "int")
+        set => NumPut("int", value, this, 4)
     }
 
     /**
@@ -93,8 +93,8 @@ class SHChangeUpdateImageIDList extends Win32Struct
      * @type {Integer}
      */
     iCurIndex {
-        get => NumGet(this, 6, "int")
-        set => NumPut("int", value, this, 6)
+        get => NumGet(this, 8, "int")
+        set => NumPut("int", value, this, 8)
     }
 
     /**
@@ -104,8 +104,8 @@ class SHChangeUpdateImageIDList extends Win32Struct
      * @type {Integer}
      */
     uFlags {
-        get => NumGet(this, 10, "uint")
-        set => NumPut("uint", value, this, 10)
+        get => NumGet(this, 12, "uint")
+        set => NumPut("uint", value, this, 12)
     }
 
     /**
@@ -113,8 +113,8 @@ class SHChangeUpdateImageIDList extends Win32Struct
      * @type {Integer}
      */
     dwProcessID {
-        get => NumGet(this, 14, "uint")
-        set => NumPut("uint", value, this, 14)
+        get => NumGet(this, 16, "uint")
+        set => NumPut("uint", value, this, 16)
     }
 
     /**
@@ -124,8 +124,8 @@ class SHChangeUpdateImageIDList extends Win32Struct
      * @type {String}
      */
     szName {
-        get => StrGet(this.ptr + 18, 259, "UTF-16")
-        set => StrPut(value, this.ptr + 18, 259, "UTF-16")
+        get => StrGet(this.ptr + 20, 259, "UTF-16")
+        set => StrPut(value, this.ptr + 20, 259, "UTF-16")
     }
 
     /**
@@ -133,7 +133,7 @@ class SHChangeUpdateImageIDList extends Win32Struct
      * @type {Integer}
      */
     cbZero {
-        get => NumGet(this, 538, "ushort")
-        set => NumPut("ushort", value, this, 538)
+        get => NumGet(this, 540, "ushort")
+        set => NumPut("ushort", value, this, 540)
     }
 }

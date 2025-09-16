@@ -15,7 +15,7 @@ class PHONEEXTENSIONID extends Win32Struct
 {
     static sizeof => 16
 
-    static packingSize => 1
+    static packingSize => 4
 
     /**
      * First part of the extension identifier.

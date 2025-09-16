@@ -28,7 +28,7 @@ class CERT_VIEWPROPERTIES_STRUCT_A extends Win32Struct
 
     /**
      * A handle to the parent window.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HWND>}
      */
     hwndParent {
         get => NumGet(this, 8, "ptr")
@@ -37,7 +37,7 @@ class CERT_VIEWPROPERTIES_STRUCT_A extends Win32Struct
 
     /**
      * A handle to the module instance.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HINSTANCE>}
      */
     hInstance {
         get => NumGet(this, 16, "ptr")
@@ -55,7 +55,7 @@ class CERT_VIEWPROPERTIES_STRUCT_A extends Win32Struct
 
     /**
      * A pointer to a null-terminated string for the title of the user interface.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     szTitle {
         get => NumGet(this, 32, "ptr")
@@ -73,7 +73,7 @@ class CERT_VIEWPROPERTIES_STRUCT_A extends Win32Struct
 
     /**
      * A pointer to an array of null-terminated strings that specify the certificate purposes.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     arrayPurposes {
         get => NumGet(this, 48, "ptr")
@@ -100,7 +100,7 @@ class CERT_VIEWPROPERTIES_STRUCT_A extends Win32Struct
 
     /**
      * Array of Root certificate store handles.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HCERTSTORE>}
      */
     rghstoreRoots {
         get => NumGet(this, 64, "ptr")
@@ -118,7 +118,7 @@ class CERT_VIEWPROPERTIES_STRUCT_A extends Win32Struct
 
     /**
      * Array of other certificate store handles.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HCERTSTORE>}
      */
     rghstoreCAs {
         get => NumGet(this, 80, "ptr")
@@ -136,7 +136,7 @@ class CERT_VIEWPROPERTIES_STRUCT_A extends Win32Struct
 
     /**
      * Array of trust certificate store handles.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HCERTSTORE>}
      */
     rghstoreTrust {
         get => NumGet(this, 96, "ptr")
@@ -172,7 +172,7 @@ class CERT_VIEWPROPERTIES_STRUCT_A extends Win32Struct
 
     /**
      * A pointer to a null-terminated string for the Help file name.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     szHelpFileName {
         get => NumGet(this, 128, "ptr")

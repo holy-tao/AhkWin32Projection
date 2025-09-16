@@ -32,7 +32,7 @@ class MIXERCONTROLDETAILS_LISTTEXTW extends Win32Struct
 {
     static sizeof => 136
 
-    static packingSize => 1
+    static packingSize => 4
 
     /**
      * Control class-specific values. The following control types are listed with their corresponding values:

@@ -40,7 +40,7 @@ class PRINTER_INFO_1A extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that describes the contents of the structure.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     pDescription {
         get => NumGet(this, 8, "ptr")
@@ -49,7 +49,7 @@ class PRINTER_INFO_1A extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that names the contents of the structure.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     pName {
         get => NumGet(this, 16, "ptr")
@@ -58,7 +58,7 @@ class PRINTER_INFO_1A extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that contains additional data describing the structure.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     pComment {
         get => NumGet(this, 24, "ptr")

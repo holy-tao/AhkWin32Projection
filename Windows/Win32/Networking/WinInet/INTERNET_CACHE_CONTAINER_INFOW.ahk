@@ -21,7 +21,7 @@ class INTERNET_CACHE_CONTAINER_INFOW extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     lpszName {
         get => NumGet(this, 8, "ptr")
@@ -29,7 +29,7 @@ class INTERNET_CACHE_CONTAINER_INFOW extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     lpszCachePrefix {
         get => NumGet(this, 16, "ptr")
@@ -37,7 +37,7 @@ class INTERNET_CACHE_CONTAINER_INFOW extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     lpszVolumeLabel {
         get => NumGet(this, 24, "ptr")
@@ -45,7 +45,7 @@ class INTERNET_CACHE_CONTAINER_INFOW extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     lpszVolumeTitle {
         get => NumGet(this, 32, "ptr")

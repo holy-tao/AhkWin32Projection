@@ -12,9 +12,9 @@
  */
 class BTH_QUERY_DEVICE extends Win32Struct
 {
-    static sizeof => 5
+    static sizeof => 8
 
-    static packingSize => 1
+    static packingSize => 4
 
     /**
      * Reserved. Must be set to zero.

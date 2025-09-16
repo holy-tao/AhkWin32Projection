@@ -29,7 +29,7 @@ class NS_INFOW extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     lpNameSpace {
         get => NumGet(this, 8, "ptr")

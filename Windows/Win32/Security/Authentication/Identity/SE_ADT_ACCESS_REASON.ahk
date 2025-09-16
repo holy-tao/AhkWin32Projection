@@ -47,7 +47,7 @@ class SE_ADT_ACCESS_REASON extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSECURITY_DESCRIPTOR>}
      */
     SecurityDescriptor {
         get => NumGet(this, 144, "ptr")

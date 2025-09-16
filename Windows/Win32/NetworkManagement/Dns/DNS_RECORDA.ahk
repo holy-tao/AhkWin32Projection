@@ -64,7 +64,7 @@ class DNS_RECORDA extends Win32Struct
 
     /**
      * A pointer to a string that represents the domain name of the record set. This must be in the string format that corresponds to the function called, such as ANSI, Unicode, or UTF8.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     pName {
         get => NumGet(this, 8, "ptr")
@@ -166,7 +166,7 @@ class DNS_RECORDA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     PTR {
         get => NumGet(this, 32, "ptr")
@@ -174,7 +174,7 @@ class DNS_RECORDA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     Ptr1 {
         get => NumGet(this, 32, "ptr")
@@ -182,7 +182,7 @@ class DNS_RECORDA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     NS {
         get => NumGet(this, 32, "ptr")
@@ -190,7 +190,7 @@ class DNS_RECORDA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     Ns1 {
         get => NumGet(this, 32, "ptr")
@@ -198,7 +198,7 @@ class DNS_RECORDA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     CNAME {
         get => NumGet(this, 32, "ptr")
@@ -206,7 +206,7 @@ class DNS_RECORDA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     Cname1 {
         get => NumGet(this, 32, "ptr")
@@ -214,7 +214,7 @@ class DNS_RECORDA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     DNAME {
         get => NumGet(this, 32, "ptr")
@@ -222,7 +222,7 @@ class DNS_RECORDA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     Dname1 {
         get => NumGet(this, 32, "ptr")
@@ -230,7 +230,7 @@ class DNS_RECORDA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     MB {
         get => NumGet(this, 32, "ptr")
@@ -238,7 +238,7 @@ class DNS_RECORDA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     Mb1 {
         get => NumGet(this, 32, "ptr")
@@ -246,7 +246,7 @@ class DNS_RECORDA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     MD {
         get => NumGet(this, 32, "ptr")
@@ -254,7 +254,7 @@ class DNS_RECORDA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     Md1 {
         get => NumGet(this, 32, "ptr")
@@ -262,7 +262,7 @@ class DNS_RECORDA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     MF {
         get => NumGet(this, 32, "ptr")
@@ -270,7 +270,7 @@ class DNS_RECORDA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     Mf1 {
         get => NumGet(this, 32, "ptr")
@@ -278,7 +278,7 @@ class DNS_RECORDA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     MG {
         get => NumGet(this, 32, "ptr")
@@ -286,7 +286,7 @@ class DNS_RECORDA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     Mg1 {
         get => NumGet(this, 32, "ptr")
@@ -294,7 +294,7 @@ class DNS_RECORDA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     MR {
         get => NumGet(this, 32, "ptr")
@@ -302,7 +302,7 @@ class DNS_RECORDA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     Mr1 {
         get => NumGet(this, 32, "ptr")

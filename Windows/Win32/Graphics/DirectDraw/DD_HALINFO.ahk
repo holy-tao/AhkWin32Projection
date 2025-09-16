@@ -53,7 +53,7 @@ class DD_HALINFO extends Win32Struct
 
     /**
      * Points to the driver's <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/nc-ddrawint-pdd_getdriverinfo">DdGetDriverInfo</a> function. This function is called to get further Microsoft DirectDraw driver information. This member can be <b>NULL</b>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PDD_GETDRIVERINFO>}
      */
     GetDriverInfo {
         get => NumGet(this, 416, "ptr")

@@ -7,9 +7,9 @@
  */
 class DBROWWATCHCHANGE extends Win32Struct
 {
-    static sizeof => 28
+    static sizeof => 32
 
-    static packingSize => 2
+    static packingSize => 8
 
     /**
      * @type {Pointer}
@@ -31,15 +31,15 @@ class DBROWWATCHCHANGE extends Win32Struct
      * @type {Pointer}
      */
     hRow {
-        get => NumGet(this, 12, "ptr")
-        set => NumPut("ptr", value, this, 12)
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * @type {Pointer}
      */
     iRow {
-        get => NumGet(this, 20, "ptr")
-        set => NumPut("ptr", value, this, 20)
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 }

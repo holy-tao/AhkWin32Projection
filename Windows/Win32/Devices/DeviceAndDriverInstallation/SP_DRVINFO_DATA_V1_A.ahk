@@ -17,7 +17,7 @@ class SP_DRVINFO_DATA_V1_A extends Win32Struct
 {
     static sizeof => 784
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * The size, in bytes, of the SP_DRVINFO_DATA structure. For more information, see the Remarks section in this topic.

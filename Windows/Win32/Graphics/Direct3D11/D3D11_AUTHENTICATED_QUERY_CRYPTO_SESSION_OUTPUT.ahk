@@ -29,7 +29,7 @@ class D3D11_AUTHENTICATED_QUERY_CRYPTO_SESSION_OUTPUT extends Win32Struct
 
     /**
      * A handle to a decoder device.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HANDLE>}
      */
     DecoderHandle {
         get => NumGet(this, 40, "ptr")
@@ -38,7 +38,7 @@ class D3D11_AUTHENTICATED_QUERY_CRYPTO_SESSION_OUTPUT extends Win32Struct
 
     /**
      * A handle to the cryptographic session that is associated with the decoder device.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HANDLE>}
      */
     CryptoSessionHandle {
         get => NumGet(this, 48, "ptr")
@@ -47,7 +47,7 @@ class D3D11_AUTHENTICATED_QUERY_CRYPTO_SESSION_OUTPUT extends Win32Struct
 
     /**
      * A handle to the Direct3D device that is associated with the decoder device.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HANDLE>}
      */
     DeviceHandle {
         get => NumGet(this, 56, "ptr")

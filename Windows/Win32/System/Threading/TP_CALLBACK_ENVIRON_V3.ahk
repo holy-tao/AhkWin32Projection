@@ -36,7 +36,7 @@ class TP_CALLBACK_ENVIRON_V3 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PTP_CLEANUP_GROUP_CANCEL_CALLBACK>}
      */
     CleanupGroupCancelCallback {
         get => NumGet(this, 24, "ptr")
@@ -60,7 +60,7 @@ class TP_CALLBACK_ENVIRON_V3 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PTP_SIMPLE_CALLBACK>}
      */
     FinalizationCallback {
         get => NumGet(this, 48, "ptr")

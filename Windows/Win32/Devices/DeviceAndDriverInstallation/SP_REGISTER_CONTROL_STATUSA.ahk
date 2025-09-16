@@ -13,9 +13,9 @@
  */
 class SP_REGISTER_CONTROL_STATUSA extends Win32Struct
 {
-    static sizeof => 20
+    static sizeof => 24
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * 
@@ -28,11 +28,11 @@ class SP_REGISTER_CONTROL_STATUSA extends Win32Struct
 
     /**
      * Fully qualified path of the file being registered or unregistered.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     FileName {
-        get => NumGet(this, 4, "ptr")
-        set => NumPut("ptr", value, this, 4)
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -40,8 +40,8 @@ class SP_REGISTER_CONTROL_STATUSA extends Win32Struct
      * @type {Integer}
      */
     Win32Error {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
+        get => NumGet(this, 16, "uint")
+        set => NumPut("uint", value, this, 16)
     }
 
     /**
@@ -128,8 +128,8 @@ class SP_REGISTER_CONTROL_STATUSA extends Win32Struct
      * @type {Integer}
      */
     FailureCode {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+        get => NumGet(this, 20, "uint")
+        set => NumPut("uint", value, this, 20)
     }
 
     /**
@@ -138,6 +138,6 @@ class SP_REGISTER_CONTROL_STATUSA extends Win32Struct
      */
     __New(ptr := 0){
         super.__New(ptr)
-        this.cbSize := 20
+        this.cbSize := 24
     }
 }

@@ -41,7 +41,7 @@ class WS_XML_WRITER_BINARY_ENCODING extends Win32Struct
      * Specifies an optional callback that the writer will invoke when a <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_xml_string">WS_XML_STRING</a> that is not found in the staticDictionary is written for the first time.
      *           The callback provides the mapping to an id which the writer will then use.  It is the responsibility of the callback to coordinate with the
      *           writer to propagate these strings to the reader. The string is not added to the dictionary if this callback is not specified.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<WS_DYNAMIC_STRING_CALLBACK>}
      */
     dynamicStringCallback {
         get => NumGet(this, 16, "ptr")

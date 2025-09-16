@@ -21,7 +21,7 @@ class WAVEOUTCAPSW extends Win32Struct
 {
     static sizeof => 84
 
-    static packingSize => 1
+    static packingSize => 4
 
     /**
      * Manufacturer identifier for the device driver for the device. Manufacturer identifiers are defined in <a href="https://docs.microsoft.com/windows/desktop/Multimedia/manufacturer-and-product-identifiers">Manufacturer and Product Identifiers</a>.

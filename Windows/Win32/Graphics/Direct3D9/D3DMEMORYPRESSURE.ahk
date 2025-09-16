@@ -9,9 +9,9 @@
  */
 class D3DMEMORYPRESSURE extends Win32Struct
 {
-    static sizeof => 20
+    static sizeof => 24
 
-    static packingSize => 4
+    static packingSize => 8
 
     /**
      * The number of bytes that were evicted by the process during the duration of the query.

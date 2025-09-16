@@ -26,7 +26,7 @@ class HEAPENTRY32 extends Win32Struct
 
     /**
      * A handle to the heap block.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HANDLE>}
      */
     hHandle {
         get => NumGet(this, 8, "ptr")

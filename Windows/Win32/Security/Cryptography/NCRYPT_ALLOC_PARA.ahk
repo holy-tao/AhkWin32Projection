@@ -24,7 +24,7 @@ class NCRYPT_ALLOC_PARA extends Win32Struct
 
     /**
      * Address of a custom function that can allocate memory.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_NCRYPT_ALLOC>}
      */
     pfnAlloc {
         get => NumGet(this, 8, "ptr")
@@ -33,7 +33,7 @@ class NCRYPT_ALLOC_PARA extends Win32Struct
 
     /**
      * Address of a function that can free memory allocated by the function specified by the <b>pfnAlloc</b> member.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_NCRYPT_FREE>}
      */
     pfnFree {
         get => NumGet(this, 16, "ptr")

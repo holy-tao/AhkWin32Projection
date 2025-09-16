@@ -7,9 +7,9 @@
  */
 class MPEG_STREAM_FILTER extends Win32Struct
 {
-    static sizeof => 42
+    static sizeof => 44
 
-    static packingSize => 1
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -23,16 +23,16 @@ class MPEG_STREAM_FILTER extends Win32Struct
      * @type {Integer}
      */
     dwFilterSize {
-        get => NumGet(this, 2, "uint")
-        set => NumPut("uint", value, this, 2)
+        get => NumGet(this, 4, "uint")
+        set => NumPut("uint", value, this, 4)
     }
 
     /**
      * @type {Integer}
      */
     fCrcEnabled {
-        get => NumGet(this, 6, "int")
-        set => NumPut("int", value, this, 6)
+        get => NumGet(this, 8, "int")
+        set => NumPut("int", value, this, 8)
     }
 
     /**
@@ -41,7 +41,7 @@ class MPEG_STREAM_FILTER extends Win32Struct
     rgchFilter{
         get {
             if(!this.HasProp("__rgchFilterProxyArray"))
-                this.__rgchFilterProxyArray := Win32FixedArray(this.ptr + 10, 16, Primitive, "char")
+                this.__rgchFilterProxyArray := Win32FixedArray(this.ptr + 12, 16, Primitive, "char")
             return this.__rgchFilterProxyArray
         }
     }
@@ -52,7 +52,7 @@ class MPEG_STREAM_FILTER extends Win32Struct
     rgchMask{
         get {
             if(!this.HasProp("__rgchMaskProxyArray"))
-                this.__rgchMaskProxyArray := Win32FixedArray(this.ptr + 26, 16, Primitive, "char")
+                this.__rgchMaskProxyArray := Win32FixedArray(this.ptr + 28, 16, Primitive, "char")
             return this.__rgchMaskProxyArray
         }
     }

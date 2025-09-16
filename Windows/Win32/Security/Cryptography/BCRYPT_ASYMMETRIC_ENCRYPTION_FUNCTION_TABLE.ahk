@@ -24,7 +24,7 @@ class BCRYPT_ASYMMETRIC_ENCRYPTION_FUNCTION_TABLE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<BCryptOpenAlgorithmProviderFn>}
      */
     OpenAlgorithmProvider {
         get => NumGet(this, 8, "ptr")
@@ -32,7 +32,7 @@ class BCRYPT_ASYMMETRIC_ENCRYPTION_FUNCTION_TABLE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<BCryptGetPropertyFn>}
      */
     GetProperty {
         get => NumGet(this, 16, "ptr")
@@ -40,7 +40,7 @@ class BCRYPT_ASYMMETRIC_ENCRYPTION_FUNCTION_TABLE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<BCryptSetPropertyFn>}
      */
     SetProperty {
         get => NumGet(this, 24, "ptr")
@@ -48,7 +48,7 @@ class BCRYPT_ASYMMETRIC_ENCRYPTION_FUNCTION_TABLE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<BCryptCloseAlgorithmProviderFn>}
      */
     CloseAlgorithmProvider {
         get => NumGet(this, 32, "ptr")
@@ -56,7 +56,7 @@ class BCRYPT_ASYMMETRIC_ENCRYPTION_FUNCTION_TABLE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<BCryptGenerateKeyPairFn>}
      */
     GenerateKeyPair {
         get => NumGet(this, 40, "ptr")
@@ -64,7 +64,7 @@ class BCRYPT_ASYMMETRIC_ENCRYPTION_FUNCTION_TABLE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<BCryptFinalizeKeyPairFn>}
      */
     FinalizeKeyPair {
         get => NumGet(this, 48, "ptr")
@@ -72,7 +72,7 @@ class BCRYPT_ASYMMETRIC_ENCRYPTION_FUNCTION_TABLE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<BCryptEncryptFn>}
      */
     Encrypt {
         get => NumGet(this, 56, "ptr")
@@ -80,7 +80,7 @@ class BCRYPT_ASYMMETRIC_ENCRYPTION_FUNCTION_TABLE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<BCryptDecryptFn>}
      */
     Decrypt {
         get => NumGet(this, 64, "ptr")
@@ -88,7 +88,7 @@ class BCRYPT_ASYMMETRIC_ENCRYPTION_FUNCTION_TABLE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<BCryptImportKeyPairFn>}
      */
     ImportKeyPair {
         get => NumGet(this, 72, "ptr")
@@ -96,7 +96,7 @@ class BCRYPT_ASYMMETRIC_ENCRYPTION_FUNCTION_TABLE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<BCryptExportKeyFn>}
      */
     ExportKey {
         get => NumGet(this, 80, "ptr")
@@ -104,7 +104,7 @@ class BCRYPT_ASYMMETRIC_ENCRYPTION_FUNCTION_TABLE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<BCryptDestroyKeyFn>}
      */
     DestroyKey {
         get => NumGet(this, 88, "ptr")
@@ -112,7 +112,7 @@ class BCRYPT_ASYMMETRIC_ENCRYPTION_FUNCTION_TABLE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<BCryptSignHashFn>}
      */
     SignHash {
         get => NumGet(this, 96, "ptr")
@@ -120,7 +120,7 @@ class BCRYPT_ASYMMETRIC_ENCRYPTION_FUNCTION_TABLE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<BCryptVerifySignatureFn>}
      */
     VerifySignature {
         get => NumGet(this, 104, "ptr")

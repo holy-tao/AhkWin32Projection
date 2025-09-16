@@ -7,9 +7,9 @@
  */
 class BTH_PING_REQ extends Win32Struct
 {
-    static sizeof => 53
+    static sizeof => 56
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * @type {Integer}

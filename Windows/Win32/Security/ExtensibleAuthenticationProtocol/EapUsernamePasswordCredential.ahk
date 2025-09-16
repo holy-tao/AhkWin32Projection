@@ -15,7 +15,7 @@ class EapUsernamePasswordCredential extends Win32Struct
 
     /**
      * A NULL-terminated Unicode string that contains the username that needs authentication. The username uses the format user@domain or domain\user.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     username {
         get => NumGet(this, 0, "ptr")
@@ -24,7 +24,7 @@ class EapUsernamePasswordCredential extends Win32Struct
 
     /**
      * A NULL-terminated Unicode string that contains the password to verify the user. The password is encrypted using the [CredProtect](../wincred/nf-wincred-credprotectw.md) function. The EAP method must use the [CredUnprotect](../wincred/nf-wincred-credunprotecta.md) function to retrieve the unencrypted password.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     password {
         get => NumGet(this, 8, "ptr")

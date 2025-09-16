@@ -28,7 +28,7 @@ class RESOURCE_STATUS_EX extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HANDLE>}
      */
     EventHandle {
         get => NumGet(this, 8, "ptr")

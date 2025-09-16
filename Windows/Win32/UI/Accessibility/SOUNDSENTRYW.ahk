@@ -184,7 +184,7 @@ class SOUNDSENTRYW extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPTSTR</a></b>
      * 
      * This member is reserved for future use. It should be set to <b>NULL</b>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     lpszWindowsEffectDLL {
         get => NumGet(this, 40, "ptr")

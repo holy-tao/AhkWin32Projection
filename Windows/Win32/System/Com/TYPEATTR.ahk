@@ -62,7 +62,7 @@ class TYPEATTR extends Win32Struct
 
     /**
      * Reserved.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     lpstrSchema {
         get => NumGet(this, 24, "ptr")

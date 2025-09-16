@@ -28,7 +28,7 @@ class ImageCodecInfo extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     CodecName {
         get => NumGet(this, 16, "ptr")
@@ -36,7 +36,7 @@ class ImageCodecInfo extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     DllName {
         get => NumGet(this, 24, "ptr")
@@ -44,7 +44,7 @@ class ImageCodecInfo extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     FormatDescription {
         get => NumGet(this, 32, "ptr")
@@ -52,7 +52,7 @@ class ImageCodecInfo extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     FilenameExtension {
         get => NumGet(this, 40, "ptr")
@@ -60,7 +60,7 @@ class ImageCodecInfo extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     MimeType {
         get => NumGet(this, 48, "ptr")

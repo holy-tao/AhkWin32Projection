@@ -36,7 +36,7 @@ class DDHAL_GETVPORTFLIPSTATUSDATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPDDHALVPORTCB_GETFLIPSTATUS>}
      */
     GetVideoPortFlipStatus {
         get => NumGet(this, 24, "ptr")

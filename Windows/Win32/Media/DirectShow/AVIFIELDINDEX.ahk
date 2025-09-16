@@ -7,9 +7,9 @@
  */
 class AVIFIELDINDEX extends Win32Struct
 {
-    static sizeof => 40
+    static sizeof => 48
 
-    static packingSize => 2
+    static packingSize => 8
 
     /**
      * @type {Integer}
@@ -71,22 +71,14 @@ class AVIFIELDINDEX extends Win32Struct
      * @type {Integer}
      */
     qwBaseOffset {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
     }
 
     /**
      * @type {Integer}
      */
     dwReserved3 {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    dwOffset {
         get => NumGet(this, 32, "uint")
         set => NumPut("uint", value, this, 32)
     }
@@ -94,16 +86,24 @@ class AVIFIELDINDEX extends Win32Struct
     /**
      * @type {Integer}
      */
+    dwOffset {
+        get => NumGet(this, 40, "uint")
+        set => NumPut("uint", value, this, 40)
+    }
+
+    /**
+     * @type {Integer}
+     */
     dwSize {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
+        get => NumGet(this, 44, "uint")
+        set => NumPut("uint", value, this, 44)
     }
 
     /**
      * @type {Integer}
      */
     dwOffsetField2 {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
+        get => NumGet(this, 48, "uint")
+        set => NumPut("uint", value, this, 48)
     }
 }

@@ -26,7 +26,7 @@ class WEBAUTHN_GET_CREDENTIALS_OPTIONS extends Win32Struct
 
     /**
      * The Id of the relying party that is making the request. This field is _optional_.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pwszRpId {
         get => NumGet(this, 8, "ptr")

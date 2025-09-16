@@ -61,7 +61,7 @@ class DD_D3DBUFCALLBACKS extends Win32Struct
 
     /**
      * Points to the driver's <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/nc-ddrawint-pdd_cancreatesurface">CanCreateD3DBuffer</a> callback.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PDD_CANCREATESURFACE>}
      */
     CanCreateD3DBuffer {
         get => NumGet(this, 8, "ptr")
@@ -70,7 +70,7 @@ class DD_D3DBUFCALLBACKS extends Win32Struct
 
     /**
      * Points to the driver's <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/nc-ddrawint-pdd_createsurface">CreateD3DBuffer</a> callback.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PDD_CREATESURFACE>}
      */
     CreateD3DBuffer {
         get => NumGet(this, 16, "ptr")
@@ -79,7 +79,7 @@ class DD_D3DBUFCALLBACKS extends Win32Struct
 
     /**
      * Points to the driver's <a href="https://docs.microsoft.com/previous-versions/windows/hardware/drivers/ff552754(v=vs.85)">DestroyD3DBuffer</a> callback.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PDD_SURFCB_DESTROYSURFACE>}
      */
     DestroyD3DBuffer {
         get => NumGet(this, 24, "ptr")
@@ -88,7 +88,7 @@ class DD_D3DBUFCALLBACKS extends Win32Struct
 
     /**
      * Points to the driver's <a href="https://docs.microsoft.com/previous-versions/windows/hardware/drivers/ff568216(v=vs.85)">LockD3DBuffer</a> callback.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PDD_SURFCB_LOCK>}
      */
     LockD3DBuffer {
         get => NumGet(this, 32, "ptr")
@@ -97,7 +97,7 @@ class DD_D3DBUFCALLBACKS extends Win32Struct
 
     /**
      * Points to the driver's <a href="https://docs.microsoft.com/previous-versions/windows/hardware/drivers/ff570106(v=vs.85)">UnlockD3DBuffer</a> callback.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PDD_SURFCB_UNLOCK>}
      */
     UnlockD3DBuffer {
         get => NumGet(this, 40, "ptr")

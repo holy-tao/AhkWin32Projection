@@ -24,7 +24,7 @@ class CRYPT_XML_ALGORITHM_INFO extends Win32Struct
 
     /**
      * A pointer to a null-terminated Unicode string that contains the URI associated with the attribute of the <b>SignatureMethod</b> or <b>DigestMethod</b> element of the XML signature.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     wszAlgorithmURI {
         get => NumGet(this, 8, "ptr")
@@ -33,7 +33,7 @@ class CRYPT_XML_ALGORITHM_INFO extends Win32Struct
 
     /**
      * Optional. A pointer to a null-terminated Unicode string that contains the display name of the algorithm.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     wszName {
         get => NumGet(this, 16, "ptr")
@@ -55,7 +55,7 @@ class CRYPT_XML_ALGORITHM_INFO extends Win32Struct
      * 
      * <div class="alert"><b>Note</b>  BCrypt* and NCrypt* functions are defined in Bcrypt.h and Ncrypt.h.</div>
      * <div> </div>
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     wszCNGAlgid {
         get => NumGet(this, 32, "ptr")
@@ -68,7 +68,7 @@ class CRYPT_XML_ALGORITHM_INFO extends Win32Struct
      * 
      * <div class="alert"><b>Note</b>  BCrypt* and NCrypt* functions are defined in Bcrypt.h and Ncrypt.h.</div>
      * <div> </div>
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     wszCNGExtraAlgid {
         get => NumGet(this, 40, "ptr")

@@ -12,9 +12,9 @@
  */
 class SP_NEWDEVICEWIZARD_DATA extends Win32Struct
 {
-    static sizeof => 184
+    static sizeof => 192
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * An install request header that contains the header size and the DIF code for the request. See <a href="https://docs.microsoft.com/windows/desktop/api/setupapi/ns-setupapi-sp_classinstall_header">SP_CLASSINSTALL_HEADER</a>.
@@ -39,12 +39,12 @@ class SP_NEWDEVICEWIZARD_DATA extends Win32Struct
 
     /**
      * An array of property sheet page handles. An installer can add the handles of custom wizard pages to this array.
-     * @type {Array<Ptr>}
+     * @type {Array<HPROPSHEETPAGE>}
      */
     DynamicPages{
         get {
             if(!this.HasProp("__DynamicPagesProxyArray"))
-                this.__DynamicPagesProxyArray := Win32FixedArray(this.ptr + 12, 20, Primitive, "ptr")
+                this.__DynamicPagesProxyArray := Win32FixedArray(this.ptr + 16, 20, Primitive, "ptr")
             return this.__DynamicPagesProxyArray
         }
     }
@@ -56,16 +56,16 @@ class SP_NEWDEVICEWIZARD_DATA extends Win32Struct
      * @type {Integer}
      */
     NumDynamicPages {
-        get => NumGet(this, 172, "uint")
-        set => NumPut("uint", value, this, 172)
+        get => NumGet(this, 176, "uint")
+        set => NumPut("uint", value, this, 176)
     }
 
     /**
      * The handle to the top-level window of the hardware installation wizard .
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HWND>}
      */
     hwndWizardDlg {
-        get => NumGet(this, 176, "ptr")
-        set => NumPut("ptr", value, this, 176)
+        get => NumGet(this, 184, "ptr")
+        set => NumPut("ptr", value, this, 184)
     }
 }

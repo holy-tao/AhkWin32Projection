@@ -8,9 +8,9 @@
  */
 class DRMWAVEFORMAT extends Win32Struct
 {
-    static sizeof => 42
+    static sizeof => 56
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * @type {WAVEFORMATEX}
@@ -27,16 +27,16 @@ class DRMWAVEFORMAT extends Win32Struct
      * @type {Integer}
      */
     wReserved {
-        get => NumGet(this, 18, "ushort")
-        set => NumPut("ushort", value, this, 18)
+        get => NumGet(this, 20, "ushort")
+        set => NumPut("ushort", value, this, 20)
     }
 
     /**
      * @type {Integer}
      */
     ulContentId {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
     }
 
     /**
@@ -45,7 +45,7 @@ class DRMWAVEFORMAT extends Win32Struct
     wfxSecure{
         get {
             if(!this.HasProp("__wfxSecure"))
-                this.__wfxSecure := WAVEFORMATEX(this.ptr + 24)
+                this.__wfxSecure := WAVEFORMATEX(this.ptr + 32)
             return this.__wfxSecure
         }
     }

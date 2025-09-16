@@ -26,7 +26,7 @@ class SET_VIRTUAL_DISK_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     ParentFilePath {
         get => NumGet(this, 4, "ptr")
@@ -50,7 +50,7 @@ class SET_VIRTUAL_DISK_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     ParentFilePath1 {
         get => NumGet(this, 12, "ptr")
@@ -90,7 +90,7 @@ class SET_VIRTUAL_DISK_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     ParentFilePath12 {
         get => NumGet(this, 12, "ptr")

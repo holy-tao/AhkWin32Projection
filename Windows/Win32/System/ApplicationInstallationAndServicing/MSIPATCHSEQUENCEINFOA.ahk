@@ -19,7 +19,7 @@ class MSIPATCHSEQUENCEINFOA extends Win32Struct
 
     /**
      * Pointer to the path of a patch file, an XML blob, or an XML file.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     szPatchData {
         get => NumGet(this, 0, "ptr")

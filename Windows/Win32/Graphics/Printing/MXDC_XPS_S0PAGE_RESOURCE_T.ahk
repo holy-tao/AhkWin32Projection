@@ -15,9 +15,9 @@
  */
 class MXDC_XPS_S0PAGE_RESOURCE_T extends Win32Struct
 {
-    static sizeof => 273
+    static sizeof => 276
 
-    static packingSize => 1
+    static packingSize => 4
 
     /**
      * The total size of this structure and the resource to which it points.

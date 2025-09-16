@@ -18,7 +18,7 @@ class EVENT_INSTANCE_INFO extends Win32Struct
 
     /**
      * Handle to a registered event trace class.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HANDLE>}
      */
     RegHandle {
         get => NumGet(this, 0, "ptr")

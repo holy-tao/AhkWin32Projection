@@ -7,9 +7,9 @@
  */
 class DBPARAMINFO extends Win32Struct
 {
-    static sizeof => 40
+    static sizeof => 48
 
-    static packingSize => 2
+    static packingSize => 8
 
     /**
      * @type {Integer}
@@ -23,55 +23,55 @@ class DBPARAMINFO extends Win32Struct
      * @type {Pointer}
      */
     iOrdinal {
-        get => NumGet(this, 4, "ptr")
-        set => NumPut("ptr", value, this, 4)
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pwszName {
-        get => NumGet(this, 12, "ptr")
-        set => NumPut("ptr", value, this, 12)
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * @type {Pointer<ITypeInfo>}
      */
     pTypeInfo {
-        get => NumGet(this, 20, "ptr")
-        set => NumPut("ptr", value, this, 20)
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
      * @type {Pointer}
      */
     ulParamSize {
-        get => NumGet(this, 28, "ptr")
-        set => NumPut("ptr", value, this, 28)
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
      * @type {Integer}
      */
     wType {
-        get => NumGet(this, 36, "ushort")
-        set => NumPut("ushort", value, this, 36)
+        get => NumGet(this, 40, "ushort")
+        set => NumPut("ushort", value, this, 40)
     }
 
     /**
      * @type {Integer}
      */
     bPrecision {
-        get => NumGet(this, 38, "char")
-        set => NumPut("char", value, this, 38)
+        get => NumGet(this, 42, "char")
+        set => NumPut("char", value, this, 42)
     }
 
     /**
      * @type {Integer}
      */
     bScale {
-        get => NumGet(this, 39, "char")
-        set => NumPut("char", value, this, 39)
+        get => NumGet(this, 43, "char")
+        set => NumPut("char", value, this, 43)
     }
 }

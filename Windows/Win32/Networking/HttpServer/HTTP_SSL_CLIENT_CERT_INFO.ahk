@@ -54,7 +54,7 @@ class HTTP_SSL_CLIENT_CERT_INFO extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpsetserviceconfiguration">HttpSetServiceConfiguration</a> function, and the client certificate was successfully mapped to an operating-system user account, then this member contains the handle to a valid 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-tokens">access token</a>. When the 
      * <b>HTTP_SSL_CLIENT_CERT_INFO</b> structure is no longer required, release this token explicitly by closing the handle.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HANDLE>}
      */
     Token {
         get => NumGet(this, 16, "ptr")

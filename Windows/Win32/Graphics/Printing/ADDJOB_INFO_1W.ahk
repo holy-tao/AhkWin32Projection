@@ -16,7 +16,7 @@ class ADDJOB_INFO_1W extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that contains the path and file name that the application can use to store the print job.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     Path {
         get => NumGet(this, 0, "ptr")

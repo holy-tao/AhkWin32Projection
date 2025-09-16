@@ -36,7 +36,7 @@ class DDHAL_DDMISCELLANEOUS2CALLBACKS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPDDHAL_CREATESURFACEEX>}
      */
     CreateSurfaceEx {
         get => NumGet(this, 16, "ptr")
@@ -44,7 +44,7 @@ class DDHAL_DDMISCELLANEOUS2CALLBACKS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPDDHAL_GETDRIVERSTATE>}
      */
     GetDriverState {
         get => NumGet(this, 24, "ptr")
@@ -52,7 +52,7 @@ class DDHAL_DDMISCELLANEOUS2CALLBACKS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPDDHAL_DESTROYDDLOCAL>}
      */
     DestroyDDLocal {
         get => NumGet(this, 32, "ptr")

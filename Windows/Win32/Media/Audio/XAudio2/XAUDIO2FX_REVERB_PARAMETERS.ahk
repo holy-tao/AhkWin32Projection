@@ -16,9 +16,9 @@
  */
 class XAUDIO2FX_REVERB_PARAMETERS extends Win32Struct
 {
-    static sizeof => 57
+    static sizeof => 60
 
-    static packingSize => 1
+    static packingSize => 4
 
     /**
      * Percentage of the output that will be reverb. Allowable values are from 0 to 100.
@@ -330,8 +330,8 @@ class XAUDIO2FX_REVERB_PARAMETERS extends Win32Struct
      * @type {Float}
      */
     RoomFilterFreq {
-        get => NumGet(this, 21, "float")
-        set => NumPut("float", value, this, 21)
+        get => NumGet(this, 24, "float")
+        set => NumPut("float", value, this, 24)
     }
 
     /**
@@ -339,8 +339,8 @@ class XAUDIO2FX_REVERB_PARAMETERS extends Win32Struct
      * @type {Float}
      */
     RoomFilterMain {
-        get => NumGet(this, 25, "float")
-        set => NumPut("float", value, this, 25)
+        get => NumGet(this, 28, "float")
+        set => NumPut("float", value, this, 28)
     }
 
     /**
@@ -348,8 +348,8 @@ class XAUDIO2FX_REVERB_PARAMETERS extends Win32Struct
      * @type {Float}
      */
     RoomFilterHF {
-        get => NumGet(this, 29, "float")
-        set => NumPut("float", value, this, 29)
+        get => NumGet(this, 32, "float")
+        set => NumPut("float", value, this, 32)
     }
 
     /**
@@ -357,8 +357,8 @@ class XAUDIO2FX_REVERB_PARAMETERS extends Win32Struct
      * @type {Float}
      */
     ReflectionsGain {
-        get => NumGet(this, 33, "float")
-        set => NumPut("float", value, this, 33)
+        get => NumGet(this, 36, "float")
+        set => NumPut("float", value, this, 36)
     }
 
     /**
@@ -366,8 +366,8 @@ class XAUDIO2FX_REVERB_PARAMETERS extends Win32Struct
      * @type {Float}
      */
     ReverbGain {
-        get => NumGet(this, 37, "float")
-        set => NumPut("float", value, this, 37)
+        get => NumGet(this, 40, "float")
+        set => NumPut("float", value, this, 40)
     }
 
     /**
@@ -375,8 +375,8 @@ class XAUDIO2FX_REVERB_PARAMETERS extends Win32Struct
      * @type {Float}
      */
     DecayTime {
-        get => NumGet(this, 41, "float")
-        set => NumPut("float", value, this, 41)
+        get => NumGet(this, 44, "float")
+        set => NumPut("float", value, this, 44)
     }
 
     /**
@@ -384,8 +384,8 @@ class XAUDIO2FX_REVERB_PARAMETERS extends Win32Struct
      * @type {Float}
      */
     Density {
-        get => NumGet(this, 45, "float")
-        set => NumPut("float", value, this, 45)
+        get => NumGet(this, 48, "float")
+        set => NumPut("float", value, this, 48)
     }
 
     /**
@@ -393,8 +393,8 @@ class XAUDIO2FX_REVERB_PARAMETERS extends Win32Struct
      * @type {Float}
      */
     RoomSize {
-        get => NumGet(this, 49, "float")
-        set => NumPut("float", value, this, 49)
+        get => NumGet(this, 52, "float")
+        set => NumPut("float", value, this, 52)
     }
 
     /**
@@ -405,7 +405,7 @@ class XAUDIO2FX_REVERB_PARAMETERS extends Win32Struct
      * @type {Integer}
      */
     DisableLateField {
-        get => NumGet(this, 53, "int")
-        set => NumPut("int", value, this, 53)
+        get => NumGet(this, 56, "int")
+        set => NumPut("int", value, this, 56)
     }
 }

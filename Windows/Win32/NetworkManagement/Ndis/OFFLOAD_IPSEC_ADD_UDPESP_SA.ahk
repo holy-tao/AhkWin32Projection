@@ -114,7 +114,7 @@ class OFFLOAD_IPSEC_ADD_UDPESP_SA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HANDLE>}
      */
     OffloadHandle {
         get => NumGet(this, 64, "ptr")
@@ -133,7 +133,7 @@ class OFFLOAD_IPSEC_ADD_UDPESP_SA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HANDLE>}
      */
     EncapTypeEntryOffldHandle {
         get => NumGet(this, 80, "ptr")

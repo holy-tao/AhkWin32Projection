@@ -36,7 +36,7 @@ class KDEXT_PROCESS_FIND_PARAMS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     ImageName {
         get => NumGet(this, 16, "ptr")

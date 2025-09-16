@@ -23,7 +23,7 @@ class D3D10_SIGNATURE_PARAMETER_DESC extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>
      * 
      * A per-parameter string that identifies how the data will be used. See <a href="https://docs.microsoft.com/windows/desktop/direct3dhlsl/dx-graphics-hlsl-semantics">Semantics (DirectX HLSL)</a>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     SemanticName {
         get => NumGet(this, 0, "ptr")

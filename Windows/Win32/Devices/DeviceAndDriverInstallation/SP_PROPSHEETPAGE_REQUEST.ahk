@@ -71,7 +71,7 @@ class SP_PROPSHEETPAGE_REQUEST extends Win32Struct
 {
     static sizeof => 24
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * The size, in bytes, of the SP_PROPSHEETPAGE_REQUEST structure.

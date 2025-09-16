@@ -17,7 +17,7 @@ class D3D11_LIBRARY_DESC extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>
      * 
      * The name of the originator of the library.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     Creator {
         get => NumGet(this, 0, "ptr")

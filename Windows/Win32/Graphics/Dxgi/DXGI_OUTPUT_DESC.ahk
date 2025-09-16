@@ -68,7 +68,7 @@ class DXGI_OUTPUT_DESC extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HMONITOR</a></b>
      * 
      * An <a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HMONITOR</a> handle that represents the display monitor. For more information, see <a href="https://docs.microsoft.com/windows/desktop/gdi/hmonitor-and-the-device-context">HMONITOR and the Device Context</a>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HMONITOR>}
      */
     Monitor {
         get => NumGet(this, 88, "ptr")

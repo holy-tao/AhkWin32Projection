@@ -13,7 +13,7 @@ class BUSNUMBER_RANGE extends Win32Struct
 {
     static sizeof => 16
 
-    static packingSize => 1
+    static packingSize => 4
 
     /**
      * The lowest-numbered of a range of contiguous bus numbers that can be allocated to the device.

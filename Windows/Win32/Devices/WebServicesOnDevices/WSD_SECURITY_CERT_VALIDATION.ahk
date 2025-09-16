@@ -49,7 +49,7 @@ class WSD_SECURITY_CERT_VALIDATION extends Win32Struct
 
     /**
      * A handle to a certificate store that contains certificates to be matched against those provided by the HTTPS server or client.  Only one matching certificate is required for validation.  This parameter can be NULL.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HCERTSTORE>}
      */
     hCertMatchStore {
         get => NumGet(this, 16, "ptr")
@@ -58,7 +58,7 @@ class WSD_SECURITY_CERT_VALIDATION extends Win32Struct
 
     /**
      * A handle to a certificate store that contains root certificates against which a certificate from the HTTPS server or client should chain to.  Validation succeeds as long as the certificate chains up to at least one root certificate.  This parameter can be NULL.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HCERTSTORE>}
      */
     hCertIssuerStore {
         get => NumGet(this, 24, "ptr")
@@ -149,7 +149,7 @@ class WSD_SECURITY_CERT_VALIDATION extends Win32Struct
 
     /**
      * 
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pszCNGHashAlgId {
         get => NumGet(this, 40, "ptr")

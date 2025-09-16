@@ -13,7 +13,7 @@ class WINHTTP_PROXY_SETTINGS_PARAM extends Win32Struct
 {
     static sizeof => 24
 
-    static packingSize => 4
+    static packingSize => 8
 
     /**
      * Type: **[ULONGLONG](/windows/win32/winprog/windows-data-types)**
@@ -30,7 +30,7 @@ class WINHTTP_PROXY_SETTINGS_PARAM extends Win32Struct
      * Type: **[PCWSTR](/windows/win32/winprog/windows-data-types)**
      * 
      * The WCM connection name for which settings were retrieved.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pcwszConnectionName {
         get => NumGet(this, 8, "ptr")
@@ -41,7 +41,7 @@ class WINHTTP_PROXY_SETTINGS_PARAM extends Win32Struct
      * Type: **[PCWSTR](/windows/win32/winprog/windows-data-types)**
      * 
      * TBD
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pcwszProbeHost {
         get => NumGet(this, 16, "ptr")

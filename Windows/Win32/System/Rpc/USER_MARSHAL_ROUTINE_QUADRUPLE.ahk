@@ -12,7 +12,7 @@ class USER_MARSHAL_ROUTINE_QUADRUPLE extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<USER_MARSHAL_SIZING_ROUTINE>}
      */
     pfnBufferSize {
         get => NumGet(this, 0, "ptr")
@@ -20,7 +20,7 @@ class USER_MARSHAL_ROUTINE_QUADRUPLE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<USER_MARSHAL_MARSHALLING_ROUTINE>}
      */
     pfnMarshall {
         get => NumGet(this, 8, "ptr")
@@ -28,7 +28,7 @@ class USER_MARSHAL_ROUTINE_QUADRUPLE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<USER_MARSHAL_UNMARSHALLING_ROUTINE>}
      */
     pfnUnmarshall {
         get => NumGet(this, 16, "ptr")
@@ -36,7 +36,7 @@ class USER_MARSHAL_ROUTINE_QUADRUPLE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<USER_MARSHAL_FREEING_ROUTINE>}
      */
     pfnFree {
         get => NumGet(this, 24, "ptr")

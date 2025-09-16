@@ -32,7 +32,7 @@ class DNS_INTERFACE_SETTINGS_EX extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     SupplementalSearchList {
         get => NumGet(this, 72, "ptr")

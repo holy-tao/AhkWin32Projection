@@ -96,7 +96,7 @@ class DHCP_SERVER_OPTIONS extends Win32Struct
 
     /**
      * Machine name (host name) of the computer making the request.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     MachineName {
         get => NumGet(this, 72, "ptr")
@@ -141,7 +141,7 @@ class DHCP_SERVER_OPTIONS extends Win32Struct
 
     /**
      * Class identifier for the client.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     ClassIdentifier {
         get => NumGet(this, 96, "ptr")
@@ -213,7 +213,7 @@ class DHCP_SERVER_OPTIONS extends Win32Struct
 
     /**
      * Pointer to the domain name.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     DSDomainName {
         get => NumGet(this, 152, "ptr")

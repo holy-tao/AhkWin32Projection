@@ -65,7 +65,7 @@ class WDS_TRANSPORTCLIENT_REQUEST extends Win32Struct
 
     /**
      * Server name.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pwszServer {
         get => NumGet(this, 16, "ptr")
@@ -74,7 +74,7 @@ class WDS_TRANSPORTCLIENT_REQUEST extends Win32Struct
 
     /**
      * Namespace of the object to retrieve.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pwszNamespace {
         get => NumGet(this, 24, "ptr")
@@ -84,7 +84,7 @@ class WDS_TRANSPORTCLIENT_REQUEST extends Win32Struct
     /**
      * Specifies the name of the object to retrieve.  Object names are
      *      provider dependent.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pwszObjectName {
         get => NumGet(this, 32, "ptr")

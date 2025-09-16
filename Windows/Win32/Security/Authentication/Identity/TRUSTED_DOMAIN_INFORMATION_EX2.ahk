@@ -35,7 +35,7 @@ class TRUSTED_DOMAIN_INFORMATION_EX2 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSID>}
      */
     Sid {
         get => NumGet(this, 32, "ptr")

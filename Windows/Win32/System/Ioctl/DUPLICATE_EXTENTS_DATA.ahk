@@ -16,7 +16,7 @@ class DUPLICATE_EXTENTS_DATA extends Win32Struct
     /**
      * A handle to the source file from which the byte range is to be copied.
      * To retrieve a file handle, use the <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HANDLE>}
      */
     FileHandle {
         get => NumGet(this, 0, "ptr")

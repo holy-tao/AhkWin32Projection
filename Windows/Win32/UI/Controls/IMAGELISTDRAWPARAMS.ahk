@@ -56,7 +56,7 @@ class IMAGELISTDRAWPARAMS extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HDC</a></b>
      * 
      * A handle to the destination device context.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HDC>}
      */
     hdcDst {
         get => NumGet(this, 24, "ptr")

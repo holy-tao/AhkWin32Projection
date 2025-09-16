@@ -24,7 +24,7 @@ class WSMAN_SHELL_ASYNC extends Win32Struct
 
     /**
      * Specifies the <a href="https://docs.microsoft.com/windows/desktop/api/wsman/nc-wsman-wsman_shell_completion_function">WSMAN_SHELL_COMPLETION_FUNCTION</a> callback function for the operation.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<WSMAN_SHELL_COMPLETION_FUNCTION>}
      */
     completionFunction {
         get => NumGet(this, 8, "ptr")

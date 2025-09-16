@@ -56,7 +56,7 @@ class PROFILEINFOW extends Win32Struct
      * Type: <b>LPTSTR</b>
      * 
      * A pointer to the name of the user. This member is used as the base name of the directory in which to store a new profile.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     lpUserName {
         get => NumGet(this, 8, "ptr")
@@ -67,7 +67,7 @@ class PROFILEINFOW extends Win32Struct
      * Type: <b>LPTSTR</b>
      * 
      * A pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/bb776897(v=vs.85)">roaming user profile</a> path. If the user does not have a roaming profile, this member can be <b>NULL</b>. To retrieve the user's roaming profile path, call the <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netusergetinfo">NetUserGetInfo</a> function, specifying information level 3 or 4. For more information, see Remarks.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     lpProfilePath {
         get => NumGet(this, 16, "ptr")
@@ -78,7 +78,7 @@ class PROFILEINFOW extends Win32Struct
      * Type: <b>LPTSTR</b>
      * 
      * A pointer to the default user profile path. This member can be <b>NULL</b>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     lpDefaultPath {
         get => NumGet(this, 24, "ptr")
@@ -89,7 +89,7 @@ class PROFILEINFOW extends Win32Struct
      * Type: <b>LPTSTR</b>
      * 
      * A pointer to the name of the validating domain controller, in NetBIOS format.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     lpServerName {
         get => NumGet(this, 32, "ptr")
@@ -100,7 +100,7 @@ class PROFILEINFOW extends Win32Struct
      * Type: <b>LPTSTR</b>
      * 
      * Not used, set to <b>NULL</b>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     lpPolicyPath {
         get => NumGet(this, 40, "ptr")
@@ -111,7 +111,7 @@ class PROFILEINFOW extends Win32Struct
      * Type: <b>HANDLE</b>
      * 
      * A handle to the <b>HKEY_CURRENT_USER</b> registry subtree. For more information, see Remarks.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HANDLE>}
      */
     hProfile {
         get => NumGet(this, 48, "ptr")

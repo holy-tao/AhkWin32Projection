@@ -18,7 +18,7 @@ class DHCP_CALLOUT_TABLE extends Win32Struct
     /**
      * Pointer to a 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dhcpssdk/nc-dhcpssdk-lpdhcp_control">DhcpControlHook</a> function, implemented in a third-party DLL, to be called when Microsoft DHCP Server is started, stopped, paused, or continued. Set to <b>NULL</b> if notification is not required.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPDHCP_CONTROL>}
      */
     DhcpControlHook {
         get => NumGet(this, 0, "ptr")
@@ -28,7 +28,7 @@ class DHCP_CALLOUT_TABLE extends Win32Struct
     /**
      * Pointer to a 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dhcpssdk/nc-dhcpssdk-lpdhcp_newpkt">DhcpNewPktHook</a> function, implemented in a third-party DLL, to be called when Microsoft DHCP Server receives a packet that it attempts to process. Set to <b>NULL</b> if notification is not required.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPDHCP_NEWPKT>}
      */
     DhcpNewPktHook {
         get => NumGet(this, 8, "ptr")
@@ -38,7 +38,7 @@ class DHCP_CALLOUT_TABLE extends Win32Struct
     /**
      * Pointer to a 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dhcpssdk/nc-dhcpssdk-lpdhcp_drop_send">DhcpPktDropHook</a> function, implemented in a third-party DLL, to be called when Microsoft DHCP Server drops a packet, and when a packet is completely processed by Microsoft DHCP Server. Set to <b>NULL</b> if notification is not required.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPDHCP_DROP_SEND>}
      */
     DhcpPktDropHook {
         get => NumGet(this, 16, "ptr")
@@ -48,7 +48,7 @@ class DHCP_CALLOUT_TABLE extends Win32Struct
     /**
      * Pointer to a 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa363294(v=vs.85)">DhcpPktSendHook</a> function, implemented in a third-party DLL, to be called directly before Microsoft DHCP Server submits a response to a client inquiry. Set to <b>NULL</b> if notification is not required.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPDHCP_DROP_SEND>}
      */
     DhcpPktSendHook {
         get => NumGet(this, 24, "ptr")
@@ -58,7 +58,7 @@ class DHCP_CALLOUT_TABLE extends Win32Struct
     /**
      * Pointer to a 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dhcpssdk/nc-dhcpssdk-lpdhcp_prob">DhcpAddressDelHook</a> function, implemented in a third-party DLL, to be called when a specified event in Microsoft DHCP Server results in a packet being dropped. Set to <b>NULL</b> if notification is not required.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPDHCP_PROB>}
      */
     DhcpAddressDelHook {
         get => NumGet(this, 32, "ptr")
@@ -68,7 +68,7 @@ class DHCP_CALLOUT_TABLE extends Win32Struct
     /**
      * Pointer to a 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dhcpssdk/nc-dhcpssdk-lpdhcp_give_address">DhcpAddressOfferHook</a> function, implemented in a third-party DLL, to be called directly before Microsoft DHCP Server submits a DHCP ACK message in response to a DHCP REQUEST message. Set to <b>NULL</b> if notification is not required.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPDHCP_GIVE_ADDRESS>}
      */
     DhcpAddressOfferHook {
         get => NumGet(this, 40, "ptr")
@@ -78,7 +78,7 @@ class DHCP_CALLOUT_TABLE extends Win32Struct
     /**
      * Pointer to a 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dhcpssdk/nc-dhcpssdk-lpdhcp_handle_options">DhcpHandleOptionsHook</a> function, implemented in a third-party DLL, that sends only parsed DHCP information to the third-party DLL, enabling the third-party DLL to avoid processing the entire DHCP packet. Set to <b>NULL</b> if notification is not required.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPDHCP_HANDLE_OPTIONS>}
      */
     DhcpHandleOptionsHook {
         get => NumGet(this, 48, "ptr")
@@ -88,7 +88,7 @@ class DHCP_CALLOUT_TABLE extends Win32Struct
     /**
      * Pointer to a 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dhcpssdk/nc-dhcpssdk-lpdhcp_delete_client">DhcpDeleteClientHook</a> function, implemented in a third-party DLL, to be called directly before Microsoft DHCP Server deletes a client lease from its active leases database. Set to <b>NULL</b> if notification is not required.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPDHCP_DELETE_CLIENT>}
      */
     DhcpDeleteClientHook {
         get => NumGet(this, 56, "ptr")

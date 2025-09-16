@@ -26,7 +26,7 @@ class ADS_CASEIGNORE_LIST extends Win32Struct
 
     /**
      * The null-terminated Unicode string value of the current entry of the list.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     String {
         get => NumGet(this, 8, "ptr")

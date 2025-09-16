@@ -44,7 +44,7 @@ class DDHAL_GETVPORTSIGNALDATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPDDHALVPORTCB_GETSIGNALSTATUS>}
      */
     GetVideoSignalStatus {
         get => NumGet(this, 24, "ptr")

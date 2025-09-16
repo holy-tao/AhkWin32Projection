@@ -11,7 +11,7 @@ class MINIDUMP_READ_MEMORY_FAILURE_CALLBACK extends Win32Struct
 {
     static sizeof => 16
 
-    static packingSize => 4
+    static packingSize => 8
 
     /**
      * The offset of the address for the failed memory read operation.

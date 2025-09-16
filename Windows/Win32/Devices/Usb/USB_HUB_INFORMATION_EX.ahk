@@ -9,9 +9,9 @@
  */
 class USB_HUB_INFORMATION_EX extends Win32Struct
 {
-    static sizeof => 22
+    static sizeof => 24
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * @type {Integer}
@@ -35,7 +35,7 @@ class USB_HUB_INFORMATION_EX extends Win32Struct
     UsbHubDescriptor{
         get {
             if(!this.HasProp("__UsbHubDescriptor"))
-                this.__UsbHubDescriptor := USB_HUB_DESCRIPTOR(this.ptr + 6)
+                this.__UsbHubDescriptor := USB_HUB_DESCRIPTOR(this.ptr + 8)
             return this.__UsbHubDescriptor
         }
     }
@@ -46,7 +46,7 @@ class USB_HUB_INFORMATION_EX extends Win32Struct
     Usb30HubDescriptor{
         get {
             if(!this.HasProp("__Usb30HubDescriptor"))
-                this.__Usb30HubDescriptor := USB_30_HUB_DESCRIPTOR(this.ptr + 6)
+                this.__Usb30HubDescriptor := USB_30_HUB_DESCRIPTOR(this.ptr + 8)
             return this.__Usb30HubDescriptor
         }
     }

@@ -49,7 +49,7 @@ class OLEUIGNRLPROPSA extends Win32Struct
 
     /**
      * Pointer to a hook function that processes messages intended for the dialog box. The hook function must return zero to pass a message that it didn't process back to the dialog box procedure in the library. The hook function must return a nonzero value to prevent the library's dialog box procedure from processing a message it has already processed.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPFNOLEUIHOOK>}
      */
     lpfnHook {
         get => NumGet(this, 16, "ptr")

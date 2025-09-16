@@ -44,7 +44,7 @@ class DDHAL_GETMOCOMPGUIDSDATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPDDHALMOCOMPCB_GETGUIDS>}
      */
     GetMoCompGuids {
         get => NumGet(this, 32, "ptr")

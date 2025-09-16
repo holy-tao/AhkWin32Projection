@@ -2,17 +2,19 @@
 
 #Include ..\Windows\Win32\Graphics\Gdi\LOGFONTW.ahk
 #Include ..\Windows\Win32\Graphics\Gdi\FONT_CHARSET.ahk
+#Include ..\Windows\Win32\Graphics\Gdi\Apis.ahk
 
 stdout := FileOpen("*", "w")
 
-hDc := DllCall("GetDC", "ptr", 0)
+hDc := Gdi.GetDC(0)     ;Equivalent to DllCall("GetDC", "ptr", 0)
 
 searchFont := LOGFONTW()
 searchFont.lfCharSet := FONT_CHARSET.ANSI_CHARSET
 searchFont.lfFaceName := "Papyrus"
 
 callback := CallbackCreate(EnumFontFamExProc, "Fast", 4)
-DllCall("gdi32\EnumFontFamiliesExW", "ptr", hDc, "ptr", searchFont, "ptr", callback, "ptr", 0, "int", 0)
+Gdi.EnumFontFamiliesExW(hDc, searchFont, callback, 0, 0)
+Gdi.ReleaseDC(0, hDC)
 
 ;https://learn.microsoft.com/en-us/previous-versions/dd162618(v=vs.85)
 EnumFontFamExProc(lpelfe, lpntme, fontType, lparam){

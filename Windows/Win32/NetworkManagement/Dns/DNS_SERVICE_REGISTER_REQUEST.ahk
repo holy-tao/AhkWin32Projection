@@ -44,7 +44,7 @@ class DNS_SERVICE_REGISTER_REQUEST extends Win32Struct
 
     /**
      * A pointer to a function (of type [DNS_SERVICE_REGISTER_COMPLETE](nc-windns-dns_service_register_complete.md)) that represents the callback to be invoked asynchronously.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PDNS_SERVICE_REGISTER_COMPLETE>}
      */
     pRegisterCompletionCallback {
         get => NumGet(this, 16, "ptr")
@@ -62,7 +62,7 @@ class DNS_SERVICE_REGISTER_REQUEST extends Win32Struct
 
     /**
      * Not used.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HANDLE>}
      */
     hCredentials {
         get => NumGet(this, 32, "ptr")

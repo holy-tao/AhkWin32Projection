@@ -76,7 +76,7 @@ class ACTCTX_SECTION_KEYED_DATA_2600 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HANDLE>}
      */
     hActCtx {
         get => NumGet(this, 56, "ptr")

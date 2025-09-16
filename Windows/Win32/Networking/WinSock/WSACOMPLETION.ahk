@@ -57,7 +57,7 @@ class WSACOMPLETION extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HWND>}
      */
     hWnd {
         get => NumGet(this, 8, "ptr")
@@ -81,7 +81,7 @@ class WSACOMPLETION extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<_Event_e__Struct>}
      */
     Event {
         get => NumGet(this, 8, "ptr")
@@ -97,7 +97,7 @@ class WSACOMPLETION extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPWSAOVERLAPPED_COMPLETION_ROUTINE>}
      */
     lpfnCompletionProc {
         get => NumGet(this, 16, "ptr")
@@ -105,7 +105,7 @@ class WSACOMPLETION extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HANDLE>}
      */
     hPort {
         get => NumGet(this, 16, "ptr")

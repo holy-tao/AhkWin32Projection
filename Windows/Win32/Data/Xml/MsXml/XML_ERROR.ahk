@@ -20,7 +20,7 @@ class XML_ERROR extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<BSTR>}
      */
     _pchBuf {
         get => NumGet(this, 8, "ptr")
@@ -44,7 +44,7 @@ class XML_ERROR extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<BSTR>}
      */
     _pszFound {
         get => NumGet(this, 24, "ptr")
@@ -52,7 +52,7 @@ class XML_ERROR extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<BSTR>}
      */
     _pszExpected {
         get => NumGet(this, 32, "ptr")

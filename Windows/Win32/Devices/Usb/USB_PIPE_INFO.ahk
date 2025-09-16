@@ -8,9 +8,9 @@
  */
 class USB_PIPE_INFO extends Win32Struct
 {
-    static sizeof => 11
+    static sizeof => 16
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * @type {USB_ENDPOINT_DESCRIPTOR}
@@ -27,7 +27,7 @@ class USB_PIPE_INFO extends Win32Struct
      * @type {Integer}
      */
     ScheduleOffset {
-        get => NumGet(this, 7, "uint")
-        set => NumPut("uint", value, this, 7)
+        get => NumGet(this, 8, "uint")
+        set => NumPut("uint", value, this, 8)
     }
 }

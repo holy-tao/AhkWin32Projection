@@ -53,9 +53,9 @@
  */
 class SpatialAudioObjectRenderStreamForMetadataActivationParams2 extends Win32Struct
 {
-    static sizeof => 64
+    static sizeof => 72
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * Format descriptor for a single spatial audio object. All objects used by the stream must have the same format and the format must be of type <a href="https://docs.microsoft.com/windows/win32/api/mmreg/ns-mmreg-waveformatex">WAVEFORMATEX</a> or <a href="https://docs.microsoft.com/windows-hardware/drivers/ddi/content/ksmedia/ns-ksmedia-waveformatextensible">WAVEFORMATEXTENSIBLE</a>.
@@ -104,7 +104,7 @@ class SpatialAudioObjectRenderStreamForMetadataActivationParams2 extends Win32St
 
     /**
      * The event that will signal the client to provide more audio data. This handle will be duplicated internally before it is used.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HANDLE>}
      */
     EventHandle {
         get => NumGet(this, 24, "ptr")
@@ -134,8 +134,8 @@ class SpatialAudioObjectRenderStreamForMetadataActivationParams2 extends Win32St
      * @type {Pointer<PROPVARIANT>}
      */
     MetadataActivationParams {
-        get => NumGet(this, 44, "ptr")
-        set => NumPut("ptr", value, this, 44)
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**
@@ -143,8 +143,8 @@ class SpatialAudioObjectRenderStreamForMetadataActivationParams2 extends Win32St
      * @type {Pointer<ISpatialAudioObjectRenderStreamNotify>}
      */
     NotifyObject {
-        get => NumGet(this, 52, "ptr")
-        set => NumPut("ptr", value, this, 52)
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 
     /**
@@ -152,7 +152,7 @@ class SpatialAudioObjectRenderStreamForMetadataActivationParams2 extends Win32St
      * @type {Integer}
      */
     Options {
-        get => NumGet(this, 60, "int")
-        set => NumPut("int", value, this, 60)
+        get => NumGet(this, 64, "int")
+        set => NumPut("int", value, this, 64)
     }
 }

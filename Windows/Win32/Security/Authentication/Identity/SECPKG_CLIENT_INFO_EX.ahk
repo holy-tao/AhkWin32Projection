@@ -80,7 +80,7 @@ class SECPKG_CLIENT_INFO_EX extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HANDLE>}
      */
     ClientToken {
         get => NumGet(this, 24, "ptr")
@@ -99,7 +99,7 @@ class SECPKG_CLIENT_INFO_EX extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HANDLE>}
      */
     IdentificationToken {
         get => NumGet(this, 40, "ptr")

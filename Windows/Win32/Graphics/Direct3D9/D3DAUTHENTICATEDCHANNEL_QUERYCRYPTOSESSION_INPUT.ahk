@@ -28,7 +28,7 @@ class D3DAUTHENTICATEDCHANNEL_QUERYCRYPTOSESSION_INPUT extends Win32Struct
 
     /**
      * A handle to a DirectX Video Acceleration 2 (DXVA-2) decoder device.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HANDLE>}
      */
     DXVA2DecodeHandle {
         get => NumGet(this, 24, "ptr")

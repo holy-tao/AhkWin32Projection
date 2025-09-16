@@ -11,7 +11,7 @@ class MPEG_DATE extends Win32Struct
 {
     static sizeof => 4
 
-    static packingSize => 1
+    static packingSize => 2
 
     /**
      * Specifies the day of the month. The value can range from 1 to 31, inclusive.

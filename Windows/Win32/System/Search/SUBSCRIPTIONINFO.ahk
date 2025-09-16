@@ -108,7 +108,7 @@ class SUBSCRIPTIONINFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<BSTR>}
      */
     bstrUserName {
         get => NumGet(this, 64, "ptr")
@@ -116,7 +116,7 @@ class SUBSCRIPTIONINFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<BSTR>}
      */
     bstrPassword {
         get => NumGet(this, 72, "ptr")
@@ -124,7 +124,7 @@ class SUBSCRIPTIONINFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<BSTR>}
      */
     bstrFriendlyName {
         get => NumGet(this, 80, "ptr")

@@ -13,9 +13,9 @@
  */
 class USBUSER_BUS_STATISTICS_0_REQUEST extends Win32Struct
 {
-    static sizeof => 72
+    static sizeof => 80
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/usbuser/ns-usbuser-usbuser_request_header">USBUSER_REQUEST_HEADER</a> structure that specifies the user-mode request on input to IOCTL_USB_USER_REQUEST and provides buffer and status information on output.

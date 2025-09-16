@@ -15,7 +15,7 @@ class WSB_OB_STATUS_ENTRY_VALUE_TYPE_PAIR extends Win32Struct
 
     /**
      * Specifies the value for the parameter.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     m_wszObStatusEntryPairValue {
         get => NumGet(this, 0, "ptr")

@@ -13,7 +13,7 @@ class OPM_SET_ACP_AND_CGMSA_SIGNALING_PARAMETERS extends Win32Struct
 {
     static sizeof => 64
 
-    static packingSize => 1
+    static packingSize => 4
 
     /**
      * Specifies the protection standard and format that is currently active. The value is a bitwise <b>OR</b> of <a href="https://docs.microsoft.com/windows/desktop/medfound/tv-protection-standard-flags">TV Protection Standard Flags</a>.

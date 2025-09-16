@@ -16,7 +16,7 @@ class CRYPT_TIME_STAMP_REQUEST_INFO extends Win32Struct
 
     /**
      * The <a href="https://docs.microsoft.com/windows/desktop/SecGloss/o-gly">object identifier</a> (OID) that specifies the desired format of the time stamp, usually UTC.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     pszTimeStampAlgorithm {
         get => NumGet(this, 0, "ptr")
@@ -25,7 +25,7 @@ class CRYPT_TIME_STAMP_REQUEST_INFO extends Win32Struct
 
     /**
      * The OID of the Content Type of the content, usually DATA.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     pszContentType {
         get => NumGet(this, 8, "ptr")

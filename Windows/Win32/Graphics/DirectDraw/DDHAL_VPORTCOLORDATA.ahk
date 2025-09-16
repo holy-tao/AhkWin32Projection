@@ -52,7 +52,7 @@ class DDHAL_VPORTCOLORDATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPDDHALVPORTCB_COLORCONTROL>}
      */
     ColorControl {
         get => NumGet(this, 40, "ptr")

@@ -11,9 +11,9 @@
  */
 class USB_POWER_INFO extends Win32Struct
 {
-    static sizeof => 34
+    static sizeof => 36
 
-    static packingSize => 1
+    static packingSize => 4
 
     /**
      * On input, a <a href="https://docs.microsoft.com/windows/desktop/api/usbuser/ne-usbuser-wdmusb_power_state">WDMUSB_POWER_STATE</a>-type enumerator value that specifies the system power state.

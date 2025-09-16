@@ -12,7 +12,7 @@ class I_RpcProxyCallbackInterface extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<I_RpcProxyIsValidMachineFn>}
      */
     IsValidMachineFn {
         get => NumGet(this, 0, "ptr")
@@ -20,7 +20,7 @@ class I_RpcProxyCallbackInterface extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<I_RpcProxyGetClientAddressFn>}
      */
     GetClientAddressFn {
         get => NumGet(this, 8, "ptr")
@@ -28,7 +28,7 @@ class I_RpcProxyCallbackInterface extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<I_RpcProxyGetConnectionTimeoutFn>}
      */
     GetConnectionTimeoutFn {
         get => NumGet(this, 16, "ptr")
@@ -36,7 +36,7 @@ class I_RpcProxyCallbackInterface extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<I_RpcPerformCalloutFn>}
      */
     PerformCalloutFn {
         get => NumGet(this, 24, "ptr")
@@ -44,7 +44,7 @@ class I_RpcProxyCallbackInterface extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<I_RpcFreeCalloutStateFn>}
      */
     FreeCalloutStateFn {
         get => NumGet(this, 32, "ptr")
@@ -52,7 +52,7 @@ class I_RpcProxyCallbackInterface extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<I_RpcProxyGetClientSessionAndResourceUUID>}
      */
     GetClientSessionAndResourceUUIDFn {
         get => NumGet(this, 40, "ptr")
@@ -60,7 +60,7 @@ class I_RpcProxyCallbackInterface extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<I_RpcProxyFilterIfFn>}
      */
     ProxyFilterIfFn {
         get => NumGet(this, 48, "ptr")
@@ -68,7 +68,7 @@ class I_RpcProxyCallbackInterface extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<I_RpcProxyUpdatePerfCounterFn>}
      */
     RpcProxyUpdatePerfCounterFn {
         get => NumGet(this, 56, "ptr")
@@ -76,7 +76,7 @@ class I_RpcProxyCallbackInterface extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<I_RpcProxyUpdatePerfCounterBackendServerFn>}
      */
     RpcProxyUpdatePerfCounterBackendServerFn {
         get => NumGet(this, 64, "ptr")

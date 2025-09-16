@@ -35,7 +35,7 @@ class WLDP_HOST_INFORMATION extends Win32Struct
 
     /**
      * Full path and script name with the extension. NULL for **WLDP\_HOST\_ID\_GLOBAL**, or manual script execution.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     szSource {
         get => NumGet(this, 8, "ptr")
@@ -44,7 +44,7 @@ class WLDP_HOST_INFORMATION extends Win32Struct
 
     /**
      * In addition to the name, the caller can specify a handle to the file used for validation.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HANDLE>}
      */
     hSource {
         get => NumGet(this, 16, "ptr")

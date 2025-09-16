@@ -35,7 +35,7 @@ class VMR9AlphaBitmap extends Win32Struct
 
     /**
      * Handle to the GDI device context (HDC) for the bitmap. If this member contains a non-<b>NULL</b> value, set <b>pDDS</b> to <b>NULL</b> and set the <b>VMR9AlphaBitmap_hDC</b> flag in the <b>dwFlags</b> member. The device context is not compatible with GDI+.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HDC>}
      */
     hdc {
         get => NumGet(this, 8, "ptr")

@@ -66,7 +66,7 @@ class WS_SERVICE_ENDPOINT extends Win32Struct
 
     /**
      * Authorization callback for the service endpoint.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<WS_SERVICE_SECURITY_CALLBACK>}
      */
     authorizationCallback {
         get => NumGet(this, 64, "ptr")

@@ -19,7 +19,7 @@ class D3D10_EFFECT_VARIABLE_DESC extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>
      * 
      * A string that contains the variable name.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     Name {
         get => NumGet(this, 0, "ptr")
@@ -30,7 +30,7 @@ class D3D10_EFFECT_VARIABLE_DESC extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>
      * 
      * The semantic attached to the variable; otherwise <b>NULL</b>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     Semantic {
         get => NumGet(this, 8, "ptr")

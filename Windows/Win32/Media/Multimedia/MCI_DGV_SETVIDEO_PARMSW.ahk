@@ -19,9 +19,9 @@
  */
 class MCI_DGV_SETVIDEO_PARMSW extends Win32Struct
 {
-    static sizeof => 40
+    static sizeof => 48
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * The low-order word specifies a window handle used for the MCI_NOTIFY flag.
@@ -61,20 +61,20 @@ class MCI_DGV_SETVIDEO_PARMSW extends Win32Struct
 
     /**
      * Pointer to a null-terminated string containing the name of the video-compression algorithm.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     lpstrAlgorithm {
-        get => NumGet(this, 20, "ptr")
-        set => NumPut("ptr", value, this, 20)
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
      * Pointer to a null-terminated string containing a descriptor of the video-compression algorithm.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     lpstrQuality {
-        get => NumGet(this, 28, "ptr")
-        set => NumPut("ptr", value, this, 28)
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
@@ -82,7 +82,7 @@ class MCI_DGV_SETVIDEO_PARMSW extends Win32Struct
      * @type {Integer}
      */
     dwSourceNumber {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
+        get => NumGet(this, 40, "uint")
+        set => NumPut("uint", value, this, 40)
     }
 }

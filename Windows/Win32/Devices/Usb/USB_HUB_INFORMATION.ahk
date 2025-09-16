@@ -8,7 +8,7 @@
  */
 class USB_HUB_INFORMATION extends Win32Struct
 {
-    static sizeof => 72
+    static sizeof => 80
 
     static packingSize => 8
 
@@ -27,7 +27,7 @@ class USB_HUB_INFORMATION extends Win32Struct
      * @type {Integer}
      */
     HubIsBusPowered {
-        get => NumGet(this, 71, "char")
-        set => NumPut("char", value, this, 71)
+        get => NumGet(this, 72, "char")
+        set => NumPut("char", value, this, 72)
     }
 }

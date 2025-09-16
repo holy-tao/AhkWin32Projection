@@ -9,7 +9,7 @@ class MINIDUMP_TOKEN_INFO_HEADER extends Win32Struct
 {
     static sizeof => 16
 
-    static packingSize => 4
+    static packingSize => 8
 
     /**
      * @type {Integer}

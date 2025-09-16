@@ -9,9 +9,9 @@
  */
 class MPE_ELEMENT extends Win32Struct
 {
-    static sizeof => 11
+    static sizeof => 16
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * Packet identifier (PID).
@@ -36,7 +36,7 @@ class MPE_ELEMENT extends Win32Struct
      * @type {Pointer<MPE_ELEMENT>}
      */
     pNext {
-        get => NumGet(this, 3, "ptr")
-        set => NumPut("ptr", value, this, 3)
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 }

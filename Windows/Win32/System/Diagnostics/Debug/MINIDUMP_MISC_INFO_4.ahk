@@ -9,9 +9,9 @@
  */
 class MINIDUMP_MISC_INFO_4 extends Win32Struct
 {
-    static sizeof => 844
+    static sizeof => 848
 
-    static packingSize => 4
+    static packingSize => 8
 
     /**
      * @type {Integer}
@@ -139,7 +139,7 @@ class MINIDUMP_MISC_INFO_4 extends Win32Struct
     TimeZone{
         get {
             if(!this.HasProp("__TimeZone"))
-                this.__TimeZone := TIME_ZONE_INFORMATION(this.ptr + 60)
+                this.__TimeZone := TIME_ZONE_INFORMATION(this.ptr + 64)
             return this.__TimeZone
         }
     }
@@ -148,15 +148,15 @@ class MINIDUMP_MISC_INFO_4 extends Win32Struct
      * @type {String}
      */
     BuildString {
-        get => StrGet(this.ptr + 244, 259, "UTF-16")
-        set => StrPut(value, this.ptr + 244, 259, "UTF-16")
+        get => StrGet(this.ptr + 248, 259, "UTF-16")
+        set => StrPut(value, this.ptr + 248, 259, "UTF-16")
     }
 
     /**
      * @type {String}
      */
     DbgBldStr {
-        get => StrGet(this.ptr + 764, 39, "UTF-16")
-        set => StrPut(value, this.ptr + 764, 39, "UTF-16")
+        get => StrGet(this.ptr + 768, 39, "UTF-16")
+        set => StrPut(value, this.ptr + 768, 39, "UTF-16")
     }
 }

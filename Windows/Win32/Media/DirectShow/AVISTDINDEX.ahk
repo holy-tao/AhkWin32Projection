@@ -14,9 +14,9 @@
  */
 class AVISTDINDEX extends Win32Struct
 {
-    static sizeof => 16384
+    static sizeof => 16392
 
-    static packingSize => 2
+    static packingSize => 8
 
     /**
      * A <b>FOURCC</b> code. The value is either  'indx' or '<i>nn</i>ix', where <i>nn</i> is the stream number.
@@ -86,8 +86,8 @@ class AVISTDINDEX extends Win32Struct
      * @type {Integer}
      */
     qwBaseOffset {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
     }
 
     /**
@@ -95,8 +95,8 @@ class AVISTDINDEX extends Win32Struct
      * @type {Integer}
      */
     dwReserved_3 {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
+        get => NumGet(this, 32, "uint")
+        set => NumPut("uint", value, this, 32)
     }
 
     /**
@@ -106,7 +106,7 @@ class AVISTDINDEX extends Win32Struct
     aIndex{
         get {
             if(!this.HasProp("__aIndexProxyArray"))
-                this.__aIndexProxyArray := Win32FixedArray(this.ptr + 32, 2044, AVISTDINDEX_ENTRY, "")
+                this.__aIndexProxyArray := Win32FixedArray(this.ptr + 40, 2044, AVISTDINDEX_ENTRY, "")
             return this.__aIndexProxyArray
         }
     }

@@ -50,7 +50,7 @@ class SERVER_INFO_402 extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to a Unicode string that specifies the list of user names on the server. Spaces separate the names.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     sv402_alerts {
         get => NumGet(this, 16, "ptr")
@@ -92,7 +92,7 @@ class SERVER_INFO_402 extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to a Unicode string that specifies the name of a reserved account for guest users on the server. The constant UNLEN specifies the maximum number of characters in the string.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     sv402_guestacct {
         get => NumGet(this, 40, "ptr")
@@ -345,7 +345,7 @@ class SERVER_INFO_402 extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to a Unicode string containing flags that control operations on a server.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     sv402_srvheuristics {
         get => NumGet(this, 136, "ptr")

@@ -15,7 +15,7 @@ class COMPRESS_ALLOCATION_ROUTINES extends Win32Struct
 
     /**
      * Callback that allocates memory.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_COMPRESS_ALLOCATE>}
      */
     Allocate {
         get => NumGet(this, 0, "ptr")
@@ -24,7 +24,7 @@ class COMPRESS_ALLOCATION_ROUTINES extends Win32Struct
 
     /**
      * Callback that deallocates memory.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_COMPRESS_FREE>}
      */
     Free {
         get => NumGet(this, 8, "ptr")

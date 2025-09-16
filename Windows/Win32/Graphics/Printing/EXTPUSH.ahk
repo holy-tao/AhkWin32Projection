@@ -36,7 +36,7 @@ class EXTPUSH extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<DLGPROC>}
      */
     DlgProc {
         get => NumGet(this, 16, "ptr")
@@ -44,7 +44,7 @@ class EXTPUSH extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<FARPROC>}
      */
     pfnCallBack {
         get => NumGet(this, 16, "ptr")
@@ -68,7 +68,7 @@ class EXTPUSH extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HANDLE>}
      */
     hDlgTemplate {
         get => NumGet(this, 32, "ptr")

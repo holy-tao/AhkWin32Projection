@@ -7,9 +7,9 @@
  */
 class USB_INTERFACE_POWER_DESCRIPTOR extends Win32Struct
 {
-    static sizeof => 15
+    static sizeof => 16
 
-    static packingSize => 1
+    static packingSize => 2
 
     /**
      * @type {Integer}
@@ -87,23 +87,23 @@ class USB_INTERFACE_POWER_DESCRIPTOR extends Win32Struct
      * @type {Integer}
      */
     TransitionTimeFromD1 {
-        get => NumGet(this, 9, "ushort")
-        set => NumPut("ushort", value, this, 9)
+        get => NumGet(this, 10, "ushort")
+        set => NumPut("ushort", value, this, 10)
     }
 
     /**
      * @type {Integer}
      */
     TransitionTimeFromD2 {
-        get => NumGet(this, 11, "ushort")
-        set => NumPut("ushort", value, this, 11)
+        get => NumGet(this, 12, "ushort")
+        set => NumPut("ushort", value, this, 12)
     }
 
     /**
      * @type {Integer}
      */
     TransitionTimeFromD3 {
-        get => NumGet(this, 13, "ushort")
-        set => NumPut("ushort", value, this, 13)
+        get => NumGet(this, 14, "ushort")
+        set => NumPut("ushort", value, this, 14)
     }
 }

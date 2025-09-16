@@ -7,9 +7,9 @@
  */
 class MINIDUMP_SYSTEM_BASIC_INFORMATION extends Win32Struct
 {
-    static sizeof => 52
+    static sizeof => 56
 
-    static packingSize => 4
+    static packingSize => 8
 
     /**
      * @type {Integer}

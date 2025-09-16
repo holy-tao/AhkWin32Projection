@@ -36,7 +36,7 @@ class MAPPING_DATA_RANGE extends Win32Struct
 
     /**
      * Reserved.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pszDescription {
         get => NumGet(this, 8, "ptr")
@@ -75,7 +75,7 @@ class MAPPING_DATA_RANGE extends Win32Struct
      * 
      * <div class="alert"><b>Note</b>  In Windows 7, the ELS services support only the content type "text/plain". A content type specification can be found at <a href="https://www.iana.org/assignments/media-types/text">Text Media Types</a>.</div>
      * <div> </div>
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pszContentType {
         get => NumGet(this, 40, "ptr")
@@ -87,7 +87,7 @@ class MAPPING_DATA_RANGE extends Win32Struct
      * 
      * <div class="alert"><b>Note</b>  In Windows 7, the ELS services do not expose any actions.</div>
      * <div> </div>
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     prgActionIds {
         get => NumGet(this, 48, "ptr")
@@ -111,7 +111,7 @@ class MAPPING_DATA_RANGE extends Win32Struct
      * 
      * <div class="alert"><b>Note</b>  In Windows 7, the ELS services do not expose any actions.</div>
      * <div> </div>
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     prgActionDisplayNames {
         get => NumGet(this, 64, "ptr")

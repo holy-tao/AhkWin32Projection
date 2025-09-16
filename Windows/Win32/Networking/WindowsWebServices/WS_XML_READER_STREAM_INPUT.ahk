@@ -28,7 +28,7 @@ class WS_XML_READER_STREAM_INPUT extends Win32Struct
 
     /**
      * A callback that is invoked when <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsfillreader">WsFillReader</a> is called.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<WS_READ_CALLBACK>}
      */
     readCallback {
         get => NumGet(this, 8, "ptr")

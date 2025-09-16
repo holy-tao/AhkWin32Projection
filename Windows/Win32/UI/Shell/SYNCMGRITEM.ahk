@@ -60,7 +60,7 @@ class SYNCMGRITEM extends Win32Struct
      * Type: <b>HICON</b>
      * 
      * The icon for this item.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HICON>}
      */
     hIcon {
         get => NumGet(this, 24, "ptr")

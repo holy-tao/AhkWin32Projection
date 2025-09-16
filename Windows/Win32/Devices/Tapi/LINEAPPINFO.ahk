@@ -11,7 +11,7 @@ class LINEAPPINFO extends Win32Struct
 {
     static sizeof => 40
 
-    static packingSize => 1
+    static packingSize => 4
 
     /**
      * Size of the computer name string including the <b>null</b> terminator, in bytes.

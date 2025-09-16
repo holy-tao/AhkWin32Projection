@@ -24,7 +24,7 @@ class NCRYPT_SSL_FUNCTION_TABLE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<SslComputeClientAuthHashFn>}
      */
     ComputeClientAuthHash {
         get => NumGet(this, 8, "ptr")
@@ -32,7 +32,7 @@ class NCRYPT_SSL_FUNCTION_TABLE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<SslComputeEapKeyBlockFn>}
      */
     ComputeEapKeyBlock {
         get => NumGet(this, 16, "ptr")
@@ -40,7 +40,7 @@ class NCRYPT_SSL_FUNCTION_TABLE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<SslComputeFinishedHashFn>}
      */
     ComputeFinishedHash {
         get => NumGet(this, 24, "ptr")
@@ -48,7 +48,7 @@ class NCRYPT_SSL_FUNCTION_TABLE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<SslCreateEphemeralKeyFn>}
      */
     CreateEphemeralKey {
         get => NumGet(this, 32, "ptr")
@@ -56,7 +56,7 @@ class NCRYPT_SSL_FUNCTION_TABLE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<SslCreateHandshakeHashFn>}
      */
     CreateHandshakeHash {
         get => NumGet(this, 40, "ptr")
@@ -64,7 +64,7 @@ class NCRYPT_SSL_FUNCTION_TABLE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<SslDecryptPacketFn>}
      */
     DecryptPacket {
         get => NumGet(this, 48, "ptr")
@@ -72,7 +72,7 @@ class NCRYPT_SSL_FUNCTION_TABLE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<SslEncryptPacketFn>}
      */
     EncryptPacket {
         get => NumGet(this, 56, "ptr")
@@ -80,7 +80,7 @@ class NCRYPT_SSL_FUNCTION_TABLE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<SslEnumCipherSuitesFn>}
      */
     EnumCipherSuites {
         get => NumGet(this, 64, "ptr")
@@ -88,7 +88,7 @@ class NCRYPT_SSL_FUNCTION_TABLE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<SslExportKeyFn>}
      */
     ExportKey {
         get => NumGet(this, 72, "ptr")
@@ -96,7 +96,7 @@ class NCRYPT_SSL_FUNCTION_TABLE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<SslFreeBufferFn>}
      */
     FreeBuffer {
         get => NumGet(this, 80, "ptr")
@@ -104,7 +104,7 @@ class NCRYPT_SSL_FUNCTION_TABLE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<SslFreeObjectFn>}
      */
     FreeObject {
         get => NumGet(this, 88, "ptr")
@@ -112,7 +112,7 @@ class NCRYPT_SSL_FUNCTION_TABLE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<SslGenerateMasterKeyFn>}
      */
     GenerateMasterKey {
         get => NumGet(this, 96, "ptr")
@@ -120,7 +120,7 @@ class NCRYPT_SSL_FUNCTION_TABLE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<SslGenerateSessionKeysFn>}
      */
     GenerateSessionKeys {
         get => NumGet(this, 104, "ptr")
@@ -128,7 +128,7 @@ class NCRYPT_SSL_FUNCTION_TABLE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<SslGetKeyPropertyFn>}
      */
     GetKeyProperty {
         get => NumGet(this, 112, "ptr")
@@ -136,7 +136,7 @@ class NCRYPT_SSL_FUNCTION_TABLE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<SslGetProviderPropertyFn>}
      */
     GetProviderProperty {
         get => NumGet(this, 120, "ptr")
@@ -144,7 +144,7 @@ class NCRYPT_SSL_FUNCTION_TABLE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<SslHashHandshakeFn>}
      */
     HashHandshake {
         get => NumGet(this, 128, "ptr")
@@ -152,7 +152,7 @@ class NCRYPT_SSL_FUNCTION_TABLE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<SslImportMasterKeyFn>}
      */
     ImportMasterKey {
         get => NumGet(this, 136, "ptr")
@@ -160,7 +160,7 @@ class NCRYPT_SSL_FUNCTION_TABLE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<SslImportKeyFn>}
      */
     ImportKey {
         get => NumGet(this, 144, "ptr")
@@ -168,7 +168,7 @@ class NCRYPT_SSL_FUNCTION_TABLE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<SslLookupCipherSuiteInfoFn>}
      */
     LookupCipherSuiteInfo {
         get => NumGet(this, 152, "ptr")
@@ -176,7 +176,7 @@ class NCRYPT_SSL_FUNCTION_TABLE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<SslOpenPrivateKeyFn>}
      */
     OpenPrivateKey {
         get => NumGet(this, 160, "ptr")
@@ -184,7 +184,7 @@ class NCRYPT_SSL_FUNCTION_TABLE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<SslOpenProviderFn>}
      */
     OpenProvider {
         get => NumGet(this, 168, "ptr")
@@ -192,7 +192,7 @@ class NCRYPT_SSL_FUNCTION_TABLE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<SslSignHashFn>}
      */
     SignHash {
         get => NumGet(this, 176, "ptr")
@@ -200,7 +200,7 @@ class NCRYPT_SSL_FUNCTION_TABLE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<SslVerifySignatureFn>}
      */
     VerifySignature {
         get => NumGet(this, 184, "ptr")
@@ -208,7 +208,7 @@ class NCRYPT_SSL_FUNCTION_TABLE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<SslLookupCipherLengthsFn>}
      */
     LookupCipherLengths {
         get => NumGet(this, 192, "ptr")
@@ -216,7 +216,7 @@ class NCRYPT_SSL_FUNCTION_TABLE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<SslCreateClientAuthHashFn>}
      */
     CreateClientAuthHash {
         get => NumGet(this, 200, "ptr")
@@ -224,7 +224,7 @@ class NCRYPT_SSL_FUNCTION_TABLE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<SslGetCipherSuitePRFHashAlgorithmFn>}
      */
     GetCipherSuitePRFHashAlgorithm {
         get => NumGet(this, 208, "ptr")
@@ -232,7 +232,7 @@ class NCRYPT_SSL_FUNCTION_TABLE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<SslComputeSessionHashFn>}
      */
     ComputeSessionHash {
         get => NumGet(this, 216, "ptr")
@@ -240,7 +240,7 @@ class NCRYPT_SSL_FUNCTION_TABLE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<SslGeneratePreMasterKeyFn>}
      */
     GeneratePreMasterKey {
         get => NumGet(this, 224, "ptr")
@@ -248,7 +248,7 @@ class NCRYPT_SSL_FUNCTION_TABLE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<SslEnumEccCurvesFn>}
      */
     EnumEccCurves {
         get => NumGet(this, 232, "ptr")
@@ -256,7 +256,7 @@ class NCRYPT_SSL_FUNCTION_TABLE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<SslExportKeyingMaterialFn>}
      */
     ExportKeyingMaterial {
         get => NumGet(this, 240, "ptr")
@@ -264,7 +264,7 @@ class NCRYPT_SSL_FUNCTION_TABLE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<SslExtractEarlyKeyFn>}
      */
     ExtractEarlyKey {
         get => NumGet(this, 248, "ptr")
@@ -272,7 +272,7 @@ class NCRYPT_SSL_FUNCTION_TABLE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<SslExtractHandshakeKeyFn>}
      */
     ExtractHandshakeKey {
         get => NumGet(this, 256, "ptr")
@@ -280,7 +280,7 @@ class NCRYPT_SSL_FUNCTION_TABLE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<SslExtractMasterKeyFn>}
      */
     ExtractMasterKey {
         get => NumGet(this, 264, "ptr")
@@ -288,7 +288,7 @@ class NCRYPT_SSL_FUNCTION_TABLE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<SslExpandTrafficKeysFn>}
      */
     ExpandTrafficKeys {
         get => NumGet(this, 272, "ptr")
@@ -296,7 +296,7 @@ class NCRYPT_SSL_FUNCTION_TABLE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<SslExpandWriteKeyFn>}
      */
     ExpandWriteKey {
         get => NumGet(this, 280, "ptr")
@@ -304,7 +304,7 @@ class NCRYPT_SSL_FUNCTION_TABLE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<SslExpandExporterMasterKeyFn>}
      */
     ExpandExporterMasterKey {
         get => NumGet(this, 288, "ptr")
@@ -312,7 +312,7 @@ class NCRYPT_SSL_FUNCTION_TABLE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<SslEnumCipherSuitesExFn>}
      */
     EnumCipherSuitesEx {
         get => NumGet(this, 296, "ptr")
@@ -320,7 +320,7 @@ class NCRYPT_SSL_FUNCTION_TABLE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<SslExpandResumptionMasterKeyFn>}
      */
     ExpandResumptionMasterKey {
         get => NumGet(this, 304, "ptr")
@@ -328,7 +328,7 @@ class NCRYPT_SSL_FUNCTION_TABLE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<SslDuplicateTranscriptHashFn>}
      */
     DuplicateTranscriptHash {
         get => NumGet(this, 312, "ptr")
@@ -336,7 +336,7 @@ class NCRYPT_SSL_FUNCTION_TABLE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<SslExpandBinderKeyFn>}
      */
     ExpandBinderKey {
         get => NumGet(this, 320, "ptr")
@@ -344,7 +344,7 @@ class NCRYPT_SSL_FUNCTION_TABLE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<SslExpandPreSharedKeyFn>}
      */
     ExpandPreSharedKey {
         get => NumGet(this, 328, "ptr")

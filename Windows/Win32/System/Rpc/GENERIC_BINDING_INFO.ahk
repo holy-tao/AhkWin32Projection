@@ -28,7 +28,7 @@ class GENERIC_BINDING_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<GENERIC_BINDING_ROUTINE>}
      */
     pfnBind {
         get => NumGet(this, 16, "ptr")
@@ -36,7 +36,7 @@ class GENERIC_BINDING_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<GENERIC_UNBIND_ROUTINE>}
      */
     pfnUnbind {
         get => NumGet(this, 24, "ptr")

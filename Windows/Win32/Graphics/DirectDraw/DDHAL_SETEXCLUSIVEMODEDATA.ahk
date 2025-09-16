@@ -44,7 +44,7 @@ class DDHAL_SETEXCLUSIVEMODEDATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPDDHAL_SETEXCLUSIVEMODE>}
      */
     SetExclusiveMode {
         get => NumGet(this, 24, "ptr")

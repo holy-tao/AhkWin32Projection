@@ -8,9 +8,9 @@
  */
 class MIDIOUTCAPS2W extends Win32Struct
 {
-    static sizeof => 108
+    static sizeof => 112
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * @type {Integer}
@@ -88,23 +88,23 @@ class MIDIOUTCAPS2W extends Win32Struct
      * @type {Pointer<Guid>}
      */
     ManufacturerGuid {
-        get => NumGet(this, 84, "ptr")
-        set => NumPut("ptr", value, this, 84)
+        get => NumGet(this, 88, "ptr")
+        set => NumPut("ptr", value, this, 88)
     }
 
     /**
      * @type {Pointer<Guid>}
      */
     ProductGuid {
-        get => NumGet(this, 92, "ptr")
-        set => NumPut("ptr", value, this, 92)
+        get => NumGet(this, 96, "ptr")
+        set => NumPut("ptr", value, this, 96)
     }
 
     /**
      * @type {Pointer<Guid>}
      */
     NameGuid {
-        get => NumGet(this, 100, "ptr")
-        set => NumPut("ptr", value, this, 100)
+        get => NumGet(this, 104, "ptr")
+        set => NumPut("ptr", value, this, 104)
     }
 }

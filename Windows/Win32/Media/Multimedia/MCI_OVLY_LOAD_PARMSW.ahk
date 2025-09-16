@@ -11,7 +11,7 @@ class MCI_OVLY_LOAD_PARMSW extends Win32Struct
 {
     static sizeof => 32
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * @type {Pointer}
@@ -22,7 +22,7 @@ class MCI_OVLY_LOAD_PARMSW extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     lpfilename {
         get => NumGet(this, 8, "ptr")

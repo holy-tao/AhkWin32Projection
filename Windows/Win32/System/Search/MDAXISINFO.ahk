@@ -9,7 +9,7 @@ class MDAXISINFO extends Win32Struct
 {
     static sizeof => 48
 
-    static packingSize => 2
+    static packingSize => 8
 
     /**
      * @type {Pointer}
@@ -52,7 +52,7 @@ class MDAXISINFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     rgpwszDimensionNames {
         get => NumGet(this, 40, "ptr")

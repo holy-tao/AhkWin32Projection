@@ -13,7 +13,7 @@ class CERT_OTHER_NAME extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     pszObjId {
         get => NumGet(this, 0, "ptr")

@@ -112,7 +112,7 @@ class SWbemRpnQueryToken extends Win32Struct
 
     /**
      * Specifies a function on the right of the operator in a WHERE clause. If there is no function on the right of the operator in this token, this field is <b>NULL</b>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     m_pszRightFunc {
         get => NumGet(this, 144, "ptr")
@@ -121,7 +121,7 @@ class SWbemRpnQueryToken extends Win32Struct
 
     /**
      * Specifies a function on the left of the operator in a WHERE clause. If there is no function on the left of the operator in this token, this field is <b>NULL</b>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     m_pszLeftFunc {
         get => NumGet(this, 152, "ptr")

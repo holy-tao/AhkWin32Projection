@@ -7,9 +7,9 @@
  */
 class USB_ACQUIRE_INFO extends Win32Struct
 {
-    static sizeof => 10
+    static sizeof => 12
 
-    static packingSize => 1
+    static packingSize => 4
 
     /**
      * @type {Integer}

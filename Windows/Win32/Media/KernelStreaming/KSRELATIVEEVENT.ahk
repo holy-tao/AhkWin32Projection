@@ -30,7 +30,7 @@ class KSRELATIVEEVENT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HANDLE>}
      */
     ObjectHandle {
         get => NumGet(this, 8, "ptr")

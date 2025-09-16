@@ -30,7 +30,7 @@ class DHCP_HOST_INFO_V6 extends Win32Struct
 
     /**
      * Pointer to a Unicode string that contains the NetBIOS name of the DHCPv6 server.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     NetBiosName {
         get => NumGet(this, 16, "ptr")
@@ -39,7 +39,7 @@ class DHCP_HOST_INFO_V6 extends Win32Struct
 
     /**
      * Pointer to a Unicode string that contains the network name of the DHCPv6 server.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     HostName {
         get => NumGet(this, 24, "ptr")

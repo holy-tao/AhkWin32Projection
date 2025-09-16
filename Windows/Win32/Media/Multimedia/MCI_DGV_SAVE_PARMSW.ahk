@@ -22,7 +22,7 @@ class MCI_DGV_SAVE_PARMSW extends Win32Struct
 {
     static sizeof => 32
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * The low-order word specifies a window handle used for the MCI_NOTIFY flag.
@@ -35,7 +35,7 @@ class MCI_DGV_SAVE_PARMSW extends Win32Struct
 
     /**
      * String for filename to save.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     lpstrFileName {
         get => NumGet(this, 8, "ptr")

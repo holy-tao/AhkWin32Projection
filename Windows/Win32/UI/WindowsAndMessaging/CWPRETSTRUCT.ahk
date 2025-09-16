@@ -65,7 +65,7 @@ class CWPRETSTRUCT extends Win32Struct
      * 
      * A handle to the window that processed the message specified by the 
      * 					<b>message</b> value.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HWND>}
      */
     hwnd {
         get => NumGet(this, 32, "ptr")

@@ -41,7 +41,7 @@ class VMRMONITORINFO extends Win32Struct
 
     /**
      * A handle to the monitor.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HMONITOR>}
      */
     hMon {
         get => NumGet(this, 32, "ptr")

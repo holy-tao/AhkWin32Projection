@@ -32,7 +32,7 @@ class CRYPTUI_WIZ_DIGITAL_SIGN_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pwszFileName {
         get => NumGet(this, 8, "ptr")
@@ -82,7 +82,7 @@ class CRYPTUI_WIZ_DIGITAL_SIGN_INFO extends Win32Struct
 
     /**
      * A pointer to a null-terminated Unicode string that contains the URL for the time stamp.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pwszTimestampURL {
         get => NumGet(this, 32, "ptr")

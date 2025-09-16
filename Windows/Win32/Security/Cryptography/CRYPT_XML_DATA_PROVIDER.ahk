@@ -35,7 +35,7 @@ class CRYPT_XML_DATA_PROVIDER extends Win32Struct
 
     /**
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/cryptxml/nc-cryptxml-pfn_crypt_xml_data_provider_read">PFN_CRYPT_XML_DATA_PROVIDER_READ</a> callback function used to read data.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_CRYPT_XML_DATA_PROVIDER_READ>}
      */
     pfnRead {
         get => NumGet(this, 16, "ptr")
@@ -44,7 +44,7 @@ class CRYPT_XML_DATA_PROVIDER extends Win32Struct
 
     /**
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/cryptxml/nc-cryptxml-pfn_crypt_xml_data_provider_close">PFN_CRYPT_XML_DATA_PROVIDER_CLOSE</a> callback function used to release the data provider. When you have finished using the data provider, you must release it.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_CRYPT_XML_DATA_PROVIDER_CLOSE>}
      */
     pfnClose {
         get => NumGet(this, 24, "ptr")

@@ -19,7 +19,7 @@ class WSMAN_USERNAME_PASSWORD_CREDS extends Win32Struct
 
     /**
      * Defines the user name for a local or domain account. It cannot be <b>NULL</b>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     username {
         get => NumGet(this, 0, "ptr")
@@ -28,7 +28,7 @@ class WSMAN_USERNAME_PASSWORD_CREDS extends Win32Struct
 
     /**
      * Defines the password for a local or domain account. It cannot be <b>NULL</b>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     password {
         get => NumGet(this, 8, "ptr")

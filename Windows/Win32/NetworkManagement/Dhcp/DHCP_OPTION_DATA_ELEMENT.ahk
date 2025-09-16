@@ -68,7 +68,7 @@ class DHCP_OPTION_DATA_ELEMENT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     StringDataOption {
         get => NumGet(this, 8, "ptr")
@@ -98,7 +98,7 @@ class DHCP_OPTION_DATA_ELEMENT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     Ipv6AddressDataOption {
         get => NumGet(this, 8, "ptr")

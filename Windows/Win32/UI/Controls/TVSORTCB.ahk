@@ -42,7 +42,7 @@ class TVSORTCB extends Win32Struct
      * Type: <b>PFNTVCOMPARE</b>
      * 
      * Address of an application-defined callback function, which is called during a sort operation each time the relative order of two list items needs to be compared.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFNTVCOMPARE>}
      */
     lpfnCompare {
         get => NumGet(this, 8, "ptr")

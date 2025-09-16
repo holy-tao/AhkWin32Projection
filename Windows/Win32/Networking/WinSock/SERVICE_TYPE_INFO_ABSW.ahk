@@ -33,7 +33,7 @@ class SERVICE_TYPE_INFO_ABSW extends Win32Struct
      * Pointer to a zero-terminated string that is the name of the network service type. This name is the same in all namespaces, and is used by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/nspapi/nf-nspapi-gettypebynamea">GetTypeByName</a> and 
      * <b>GetNameByType</b> functions.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     lpTypeName {
         get => NumGet(this, 0, "ptr")

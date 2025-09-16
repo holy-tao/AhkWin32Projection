@@ -7,12 +7,12 @@
  */
 class WAVEOPENDESC extends Win32Struct
 {
-    static sizeof => 44
+    static sizeof => 48
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HWAVE>}
      */
     hWave {
         get => NumGet(this, 0, "ptr")
@@ -55,7 +55,7 @@ class WAVEOPENDESC extends Win32Struct
      * @type {Pointer}
      */
     dnDevNode {
-        get => NumGet(this, 36, "ptr")
-        set => NumPut("ptr", value, this, 36)
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 }

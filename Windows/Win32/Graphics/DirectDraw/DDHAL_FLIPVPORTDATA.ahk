@@ -52,7 +52,7 @@ class DDHAL_FLIPVPORTDATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPDDHALVPORTCB_FLIP>}
      */
     FlipVideoPort {
         get => NumGet(this, 40, "ptr")

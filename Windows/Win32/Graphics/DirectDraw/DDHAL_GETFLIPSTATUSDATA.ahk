@@ -44,7 +44,7 @@ class DDHAL_GETFLIPSTATUSDATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPDDHALSURFCB_GETFLIPSTATUS>}
      */
     GetFlipStatus {
         get => NumGet(this, 24, "ptr")

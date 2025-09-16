@@ -18,9 +18,9 @@
  */
 class XAUDIO2_VOICE_STATE extends Win32Struct
 {
-    static sizeof => 20
+    static sizeof => 24
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * Pointer to a buffer context provided in the <a href="https://docs.microsoft.com/windows/desktop/api/xaudio2/ns-xaudio2-xaudio2_buffer">XAUDIO2_BUFFER</a> that is processed currently, or, if the voice is stopped currently, to the next buffer due to be processed. <b>pCurrentBufferContext</b> is NULL if there are no buffers in the queue.
@@ -45,7 +45,7 @@ class XAUDIO2_VOICE_STATE extends Win32Struct
      * @type {Integer}
      */
     SamplesPlayed {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
+        get => NumGet(this, 16, "uint")
+        set => NumPut("uint", value, this, 16)
     }
 }

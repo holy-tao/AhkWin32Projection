@@ -12,7 +12,7 @@ class XMIT_ROUTINE_QUINTUPLE extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<XMIT_HELPER_ROUTINE>}
      */
     pfnTranslateToXmit {
         get => NumGet(this, 0, "ptr")
@@ -20,7 +20,7 @@ class XMIT_ROUTINE_QUINTUPLE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<XMIT_HELPER_ROUTINE>}
      */
     pfnTranslateFromXmit {
         get => NumGet(this, 8, "ptr")
@@ -28,7 +28,7 @@ class XMIT_ROUTINE_QUINTUPLE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<XMIT_HELPER_ROUTINE>}
      */
     pfnFreeXmit {
         get => NumGet(this, 16, "ptr")
@@ -36,7 +36,7 @@ class XMIT_ROUTINE_QUINTUPLE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<XMIT_HELPER_ROUTINE>}
      */
     pfnFreeInst {
         get => NumGet(this, 24, "ptr")

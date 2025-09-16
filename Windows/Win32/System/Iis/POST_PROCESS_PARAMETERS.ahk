@@ -13,7 +13,7 @@ class POST_PROCESS_PARAMETERS extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pszSessionId {
         get => NumGet(this, 0, "ptr")
@@ -21,7 +21,7 @@ class POST_PROCESS_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pszSiteName {
         get => NumGet(this, 8, "ptr")
@@ -29,7 +29,7 @@ class POST_PROCESS_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pszUserName {
         get => NumGet(this, 16, "ptr")
@@ -37,7 +37,7 @@ class POST_PROCESS_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pszHostName {
         get => NumGet(this, 24, "ptr")
@@ -45,7 +45,7 @@ class POST_PROCESS_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pszRemoteIpAddress {
         get => NumGet(this, 32, "ptr")
@@ -61,7 +61,7 @@ class POST_PROCESS_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pszLocalIpAddress {
         get => NumGet(this, 48, "ptr")
@@ -93,7 +93,7 @@ class POST_PROCESS_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pszCommand {
         get => NumGet(this, 80, "ptr")
@@ -101,7 +101,7 @@ class POST_PROCESS_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pszCommandParameters {
         get => NumGet(this, 88, "ptr")
@@ -109,7 +109,7 @@ class POST_PROCESS_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pszFullPath {
         get => NumGet(this, 96, "ptr")
@@ -117,7 +117,7 @@ class POST_PROCESS_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pszPhysicalPath {
         get => NumGet(this, 104, "ptr")

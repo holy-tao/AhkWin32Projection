@@ -20,7 +20,7 @@ class WINDBG_EXTENSION_APIS32 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWINDBG_OUTPUT_ROUTINE>}
      */
     lpOutputRoutine {
         get => NumGet(this, 8, "ptr")
@@ -28,7 +28,7 @@ class WINDBG_EXTENSION_APIS32 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWINDBG_GET_EXPRESSION32>}
      */
     lpGetExpressionRoutine {
         get => NumGet(this, 16, "ptr")
@@ -36,7 +36,7 @@ class WINDBG_EXTENSION_APIS32 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWINDBG_GET_SYMBOL32>}
      */
     lpGetSymbolRoutine {
         get => NumGet(this, 24, "ptr")
@@ -44,7 +44,7 @@ class WINDBG_EXTENSION_APIS32 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWINDBG_DISASM32>}
      */
     lpDisasmRoutine {
         get => NumGet(this, 32, "ptr")
@@ -52,7 +52,7 @@ class WINDBG_EXTENSION_APIS32 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWINDBG_CHECK_CONTROL_C>}
      */
     lpCheckControlCRoutine {
         get => NumGet(this, 40, "ptr")
@@ -60,7 +60,7 @@ class WINDBG_EXTENSION_APIS32 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWINDBG_READ_PROCESS_MEMORY_ROUTINE32>}
      */
     lpReadProcessMemoryRoutine {
         get => NumGet(this, 48, "ptr")
@@ -68,7 +68,7 @@ class WINDBG_EXTENSION_APIS32 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWINDBG_WRITE_PROCESS_MEMORY_ROUTINE32>}
      */
     lpWriteProcessMemoryRoutine {
         get => NumGet(this, 56, "ptr")
@@ -76,7 +76,7 @@ class WINDBG_EXTENSION_APIS32 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWINDBG_GET_THREAD_CONTEXT_ROUTINE>}
      */
     lpGetThreadContextRoutine {
         get => NumGet(this, 64, "ptr")
@@ -84,7 +84,7 @@ class WINDBG_EXTENSION_APIS32 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWINDBG_SET_THREAD_CONTEXT_ROUTINE>}
      */
     lpSetThreadContextRoutine {
         get => NumGet(this, 72, "ptr")
@@ -92,7 +92,7 @@ class WINDBG_EXTENSION_APIS32 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWINDBG_IOCTL_ROUTINE>}
      */
     lpIoctlRoutine {
         get => NumGet(this, 80, "ptr")
@@ -100,7 +100,7 @@ class WINDBG_EXTENSION_APIS32 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWINDBG_STACKTRACE_ROUTINE32>}
      */
     lpStackTraceRoutine {
         get => NumGet(this, 88, "ptr")

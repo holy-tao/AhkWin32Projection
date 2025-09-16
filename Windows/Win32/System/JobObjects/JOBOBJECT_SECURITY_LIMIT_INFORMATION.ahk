@@ -34,7 +34,7 @@ class JOBOBJECT_SECURITY_LIMIT_INFORMATION extends Win32Struct
      * 
      * If the token was created with 
      * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-createrestrictedtoken">CreateRestrictedToken</a>, all processes in the job are limited to that token or a further restricted token. Otherwise, the caller must have the SE_ASSIGNPRIMARYTOKEN_NAME privilege.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HANDLE>}
      */
     JobToken {
         get => NumGet(this, 8, "ptr")

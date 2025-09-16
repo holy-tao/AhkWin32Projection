@@ -22,7 +22,7 @@ class SPC_LINK extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pwszUrl {
         get => NumGet(this, 8, "ptr")
@@ -41,7 +41,7 @@ class SPC_LINK extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pwszFile {
         get => NumGet(this, 8, "ptr")

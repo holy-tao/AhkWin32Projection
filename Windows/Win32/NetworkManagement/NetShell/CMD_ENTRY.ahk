@@ -21,7 +21,7 @@ class CMD_ENTRY extends Win32Struct
 
     /**
      * The token (name) for the command.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pwszCmdToken {
         get => NumGet(this, 0, "ptr")
@@ -31,7 +31,7 @@ class CMD_ENTRY extends Win32Struct
     /**
      * A function that handles the command. For more information, see 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netsh/nc-netsh-fn_handle_cmd">FN_HANDLE_CMD</a>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_HANDLE_CMD>}
      */
     pfnCmdHandler {
         get => NumGet(this, 8, "ptr")
@@ -69,7 +69,7 @@ class CMD_ENTRY extends Win32Struct
     /**
      * The operating system version check function. This is the function used to determine whether the command can be run on the operating system running on the local and/or remote context before invoking or displaying commands. For more information, see 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netsh/nc-netsh-ns_osversioncheck">NS_OSVERSIONCHECK</a>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PNS_OSVERSIONCHECK>}
      */
     pOsVersionCheck {
         get => NumGet(this, 32, "ptr")
@@ -77,7 +77,7 @@ class CMD_ENTRY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_CUSTOM_HELP>}
      */
     pfnCustomHelpFn {
         get => NumGet(this, 40, "ptr")

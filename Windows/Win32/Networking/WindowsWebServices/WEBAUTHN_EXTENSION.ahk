@@ -17,7 +17,7 @@ class WEBAUTHN_EXTENSION extends Win32Struct
 
     /**
      * The extension identifier.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     pwszExtensionIdentifier {
         get => NumGet(this, 0, "ptr")

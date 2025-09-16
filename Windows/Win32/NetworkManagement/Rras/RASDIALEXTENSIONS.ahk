@@ -9,9 +9,9 @@
  */
 class RASDIALEXTENSIONS extends Win32Struct
 {
-    static sizeof => 60
+    static sizeof => 72
 
-    static packingSize => 4
+    static packingSize => 8
 
     /**
      * @type {Integer}
@@ -30,7 +30,7 @@ class RASDIALEXTENSIONS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HWND>}
      */
     hwndParent {
         get => NumGet(this, 8, "ptr")
@@ -68,8 +68,8 @@ class RASDIALEXTENSIONS extends Win32Struct
      * @type {Integer}
      */
     fSkipPppAuth {
-        get => NumGet(this, 44, "int")
-        set => NumPut("int", value, this, 44)
+        get => NumGet(this, 48, "int")
+        set => NumPut("int", value, this, 48)
     }
 
     /**
@@ -78,7 +78,7 @@ class RASDIALEXTENSIONS extends Win32Struct
     RasDevSpecificInfo{
         get {
             if(!this.HasProp("__RasDevSpecificInfo"))
-                this.__RasDevSpecificInfo := RASDEVSPECIFICINFO(this.ptr + 48)
+                this.__RasDevSpecificInfo := RASDEVSPECIFICINFO(this.ptr + 56)
             return this.__RasDevSpecificInfo
         }
     }

@@ -87,7 +87,7 @@ class SWbemRpnEncodedQuery extends Win32Struct
 
     /**
      * Optional FROM path. If not used this field is <b>NULL</b>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     m_pszOptionalFromPath {
         get => NumGet(this, 56, "ptr")
@@ -105,7 +105,7 @@ class SWbemRpnEncodedQuery extends Win32Struct
 
     /**
      * Pointer to a list of strings. Each string is one element of the FROM clause of a SELECT statement.  For example, in the statement <c>SELECT * FROM a, b</c>, the list  contains the strings "a" and "b".
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     m_ppszFromList {
         get => NumGet(this, 72, "ptr")
@@ -163,7 +163,7 @@ class SWbemRpnEncodedQuery extends Win32Struct
 
     /**
      * 
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     m_ppszOrderByList {
         get => NumGet(this, 120, "ptr")

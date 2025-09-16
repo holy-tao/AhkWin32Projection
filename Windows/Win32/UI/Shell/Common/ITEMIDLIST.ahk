@@ -27,9 +27,9 @@
  */
 class ITEMIDLIST extends Win32Struct
 {
-    static sizeof => 3
+    static sizeof => 4
 
-    static packingSize => 1
+    static packingSize => 4
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-shitemid">SHITEMID</a></b>

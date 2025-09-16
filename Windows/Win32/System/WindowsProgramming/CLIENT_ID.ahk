@@ -12,7 +12,7 @@ class CLIENT_ID extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HANDLE>}
      */
     UniqueProcess {
         get => NumGet(this, 0, "ptr")
@@ -20,7 +20,7 @@ class CLIENT_ID extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HANDLE>}
      */
     UniqueThread {
         get => NumGet(this, 8, "ptr")

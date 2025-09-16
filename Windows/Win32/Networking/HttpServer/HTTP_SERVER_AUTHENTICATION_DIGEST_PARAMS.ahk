@@ -26,7 +26,7 @@ class HTTP_SERVER_AUTHENTICATION_DIGEST_PARAMS extends Win32Struct
      * The domain name used for Digest authentication.
      * 
      * If <b>NULL</b>, the client assumes the protection space consists of all the URIs under the responding server.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     DomainName {
         get => NumGet(this, 8, "ptr")
@@ -46,7 +46,7 @@ class HTTP_SERVER_AUTHENTICATION_DIGEST_PARAMS extends Win32Struct
      * The realm used for Digest authentication.
      * 
      * The realm allows the  server to be partitioned into a set of protection spaces, each with its own set of authentication schemes from the authentication database.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     Realm {
         get => NumGet(this, 24, "ptr")

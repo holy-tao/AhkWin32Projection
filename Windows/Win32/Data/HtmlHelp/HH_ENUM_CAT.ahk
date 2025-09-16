@@ -20,7 +20,7 @@ class HH_ENUM_CAT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     pszCatName {
         get => NumGet(this, 8, "ptr")
@@ -28,7 +28,7 @@ class HH_ENUM_CAT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSTR>}
      */
     pszCatDescription {
         get => NumGet(this, 16, "ptr")

@@ -7,9 +7,9 @@
  */
 class IMEKMSKMP extends Win32Struct
 {
-    static sizeof => 30
+    static sizeof => 40
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * @type {Integer}
@@ -20,33 +20,17 @@ class IMEKMSKMP extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HIMC>}
      */
     hIMC {
-        get => NumGet(this, 4, "ptr")
-        set => NumPut("ptr", value, this, 4)
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * @type {Integer}
      */
     idLang {
-        get => NumGet(this, 12, "ushort")
-        set => NumPut("ushort", value, this, 12)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    wVKStart {
-        get => NumGet(this, 14, "ushort")
-        set => NumPut("ushort", value, this, 14)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    wVKEnd {
         get => NumGet(this, 16, "ushort")
         set => NumPut("ushort", value, this, 16)
     }
@@ -54,17 +38,33 @@ class IMEKMSKMP extends Win32Struct
     /**
      * @type {Integer}
      */
+    wVKStart {
+        get => NumGet(this, 18, "ushort")
+        set => NumPut("ushort", value, this, 18)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    wVKEnd {
+        get => NumGet(this, 20, "ushort")
+        set => NumPut("ushort", value, this, 20)
+    }
+
+    /**
+     * @type {Integer}
+     */
     cKeyList {
-        get => NumGet(this, 18, "int")
-        set => NumPut("int", value, this, 18)
+        get => NumGet(this, 24, "int")
+        set => NumPut("int", value, this, 24)
     }
 
     /**
      * @type {Pointer<IMEKMSKEY>}
      */
     pKeyList {
-        get => NumGet(this, 22, "ptr")
-        set => NumPut("ptr", value, this, 22)
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
@@ -73,6 +73,6 @@ class IMEKMSKMP extends Win32Struct
      */
     __New(ptr := 0){
         super.__New(ptr)
-        this.cbSize := 30
+        this.cbSize := 40
     }
 }

@@ -28,7 +28,7 @@ class HTTP_SERVICE_CONFIG_SSL_SNI_KEY extends Win32Struct
 
     /**
      * A pointer to a null-terminated Unicode UTF-16 string that represents the hostname.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     Host {
         get => NumGet(this, 248, "ptr")

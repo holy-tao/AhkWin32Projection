@@ -58,7 +58,7 @@ class FAX_RECEIVE extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      * Pointer to a null-terminated Unicode character string that specifies the full path to the file in which the FSP must store the data stream of an inbound fax document. The data stream is a TIFF Class F file. For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-fax-image-format">Fax Image Format</a>. The fax service creates the file before it calls the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxdev/nf-faxdev-faxdevreceive">FaxDevReceive</a> function. The FSP must specify the OPEN_EXISTING flag when opening this file.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     FileName {
         get => NumGet(this, 8, "ptr")
@@ -69,7 +69,7 @@ class FAX_RECEIVE extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      * Pointer to a null-terminated Unicode character string that specifies the name of the receiving device. The FSP will send the name to the remote sending device after the receiving device receives an inbound fax. For more information, see the following Remarks section.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     ReceiverName {
         get => NumGet(this, 16, "ptr")
@@ -80,7 +80,7 @@ class FAX_RECEIVE extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      * Pointer to a null-terminated Unicode character string that specifies the telephone number of the receiving device. The FSP will send the number to the remote sending device after the receiving device receives an inbound fax. For more information, see the following Remarks section.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSTR>}
      */
     ReceiverNumber {
         get => NumGet(this, 24, "ptr")

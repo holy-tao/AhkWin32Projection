@@ -38,7 +38,7 @@ class DRIVEROBJ extends Win32Struct
      * 
      * 
      * The callback function returns <b>TRUE</b> if it is able to free the resource, and <b>FALSE</b> otherwise.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<FREEOBJPROC>}
      */
     pFreeProc {
         get => NumGet(this, 8, "ptr")
@@ -47,7 +47,7 @@ class DRIVEROBJ extends Win32Struct
 
     /**
      * GDI handle to the physical device associated with the object.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HDEV>}
      */
     hdev {
         get => NumGet(this, 16, "ptr")
@@ -56,7 +56,7 @@ class DRIVEROBJ extends Win32Struct
 
     /**
      * Pointer to the driver's private instance data; that is, this member identifies the driver's <a href="https://docs.microsoft.com/windows-hardware/drivers/">PDEV</a>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<DHPDEV>}
      */
     dhpdev {
         get => NumGet(this, 24, "ptr")

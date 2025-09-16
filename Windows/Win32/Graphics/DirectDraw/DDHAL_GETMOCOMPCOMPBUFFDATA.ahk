@@ -80,7 +80,7 @@ class DDHAL_GETMOCOMPCOMPBUFFDATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPDDHALMOCOMPCB_GETCOMPBUFFINFO>}
      */
     GetMoCompBuffInfo {
         get => NumGet(this, 80, "ptr")

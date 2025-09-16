@@ -17,7 +17,7 @@ class PROCESS_INFORMATION extends Win32Struct
 
     /**
      * A handle to the newly created process. The handle is used to specify the process in all functions that perform operations on the process object.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HANDLE>}
      */
     hProcess {
         get => NumGet(this, 0, "ptr")
@@ -26,7 +26,7 @@ class PROCESS_INFORMATION extends Win32Struct
 
     /**
      * A handle to the primary thread of the newly created process. The handle is used to specify the thread in all functions that perform operations on the thread object.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HANDLE>}
      */
     hThread {
         get => NumGet(this, 8, "ptr")
