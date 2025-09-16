@@ -34,6 +34,9 @@ With rich IntelliSense features and full documentation directly in your IDE:
     - [Other Notes](#other-notes)
   - [Enums and Constants](#enums-and-constants)
   - [Methods](#methods)
+    - [Strings](#strings)
+      - [As Arguments](#as-arguments)
+      - [As Return Values](#as-return-values)
     - [Notes](#notes)
   - [Limitations](#limitations)
   - [Links](#links)
@@ -108,7 +111,10 @@ logfont := LOGFONTW(lpelfe)     ;Create a LOGFONTW struct at the pointer lpelfe
 logfont := LOGFONTW()           ;Create a new LOGFONTW struct backed by a Buffer
 ```
 
-Note that in the first case, where the proxy is created at an existing memory location, the script has no way to know whether or not the underlying memory has been freed. You can use `Win32Struct.Clone()` to create a clone of a struct backed by a `Buffer` if necessary.
+>[!CAUTION]
+> When a proxy object is created at an existing memory location, the script has no way to know whether or not the underlying memory is valid. You can easily produce cause fatal errors by keeping references to proxies after their underlying memory has been freed, or by creating proxies at invalid memory locations. 
+> 
+> You can use `Win32Struct.Clone()` to create a clone of a struct backed by a `Buffer` if you need to hold on to struct values after the struct is freed.
 
 ### Arrays
 Arrays in struct proxies are themselves proxy objects extending [`Win32FixedArray`](./Win32FixedArray.ahk). These are typed, fixed-length arrays. The class mimics the applicable functionality of `Array`, allowing enumeration and access via [`__Item`](https://www.autohotkey.com/docs/v2/Objects.htm#__Item).
@@ -164,16 +170,34 @@ Gdi.ReleaseDC(0, hDC)
 
 For methods that set the [last error](https://www.autohotkey.com/docs/v2/Variables.htm#LastError), the error value is cleared before `DllCall` is invoked and checked immediately afterwards. If it is nonzero (that is, if an error occurred), an [`OSError`](https://www.autohotkey.com/docs/v2/lib/Error.htm#OSError) is thrown.
 
+### Strings
+
+#### As Arguments
+Strings can be passed to arguments of type `PSTR*` or `PWSTR*` as AutoHotkey variables or literals. In this case, a pointer to the internal memory store is obtained via [`StrPtr`](https://www.autohotkey.com/docs/v2/lib/StrPtr.htm):
+```autohotkey
+#Include <AhkWin32Projection\Windows\Win32\UI\WindowsAndMessaging\Apis>
+#Include <AhkWin32Projection\Windows\Win32\UI\Controls\Dialogs\Apis>
+
+WindowsAndMessaging.RegisterWindowMessageW("commdlg_help")
+WindowsAndMessaging.RegisterWindowMessageW(Dialogs.HELPMSGSTRING)
+```
+
+You can still pass a string pointer, buffer, or buffer-like object to string arguments; you might prefer this method for performance reasons. Strings passed as AHK variables are not encoded; they will always use UTF-16. As such, to use ANSI methods, you must encode the string yourself and pass a pointer to a buffer.
+
+#### As Return Values
+Methods which _return_ strings return their pointers, you can obtain the value with [`StrGet`](https://www.autohotkey.com/docs/v2/lib/StrGet.htm). This is because callers may be interested in the pointer to the returned string rather than its contents. For example, when using the return value of one function as an argument to another, it is pointless to copy the string into a new variable and then obtain its pointer.
+
 ### Notes
-- Wrapper function inputs are not sanitized or type checked. The value you specify in the wrapper function is passed directly to the `DllCall`. This _may_ change in the future, though any checking implemented is likely to be very rudimentary.
+- Wrapper function inputs apart from strings are not sanitized or type checked.
 - Reserved parameters are omitted from generated function signatures. As such, signatures may differ _slightly_ from the function signatures in Microsoft's documentation.
 - In cases where parameter names conflict with reserved words ("this", "in", etc), an underscore is appended to the parameter name.
 
 ## Limitations
 - Only 64-bit AutoHotkey is currently supported
-  - ANSI and Unicode variants, where applicable, are both generated
   - Generated files all have the `#Requires AutoHotkey v2.0.0 64-bit` [directive](https://www.autohotkey.com/docs/v2/lib/_Requires.htm), which should prevent mix-ups.
-- Only structs with fixed layouts are supported. This means flexible arrays are **not** supported (unless you only need one element)
+- Some structs and methods have ANSI and Unicode variants, both are generated. However, AutoHotkey V2 uses UTF-16 by default, and you will save yourself many headaches by sticking to Unicode (-W) variants whenever possible.
+    - See also [native encoding](https://www.autohotkey.com/docs/v2/Concepts.htm#native-encoding) (AutoHotkey documentation)
+- Only structs with fixed layouts are supported. This means flexible arrays are **not** supported in structs.
 - In string constants with unprintable characters, those characters are encoded (e.g. a null character becomes `\0000`) and may need to be decoded before use.
 - Macros are not included in the win32metadata project, and so are not included in the generated AutoHotkey code. While many macros have corresponding functions, not all of them do. 
   - See [this issue](https://github.com/microsoft/win32metadata/issues/436) on the win32metadata project page for details.
